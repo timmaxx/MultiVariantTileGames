@@ -1,6 +1,5 @@
-module timmax.minesweeper {
-    requires timmax.tilegameengine;
-    requires javafx.graphics;
+module timmax.minesweeper.model {
+    exports timmax.minesweeper.model;
 
-    exports timmax.minesweeper;
+    opens timmax.minesweeper.model;
 }

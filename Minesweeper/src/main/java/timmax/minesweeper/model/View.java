@@ -1,6 +1,4 @@
-package timmax.minesweeper.view;
-
-import timmax.minesweeper.model.Model;
+package timmax.minesweeper.model;
 
 public interface View {
 

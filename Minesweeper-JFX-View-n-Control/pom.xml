@@ -1,18 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>MultiVariantTileGames</artifactId>
+        <groupId>timmax</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>timmax</groupId>
-    <artifactId>Minesweeper</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <name>Minesweeper</name>
+    <artifactId>Minesweeper-JFX-View-n-Control</artifactId>
 
     <properties>
+        <maven.compiler.source>18</maven.compiler.source>
+        <maven.compiler.target>18</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit.version>5.8.2</junit.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>timmax</groupId>
+            <artifactId>TileGameEngine</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <!--<scope>compile</scope>-->
+        </dependency>
+        <dependency>
+            <groupId>timmax</groupId>
+            <artifactId>Minesweeper</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <!--<scope>compile</scope>-->
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
@@ -34,7 +52,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>timmax.minesweeper/timmax.minesweeper.HelloApplication</mainClass>
+                            <mainClass>timmax.minesweeper/timmax.minesweeper.MinesweeperGame</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

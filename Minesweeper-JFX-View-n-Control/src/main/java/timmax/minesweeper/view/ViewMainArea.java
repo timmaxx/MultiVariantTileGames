@@ -1,9 +1,7 @@
 package timmax.minesweeper.view;
 
+import timmax.minesweeper.model.*;
 import timmax.tilegameengine.Game;
-import timmax.minesweeper.model.GameStatus;
-import timmax.minesweeper.model.Model;
-import timmax.minesweeper.model.Tile;
 
 import static javafx.scene.paint.Color.*;
 

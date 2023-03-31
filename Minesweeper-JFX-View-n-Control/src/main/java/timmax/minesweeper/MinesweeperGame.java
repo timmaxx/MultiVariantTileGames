@@ -1,11 +1,9 @@
 package timmax.minesweeper;
 
-import timmax.minesweeper.controller.Controller;
-import timmax.minesweeper.model.GameStatus;
-import timmax.minesweeper.view.View;
-import timmax.minesweeper.view.ViewMainArea;
 import timmax.tilegameengine.*;
-import timmax.minesweeper.model.Model;
+import timmax.minesweeper.controller.Controller;
+import timmax.minesweeper.model.*;
+import timmax.minesweeper.view.*;
 
 public class MinesweeperGame extends Game {
     private final static int SIDE_OF_WIDTH = 10;
