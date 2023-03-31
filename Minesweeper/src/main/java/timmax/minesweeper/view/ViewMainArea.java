@@ -1,46 +1,52 @@
 package timmax.minesweeper.view;
 
-import timmax.minesweeper.MinesweeperGame;
+import timmax.tilegameengine.Game;
+import timmax.minesweeper.model.GameStatus;
 import timmax.minesweeper.model.Model;
 import timmax.minesweeper.model.Tile;
 
 import static javafx.scene.paint.Color.*;
 
 public class ViewMainArea implements View {
-    private final MinesweeperGame minesweeperGame;
+    private final Game game;
     private Model model;
 
-    private static final String MINE = "\uD83D\uDCA3";
+    private static final String MINE = "💣"; // "\uD83D\uDCA3";
 
-    private static final String FLAG = "\uD83D\uDEA9";
+    private static final String FLAG = "🚩"; // "\uD83D\uDEA9";
 
-    public ViewMainArea( MinesweeperGame minesweeperGame) {
-        this.minesweeperGame = minesweeperGame;
+    public ViewMainArea( Game game) {
+        this.game = game;
     }
 
     @Override
     public void update( ) {
         Tile[ ][ ] tiles = model.getTiles( );
-        for ( int y = 0; y < minesweeperGame.getCells( ).length; y++) {
-            for ( int x = 0; x < minesweeperGame.getCells( )[ y].length; x++) {
+        for ( int y = 0; y < model.getHeight(); y++) {
+            for ( int x = 0; x < model.getWidth(); x++) {
                 if ( tiles[ y][ x].isOpen( )) {
-                    // System.out.println("update( " + x + ", " + y + ")");
                     if ( tiles[ y][ x].isMine( )) {
-                        minesweeperGame.setCellValueEx( x, y, RED, MINE);
+                        game.setCellValueEx( x, y, RED, MINE);
                     } else {
-                        minesweeperGame.setCellNumber( x, y, tiles[ y][ x].getCountMineNeighbors( ));
-                        minesweeperGame.setCellColor( x, y, GREEN);
+                        game.setCellNumber( x, y, tiles[ y][ x].getCountMineNeighbors( ));
+                        game.setCellColor( x, y, GREEN);
                     }
                 } else {
                     if ( tiles[ y][ x].isFlag( )) {
-                        minesweeperGame.setCellValue( x, y, FLAG);
-                        minesweeperGame.setCellColor( x, y, YELLOW);
+                        game.setCellValue( x, y, FLAG);
+                        game.setCellColor( x, y, YELLOW);
                     } else {
-                        minesweeperGame.setCellValue( x, y, "");
-                        minesweeperGame.setCellColor( x, y, ORANGE);
+                        game.setCellValue( x, y, "");
+                        game.setCellColor( x, y, ORANGE);
                     }
                 }
             }
+        }
+
+        if ( model.getGameStatus() == GameStatus.VICTORY) {
+            game.showMessageDialog( AQUA, "Win!", WHITE, 30);
+        } else if ( model.getGameStatus() == GameStatus.DEFEAT) {
+            game.showMessageDialog( AQUA, "Game over!", WHITE, 30);
         }
     }
 

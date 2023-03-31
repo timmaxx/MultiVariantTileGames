@@ -10,13 +10,6 @@ public class Controller {
     }
 
     public void onMouseLeftClick( int x, int y) {
-/*
-        if ( model.isGameStopped( )) {
-            ;//createGame( );
-        } else {
-            model.openTile( x, y);
-        }
-*/
         model.openTile( x, y);
     }
 

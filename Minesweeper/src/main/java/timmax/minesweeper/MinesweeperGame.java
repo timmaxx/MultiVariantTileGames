@@ -7,14 +7,11 @@ import timmax.minesweeper.view.ViewMainArea;
 import timmax.tilegameengine.*;
 import timmax.minesweeper.model.Model;
 
-import static javafx.scene.paint.Color.AQUA;
-import static javafx.scene.paint.Color.WHITE;
-
 public class MinesweeperGame extends Game {
-    private final static int SIDE_OF_WIDTH = 5;
-    private final static int SIDE_OF_HEIGHT = 5;
+    private final static int SIDE_OF_WIDTH = 10;
+    private final static int SIDE_OF_HEIGHT = 10;
 
-    private static final int REST_OF_MINE_INSTALLATION_IN_PERCENTS = 10;
+    private static final int REST_OF_MINE_INSTALLATION_IN_PERCENTS = 20;
 
     private Model model;
 
@@ -28,10 +25,11 @@ public class MinesweeperGame extends Game {
     }
 
     private void createGame( ) {
-        viewMainArea = new ViewMainArea( this);
-        setScreenSize( SIDE_OF_WIDTH, SIDE_OF_HEIGHT);
         model = new Model( SIDE_OF_WIDTH, SIDE_OF_HEIGHT, REST_OF_MINE_INSTALLATION_IN_PERCENTS);
+        viewMainArea = new ViewMainArea( this);
         controller = new Controller( model);
+
+        setScreenSize( SIDE_OF_WIDTH, SIDE_OF_HEIGHT);
         viewMainArea.setModel( model);
         viewMainArea.update( );
     }
@@ -40,11 +38,6 @@ public class MinesweeperGame extends Game {
     public void onMouseLeftClick( int x, int y) {
         if ( model.getGameStatus( ) == GameStatus.GAME) {
             controller.onMouseLeftClick( x, y);
-            if ( model.getGameStatus() == GameStatus.VICTORY) {
-                showMessageDialog( AQUA, "Win!", WHITE, 30);
-            } else if ( model.getGameStatus() == GameStatus.DEFEAT) {
-                showMessageDialog( AQUA, "Game over!", WHITE, 30);
-            }
         } else {
             createGame( );
         }

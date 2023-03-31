@@ -5,12 +5,7 @@ public class Tile {
     private int countMineNeighbors;
     private boolean isOpen;
     private boolean isFlag;
-/*
-    Tile( ) {
-        isOpen = false;
-        isFlag = false;
-    }
-*/
+
     void setMine( ) {
         isMine = true;
     }

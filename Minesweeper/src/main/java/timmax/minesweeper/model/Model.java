@@ -55,6 +55,14 @@ public class Model implements ObservableModel {
         countMineNeighbors( );
     }
 
+    public int getWidth( ) {
+        return width;
+    }
+
+    public int getHeight( ) {
+        return height;
+    }
+
     public GameStatus getGameStatus() {
         return gameStatus;
     }
@@ -126,9 +134,7 @@ public class Model implements ObservableModel {
         }
         tile.open( );
         countClosedTiles--;
-        // System.out.println("1. openTileRecursive( " + x + ", " + y + ")");
         if ( tile.isMine( )) {
-            // game.setCellValueEx( x, y, RED, MINE);
             gameOver( );
         } else {
             // score += 5;
@@ -136,7 +142,6 @@ public class Model implements ObservableModel {
             if ( tile.getCountMineNeighbors( ) == 0) {
                 for ( XY xy : getXYNeighbors( x, y)) {
                     Tile neighborTile = getTileByXY( xy.getX( ), xy.getY( ));
-                    // System.out.println("2. openTileRecursive( " + xy.getX( ) + ", " + xy.getY( ) + ")");
                     if ( !neighborTile.isOpen( ) && !neighborTile.isMineForModel( )) {
                         openTile( xy.getX( ), xy.getY( ));
                     }
@@ -144,7 +149,6 @@ public class Model implements ObservableModel {
             }
         }
 
-        // System.out.println("3. openTileRecursive( " + x + ", " + y + ")");
         if ( countClosedTiles == countMinesOnField && !tile.isMine( )) {
             win( );
         }
