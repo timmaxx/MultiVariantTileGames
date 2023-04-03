@@ -1,4 +1,4 @@
-package timmax.minesweeper.model;
+package timmax.tilemodel;
 
 public interface ObservableModel {
     void addViewListener( View view);

@@ -2,6 +2,7 @@ package timmax.minesweeper.view;
 
 import timmax.minesweeper.model.*;
 import timmax.tilegameengine.Game;
+import timmax.tilemodel.View;
 
 import static javafx.scene.paint.Color.*;
 
@@ -19,18 +20,19 @@ public class ViewMainArea implements View {
 
     @Override
     public void update( ) {
-        Tile[ ][ ] tiles = model.getTiles( );
+        // Tile[ ][ ] tiles = model.getTiles( );
         for ( int y = 0; y < model.getHeight(); y++) {
             for ( int x = 0; x < model.getWidth(); x++) {
-                if ( tiles[ y][ x].isOpen( )) {
-                    if ( tiles[ y][ x].isMine( )) {
+                Tile tile = model.getTileByXY( x, y);
+                if ( tile.isOpen( )) {
+                    if ( tile.isMine( )) {
                         game.setCellValueEx( x, y, RED, MINE);
                     } else {
-                        game.setCellNumber( x, y, tiles[ y][ x].getCountMineNeighbors( ));
+                        game.setCellNumber( x, y, tile.getCountMineNeighbors( ));
                         game.setCellColor( x, y, GREEN);
                     }
                 } else {
-                    if ( tiles[ y][ x].isFlag( )) {
+                    if ( tile.isFlag( )) {
                         game.setCellValue( x, y, FLAG);
                         game.setCellColor( x, y, YELLOW);
                     } else {

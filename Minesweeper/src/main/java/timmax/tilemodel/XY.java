@@ -1,4 +1,4 @@
-package timmax.minesweeper.model;
+package timmax.tilemodel;
 
 public class XY {
     private final int x;

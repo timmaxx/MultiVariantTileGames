@@ -1,19 +1,18 @@
 package timmax.minesweeper.model;
 
+import timmax.tilemodel.BaseModel;
+import timmax.tilemodel.XY;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public class Model implements ObservableModel {
-    private final int width;
-    private final int height;
+public class Model extends BaseModel< Tile> {
 
     private int countMinesOnField;
 
     private int countFlags;
-
-    private final Tile[ ][ ] tiles;
 
     private int countClosedTiles;
 
@@ -23,71 +22,35 @@ public class Model implements ObservableModel {
 
     private GameStatus gameStatus;
 
-    private final ArrayList< View> arrayListOfViews;
-
     public Model( int width, int height, int restOfMineInstallationInPercents) {
-        arrayListOfViews = new ArrayList< >( );
-        this.width = width;
-        this.height = height;
+        super( Tile.class, width, height);
+
         countClosedTiles = width * height;
         gameStatus = GameStatus.GAME;
         //score = 0;
 
-        tiles = new Tile[ height][ width];
-        for ( int y = 0; y < height; y++) {
-            for ( int x = 0; x < width; x++) {
-                tiles[ y][ x] = new Tile( );
-            }
-        }
-
         do {
             int x = random.nextInt( width);
             int y = random.nextInt( height);
-            if ( !tiles[ y][ x].isMineForModel( )) {
-                tiles[ y][ x].setMine( );
+            if ( !getTileByXY( x, y).isMineForModel( )) {
+                getTileByXY( x, y).setMine( );
                 countMinesOnField++;
             }
+
         } while ( countMinesOnField < height * width * restOfMineInstallationInPercents / 100 );
 
         countFlags = countMinesOnField;
         countMineNeighbors( );
     }
 
-    public int getWidth( ) {
-        return width;
-    }
-
-    public int getHeight( ) {
-        return height;
-    }
 
     public GameStatus getGameStatus() {
         return gameStatus;
     }
 
-    public Tile[ ][ ] getTiles( ) {
-        return tiles;
-    }
-
-    private Tile getTileByXY( int x, int y) {
-        return tiles[ y][ x];
-    }
-
-    @Override
-    public void addViewListener( View view) {
-        arrayListOfViews.add( view);
-    }
-
-    @Override
-    public void notifyViews( ) {
-        for ( View view: arrayListOfViews) {
-            view.update( );
-        }
-    }
-
     private void countMineNeighbors( ) {
-        for ( int y = 0; y < height; y++) {
-            for ( int x = 0; x < width; x++) {
+        for ( int y = 0; y < getHeight( ); y++) {
+            for ( int x = 0; x < getWidth( ); x++) {
                 Tile tile = getTileByXY( x, y);
                 for ( Tile neighborTile : getTileNeighbors( x, y)) {
                     if ( neighborTile.isMineForModel( )) {
@@ -109,8 +72,8 @@ public class Model implements ObservableModel {
         List< XY> result = new ArrayList< >( );
         for ( int yy = y - 1; yy <= y + 1; yy++) {
             for ( int xx = x - 1; xx <= x + 1; xx++) {
-                if (    ( yy < 0 || yy >= height)
-                    ||  ( xx < 0 || xx >= width)
+                if (    ( yy < 0 || yy >= getHeight( ))
+                    ||  ( xx < 0 || xx >= getWidth( ))
                     ||  ( xx == x && yy == y)) {
                     continue;
                 }
@@ -122,7 +85,7 @@ public class Model implements ObservableModel {
 
     public void openTile( int x, int y) {
         openTileRecursive( x, y);
-        notifyViews();
+        notifyViews( );
     }
 
     private void openTileRecursive( int x, int y) {
