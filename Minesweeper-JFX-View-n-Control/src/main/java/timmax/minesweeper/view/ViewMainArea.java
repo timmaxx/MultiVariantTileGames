@@ -2,7 +2,7 @@ package timmax.minesweeper.view;
 
 import timmax.basetilemodel.BaseModel;
 import timmax.minesweeper.model.*;
-import timmax.tilegameengine.Game;
+import timmax.tilegameenginejfx.Game;
 import timmax.basetilemodel.View;
 
 import static javafx.scene.paint.Color.*;

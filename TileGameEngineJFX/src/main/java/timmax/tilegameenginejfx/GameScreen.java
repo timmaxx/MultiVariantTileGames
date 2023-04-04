@@ -1,4 +1,4 @@
-package timmax.tilegameengine;
+package timmax.tilegameenginejfx;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;

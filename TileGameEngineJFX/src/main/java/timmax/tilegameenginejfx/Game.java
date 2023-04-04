@@ -1,6 +1,5 @@
-package timmax.tilegameengine;
+package timmax.tilegameenginejfx;
 
-import javafx.animation.*;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.geometry.*;
@@ -12,7 +11,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
 import javafx.stage.*;
-import javafx.util.Duration;
 
 import java.io.InputStream;
 import java.util.Random;
@@ -47,11 +45,11 @@ public abstract class Game extends Application implements GameScreen {
     // private Text scoreText;
     // private Text livesText;
     private TextFlow dialogContainer;
-
+/*
     public StackPane[ ][ ] getCells() {
         return cells;
     }
-
+*/
     @Override
     public void start( Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -210,6 +208,7 @@ public abstract class Game extends Application implements GameScreen {
 
     private void createBorderImage( ) {
         InputStream inputStream = Game.class.getResourceAsStream( "/screen.png");
+        assert inputStream != null;
         Image image = new Image( inputStream);
         ImageView imageView = new ImageView( image);
         imageView.setFitWidth( width * cellSize + PADDING_SIDE + PADDING_SIDE);
@@ -357,13 +356,13 @@ public abstract class Game extends Application implements GameScreen {
 */
     @Override
     public void setCellTextSize( int x, int y, int textSize) {
-        ObservableList< Node> children = cells[ y][ x].getChildren();
+        ObservableList< Node> children = cells[ y][ x].getChildren( );
         if ( children.size( ) < 2) {
             return;
         }
         Text text = ( Text)children.get( 1);
         textSize = Math.min( textSize, 100);
-        double fontSize = cellSize * (textSize / 100.0);
+        double fontSize = cellSize * ( textSize / 100.0);
         if ( !Font.font( fontSize).equals( text.getFont( ))) {
             text.setFont( Font.font( fontSize));
         }

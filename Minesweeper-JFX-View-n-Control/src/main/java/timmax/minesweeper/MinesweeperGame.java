@@ -1,6 +1,6 @@
 package timmax.minesweeper;
 
-import timmax.tilegameengine.*;
+import timmax.tilegameenginejfx.*;
 import timmax.minesweeper.controller.Controller;
 import timmax.minesweeper.model.*;
 import timmax.minesweeper.view.*;

@@ -7,7 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="BaseTileModel" />
-        <module name="TileGameEngine" />
+        <module name="TileGameEngineJFX" />
         <module name="Minesweeper" />
         <module name="Minesweeper-JFX-View-n-Control" />
       </profile>

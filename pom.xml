@@ -11,7 +11,7 @@
     <name>Multi-variant tile games</name>
 
     <modules>
-        <module>TileGameEngine</module>
+        <module>TileGameEngineJFX</module>
         <module>Minesweeper</module>
         <module>Minesweeper-JFX-View-n-Control</module>
         <module>BaseTileModel</module>
