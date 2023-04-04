@@ -27,7 +27,7 @@
         </dependency>
         <dependency>
             <groupId>timmax</groupId>
-            <artifactId>Minesweeper</artifactId>
+            <artifactId>MinesweeperModel</artifactId>
             <version>1.0-SNAPSHOT</version>
             <!--<scope>compile</scope>-->
         </dependency>

@@ -12,7 +12,7 @@
 
     <modules>
         <module>TileGameEngineJFX</module>
-        <module>Minesweeper</module>
+        <module>MinesweeperModel</module>
         <module>Minesweeper-JFX-View-n-Control</module>
         <module>BaseTileModel</module>
     </modules>

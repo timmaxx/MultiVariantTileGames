@@ -8,8 +8,8 @@
         <outputRelativeToContentRoot value="true" />
         <module name="BaseTileModel" />
         <module name="TileGameEngineJFX" />
-        <module name="Minesweeper" />
         <module name="Minesweeper-JFX-View-n-Control" />
+        <module name="MinesweeperModel" />
       </profile>
     </annotationProcessing>
   </component>

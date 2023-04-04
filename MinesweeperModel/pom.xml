@@ -10,8 +10,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>Minesweeper</artifactId>
-    <!--<name>Minesweeper</name>-->
+    <artifactId>MinesweeperModel</artifactId>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

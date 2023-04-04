@@ -5,8 +5,8 @@
     <file url="file://$PROJECT_DIR$/BaseTileModel/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Minesweeper-JFX-View-n-Control/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Minesweeper-JFX-View-n-Control/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/Minesweeper/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/Minesweeper/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/MinesweeperModel/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/MinesweeperModel/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/TileGameEngineJFX/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/TileGameEngineJFX/src/main/resources" charset="UTF-8" />
   </component>
