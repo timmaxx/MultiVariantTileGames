@@ -1,4 +1,4 @@
-package timmax.tilemodel;
+package timmax.basetilemodel;
 
 public class XY {
     private final int x;

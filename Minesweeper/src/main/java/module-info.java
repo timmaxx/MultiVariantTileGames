@@ -1,7 +1,6 @@
 module timmax.minesweeper.model {
-    exports timmax.minesweeper.model;
+    requires timmax.basetilemodel;
 
-    opens timmax.minesweeper.model;
-    exports timmax.tilemodel;
-    opens timmax.tilemodel;
+    exports timmax.minesweeper.model;
+    //opens timmax.minesweeper.model;
 }

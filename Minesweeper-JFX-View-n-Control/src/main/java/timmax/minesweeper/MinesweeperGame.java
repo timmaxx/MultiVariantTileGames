@@ -4,7 +4,7 @@ import timmax.tilegameengine.*;
 import timmax.minesweeper.controller.Controller;
 import timmax.minesweeper.model.*;
 import timmax.minesweeper.view.*;
-import timmax.tilemodel.View;
+import timmax.basetilemodel.View;
 
 public class MinesweeperGame extends Game {
     private final static int SIDE_OF_WIDTH = 10;

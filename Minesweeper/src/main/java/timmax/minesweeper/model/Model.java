@@ -1,7 +1,6 @@
 package timmax.minesweeper.model;
 
-import timmax.tilemodel.BaseModel;
-import timmax.tilemodel.XY;
+import timmax.basetilemodel.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,7 +118,7 @@ public class Model extends BaseModel< Tile> {
         Tile tile = getTileByXY( x, y);
         if (        tile.isOpen( )
                 ||  ( countFlags == 0 && !tile.isFlag( ))
-                || gameStatus != GameStatus.GAME) {
+                ||  gameStatus != GameStatus.GAME) {
             return;
         }
         if ( tile.isFlag( )) {

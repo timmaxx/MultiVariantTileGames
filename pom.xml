@@ -14,5 +14,6 @@
         <module>TileGameEngine</module>
         <module>Minesweeper</module>
         <module>Minesweeper-JFX-View-n-Control</module>
+        <module>BaseTileModel</module>
     </modules>
 </project>

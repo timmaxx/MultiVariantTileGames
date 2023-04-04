@@ -1,4 +1,4 @@
-package timmax.tilemodel;
+package timmax.basetilemodel;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -17,9 +17,8 @@ public abstract class BaseModel< T> implements ObservableModel {
         tiles = ( T[ ][ ]) java.lang.reflect.Array.newInstance( type, height, width);
         for ( int y = 0; y < height; y++) {
             for ( int x = 0; x < width; x++) {
-                // tiles[ y][ x] = new T( );
                 try {
-                    tiles[ y][ x] = ( T) type.getDeclaredConstructor( ).newInstance( );
+                    tiles[ y][ x] = ( T) type.getDeclaredConstructor( ).newInstance( ); // т.к. нельзя сделать = new T( );
                 } catch (   InstantiationException
                           | NoSuchMethodException
                           | InvocationTargetException
