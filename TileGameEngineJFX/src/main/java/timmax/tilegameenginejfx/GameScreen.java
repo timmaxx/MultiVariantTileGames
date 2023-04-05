@@ -9,7 +9,7 @@ public interface GameScreen {
 
     void showCoordinates( boolean isShow);
 
-    void setCellColor( int x, int y, Color color);
+    void setCellColor( int x, int y, Color cellColor);
 
     void setCellTextSize( int x, int y, int textSize);
 
@@ -17,7 +17,7 @@ public interface GameScreen {
 
     void setCellNumber( int x, int y, int numberValue);
 
-    void setCellTextColor( int x, int y, Color color);
+    void setCellTextColor( int x, int y, Color textColor);
 
     void setCellValueEx( int x, int y, Color color, String textValue);
 

@@ -30,7 +30,7 @@ public class MinesweeperGame extends Game {
 
         setScreenSize( SIDE_OF_WIDTH, SIDE_OF_HEIGHT);
         viewMainArea.setModel( model);
-        viewMainArea.update( );
+        viewMainArea.updateAllTiles( );
     }
 
     @Override

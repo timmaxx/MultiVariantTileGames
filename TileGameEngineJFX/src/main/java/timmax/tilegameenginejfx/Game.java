@@ -45,11 +45,7 @@ public abstract class Game extends Application implements GameScreen {
     // private Text scoreText;
     // private Text livesText;
     private TextFlow dialogContainer;
-/*
-    public StackPane[ ][ ] getCells() {
-        return cells;
-    }
-*/
+
     @Override
     public void start( Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -80,7 +76,6 @@ public abstract class Game extends Application implements GameScreen {
 
         reCreateContent();
     }
-
 
     private void reCreateContent( ) {
         Scene scene = new Scene( createContent( ));
@@ -241,13 +236,13 @@ public abstract class Game extends Application implements GameScreen {
     }
 */
     @Override
-    public void setCellColor( int x, int y, Color color) {
-        if ( color != null && color != Color.TRANSPARENT) {
+    public void setCellColor( int x, int y, Color cellColor) {
+        if ( cellColor != null && cellColor != Color.TRANSPARENT) {
             ObservableList< Node> children = cells[ y][ x].getChildren( );
             if (        children.size( ) > 0
-                    &&  !color.equals( ( ( Rectangle)children.get( 0)).getFill( ))
+                    &&  !cellColor.equals( ( ( Rectangle)children.get( 0)).getFill( ))
             ) {
-                ( ( Rectangle)children.get( 0)).setFill( color);
+                ( ( Rectangle)children.get( 0)).setFill( cellColor);
             }
         }
     }
@@ -290,14 +285,14 @@ public abstract class Game extends Application implements GameScreen {
     }
 
     @Override
-    public void setCellTextColor( int x, int y, Color color) {
+    public void setCellTextColor( int x, int y, Color textColor) {
         ObservableList< Node> children = cells[ y][ x].getChildren( );
         if ( children.size( ) < 2) {
             return;
         }
         Text text = ( Text)children.get( 1);
-        if ( !color.equals( text.getFill( ))) {
-            text.setFill( color);
+        if ( !textColor.equals( text.getFill( ))) {
+            text.setFill( textColor);
         }
     }
 /*

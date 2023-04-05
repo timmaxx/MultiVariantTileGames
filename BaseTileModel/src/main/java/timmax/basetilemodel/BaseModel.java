@@ -29,6 +29,13 @@ public abstract class BaseModel< T> implements ObservableModel {
         }
     }
 
+    public BaseModel( T[ ][ ] tiles) {
+        arrayListOfViews = new ArrayList< >( );
+        this.width = tiles[ 0].length;
+        this.height = tiles.length;
+        this.tiles = tiles;
+    }
+
     public int getWidth( ) {
         return width;
     }
@@ -49,7 +56,11 @@ public abstract class BaseModel< T> implements ObservableModel {
     @Override
     public void notifyViews( ) {
         for ( View view: arrayListOfViews) {
-            view.update( );
+            view.updateAllTiles( );
         }
+        toDoAfterNotifyViews( );
+    }
+
+    public void toDoAfterNotifyViews( ) {
     }
 }
