@@ -15,5 +15,7 @@
         <module>MinesweeperModel</module>
         <module>MinesweeperViewControlJFX</module>
         <module>BaseTileModel</module>
+        <module>SokobanModel</module>
+        <module>SokobanViewControlJFX</module>
     </modules>
 </project>
