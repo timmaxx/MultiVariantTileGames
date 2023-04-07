@@ -8,16 +8,14 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 public class LevelLoader {
-    private Path levels;
+    private final Path levels;
 
     public LevelLoader( Path levels) {
         this.levels = levels;
     }
 
     public Tile[ ][ ] getLevel( int level) {
-        Tile[ ][ ] tiles = new Tile[0][];
-
-        int loopLevel = level + 1; // % countOfLevels + 1;
+        Tile[ ][ ] tiles = new Tile[ 0][ ];
 
         int countOfBoxes = 0;
         int countOfHome = 0;
@@ -34,22 +32,22 @@ public class LevelLoader {
             String line;
             while ( ( line = reader.readLine( )) != null) {
                 if ( line.contains( "Maze:")) {
-                    readLevel = Integer.valueOf( line.split( " ")[ 1]);
+                    readLevel = Integer.parseInt( line.split( " ")[ 1]);
                     continue;
                 } else if ( line.contains( "Size X:")) {
-                    width = Integer.valueOf( line.split( " ")[ 2]);
+                    width = Integer.parseInt( line.split( " ")[ 2]);
                     if ( width > 0 && height > 0) {
                         tiles = new Tile[ height][ width];
                     }
                     continue;
                 } else if ( line.contains( "Size Y:")) {
-                    height = Integer.valueOf( line.split( " ")[ 2]);
+                    height = Integer.parseInt( line.split( " ")[ 2]);
                     if ( width > 0 && height > 0) {
                         tiles = new Tile[ height][ width];
                     }
                     continue;
                 }
-                if ( readLevel == loopLevel) {
+                if ( readLevel == level) {
                     if ( line.length( ) == 0) {
                         boolean isEnd = isLevelMap;
 
@@ -105,17 +103,24 @@ public class LevelLoader {
             e.printStackTrace( );
         }
 
-        /*
-        String errMessage;
-        if (countOfPlayers <> 1) {
-            errMessage = "countOfPlayers <> 1!";
-        }
-        if ( countOfBoxes <> countOfHome) {
-            errMessage = errMessage + " countOfBoxes <> countOfHome!";
-        }
-        throw new RuntimeException( errMessage);
-        */
+        validate( countOfPlayers, countOfBoxes, countOfHome);
 
         return tiles;
+    }
+
+    private static void validate( int countOfPlayers, int countOfBoxes, int countOfHome) {
+        StringBuilder errMessage = new StringBuilder( );
+        boolean isError = false;
+        if (countOfPlayers != 1) {
+            isError = true;
+            errMessage.append( "countOfPlayers <> 1!");
+        }
+        if ( countOfBoxes != countOfHome) {
+            isError = true;
+            errMessage.append( " countOfBoxes <> countOfHome!");
+        }
+        if ( isError) {
+            throw new RuntimeException( errMessage.toString( ));
+        }
     }
 }

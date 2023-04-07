@@ -1,8 +1,8 @@
 package timmax.sokoban.model.gameobject;
 
 public class Step {
-    private Direction   direction;
-    private boolean     isBoxMoved;
+    private final Direction direction;
+    private final boolean isBoxMoved;
 
     public Step( Direction direction, boolean isBoxMoved) {
         this.direction = direction;
@@ -10,7 +10,7 @@ public class Step {
     }
 
     @Override
-    public String toString() {
+    public String toString( ) {
         return "Step{ " +
                 "direction = " + direction +
                 ", isBoxMoved = " + isBoxMoved +
@@ -28,7 +28,7 @@ public class Step {
         if ( !( obj instanceof Step)) {
             return false;
         }
-        Step step = ( Step) obj;
+        Step step = ( Step)obj;
 
         return this.isBoxMoved == step.isBoxMoved && direction.equals( step.direction);
     }
@@ -37,7 +37,7 @@ public class Step {
         return new Step( direction.not( ), isBoxMoved);
     }
 
-    public Direction oppositeStepDirrection( ) {
+    public Direction oppositeStepDirection( ) {
         return oppositeStep( ).direction;
     }
 
