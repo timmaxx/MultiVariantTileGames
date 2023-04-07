@@ -1,7 +1,8 @@
 package timmax.minesweeper;
 
+import timmax.basetilemodel.GameStatus;
 import timmax.tilegameenginejfx.*;
-import timmax.minesweeper.controller.Controller;
+import timmax.minesweeper.controller.MinesweeperController;
 import timmax.minesweeper.model.*;
 import timmax.minesweeper.view.*;
 import timmax.basetilemodel.View;
@@ -12,31 +13,33 @@ public class MinesweeperGame extends Game {
 
     private static final int REST_OF_MINE_INSTALLATION_IN_PERCENTS = 20;
 
-    private Model model;
+    private MinesweeperModel minesweeperModel;
 
     private View viewMainArea;
 
-    private Controller controller;
+    private MinesweeperController minesweeperController;
 
     @Override
     public void initialize( ) {
+        minesweeperModel = new MinesweeperModel( );
         createGame( );
     }
 
     private void createGame( ) {
-        model = new Model( SIDE_OF_WIDTH, SIDE_OF_HEIGHT, REST_OF_MINE_INSTALLATION_IN_PERCENTS);
-        viewMainArea = new ViewMainArea( this);
-        controller = new Controller( model);
+        // model = new Model( SIDE_OF_WIDTH, SIDE_OF_HEIGHT, REST_OF_MINE_INSTALLATION_IN_PERCENTS);
+        minesweeperModel.createNewGame( SIDE_OF_WIDTH, SIDE_OF_HEIGHT, REST_OF_MINE_INSTALLATION_IN_PERCENTS);
+        viewMainArea = new MinesweeperViewMainArea( this);
+        minesweeperController = new MinesweeperController( minesweeperModel);
 
         setScreenSize( SIDE_OF_WIDTH, SIDE_OF_HEIGHT);
-        viewMainArea.setModel( model);
+        viewMainArea.setModel( minesweeperModel);
         viewMainArea.updateAllTiles( );
     }
 
     @Override
     public void onMouseLeftClick( int x, int y) {
-        if ( model.getGameStatus( ) == GameStatus.GAME) {
-            controller.onMouseLeftClick( x, y);
+        if ( minesweeperModel.getGameStatus( ) == GameStatus.GAME) {
+            minesweeperController.onMouseLeftClick( x, y);
         } else {
             createGame( );
         }
@@ -44,6 +47,6 @@ public class MinesweeperGame extends Game {
 
     @Override
     public void onMouseRightClick( int x, int y) {
-        controller.onMouseRightClick( x, y);
+        minesweeperController.onMouseRightClick( x, y);
     }
 }

@@ -2,18 +2,18 @@ package timmax.minesweeper.view;
 
 import javafx.scene.paint.Color;
 import timmax.basetilemodel.BaseModel;
+import timmax.basetilemodel.GameStatus;
 import timmax.minesweeper.model.*;
 import timmax.tilegameenginejfx.Game;
 import timmax.basetilemodel.View;
 
 import static javafx.scene.paint.Color.*;
 
-public class ViewMainArea implements View {
+public class MinesweeperViewMainArea implements View {
     private final Game game;
-    private Model model;
+    private MinesweeperModel minesweeperModel;
 
     private static final String MINE = "💣"; // "\uD83D\uDCA3";
-
     private static final String FLAG = "🚩"; // "\uD83D\uDEA9";
 
     private static final int MESSAGE_DIALOG_TEXT_SIZE = 30;
@@ -24,19 +24,19 @@ public class ViewMainArea implements View {
 
     private static final Color CELL_COLOR_FOR_MINE = RED;
 
-    public ViewMainArea( Game game) {
+    public MinesweeperViewMainArea( Game game) {
         this.game = game;
     }
 
     @Override
     public void setModel( BaseModel model) {
-        this.model = ( Model) model;
+        this.minesweeperModel = ( MinesweeperModel) model;
         model.addViewListener( this);
     }
 
     @Override
     public void updateOneTile( int x, int y) {
-        Tile tile = model.getTileByXY( x, y);
+        MinesweeperTile tile = minesweeperModel.getTileByXY( x, y);
         if ( tile.isOpen( )) {
             if ( tile.isMine( )) {
                 game.setCellValueEx( x, y, CELL_COLOR_FOR_MINE, MINE);
@@ -58,19 +58,19 @@ public class ViewMainArea implements View {
     @Override
     public void updateAllTiles( ) {
         // ToDo: Хорошо было-бы сделать циклы в классе-родителе. А из него вызывать updateOneTile().
-        for ( int y = 0; y < model.getHeight( ); y++) {
-            for ( int x = 0; x < model.getWidth( ); x++) {
+        for ( int y = 0; y < minesweeperModel.getHeight( ); y++) {
+            for ( int x = 0; x < minesweeperModel.getWidth( ); x++) {
                 updateOneTile( x, y);
             }
         }
 
-        if ( model.getGameStatus() == GameStatus.GAME) {
+        if ( minesweeperModel.getGameStatus() == GameStatus.GAME) {
             return;
         }
         String dialogMessage = "";
-        if ( model.getGameStatus() == GameStatus.VICTORY) {
+        if ( minesweeperModel.getGameStatus( ) == GameStatus.VICTORY) {
             dialogMessage = MESSAGE_DIALOG_VICTORY_MESSAGE;
-        } else if ( model.getGameStatus() == GameStatus.DEFEAT) {
+        } else if ( minesweeperModel.getGameStatus( ) == GameStatus.DEFEAT) {
             dialogMessage = MESSAGE_DIALOG_DEFEAT_MESSAGE;
         }
         game.showMessageDialog( MESSAGE_DIALOG_CELL_COLOR

@@ -1,6 +1,6 @@
 package timmax.minesweeper.model;
 
-public class Tile {
+public class MinesweeperTile {
     private boolean isMine;
     private int countMineNeighbors;
     private boolean isOpen;

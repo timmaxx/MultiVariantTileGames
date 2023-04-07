@@ -1,4 +1,4 @@
-package timmax.minesweeper.model;
+package timmax.basetilemodel;
 
 public enum GameStatus {
     GAME,
