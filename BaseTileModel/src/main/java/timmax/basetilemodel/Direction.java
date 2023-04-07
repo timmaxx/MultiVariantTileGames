@@ -1,6 +1,4 @@
-package timmax.sokoban.model.gameobject;
-
-import timmax.basetilemodel.XY;
+package timmax.basetilemodel;
 
 public enum Direction {
     UNKNOWN,
@@ -11,24 +9,30 @@ public enum Direction {
 
     public Direction not( ) {
         Direction result; // = null;
+        /*
         switch ( this) {
             case DOWN  -> result = UP;
             case UP    -> result = DOWN;
             case LEFT  -> result = RIGHT;
             case RIGHT -> result = LEFT;
-            //default    -> throw new IllegalStateException( "Unexpected value: " + this);
             default    -> result = UNKNOWN;
         }
         return result;
+        */
+        if        ( this == DOWN)  { return UP;
+        } else if ( this == UP)    { return DOWN;
+        } else if ( this == LEFT)  { return RIGHT;
+        } else if ( this == RIGHT) { return LEFT;
+        } else return UNKNOWN;
     }
 
     public XY getDxDy( ) {
         int dx = 0;
         int dy = 0;
-        if        ( this == Direction.UP)    { dy--;
-        } else if ( this == Direction.DOWN)  { dy++;
-        } else if ( this == Direction.LEFT)  { dx--;
-        } else if ( this == Direction.RIGHT) { dx++;
+        if        ( this == UP)    { dy--;
+        } else if ( this == DOWN)  { dy++;
+        } else if ( this == LEFT)  { dx--;
+        } else if ( this == RIGHT) { dx++;
         }
         return new XY( dx, dy);
     }

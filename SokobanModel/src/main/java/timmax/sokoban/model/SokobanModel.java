@@ -1,6 +1,7 @@
 package timmax.sokoban.model;
 
 import timmax.basetilemodel.BaseModel;
+import timmax.basetilemodel.Direction;
 import timmax.basetilemodel.GameStatus;
 import timmax.basetilemodel.XY;
 import timmax.sokoban.model.gameobject.*;
@@ -8,21 +9,21 @@ import timmax.sokoban.model.gameobject.*;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 
-public class SokobanModel extends BaseModel< Tile> {
+public class SokobanModel extends BaseModel< SokobanTile> {
     private static LevelLoader levelLoader;
 
-    private CurrentLevel currentLevel = new CurrentLevel( ) ;
+    private final CurrentLevel currentLevel = new CurrentLevel( );
 //  private LocalScore localScore;
-/*
+
     private Route route;
-    private Route routeRedo;
-*/
+    private Route routeRedo = new Route( );
+
 
     // private boolean isLevelRestarted;
-    // private boolean isPlayerMoved;
+    private boolean isPlayerMoved;
     // private boolean isLevelCompleted;
 
-    // private boolean isBoxMoved;
+    private boolean isBoxMoved;
 
     private int countOfHomesAndBoxes;
 
@@ -37,6 +38,8 @@ public class SokobanModel extends BaseModel< Tile> {
     public void createNewGame( ) {
         super.createNewGame( levelLoader.getLevel( currentLevel.getValue( )));
         calcCountOfHomesAndBoxes( );
+        route = new Route( );
+        routeRedo = new Route( );
 /*
         currentLevel = new CurrentLevel( );
         localScore = new LocalScore( );
@@ -49,7 +52,10 @@ public class SokobanModel extends BaseModel< Tile> {
         int countOfBoxes = 0;
         for ( int y = 0; y < getHeight( ); y++) {
             for ( int x = 0; x < getWidth( ); x++) {
-                Tile tile = getTileByXY( x, y);
+                SokobanTile tile = getTileByXY( x, y);
+                if ( tile == null) {
+                    break;
+                }
                 if ( tile.isBox( )) {
                     countOfBoxes++;
                 }
@@ -84,11 +90,9 @@ public class SokobanModel extends BaseModel< Tile> {
         // 15.4.3. Передвинуть игрока в направлении direction.
         // В результате движения один или два объекта изменят свое положение.
         // Именно их и можно было-бы перерисовать, а не всё поле.
-        // getPlayer( ).move( direction);
         move( getPlayer( ), direction);
-        // isPlayerMoved = true;
-        // localScore.incValue( );
-        // route.push( new Step( direction, isBoxMoved));
+
+        route.push( new Step( direction, isBoxMoved));
 
         // 15.4.4. Проверить завершен ли уровень.
         checkCompletion( );
@@ -98,64 +102,66 @@ public class SokobanModel extends BaseModel< Tile> {
     }
 
     private void move( XY player, Direction direction) {
-        Tile playerTile = getTileByXY( player.getX( ), player.getY( ));
+        SokobanTile playerTile = getTileByXY( player.getX( ), player.getY( ));
         XY dXdY = direction.getDxDy( );
         XY nextXYOneTile = new XY( player.getX( ) + dXdY.getX( ), player.getY( ) + dXdY.getY( ));
-        Tile nextOneTile = getTileByXY( nextXYOneTile.getX( ), nextXYOneTile.getY( ));
+        SokobanTile nextOneTile = getTileByXY( nextXYOneTile.getX( ), nextXYOneTile.getY( ));
         if ( !nextOneTile.isNotWallAndNotBox( )) {
             XY nextXYTwoTile = new XY( nextXYOneTile.getX( ) + dXdY.getX( ), nextXYOneTile.getY( ) + dXdY.getY( ));
-            Tile nextTwoTile = getTileByXY( nextXYTwoTile.getX(), nextXYTwoTile.getY());
+            SokobanTile nextTwoTile = getTileByXY( nextXYTwoTile.getX(), nextXYTwoTile.getY());
 
             nextTwoTile.setBox( true);
             nextOneTile.setBox( false);
+            isBoxMoved = true;
         }
         nextOneTile.setPlayer( true);
         playerTile.setPlayer( false);
+        isPlayerMoved = true;
     }
-/*
+
     public void moveUndo( ) {
-        Step step;
         // Если в маршруте есть хоть один шаг, то:
         if ( route.size( ) <= 0) {
             return;
         }
 
-        step = route.pop( );
+        Step step = route.pop( );
+
+        XY playerXY = getPlayer( );
+        SokobanTile playerPlaceTile = getTileByXY( playerXY);
+        playerPlaceTile.setPlayer( false);
+
+        Direction tmpDirection = step.oppositeStepDirection( );
+        XY prevPlayerPlaceXY = playerXY.add( tmpDirection);
+        SokobanTile prevPlayerPlaceTile = getTileByXY( prevPlayerPlaceXY);
+        prevPlayerPlaceTile.setPlayer( true);
 
         if ( step.isBoxMoved( )) {
-            for ( Box box: gameObjects.getBoxes( )) {
-                // Нужно найти среди ящиков тот, который стоит рядом с игроком и сдвинуть его в противоположном от step.direction направления.
-                if ( box.isCollision( gameObjects.getPlayer(), step.oppositeStepDirection( ))) {
-                    gameObjects.getPlayer( ).move( step.oppositeStepDirection( ));
-                    box.move( step.oppositeStepDirection( ));
-                    break;
-                }
-            }
-            // Если нет такого, то выйти из функции - нельзя отмотать на шаг назад!
-            // Надо сделать!
-        } else {
-            gameObjects.getPlayer( ).move( step.oppositeStepDirection( ));
+            XY prevBoxPlaceXY = playerXY.add( step.getDirection( ));
+            SokobanTile prevBoxPlaceXYTile = getTileByXY( prevBoxPlaceXY);
+            prevBoxPlaceXYTile.setBox( false);
+
+            playerPlaceTile.setBox( true);
         }
+
         isPlayerMoved = true;
-        localScore.decValue( );
         routeRedo.push( step);
         notifyViews( );
     }
-*/
+
     public void move( Direction direction) {
         moveExec( direction);
-        // routeRedo = new Route( );
+        routeRedo = new Route( );
     }
-/*
+
     public void moveRedo( ) {
-        Step step;
         if ( routeRedo.size( ) <= 0) {
             return;
         }
-        step = routeRedo.pop( );
+        Step step = routeRedo.pop( );
         moveExec( step.getDirection( ));
     }
-*/
+
 
     private boolean checkWallCollision( XY xy, Direction direction) {
         // Этот метод проверяет столкновение со стеной.
@@ -182,10 +188,11 @@ public class SokobanModel extends BaseModel< Tile> {
         // Этот метод проверяет столкновение с ящиками. Метод должен:
         // 15.2.1. Вернуть true, если игрок не может быть сдвинут в направлении direction
         // (там находится: или ящик, за которым стена; или ящик, за которым еще один ящик).
+        isBoxMoved = false;
         XY player = getPlayer( );
         XY dXdY = direction.getDxDy( );
         XY nextXYOneTile = new XY( player.getX( ) + dXdY.getX( ), player.getY( ) + dXdY.getY( ));
-        Tile nextOneTile = getTileByXY( nextXYOneTile.getX( ), nextXYOneTile.getY( ));
+        SokobanTile nextOneTile = getTileByXY( nextXYOneTile.getX( ), nextXYOneTile.getY( ));
         if ( nextOneTile.isNotWallAndNotBox( )) {
             return false;
         }
@@ -193,8 +200,9 @@ public class SokobanModel extends BaseModel< Tile> {
             return true;
         }
         if ( nextOneTile.isBox( )) {
+            isBoxMoved = true;
             XY nextXYTwoTile = new XY(nextXYOneTile.getX( ) + dXdY.getX( ), nextXYOneTile.getY( ) + dXdY.getY( ));
-            Tile nextTwoTile = getTileByXY(nextXYTwoTile.getX( ), nextXYTwoTile.getY( ));
+            SokobanTile nextTwoTile = getTileByXY(nextXYTwoTile.getX( ), nextXYTwoTile.getY( ));
             return !nextTwoTile.isNotWallAndNotBox( );
         }
         // 15.2.2. Вернуть false, если игрок может быть сдвинут в направлении direction (там находится: или свободная ячейка; или дом; или ящик, за которым свободная ячейка или дом).
@@ -209,7 +217,7 @@ public class SokobanModel extends BaseModel< Tile> {
         int count = 0;
         for ( int y = 0; y < getHeight( ); y++) {
             for ( int x = 0; x < getWidth( ); x++) {
-                Tile tile = getTileByXY( x, y);
+                SokobanTile tile = getTileByXY( x, y);
                 if ( tile == null) {
                     break;
                 }

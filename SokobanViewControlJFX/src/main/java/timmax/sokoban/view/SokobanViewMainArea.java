@@ -8,13 +8,15 @@ import javafx.scene.paint.Color;
 
 import static javafx.scene.paint.Color.*;
 
-public class ViewMainArea implements View {
-
-    private static final Color COLOR_OF_BOX = GRAY;
+public class SokobanViewMainArea implements View {
     private static final Color COLOR_OF_WALL = RED;
     private static final Color COLOR_OF_HOME = WHITE;
-    private static final Color COLOR_OF_PLAYER = GREEN;
     private static final Color COLOR_OF_EMPTY = BLACK;
+
+    private static final String PLAYER = "&";
+    private static final Color COLOR_OF_PLAYER = GREEN;
+    private static final String BOX = "[]";
+    private static final Color COLOR_OF_BOX = BLUE;
 
     private final SokobanGame game;
     private SokobanModel sokobanModel;
@@ -25,7 +27,7 @@ public class ViewMainArea implements View {
     private static final String MESSAGE_DIALOG_VICTORY_MESSAGE = "Victory!";
     private static final String MESSAGE_DIALOG_DEFEAT_MESSAGE = "Defeat!";
 
-    public ViewMainArea( SokobanGame game) {
+    public SokobanViewMainArea(SokobanGame game) {
         this.game = game;
     }
 
@@ -44,13 +46,13 @@ public class ViewMainArea implements View {
             }
         }
 
-        if ( sokobanModel.getGameStatus() == GameStatus.GAME) {
+        if ( sokobanModel.getGameStatus( ) == GameStatus.GAME) {
             return;
         }
         String dialogMessage = "";
-        if ( sokobanModel.getGameStatus() == GameStatus.VICTORY) {
+        if ( sokobanModel.getGameStatus( ) == GameStatus.VICTORY) {
             dialogMessage = MESSAGE_DIALOG_VICTORY_MESSAGE;
-        } else if ( sokobanModel.getGameStatus() == GameStatus.DEFEAT) {
+        } else if ( sokobanModel.getGameStatus( ) == GameStatus.DEFEAT) {
             dialogMessage = MESSAGE_DIALOG_DEFEAT_MESSAGE;
         }
         game.showMessageDialog( MESSAGE_DIALOG_CELL_COLOR
@@ -62,20 +64,27 @@ public class ViewMainArea implements View {
 
     @Override
     public void updateOneTile( int x, int y) {
-        Tile tile = sokobanModel.getTileByXY( x, y);
+        SokobanTile tile = sokobanModel.getTileByXY( x, y);
         if ( tile == null) {
             return;
         }
-        if ( tile.isBox( )) {
-            game.setCellColor( x, y, COLOR_OF_BOX);
-        } else if ( tile.isWall( )) {
+
+        if ( tile.isWall( )) {
             game.setCellColor( x, y, COLOR_OF_WALL);
         } else if ( tile.isHome( )) {
             game.setCellColor( x, y, COLOR_OF_HOME);
-        } else if ( tile.isPlayer( )) {
-            game.setCellColor( x, y, COLOR_OF_PLAYER);
         } else {
             game.setCellColor( x, y, COLOR_OF_EMPTY);
+        }
+
+        if ( tile.isPlayer( )) {
+            game.setCellValue( x, y, PLAYER);
+            game.setCellTextColor( x, y, COLOR_OF_PLAYER);
+        } else if ( tile.isBox( )) {
+            game.setCellValue( x, y, BOX);
+            game.setCellTextColor( x, y, COLOR_OF_BOX);
+        } else {
+            game.setCellValue( x, y, "");
         }
     }
 }

@@ -1,5 +1,7 @@
 package timmax.sokoban.model.gameobject;
 
+import timmax.basetilemodel.Direction;
+
 public class Step {
     private final Direction direction;
     private final boolean isBoxMoved;
@@ -25,10 +27,9 @@ public class Step {
         if ( this == obj) {
             return true;
         }
-        if ( !( obj instanceof Step)) {
+        if ( !( obj instanceof Step step)) {
             return false;
         }
-        Step step = ( Step)obj;
 
         return this.isBoxMoved == step.isBoxMoved && direction.equals( step.direction);
     }

@@ -14,8 +14,8 @@ public class LevelLoader {
         this.levels = levels;
     }
 
-    public Tile[ ][ ] getLevel( int level) {
-        Tile[ ][ ] tiles = new Tile[ 0][ ];
+    public SokobanTile[ ][ ] getLevel( int level) {
+        SokobanTile[ ][ ] tiles = new SokobanTile[ 0][ ];
 
         int countOfBoxes = 0;
         int countOfHome = 0;
@@ -37,13 +37,13 @@ public class LevelLoader {
                 } else if ( line.contains( "Size X:")) {
                     width = Integer.parseInt( line.split( " ")[ 2]);
                     if ( width > 0 && height > 0) {
-                        tiles = new Tile[ height][ width];
+                        tiles = new SokobanTile[ height][ width];
                     }
                     continue;
                 } else if ( line.contains( "Size Y:")) {
                     height = Integer.parseInt( line.split( " ")[ 2]);
                     if ( width > 0 && height > 0) {
-                        tiles = new Tile[ height][ width];
+                        tiles = new SokobanTile[ height][ width];
                     }
                     continue;
                 }
@@ -64,13 +64,14 @@ public class LevelLoader {
                     }
 
                     char[ ] chars = line.toCharArray( );
-                    tiles[ y] = new Tile[ width];
+                    tiles[ y] = new SokobanTile[ width];
                     x = 0;
                     for ( char c : chars) {
                         boolean isWall = false;
                         boolean isBox = false;
                         boolean isHome = false;
                         boolean isPlayer = false;
+                        /*
                         switch ( c) {
                             case 'X':
                                 isWall = true;
@@ -93,7 +94,25 @@ public class LevelLoader {
                                 isPlayer = true;
                                 countOfPlayers++;
                         }
-                        tiles[ y][ x] = new Tile( isWall, isBox, isHome, isPlayer);
+                        */
+                        if ( c == 'X') {
+                            isWall = true;
+                        } else if ( c == '*') {
+                            isBox = true;
+                            countOfBoxes++;
+                        } else if ( c == '.') {
+                            isHome = true;
+                            countOfHome++;
+                        } else if ( c == '&') {
+                            isBox = true;
+                            countOfBoxes++;
+                            isHome = true;
+                            countOfHome++;
+                        } else if (c == '@') {
+                            isPlayer = true;
+                            countOfPlayers++;
+                        }
+                        tiles[ y][ x] = new SokobanTile( isWall, isBox, isHome, isPlayer);
                         x++;
                     }
                     y++;
