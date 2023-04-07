@@ -4,14 +4,20 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public abstract class BaseModel< T> implements ObservableModel {
-    private final int width;
-    private final int height;
-    private final T[ ][ ] tiles;
+    private ArrayList< View> arrayListOfViews;
+    private int width;
+    private int height;
+    private T[ ][ ] tiles;
+    protected GameStatus gameStatus;
 
-    private final ArrayList< View> arrayListOfViews;
-
-    public BaseModel( Class type, int width, int height) {
+    private void createNewGame( ) {
         arrayListOfViews = new ArrayList< >( );
+        gameStatus = GameStatus.GAME;
+    }
+
+    protected void createNewGame( Class type, int width, int height) {
+        validateWidthHeight( width, height);
+        createNewGame( );
         this.width = width;
         this.height = height;
         tiles = ( T[ ][ ]) java.lang.reflect.Array.newInstance( type, height, width);
@@ -29,8 +35,16 @@ public abstract class BaseModel< T> implements ObservableModel {
         }
     }
 
-    public BaseModel( T[ ][ ] tiles) {
-        arrayListOfViews = new ArrayList< >( );
+    private static void validateWidthHeight( int width, int height) {
+        if ( width > 2 && width < 101 && height > 2 && height < 101) {
+            return;
+        }
+        throw new RuntimeException(
+                "It must be width > 2 && width < 101 && height > 2 && height < 101. But width = " + width + ", height = " + height + ".");
+    }
+
+    protected void createNewGame( T[ ][ ] tiles) {
+        createNewGame( );
         this.width = tiles[ 0].length;
         this.height = tiles.length;
         this.tiles = tiles;
@@ -58,9 +72,9 @@ public abstract class BaseModel< T> implements ObservableModel {
         for ( View view: arrayListOfViews) {
             view.updateAllTiles( );
         }
-        toDoAfterNotifyViews( );
     }
 
-    public void toDoAfterNotifyViews( ) {
+    public GameStatus getGameStatus() {
+        return gameStatus;
     }
 }
