@@ -16,4 +16,12 @@ public class XY {
     public int getY( ) {
         return y;
     }
+
+    public XY add( Direction direction) {
+        return add( direction.getDxDy( ));
+    }
+
+    public XY add( XY xy) {
+        return new XY( x + xy.x, y + xy.y);
+    }
 }

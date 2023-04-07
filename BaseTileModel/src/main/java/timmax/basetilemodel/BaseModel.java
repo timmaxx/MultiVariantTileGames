@@ -62,6 +62,10 @@ public abstract class BaseModel< T> implements ObservableModel {
         return tiles[ y][ x];
     }
 
+    public T getTileByXY( XY xy) {
+        return tiles[ xy.getY( )][ xy.getX( )];
+    }
+
     @Override
     public void addViewListener( View view) {
         arrayListOfViews.add( view);
