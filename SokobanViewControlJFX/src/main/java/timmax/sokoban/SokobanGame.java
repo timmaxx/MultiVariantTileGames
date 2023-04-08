@@ -25,7 +25,8 @@ public class SokobanGame extends Game {
 
         setScreenSize( sokobanModel.getWidth( ), sokobanModel.getHeight( ));
         viewMainArea.setModel( sokobanModel);
-        viewMainArea.updateAllTiles( );
+        sokobanModel.notifyViews();
+
         sokobanModel.dropCurrentLevelChanged( );
     }
 
