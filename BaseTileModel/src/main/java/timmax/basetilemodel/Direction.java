@@ -8,17 +8,6 @@ public enum Direction {
     DOWN;
 
     public Direction not( ) {
-        Direction result; // = null;
-        /*
-        switch ( this) {
-            case DOWN  -> result = UP;
-            case UP    -> result = DOWN;
-            case LEFT  -> result = RIGHT;
-            case RIGHT -> result = LEFT;
-            default    -> result = UNKNOWN;
-        }
-        return result;
-        */
         if        ( this == DOWN)  { return UP;
         } else if ( this == UP)    { return DOWN;
         } else if ( this == LEFT)  { return RIGHT;

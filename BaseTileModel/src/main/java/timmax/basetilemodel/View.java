@@ -2,9 +2,7 @@ package timmax.basetilemodel;
 
 public interface View {
 
-    void updateAllTiles( );
-
-    void updateOneTile( int x, int y);
+    void update( );
 
     void setModel( BaseModel baseModel);
 }

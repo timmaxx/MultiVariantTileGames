@@ -74,11 +74,11 @@ public abstract class BaseModel< T> implements ObservableModel {
     @Override
     public void notifyViews( ) {
         for ( View view: arrayListOfViews) {
-            view.updateAllTiles( );
+            view.update( );
         }
     }
 
-    public GameStatus getGameStatus() {
+    public GameStatus getGameStatus( ) {
         return gameStatus;
     }
 }
