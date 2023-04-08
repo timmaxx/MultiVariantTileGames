@@ -1,5 +1,6 @@
 package timmax.sokoban.view;
 
+import timmax.basetilemodel.ViewMainArea;
 import timmax.sokoban.model.gameobject.*;
 import javafx.scene.paint.Color;
 import timmax.tilegameenginejfx.*;
@@ -7,6 +8,7 @@ import timmax.tilegameenginejfx.*;
 import static javafx.scene.paint.Color.*;
 
 public class SokobanViewMainArea extends ViewMainArea< SokobanTile> {
+    Game game;
     private static final Color COLOR_OF_WALL = RED;
     private static final Color COLOR_OF_HOME = WHITE;
     private static final Color COLOR_OF_EMPTY = BLACK;
@@ -23,7 +25,7 @@ public class SokobanViewMainArea extends ViewMainArea< SokobanTile> {
     private static final String MESSAGE_DIALOG_DEFEAT_MESSAGE = "Defeat!";
 */
     public SokobanViewMainArea( Game game) {
-        super( game);
+        this.game = game;
     }
 
     @Override

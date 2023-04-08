@@ -1,12 +1,14 @@
 package timmax.minesweeper.view;
 
 import javafx.scene.paint.Color;
+import timmax.basetilemodel.ViewMainArea;
 import timmax.minesweeper.model.*;
 import timmax.tilegameenginejfx.*;
 
 import static javafx.scene.paint.Color.*;
 
 public class MinesweeperViewMainArea extends ViewMainArea< MinesweeperTile> {
+    Game game;
     private static final String MINE = "💣"; // "\uD83D\uDCA3";
     private static final String FLAG = "🚩"; // "\uD83D\uDEA9";
 /*
@@ -19,7 +21,7 @@ public class MinesweeperViewMainArea extends ViewMainArea< MinesweeperTile> {
     private static final Color CELL_COLOR_FOR_MINE = RED;
 
     public MinesweeperViewMainArea( Game game) {
-        super( game);
+        this.game = game;
     }
 
     @Override

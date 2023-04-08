@@ -2,8 +2,7 @@ package timmax.sokoban.model;
 
 public class CurrentLevel {
     private int value = 1;
-
-    private static final int COUNT_OF_LEVELS = 4; // 60; // 2;
+    private static final int COUNT_OF_LEVELS = 60; // 2;
     private boolean isCurrentLevelChanged;
 
     void setValue( int newLevel) {

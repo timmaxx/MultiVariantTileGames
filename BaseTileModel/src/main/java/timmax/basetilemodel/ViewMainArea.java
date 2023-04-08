@@ -1,15 +1,7 @@
-package timmax.tilegameenginejfx;
-
-import timmax.basetilemodel.BaseModel;
-import timmax.basetilemodel.View;
+package timmax.basetilemodel;
 
 public abstract class ViewMainArea< T> implements View {
-    protected Game game;
     protected BaseModel< T> model;
-
-    public ViewMainArea( Game game) {
-        this.game = game;
-    }
 
     @Override
     public void update( ) {
