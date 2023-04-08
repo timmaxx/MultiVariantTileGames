@@ -26,14 +26,13 @@ public class MinesweeperGame extends Game {
     }
 
     private void createGame( ) {
-        // model = new Model( SIDE_OF_WIDTH, SIDE_OF_HEIGHT, REST_OF_MINE_INSTALLATION_IN_PERCENTS);
         minesweeperModel.createNewGame( SIDE_OF_WIDTH, SIDE_OF_HEIGHT, REST_OF_MINE_INSTALLATION_IN_PERCENTS);
         viewMainArea = new MinesweeperViewMainArea( this);
         minesweeperController = new MinesweeperController( minesweeperModel);
 
         setScreenSize( SIDE_OF_WIDTH, SIDE_OF_HEIGHT);
         viewMainArea.setModel( minesweeperModel);
-        viewMainArea.updateAllTiles( );
+        minesweeperModel.notifyViews( );
     }
 
     @Override

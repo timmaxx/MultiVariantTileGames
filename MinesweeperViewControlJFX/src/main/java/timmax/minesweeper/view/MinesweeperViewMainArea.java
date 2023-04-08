@@ -1,42 +1,30 @@
 package timmax.minesweeper.view;
 
 import javafx.scene.paint.Color;
-import timmax.basetilemodel.BaseModel;
-import timmax.basetilemodel.GameStatus;
 import timmax.minesweeper.model.*;
-import timmax.tilegameenginejfx.Game;
-import timmax.basetilemodel.View;
+import timmax.tilegameenginejfx.*;
 
 import static javafx.scene.paint.Color.*;
 
-public class MinesweeperViewMainArea implements View {
-    private final Game game;
-    private MinesweeperModel minesweeperModel;
-
+public class MinesweeperViewMainArea extends ViewMainArea< MinesweeperTile> {
     private static final String MINE = "💣"; // "\uD83D\uDCA3";
     private static final String FLAG = "🚩"; // "\uD83D\uDEA9";
-
+/*
     private static final int MESSAGE_DIALOG_TEXT_SIZE = 30;
     private static final Color MESSAGE_DIALOG_CELL_COLOR = AQUA;
     private static final Color MESSAGE_DIALOG_TEXT_COLOR = WHITE;
     private static final String MESSAGE_DIALOG_VICTORY_MESSAGE = "Victory!";
     private static final String MESSAGE_DIALOG_DEFEAT_MESSAGE = "Defeat!";
-
+*/
     private static final Color CELL_COLOR_FOR_MINE = RED;
 
     public MinesweeperViewMainArea( Game game) {
-        this.game = game;
-    }
-
-    @Override
-    public void setModel( BaseModel model) {
-        this.minesweeperModel = ( MinesweeperModel) model;
-        model.addViewListener( this);
+        super( game);
     }
 
     @Override
     public void updateOneTile( int x, int y) {
-        MinesweeperTile tile = minesweeperModel.getTileByXY( x, y);
+        MinesweeperTile tile = model.getTileByXY( x, y);
         if ( tile.isOpen( )) {
             if ( tile.isMine( )) {
                 game.setCellValueEx( x, y, CELL_COLOR_FOR_MINE, MINE);
@@ -55,15 +43,7 @@ public class MinesweeperViewMainArea implements View {
         }
     }
 
-    @Override
-    public void updateAllTiles( ) {
-        // ToDo: Хорошо было-бы сделать циклы в классе-родителе. А из него вызывать updateOneTile().
-        for ( int y = 0; y < minesweeperModel.getHeight( ); y++) {
-            for ( int x = 0; x < minesweeperModel.getWidth( ); x++) {
-                updateOneTile( x, y);
-            }
-        }
-
+    /*  // Нижеописанные действия нужно перенести вообще в другую View
         if ( minesweeperModel.getGameStatus() == GameStatus.GAME) {
             return;
         }
@@ -77,5 +57,5 @@ public class MinesweeperViewMainArea implements View {
                 , dialogMessage
                 , MESSAGE_DIALOG_TEXT_COLOR
                 , MESSAGE_DIALOG_TEXT_SIZE);
-    }
+    */
 }
