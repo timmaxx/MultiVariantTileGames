@@ -1,7 +1,7 @@
 package timmax.basetilemodel;
 
-public abstract class ViewMainArea< T> implements View {
-    protected BaseModel< T> model;
+public abstract class ViewMainArea implements View {
+    protected BaseModel model;
 
     @Override
     public void update( ) {
@@ -16,7 +16,7 @@ public abstract class ViewMainArea< T> implements View {
 
     @Override
     public void setModel( BaseModel baseModel) {
-        this.model = ( BaseModel< T>) baseModel;
+        this.model = baseModel;
         baseModel.addViewListener( this);
     }
 }

@@ -1,13 +1,15 @@
 package timmax.basetilemodel;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
-public abstract class BaseModel< T> implements ObservableModel {
+public abstract class BaseModel implements ObservableModel {
+    private final static int MIN_WIDTH = 2;
+    private final static int MAX_WIDTH = 100;
+    private final static int MIN_HEIGHT = 2;
+    private final static int MAX_HEIGHT = 100;
     private ArrayList< View> arrayListOfViews;
     private int width;
     private int height;
-    private T[ ][ ] tiles;
     protected GameStatus gameStatus;
 
     private void createNewGame( ) {
@@ -15,39 +17,21 @@ public abstract class BaseModel< T> implements ObservableModel {
         gameStatus = GameStatus.GAME;
     }
 
-    protected void createNewGame( Class type, int width, int height) {
+    protected void createNewGame( int width, int height) {
         validateWidthHeight( width, height);
         createNewGame( );
         this.width = width;
         this.height = height;
-        tiles = ( T[ ][ ]) java.lang.reflect.Array.newInstance( type, height, width);
-        for ( int y = 0; y < height; y++) {
-            for ( int x = 0; x < width; x++) {
-                try {
-                    tiles[ y][ x] = ( T) type.getDeclaredConstructor( ).newInstance( ); // т.к. нельзя сделать = new T( );
-                } catch (   InstantiationException
-                          | NoSuchMethodException
-                          | InvocationTargetException
-                          | IllegalAccessException e) {
-                    throw new RuntimeException( e);
-                }
-            }
-        }
     }
 
     private static void validateWidthHeight( int width, int height) {
-        if ( width > 2 && width < 101 && height > 2 && height < 101) {
+        if ( width >= MIN_WIDTH && width <= MAX_WIDTH && height >= MIN_HEIGHT && height <= MAX_HEIGHT) {
             return;
         }
         throw new RuntimeException(
-                "It must be width > 2 && width < 101 && height > 2 && height < 101. But width = " + width + ", height = " + height + ".");
-    }
-
-    protected void createNewGame( T[ ][ ] tiles) {
-        createNewGame( );
-        this.width = tiles[ 0].length;
-        this.height = tiles.length;
-        this.tiles = tiles;
+                "It must be width >= " + MIN_WIDTH + " && width <= " + MAX_WIDTH +
+                        " && height >= " + MIN_HEIGHT + " && height <= " + MAX_HEIGHT +
+                        ". But width = " + width + ", height = " + height + ".");
     }
 
     public int getWidth( ) {
@@ -56,14 +40,6 @@ public abstract class BaseModel< T> implements ObservableModel {
 
     public int getHeight( ) {
         return height;
-    }
-
-    public T getTileByXY( int x, int y) {
-        return tiles[ y][ x];
-    }
-
-    public T getTileByXY( XY xy) {
-        return tiles[ xy.getY( )][ xy.getX( )];
     }
 
     @Override

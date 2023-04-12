@@ -15,7 +15,7 @@ public enum Direction {
         } else return UNKNOWN;
     }
 
-    public XY getDxDy( ) {
+    public DxDy getDxDy( ) {
         int dx = 0;
         int dy = 0;
         if        ( this == UP)    { dy--;
@@ -23,6 +23,6 @@ public enum Direction {
         } else if ( this == LEFT)  { dx--;
         } else if ( this == RIGHT) { dx++;
         }
-        return new XY( dx, dy);
+        return new DxDy( dx, dy);
     }
 }
