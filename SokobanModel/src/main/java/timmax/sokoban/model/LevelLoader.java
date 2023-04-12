@@ -6,6 +6,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.HashSet;
+import java.util.Set;
 
 public class LevelLoader {
     private final Path levels;
@@ -14,20 +16,27 @@ public class LevelLoader {
         this.levels = levels;
     }
 
-    public SokobanTile[ ][ ] getLevel( int level) {
-        SokobanTile[ ][ ] tiles = new SokobanTile[ 0][ ];
+    public SokobanGameObjects getLevel(int level) {
 
         int countOfBoxes = 0;
         int countOfHome = 0;
         int countOfPlayers = 0;
+
+        Set< Wall> walls = new HashSet<>();
+        Set< Box> boxes = new HashSet<>();
+        Set< Home> homes = new HashSet<>();
+        Player player = null;
+
+        // ToDo: Сейчас берутся явно из файла.
+        //  Но можно было-бы высчитать их, исходя из карты уровня (определив число строк и максимальный столбец).
+        int width = 0;
+        int height = 0;
 
         try ( BufferedReader reader = new BufferedReader( new FileReader( levels.toFile( )))) {
             int readLevel = 0;
             int x;
             int y = 0;
             boolean isLevelMap = false;
-            int width = 0;
-            int height = 0;
 
             String line;
             while ( ( line = reader.readLine( )) != null) {
@@ -36,15 +45,9 @@ public class LevelLoader {
                     continue;
                 } else if ( line.contains( "Size X:")) {
                     width = Integer.parseInt( line.split( " ")[ 2]);
-                    if ( width > 0 && height > 0) {
-                        tiles = new SokobanTile[ height][ width];
-                    }
                     continue;
                 } else if ( line.contains( "Size Y:")) {
                     height = Integer.parseInt( line.split( " ")[ 2]);
-                    if ( width > 0 && height > 0) {
-                        tiles = new SokobanTile[ height][ width];
-                    }
                     continue;
                 }
                 if ( readLevel == level) {
@@ -64,55 +67,32 @@ public class LevelLoader {
                     }
 
                     char[ ] chars = line.toCharArray( );
-                    tiles[ y] = new SokobanTile[ width];
                     x = 0;
                     for ( char c : chars) {
-                        boolean isWall = false;
-                        boolean isBox = false;
-                        boolean isHome = false;
-                        boolean isPlayer = false;
-                        /*
-                        switch ( c) {
-                            case 'X':
-                                isWall = true;
-                                break;
-                            case '*':
-                                isBox = true;
-                                countOfBoxes++;
-                                break;
-                            case '.':
-                                isHome = true;
-                                countOfHome++;
-                                break;
-                            case '&':
-                                isBox = true;
-                                countOfBoxes++;
-                                isHome = true;
-                                countOfHome++;
-                                break;
-                            case '@':
-                                isPlayer = true;
-                                countOfPlayers++;
-                        }
-                        */
                         if ( c == 'X') {
-                            isWall = true;
+                            Wall wall = new Wall( x, y);
+                            walls.add( wall);
                         } else if ( c == '*') {
-                            isBox = true;
                             countOfBoxes++;
+                            Box box = new Box( x, y);
+                            boxes.add( box);
                         } else if ( c == '.') {
-                            isHome = true;
                             countOfHome++;
+                            Home home = new Home( x, y);
+                            homes.add( home);
                         } else if ( c == '&') {
-                            isBox = true;
                             countOfBoxes++;
-                            isHome = true;
+                            Box box = new Box( x, y);
+                            boxes.add( box);
+
                             countOfHome++;
+                            Home home = new Home( x, y);
+                            homes.add( home);
+
                         } else if (c == '@') {
-                            isPlayer = true;
                             countOfPlayers++;
+                            player = new Player( x, y);
                         }
-                        tiles[ y][ x] = new SokobanTile( isWall, isBox, isHome, isPlayer);
                         x++;
                     }
                     y++;
@@ -124,13 +104,13 @@ public class LevelLoader {
 
         validate( countOfPlayers, countOfBoxes, countOfHome);
 
-        return tiles;
+        return new SokobanGameObjects( width, height, walls, boxes, homes, player,  countOfBoxes);
     }
 
     private static void validate( int countOfPlayers, int countOfBoxes, int countOfHome) {
         StringBuilder errMessage = new StringBuilder( );
         boolean isError = false;
-        if (countOfPlayers != 1) {
+        if ( countOfPlayers != 1) {
             isError = true;
             errMessage.append( "countOfPlayers <> 1!");
         }

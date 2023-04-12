@@ -1,13 +1,17 @@
 package timmax.sokoban.view;
 
 import timmax.basetilemodel.ViewMainArea;
-import timmax.sokoban.model.gameobject.*;
+import timmax.basetilemodel.XY;
+import timmax.sokoban.model.SokobanModel;
 import javafx.scene.paint.Color;
+import timmax.sokoban.model.gameobject.*;
 import timmax.tilegameenginejfx.*;
+
+import java.util.List;
 
 import static javafx.scene.paint.Color.*;
 
-public class SokobanViewMainArea extends ViewMainArea< SokobanTile> {
+public class SokobanViewMainArea extends ViewMainArea {
     Game game;
     private static final Color COLOR_OF_WALL = RED;
     private static final Color COLOR_OF_HOME = WHITE;
@@ -30,27 +34,24 @@ public class SokobanViewMainArea extends ViewMainArea< SokobanTile> {
 
     @Override
     public void updateOneTile( int x, int y) {
-        SokobanTile tile = model.getTileByXY( x, y);
-        if ( tile == null) {
-            return;
-        }
+        SokobanModel sokobanModel = ( SokobanModel)model;
+        List< XY> listOfXY = sokobanModel.getListOfXY( x, y);
+        game.setCellColor( x, y, COLOR_OF_EMPTY);
+        game.setCellValue( x, y, "");
+        for ( XY xy: listOfXY) {
+            if ( xy instanceof Wall) {
+                game.setCellColor( x, y, COLOR_OF_WALL);
+            } else if ( xy instanceof Home) {
+                game.setCellColor( x, y, COLOR_OF_HOME);
+            }
 
-        if ( tile.isWall( )) {
-            game.setCellColor( x, y, COLOR_OF_WALL);
-        } else if ( tile.isHome( )) {
-            game.setCellColor( x, y, COLOR_OF_HOME);
-        } else {
-            game.setCellColor( x, y, COLOR_OF_EMPTY);
-        }
-
-        if ( tile.isPlayer( )) {
-            game.setCellValue( x, y, PLAYER);
-            game.setCellTextColor( x, y, COLOR_OF_PLAYER);
-        } else if ( tile.isBox( )) {
-            game.setCellValue( x, y, BOX);
-            game.setCellTextColor( x, y, COLOR_OF_BOX);
-        } else {
-            game.setCellValue( x, y, "");
+            if ( xy instanceof Player) {
+                game.setCellValue( x, y, PLAYER);
+                game.setCellTextColor( x, y, COLOR_OF_PLAYER);
+            } else if ( xy instanceof Box) {
+                game.setCellValue( x, y, BOX);
+                game.setCellTextColor( x, y, COLOR_OF_BOX);
+            }
         }
     }
 }

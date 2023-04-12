@@ -1,4 +1,4 @@
-package timmax.sokoban.model.gameobject;
+package timmax.sokoban.model.route;
 
 import timmax.basetilemodel.Direction;
 
