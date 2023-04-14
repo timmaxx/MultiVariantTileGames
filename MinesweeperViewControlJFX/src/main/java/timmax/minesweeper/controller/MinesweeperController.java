@@ -10,10 +10,10 @@ public class MinesweeperController {
     }
 
     public void onMouseLeftClick( int x, int y) {
-        minesweeperModel.openTile( x, y);
+        minesweeperModel.open( x, y);
     }
 
     public void onMouseRightClick( int x, int y) {
-        minesweeperModel.markTile( x, y);
+        minesweeperModel.inverseFlag( x, y);
     }
 }
