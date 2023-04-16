@@ -1,11 +1,10 @@
 package timmax.minesweeper;
 
-import timmax.basetilemodel.GameStatus;
 import timmax.tilegameenginejfx.*;
 import timmax.minesweeper.controller.MinesweeperController;
 import timmax.minesweeper.model.*;
 import timmax.minesweeper.view.*;
-import timmax.basetilemodel.View;
+import timmax.basetilemodel.*;
 
 public class MinesweeperGame extends Game {
     private final static int SIDE_OF_WIDTH = 10;
@@ -28,14 +27,12 @@ public class MinesweeperGame extends Game {
 
     private void createGame( ) {
         minesweeperModel.createNewGame( SIDE_OF_WIDTH, SIDE_OF_HEIGHT, REST_OF_MINE_INSTALLATION_IN_PERCENTS);
-        viewMainArea = new MinesweeperViewMainArea( this);
-        viewGameOverMessage = new MinesweeperViewGameOverMessage( this);
+
+        viewMainArea = new MinesweeperViewMainArea( minesweeperModel, this);
+        viewGameOverMessage = new ViewGameOverMessage( minesweeperModel, this);
 
         minesweeperController = new MinesweeperController( minesweeperModel);
 
-        setScreenSize( SIDE_OF_WIDTH, SIDE_OF_HEIGHT);
-        viewMainArea.setModel( minesweeperModel);
-        viewGameOverMessage.setModel( minesweeperModel);
         minesweeperModel.notifyViews( );
     }
 
