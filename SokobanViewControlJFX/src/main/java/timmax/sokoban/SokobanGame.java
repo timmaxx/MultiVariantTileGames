@@ -1,11 +1,12 @@
 package timmax.sokoban;
 
 import javafx.scene.input.KeyCode;
+import timmax.basetilemodel.GameStatus;
 import timmax.basetilemodel.View;
 import timmax.sokoban.controller.SokobanController;
-import timmax.sokoban.model.SokobanModel;
+import timmax.sokoban.model.*;
 import timmax.sokoban.view.*;
-import timmax.tilegameenginejfx.Game;
+import timmax.tilegameenginejfx.*;
 
 public class SokobanGame extends Game {
     private SokobanModel sokobanModel;
@@ -21,13 +22,12 @@ public class SokobanGame extends Game {
 
     private void createGame( ) {
         sokobanModel.createNewGame();
-        viewMainArea = new SokobanViewMainArea( this);
-        viewGameOverMessage = new SokobanViewGameOverMessage( this);
+
+        viewMainArea = new SokobanViewMainArea( sokobanModel, this);
+        viewGameOverMessage = new ViewGameOverMessage( sokobanModel, this);
+
         sokobanController = new SokobanController( sokobanModel);
 
-        setScreenSize( sokobanModel.getWidth( ), sokobanModel.getHeight( ));
-        viewMainArea.setModel( sokobanModel);
-        viewGameOverMessage.setModel( sokobanModel);
         sokobanModel.notifyViews();
 
         sokobanModel.dropCurrentLevelChanged( );
@@ -35,9 +35,11 @@ public class SokobanGame extends Game {
 
     @Override
     public void onKeyPress( KeyCode keyCode) {
-        sokobanController.onKeyPress( keyCode);
         if ( sokobanModel.isCurrentLevelChanged( )) {
             createGame( );
+        }
+        if ( sokobanModel.getGameStatus( ) == GameStatus.GAME) {
+            sokobanController.onKeyPress( keyCode);
         }
     }
 }

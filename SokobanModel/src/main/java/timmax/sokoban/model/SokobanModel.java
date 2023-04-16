@@ -25,11 +25,7 @@ public class SokobanModel extends BaseModel {
         } catch ( URISyntaxException e) {
         }
     }
-/*
-    public GameObjects getGameObjects() {
-        return gameObjects;
-    }
-*/
+
     public List< XY> getListOfXY( int x, int y) {
         List< XY> result = new ArrayList< >( );
         for ( XY xy: sokobanGameObjects.getAll( )) {
@@ -175,11 +171,11 @@ public class SokobanModel extends BaseModel {
         gameStatus = GameStatus.VICTORY;
         currentLevel.incValue( );
     }
-
+/*
     public void setLevel( int level) {
         currentLevel.setValue( level);
     }
-
+*/
     public void incLevel( ) {
         currentLevel.incValue( );
     }

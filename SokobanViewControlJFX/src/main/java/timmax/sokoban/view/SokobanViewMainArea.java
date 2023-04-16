@@ -1,10 +1,10 @@
 package timmax.sokoban.view;
 
-import timmax.basetilemodel.ViewMainArea;
-import timmax.basetilemodel.XY;
+import timmax.basetilemodel.*;
 import timmax.sokoban.model.SokobanModel;
-import javafx.scene.paint.Color;
 import timmax.sokoban.model.gameobject.*;
+
+import javafx.scene.paint.Color;
 import timmax.tilegameenginejfx.*;
 
 import java.util.List;
@@ -21,20 +21,16 @@ public class SokobanViewMainArea extends ViewMainArea {
     private static final Color COLOR_OF_PLAYER = GREEN;
     private static final String BOX = "█"; // "❐"; // "▉"; // "[]";
     private static final Color COLOR_OF_BOX = BLUE;
-/*
-    private static final int MESSAGE_DIALOG_TEXT_SIZE = 30;
-    private static final Color MESSAGE_DIALOG_CELL_COLOR = AQUA;
-    private static final Color MESSAGE_DIALOG_TEXT_COLOR = WHITE;
-    private static final String MESSAGE_DIALOG_VICTORY_MESSAGE = "Victory!";
-    private static final String MESSAGE_DIALOG_DEFEAT_MESSAGE = "Defeat!";
-*/
-    public SokobanViewMainArea( Game game) {
+
+    public SokobanViewMainArea( BaseModel baseModel, Game game) {
+        super( baseModel);
         this.game = game;
+        game.setScreenSize( baseModel.getWidth( ), baseModel.getHeight( ));
     }
 
     @Override
     public void updateOneTile( int x, int y) {
-        SokobanModel sokobanModel = ( SokobanModel)model;
+        SokobanModel sokobanModel = ( SokobanModel)baseModel;
         List< XY> listOfXY = sokobanModel.getListOfXY( x, y);
         game.setCellColor( x, y, COLOR_OF_EMPTY);
         game.setCellValue( x, y, "");
