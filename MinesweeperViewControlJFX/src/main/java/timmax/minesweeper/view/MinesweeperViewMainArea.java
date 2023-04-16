@@ -12,13 +12,7 @@ public class MinesweeperViewMainArea extends ViewMainArea {
     Game game;
     private static final String MINE = "💣"; // "\uD83D\uDCA3";
     private static final String FLAG = "🚩"; // "\uD83D\uDEA9";
-/*
-    private static final int MESSAGE_DIALOG_TEXT_SIZE = 30;
-    private static final Color MESSAGE_DIALOG_CELL_COLOR = AQUA;
-    private static final Color MESSAGE_DIALOG_TEXT_COLOR = WHITE;
-    private static final String MESSAGE_DIALOG_VICTORY_MESSAGE = "Victory!";
-    private static final String MESSAGE_DIALOG_DEFEAT_MESSAGE = "Defeat!";
-*/
+
     private static final Color CELL_COLOR_FOR_MINE = RED;
 
     public MinesweeperViewMainArea( Game game) {
@@ -45,20 +39,4 @@ public class MinesweeperViewMainArea extends ViewMainArea {
             }
         }
     }
-
-    /*  // Нижеописанные действия нужно перенести вообще в другую View
-        if ( minesweeperModel.getGameStatus() == GameStatus.GAME) {
-            return;
-        }
-        String dialogMessage = "";
-        if ( minesweeperModel.getGameStatus( ) == GameStatus.VICTORY) {
-            dialogMessage = MESSAGE_DIALOG_VICTORY_MESSAGE;
-        } else if ( minesweeperModel.getGameStatus( ) == GameStatus.DEFEAT) {
-            dialogMessage = MESSAGE_DIALOG_DEFEAT_MESSAGE;
-        }
-        game.showMessageDialog( MESSAGE_DIALOG_CELL_COLOR
-                , dialogMessage
-                , MESSAGE_DIALOG_TEXT_COLOR
-                , MESSAGE_DIALOG_TEXT_SIZE);
-    */
 }

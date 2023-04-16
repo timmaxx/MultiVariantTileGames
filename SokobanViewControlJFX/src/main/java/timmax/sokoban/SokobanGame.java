@@ -10,6 +10,7 @@ import timmax.tilegameenginejfx.Game;
 public class SokobanGame extends Game {
     private SokobanModel sokobanModel;
     private View viewMainArea;
+    private View viewGameOverMessage;
     private SokobanController sokobanController;
 
     @Override
@@ -21,10 +22,12 @@ public class SokobanGame extends Game {
     private void createGame( ) {
         sokobanModel.createNewGame();
         viewMainArea = new SokobanViewMainArea( this);
+        viewGameOverMessage = new SokobanViewGameOverMessage( this);
         sokobanController = new SokobanController( sokobanModel);
 
         setScreenSize( sokobanModel.getWidth( ), sokobanModel.getHeight( ));
         viewMainArea.setModel( sokobanModel);
+        viewGameOverMessage.setModel( sokobanModel);
         sokobanModel.notifyViews();
 
         sokobanModel.dropCurrentLevelChanged( );

@@ -7,13 +7,13 @@ public abstract class BaseModel implements ObservableModel {
     private final static int MAX_WIDTH = 100;
     private final static int MIN_HEIGHT = 2;
     private final static int MAX_HEIGHT = 100;
-    private ArrayList< View> arrayListOfViews;
+    private ArrayList< View> listOfViews;
     private int width;
     private int height;
     protected GameStatus gameStatus;
 
     private void createNewGame( ) {
-        arrayListOfViews = new ArrayList< >( );
+        listOfViews = new ArrayList< >( );
         gameStatus = GameStatus.GAME;
     }
 
@@ -44,12 +44,12 @@ public abstract class BaseModel implements ObservableModel {
 
     @Override
     public void addViewListener( View view) {
-        arrayListOfViews.add( view);
+        listOfViews.add( view);
     }
 
     @Override
     public void notifyViews( ) {
-        for ( View view: arrayListOfViews) {
+        for ( View view: listOfViews) {
             view.update( );
         }
     }

@@ -16,6 +16,7 @@ public class MinesweeperGame extends Game {
     private MinesweeperModel minesweeperModel;
 
     private View viewMainArea;
+    private View viewGameOverMessage;
 
     private MinesweeperController minesweeperController;
 
@@ -28,10 +29,13 @@ public class MinesweeperGame extends Game {
     private void createGame( ) {
         minesweeperModel.createNewGame( SIDE_OF_WIDTH, SIDE_OF_HEIGHT, REST_OF_MINE_INSTALLATION_IN_PERCENTS);
         viewMainArea = new MinesweeperViewMainArea( this);
+        viewGameOverMessage = new MinesweeperViewGameOverMessage( this);
+
         minesweeperController = new MinesweeperController( minesweeperModel);
 
         setScreenSize( SIDE_OF_WIDTH, SIDE_OF_HEIGHT);
         viewMainArea.setModel( minesweeperModel);
+        viewGameOverMessage.setModel( minesweeperModel);
         minesweeperModel.notifyViews( );
     }
 
