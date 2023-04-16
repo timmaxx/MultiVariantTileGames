@@ -1,8 +1,12 @@
 package timmax.basetilemodel;
 
-public interface View {
+public abstract class View {
+    protected BaseModel baseModel;
 
-    void update( );
+    public View( BaseModel baseModel) {
+        this.baseModel = baseModel;
+        baseModel.addViewListener( this);
+    }
 
-    void setModel( BaseModel baseModel);
+    protected abstract void update( );
 }
