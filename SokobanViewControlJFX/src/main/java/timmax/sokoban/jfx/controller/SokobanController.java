@@ -1,4 +1,4 @@
-package timmax.sokoban.controller;
+package timmax.sokoban.jfx.controller;
 
 import timmax.sokoban.model.SokobanModel;
 import javafx.scene.input.KeyCode;

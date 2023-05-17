@@ -1,4 +1,4 @@
-package timmax.sokoban.view;
+package timmax.sokoban.jfx.view;
 
 import timmax.basetilemodel.*;
 import timmax.sokoban.model.SokobanModel;

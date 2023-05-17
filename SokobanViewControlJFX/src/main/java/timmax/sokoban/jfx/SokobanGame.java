@@ -1,11 +1,11 @@
-package timmax.sokoban;
+package timmax.sokoban.jfx;
 
 import javafx.scene.input.KeyCode;
 import timmax.basetilemodel.GameStatus;
 import timmax.basetilemodel.View;
-import timmax.sokoban.controller.SokobanController;
 import timmax.sokoban.model.*;
-import timmax.sokoban.view.*;
+import timmax.sokoban.jfx.view.*;
+import timmax.sokoban.jfx.controller.*;
 import timmax.tilegameenginejfx.*;
 
 import org.slf4j.Logger;
@@ -21,7 +21,7 @@ public class SokobanGame extends Game {
 
     @Override
     public void initialize( ) {
-        log.debug("");
+        log.debug("initialize");
         sokobanModel = new SokobanModel( );
         createGame( );
     }
