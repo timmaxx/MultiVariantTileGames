@@ -8,10 +8,11 @@
         <outputRelativeToContentRoot value="true" />
         <module name="SokobanViewControlJFX" />
         <module name="BaseTileModel" />
+        <module name="MinesweeperModel" />
+        <module name="MinesweeperViewControlJFX" />
+        <module name="MineSweeperViewControlWeb" />
         <module name="TileGameEngineJFX" />
         <module name="SokobanModel" />
-        <module name="MinesweeperViewControlJFX" />
-        <module name="MinesweeperModel" />
       </profile>
     </annotationProcessing>
   </component>
