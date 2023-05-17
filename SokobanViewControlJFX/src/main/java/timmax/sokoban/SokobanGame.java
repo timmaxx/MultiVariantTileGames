@@ -8,7 +8,12 @@ import timmax.sokoban.model.*;
 import timmax.sokoban.view.*;
 import timmax.tilegameenginejfx.*;
 
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
+
 public class SokobanGame extends Game {
+    private static final Logger log = getLogger(SokobanGame.class);
+
     private SokobanModel sokobanModel;
     private View viewMainArea;
     private View viewGameOverMessage;
@@ -16,11 +21,13 @@ public class SokobanGame extends Game {
 
     @Override
     public void initialize( ) {
+        log.debug("");
         sokobanModel = new SokobanModel( );
         createGame( );
     }
 
     private void createGame( ) {
+        log.debug("createGame");
         sokobanModel.createNewGame();
 
         viewMainArea = new SokobanViewMainArea( sokobanModel, this);
@@ -35,6 +42,7 @@ public class SokobanGame extends Game {
 
     @Override
     public void onKeyPress( KeyCode keyCode) {
+        log.debug("onKeyPress( {})", keyCode);
         if ( sokobanModel.isCurrentLevelChanged( )) {
             createGame( );
         }

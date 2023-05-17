@@ -16,7 +16,7 @@ public class LevelLoader {
         this.levels = levels;
     }
 
-    public SokobanGameObjects getLevel(int level) {
+    public AllSokobanObjects getLevel(int level) {
 
         int countOfBoxes = 0;
         int countOfHome = 0;
@@ -70,24 +70,19 @@ public class LevelLoader {
                     x = 0;
                     for ( char c : chars) {
                         if ( c == 'X') {
-                            Wall wall = new Wall( x, y);
-                            walls.add( wall);
+                            walls.add( new Wall( x, y));
                         } else if ( c == '*') {
                             countOfBoxes++;
-                            Box box = new Box( x, y);
-                            boxes.add( box);
+                            boxes.add( new Box( x, y));
                         } else if ( c == '.') {
                             countOfHome++;
-                            Home home = new Home( x, y);
-                            homes.add( home);
+                            homes.add( new Home( x, y));
                         } else if ( c == '&') {
                             countOfBoxes++;
-                            Box box = new Box( x, y);
-                            boxes.add( box);
+                            boxes.add( new Box( x, y));
 
                             countOfHome++;
-                            Home home = new Home( x, y);
-                            homes.add( home);
+                            homes.add( new Home( x, y));
 
                         } else if (c == '@') {
                             countOfPlayers++;
@@ -104,7 +99,7 @@ public class LevelLoader {
 
         validate( countOfPlayers, countOfBoxes, countOfHome);
 
-        return new SokobanGameObjects( width, height, walls, boxes, homes, player,  countOfBoxes);
+        return new AllSokobanObjects( width, height, walls, boxes, homes, player,  countOfBoxes);
     }
 
     private static void validate( int countOfPlayers, int countOfBoxes, int countOfHome) {

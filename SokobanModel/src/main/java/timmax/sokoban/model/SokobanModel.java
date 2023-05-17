@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class SokobanModel extends BaseModel {
-    SokobanGameObjects sokobanGameObjects;
+    AllSokobanObjects allSokobanObjects;
     private static LevelLoader levelLoader;
 
     private final CurrentLevel currentLevel = new CurrentLevel( );
@@ -28,7 +28,7 @@ public class SokobanModel extends BaseModel {
 
     public List< XY> getListOfXY( int x, int y) {
         List< XY> result = new ArrayList< >( );
-        for ( XY xy: sokobanGameObjects.getAll( )) {
+        for ( XY xy: allSokobanObjects.getAll( )) {
             if ( xy.getX() == x && xy.getY( ) == y) {
                 result.add( xy);
             }
@@ -38,8 +38,8 @@ public class SokobanModel extends BaseModel {
     }
 
     public void createNewGame( ) {
-        sokobanGameObjects = levelLoader.getLevel( currentLevel.getValue( ));
-        super.createNewGame( sokobanGameObjects.getWidth(), sokobanGameObjects.getHeight());
+        allSokobanObjects = levelLoader.getLevel( currentLevel.getValue());
+        super.createNewGame( allSokobanObjects.width(), allSokobanObjects.height());
         route = new Route( );
         routeRedo = new Route( );
     }
@@ -50,10 +50,10 @@ public class SokobanModel extends BaseModel {
         }
 
         Step step = route.pop( );
-        Player player = sokobanGameObjects.getPlayer( );
+        Player player = allSokobanObjects.player();
 
         if ( step.isBoxMoved( )) {
-            for ( Box box: sokobanGameObjects.getBoxes()) {
+            for ( Box box: allSokobanObjects.boxes()) {
                 if ( box.isCollision( player, step.oppositeStepDirection( ))) {
                     box.move( step.oppositeStepDirection( ));
                     break;
@@ -87,7 +87,7 @@ public class SokobanModel extends BaseModel {
         return true;
     }*/
     private boolean checkWallCollision( CollisionObject gameObject, Direction direction) {
-        for( Wall wall: sokobanGameObjects.getWalls( )) {
+        for( Wall wall: allSokobanObjects.walls( )) {
             if ( gameObject.isCollision( wall, direction)) {
                 return false;
             }
@@ -96,7 +96,7 @@ public class SokobanModel extends BaseModel {
     }
 
     private boolean checkBoxCollision( CollisionObject gameObject, Direction direction) {
-        for( Box box: sokobanGameObjects.getBoxes( )) {
+        for( Box box: allSokobanObjects.boxes( )) {
             if ( gameObject.isCollision( box, direction)) {
                 return false;
             }
@@ -114,7 +114,7 @@ public class SokobanModel extends BaseModel {
     }
 */
     private boolean movePlayerIfPossible( Direction direction, boolean isRedo) {
-        Player player = sokobanGameObjects.getPlayer( );
+        Player player = allSokobanObjects.player( );
         if ( !isRedo) {
             if ( !checkWallCollision( player, direction))
             // if ( !checkCollision( player, direction, gameObjects.getWalls( )))
@@ -123,7 +123,7 @@ public class SokobanModel extends BaseModel {
             }
         }
         boolean isBoxMoved = false;
-        for( Box box: sokobanGameObjects.getBoxes( )) {
+        for( Box box: allSokobanObjects.boxes( )) {
             if ( player.isCollision( box, direction)) {
                 if ( !isRedo) {
                     if ( !checkWallCollision( box, direction))
@@ -154,15 +154,15 @@ public class SokobanModel extends BaseModel {
         // Этот метод должен проверить пройден ли уровень (на всех ли домах стоят ящики, их координаты должны совпадать).
         // Если условие выполнено, то проинформировать слушателя событий, что текущий уровень завершен.
         int count = 0;
-        for ( Home home : sokobanGameObjects.getHomes( )) {
-            for ( Box box : sokobanGameObjects.getBoxes( )) {
+        for ( Home home : allSokobanObjects.homes( )) {
+            for ( Box box : allSokobanObjects.boxes( )) {
                 if ( box.getX( ) == home.getX( ) && box.getY( ) == home.getY( )) {
                     count++;
                     break;
                 }
             }
         }
-        if ( count == sokobanGameObjects.getCountOfHomesBoxes( )) {
+        if ( count == allSokobanObjects.countOfHomesBoxes( )) {
             win( );
         }
     }

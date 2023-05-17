@@ -4,6 +4,7 @@ module timmax.sokoban.jfx {
     requires timmax.tilegameenginejfx;
     requires javafx.graphics;
     requires javafx.controls;
+    requires org.slf4j;
 
     exports timmax.sokoban;
     opens timmax.sokoban;
