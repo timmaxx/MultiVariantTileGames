@@ -1,6 +1,6 @@
 package timmax.minesweeper.model;
 
-import timmax.minesweeper.model.gameobject.MinesweeperGameObjects;
+import timmax.minesweeper.model.gameobject.AllMinesweeperObjects;
 import timmax.minesweeper.model.gameobject.MinesweeperObject;
 
 import java.util.HashSet;
@@ -10,7 +10,7 @@ import java.util.Set;
 public class LevelGenerator {
     private static final Random random = new Random( );
 
-    public MinesweeperGameObjects getLevel(int width, int height, int restOfMineInstallationInPercents) {
+    public AllMinesweeperObjects getLevel(int width, int height, int restOfMineInstallationInPercents) {
         Set< MinesweeperObject> mines = new HashSet<>();
         MinesweeperObject[ ][ ] minesweeperObjects = new MinesweeperObject[ height][ width];
         int countMinesOnField = 0;
@@ -38,6 +38,6 @@ public class LevelGenerator {
                 }
             }
         }
-        return new MinesweeperGameObjects( width, height, minesweeperObjects, countMinesOnField);
+        return new AllMinesweeperObjects( width, height, minesweeperObjects, countMinesOnField);
     }
 }

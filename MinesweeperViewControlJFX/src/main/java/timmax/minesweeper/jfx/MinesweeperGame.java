@@ -1,12 +1,17 @@
-package timmax.minesweeper;
+package timmax.minesweeper.jfx;
 
+import org.slf4j.Logger;
 import timmax.tilegameenginejfx.*;
-import timmax.minesweeper.controller.MinesweeperController;
+import timmax.minesweeper.jfx.controller.MinesweeperController;
 import timmax.minesweeper.model.*;
-import timmax.minesweeper.view.*;
+import timmax.minesweeper.jfx.view.*;
 import timmax.basetilemodel.*;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
 public class MinesweeperGame extends Game {
+    private static final Logger log = getLogger(MinesweeperGame.class);
+
     private final static int SIDE_OF_WIDTH = 10;
     private final static int SIDE_OF_HEIGHT = 10;
 
@@ -21,11 +26,13 @@ public class MinesweeperGame extends Game {
 
     @Override
     public void initialize( ) {
+        log.debug("initialize");
         minesweeperModel = new MinesweeperModel( );
         createGame( );
     }
 
     private void createGame( ) {
+        log.debug("createGame");
         minesweeperModel.createNewGame( SIDE_OF_WIDTH, SIDE_OF_HEIGHT, REST_OF_MINE_INSTALLATION_IN_PERCENTS);
 
         viewMainArea = new MinesweeperViewMainArea( minesweeperModel, this);
@@ -38,6 +45,7 @@ public class MinesweeperGame extends Game {
 
     @Override
     public void onMouseLeftClick( int x, int y) {
+        log.debug("onMouseLeftClick( {}, {})", x, y);
         if ( minesweeperModel.getGameStatus( ) == GameStatus.GAME) {
             minesweeperController.onMouseLeftClick( x, y);
         } else {
@@ -47,6 +55,7 @@ public class MinesweeperGame extends Game {
 
     @Override
     public void onMouseRightClick( int x, int y) {
+        log.debug("onMouseRightClick( {}, {})", x, y);
         minesweeperController.onMouseRightClick( x, y);
     }
 }

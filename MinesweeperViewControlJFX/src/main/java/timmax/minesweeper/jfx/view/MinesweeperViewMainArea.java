@@ -1,4 +1,4 @@
-package timmax.minesweeper.view;
+package timmax.minesweeper.jfx.view;
 
 import javafx.scene.paint.Color;
 import timmax.basetilemodel.*;

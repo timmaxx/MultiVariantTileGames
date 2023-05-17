@@ -1,4 +1,4 @@
-package timmax.minesweeper.controller;
+package timmax.minesweeper.jfx.controller;
 
 import timmax.minesweeper.model.MinesweeperModel;
 

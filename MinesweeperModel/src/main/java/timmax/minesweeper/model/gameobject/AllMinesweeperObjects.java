@@ -7,7 +7,7 @@ import java.util.Set;
 
 import static timmax.basetilemodel.GameStatus.*;
 
-public class MinesweeperGameObjects {
+public class AllMinesweeperObjects {
     private final int width;
     private final int height;
     private final int countOfMinesAndHomes;
@@ -18,7 +18,7 @@ public class MinesweeperGameObjects {
 
     private final MinesweeperObject[ ][ ] minesweeperObjects;
 
-    public MinesweeperGameObjects( int width, int height
+    public AllMinesweeperObjects( int width, int height
             , MinesweeperObject[ ][ ] minesweeperObjects
             , int countOfMinesAndHomes) {
         this.width = width;
@@ -34,7 +34,6 @@ public class MinesweeperGameObjects {
         MinesweeperObject minesweeperObject = minesweeperObjects[ y][ x];
         if (        minesweeperObject.isOpen( )
                 ||  ( countOfFlags == 0 && !minesweeperObject.isFlag( ))
-        //        ||  gameStatus != GameStatus.GAME
         ) {
             return;
         }
