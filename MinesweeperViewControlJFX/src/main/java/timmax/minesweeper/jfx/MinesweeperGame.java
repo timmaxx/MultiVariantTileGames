@@ -1,11 +1,14 @@
 package timmax.minesweeper.jfx;
 
 import org.slf4j.Logger;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import timmax.tilegameenginejfx.*;
 import timmax.minesweeper.jfx.controller.MinesweeperController;
 import timmax.minesweeper.model.*;
 import timmax.minesweeper.jfx.view.*;
 import timmax.basetilemodel.*;
+import java.util.Arrays;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -27,8 +30,15 @@ public class MinesweeperGame extends Game {
     @Override
     public void initialize( ) {
         log.debug("initialize");
-        minesweeperModel = new MinesweeperModel( );
+
+        ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring-app.xml");
+        System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
+        minesweeperModel = appCtx.getBean(MinesweeperModel.class);
+
         createGame( );
+
+        // Где-то потом:
+        // appCtx.close();
     }
 
     private void createGame( ) {
