@@ -1,8 +1,10 @@
 package timmax.minesweeper.model;
 
+import org.springframework.stereotype.Component;
 import timmax.basetilemodel.*;
 import timmax.minesweeper.model.gameobject.AllMinesweeperObjects;
 
+@Component
 public class MinesweeperModel extends BaseModel {
     AllMinesweeperObjects allMinesweeperObjects;
 
