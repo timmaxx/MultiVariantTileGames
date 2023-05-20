@@ -3,7 +3,7 @@ package timmax.sokoban.jfx.controller;
 import timmax.sokoban.model.SokobanModel;
 import javafx.scene.input.KeyCode;
 
-import static timmax.basetilemodel.Direction.*;
+import static timmax.basetilemodel.tile.Direction.*;
 
 public class SokobanController {
     private final SokobanModel baseSokobanModel;

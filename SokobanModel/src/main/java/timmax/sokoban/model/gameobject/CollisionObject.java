@@ -1,10 +1,9 @@
 package timmax.sokoban.model.gameobject;
 
-import timmax.basetilemodel.Direction;
-import timmax.basetilemodel.XY;
+import timmax.basetilemodel.tile.*;
 
 // For Walls, Boxes and player
-abstract public class CollisionObject extends XY {
+abstract public class CollisionObject extends Tile {
 
     public CollisionObject( int x, int y) {
         super( x, y);

@@ -1,7 +1,6 @@
 package timmax.sokoban.model.gameobject;
 
-import timmax.basetilemodel.Direction;
-import timmax.basetilemodel.XY;
+import timmax.basetilemodel.tile.*;
 
 public abstract class CollisionMovableObject extends CollisionObject implements Movable {
     public CollisionMovableObject( int x, int y) {
@@ -9,8 +8,8 @@ public abstract class CollisionMovableObject extends CollisionObject implements 
     }
 
     public void move( Direction direction) {
-        XY xy = add( direction);
-        x = xy.getX( );
-        y = xy.getY( );
+        Tile tile = add( direction);
+        x = tile.getX( );
+        y = tile.getY( );
     }
 }

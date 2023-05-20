@@ -1,10 +1,10 @@
-package timmax.basetilemodel;
+package timmax.basetilemodel.tile;
 
-public /*abstract*/ class XY {
+public /*abstract*/ class Tile {
     protected int x;
     protected int y;
 
-    public XY( int x, int y) {
+    public Tile(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -17,13 +17,12 @@ public /*abstract*/ class XY {
         return y;
     }
 
-    public XY add( Direction direction) {
-        DxDy dXdy = direction.getDxDy();
-        return add( dXdy);
+    public Tile add( Direction direction) {
+        return add( direction.getDxDy());
     }
 
-    public XY add( DxDy xy) {
-        return new XY( x + xy.x, y + xy.y);
+    public Tile add( DxDy dxDy) {
+        return new Tile( x + dxDy.x, y + dxDy.y);
     }
 
     @Override
@@ -31,10 +30,10 @@ public /*abstract*/ class XY {
         if ( this == o) return true;
         if ( o == null || getClass( ) != o.getClass( )) return false;
 
-        XY xy = ( XY) o;
+        Tile tile = (Tile) o;
 
-        if ( x != xy.x) return false;
-        return y == xy.y;
+        if ( x != tile.x) return false;
+        return y == tile.y;
     }
 
     @Override

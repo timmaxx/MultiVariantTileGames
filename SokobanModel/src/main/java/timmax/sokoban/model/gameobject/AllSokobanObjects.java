@@ -1,6 +1,6 @@
 package timmax.sokoban.model.gameobject;
 
-import timmax.basetilemodel.XY;
+import timmax.basetilemodel.tile.Tile;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -14,8 +14,8 @@ public record AllSokobanObjects(
         Player player,
         int countOfHomesBoxes) {
 
-    public ArrayList< XY> getAll() {
-        ArrayList< XY> gameObjects = new ArrayList< >( ); // = new HashSet< >( walls);
+    public ArrayList<Tile> getAll() {
+        ArrayList<Tile> gameObjects = new ArrayList< >( ); // = new HashSet< >( walls);
         gameObjects.addAll( walls);
         gameObjects.addAll( homes);
         gameObjects.addAll( boxes);

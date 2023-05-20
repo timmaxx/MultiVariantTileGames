@@ -1,9 +1,9 @@
 package timmax.minesweeper.model.gameobject;
 
-import timmax.basetilemodel.XY;
+import timmax.basetilemodel.tile.Tile;
 import java.util.Set;
 
-public class MinesweeperObject extends XY {
+public class MinesweeperObject extends Tile {
     private Set< MinesweeperObject> neighbors;
     private boolean isOpen;
     private final boolean isMine;

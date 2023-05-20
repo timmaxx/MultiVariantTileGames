@@ -1,7 +1,7 @@
 package timmax.sokoban.model;
 
 import timmax.basetilemodel.*;
-import timmax.basetilemodel.XY;
+import timmax.basetilemodel.tile.*;
 import timmax.sokoban.model.gameobject.*;
 import timmax.sokoban.model.route.*;
 
@@ -26,11 +26,11 @@ public class SokobanModel extends BaseModel {
         }
     }
 
-    public List< XY> getListOfXY( int x, int y) {
-        List< XY> result = new ArrayList< >( );
-        for ( XY xy: allSokobanObjects.getAll( )) {
-            if ( xy.getX() == x && xy.getY( ) == y) {
-                result.add( xy);
+    public List< Tile> getListOfXY(int x, int y) {
+        List< Tile> result = new ArrayList< >( );
+        for ( Tile tile : allSokobanObjects.getAll( )) {
+            if ( tile.getX( ) == x && tile.getY( ) == y) {
+                result.add( tile);
             }
         }
 

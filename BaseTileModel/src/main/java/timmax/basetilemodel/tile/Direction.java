@@ -1,4 +1,4 @@
-package timmax.basetilemodel;
+package timmax.basetilemodel.tile;
 
 public enum Direction {
     UNKNOWN,

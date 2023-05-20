@@ -1,6 +1,7 @@
 package timmax.sokoban.jfx.view;
 
 import timmax.basetilemodel.*;
+import timmax.basetilemodel.tile.Tile;
 import timmax.sokoban.model.SokobanModel;
 import timmax.sokoban.model.gameobject.*;
 
@@ -31,20 +32,20 @@ public class SokobanViewMainArea extends ViewMainArea {
     @Override
     public void updateOneTile( int x, int y) {
         SokobanModel sokobanModel = ( SokobanModel)baseModel;
-        List< XY> listOfXY = sokobanModel.getListOfXY( x, y);
+        List<Tile> listOfTile = sokobanModel.getListOfXY( x, y);
         game.setCellColor( x, y, COLOR_OF_EMPTY);
         game.setCellValue( x, y, "");
-        for ( XY xy: listOfXY) {
-            if ( xy instanceof Wall) {
+        for ( Tile tile : listOfTile) {
+            if ( tile instanceof Wall) {
                 game.setCellColor( x, y, COLOR_OF_WALL);
-            } else if ( xy instanceof Home) {
+            } else if ( tile instanceof Home) {
                 game.setCellColor( x, y, COLOR_OF_HOME);
             }
 
-            if ( xy instanceof Player) {
+            if ( tile instanceof Player) {
                 game.setCellValue( x, y, PLAYER);
                 game.setCellTextColor( x, y, COLOR_OF_PLAYER);
-            } else if ( xy instanceof Box) {
+            } else if ( tile instanceof Box) {
                 game.setCellValue( x, y, BOX);
                 game.setCellTextColor( x, y, COLOR_OF_BOX);
             }
