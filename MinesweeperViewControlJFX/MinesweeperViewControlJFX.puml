@@ -1,0 +1,40 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+'!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class MinesweeperController {
+  + MinesweeperController(MinesweeperModel):
+  - minesweeperModel: MinesweeperModel
+  + onMouseLeftClick(int, int): void
+  + onMouseRightClick(int, int): void
+}
+
+class MinesweeperGame extends Game {
+  + MinesweeperGame():
+  - minesweeperModel: MinesweeperModel
+  - viewGameOverMessage: View
+  - SIDE_OF_HEIGHT: int
+  - viewMainArea: View
+  - minesweeperController: MinesweeperController
+  - REST_OF_MINE_INSTALLATION_IN_PERCENTS: int
+  - SIDE_OF_WIDTH: int
+  - log: Logger
+  - createGame(): void
+  + onMouseRightClick(int, int): void
+  + initialize(): void
+  + onMouseLeftClick(int, int): void
+}
+
+class MinesweeperViewMainArea extends ViewMainArea {
+  + MinesweeperViewMainArea(BaseModel, Game):
+  - CELL_COLOR_FOR_MINE: Color
+  ~ game: Game
+  - MINE: String
+  - FLAG: String
+  + updateOneTile(int, int): void
+}
+
+@enduml

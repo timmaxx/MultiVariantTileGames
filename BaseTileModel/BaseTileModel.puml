@@ -1,0 +1,82 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+'!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+enum Direction {
+    UNKNOWN:
+    LEFT:
+    RIGHT:
+    UP:
+    DOWN:
+    + not( ): Direction
+    + getDxDy( ): DxDy
+}
+
+class DxDy {
+    # x: int
+    # y: int
+    + DxDy( int x, int y):
+    + getX( ): int
+    + getY( ): int
+}
+DxDy --> Direction
+
+class Tile {
+    # x: int
+    # y: int
+
+    + add( Direction direction): Tile
+    + add( DxDy xy): Tile
+}
+Tile --> Direction
+Tile --> DxDy
+
+enum GameStatus {
+    GAME:
+    VICTORY:
+    DEFEAT:
+}
+
+interface ObservableModel {
+    addViewListener( View view): void
+    notifyViews( ): void
+}
+
+abstract class BaseModel implements ObservableModel {
+    - {static} MIN_WIDTH: int
+    - {static} MAX_WIDTH: int
+    - {static} MIN_HEIGHT: int
+    - {static} MAX_HEIGHT: int
+    - width: int
+    - height: int
+    # gameStatus: GameStatus
+    - listOfViews: ArrayList< View>
+
+    # createNewGame( int width, int height): void
+    + getWidth( ): int
+    + getHeight( ): int
+    + addViewListener( View view): void
+    + notifyViews( ): void
+    + getGameStatus( ): GameStatus
+}
+BaseModel::gameStatus "1" *-- "1" GameStatus
+BaseModel::listOfViews "1" *-- "0..*" View
+
+abstract class View {
+    # baseModel: BaseModel
+    + View( BaseModel baseModel):
+    # {abstract} update( ): void
+}
+
+abstract class ViewMainArea extends View {
+# BaseModel baseModel
+    + ViewMainArea( BaseModel baseModel):
+    + update( ): void
+    + {abstract} updateOneTile( int x, int y): void
+}
+ObservableModel --> View
+
+@enduml

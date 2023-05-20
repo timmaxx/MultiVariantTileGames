@@ -1,0 +1,53 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+'!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class AllMinesweeperObjects {
+  + AllMinesweeperObjects(int, int, MinesweeperObject[][], int):
+  + getCountOfMineNeighbors(int, int): int
+  + inverseFlag(int, int): void
+  + open(int, int): GameStatus
+  + getMinesweeperObjectIsMine(int, int): boolean
+  - defineNeighbors(int, int): void
+  - openRecursive(MinesweeperObject): GameStatus
+  + getMinesweeperObjectIsOpen(int, int): boolean
+  + getMinesweeperObjectIsFlag(int, int): boolean
+}
+
+class LevelGenerator {
+  + LevelGenerator():
+  + getLevel(int, int, int): AllMinesweeperObjects
+}
+
+class MinesweeperModel extends BaseModel {
+  + MinesweeperModel():
+  + createNewGame(int, int, int): void
+  + getMinesweeperObjectIsOpen(int, int): boolean
+  + getCountOfMineNeighbors(int, int): int
+  + getMinesweeperObjectIsFlag(int, int): boolean
+  + getMinesweeperObjectIsMine(int, int): boolean
+  + open(int, int): void
+  + inverseFlag(int, int): void
+}
+
+class MinesweeperObject extends XY {
+  + MinesweeperObject(int, int, boolean):
+  - countOfMineNeighbors: int
+  - isOpen: boolean
+  - isMine: boolean
+  - neighbors: Set<MinesweeperObject>
+  - isFlag: boolean
+  ~ inverseFlag(): void
+  ~ open(): void
+   isMine: boolean
+   mineInPackageMode: boolean
+   countOfMineNeighbors: int
+   isOpen: boolean
+   isFlag: boolean
+   neighbors: Set<MinesweeperObject>
+}
+
+@enduml
