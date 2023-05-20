@@ -1,7 +1,7 @@
 package timmax.minesweeper.jfx;
 
 import org.slf4j.Logger;
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import timmax.tilegameenginejfx.*;
 import timmax.minesweeper.jfx.controller.MinesweeperController;
@@ -31,14 +31,18 @@ public class MinesweeperGame extends Game {
     public void initialize( ) {
         log.debug("initialize");
 
-        ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring-app.xml");
-        System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
-        minesweeperModel = appCtx.getBean(MinesweeperModel.class);
+        // try ( ClassPathXmlApplicationContext appCtx = new ClassPathXmlApplicationContext( "applicationContext.xml"))
+
+        // AbstractApplicationContext - ближайший общий предок для:
+        // - ClassPathXmlApplicationContext и
+        // - AnnotationConfigApplicationContext.
+
+        try ( AbstractApplicationContext appCtx = new ClassPathXmlApplicationContext("applicationContext.xml")) {
+            System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
+            minesweeperModel = appCtx.getBean(MinesweeperModel.class);
+        }
 
         createGame( );
-
-        // Где-то потом:
-        // appCtx.close();
     }
 
     private void createGame( ) {
