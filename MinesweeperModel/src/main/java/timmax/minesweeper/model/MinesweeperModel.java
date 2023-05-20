@@ -1,11 +1,17 @@
 package timmax.minesweeper.model;
 
+import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
-import timmax.basetilemodel.*;
+import timmax.basetilemodel.BaseModel;
 import timmax.minesweeper.model.gameobject.AllMinesweeperObjects;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
+import static org.slf4j.LoggerFactory.getLogger;
 
 @Component
 public class MinesweeperModel extends BaseModel {
+    private static final Logger log = getLogger(MinesweeperModel.class);
     AllMinesweeperObjects allMinesweeperObjects;
 
     private final LevelGenerator levelGenerator = new LevelGenerator();
@@ -40,5 +46,17 @@ public class MinesweeperModel extends BaseModel {
 
     public int getCountOfMineNeighbors(int x, int y) {
         return allMinesweeperObjects.getCountOfMineNeighbors(x, y);
+    }
+
+    @PostConstruct
+    public void doMyInit( ) {
+        System.out.println( "Doing my initialization. " + this);
+        log.debug("Doing my initialization. " + this);
+    }
+
+    @PreDestroy
+    public void doMyDestroy( ) {
+        System.out.println( "Doing my destruction. " + this);
+        log.debug( "Doing my destruction. " + this);
     }
 }

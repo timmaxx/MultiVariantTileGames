@@ -37,7 +37,9 @@ public class MinesweeperGame extends Game {
         // - ClassPathXmlApplicationContext и
         // - AnnotationConfigApplicationContext.
 
-        try ( AbstractApplicationContext appCtx = new ClassPathXmlApplicationContext("applicationContext.xml")) {
+        // try ( AbstractApplicationContext appCtx = new ClassPathXmlApplicationContext("applicationContext.xml"))
+        {
+            AbstractApplicationContext appCtx = new ClassPathXmlApplicationContext("applicationContext.xml");
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
             minesweeperModel = appCtx.getBean(MinesweeperModel.class);
         }
