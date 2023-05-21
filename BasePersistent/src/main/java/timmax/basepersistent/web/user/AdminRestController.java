@@ -1,10 +1,12 @@
 package timmax.basepersistent.web.user;
 
 
+import org.springframework.stereotype.Controller;
 import timmax.basepersistent.model.User;
 
 import java.util.List;
 
+@Controller
 public class AdminRestController extends AbstractUserController {
 
     @Override

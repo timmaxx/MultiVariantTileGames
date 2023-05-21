@@ -1,9 +1,11 @@
 package timmax.basepersistent.web.user;
 
+import org.springframework.stereotype.Controller;
 import timmax.basepersistent.model.User;
 
 import static timmax.basepersistent.web.SecurityUtil.authUserId;
 
+@Controller
 public class ProfileRestController extends AbstractUserController {
 
     public User get() {

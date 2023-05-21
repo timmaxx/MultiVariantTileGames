@@ -1,6 +1,6 @@
 package timmax.basepersistent.service;
 
-
+import org.springframework.stereotype.Service;
 import timmax.basepersistent.model.User;
 import timmax.basepersistent.repository.UserRepository;
 
@@ -9,6 +9,7 @@ import java.util.List;
 import static timmax.basepersistent.util.ValidationUtil.checkNotFound;
 import static timmax.basepersistent.util.ValidationUtil.checkNotFoundWithId;
 
+@Service
 public class UserService {
 
     private final UserRepository repository;
