@@ -7,5 +7,6 @@
 <h3><a href="index.html">Home</a></h3>
 <hr>
 <h2>Game</h2>
+${requestScope.minesweeperModel}
 </body>
 </html>
