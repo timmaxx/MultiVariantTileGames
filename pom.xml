@@ -18,5 +18,6 @@
         <module>BaseTileModel</module>
         <module>SokobanModel</module>
         <module>SokobanViewControlJFX</module>
+        <module>BasePersistent</module>
     </modules>
 </project>
