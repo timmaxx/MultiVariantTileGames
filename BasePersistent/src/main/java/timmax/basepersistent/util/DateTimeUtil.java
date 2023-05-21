@@ -1,6 +1,5 @@
 package timmax.basepersistent.util;
 
-
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 

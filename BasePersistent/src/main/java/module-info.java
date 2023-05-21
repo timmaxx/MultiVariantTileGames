@@ -3,4 +3,5 @@ module BasePersistent {
     requires spring.context;
     requires spring.beans;
     requires org.slf4j;
+    requires javax.servlet.api;
 }
