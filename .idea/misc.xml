@@ -27,6 +27,7 @@
     <option name="excludeFilter" value="" />
   </component>
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/BasePersistent" />
     <file type="web" url="file://$PROJECT_DIR$/MineSweeperViewControlWeb" />
   </component>
   <component name="MavenProjectsManager">
