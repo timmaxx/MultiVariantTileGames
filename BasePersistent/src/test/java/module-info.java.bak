@@ -1,0 +1,11 @@
+module BasePersistentTest {
+    requires spring.beans;
+    requires spring.context;
+
+    requires org.slf4j;
+
+    requires spring.test;
+    requires junit;
+
+    requires BasePersistent;
+}
