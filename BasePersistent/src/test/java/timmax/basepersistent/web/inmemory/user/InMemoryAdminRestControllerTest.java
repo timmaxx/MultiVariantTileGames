@@ -1,4 +1,4 @@
-package timmax.basepersistent.web.user;
+package timmax.basepersistent.web.inmemory.user;
 
 import org.junit.*;
 import org.slf4j.Logger;
@@ -9,6 +9,7 @@ import java.util.Arrays;
 
 import timmax.basepersistent.repository.inmemory.InMemoryUserRepository;
 import timmax.basepersistent.util.exception.NotFoundException;
+import timmax.basepersistent.web.user.AdminRestController;
 
 import static timmax.basepersistent.UserTestData.NOT_FOUND;
 import static timmax.basepersistent.UserTestData.USER_ID;
@@ -22,7 +23,6 @@ public class InMemoryAdminRestControllerTest {
 
     @BeforeClass
     public static void beforeClass() {
-        // appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml");
         appCtx = new ClassPathXmlApplicationContext("applicationContext.xml");
         log.info("\n{}\n", Arrays.toString(appCtx.getBeanDefinitionNames()));
         controller = appCtx.getBean(AdminRestController.class);
