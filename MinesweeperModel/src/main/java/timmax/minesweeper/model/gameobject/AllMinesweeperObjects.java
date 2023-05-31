@@ -2,7 +2,9 @@ package timmax.minesweeper.model.gameobject;
 
 import timmax.basetilemodel.GameStatus;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static timmax.basetilemodel.GameStatus.*;
@@ -53,6 +55,30 @@ public class AllMinesweeperObjects {
         return openRecursive( minesweeperObject);
     }
 
+    public MinesweeperObject[][] getMinesweeperObjects() {
+        return minesweeperObjects;
+    }
+
+    public List<MinesweeperObject> getListOfMinesweeperObjects() {
+        List<MinesweeperObject> minesweeperObjectList = new ArrayList<>();
+        minesweeperObjectList.add(new MinesweeperObject(0, 0, true));
+        minesweeperObjectList.add(new MinesweeperObject(0, 1, true));
+        minesweeperObjectList.add(new MinesweeperObject(1, 0, false));
+        minesweeperObjectList.add(new MinesweeperObject(1, 1, true));
+        return minesweeperObjectList;
+    }
+
+    public List<List<MinesweeperObject>> getListOfListOfMinesweeperObjects() {
+        List<List<MinesweeperObject>> minesweeperObjectListOfList = new ArrayList<>();
+        for (int y = 0; y < height; y++) {
+            List<MinesweeperObject> minesweeperObjectList = new ArrayList<>();
+            for (int x = 0; x < width; x++) {
+                minesweeperObjectList.add( minesweeperObjects[y][x]);
+            }
+            minesweeperObjectListOfList.add(minesweeperObjectList);
+        }
+        return  minesweeperObjectListOfList;
+    }
 
     // Private --------------------------------------------------------------------------------------------------------
     private GameStatus openRecursive( MinesweeperObject minesweeperObject) {

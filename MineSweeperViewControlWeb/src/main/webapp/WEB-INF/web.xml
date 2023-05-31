@@ -15,4 +15,14 @@
         <servlet-name>minesweeperServlet</servlet-name>
         <url-pattern>/mvtg</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>userServlet</servlet-name>
+        <servlet-class>timmax.minesweeper.web.UserServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userServlet</servlet-name>
+        <url-pattern>/users</url-pattern>
+    </servlet-mapping>
 </web-app>

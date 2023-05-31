@@ -48,6 +48,10 @@ public class MinesweeperModel extends BaseModel {
         return allMinesweeperObjects.getCountOfMineNeighbors(x, y);
     }
 
+    public AllMinesweeperObjects getAllMinesweeperObjects() {
+        return allMinesweeperObjects;
+    }
+
     @PostConstruct
     public void doMyInit( ) {
         System.out.println( "Doing my initialization. " + this);

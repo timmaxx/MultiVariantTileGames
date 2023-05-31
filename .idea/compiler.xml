@@ -7,13 +7,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="BasePersistent" />
-        <module name="BaseTileModel" />
-        <module name="TileGameEngineJFX" />
-        <module name="MinesweeperModel" />
-        <module name="MinesweeperViewControlJFX" />
-        <module name="MineSweeperViewControlWeb" />
-        <module name="SokobanModel" />
         <module name="SokobanViewControlJFX" />
+        <module name="BaseTileModel" />
+        <module name="MinesweeperViewControlJFX" />
+        <module name="MinesweeperModel" />
+        <module name="TileGameEngineJFX" />
+        <module name="SokobanModel" />
+        <module name="MineSweeperViewControlWeb" />
       </profile>
     </annotationProcessing>
   </component>
