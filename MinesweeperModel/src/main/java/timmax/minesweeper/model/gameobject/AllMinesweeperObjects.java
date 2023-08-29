@@ -7,112 +7,115 @@ import java.util.Set;
 
 import static timmax.basetilemodel.GameStatus.*;
 
+// Все объекты игры Сапёр
 public class AllMinesweeperObjects {
-    private final int width;
-    private final int height;
-    private final int countOfMinesAndHomes;
+    private final int width; // Ширина поля
+    private final int height; // Высота поля
+    private final int countOfMines; // Количество мин
 
-    private int countOfFlags;
+    private int countOfFlags; // Количество оставшихся флагов, допустимых к использованию
 
-    private int countOfClosedTiles;
+    private int countOfClosedTiles; // Количество оставшихся закрытых плиток
 
-    private final MinesweeperObject[ ][ ] minesweeperObjects;
+    private final MinesweeperTile[ ][ ] minesweeperTiles; // Все плитки поля
 
     public AllMinesweeperObjects( int width, int height
-            , MinesweeperObject[ ][ ] minesweeperObjects
-            , int countOfMinesAndHomes) {
+            , MinesweeperTile[ ][ ] minesweeperTiles
+            , int countOfMines) {
         this.width = width;
         this.height = height;
-        this.minesweeperObjects = minesweeperObjects;
-        this.countOfMinesAndHomes = countOfMinesAndHomes;
+        this.minesweeperTiles = minesweeperTiles;
+        this.countOfMines = countOfMines;
 
         countOfClosedTiles = width * height;
-        countOfFlags = countOfMinesAndHomes;
+        countOfFlags = countOfMines;
     }
 
-    public void inverseFlag(int x, int y) {
-        MinesweeperObject minesweeperObject = minesweeperObjects[ y][ x];
-        if (        minesweeperObject.isOpen( )
-                ||  ( countOfFlags == 0 && !minesweeperObject.isFlag( ))
-        ) {
+    // Инвертировать флаг
+    public void inverseFlag(MinesweeperTile minesweeperTile) {
+        // Если плитка уже открыта или (флагов больше нет и нет флага)
+        if (        minesweeperTile.isOpen( )
+                ||  ( countOfFlags == 0 && !minesweeperTile.isFlag( ))) {
+            // Не будет инверсии
             return;
         }
-        minesweeperObject.inverseFlag( );
-        if ( minesweeperObject.isFlag( )) {
+        minesweeperTile.inverseFlag( ); // Инвертируем флаг
+        if ( minesweeperTile.isFlag( )) {
             countOfFlags++;
         } else {
             countOfFlags--;
         }
     }
 
-    public GameStatus open( int x, int y) {
-        MinesweeperObject minesweeperObject =  minesweeperObjects[ y][ x];
-        if ( !minesweeperObject.isOpen( ) && minesweeperObject.isFlag( )) {
+
+    // Открыть плитку и узнать, продолжена-ли будет игра или закончена (выигрышем или проигрышем).
+    public GameStatus open( MinesweeperTile minesweeperTile) {
+        if ( !minesweeperTile.isOpen( ) && minesweeperTile.isFlag( )) {
             return GAME;
         }
-        return openRecursive( minesweeperObject);
+        return openRecursive(minesweeperTile);
+    }
+
+
+    public MinesweeperTile getTileByXY(int x, int y) {
+        return minesweeperTiles[ y][ x];
     }
 
 
     // Private --------------------------------------------------------------------------------------------------------
-    private GameStatus openRecursive( MinesweeperObject minesweeperObject) {
-        minesweeperObject.open( );
-        countOfClosedTiles--;
-        if ( minesweeperObject.isMine( )) {
+
+    // Открыть заданную плитку, и возможно, рекурсивно ещё несколько.
+    private GameStatus openRecursive( MinesweeperTile minesweeperTile) {
+        minesweeperTile.open( );
+        countOfClosedTiles--; // Количество закрытых плиток сделаем меньше
+        // Если в открытой плитке мина
+        if ( minesweeperTile.isMine( )) {
+            // Завершение игры поражением
             return DEFEAT;
         } else {
-            defineNeighbors( minesweeperObject.getX( ), minesweeperObject.getY( ));
-            if ( minesweeperObject.getCountOfMineNeighbors( ) == 0) {
-                for ( MinesweeperObject minesweeperObjectNeighbor: minesweeperObject.getNeighbors( )) {
-                    if ( !minesweeperObjectNeighbor.isOpen( ) && !minesweeperObjectNeighbor.isMineInPackageMode( )) {
-                        openRecursive( minesweeperObjectNeighbor);
+            defineNeighbors( minesweeperTile);
+            // Если в соседних плитках нет мин
+            if ( minesweeperTile.getCountOfMineNeighbors( ) == 0) {
+                // Пройдёмся по соседним плиткам
+                for ( MinesweeperTile minesweeperTileNeighbor : minesweeperTile.getNeighborTiles( )) {
+                    // Если соседняя плитка ещё не была открыта и там нет мины
+                    if ( !minesweeperTileNeighbor.isOpen( ) && !minesweeperTileNeighbor.isMineInPackageMode( )) {
+                        // Откроем соседнюю плитку
+                        openRecursive(minesweeperTileNeighbor);
                     }
                 }
             }
         }
 
-        if ( countOfClosedTiles == countOfMinesAndHomes && !minesweeperObject.isMine( )) {
+        // Если количество не открытых плиток равно количеству мин
+        if ( countOfClosedTiles == countOfMines && !minesweeperTile.isMine( )) {
+            // Игра окончена победой
             return VICTORY;
         }
+        // Продолжаем игру
         return GAME;
     }
 
-    private void defineNeighbors( int x, int y) {
-        MinesweeperObject minesweeperObject = minesweeperObjects[ y][ x];
-        if ( minesweeperObject.getNeighbors( ) != null ) {
+
+    // Для плитки найти все соседние
+    private void defineNeighbors( MinesweeperTile minesweeperTile) {
+        if ( minesweeperTile.getNeighborTiles( ) != null ) {
             return;
         }
-        Set< MinesweeperObject> neighbors = new HashSet< >( );
-        minesweeperObject.setNeighbors( neighbors);
+        int x = minesweeperTile.getX();
+        int y = minesweeperTile.getY();
+        Set< MinesweeperTile> neighbors = new HashSet< >( );
+        minesweeperTile.setNeighborTiles( neighbors);
         for ( int yy = y - 1; yy <= y + 1; yy++) {
             for ( int xx = x - 1; xx <= x + 1; xx++) {
-                if (        ( yy < 0 || yy >= minesweeperObjects.length)
-                        ||  ( xx < 0 || xx >= minesweeperObjects[ y].length)
+                if (        ( yy < 0 || yy >= minesweeperTiles.length)
+                        ||  ( xx < 0 || xx >= minesweeperTiles[ y].length)
                         ||  ( xx == x && yy == y)) {
                     continue;
                 }
-                neighbors.add( minesweeperObjects[ yy][ xx]);
+                // neighbors.add( minesweeperTiles[ yy][ xx]);
+                neighbors.add( getTileByXY( xx, yy));
             }
         }
-    }
-
-    public boolean getMinesweeperObjectIsOpen(int x, int y) {
-        MinesweeperObject minesweeperObject = minesweeperObjects[ y][ x];
-        return minesweeperObject.isOpen();
-    }
-
-    public boolean getMinesweeperObjectIsMine(int x, int y) {
-        MinesweeperObject minesweeperObject = minesweeperObjects[ y][ x];
-        return minesweeperObject.isMine();
-    }
-
-    public boolean getMinesweeperObjectIsFlag(int x, int y) {
-        MinesweeperObject minesweeperObject = minesweeperObjects[ y][ x];
-        return minesweeperObject.isFlag();
-    }
-
-    public int getCountOfMineNeighbors(int x, int y) {
-        MinesweeperObject minesweeperObject = minesweeperObjects[ y][ x];
-        return minesweeperObject.getCountOfMineNeighbors( );
     }
 }

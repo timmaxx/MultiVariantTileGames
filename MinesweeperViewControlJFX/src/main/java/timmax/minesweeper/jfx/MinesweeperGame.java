@@ -18,7 +18,7 @@ public class MinesweeperGame extends Game {
     private final static int SIDE_OF_WIDTH = 10;
     private final static int SIDE_OF_HEIGHT = 10;
 
-    private static final int REST_OF_MINE_INSTALLATION_IN_PERCENTS = 20;
+    private static final int REST_OF_MINE_INSTALLATION_IN_PERCENTS = 10;
 
     private MinesweeperModel minesweeperModel;
 

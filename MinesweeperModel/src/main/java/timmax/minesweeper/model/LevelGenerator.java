@@ -1,7 +1,7 @@
 package timmax.minesweeper.model;
 
 import timmax.minesweeper.model.gameobject.AllMinesweeperObjects;
-import timmax.minesweeper.model.gameobject.MinesweeperObject;
+import timmax.minesweeper.model.gameobject.MinesweeperTile;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -11,17 +11,17 @@ public class LevelGenerator {
     private static final Random random = new Random( );
 
     public AllMinesweeperObjects getLevel(int width, int height, int restOfMineInstallationInPercents) {
-        Set< MinesweeperObject> mines = new HashSet<>();
-        MinesweeperObject[ ][ ] minesweeperObjects = new MinesweeperObject[ height][ width];
+        Set<MinesweeperTile> mines = new HashSet<>();
+        MinesweeperTile[ ][ ] minesweeperTiles = new MinesweeperTile[ height][ width];
         int countMinesOnField = 0;
 
         do {
             int x = random.nextInt( width);
             int y = random.nextInt( height);
-            MinesweeperObject minesweeperObject = new MinesweeperObject( x, y, true);
-            if ( mines.add( minesweeperObject)) {
+            MinesweeperTile minesweeperTile = new MinesweeperTile( x, y, true);
+            if ( mines.add(minesweeperTile)) {
                 countMinesOnField++;
-                minesweeperObjects[ y][ x] = minesweeperObject;
+                minesweeperTiles[ y][ x] = minesweeperTile;
             }
         } while ( countMinesOnField < height * width * restOfMineInstallationInPercents / 100 );
 
@@ -33,11 +33,11 @@ public class LevelGenerator {
 */
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                if (minesweeperObjects[ y][ x] == null) {
-                    minesweeperObjects[ y][ x] = new MinesweeperObject(x, y, false);
+                if (minesweeperTiles[ y][ x] == null) {
+                    minesweeperTiles[ y][ x] = new MinesweeperTile(x, y, false);
                 }
             }
         }
-        return new AllMinesweeperObjects( width, height, minesweeperObjects, countMinesOnField);
+        return new AllMinesweeperObjects( width, height, minesweeperTiles, countMinesOnField);
     }
 }
