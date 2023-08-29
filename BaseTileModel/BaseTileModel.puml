@@ -5,6 +5,14 @@
 top to bottom direction
 skinparam linetype ortho
 
+class DxDy {
+    # x: int
+    # y: int
+    + DxDy( int x, int y):
+    + getX( ): int
+    + getY( ): int
+}
+
 enum Direction {
     UNKNOWN:
     LEFT:
@@ -14,15 +22,7 @@ enum Direction {
     + not( ): Direction
     + getDxDy( ): DxDy
 }
-
-class DxDy {
-    # x: int
-    # y: int
-    + DxDy( int x, int y):
-    + getX( ): int
-    + getY( ): int
-}
-DxDy --> Direction
+Direction --> DxDy
 
 class Tile {
     # x: int
@@ -34,6 +34,7 @@ class Tile {
 Tile --> Direction
 Tile --> DxDy
 
+'-------------------------------------------
 enum GameStatus {
     GAME:
     VICTORY:
@@ -63,13 +64,14 @@ abstract class BaseModel implements ObservableModel {
     + getGameStatus( ): GameStatus
 }
 BaseModel::gameStatus "1" *-- "1" GameStatus
-BaseModel::listOfViews "1" *-- "0..*" View
+BaseModel::listOfViews "1" *-- "0*" View
 
 abstract class View {
     # baseModel: BaseModel
     + View( BaseModel baseModel):
     # {abstract} update( ): void
 }
+ObservableModel --> View
 
 abstract class ViewMainArea extends View {
 # BaseModel baseModel
@@ -77,6 +79,6 @@ abstract class ViewMainArea extends View {
     + update( ): void
     + {abstract} updateOneTile( int x, int y): void
 }
-ObservableModel --> View
+
 
 @enduml

@@ -1,5 +1,6 @@
 package timmax.basetilemodel.tile;
 
+// Направление смещения
 public enum Direction {
     UNKNOWN,
     LEFT,
@@ -7,6 +8,7 @@ public enum Direction {
     UP,
     DOWN;
 
+    // Дать противоположное направление
     public Direction not( ) {
         if        ( this == DOWN)  { return UP;
         } else if ( this == UP)    { return DOWN;
@@ -15,6 +17,7 @@ public enum Direction {
         } else return UNKNOWN;
     }
 
+    // Направление, преобразованное в смещение с условием только на одну ячейку только в одну из сторон
     public DxDy getDxDy( ) {
         int dx = 0;
         int dy = 0;

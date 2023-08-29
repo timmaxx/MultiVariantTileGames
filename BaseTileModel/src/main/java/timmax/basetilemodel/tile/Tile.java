@@ -1,5 +1,6 @@
 package timmax.basetilemodel.tile;
 
+// Плитка игрового поля
 public /*abstract*/ class Tile {
     protected int x;
     protected int y;
