@@ -12,7 +12,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 public class MinesweeperGame extends Game {
     private static final Logger log = getLogger(MinesweeperGame.class);
 
-    private final static int SIDE_OF_WIDTH = 10;
+    private final static int SIDE_OF_WIDTH = 15;
     private final static int SIDE_OF_HEIGHT = 10;
 
     private static final int REST_OF_MINE_INSTALLATION_IN_PERCENTS = 10;
@@ -28,19 +28,7 @@ public class MinesweeperGame extends Game {
     public void initialize( ) {
         log.debug("initialize");
 
-        // try ( ClassPathXmlApplicationContext appCtx = new ClassPathXmlApplicationContext( "applicationContext.xml"))
-
-        // AbstractApplicationContext - ближайший общий предок для:
-        // - ClassPathXmlApplicationContext и
-        // - AnnotationConfigApplicationContext.
-
-        // try ( AbstractApplicationContext appCtx = new ClassPathXmlApplicationContext("applicationContext.xml"))
-        {
-            AbstractApplicationContext appCtx = new ClassPathXmlApplicationContext("applicationContext.xml");
-            System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
-            minesweeperModel = appCtx.getBean(MinesweeperModel.class);
-        }
-
+        minesweeperModel = new MinesweeperModel();
         createGame( );
     }
 
