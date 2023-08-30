@@ -1,15 +1,13 @@
 package timmax.minesweeper.model;
 
 import org.slf4j.Logger;
-import org.springframework.stereotype.Component;
 import timmax.basetilemodel.BaseModel;
 import timmax.minesweeper.model.gameobject.AllMinesweeperObjects;
-import timmax.minesweeper.model.gameobject.MinesweeperTile;
+import timmax.minesweeper.model.gameobject.LevelGenerator;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
 // Модель игры Сапёр
-@Component
 public class MinesweeperModel extends BaseModel {
     private static final Logger log = getLogger(MinesweeperModel.class);
     AllMinesweeperObjects allMinesweeperObjects;
