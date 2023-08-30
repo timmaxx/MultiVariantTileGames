@@ -6,5 +6,4 @@ module timmax.minesweeper.model {
     requires java.annotation;
 
     exports timmax.minesweeper.model;
-    exports timmax.minesweeper.model.gameobject;
 }

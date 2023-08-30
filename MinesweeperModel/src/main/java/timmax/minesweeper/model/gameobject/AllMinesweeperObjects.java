@@ -9,30 +9,23 @@ import static timmax.basetilemodel.GameStatus.*;
 
 // Все объекты игры Сапёр
 public class AllMinesweeperObjects {
-    private final int width; // Ширина поля
-    private final int height; // Высота поля
     private final int countOfMines; // Количество мин
-
-    private int countOfFlags; // Количество оставшихся флагов, допустимых к использованию
-
-    private int countOfClosedTiles; // Количество оставшихся закрытых плиток
-
     private final MinesweeperTile[ ][ ] minesweeperTiles; // Все плитки поля
 
-    public AllMinesweeperObjects( int width, int height
-            , MinesweeperTile[ ][ ] minesweeperTiles
-            , int countOfMines) {
-        this.width = width;
-        this.height = height;
+    private int countOfFlags; // Количество оставшихся флагов, допустимых к использованию
+    private int countOfClosedTiles; // Количество оставшихся закрытых плиток
+
+
+    AllMinesweeperObjects( MinesweeperTile[ ][ ] minesweeperTiles, int countOfMines) {
         this.minesweeperTiles = minesweeperTiles;
         this.countOfMines = countOfMines;
 
-        countOfClosedTiles = width * height;
+        countOfClosedTiles = getWidth( ) * getHeight( );
         countOfFlags = countOfMines;
     }
 
     // Инвертировать флаг
-    public void inverseFlag(MinesweeperTile minesweeperTile) {
+    public void inverseFlag( MinesweeperTile minesweeperTile) {
         // Если плитка уже открыта или (флагов больше нет и нет флага)
         if (        minesweeperTile.isOpen( )
                 ||  ( countOfFlags == 0 && !minesweeperTile.isFlag( ))) {
@@ -47,7 +40,6 @@ public class AllMinesweeperObjects {
         }
     }
 
-
     // Открыть плитку и узнать, продолжена-ли будет игра или закончена (выигрышем или проигрышем).
     public GameStatus open( MinesweeperTile minesweeperTile) {
         if ( !minesweeperTile.isOpen( ) && minesweeperTile.isFlag( )) {
@@ -56,8 +48,7 @@ public class AllMinesweeperObjects {
         return openRecursive(minesweeperTile);
     }
 
-
-    public MinesweeperTile getTileByXY(int x, int y) {
+    public MinesweeperTile getTileByXY( int x, int y) {
         return minesweeperTiles[ y][ x];
     }
 
@@ -108,14 +99,23 @@ public class AllMinesweeperObjects {
         minesweeperTile.setNeighborTiles( neighbors);
         for ( int yy = y - 1; yy <= y + 1; yy++) {
             for ( int xx = x - 1; xx <= x + 1; xx++) {
-                if (        ( yy < 0 || yy >= minesweeperTiles.length)
-                        ||  ( xx < 0 || xx >= minesweeperTiles[ y].length)
+                if (        ( yy < 0 || yy >= getHeight( ))
+                        ||  ( xx < 0 || xx >= getWidth( ))
                         ||  ( xx == x && yy == y)) {
                     continue;
                 }
-                // neighbors.add( minesweeperTiles[ yy][ xx]);
                 neighbors.add( getTileByXY( xx, yy));
             }
         }
+    }
+
+    // Ширина игрового поля
+    private int getWidth( ) {
+        return minesweeperTiles[ 0].length;
+    }
+
+    // Высота игрового поля
+    private int getHeight( ) {
+        return minesweeperTiles.length;
     }
 }

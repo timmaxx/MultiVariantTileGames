@@ -9,46 +9,40 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 // Модель игры Сапёр
 public class MinesweeperModel extends BaseModel {
-    private static final Logger log = getLogger(MinesweeperModel.class);
-    AllMinesweeperObjects allMinesweeperObjects;
+    private static final Logger log = getLogger( MinesweeperModel.class);
+    private AllMinesweeperObjects allMinesweeperObjects;
 
-    private final LevelGenerator levelGenerator = new LevelGenerator();
+    private final LevelGenerator levelGenerator = new LevelGenerator( );
 
 
-    public void createNewGame(int width, int height, int restOfMineInstallationInPercents) {
-        allMinesweeperObjects = levelGenerator.getLevel(width, height, restOfMineInstallationInPercents);
-        super.createNewGame(width, height);
+    public void createNewGame( int width, int height, int restOfMineInstallationInPercents) {
+        allMinesweeperObjects = levelGenerator.getLevel( width, height, restOfMineInstallationInPercents);
+        super.createNewGame( width, height);
     }
 
-    public void inverseFlag(int x, int y) {
-        MinesweeperTile minesweeperTile = allMinesweeperObjects.getTileByXY(x, y);
-        allMinesweeperObjects.inverseFlag(minesweeperTile);
-        notifyViews();
+    public void inverseFlag( int x, int y) {
+        allMinesweeperObjects.inverseFlag( allMinesweeperObjects.getTileByXY( x, y));
+        notifyViews( );
     }
 
-    public void open(int x, int y) {
-        MinesweeperTile minesweeperTile = allMinesweeperObjects.getTileByXY(x, y);
-        gameStatus = allMinesweeperObjects.open(minesweeperTile);
-        notifyViews();
+    public void open( int x, int y) {
+        gameStatus = allMinesweeperObjects.open( allMinesweeperObjects.getTileByXY( x, y));
+        notifyViews( );
     }
 
-    public boolean getMinesweeperObjectIsOpen(int x, int y) {
-        MinesweeperTile minesweeperTile = allMinesweeperObjects.getTileByXY(x, y);
-        return minesweeperTile.isOpen();
+    public boolean getMinesweeperTileIsOpen( int x, int y) {
+        return allMinesweeperObjects.getTileByXY( x, y).isOpen( );
     }
 
-    public boolean getMinesweeperObjectIsMine(int x, int y) {
-        MinesweeperTile minesweeperTile = allMinesweeperObjects.getTileByXY(x, y);
-        return minesweeperTile.isMine();
+    public boolean getMinesweeperTileIsMine( int x, int y) {
+        return allMinesweeperObjects.getTileByXY( x, y).isMine( );
     }
 
-    public boolean getMinesweeperObjectIsFlag(int x, int y) {
-        MinesweeperTile minesweeperTile = allMinesweeperObjects.getTileByXY(x, y);
-        return minesweeperTile.isFlag();
+    public boolean getMinesweeperTileIsFlag( int x, int y) {
+        return allMinesweeperObjects.getTileByXY( x, y).isFlag( );
     }
 
-    public int getCountOfMineNeighbors(int x, int y) {
-        MinesweeperTile minesweeperTile = allMinesweeperObjects.getTileByXY(x, y);
-        return minesweeperTile.getCountOfMineNeighbors();
+    public int getCountOfMineNeighbors( int x, int y) {
+        return allMinesweeperObjects.getTileByXY( x, y).getCountOfMineNeighbors( );
     }
 }

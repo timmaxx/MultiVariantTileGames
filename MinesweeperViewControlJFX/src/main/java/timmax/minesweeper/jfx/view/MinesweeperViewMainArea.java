@@ -23,15 +23,15 @@ public class MinesweeperViewMainArea extends ViewMainArea {
     @Override
     public void updateOneTile( int x, int y) {
         MinesweeperModel minesweeperModel = ( MinesweeperModel)baseModel;
-        if (minesweeperModel.getMinesweeperObjectIsOpen( x, y)) {
-            if (minesweeperModel.getMinesweeperObjectIsMine( x, y)) {
+        if (minesweeperModel.getMinesweeperTileIsOpen( x, y)) {
+            if (minesweeperModel.getMinesweeperTileIsMine( x, y)) {
                 game.setCellValueEx( x, y, CELL_COLOR_FOR_MINE, MINE);
             } else {
                 game.setCellNumber( x, y, minesweeperModel.getCountOfMineNeighbors( x, y));
                 game.setCellColor( x, y, GREEN); // ToDo constant
             }
         } else {
-            if ( minesweeperModel.getMinesweeperObjectIsFlag( x, y)) {
+            if ( minesweeperModel.getMinesweeperTileIsFlag( x, y)) {
                 game.setCellValue( x, y, FLAG); // ToDo constant
                 game.setCellColor( x, y, YELLOW); // ToDo constant
             } else {
