@@ -6,17 +6,18 @@ top to bottom direction
 skinparam linetype ortho
 
 class MinesweeperTile extends Tile {
-  + MinesweeperTile(int, int, boolean)
-  + isOpen( ): boolean
-  + getCountOfMineNeighbors( ): int
-  + isFlag( ): boolean
-  + isMine( ): boolean
+  - isMine: boolean final
 
-  - countOfMineNeighbors: int
   - isOpen: boolean
-  - isMine: boolean
-  - neighbors: Set< MinesweeperTile>
   - isFlag: boolean
+  - countOfMineNeighbors: int
+  - neighbors: Set< MinesweeperTile>
+
+  + isMine( ): boolean
+  + isOpen( ): boolean
+  + isFlag( ): boolean
+  + MinesweeperTile(int, int, boolean)
+  + getCountOfMineNeighbors( ): int
 
   ~ isMineInPackageMode( ): boolean
   ~ open( ): void
@@ -26,22 +27,21 @@ class MinesweeperTile extends Tile {
 }
 
 class AllMinesweeperObjects {
-  - width: int final
-  - height: int final
   - countOfMines: int final
 
   - countOfFlags: int
   - countOfClosedTiles: int
   - minesweeperTiles: MinesweeperTile[ ][ ]
 
-  + AllMinesweeperObjects( int, int, MinesweeperTile[ ][ ], int):
+
+  + AllMinesweeperObjects( MinesweeperTile[ ][ ], int):
   + inverseFlag( MinesweeperTile): void
   + open( MinesweeperTile): GameStatus
 
   - openRecursive( MinesweeperTile): GameStatus
   - defineNeighbors( MinesweeperTile): void
 }
-AllMinesweeperObjects -> MinesweeperTile
+AllMinesweeperObjects --> MinesweeperTile
 
 class MinesweeperModel extends BaseModel {
   ~ allMinesweeperObjects: AllMinesweeperObjects
@@ -60,6 +60,7 @@ class LevelGenerator {
   + LevelGenerator( ):
   + getLevel( int, int, int): AllMinesweeperObjects
 }
-
+LevelGenerator -> AllMinesweeperObjects
+LevelGenerator -> MinesweeperTile
 
 @enduml

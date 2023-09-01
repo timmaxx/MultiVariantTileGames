@@ -7,9 +7,9 @@ import java.util.Set;
 public class MinesweeperTile extends Tile {
     private final boolean isMine; // Есть-ли мина на плитке
 
-    private Set<MinesweeperTile> neighborTiles; // Соседние плитки
     private boolean isOpen;       // Открыта-ли плитка
     private boolean isFlag;       // Есть-ли флаг на плитке
+    private Set<MinesweeperTile> neighborTiles; // Соседние плитки
     private int countOfMineNeighbors = -1; // Количество заминированных плиток-соседей
                                            // Начальное значение -1 говорит о том, что значение заминированных плиток-соседей ещё не рассчитано.
 
