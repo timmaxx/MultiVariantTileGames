@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.geometry.*;
 import javafx.scene.*;
 import javafx.scene.image.*;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -13,25 +12,11 @@ import javafx.scene.text.*;
 import javafx.stage.*;
 
 import java.io.InputStream;
-import java.util.Random;
+// import java.util.Random;
 
 import static javafx.scene.input.KeyCode.SPACE;
 
 public abstract class Game extends Application implements GameScreen {
-
-    private final static Random random = new Random( );
-    private int width;
-    private int height;
-    private int cellSize;
-    // private Timeline timeline = new Timeline( );
-    // private int timerStep = 0;
-    private StackPane[ ][ ] cells;
-    private Pane root;
-    private Stage primaryStage;
-    private boolean showGrid = true;
-    private boolean showCoordinates = false;
-    private final boolean showTV = true;
-    private boolean isMessageShown = false;
     private final static int APP_WIDTH = 800; // 1600;
     private final static int APP_HEIGHT = 600; // 1200
 
@@ -42,14 +27,26 @@ public abstract class Game extends Application implements GameScreen {
 
     private final static int MAX_WIDTH = 100;
     private final static int MAX_HEIGHT = 100;
-    // private Text scoreText;
-    // private Text livesText;
+    // private final static Random random = new Random( );
+
+    private final boolean showTV = true;
+
+    private int width;
+    private int height;
+    private int cellSize;
+    private StackPane[ ][ ] cells;
+    private Pane root;
+    private Stage primaryStage;
+    private boolean showGrid = true;
+    private boolean showCoordinates = false;
+    private boolean isMessageShown = false;
     private TextFlow dialogContainer;
+    private GameScreenController gameScreenController;
+
 
     @Override
     public void start( Stage primaryStage) {
         this.primaryStage = primaryStage;
-        //scoreText = new Text( "Score: 0");
         initialize( );
     }
 
@@ -77,164 +74,6 @@ public abstract class Game extends Application implements GameScreen {
         reCreateContent();
     }
 
-    private void reCreateContent( ) {
-        Scene scene = new Scene( createContent( ));
-        setOnMouseClicked( scene);
-        setOnKeyReleased( scene);
-        setOnKeyPressed( scene);
-        primaryStage.setTitle( "JavaRush Game");
-        primaryStage.setResizable( false);
-        if ( showTV) {
-            if ( !primaryStage.isShowing( )) {
-                primaryStage.initStyle( StageStyle.TRANSPARENT);
-            }
-            scene.setFill( Color.TRANSPARENT);
-        }
-
-        primaryStage.setScene( scene);
-        primaryStage.show( );
-        // timeline.playFromStart( );
-
-        dialogContainer = new TextFlow( );
-        root.getChildren( ).add( dialogContainer);
-/*
-        livesText = new Text( );
-        livesText.setFont( Font.font(20));
-        livesText.setFill( Color.ORANGE);
-        livesText.setY( 160);
-        livesText.setX( 127);
-        root.getChildren( ).addAll( livesText);
-        */
-    }
-
-    private Parent createContent( ) {
-        root = new Pane( );
-        root.setPrefSize(
-                width * cellSize + PADDING_SIDE + PADDING_SIDE,
-                height * cellSize + PADDING_TOP + PADDING_DOWN);
-        createBorderImage( );
-
-        for( int y = 0; y < height; ++y) {
-            for( int x = 0; x < width; ++x) {
-                ObservableList< Node> children = cells[ y][ x].getChildren( );
-                Rectangle cell;
-                if ( showGrid && children.size( ) > 0) {
-                    cell = ( Rectangle)children.get( 0);
-                    cell.setWidth( cellSize - 1);
-                    cell.setHeight( cellSize - 1);
-                    cell.setStroke( Color.BLACK);
-                }
-
-                if ( showCoordinates && children.size( ) > 2) {
-                    Text coordinate = ( Text)children.get( 2);
-                    coordinate.setFont( Font.font( cellSize * 0.15));
-                    StackPane.setAlignment( coordinate, Pos.TOP_LEFT);
-                    coordinate.setText( x + " - " + y);
-                }
-
-                if ( children.size( ) > 0) {
-                    cell = ( Rectangle)children.get( 0);
-                    cell.setWidth( cellSize);
-                    cell.setHeight( cellSize);
-                    cells[ y][ x].setLayoutX( x * cellSize + PADDING_SIDE);
-                    cells[ y][ x].setLayoutY( y * cellSize + PADDING_TOP);
-                    root.getChildren( ).add( cells[ y][ x]);
-                }
-            }
-        }
-/*
-        scoreText = new Text( "Score: 0");
-        createScorePanel( );
-
-        timeline.setCycleCount( -1);
-        */
-        return root;
-    }
-
-    private void setOnMouseClicked( Scene scene) {
-        scene.setOnMouseClicked( event -> {
-            if ( isMessageShown) {
-                isMessageShown = false;
-                dialogContainer.setVisible( false);
-            }
-
-            if ( cellSize == 0) {
-                return;
-            }
-
-            double xx = event.getX( );
-            double yy = event.getY( );
-            if ( showTV) {
-                xx -= PADDING_SIDE;
-                yy -= PADDING_TOP;
-            }
-            int x = ( int)Math.floor( xx / cellSize);
-            if ( x < 0 || x >= width) {
-                return;
-            }
-            int y = ( int)Math.floor( yy / cellSize);
-            if ( y < 0 || y >= height) {
-                return;
-            }
-            switch ( event.getButton( )) {
-                case PRIMARY -> onMouseLeftClick( x, y);
-                case SECONDARY -> onMouseRightClick( x, y);
-            }
-        });
-    }
-
-    private void setOnKeyReleased( Scene scene) {
-        scene.setOnKeyReleased( event -> {
-            if ( !isMessageShown) {
-                onKeyReleased( event.getCode( ));
-            }
-        });
-    }
-
-    private void setOnKeyPressed( Scene scene) {
-        scene.setOnKeyPressed( event -> {
-            if ( isMessageShown && event.getCode( ) == SPACE) {
-                isMessageShown = false;
-                dialogContainer.setVisible( false);
-            }
-            onKeyPress( event.getCode( ));
-        });
-    }
-
-    private void createBorderImage( ) {
-        InputStream inputStream = Game.class.getResourceAsStream( "/screen.png");
-        assert inputStream != null;
-        Image image = new Image( inputStream);
-        ImageView imageView = new ImageView( image);
-        imageView.setFitWidth( width * cellSize + PADDING_SIDE + PADDING_SIDE);
-        imageView.setFitHeight( height * cellSize + PADDING_TOP + PADDING_DOWN);
-        root.getChildren( ).add( imageView);
-    }
-/*
-    private void createScorePanel( ) {
-        scoreText.setFont( Font.font("Verdana", FontWeight.BOLD, 16));
-        scoreText.setFill( Color.BLACK);
-        StackPane scorePane = new StackPane(scoreText);
-        scorePane.setBorder( new Border( new BorderStroke(
-                Color.BLACK,
-                BorderStrokeStyle.SOLID,
-                CornerRadii.EMPTY,
-                BorderWidths.DEFAULT)));
-        scorePane.setLayoutY( height * cellSize + PADDING_TOP + 6);
-        int scoreHeight = 20;
-        Rectangle rectangle;
-        if ( showGrid) {
-            rectangle = new Rectangle( ( ( width * cellSize - 1) / 2.), scoreHeight, Color.WHITE);
-            scorePane.setLayoutX( PADDING_SIDE + (width * cellSize - 1) / 4.);
-        } else {
-            rectangle = new Rectangle( ( width * cellSize / 2.), scoreHeight, Color.WHITE);
-            scorePane.setLayoutX( PADDING_SIDE - 1 + width * cellSize / 4.);
-        }
-
-        scorePane.getChildren( ).add( 0, rectangle);
-        root.getChildren( ).add( scorePane);
-    }
-*/
     @Override
     public void setCellColor( int x, int y, Color cellColor) {
         if ( cellColor != null && cellColor != Color.TRANSPARENT) {
@@ -246,7 +85,7 @@ public abstract class Game extends Application implements GameScreen {
             }
         }
     }
-
+/*
     @Override
     public void showGrid( boolean isShow) {
         showGrid = isShow;
@@ -256,7 +95,7 @@ public abstract class Game extends Application implements GameScreen {
     public void showCoordinates( boolean isShow) {
         showCoordinates = isShow;
     }
-
+*/
     @Override
     public void setCellValue( int x, int y, String textValue) {
         ObservableList< Node> children = cells[ y][ x].getChildren( );
@@ -297,29 +136,6 @@ public abstract class Game extends Application implements GameScreen {
     }
 /*
     @Override
-    public void setTurnTimer( int timeMs) {
-        timeline.stop( );
-        KeyFrame frame = new KeyFrame(
-                Duration.millis( timeMs),
-                event -> {
-                    if ( !isMessageShown) {
-                        onTurn( ++timerStep);
-                    }
-                },
-                new KeyValue[ 0]
-        );
-        timeline.getKeyFrames( ).clear( );
-        timeline.getKeyFrames( ).add( frame);
-        timeline.play( );
-    }
-*/
-/*
-    @Override
-    public void stopTurnTimer( ) {
-        timeline.stop( );
-    }
-*/
-    @Override
     public int getRandomNumber( int max) {
         return random.nextInt( max);
     }
@@ -329,26 +145,6 @@ public abstract class Game extends Application implements GameScreen {
         return random.nextInt(max - min) + min;
     }
 
-    @Override
-    public void onMouseLeftClick( int x, int y) {
-    }
-
-    @Override
-    public void onMouseRightClick( int x, int y) {
-    }
-
-    @Override
-    public void onKeyPress( KeyCode keyCode) {
-    }
-
-    @Override
-    public void onKeyReleased( KeyCode keyCode) {
-    }
-/*
-    @Override
-    public void onTurn( int step) {
-    }
-*/
     @Override
     public void setCellTextSize( int x, int y, int textSize) {
         ObservableList< Node> children = cells[ y][ x].getChildren( );
@@ -364,23 +160,17 @@ public abstract class Game extends Application implements GameScreen {
     }
 
     @Override
+    public void setCellValueEx( int x, int y, Color cellColor, String textValue, Color textColor) {
+        setCellValueEx( x, y, cellColor, textValue);
+        setCellTextColor( x, y, textColor);
+    }
+*/
+    @Override
     public void setCellValueEx( int x, int y, Color cellColor, String textValue) {
         setCellValue( x, y, textValue);
         setCellColor( x, y, cellColor);
     }
 
-    @Override
-    public void setCellValueEx( int x, int y, Color cellColor, String textValue, Color textColor) {
-        setCellValueEx( x, y, cellColor, textValue);
-        setCellTextColor( x, y, textColor);
-    }
-/*
-    @Override
-    public void setCellValueEx( int x, int y, Color cellColor, String value, Color textColor, int textSize) {
-        setCellValueEx( x, y, cellColor, value, textColor);
-        setCellTextSize( x, y, textSize);
-    }
-*/
     @Override
     public void showMessageDialog( Color cellColor, String message, Color textColor, int textSize) {
         dialogContainer.getChildren( ).clear( );
@@ -396,16 +186,128 @@ public abstract class Game extends Application implements GameScreen {
         dialogContainer.getChildren( ).add( messageText);
         isMessageShown = true;
     }
-/*
-    @Override
-    public void setScore( int score) {
-        scoreText.setText( "Score: " + score);
+
+    protected void setGameScreenController( GameScreenController gameScreenController) {
+        this.gameScreenController = gameScreenController;
     }
-*/
-/*
-    @Override
-    public void setLives( int lives) {
-        livesText.setText( "❤: " + lives);
+
+    private void reCreateContent( ) {
+        Scene scene = new Scene( createContent( ));
+        setOnMouseClicked( scene);
+        setOnKeyReleased( scene);
+        setOnKeyPressed( scene);
+        primaryStage.setTitle( "JavaRush Game");
+        primaryStage.setResizable( false);
+        if ( showTV) {
+            if ( !primaryStage.isShowing( )) {
+                primaryStage.initStyle( StageStyle.TRANSPARENT);
+            }
+            scene.setFill( Color.TRANSPARENT);
+        }
+
+        primaryStage.setScene( scene);
+        primaryStage.show( );
+
+        dialogContainer = new TextFlow( );
+        root.getChildren( ).add( dialogContainer);
     }
-*/
+
+    private Parent createContent( ) {
+        root = new Pane( );
+        root.setPrefSize(
+                width * cellSize + PADDING_SIDE + PADDING_SIDE,
+                height * cellSize + PADDING_TOP + PADDING_DOWN);
+        createBorderImage( );
+
+        for( int y = 0; y < height; ++y) {
+            for( int x = 0; x < width; ++x) {
+                ObservableList< Node> children = cells[ y][ x].getChildren( );
+                Rectangle cell;
+                if ( showGrid && children.size( ) > 0) {
+                    cell = ( Rectangle)children.get( 0);
+                    cell.setWidth( cellSize - 1);
+                    cell.setHeight( cellSize - 1);
+                    cell.setStroke( Color.BLACK);
+                }
+
+                if ( showCoordinates && children.size( ) > 2) {
+                    Text coordinate = ( Text)children.get( 2);
+                    coordinate.setFont( Font.font( cellSize * 0.15));
+                    StackPane.setAlignment( coordinate, Pos.TOP_LEFT);
+                    coordinate.setText( x + " - " + y);
+                }
+
+                if ( children.size( ) > 0) {
+                    cell = ( Rectangle)children.get( 0);
+                    cell.setWidth( cellSize);
+                    cell.setHeight( cellSize);
+                    cells[ y][ x].setLayoutX( x * cellSize + PADDING_SIDE);
+                    cells[ y][ x].setLayoutY( y * cellSize + PADDING_TOP);
+                    root.getChildren( ).add( cells[ y][ x]);
+                }
+            }
+        }
+
+        return root;
+    }
+
+    private void setOnMouseClicked( Scene scene) {
+        scene.setOnMouseClicked( event -> {
+            if ( isMessageShown) {
+                isMessageShown = false;
+                dialogContainer.setVisible( false);
+            }
+
+            if ( cellSize == 0) {
+                return;
+            }
+
+            double xx = event.getX( );
+            double yy = event.getY( );
+            if ( showTV) {
+                xx -= PADDING_SIDE;
+                yy -= PADDING_TOP;
+            }
+            int x = ( int)Math.floor( xx / cellSize);
+            if ( x < 0 || x >= width) {
+                return;
+            }
+            int y = ( int)Math.floor( yy / cellSize);
+            if ( y < 0 || y >= height) {
+                return;
+            }
+            switch ( event.getButton( )) {
+                case PRIMARY -> gameScreenController.onMouseLeftClick( x, y);
+                case SECONDARY -> gameScreenController.onMouseRightClick( x, y);
+            }
+        });
+    }
+
+    private void setOnKeyReleased( Scene scene) {
+        scene.setOnKeyReleased( event -> {
+            if ( !isMessageShown) {
+                gameScreenController.onKeyReleased( event.getCode( ));
+            }
+        });
+    }
+
+    private void setOnKeyPressed( Scene scene) {
+        scene.setOnKeyPressed( event -> {
+            if ( isMessageShown && event.getCode( ) == SPACE) {
+                isMessageShown = false;
+                dialogContainer.setVisible( false);
+            }
+            gameScreenController.onKeyPress( event.getCode( ));
+        });
+    }
+
+    private void createBorderImage( ) {
+        InputStream inputStream = Game.class.getResourceAsStream( "/screen.png");
+        assert inputStream != null;
+        Image image = new Image( inputStream);
+        ImageView imageView = new ImageView( image);
+        imageView.setFitWidth( width * cellSize + PADDING_SIDE + PADDING_SIDE);
+        imageView.setFitHeight( height * cellSize + PADDING_TOP + PADDING_DOWN);
+        root.getChildren( ).add( imageView);
+    }
 }
