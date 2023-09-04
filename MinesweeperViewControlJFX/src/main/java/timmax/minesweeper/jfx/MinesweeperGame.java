@@ -30,8 +30,8 @@ public class MinesweeperGame extends Game {
     @Override
     public void createGame( ) {
         log.debug( "createGame");
-        minesweeperModel.createNewGame( SIDE_OF_WIDTH, SIDE_OF_HEIGHT, REST_OF_MINE_INSTALLATION_IN_PERCENTS);
 
+        minesweeperModel.createNewGame( SIDE_OF_WIDTH, SIDE_OF_HEIGHT, REST_OF_MINE_INSTALLATION_IN_PERCENTS);
         setGameScreenController( new MinesweeperController( minesweeperModel, this));
         viewMainArea = new MinesweeperViewMainArea( minesweeperModel, this);
         viewGameOverMessage = new ViewGameOverMessage( minesweeperModel, this);

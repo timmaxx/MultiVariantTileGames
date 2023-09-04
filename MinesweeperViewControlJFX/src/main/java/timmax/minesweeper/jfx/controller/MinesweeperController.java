@@ -10,7 +10,7 @@ import timmax.tilegameenginejfx.GameScreenController;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class MinesweeperController implements GameScreenController {
-    private static final Logger log = getLogger(MinesweeperController.class);
+    private static final Logger log = getLogger( MinesweeperController.class);
 
     private final MinesweeperModel minesweeperModel;
     private final Game game;
@@ -23,7 +23,7 @@ public class MinesweeperController implements GameScreenController {
 
     @Override
     public void onMouseLeftClick( int x, int y) {
-        log.debug("onMouseLeftClick( {}, {})", x, y);
+        log.debug( "onMouseLeftClick( {}, {})", x, y);
         if ( minesweeperModel.getGameStatus( ) == GameStatus.GAME) {
             minesweeperModel.open( x, y);
         } else {
@@ -33,7 +33,7 @@ public class MinesweeperController implements GameScreenController {
 
     @Override
     public void onMouseRightClick( int x, int y) {
-        log.debug("onMouseRightClick( {}, {})", x, y);
+        log.debug( "onMouseRightClick( {}, {})", x, y);
         minesweeperModel.inverseFlag( x, y);
     }
 

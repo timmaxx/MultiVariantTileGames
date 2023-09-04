@@ -13,7 +13,6 @@ import java.util.List;
 import static javafx.scene.paint.Color.*;
 
 public class SokobanViewMainArea extends ViewMainArea {
-    Game game;
     private static final Color COLOR_OF_WALL = RED;
     private static final Color COLOR_OF_HOME = WHITE;
     private static final Color COLOR_OF_EMPTY = BLACK;
@@ -22,6 +21,8 @@ public class SokobanViewMainArea extends ViewMainArea {
     private static final Color COLOR_OF_PLAYER = GREEN;
     private static final String BOX = "█"; // "❐"; // "▉"; // "[]";
     private static final Color COLOR_OF_BOX = BLUE;
+
+    Game game;
 
     public SokobanViewMainArea( BaseModel baseModel, Game game) {
         super( baseModel);
@@ -32,7 +33,7 @@ public class SokobanViewMainArea extends ViewMainArea {
     @Override
     public void updateOneTile( int x, int y) {
         SokobanModel sokobanModel = ( SokobanModel)baseModel;
-        List<Tile> listOfTile = sokobanModel.getListOfXY( x, y);
+        List< Tile> listOfTile = sokobanModel.getListOfXY( x, y);
         game.setCellColor( x, y, COLOR_OF_EMPTY);
         game.setCellValue( x, y, "");
         for ( Tile tile : listOfTile) {
