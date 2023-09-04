@@ -10,9 +10,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
 import javafx.stage.*;
+import timmax.basetilemodel.BaseModel;
 
 import java.io.InputStream;
-// import java.util.Random;
 
 import static javafx.scene.input.KeyCode.SPACE;
 
@@ -27,7 +27,6 @@ public abstract class Game extends Application implements GameScreen {
 
     private final static int MAX_WIDTH = 100;
     private final static int MAX_HEIGHT = 100;
-    // private final static Random random = new Random( );
 
     private final boolean showTV = true;
 
@@ -42,18 +41,24 @@ public abstract class Game extends Application implements GameScreen {
     private boolean isMessageShown = false;
     private TextFlow dialogContainer;
     private GameScreenController gameScreenController;
-
+    private BaseModel baseModel;
 
     @Override
     public void start( Stage primaryStage) {
         this.primaryStage = primaryStage;
+        baseModel = getModel( );
         initialize( );
+    }
+
+    protected BaseModel getModel( ) {
+        if ( baseModel == null) {
+            baseModel = initModel( );
+        }
+        return baseModel;
     }
 
     @Override
     public void setScreenSize( int width, int height) {
-        // this.width = width < 3 ? 3 : (Math.min(width, MAX_WIDTH)); this.height = height < 3 ? 3 : (Math.min(height, MAX_HEIGHT));
-
         if (width < 3 || width > MAX_WIDTH || height < 3 || height > MAX_HEIGHT) {
             throw new RuntimeException(
                     "Width must be more 2 and less " + MAX_WIDTH + " and height must be more 2 and less " + MAX_HEIGHT + "! " +
@@ -85,17 +90,7 @@ public abstract class Game extends Application implements GameScreen {
             }
         }
     }
-/*
-    @Override
-    public void showGrid( boolean isShow) {
-        showGrid = isShow;
-    }
 
-    @Override
-    public void showCoordinates( boolean isShow) {
-        showCoordinates = isShow;
-    }
-*/
     @Override
     public void setCellValue( int x, int y, String textValue) {
         ObservableList< Node> children = cells[ y][ x].getChildren( );
@@ -134,37 +129,7 @@ public abstract class Game extends Application implements GameScreen {
             text.setFill( textColor);
         }
     }
-/*
-    @Override
-    public int getRandomNumber( int max) {
-        return random.nextInt( max);
-    }
 
-    @Override
-    public int getRandomNumber( int min, int max) {
-        return random.nextInt(max - min) + min;
-    }
-
-    @Override
-    public void setCellTextSize( int x, int y, int textSize) {
-        ObservableList< Node> children = cells[ y][ x].getChildren( );
-        if ( children.size( ) < 2) {
-            return;
-        }
-        Text text = ( Text)children.get( 1);
-        textSize = Math.min( textSize, 100);
-        double fontSize = cellSize * ( textSize / 100.0);
-        if ( !Font.font( fontSize).equals( text.getFont( ))) {
-            text.setFont( Font.font( fontSize));
-        }
-    }
-
-    @Override
-    public void setCellValueEx( int x, int y, Color cellColor, String textValue, Color textColor) {
-        setCellValueEx( x, y, cellColor, textValue);
-        setCellTextColor( x, y, textColor);
-    }
-*/
     @Override
     public void setCellValueEx( int x, int y, Color cellColor, String textValue) {
         setCellValue( x, y, textValue);

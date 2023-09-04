@@ -27,7 +27,7 @@ public class MinesweeperController implements GameScreenController {
         if ( minesweeperModel.getGameStatus( ) == GameStatus.GAME) {
             minesweeperModel.open( x, y);
         } else {
-            game.createGame( );
+            game.initialize( );
         }
     }
 

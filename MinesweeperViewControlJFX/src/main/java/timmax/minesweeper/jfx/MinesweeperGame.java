@@ -11,30 +11,28 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 public class MinesweeperGame extends Game {
     private static final Logger log = getLogger( MinesweeperGame.class);
+/*
     private static final int REST_OF_MINE_INSTALLATION_IN_PERCENTS = 10;
-
     private final static int SIDE_OF_WIDTH = 15;
     private final static int SIDE_OF_HEIGHT = 10;
+*/
 
-    private MinesweeperModel minesweeperModel;
-    private View viewMainArea;
-    private View viewGameOverMessage;
+    @Override
+    public BaseModel initModel( ) {
+        return new MinesweeperModel( );
+    }
 
     @Override
     public void initialize( ) {
         log.debug( "initialize");
-        minesweeperModel = new MinesweeperModel();
-        createGame( );
-    }
 
-    @Override
-    public void createGame( ) {
-        log.debug( "createGame");
+        MinesweeperModel minesweeperModel = ( ( MinesweeperModel)getModel( ));
 
-        minesweeperModel.createNewGame( SIDE_OF_WIDTH, SIDE_OF_HEIGHT, REST_OF_MINE_INSTALLATION_IN_PERCENTS);
+        //minesweeperModel.createNewGame( SIDE_OF_WIDTH, SIDE_OF_HEIGHT, REST_OF_MINE_INSTALLATION_IN_PERCENTS);
+        minesweeperModel.createNewGame( );
         setGameScreenController( new MinesweeperController( minesweeperModel, this));
-        viewMainArea = new MinesweeperViewMainArea( minesweeperModel, this);
-        viewGameOverMessage = new ViewGameOverMessage( minesweeperModel, this);
+        new MinesweeperViewMainArea( minesweeperModel, this);
+        new ViewGameOverMessage( minesweeperModel, this);
 
         minesweeperModel.notifyViews( );
     }

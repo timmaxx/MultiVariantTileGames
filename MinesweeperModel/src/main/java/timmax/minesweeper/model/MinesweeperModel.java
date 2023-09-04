@@ -1,25 +1,31 @@
 package timmax.minesweeper.model;
 
-import org.slf4j.Logger;
 import timmax.basetilemodel.BaseModel;
 import timmax.minesweeper.model.gameobject.AllMinesweeperObjects;
 import timmax.minesweeper.model.gameobject.LevelGenerator;
 
-import static org.slf4j.LoggerFactory.getLogger;
-
 // Модель игры Сапёр
 public class MinesweeperModel extends BaseModel {
-    private static final Logger log = getLogger( MinesweeperModel.class);
-    private AllMinesweeperObjects allMinesweeperObjects;
-
     private final LevelGenerator levelGenerator = new LevelGenerator( );
 
+    private AllMinesweeperObjects allMinesweeperObjects;
 
+    /*
+    private static final int REST_OF_MINE_INSTALLATION_IN_PERCENTS = 10;
+    private final static int SIDE_OF_WIDTH = 15;
+    private final static int SIDE_OF_HEIGHT = 10;
+    */
+
+    public void createNewGame( ) {
+        allMinesweeperObjects = levelGenerator.getLevel( 15, 10, 10);
+        super.createNewGame( 15, 10);
+    }
+/*
     public void createNewGame( int width, int height, int restOfMineInstallationInPercents) {
         allMinesweeperObjects = levelGenerator.getLevel( width, height, restOfMineInstallationInPercents);
         super.createNewGame( width, height);
     }
-
+*/
     public void inverseFlag( int x, int y) {
         allMinesweeperObjects.inverseFlag( allMinesweeperObjects.getTileByXY( x, y));
         notifyViews( );

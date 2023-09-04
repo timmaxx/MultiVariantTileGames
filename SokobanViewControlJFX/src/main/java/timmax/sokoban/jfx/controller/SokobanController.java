@@ -11,7 +11,8 @@ import static org.slf4j.LoggerFactory.getLogger;
 import static timmax.basetilemodel.tile.Direction.*;
 
 public class SokobanController implements GameScreenController {
-    private static final Logger log = getLogger(SokobanController.class);
+    private static final Logger log = getLogger( SokobanController.class);
+
     private final SokobanModel baseSokobanModel;
     private final Game game;
 
@@ -32,7 +33,7 @@ public class SokobanController implements GameScreenController {
         log.debug( "onKeyPress( {})", keyCode);
 
         if ( baseSokobanModel.isCurrentLevelChanged( )) {
-            game.createGame( );
+            game.initialize( );
             return;
         }
         if ( baseSokobanModel.getGameStatus( ) != GameStatus.GAME) {
