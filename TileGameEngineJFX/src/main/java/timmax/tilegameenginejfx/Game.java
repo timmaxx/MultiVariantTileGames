@@ -40,14 +40,27 @@ public abstract class Game extends Application implements GameScreen {
     private boolean showCoordinates = false;
     private boolean isMessageShown = false;
     private TextFlow dialogContainer;
-    private GameScreenController gameScreenController;
     private BaseModel baseModel;
+    private GameScreenController gameScreenController;
+
 
     @Override
     public void start( Stage primaryStage) {
         this.primaryStage = primaryStage;
-        baseModel = getModel( );
+        baseModel = initModel( );
         initialize( );
+    }
+
+    @Override
+    public void initialize( ) {
+        // log.debug( "initialize");
+
+        baseModel.createNewGame( );
+
+        gameScreenController = initGameScreenController( baseModel, this);
+        initViewMainArea( baseModel, this);
+        new ViewGameOverMessage( baseModel, this);
+        baseModel.notifyViews( );
     }
 
     protected BaseModel getModel( ) {
@@ -150,10 +163,6 @@ public abstract class Game extends Application implements GameScreen {
         dialogContainer.setVisible( true);
         dialogContainer.getChildren( ).add( messageText);
         isMessageShown = true;
-    }
-
-    protected void setGameScreenController( GameScreenController gameScreenController) {
-        this.gameScreenController = gameScreenController;
     }
 
     private void reCreateContent( ) {

@@ -16,15 +16,15 @@ public class LevelLoader {
         this.levels = levels;
     }
 
-    public AllSokobanObjects getLevel(int level) {
+    public AllSokobanObjects getLevel( int level) {
 
         int countOfBoxes = 0;
         int countOfHome = 0;
         int countOfPlayers = 0;
 
-        Set< Wall> walls = new HashSet<>();
-        Set< Box> boxes = new HashSet<>();
-        Set< Home> homes = new HashSet<>();
+        Set< Wall> walls = new HashSet< >( );
+        Set< Box> boxes = new HashSet< >( );
+        Set< Home> homes = new HashSet< >( );
         Player player = null;
 
         // ToDo: Сейчас берутся явно из файла.
@@ -99,7 +99,7 @@ public class LevelLoader {
 
         validate( countOfPlayers, countOfBoxes, countOfHome);
 
-        return new AllSokobanObjects( width, height, walls, boxes, homes, player,  countOfBoxes);
+        return new AllSokobanObjects( width, height, walls, boxes, homes, player, countOfBoxes);
     }
 
     private static void validate( int countOfPlayers, int countOfBoxes, int countOfHome) {

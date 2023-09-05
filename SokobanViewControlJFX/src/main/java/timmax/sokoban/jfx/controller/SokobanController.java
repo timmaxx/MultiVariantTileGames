@@ -2,6 +2,7 @@ package timmax.sokoban.jfx.controller;
 
 import org.slf4j.Logger;
 import javafx.scene.input.KeyCode;
+import timmax.basetilemodel.BaseModel;
 import timmax.basetilemodel.GameStatus;
 import timmax.sokoban.model.SokobanModel;
 import timmax.tilegameenginejfx.Game;
@@ -16,9 +17,9 @@ public class SokobanController implements GameScreenController {
     private final SokobanModel baseSokobanModel;
     private final Game game;
 
-    public SokobanController( SokobanModel baseSokobanModel, Game game) {
+    public SokobanController( BaseModel baseModel, Game game) {
         this.game = game;
-        this.baseSokobanModel = baseSokobanModel;
+        this.baseSokobanModel = ( SokobanModel)baseModel;
     }
 
     @Override

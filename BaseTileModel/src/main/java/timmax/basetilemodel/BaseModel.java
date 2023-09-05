@@ -13,14 +13,12 @@ public abstract class BaseModel implements ObservableModel {
     private int height;
     protected GameStatus gameStatus;
 
-    private void createNewGame( ) {
-        listOfViews = new ArrayList< >( );
-        gameStatus = GameStatus.GAME;
-    }
+    abstract public void createNewGame( );
 
     protected void createNewGame( int width, int height) {
         validateWidthHeight( width, height);
-        createNewGame( );
+        listOfViews = new ArrayList< >( );
+        gameStatus = GameStatus.GAME;
         this.width = width;
         this.height = height;
     }

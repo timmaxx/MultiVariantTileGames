@@ -2,6 +2,7 @@ package timmax.minesweeper.jfx.controller;
 
 import javafx.scene.input.KeyCode;
 import org.slf4j.Logger;
+import timmax.basetilemodel.BaseModel;
 import timmax.basetilemodel.GameStatus;
 import timmax.minesweeper.model.MinesweeperModel;
 import timmax.tilegameenginejfx.Game;
@@ -16,9 +17,9 @@ public class MinesweeperController implements GameScreenController {
     private final Game game;
 
 
-    public MinesweeperController( MinesweeperModel minesweeperModel, Game game) {
+    public MinesweeperController( BaseModel baseModelModel, Game game) {
         this.game = game;
-        this.minesweeperModel = minesweeperModel;
+        this.minesweeperModel = ( MinesweeperModel)baseModelModel;
     }
 
     @Override

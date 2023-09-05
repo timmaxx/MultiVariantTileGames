@@ -16,9 +16,15 @@ public class MinesweeperModel extends BaseModel {
     private final static int SIDE_OF_HEIGHT = 10;
     */
 
+    @Override
     public void createNewGame( ) {
-        allMinesweeperObjects = levelGenerator.getLevel( 15, 10, 10);
-        super.createNewGame( 15, 10);
+        createNewGame( 15, 10);
+    }
+
+    @Override
+    public void createNewGame( int width, int height) {
+        allMinesweeperObjects = levelGenerator.getLevel( width, height, 10);
+        super.createNewGame( width, height);
     }
 /*
     public void createNewGame( int width, int height, int restOfMineInstallationInPercents) {

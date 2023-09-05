@@ -1,6 +1,7 @@
 package timmax.sokoban.jfx;
 
 import timmax.basetilemodel.BaseModel;
+import timmax.basetilemodel.ViewMainArea;
 import timmax.sokoban.model.*;
 import timmax.sokoban.jfx.view.*;
 import timmax.sokoban.jfx.controller.*;
@@ -20,14 +21,18 @@ public class SokobanGame extends Game {
     @Override
     public void initialize( ) {
         log.debug( "initialize");
+        super.initialize( );
 
-        SokobanModel sokobanModel = ( ( SokobanModel)getModel( ));
-        sokobanModel.createNewGame( );
-        setGameScreenController( new SokobanController( sokobanModel, this));
-        new SokobanViewMainArea( sokobanModel, this);
-        new ViewGameOverMessage( sokobanModel, this);
-        sokobanModel.notifyViews( );
+        ( ( SokobanModel)getModel( )).dropCurrentLevelChanged( ); // Аналога этого вызова нет в Сапёре...
+    }
 
-        sokobanModel.dropCurrentLevelChanged( ); // Аналога этого вызова нет в Сапёре...
+    @Override
+    public GameScreenController initGameScreenController( BaseModel baseModel, Game game) {
+        return new SokobanController( baseModel, game);
+    }
+
+    @Override
+    public ViewMainArea initViewMainArea( BaseModel baseModel, Game game) {
+        return new SokobanViewMainArea( baseModel, game);
     }
 }

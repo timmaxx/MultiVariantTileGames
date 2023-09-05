@@ -10,18 +10,19 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class SokobanModel extends BaseModel {
-    AllSokobanObjects allSokobanObjects;
     private static LevelLoader levelLoader;
 
     private final CurrentLevel currentLevel = new CurrentLevel( );
+
+    private AllSokobanObjects allSokobanObjects;
 
     private Route route;
     private Route routeRedo = new Route( );
 
     static {
         try {
-            System.out.println( SokobanModel.class.getResource("levels.txt"));
-            levelLoader = new LevelLoader( Paths.get( SokobanModel.class.getResource("levels.txt").toURI( )));
+            System.out.println( SokobanModel.class.getResource( "levels.txt"));
+            levelLoader = new LevelLoader( Paths.get( SokobanModel.class.getResource( "levels.txt").toURI( )));
         } catch ( URISyntaxException e) {
         }
     }
@@ -37,9 +38,10 @@ public class SokobanModel extends BaseModel {
         return result;
     }
 
+    @Override
     public void createNewGame( ) {
         allSokobanObjects = levelLoader.getLevel( currentLevel.getValue());
-        super.createNewGame( allSokobanObjects.width(), allSokobanObjects.height());
+        super.createNewGame( allSokobanObjects.width( ), allSokobanObjects.height( ));
         route = new Route( );
         routeRedo = new Route( );
     }
@@ -77,15 +79,16 @@ public class SokobanModel extends BaseModel {
         Step step = routeRedo.pop( );
         movePlayerIfPossible( step.getDirection( ), true);
     }
-
-/*    private boolean checkWallCollision( CollisionObject gameObject, Direction direction) {
+/*
+    private boolean checkWallCollision( CollisionObject gameObject, Direction direction) {
         for( Wall wall: sokobanGameObjects.getWalls( )) {
             if ( gameObject.isCollision( wall, direction)) {
                 return false;
             }
         }
         return true;
-    }*/
+    }
+*/
     private boolean checkWallCollision( CollisionObject gameObject, Direction direction) {
         for( Wall wall: allSokobanObjects.walls( )) {
             if ( gameObject.isCollision( wall, direction)) {
