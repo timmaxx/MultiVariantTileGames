@@ -26,4 +26,6 @@ public interface GameScreen {
     GameScreenController initGameScreenController( BaseModel baseModel, Game game);
 
     ViewMainArea initViewMainArea( BaseModel baseModel, Game game);
+
+    String initTitle( );
 }

@@ -170,7 +170,7 @@ public abstract class Game extends Application implements GameScreen {
         setOnMouseClicked( scene);
         setOnKeyReleased( scene);
         setOnKeyPressed( scene);
-        primaryStage.setTitle( "JavaRush Game");
+        primaryStage.setTitle( initTitle( ));
         primaryStage.setResizable( false);
         if ( showTV) {
             if ( !primaryStage.isShowing( )) {

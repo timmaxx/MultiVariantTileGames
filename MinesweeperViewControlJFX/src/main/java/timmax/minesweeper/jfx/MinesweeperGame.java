@@ -27,4 +27,9 @@ public class MinesweeperGame extends Game {
     public ViewMainArea initViewMainArea( BaseModel baseModel, Game game) {
         return new MinesweeperViewMainArea( baseModel, game);
     }
+
+    @Override
+    public String initTitle() {
+        return "Minesweeper";
+    }
 }
