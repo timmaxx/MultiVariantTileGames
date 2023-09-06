@@ -25,6 +25,8 @@ public abstract class Game extends Application implements GameScreen {
     private final static int PADDING_DOWN = 140;
     private final static int PADDING_SIDE = 125;
 
+    private final static int MIN_WIDTH = 3;
+    private final static int MIN_HEIGHT = 3;
     private final static int MAX_WIDTH = 100;
     private final static int MAX_HEIGHT = 100;
 
@@ -72,9 +74,10 @@ public abstract class Game extends Application implements GameScreen {
 
     @Override
     public void setScreenSize( int width, int height) {
-        if ( width < 3 || width > MAX_WIDTH || height < 3 || height > MAX_HEIGHT) {
+        if ( width < MIN_WIDTH || width > MAX_WIDTH || height < MIN_HEIGHT || height > MAX_HEIGHT) {
             throw new RuntimeException(
-                    "Width must be more 2 and less " + MAX_WIDTH + " and height must be more 2 and less " + MAX_HEIGHT + "! " +
+                    "Width must be more " + MIN_WIDTH + " and less " + MAX_WIDTH +
+                            " and height must be more " + MIN_HEIGHT + " and less " + MAX_HEIGHT + "! " +
                             "But width = " + width + ", height = " + height + ".");
         }
         this.width = width;
