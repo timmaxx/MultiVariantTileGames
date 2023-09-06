@@ -36,8 +36,8 @@ public abstract class Game extends Application implements GameScreen {
     private StackPane[ ][ ] cells;
     private Pane root;
     private Stage primaryStage;
-    private boolean showGrid = true;
-    private boolean showCoordinates = false;
+    private final boolean showGrid = true;
+    private final boolean showCoordinates = false;
     private boolean isMessageShown = false;
     private TextFlow dialogContainer;
     private BaseModel baseModel;
@@ -72,7 +72,7 @@ public abstract class Game extends Application implements GameScreen {
 
     @Override
     public void setScreenSize( int width, int height) {
-        if (width < 3 || width > MAX_WIDTH || height < 3 || height > MAX_HEIGHT) {
+        if ( width < 3 || width > MAX_WIDTH || height < 3 || height > MAX_HEIGHT) {
             throw new RuntimeException(
                     "Width must be more 2 and less " + MAX_WIDTH + " and height must be more 2 and less " + MAX_HEIGHT + "! " +
                             "But width = " + width + ", height = " + height + ".");
@@ -153,7 +153,7 @@ public abstract class Game extends Application implements GameScreen {
     public void showMessageDialog( Color cellColor, String message, Color textColor, int textSize) {
         dialogContainer.getChildren( ).clear( );
         Text messageText = new Text( );
-        messageText.setFont( Font.font("Verdana", FontWeight.BOLD, textSize));
+        messageText.setFont( Font.font( "Verdana", FontWeight.BOLD, textSize));
         messageText.setText( message);
         double preferredWidth = messageText.getLayoutBounds( ).getWidth( );
         messageText.setFill( textColor);
