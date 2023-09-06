@@ -96,8 +96,7 @@ public abstract class Game extends Application implements GameScreen {
     public void setCellColor( int x, int y, Color cellColor) {
         if ( cellColor != null && cellColor != Color.TRANSPARENT) {
             ObservableList< Node> children = cells[ y][ x].getChildren( );
-            if (        children.size( ) > 0
-                    &&  !cellColor.equals( ( ( Rectangle)children.get( 0)).getFill( ))
+            if ( !cellColor.equals( ( ( Rectangle)children.get( 0)).getFill( ))
             ) {
                 ( ( Rectangle)children.get( 0)).setFill( cellColor);
             }
@@ -106,11 +105,10 @@ public abstract class Game extends Application implements GameScreen {
 
     @Override
     public void setCellValue( int x, int y, String textValue) {
+        // Повторяющийся блок кода в setCellValue и в setCellTextColor
         ObservableList< Node> children = cells[ y][ x].getChildren( );
-        if ( children.size( ) < 2) {
-            return;
-        }
         Text text = ( Text)children.get( 1);
+        // Конец блока
         if ( text.getText( ).equals( textValue)) {
             return;
         }
@@ -133,11 +131,10 @@ public abstract class Game extends Application implements GameScreen {
 
     @Override
     public void setCellTextColor( int x, int y, Color textColor) {
+        // Повторяющийся блок кода в setCellValue и в setCellTextColor
         ObservableList< Node> children = cells[ y][ x].getChildren( );
-        if ( children.size( ) < 2) {
-            return;
-        }
         Text text = ( Text)children.get( 1);
+        // Конец блока
         if ( !textColor.equals( text.getFill( ))) {
             text.setFill( textColor);
         }
@@ -197,21 +194,21 @@ public abstract class Game extends Application implements GameScreen {
             for( int x = 0; x < width; ++x) {
                 ObservableList< Node> children = cells[ y][ x].getChildren( );
                 Rectangle cell;
-                if ( showGrid && children.size( ) > 0) {
+                if ( showGrid) {
                     cell = ( Rectangle)children.get( 0);
                     cell.setWidth( cellSize - 1);
                     cell.setHeight( cellSize - 1);
                     cell.setStroke( Color.BLACK);
                 }
 
-                if ( showCoordinates && children.size( ) > 2) {
+                if ( showCoordinates) {
                     Text coordinate = ( Text)children.get( 2);
                     coordinate.setFont( Font.font( cellSize * 0.15));
                     StackPane.setAlignment( coordinate, Pos.TOP_LEFT);
                     coordinate.setText( x + " - " + y);
                 }
 
-                if ( children.size( ) > 0) {
+                {
                     cell = ( Rectangle)children.get( 0);
                     cell.setWidth( cellSize);
                     cell.setHeight( cellSize);
