@@ -1,13 +1,11 @@
 package timmax.tilegameenginejfx;
 
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.geometry.*;
 import javafx.scene.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
 import javafx.stage.*;
 import timmax.basetilemodel.BaseModel;
@@ -16,7 +14,7 @@ import java.io.InputStream;
 
 import static javafx.scene.input.KeyCode.SPACE;
 
-public abstract class Game extends Application implements GameScreen {
+public abstract class Game extends Application implements GameScreen, GameStackPaneSetCell {
     private final static int APP_WIDTH = 800; // 1600;
     private final static int APP_HEIGHT = 600; // 1200
 
@@ -35,7 +33,7 @@ public abstract class Game extends Application implements GameScreen {
     private int width;
     private int height;
     private int cellSize;
-    private StackPane[ ][ ] cells;
+    private GameStackPane[ ][ ] cells;
     private Pane root;
     private Stage primaryStage;
     private final boolean showGrid = true;
@@ -55,10 +53,7 @@ public abstract class Game extends Application implements GameScreen {
 
     @Override
     public void initialize( ) {
-        // log.debug( "initialize");
-
         baseModel.createNewGame( );
-
         gameScreenController = initGameScreenController( baseModel, this);
         initViewMainArea( baseModel, this);
         new ViewGameOverMessage( baseModel, this);
@@ -84,69 +79,40 @@ public abstract class Game extends Application implements GameScreen {
         this.height = height;
 
         cellSize = Math.min( APP_WIDTH / width, APP_HEIGHT / height);
-        cells = new StackPane[ height][ width];
+        cells = new GameStackPane[ height][ width];
 
         for( int y = 0; y < height; ++y) {
             for( int x = 0; x < width; ++x) {
-                cells[ y][ x] = new StackPane( new Rectangle( ), new Text( ), new Text( ));
+                cells[ y][ x] = new GameStackPane( );
             }
         }
 
-        reCreateContent();
+        reCreateContent( );
     }
 
     @Override
     public void setCellColor( int x, int y, Color cellColor) {
-        if ( cellColor != null && cellColor != Color.TRANSPARENT) {
-            ObservableList< Node> children = cells[ y][ x].getChildren( );
-            if ( !cellColor.equals( ( ( Rectangle)children.get( 0)).getFill( ))
-            ) {
-                ( ( Rectangle)children.get( 0)).setFill( cellColor);
-            }
-        }
+        cells[ y][ x].setCellColor( cellColor);
     }
 
     @Override
     public void setCellValue( int x, int y, String textValue) {
-        // Повторяющийся блок кода в setCellValue и в setCellTextColor
-        ObservableList< Node> children = cells[ y][ x].getChildren( );
-        Text text = ( Text)children.get( 1);
-        // Конец блока
-        if ( text.getText( ).equals( textValue)) {
-            return;
-        }
-
-        if ( textValue.length( ) < 5) {
-            double fontSize = cellSize * 0.4;
-            text.setFont( Font.font( fontSize));
-        } else {
-            int fontSize = cellSize / textValue.length( );
-            text.setFont( Font.font( fontSize));
-        }
-
-        text.setText( textValue);
+        cells[ y][ x].setCellValue( textValue, cellSize);
     }
 
     @Override
     public void setCellNumber( int x, int y, int numberValue) {
-        setCellValue( x, y, String.valueOf( numberValue));
+        cells[ y][ x].setCellValue( String.valueOf( numberValue), cellSize);
     }
 
     @Override
     public void setCellTextColor( int x, int y, Color textColor) {
-        // Повторяющийся блок кода в setCellValue и в setCellTextColor
-        ObservableList< Node> children = cells[ y][ x].getChildren( );
-        Text text = ( Text)children.get( 1);
-        // Конец блока
-        if ( !textColor.equals( text.getFill( ))) {
-            text.setFill( textColor);
-        }
+        cells[ y][ x].setCellTextColor( textColor);
     }
 
     @Override
     public void setCellValueEx( int x, int y, Color cellColor, String textValue) {
-        setCellValue( x, y, textValue);
-        setCellColor( x, y, cellColor);
+        cells[ y][ x].setCellValueEx( cellColor, textValue, cellSize);
     }
 
     @Override
@@ -195,30 +161,8 @@ public abstract class Game extends Application implements GameScreen {
 
         for( int y = 0; y < height; ++y) {
             for( int x = 0; x < width; ++x) {
-                ObservableList< Node> children = cells[ y][ x].getChildren( );
-                Rectangle cell;
-                if ( showGrid) {
-                    cell = ( Rectangle)children.get( 0);
-                    cell.setWidth( cellSize - 1);
-                    cell.setHeight( cellSize - 1);
-                    cell.setStroke( Color.BLACK);
-                }
-
-                if ( showCoordinates) {
-                    Text coordinate = ( Text)children.get( 2);
-                    coordinate.setFont( Font.font( cellSize * 0.15));
-                    StackPane.setAlignment( coordinate, Pos.TOP_LEFT);
-                    coordinate.setText( x + " - " + y);
-                }
-
-                {
-                    cell = ( Rectangle)children.get( 0);
-                    cell.setWidth( cellSize);
-                    cell.setHeight( cellSize);
-                    cells[ y][ x].setLayoutX( x * cellSize + PADDING_SIDE);
-                    cells[ y][ x].setLayoutY( y * cellSize + PADDING_TOP);
-                    root.getChildren( ).add( cells[ y][ x]);
-                }
+                cells[ y][ x].createContent( x, y, cellSize, showGrid, showCoordinates, PADDING_SIDE, PADDING_TOP);
+                root.getChildren( ).add( cells[ y][ x]);
             }
         }
 
@@ -242,14 +186,17 @@ public abstract class Game extends Application implements GameScreen {
                 xx -= PADDING_SIDE;
                 yy -= PADDING_TOP;
             }
+
             int x = ( int)Math.floor( xx / cellSize);
             if ( x < 0 || x >= width) {
                 return;
             }
+
             int y = ( int)Math.floor( yy / cellSize);
             if ( y < 0 || y >= height) {
                 return;
             }
+
             switch ( event.getButton( )) {
                 case PRIMARY -> gameScreenController.onMouseLeftClick( x, y);
                 case SECONDARY -> gameScreenController.onMouseRightClick( x, y);
