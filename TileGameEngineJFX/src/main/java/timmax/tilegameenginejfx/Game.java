@@ -1,11 +1,9 @@
 package timmax.tilegameenginejfx;
 
 import javafx.application.Application;
-import javafx.geometry.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.*;
 import javafx.stage.*;
 import timmax.basetilemodel.BaseModel;
 
@@ -35,8 +33,8 @@ public abstract class Game extends Application implements GameScreen, GameStackP
     private Stage primaryStage;
     private final boolean showGrid = true;
     private final boolean showCoordinates = false;
-    private boolean isMessageShown = false;
-    private TextFlow dialogContainer;
+
+    private GameOverMessage dialogContainer;
     private BaseModel baseModel;
     private GameScreenController gameScreenController;
 
@@ -106,7 +104,7 @@ public abstract class Game extends Application implements GameScreen, GameStackP
         primaryStage.setScene( scene);
         primaryStage.show( );
 
-        dialogContainer = new TextFlow( );
+        dialogContainer = new GameOverMessage( this, root);
         root.getChildren( ).add( dialogContainer);
     }
 
@@ -137,18 +135,7 @@ public abstract class Game extends Application implements GameScreen, GameStackP
 
     @Override
     public void showMessageDialog( Color cellColor, String message, Color textColor, int textSize) {
-        dialogContainer.getChildren( ).clear( );
-        Text messageText = new Text( );
-        messageText.setFont( Font.font( "Verdana", FontWeight.BOLD, textSize));
-        messageText.setText( message);
-        double preferredWidth = messageText.getLayoutBounds( ).getWidth( );
-        messageText.setFill( textColor);
-        dialogContainer.setLayoutX( ( root.getWidth( ) - preferredWidth) / 2.);
-        dialogContainer.setLayoutY( root.getHeight( ) / 2. - 30);
-        dialogContainer.setBackground( new Background( new BackgroundFill( cellColor, CornerRadii.EMPTY, Insets.EMPTY)));
-        dialogContainer.setVisible( true);
-        dialogContainer.getChildren( ).add( messageText);
-        isMessageShown = true;
+        dialogContainer.show( cellColor, message, textColor, textSize);
     }
 
     private void createBorderImage( ) {
@@ -162,11 +149,11 @@ public abstract class Game extends Application implements GameScreen, GameStackP
     }
 
     public boolean isMessageShown( ) {
-        return isMessageShown;
+        return dialogContainer.isMessageShown( );
     }
 
     public void setMessageShown( boolean isMessageShown) {
-        this.isMessageShown = isMessageShown;
+        dialogContainer.setMessageShown( isMessageShown);
     }
 
     public int getCellSize( ) {
