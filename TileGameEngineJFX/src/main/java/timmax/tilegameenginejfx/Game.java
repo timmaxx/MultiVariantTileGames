@@ -81,13 +81,38 @@ public abstract class Game extends Application implements GameScreen, GameStackP
         cellSize = Math.min( APP_WIDTH / width, APP_HEIGHT / height);
         cells = new GameStackPane[ height][ width];
 
+        root = new Pane( );
+        root.setPrefSize(
+                width * cellSize + PADDING_SIDE + PADDING_SIDE,
+                height * cellSize + PADDING_TOP + PADDING_DOWN
+        );
+        createBorderImage( );
+
         for( int y = 0; y < height; ++y) {
             for( int x = 0; x < width; ++x) {
-                cells[ y][ x] = new GameStackPane( );
+                cells[ y][ x] = new GameStackPane( x, y, cellSize, showGrid, showCoordinates, PADDING_SIDE, PADDING_TOP);
+                root.getChildren( ).add( cells[ y][ x]);
             }
         }
 
-        reCreateContent( );
+        Scene scene = new Scene( root);
+        setOnMouseClicked( scene);
+        setOnKeyReleased( scene);
+        setOnKeyPressed( scene);
+        primaryStage.setTitle( initTitle( ));
+        primaryStage.setResizable( false);
+        if ( showTV) {
+            if ( !primaryStage.isShowing( )) {
+                primaryStage.initStyle( StageStyle.TRANSPARENT);
+            }
+            scene.setFill( Color.TRANSPARENT);
+        }
+
+        primaryStage.setScene( scene);
+        primaryStage.show( );
+
+        dialogContainer = new TextFlow( );
+        root.getChildren( ).add( dialogContainer);
     }
 
     @Override
@@ -129,44 +154,6 @@ public abstract class Game extends Application implements GameScreen, GameStackP
         dialogContainer.setVisible( true);
         dialogContainer.getChildren( ).add( messageText);
         isMessageShown = true;
-    }
-
-    private void reCreateContent( ) {
-        Scene scene = new Scene( createContent( ));
-        setOnMouseClicked( scene);
-        setOnKeyReleased( scene);
-        setOnKeyPressed( scene);
-        primaryStage.setTitle( initTitle( ));
-        primaryStage.setResizable( false);
-        if ( showTV) {
-            if ( !primaryStage.isShowing( )) {
-                primaryStage.initStyle( StageStyle.TRANSPARENT);
-            }
-            scene.setFill( Color.TRANSPARENT);
-        }
-
-        primaryStage.setScene( scene);
-        primaryStage.show( );
-
-        dialogContainer = new TextFlow( );
-        root.getChildren( ).add( dialogContainer);
-    }
-
-    private Parent createContent( ) {
-        root = new Pane( );
-        root.setPrefSize(
-                width * cellSize + PADDING_SIDE + PADDING_SIDE,
-                height * cellSize + PADDING_TOP + PADDING_DOWN);
-        createBorderImage( );
-
-        for( int y = 0; y < height; ++y) {
-            for( int x = 0; x < width; ++x) {
-                cells[ y][ x].createContent( x, y, cellSize, showGrid, showCoordinates, PADDING_SIDE, PADDING_TOP);
-                root.getChildren( ).add( cells[ y][ x]);
-            }
-        }
-
-        return root;
     }
 
     private void setOnMouseClicked( Scene scene) {
