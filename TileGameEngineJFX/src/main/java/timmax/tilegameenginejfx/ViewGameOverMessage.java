@@ -8,13 +8,14 @@ import static javafx.scene.paint.Color.WHITE;
 import static timmax.basetilemodel.GameStatus.*;
 
 public class ViewGameOverMessage extends View {
-    private static final int MESSAGE_DIALOG_TEXT_SIZE = 30;
-    private static final Color MESSAGE_DIALOG_CELL_COLOR = AQUA;
-    private static final Color MESSAGE_DIALOG_TEXT_COLOR = WHITE;
-    private static final String MESSAGE_DIALOG_VICTORY_MESSAGE = "Victory!";
-    private static final String MESSAGE_DIALOG_DEFEAT_MESSAGE = "Defeat!";
+    private static final int GAME_OVER_MESSAGE_TEXT_SIZE = 30;
+    private static final Color GAME_OVER_MESSAGE_CELL_COLOR = AQUA;
+    private static final Color GAME_OVER_MESSAGE_TEXT_COLOR = WHITE;
+    private static final String GAME_OVER_MESSAGE_VICTORY_MESSAGE = "Victory!";
+    private static final String GAME_OVER_MESSAGE_DEFEAT_MESSAGE = "Defeat!";
 
     Game game;
+
 
     public ViewGameOverMessage( BaseModel baseModel, Game game) {
         super( baseModel);
@@ -27,15 +28,16 @@ public class ViewGameOverMessage extends View {
         if ( gameStatus == GAME) {
             return;
         }
-        String dialogMessage = "";
+        String message = "";
         if ( gameStatus == VICTORY) {
-            dialogMessage = MESSAGE_DIALOG_VICTORY_MESSAGE;
+            message = GAME_OVER_MESSAGE_VICTORY_MESSAGE;
         } else if ( gameStatus == DEFEAT) {
-            dialogMessage = MESSAGE_DIALOG_DEFEAT_MESSAGE;
+            message = GAME_OVER_MESSAGE_DEFEAT_MESSAGE;
         }
-        game.showMessageDialog( MESSAGE_DIALOG_CELL_COLOR
-                , dialogMessage
-                , MESSAGE_DIALOG_TEXT_COLOR
-                , MESSAGE_DIALOG_TEXT_SIZE);
+        game.showGameOverMessage( GAME_OVER_MESSAGE_CELL_COLOR
+                , message
+                , GAME_OVER_MESSAGE_TEXT_COLOR
+                , GAME_OVER_MESSAGE_TEXT_SIZE
+        );
     }
 }

@@ -34,7 +34,7 @@ public abstract class Game extends Application implements GameScreen, GameStackP
     private final boolean showGrid = true;
     private final boolean showCoordinates = false;
 
-    private GameOverMessage dialogContainer;
+    private GameOverMessage gameOverMessage;
     private BaseModel baseModel;
     private GameScreenController gameScreenController;
 
@@ -104,8 +104,8 @@ public abstract class Game extends Application implements GameScreen, GameStackP
         primaryStage.setScene( scene);
         primaryStage.show( );
 
-        dialogContainer = new GameOverMessage( this, root);
-        root.getChildren( ).add( dialogContainer);
+        gameOverMessage = new GameOverMessage( root);
+        root.getChildren( ).add( gameOverMessage);
     }
 
     @Override
@@ -134,21 +134,16 @@ public abstract class Game extends Application implements GameScreen, GameStackP
     }
 
     @Override
-    public void showMessageDialog( Color cellColor, String message, Color textColor, int textSize) {
-        dialogContainer.show( cellColor, message, textColor, textSize);
+    public void showGameOverMessage( Color cellColor, String message, Color textColor, int textSize) {
+        gameOverMessage.show( cellColor, message, textColor, textSize);
     }
 
-    public boolean isMessageShown( ) {
-        return dialogContainer.isMessageShown( );
+    public void hideGameOverMessage( ) {
+        gameOverMessage.hide( );
     }
 
-    public void setMessageShown( boolean isMessageShown) {
-        dialogContainer.setMessageShown( isMessageShown);
-    }
-
-    public void messageHide( ) {
-        dialogContainer.setMessageShown( false);
-        setDialogContainerVisible( false);
+    public boolean isGameOverMessageShown( ) {
+        return gameOverMessage.isMessageShown( );
     }
 
     private void createBorderImage( ) {
@@ -175,9 +170,5 @@ public abstract class Game extends Application implements GameScreen, GameStackP
 
     public int getHeight( ) {
         return height;
-    }
-
-    public void setDialogContainerVisible( boolean isVisible) {
-        dialogContainer.setVisible( isVisible);
     }
 }

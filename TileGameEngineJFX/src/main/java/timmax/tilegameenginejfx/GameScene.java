@@ -21,8 +21,8 @@ public class GameScene extends Scene {
 
     private void setOnMouseClicked( ) {
         setOnMouseClicked( event -> {
-            if ( game.isMessageShown( )) {
-                game.messageHide( );
+            if ( game.isGameOverMessageShown( )) {
+                game.hideGameOverMessage( );
             }
 
             if ( game.getCellSize( ) == 0) {
@@ -55,7 +55,7 @@ public class GameScene extends Scene {
 
     private void setOnKeyReleased( ) {
         setOnKeyReleased( event -> {
-            if ( !game.isMessageShown( )) {
+            if ( !game.isGameOverMessageShown( )) {
                 gameScreenController.onKeyReleased( event.getCode( ));
             }
         });
@@ -63,8 +63,8 @@ public class GameScene extends Scene {
 
     private void setOnKeyPressed( ) {
         setOnKeyPressed( event -> {
-            if ( game.isMessageShown( ) && event.getCode( ) == SPACE) {
-                game.messageHide( );
+            if ( game.isGameOverMessageShown( ) && event.getCode( ) == SPACE) {
+                game.hideGameOverMessage( );
             }
             gameScreenController.onKeyPress( event.getCode( ));
         });

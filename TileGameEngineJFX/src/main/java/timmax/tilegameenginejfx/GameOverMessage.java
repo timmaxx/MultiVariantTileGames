@@ -12,23 +12,15 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 public class GameOverMessage extends TextFlow {
-    private final Game game;
     private final Pane root;
 
 
-    private boolean isMessageShown = false;
-
-    public GameOverMessage( Game game, Pane root) {
-        this.game = game;
+    public GameOverMessage( Pane root) {
         this.root = root;
     }
 
     public boolean isMessageShown( ) {
-        return isMessageShown;
-    }
-
-    public void setMessageShown( boolean messageShown) {
-        isMessageShown = messageShown;
+        return isVisible( );
     }
 
     public void show( Color cellColor, String message, Color textColor, int textSize) {
@@ -42,9 +34,12 @@ public class GameOverMessage extends TextFlow {
         setLayoutX( ( root.getWidth( ) - preferredWidth) / 2.);
         setLayoutY( root.getHeight( ) / 2. - 30);
         setBackground( new Background( new BackgroundFill( cellColor, CornerRadii.EMPTY, Insets.EMPTY)));
-        setVisible( true);
         getChildren( ).add( messageText);
 
-        game.setMessageShown( true);
+        setVisible( true);
+    }
+
+    public void hide( ) {
+        setVisible( false);
     }
 }
