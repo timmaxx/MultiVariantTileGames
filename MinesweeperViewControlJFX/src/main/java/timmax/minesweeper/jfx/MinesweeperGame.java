@@ -29,7 +29,7 @@ public class MinesweeperGame extends Game {
     }
 
     @Override
-    public String initTitle() {
+    public String initTitle( ) {
         return "Minesweeper";
     }
 }

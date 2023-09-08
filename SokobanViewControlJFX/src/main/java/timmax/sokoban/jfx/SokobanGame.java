@@ -36,7 +36,7 @@ public class SokobanGame extends Game {
     }
 
     @Override
-    public String initTitle() {
+    public String initTitle( ) {
         return "Sokoban";
     }
 }
