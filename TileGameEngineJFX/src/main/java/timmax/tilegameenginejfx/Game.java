@@ -138,6 +138,19 @@ public abstract class Game extends Application implements GameScreen, GameStackP
         dialogContainer.show( cellColor, message, textColor, textSize);
     }
 
+    public boolean isMessageShown( ) {
+        return dialogContainer.isMessageShown( );
+    }
+
+    public void setMessageShown( boolean isMessageShown) {
+        dialogContainer.setMessageShown( isMessageShown);
+    }
+
+    public void messageHide( ) {
+        dialogContainer.setMessageShown( false);
+        setDialogContainerVisible( false);
+    }
+
     private void createBorderImage( ) {
         InputStream inputStream = Game.class.getResourceAsStream( "/screen.png");
         assert inputStream != null;
@@ -146,14 +159,6 @@ public abstract class Game extends Application implements GameScreen, GameStackP
         imageView.setFitWidth( width * cellSize + PADDING_SIDE + PADDING_SIDE);
         imageView.setFitHeight( height * cellSize + PADDING_TOP + PADDING_DOWN);
         root.getChildren( ).add( imageView);
-    }
-
-    public boolean isMessageShown( ) {
-        return dialogContainer.isMessageShown( );
-    }
-
-    public void setMessageShown( boolean isMessageShown) {
-        dialogContainer.setMessageShown( isMessageShown);
     }
 
     public int getCellSize( ) {

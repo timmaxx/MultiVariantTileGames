@@ -22,8 +22,7 @@ public class GameScene extends Scene {
     private void setOnMouseClicked( ) {
         setOnMouseClicked( event -> {
             if ( game.isMessageShown( )) {
-                game.setMessageShown( false);
-                game.setDialogContainerVisible( false);
+                game.messageHide( );
             }
 
             if ( game.getCellSize( ) == 0) {
@@ -65,8 +64,7 @@ public class GameScene extends Scene {
     private void setOnKeyPressed( ) {
         setOnKeyPressed( event -> {
             if ( game.isMessageShown( ) && event.getCode( ) == SPACE) {
-                game.setMessageShown( false);
-                game.setDialogContainerVisible( false);
+                game.messageHide( );
             }
             gameScreenController.onKeyPress( event.getCode( ));
         });
