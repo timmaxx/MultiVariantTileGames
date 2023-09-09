@@ -26,7 +26,7 @@ public class SokobanGame extends Game {
     }
 
     @Override
-    public GameScreenController initGameScreenController( BaseModel baseModel, Game game) {
+    public GameController initGameController(BaseModel baseModel, Game game) {
         return new SokobanController( baseModel, game);
     }
 

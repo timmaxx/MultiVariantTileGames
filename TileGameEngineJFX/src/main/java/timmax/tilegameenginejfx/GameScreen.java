@@ -13,7 +13,7 @@ public interface GameScreen {
 
     BaseModel initModel( );
 
-    GameScreenController initGameScreenController( BaseModel baseModel, Game game);
+    GameController initGameController( BaseModel baseModel, Game game);
 
     ViewMainArea initViewMainArea( BaseModel baseModel, Game game);
 

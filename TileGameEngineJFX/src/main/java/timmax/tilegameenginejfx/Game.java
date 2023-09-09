@@ -36,7 +36,7 @@ public abstract class Game extends Application implements GameScreen, GameStackP
 
     private GameOverMessage gameOverMessage;
     private BaseModel baseModel;
-    private GameScreenController gameScreenController;
+    private GameController gameController;
 
 
     @Override
@@ -49,7 +49,7 @@ public abstract class Game extends Application implements GameScreen, GameStackP
     @Override
     public void initialize( ) {
         baseModel.createNewGame( );
-        gameScreenController = initGameScreenController( baseModel, this);
+        gameController = initGameController( baseModel, this);
         initViewMainArea( baseModel, this);
         new ViewGameOverMessage( baseModel, this);
         baseModel.notifyViews( );
@@ -90,7 +90,7 @@ public abstract class Game extends Application implements GameScreen, GameStackP
             }
         }
 
-        GameScene scene = new GameScene( root, this, gameScreenController);
+        GameScene scene = new GameScene( root, this, gameController);
 
         primaryStage.setTitle( initTitle( ));
         primaryStage.setResizable( false);

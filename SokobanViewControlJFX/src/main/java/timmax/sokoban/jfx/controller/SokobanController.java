@@ -6,53 +6,42 @@ import timmax.basetilemodel.BaseModel;
 import timmax.basetilemodel.GameStatus;
 import timmax.sokoban.model.SokobanModel;
 import timmax.tilegameenginejfx.Game;
-import timmax.tilegameenginejfx.GameScreenController;
+import timmax.tilegameenginejfx.GameController;
 
 import static org.slf4j.LoggerFactory.getLogger;
 import static timmax.basetilemodel.tile.Direction.*;
 
-public class SokobanController implements GameScreenController {
+public class SokobanController extends GameController {
     private static final Logger log = getLogger( SokobanController.class);
 
-    private final SokobanModel baseSokobanModel;
-    private final Game game;
 
     public SokobanController( BaseModel baseModel, Game game) {
-        this.game = game;
-        this.baseSokobanModel = ( SokobanModel)baseModel;
+        super( baseModel, game);
     }
 
-    @Override
-    public void onMouseLeftClick( int x, int y) {
-    }
-
-    @Override
-    public void onMouseRightClick( int x, int y) {
+    private SokobanModel getSokobanModel( ) {
+        return ( SokobanModel)baseModel;
     }
 
     public void onKeyPress( KeyCode keyCode) {
         log.debug( "onKeyPress( {})", keyCode);
 
-        if ( baseSokobanModel.isCurrentLevelChanged( )) {
+        if ( getSokobanModel( ).isCurrentLevelChanged( )) {
             game.initialize( );
             return;
         }
-        if ( baseSokobanModel.getGameStatus( ) != GameStatus.GAME) {
+        if ( getSokobanModel( ).getGameStatus( ) != GameStatus.GAME) {
             return;
         }
-        if        ( keyCode.equals( KeyCode.Q)) { baseSokobanModel.moveUndo( );
-        } else if ( keyCode.equals( KeyCode.P)) { baseSokobanModel.moveRedo( );
-        } else if ( keyCode.equals( KeyCode.LEFT)) { baseSokobanModel.move( LEFT);
-        } else if ( keyCode.equals( KeyCode.RIGHT)) { baseSokobanModel.move( RIGHT);
-        } else if ( keyCode.equals( KeyCode.UP)) { baseSokobanModel.move( UP);
-        } else if ( keyCode.equals( KeyCode.DOWN)) { baseSokobanModel.move( DOWN);
-        } else if ( keyCode.equals( KeyCode.BACK_SPACE)) { baseSokobanModel.decLevel( );
-        } else if ( keyCode.equals( KeyCode.SPACE)) { baseSokobanModel.incLevel( );
-        } else if ( keyCode.equals( KeyCode.ESCAPE)) { baseSokobanModel.restart( );
+        if        ( keyCode.equals( KeyCode.Q))          { getSokobanModel( ).moveUndo( );
+        } else if ( keyCode.equals( KeyCode.P))          { getSokobanModel( ).moveRedo( );
+        } else if ( keyCode.equals( KeyCode.LEFT))       { getSokobanModel( ).move( LEFT);
+        } else if ( keyCode.equals( KeyCode.RIGHT))      { getSokobanModel( ).move( RIGHT);
+        } else if ( keyCode.equals( KeyCode.UP))         { getSokobanModel( ).move( UP);
+        } else if ( keyCode.equals( KeyCode.DOWN))       { getSokobanModel( ).move( DOWN);
+        } else if ( keyCode.equals( KeyCode.BACK_SPACE)) { getSokobanModel( ).decLevel( );
+        } else if ( keyCode.equals( KeyCode.SPACE))      { getSokobanModel( ).incLevel( );
+        } else if ( keyCode.equals( KeyCode.ESCAPE))     { getSokobanModel( ).restart( );
         }
-    }
-
-    @Override
-    public void onKeyReleased( KeyCode keyCode) {
     }
 }

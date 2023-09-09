@@ -19,7 +19,7 @@ public class MinesweeperGame extends Game {
     }
 
     @Override
-    public GameScreenController initGameScreenController( BaseModel baseModel, Game game) {
+    public GameController initGameController( BaseModel baseModel, Game game) {
         return new MinesweeperController( baseModel, game);
     }
 

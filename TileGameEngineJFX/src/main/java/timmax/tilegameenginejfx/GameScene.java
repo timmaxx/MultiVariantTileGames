@@ -6,14 +6,14 @@ import javafx.scene.Scene;
 import static javafx.scene.input.KeyCode.SPACE;
 
 public class GameScene extends Scene {
-    private final GameScreenController gameScreenController;
+    private final GameController gameController;
     private final Game game;
 
 
-    public GameScene( Parent root, Game game, GameScreenController gameScreenController) {
+    public GameScene( Parent root, Game game, GameController gameController) {
         super( root);
         this.game = game;
-        this.gameScreenController = gameScreenController;
+        this.gameController = gameController;
         setOnMouseClicked( );
         setOnKeyPressed( );
         setOnKeyReleased( );
@@ -47,8 +47,8 @@ public class GameScene extends Scene {
             }
 
             switch ( event.getButton( )) {
-                case PRIMARY -> gameScreenController.onMouseLeftClick( x, y);
-                case SECONDARY -> gameScreenController.onMouseRightClick( x, y);
+                case PRIMARY -> gameController.onMouseLeftClick( x, y);
+                case SECONDARY -> gameController.onMouseRightClick( x, y);
             }
         });
     }
@@ -56,7 +56,7 @@ public class GameScene extends Scene {
     private void setOnKeyReleased( ) {
         setOnKeyReleased( event -> {
             if ( !game.isGameOverMessageShown( )) {
-                gameScreenController.onKeyReleased( event.getCode( ));
+                gameController.onKeyReleased( event.getCode( ));
             }
         });
     }
@@ -66,7 +66,7 @@ public class GameScene extends Scene {
             if ( game.isGameOverMessageShown( ) && event.getCode( ) == SPACE) {
                 game.hideGameOverMessage( );
             }
-            gameScreenController.onKeyPress( event.getCode( ));
+            gameController.onKeyPress( event.getCode( ));
         });
     }
 }
