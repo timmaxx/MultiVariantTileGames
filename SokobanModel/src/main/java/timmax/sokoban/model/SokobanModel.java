@@ -27,7 +27,8 @@ public class SokobanModel extends BaseModel {
         }
     }
 
-    public List< Tile> getListOfXY(int x, int y) {
+
+    public List< Tile> getListOfXY( int x, int y) {
         List< Tile> result = new ArrayList< >( );
         for ( Tile tile : allSokobanObjects.getAll( )) {
             if ( tile.getX( ) == x && tile.getY( ) == y) {
@@ -79,16 +80,7 @@ public class SokobanModel extends BaseModel {
         Step step = routeRedo.pop( );
         movePlayerIfPossible( step.getDirection( ), true);
     }
-/*
-    private boolean checkWallCollision( CollisionObject gameObject, Direction direction) {
-        for( Wall wall: sokobanGameObjects.getWalls( )) {
-            if ( gameObject.isCollision( wall, direction)) {
-                return false;
-            }
-        }
-        return true;
-    }
-*/
+
     private boolean checkWallCollision( CollisionObject gameObject, Direction direction) {
         for( Wall wall: allSokobanObjects.walls( )) {
             if ( gameObject.isCollision( wall, direction)) {
@@ -106,22 +98,11 @@ public class SokobanModel extends BaseModel {
         }
         return true;
     }
-/*
-    private boolean checkCollision( CollisionObject gameObject, Direction direction, Set<CollisionObject> setOfXY) {
-        for( CollisionObject collisionObject: setOfXY) {
-            if ( gameObject.isCollision( collisionObject, direction)) {
-                return false;
-            }
-        }
-        return true;
-    }
-*/
+
     private boolean movePlayerIfPossible( Direction direction, boolean isRedo) {
         Player player = allSokobanObjects.player( );
         if ( !isRedo) {
-            if ( !checkWallCollision( player, direction))
-            // if ( !checkCollision( player, direction, gameObjects.getWalls( )))
-            {
+            if ( !checkWallCollision( player, direction)) {
                 return false;
             }
         }
@@ -129,14 +110,10 @@ public class SokobanModel extends BaseModel {
         for( Box box: allSokobanObjects.boxes( )) {
             if ( player.isCollision( box, direction)) {
                 if ( !isRedo) {
-                    if ( !checkWallCollision( box, direction))
-                    // if ( !checkCollision( box, direction, gameObjects.getWalls( )))
-                    {
+                    if ( !checkWallCollision( box, direction)) {
                         return false;
                     }
-                    if ( !checkBoxCollision( box, direction))
-                    // if ( !checkCollision( box, direction, gameObjects.getBoxes( )))
-                    {
+                    if ( !checkBoxCollision( box, direction)) {
                         return false;
                     }
                 }
@@ -174,28 +151,18 @@ public class SokobanModel extends BaseModel {
         gameStatus = GameStatus.VICTORY;
         currentLevel.incValue( );
     }
-/*
-    public void setLevel( int level) {
-        currentLevel.setValue( level);
-    }
-*/
+
     public void incLevel( ) {
+        gameStatus = GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
         currentLevel.incValue( );
     }
 
     public void decLevel( ) {
-        currentLevel.decValue();
+        gameStatus = GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
+        currentLevel.decValue( );
     }
 
     public void restart( ) {
-        currentLevel.restart( );
-    }
-
-    public boolean isCurrentLevelChanged( ) {
-        return currentLevel.isCurrentLevelChanged( );
-    }
-
-    public void dropCurrentLevelChanged( ) {
-        currentLevel.dropCurrentLevelChanged();
+        gameStatus = GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
     }
 }

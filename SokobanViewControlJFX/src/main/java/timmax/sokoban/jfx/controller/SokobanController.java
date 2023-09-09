@@ -26,13 +26,11 @@ public class SokobanController extends GameController {
     public void onKeyPress( KeyCode keyCode) {
         log.debug( "onKeyPress( {})", keyCode);
 
-        if ( getSokobanModel( ).isCurrentLevelChanged( )) {
+        if ( getSokobanModel( ).getGameStatus( ) != GameStatus.GAME) {
             game.initialize( );
             return;
         }
-        if ( getSokobanModel( ).getGameStatus( ) != GameStatus.GAME) {
-            return;
-        }
+
         if        ( keyCode.equals( KeyCode.Q))          { getSokobanModel( ).moveUndo( );
         } else if ( keyCode.equals( KeyCode.P))          { getSokobanModel( ).moveRedo( );
         } else if ( keyCode.equals( KeyCode.LEFT))       { getSokobanModel( ).move( LEFT);

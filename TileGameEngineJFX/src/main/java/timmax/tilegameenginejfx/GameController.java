@@ -8,7 +8,7 @@ public abstract class GameController {
     protected final Game game;
 
 
-    protected GameController(BaseModel baseModel, Game game) {
+    public GameController( BaseModel baseModel, Game game) {
         this.baseModel = baseModel;
         this.game = game;
     }

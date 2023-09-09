@@ -24,16 +24,19 @@ public class MinesweeperController extends GameController {
     @Override
     public void onMouseLeftClick( int x, int y) {
         log.debug( "onMouseLeftClick( {}, {})", x, y);
-        if ( getMinesweeperModel( ).getGameStatus( ) == GameStatus.GAME) {
-            getMinesweeperModel( ).open( x, y);
-        } else {
+
+        if ( getMinesweeperModel( ).getGameStatus( ) != GameStatus.GAME) {
             game.initialize( );
+            return;
         }
+
+        getMinesweeperModel( ).open( x, y);
     }
 
     @Override
     public void onMouseRightClick( int x, int y) {
         log.debug( "onMouseRightClick( {}, {})", x, y);
+
         getMinesweeperModel( ).inverseFlag( x, y);
     }
 }
