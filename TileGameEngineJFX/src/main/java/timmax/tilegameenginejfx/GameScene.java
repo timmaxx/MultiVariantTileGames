@@ -3,8 +3,6 @@ package timmax.tilegameenginejfx;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
-import static javafx.scene.input.KeyCode.SPACE;
-
 public class GameScene extends Scene {
     private final GameController gameController;
     private final Game game;
@@ -21,10 +19,6 @@ public class GameScene extends Scene {
 
     private void setOnMouseClicked( ) {
         setOnMouseClicked( event -> {
-            if ( game.isGameOverMessageShown( )) {
-                game.hideGameOverMessage( );
-            }
-
             if ( game.getCellSize( ) == 0) {
                 return;
             }
@@ -54,19 +48,16 @@ public class GameScene extends Scene {
     }
 
     private void setOnKeyReleased( ) {
-        setOnKeyReleased( event -> {
-            if ( !game.isGameOverMessageShown( )) {
-                gameController.onKeyReleased( event.getCode( ));
-            }
-        });
+        setOnKeyReleased( event -> gameController.onKeyReleased( event.getCode( )));
     }
 
     private void setOnKeyPressed( ) {
+        /*
         setOnKeyPressed( event -> {
-            if ( game.isGameOverMessageShown( ) && event.getCode( ) == SPACE) {
-                game.hideGameOverMessage( );
-            }
             gameController.onKeyPress( event.getCode( ));
         });
+        }
+    */
+        setOnKeyPressed( event -> gameController.onKeyPress( event.getCode( )));
     }
 }

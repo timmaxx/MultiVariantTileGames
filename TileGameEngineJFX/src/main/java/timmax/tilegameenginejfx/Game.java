@@ -34,7 +34,6 @@ public abstract class Game extends Application implements GameScreen, GameStackP
     private final boolean showGrid = true;
     private final boolean showCoordinates = false;
 
-    private GameOverMessage gameOverMessage;
     private BaseModel baseModel;
     private GameController gameController;
 
@@ -66,17 +65,10 @@ public abstract class Game extends Application implements GameScreen, GameStackP
     public void initialize( ) {
         baseModel.createNewGame( );
         initViewMainArea( baseModel, this);
-        new ViewGameOverMessage( baseModel, this);
+        new ViewGameOverMessage( baseModel, root);
         baseModel.notifyViews( );
     }
-/*
-    protected BaseModel getModel( ) {
-        if ( baseModel == null) {
-            baseModel = initModel( );
-        }
-        return baseModel;
-    }
-*/
+
     @Override
     public void setScreenSize( int width, int height) {
         if ( width < MIN_WIDTH || width > MAX_WIDTH || height < MIN_HEIGHT || height > MAX_HEIGHT) {
@@ -108,11 +100,6 @@ public abstract class Game extends Application implements GameScreen, GameStackP
         }
 //  /
 
-//  \
-        gameOverMessage = new GameOverMessage( root);
-        root.getChildren( ).add( gameOverMessage);
-//  /
-
         primaryStage.show( );
     }
 
@@ -139,19 +126,6 @@ public abstract class Game extends Application implements GameScreen, GameStackP
     @Override
     public void setCellValueEx( int x, int y, Color cellColor, String textValue) {
         cells[ y][ x].setCellValueEx( cellColor, textValue, cellSize);
-    }
-
-    @Override
-    public void showGameOverMessage( Color cellColor, String message, Color textColor, int textSize) {
-        gameOverMessage.show( cellColor, message, textColor, textSize);
-    }
-
-    public void hideGameOverMessage( ) {
-        gameOverMessage.hide( );
-    }
-
-    public boolean isGameOverMessageShown( ) {
-        return gameOverMessage.isMessageShown( );
     }
 
     private void createBorderImage( ) {
