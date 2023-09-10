@@ -14,7 +14,7 @@ public class GameStackPane extends StackPane {
     private static final double GENERAL_TEXT_FONT_SIZE_COEFFICIENT = 0.4;
 
 
-    public GameStackPane( int x, int y, int cellSize, boolean showGrid, boolean showCoordinates, int PADDING_SIDE, int PADDING_TOP) {
+    public GameStackPane( int x, int y, int cellSize, boolean showGrid, boolean showCoordinates) {
         super( new Rectangle( ), new Text( ), new Text( ));
 
         if ( showGrid) {
@@ -29,8 +29,8 @@ public class GameStackPane extends StackPane {
         }
         getRectangle( ).setWidth( cellSize);
         getRectangle( ).setHeight( cellSize);
-        setLayoutX( x * cellSize + PADDING_SIDE);
-        setLayoutY( y * cellSize + PADDING_TOP);
+        setLayoutX( x * cellSize + Game.getPaddingSide( ));
+        setLayoutY( y * cellSize + Game.getPaddingTop( ));
     }
 
     private Rectangle getRectangle( ) {

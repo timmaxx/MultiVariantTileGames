@@ -19,10 +19,6 @@ public class GameOverMessage extends TextFlow {
         this.root = root;
     }
 
-    public boolean isMessageShown( ) {
-        return isVisible( );
-    }
-
     public void show( Color cellColor, String message, Color textColor, int textSize) {
         getChildren( ).clear( );
         Text messageText = new Text( );
@@ -37,9 +33,5 @@ public class GameOverMessage extends TextFlow {
         getChildren( ).add( messageText);
 
         setVisible( true);
-    }
-
-    public void hide( ) {
-        setVisible( false);
     }
 }

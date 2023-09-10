@@ -21,7 +21,7 @@ public abstract class ViewMainAreaJfx extends ViewMainArea {
         cells = new GameStackPane[ baseModel.getHeight( )][ baseModel.getWidth( )];
         for( int y = 0; y < baseModel.getHeight( ); ++y) {
             for( int x = 0; x < baseModel.getWidth( ); ++x) {
-                cells[ y][ x] = new GameStackPane( x, y, cellSize, showGrid, showCoordinates, Game.PADDING_SIDE, Game.PADDING_TOP);
+                cells[ y][ x] = new GameStackPane( x, y, cellSize, showGrid, showCoordinates);
                 root.getChildren( ).add( cells[ y][ x]);
             }
         }

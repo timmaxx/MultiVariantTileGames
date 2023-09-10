@@ -14,16 +14,15 @@ public abstract class Game extends Application implements GameScreen {
     public final static int APP_HEIGHT = 600; // 1200
 
     // These constants (PADDING_X) for screen.png:
-    public final static int PADDING_TOP = 110;
-    public final static int PADDING_DOWN = 140;
-    public final static int PADDING_SIDE = 125;
+    private final static int PADDING_TOP = 110;
+    private final static int PADDING_DOWN = 140;
+    private final static int PADDING_SIDE = 125;
 
     private final static int MIN_WIDTH = 3;
     private final static int MIN_HEIGHT = 3;
     private final static int MAX_WIDTH = 100;
     private final static int MAX_HEIGHT = 100;
-
-    private final boolean showTV = true;
+    private final static boolean showTV = false; // true;
 
     private int width;
     private int height;
@@ -34,7 +33,6 @@ public abstract class Game extends Application implements GameScreen {
     // private final boolean showCoordinates = false;
 
     private BaseModel baseModel;
-    private GameController gameController;
 
 
     @Override
@@ -42,7 +40,7 @@ public abstract class Game extends Application implements GameScreen {
         this.primaryStage = primaryStage;
 
         baseModel = initModel( );
-        gameController = initGameController( baseModel, this);
+        GameController gameController = initGameController( baseModel, this);
 
         root = new Pane( );
         GameScene scene = new GameScene( root, this, gameController);
@@ -83,14 +81,28 @@ public abstract class Game extends Application implements GameScreen {
         cellSize = Math.min( APP_WIDTH / width, APP_HEIGHT / height);
 
         root.setPrefSize(
-                width * cellSize + PADDING_SIDE + PADDING_SIDE,
-                height * cellSize + PADDING_TOP + PADDING_DOWN
+                width * cellSize + getPaddingSide( ) + getPaddingSide( ),
+                height * cellSize + getPaddingTop( ) + getPaddingDown( )
         );
 //  \
-        createBorderImage( );
+        if ( showTV) {
+            createBorderImage( );
+        }
 //  /
 
         primaryStage.show( );
+    }
+
+    public static int getPaddingSide( ) {
+        return showTV ? PADDING_SIDE : 0;
+    }
+
+    public static int getPaddingTop( ) {
+        return showTV ? PADDING_TOP : 0;
+    }
+
+    public static int getPaddingDown( ) {
+        return showTV ? PADDING_DOWN : 0;
     }
 
     private void createBorderImage( ) {
@@ -105,10 +117,6 @@ public abstract class Game extends Application implements GameScreen {
 
     public int getCellSize( ) {
         return cellSize;
-    }
-
-    public boolean getShowTV( ) {
-        return showTV;
     }
 
     public int getWidth( ) {
