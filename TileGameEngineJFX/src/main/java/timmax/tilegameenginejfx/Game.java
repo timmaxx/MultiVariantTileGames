@@ -9,9 +9,9 @@ import timmax.basetilemodel.BaseModel;
 
 import java.io.InputStream;
 
-public abstract class Game extends Application implements GameScreen, GameStackPaneSetCell {
-    private final static int APP_WIDTH = 800; // 1600;
-    private final static int APP_HEIGHT = 600; // 1200
+public abstract class Game extends Application implements GameScreen {
+    public final static int APP_WIDTH = 800; // 1600;
+    public final static int APP_HEIGHT = 600; // 1200
 
     // These constants (PADDING_X) for screen.png:
     public final static int PADDING_TOP = 110;
@@ -28,11 +28,10 @@ public abstract class Game extends Application implements GameScreen, GameStackP
     private int width;
     private int height;
     private int cellSize;
-    private GameStackPane[ ][ ] cells;
     private Pane root;
     private Stage primaryStage;
-    private final boolean showGrid = true;
-    private final boolean showCoordinates = false;
+    // private final boolean showGrid = true;
+    // private final boolean showCoordinates = false;
 
     private BaseModel baseModel;
     private GameController gameController;
@@ -64,7 +63,8 @@ public abstract class Game extends Application implements GameScreen, GameStackP
     @Override
     public void initialize( ) {
         baseModel.createNewGame( );
-        initViewMainArea( baseModel, this);
+        setScreenSize( baseModel.getWidth( ), baseModel.getHeight( ));
+        initViewMainArea( baseModel, root);
         new ViewGameOverMessage( baseModel, root);
         baseModel.notifyViews( );
     }
@@ -90,42 +90,7 @@ public abstract class Game extends Application implements GameScreen, GameStackP
         createBorderImage( );
 //  /
 
-//  \
-        cells = new GameStackPane[ height][ width];
-        for( int y = 0; y < height; ++y) {
-            for( int x = 0; x < width; ++x) {
-                cells[ y][ x] = new GameStackPane( x, y, cellSize, showGrid, showCoordinates, PADDING_SIDE, PADDING_TOP);
-                root.getChildren( ).add( cells[ y][ x]);
-            }
-        }
-//  /
-
         primaryStage.show( );
-    }
-
-    @Override
-    public void setCellColor( int x, int y, Color cellColor) {
-        cells[ y][ x].setCellColor( cellColor);
-    }
-
-    @Override
-    public void setCellValue( int x, int y, String textValue) {
-        cells[ y][ x].setCellValue( textValue, cellSize);
-    }
-
-    @Override
-    public void setCellNumber( int x, int y, int numberValue) {
-        cells[ y][ x].setCellValue( String.valueOf( numberValue), cellSize);
-    }
-
-    @Override
-    public void setCellTextColor( int x, int y, Color textColor) {
-        cells[ y][ x].setCellTextColor( textColor);
-    }
-
-    @Override
-    public void setCellValueEx( int x, int y, Color cellColor, String textValue) {
-        cells[ y][ x].setCellValueEx( cellColor, textValue, cellSize);
     }
 
     private void createBorderImage( ) {

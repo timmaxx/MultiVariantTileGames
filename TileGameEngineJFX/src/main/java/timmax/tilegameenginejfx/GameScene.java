@@ -52,12 +52,6 @@ public class GameScene extends Scene {
     }
 
     private void setOnKeyPressed( ) {
-        /*
-        setOnKeyPressed( event -> {
-            gameController.onKeyPress( event.getCode( ));
-        });
-        }
-    */
         setOnKeyPressed( event -> gameController.onKeyPress( event.getCode( )));
     }
 }
