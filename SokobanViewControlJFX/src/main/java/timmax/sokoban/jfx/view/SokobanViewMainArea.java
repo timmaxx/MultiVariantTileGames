@@ -1,5 +1,6 @@
 package timmax.sokoban.jfx.view;
 
+import javafx.scene.layout.Pane;
 import timmax.basetilemodel.*;
 import timmax.basetilemodel.tile.Tile;
 import timmax.sokoban.model.SokobanModel;
@@ -12,7 +13,7 @@ import java.util.List;
 
 import static javafx.scene.paint.Color.*;
 
-public class SokobanViewMainArea extends ViewMainArea {
+public class SokobanViewMainArea extends ViewMainAreaJfx {
     private static final Color WALL_CELL_COLOR = RED;
     private static final Color HOME_CELL_COLOR = WHITE;
     private static final Color EMPTY_CELL_COLOR = BLACK;
@@ -23,34 +24,30 @@ public class SokobanViewMainArea extends ViewMainArea {
     private static final String BOX = "█"; // "❐"; // "▉"; // "[]";
     private static final Color BOX_TEXT_COLOR = BLUE;
 
-    Game game;
 
-
-    public SokobanViewMainArea( BaseModel baseModel, Game game) {
-        super( baseModel);
-        this.game = game;
-        game.setScreenSize( baseModel.getWidth( ), baseModel.getHeight( ));
+    public SokobanViewMainArea( BaseModel baseModel, Pane root) {
+        super( baseModel, root);
     }
 
     @Override
     public void updateOneTile( int x, int y) {
         SokobanModel sokobanModel = ( SokobanModel)baseModel;
         List< Tile> listOfTile = sokobanModel.getListOfXY( x, y);
-        game.setCellColor( x, y, EMPTY_CELL_COLOR);
-        game.setCellValue( x, y, "");
+        cells[ y][ x].setCellColor( EMPTY_CELL_COLOR);
+        cells[ y][ x].setCellValue( "", cellSize);
         for ( Tile tile : listOfTile) {
             if ( tile instanceof Wall) {
-                game.setCellColor( x, y, WALL_CELL_COLOR);
+                cells[ y][ x].setCellColor( WALL_CELL_COLOR);
             } else if ( tile instanceof Home) {
-                game.setCellColor( x, y, HOME_CELL_COLOR);
+                cells[ y][ x].setCellColor( HOME_CELL_COLOR);
             }
 
             if ( tile instanceof Player) {
-                game.setCellValue( x, y, PLAYER);
-                game.setCellTextColor( x, y, PLAYER_TEXT_COLOR);
+                cells[ y][ x].setCellValue( PLAYER, cellSize);
+                cells[ y][ x].setCellTextColor( PLAYER_TEXT_COLOR);
             } else if ( tile instanceof Box) {
-                game.setCellValue( x, y, BOX);
-                game.setCellTextColor( x, y, BOX_TEXT_COLOR);
+                cells[ y][ x].setCellValue( BOX, cellSize);
+                cells[ y][ x].setCellTextColor( BOX_TEXT_COLOR);
             }
         }
     }

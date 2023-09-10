@@ -67,13 +67,13 @@ public class GameStackPane extends StackPane {
             getRectangle( ).setFill( cellColor);
         }
     }
-/*
+
     public void setCellTextColor( Color textColor) {
         if ( !textColor.equals( getGeneralText( ).getFill( ))) {
             getGeneralText( ).setFill( textColor);
         }
     }
-*/
+
     public void setCellValueEx( Color cellColor, String textValue, int cellSize) {
         setCellValue( textValue, cellSize);
         setCellColor( cellColor);
