@@ -1,5 +1,6 @@
 package timmax.minesweeper.jfx.view;
 
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import timmax.basetilemodel.*;
 import timmax.minesweeper.model.*;
@@ -7,7 +8,7 @@ import timmax.tilegameenginejfx.*;
 
 import static javafx.scene.paint.Color.*;
 
-public class MinesweeperViewMainArea extends ViewMainArea {
+public class MinesweeperViewMainArea extends ViewMainAreaJfx {
     private static final Color UNOPENED_CELL_COLOR = ORANGE;
     private static final Color OPENED_CELL_COLOR = GREEN;
 
@@ -17,13 +18,9 @@ public class MinesweeperViewMainArea extends ViewMainArea {
     private static final String MINE = "💣"; // "\uD83D\uDCA3";
     private static final Color MINE_CELL_COLOR = RED;
 
-    Game game;
 
-
-    public MinesweeperViewMainArea( BaseModel baseModel, Game game) {
-        super( baseModel);
-        this.game = game;
-        game.setScreenSize( baseModel.getWidth( ), baseModel.getHeight( ));
+    public MinesweeperViewMainArea( BaseModel baseModel, Pane root) {
+        super( baseModel, root);
     }
 
     @Override
@@ -31,18 +28,18 @@ public class MinesweeperViewMainArea extends ViewMainArea {
         MinesweeperModel minesweeperModel = ( MinesweeperModel)baseModel;
         if ( minesweeperModel.getMinesweeperTileIsOpen( x, y)) {
             if ( minesweeperModel.getMinesweeperTileIsMine( x, y)) {
-                game.setCellValueEx( x, y, MINE_CELL_COLOR, MINE);
+                cells[ y][ x].setCellValueEx( MINE_CELL_COLOR, MINE, cellSize);
             } else {
-                game.setCellNumber( x, y, minesweeperModel.getCountOfMineNeighbors( x, y));
-                game.setCellColor( x, y, OPENED_CELL_COLOR);
+                cells[ y][ x].setCellNumber( minesweeperModel.getCountOfMineNeighbors( x, y), cellSize);
+                cells[ y][ x].setCellColor( OPENED_CELL_COLOR);
             }
         } else {
             if ( minesweeperModel.getMinesweeperTileIsFlag( x, y)) {
-                game.setCellValue( x, y, FLAG);
-                game.setCellColor( x, y, FLAG_CELL_COLOR);
+                cells[ y][ x].setCellValue( FLAG, cellSize);
+                cells[ y][ x].setCellColor( FLAG_CELL_COLOR);
             } else {
-                game.setCellValue( x, y, "");
-                game.setCellColor( x, y, UNOPENED_CELL_COLOR);
+                cells[ y][ x].setCellValue( "", cellSize);
+                cells[ y][ x].setCellColor( UNOPENED_CELL_COLOR);
             }
         }
     }

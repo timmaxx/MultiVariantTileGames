@@ -1,5 +1,6 @@
 package timmax.minesweeper.jfx;
 
+import javafx.scene.layout.Pane;
 import timmax.basetilemodel.*;
 import timmax.tilegameenginejfx.*;
 import timmax.minesweeper.model.*;
@@ -24,8 +25,8 @@ public class MinesweeperGame extends Game {
     }
 
     @Override
-    public ViewMainArea initViewMainArea( BaseModel baseModel, Game game) {
-        return new MinesweeperViewMainArea( baseModel, game);
+    public ViewMainArea initViewMainArea( BaseModel baseModel, Pane root) {
+        return new MinesweeperViewMainArea( baseModel, root);
     }
 
     @Override
