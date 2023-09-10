@@ -42,26 +42,41 @@ public abstract class Game extends Application implements GameScreen, GameStackP
     @Override
     public void start( Stage primaryStage) {
         this.primaryStage = primaryStage;
+
         baseModel = initModel( );
+        gameController = initGameController( baseModel, this);
+
+        root = new Pane( );
+        GameScene scene = new GameScene( root, this, gameController);
+
+        primaryStage.setTitle( initTitle( ));
+        primaryStage.setResizable( false);
+        if ( showTV) {
+            if ( !primaryStage.isShowing( )) {
+                primaryStage.initStyle( StageStyle.TRANSPARENT);
+            }
+            scene.setFill( Color.TRANSPARENT);
+        }
+        primaryStage.setScene( scene);
+
         initialize( );
     }
 
     @Override
     public void initialize( ) {
         baseModel.createNewGame( );
-        gameController = initGameController( baseModel, this);
         initViewMainArea( baseModel, this);
         new ViewGameOverMessage( baseModel, this);
         baseModel.notifyViews( );
     }
-
+/*
     protected BaseModel getModel( ) {
         if ( baseModel == null) {
             baseModel = initModel( );
         }
         return baseModel;
     }
-
+*/
     @Override
     public void setScreenSize( int width, int height) {
         if ( width < MIN_WIDTH || width > MAX_WIDTH || height < MIN_HEIGHT || height > MAX_HEIGHT) {
@@ -74,38 +89,31 @@ public abstract class Game extends Application implements GameScreen, GameStackP
         this.height = height;
 
         cellSize = Math.min( APP_WIDTH / width, APP_HEIGHT / height);
-        cells = new GameStackPane[ height][ width];
 
-        root = new Pane( );
         root.setPrefSize(
                 width * cellSize + PADDING_SIDE + PADDING_SIDE,
                 height * cellSize + PADDING_TOP + PADDING_DOWN
         );
+//  \
         createBorderImage( );
+//  /
 
+//  \
+        cells = new GameStackPane[ height][ width];
         for( int y = 0; y < height; ++y) {
             for( int x = 0; x < width; ++x) {
                 cells[ y][ x] = new GameStackPane( x, y, cellSize, showGrid, showCoordinates, PADDING_SIDE, PADDING_TOP);
                 root.getChildren( ).add( cells[ y][ x]);
             }
         }
+//  /
 
-        GameScene scene = new GameScene( root, this, gameController);
-
-        primaryStage.setTitle( initTitle( ));
-        primaryStage.setResizable( false);
-        if ( showTV) {
-            if ( !primaryStage.isShowing( )) {
-                primaryStage.initStyle( StageStyle.TRANSPARENT);
-            }
-            scene.setFill( Color.TRANSPARENT);
-        }
-
-        primaryStage.setScene( scene);
-        primaryStage.show( );
-
+//  \
         gameOverMessage = new GameOverMessage( root);
         root.getChildren( ).add( gameOverMessage);
+//  /
+
+        primaryStage.show( );
     }
 
     @Override
