@@ -9,8 +9,6 @@ import timmax.basetilemodel.BaseModel;
 public interface GameScreen {
     void initialize( );
 
-    void setScreenSize( int width, int height);
-
     BaseModel initModel( );
 
     GameController initGameController( BaseModel baseModel, Game game);

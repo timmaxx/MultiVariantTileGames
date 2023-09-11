@@ -9,14 +9,8 @@ import timmax.basetilemodel.BaseModel;
 public abstract class Game extends Application implements GameScreen {
     public final static int APP_WIDTH = 800; // 1600;
     public final static int APP_HEIGHT = 600; // 1200
-    private final static int MIN_WIDTH = 3;
-    private final static int MIN_HEIGHT = 3;
-    private final static int MAX_WIDTH = 100;
-    private final static int MAX_HEIGHT = 100;
     private final static boolean showTV = true; // false; // true;
 
-    private int width;
-    private int height;
     private int cellSize;
     private Pane root;
     private Stage primaryStage;
@@ -24,6 +18,7 @@ public abstract class Game extends Application implements GameScreen {
     private BaseModel baseModel;
     private GameBorderImage gameBorderImage;
     private ViewMainAreaJfx viewMainAreaJfx;
+    private ViewGameOverMessage viewGameOverMessage;
 
 
     @Override
@@ -48,8 +43,8 @@ public abstract class Game extends Application implements GameScreen {
 
         gameBorderImage = new GameBorderImage( root);
 
-        // new ViewGameOverMessage( baseModel, root);
-
+        viewGameOverMessage = new ViewGameOverMessage( baseModel, root);
+        viewMainAreaJfx = initViewMainArea( baseModel);
         initialize( );
     }
 
@@ -57,36 +52,21 @@ public abstract class Game extends Application implements GameScreen {
     public void initialize( ) {
         baseModel.createNewGame( );
 
-        setScreenSize( baseModel.getWidth( ), baseModel.getHeight( ));
-
-        // initViewMainArea( baseModel, root);
-        viewMainAreaJfx = initViewMainArea( baseModel);
-        viewMainAreaJfx.initRootFromModel( root);
-        new ViewGameOverMessage( baseModel, root);
-
-        baseModel.notifyViews( );
-    }
-
-    @Override
-    public void setScreenSize( int width, int height) {
-        if ( width < MIN_WIDTH || width > MAX_WIDTH || height < MIN_HEIGHT || height > MAX_HEIGHT) {
-            throw new RuntimeException(
-                    "Width must be more " + MIN_WIDTH + " and less " + MAX_WIDTH +
-                            " and height must be more " + MIN_HEIGHT + " and less " + MAX_HEIGHT + "! " +
-                            "But width = " + width + ", height = " + height + ".");
-        }
-        this.width = width;
-        this.height = height;
-
-        cellSize = Math.min( APP_WIDTH / width, APP_HEIGHT / height);
+        cellSize = Math.min( APP_WIDTH / baseModel.getWidth( ), APP_HEIGHT / baseModel.getHeight( ));
 
         primaryStage.hide( );
+        root.setPrefSize( 1, 1);
         root.setPrefSize(
-                width * cellSize + GameBorderImage.getPaddingSide( ) + GameBorderImage.getPaddingSide( ),
-                height * cellSize + GameBorderImage.getPaddingTop( ) + GameBorderImage.getPaddingDown( )
+                baseModel.getWidth( ) * cellSize + GameBorderImage.getPaddingSide( ) + GameBorderImage.getPaddingSide( ),
+                baseModel.getHeight( ) * cellSize + GameBorderImage.getPaddingTop( ) + GameBorderImage.getPaddingDown( )
         );
         primaryStage.show( );
-        gameBorderImage.setWidthAndHeight( width, height, cellSize);
+        gameBorderImage.setWidthAndHeight( baseModel.getWidth( ), baseModel.getHeight( ), cellSize);
+
+        viewMainAreaJfx.initRootFromModel( root);
+        viewGameOverMessage.initRootFromModel( root);
+
+        baseModel.notifyViews( );
     }
 
     public int getCellSize( ) {
@@ -94,11 +74,11 @@ public abstract class Game extends Application implements GameScreen {
     }
 
     public int getWidth( ) {
-        return width;
+        return baseModel.getWidth( );
     }
 
     public int getHeight( ) {
-        return height;
+        return baseModel.getHeight( );
     }
 
     public static boolean showTV( ) {

@@ -22,7 +22,6 @@ public abstract class BaseModel implements ObservableModel {
 
     protected void createNewGame( int width, int height) {
         validateWidthHeight( width, height);
-        listOfViews.clear( );
         gameStatus = GameStatus.GAME;
         this.width = width;
         this.height = height;

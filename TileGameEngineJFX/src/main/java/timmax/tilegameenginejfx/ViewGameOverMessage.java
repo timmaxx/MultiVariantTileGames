@@ -15,11 +15,13 @@ public class ViewGameOverMessage extends View {
     private static final String GAME_OVER_MESSAGE_VICTORY_MESSAGE = "Victory!";
     private static final String GAME_OVER_MESSAGE_DEFEAT_MESSAGE = "Defeat!";
 
-    private final GameOverMessage gameOverMessage;
+    private GameOverMessage gameOverMessage;
 
     public ViewGameOverMessage( BaseModel baseModel, Pane root) {
         super( baseModel);
+    }
 
+    public void initRootFromModel( Pane root) {
         gameOverMessage = new GameOverMessage( root);
         root.getChildren( ).add( gameOverMessage);
     }
