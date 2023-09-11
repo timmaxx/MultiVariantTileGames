@@ -7,12 +7,6 @@ import timmax.minesweeper.jfx.controller.MinesweeperController;
 import timmax.minesweeper.jfx.view.*;
 
 public class MinesweeperGame extends Game {
-/*
-    private static final int REST_OF_MINE_INSTALLATION_IN_PERCENTS = 10;
-    private final static int SIDE_OF_WIDTH = 15;
-    private final static int SIDE_OF_HEIGHT = 10;
-*/
-
     @Override
     public BaseModel initModel( ) {
         return new MinesweeperModel( );
