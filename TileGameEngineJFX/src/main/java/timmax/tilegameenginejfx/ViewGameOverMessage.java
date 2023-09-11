@@ -16,14 +16,19 @@ public class ViewGameOverMessage extends View {
     private static final String GAME_OVER_MESSAGE_DEFEAT_MESSAGE = "Defeat!";
 
     private GameOverMessage gameOverMessage;
+    private int rootWidth;
+    private int rootHeight;
 
-    public ViewGameOverMessage( BaseModel baseModel, Pane root) {
+    public ViewGameOverMessage( BaseModel baseModel) {
         super( baseModel);
     }
 
     public void initRootFromModel( Pane root) {
-        gameOverMessage = new GameOverMessage( root);
+        gameOverMessage = new GameOverMessage( );
         root.getChildren( ).add( gameOverMessage);
+
+        rootWidth = ( int)root.getWidth( );
+        rootHeight = ( int)root.getHeight( );
     }
 
     @Override
@@ -43,6 +48,7 @@ public class ViewGameOverMessage extends View {
                 , message
                 , GAME_OVER_MESSAGE_TEXT_COLOR
                 , GAME_OVER_MESSAGE_TEXT_SIZE
+                , rootWidth, rootHeight
         );
     }
 }
