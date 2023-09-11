@@ -43,7 +43,7 @@ public abstract class Game extends Application implements GameScreen {
 
         gameBorderImage = new GameBorderImage( root);
 
-        viewGameOverMessage = new ViewGameOverMessage( baseModel, root);
+        viewGameOverMessage = new ViewGameOverMessage( baseModel);
         viewMainAreaJfx = initViewMainArea( baseModel);
         initialize( );
     }
