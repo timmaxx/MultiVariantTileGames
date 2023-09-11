@@ -1,6 +1,5 @@
 package timmax.sokoban.jfx.view;
 
-import javafx.scene.layout.Pane;
 import timmax.basetilemodel.*;
 import timmax.basetilemodel.tile.Tile;
 import timmax.sokoban.model.SokobanModel;
@@ -25,8 +24,8 @@ public class SokobanViewMainArea extends ViewMainAreaJfx {
     private static final Color BOX_TEXT_COLOR = BLUE;
 
 
-    public SokobanViewMainArea( BaseModel baseModel, Pane root) {
-        super( baseModel, root);
+    public SokobanViewMainArea( BaseModel baseModel) {
+        super( baseModel);
     }
 
     @Override

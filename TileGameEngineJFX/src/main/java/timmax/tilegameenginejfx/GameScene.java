@@ -23,8 +23,8 @@ public class GameScene extends Scene {
                 return;
             }
 
-            double xx = event.getX( ) - Game.getPaddingSide( );
-            double yy = event.getY( ) - Game.getPaddingTop( );
+            double xx = event.getX( ) - GameBorderImage.getPaddingSide( );
+            double yy = event.getY( ) - GameBorderImage.getPaddingTop( );
 
             int x = ( int)Math.floor( xx / game.getCellSize( ));
             if ( x < 0 || x >= game.getWidth( )) {

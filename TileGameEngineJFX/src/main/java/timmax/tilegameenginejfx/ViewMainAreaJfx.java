@@ -11,9 +11,11 @@ public abstract class ViewMainAreaJfx extends ViewMainArea {
     boolean showCoordinates;
 
 
-    public ViewMainAreaJfx( BaseModel baseModel, Pane root) {
+    public ViewMainAreaJfx( BaseModel baseModel) {
         super( baseModel);
+    }
 
+    public void initRootFromModel( Pane root) {
         cellSize = Math.min( Game.APP_WIDTH / baseModel.getWidth( ), Game.APP_HEIGHT / baseModel.getHeight( ));
         showGrid = true;
         showCoordinates = false;

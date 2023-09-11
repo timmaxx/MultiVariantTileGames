@@ -1,38 +1,29 @@
 package timmax.tilegameenginejfx;
 
 import javafx.application.Application;
-import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.*;
 import timmax.basetilemodel.BaseModel;
 
-import java.io.InputStream;
-
 public abstract class Game extends Application implements GameScreen {
     public final static int APP_WIDTH = 800; // 1600;
     public final static int APP_HEIGHT = 600; // 1200
-
-    // These constants (PADDING_X) for screen.png:
-    private final static int PADDING_TOP = 110;
-    private final static int PADDING_DOWN = 140;
-    private final static int PADDING_SIDE = 125;
-
     private final static int MIN_WIDTH = 3;
     private final static int MIN_HEIGHT = 3;
     private final static int MAX_WIDTH = 100;
     private final static int MAX_HEIGHT = 100;
-    private final static boolean showTV = false; // true;
+    private final static boolean showTV = true; // false; // true;
 
     private int width;
     private int height;
     private int cellSize;
     private Pane root;
     private Stage primaryStage;
-    // private final boolean showGrid = true;
-    // private final boolean showCoordinates = false;
 
     private BaseModel baseModel;
+    private GameBorderImage gameBorderImage;
+    private ViewMainAreaJfx viewMainAreaJfx;
 
 
     @Override
@@ -55,15 +46,24 @@ public abstract class Game extends Application implements GameScreen {
         }
         primaryStage.setScene( scene);
 
+        gameBorderImage = new GameBorderImage( root);
+
+        // new ViewGameOverMessage( baseModel, root);
+
         initialize( );
     }
 
     @Override
     public void initialize( ) {
         baseModel.createNewGame( );
+
         setScreenSize( baseModel.getWidth( ), baseModel.getHeight( ));
-        initViewMainArea( baseModel, root);
+
+        // initViewMainArea( baseModel, root);
+        viewMainAreaJfx = initViewMainArea( baseModel);
+        viewMainAreaJfx.initRootFromModel( root);
         new ViewGameOverMessage( baseModel, root);
+
         baseModel.notifyViews( );
     }
 
@@ -80,39 +80,13 @@ public abstract class Game extends Application implements GameScreen {
 
         cellSize = Math.min( APP_WIDTH / width, APP_HEIGHT / height);
 
+        primaryStage.hide( );
         root.setPrefSize(
-                width * cellSize + getPaddingSide( ) + getPaddingSide( ),
-                height * cellSize + getPaddingTop( ) + getPaddingDown( )
+                width * cellSize + GameBorderImage.getPaddingSide( ) + GameBorderImage.getPaddingSide( ),
+                height * cellSize + GameBorderImage.getPaddingTop( ) + GameBorderImage.getPaddingDown( )
         );
-//  \
-        if ( showTV) {
-            createBorderImage( );
-        }
-//  /
-
         primaryStage.show( );
-    }
-
-    public static int getPaddingSide( ) {
-        return showTV ? PADDING_SIDE : 0;
-    }
-
-    public static int getPaddingTop( ) {
-        return showTV ? PADDING_TOP : 0;
-    }
-
-    public static int getPaddingDown( ) {
-        return showTV ? PADDING_DOWN : 0;
-    }
-
-    private void createBorderImage( ) {
-        InputStream inputStream = Game.class.getResourceAsStream( "/screen.png");
-        assert inputStream != null;
-        Image image = new Image( inputStream);
-        ImageView imageView = new ImageView( image);
-        imageView.setFitWidth( width * cellSize + PADDING_SIDE + PADDING_SIDE);
-        imageView.setFitHeight( height * cellSize + PADDING_TOP + PADDING_DOWN);
-        root.getChildren( ).add( imageView);
+        gameBorderImage.setWidthAndHeight( width, height, cellSize);
     }
 
     public int getCellSize( ) {
@@ -125,5 +99,9 @@ public abstract class Game extends Application implements GameScreen {
 
     public int getHeight( ) {
         return height;
+    }
+
+    public static boolean showTV( ) {
+        return showTV;
     }
 }

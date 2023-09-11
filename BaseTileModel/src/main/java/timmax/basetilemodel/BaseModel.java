@@ -8,16 +8,21 @@ public abstract class BaseModel implements ObservableModel {
     private final static int MAX_WIDTH = 100;
     private final static int MIN_HEIGHT = 2;
     private final static int MAX_HEIGHT = 100;
-    private ArrayList< View> listOfViews; // Список представлений, которые нужно обновлять при изменении в модели.
+    private final ArrayList< View> listOfViews; // Список представлений, которые нужно обновлять при изменении в модели.
     private int width;
     private int height;
     protected GameStatus gameStatus;
+
+
+    public BaseModel( ) {
+        listOfViews = new ArrayList< >( );
+    }
 
     abstract public void createNewGame( );
 
     protected void createNewGame( int width, int height) {
         validateWidthHeight( width, height);
-        listOfViews = new ArrayList< >( );
+        listOfViews.clear( );
         gameStatus = GameStatus.GAME;
         this.width = width;
         this.height = height;

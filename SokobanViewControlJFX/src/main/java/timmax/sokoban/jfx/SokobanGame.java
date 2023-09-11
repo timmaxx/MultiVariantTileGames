@@ -1,8 +1,6 @@
 package timmax.sokoban.jfx;
 
-import javafx.scene.layout.Pane;
 import timmax.basetilemodel.BaseModel;
-import timmax.basetilemodel.ViewMainArea;
 import timmax.sokoban.model.*;
 import timmax.sokoban.jfx.view.*;
 import timmax.sokoban.jfx.controller.*;
@@ -20,8 +18,8 @@ public class SokobanGame extends Game {
     }
 
     @Override
-    public ViewMainArea initViewMainArea( BaseModel baseModel, Pane root) {
-        return new SokobanViewMainArea( baseModel, root);
+    public ViewMainAreaJfx initViewMainArea( BaseModel baseModel) {
+        return new SokobanViewMainArea( baseModel);
     }
 
     @Override

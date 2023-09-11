@@ -29,8 +29,8 @@ public class GameStackPane extends StackPane {
         }
         getRectangle( ).setWidth( cellSize);
         getRectangle( ).setHeight( cellSize);
-        setLayoutX( x * cellSize + Game.getPaddingSide( ));
-        setLayoutY( y * cellSize + Game.getPaddingTop( ));
+        setLayoutX( x * cellSize + GameBorderImage.getPaddingSide( ));
+        setLayoutY( y * cellSize + GameBorderImage.getPaddingTop( ));
     }
 
     private Rectangle getRectangle( ) {

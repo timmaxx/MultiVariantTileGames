@@ -1,6 +1,5 @@
 package timmax.minesweeper.jfx.view;
 
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import timmax.basetilemodel.*;
 import timmax.minesweeper.model.*;
@@ -19,8 +18,8 @@ public class MinesweeperViewMainArea extends ViewMainAreaJfx {
     private static final Color MINE_CELL_COLOR = RED;
 
 
-    public MinesweeperViewMainArea( BaseModel baseModel, Pane root) {
-        super( baseModel, root);
+    public MinesweeperViewMainArea( BaseModel baseModel) {
+        super( baseModel);
     }
 
     @Override
