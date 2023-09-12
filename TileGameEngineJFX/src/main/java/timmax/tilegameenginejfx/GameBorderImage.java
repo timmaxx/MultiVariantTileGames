@@ -11,16 +11,15 @@ public class GameBorderImage extends ImageView {
     private final static int PADDING_TOP = 110;
     private final static int PADDING_DOWN = 140;
     private final static int PADDING_SIDE = 125;
+    private final static boolean showTV = true; // false; // true;
 
-    private ImageView imageView;
-    // private Pane root;
+    private final ImageView imageView;
+
 
     protected GameBorderImage( Pane root) {
-        if ( !Game.showTV( )) {
+        if ( !showTV) {
             return;
         }
-
-        // this.root = root;
 
         InputStream inputStream = Game.class.getResourceAsStream( "/screen.png");
         assert inputStream != null;
@@ -30,7 +29,7 @@ public class GameBorderImage extends ImageView {
     }
 
     public void setWidthAndHeight( int width, int height, int cellSize) {
-        if ( !Game.showTV( )) {
+        if ( !showTV) {
             return;
         }
         imageView.setFitWidth( width * cellSize + PADDING_SIDE + PADDING_SIDE);
@@ -38,14 +37,18 @@ public class GameBorderImage extends ImageView {
     }
 
     public static int getPaddingSide( ) {
-        return Game.showTV( ) ? PADDING_SIDE : 0;
+        return showTV ? PADDING_SIDE : 0;
     }
 
     public static int getPaddingTop( ) {
-        return Game.showTV( ) ? PADDING_TOP : 0;
+        return showTV ? PADDING_TOP : 0;
     }
 
     public static int getPaddingDown( ) {
-        return Game.showTV( ) ? PADDING_DOWN : 0;
+        return showTV ? PADDING_DOWN : 0;
+    }
+
+    public static boolean showTV( ) {
+        return showTV;
     }
 }

@@ -9,7 +9,6 @@ import timmax.basetilemodel.BaseModel;
 public abstract class Game extends Application implements GameScreen {
     public final static int APP_WIDTH = 800; // 1600;
     public final static int APP_HEIGHT = 600; // 1200
-    private final static boolean showTV = true; // false; // true;
 
     private int cellSize;
     private Pane root;
@@ -33,7 +32,7 @@ public abstract class Game extends Application implements GameScreen {
 
         primaryStage.setTitle( initTitle( ));
         primaryStage.setResizable( false);
-        if ( showTV) {
+        if ( GameBorderImage.showTV( )) {
             if ( !primaryStage.isShowing( )) {
                 primaryStage.initStyle( StageStyle.TRANSPARENT);
             }
@@ -55,7 +54,6 @@ public abstract class Game extends Application implements GameScreen {
         cellSize = Math.min( APP_WIDTH / baseModel.getWidth( ), APP_HEIGHT / baseModel.getHeight( ));
 
         primaryStage.hide( );
-        root.setPrefSize( 1, 1);
         root.setPrefSize(
                 baseModel.getWidth( ) * cellSize + GameBorderImage.getPaddingSide( ) + GameBorderImage.getPaddingSide( ),
                 baseModel.getHeight( ) * cellSize + GameBorderImage.getPaddingTop( ) + GameBorderImage.getPaddingDown( )
@@ -71,17 +69,5 @@ public abstract class Game extends Application implements GameScreen {
 
     public int getCellSize( ) {
         return cellSize;
-    }
-
-    public int getWidth( ) {
-        return baseModel.getWidth( );
-    }
-
-    public int getHeight( ) {
-        return baseModel.getHeight( );
-    }
-
-    public static boolean showTV( ) {
-        return showTV;
     }
 }

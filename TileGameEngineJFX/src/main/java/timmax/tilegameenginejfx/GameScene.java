@@ -27,12 +27,12 @@ public class GameScene extends Scene {
             double yy = event.getY( ) - GameBorderImage.getPaddingTop( );
 
             int x = ( int)Math.floor( xx / game.getCellSize( ));
-            if ( x < 0 || x >= game.getWidth( )) {
+            if ( x < 0 || x >= gameController.baseModel.getWidth( )) {
                 return;
             }
 
             int y = ( int)Math.floor( yy / game.getCellSize( ));
-            if ( y < 0 || y >= game.getHeight( )) {
+            if ( y < 0 || y >= gameController.baseModel.getHeight( )) {
                 return;
             }
 
