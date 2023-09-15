@@ -1,7 +1,7 @@
 package timmax.basetilemodel;
 
 // Представление
-public abstract class View {
+public abstract class View implements ViewInterface {
     protected BaseModel baseModel; // Ссылается на одну модель
 
     // Конструктор представления
@@ -10,5 +10,6 @@ public abstract class View {
         baseModel.addViewListener( this); // К модели привязать это представление
     }
 
-    protected abstract void update( ); // Обновить представление (по данным модели)
+    @Override
+    public abstract void update( ); // Обновить представление (по данным модели)
 }

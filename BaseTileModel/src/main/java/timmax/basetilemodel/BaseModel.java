@@ -1,6 +1,10 @@
 package timmax.basetilemodel;
 
-import java.util.ArrayList;
+import timmax.basetilemodel.gameevent.GameEvent;
+import timmax.basetilemodel.gameevent.GameEventNewGame;
+
+import java.util.HashMap;
+import java.util.Map;
 
 // Базовая модель
 public abstract class BaseModel implements ObservableModel {
@@ -8,14 +12,17 @@ public abstract class BaseModel implements ObservableModel {
     private final static int MAX_WIDTH = 100;
     private final static int MIN_HEIGHT = 2;
     private final static int MAX_HEIGHT = 100;
-    private final ArrayList< View> listOfViews; // Список представлений, которые нужно обновлять при изменении в модели.
+
+    // Карта представление - очередь. В очереди записываем события. Для представлений вызываем update.
+    private final Map< View, GameQueueForOneView> mapOfViewGameQueueForOneView;
+
     private int width;
     private int height;
     protected GameStatus gameStatus;
 
 
     public BaseModel( ) {
-        listOfViews = new ArrayList< >( );
+        mapOfViewGameQueueForOneView = new HashMap< >( );
     }
 
     abstract public void createNewGame( );
@@ -25,6 +32,10 @@ public abstract class BaseModel implements ObservableModel {
         gameStatus = GameStatus.GAME;
         this.width = width;
         this.height = height;
+
+        for ( GameQueueForOneView queue: mapOfViewGameQueueForOneView.values( )) {
+            queue.add( new GameEventNewGame( width, height));
+        }
     }
 
     private static void validateWidthHeight( int width, int height) {
@@ -48,18 +59,22 @@ public abstract class BaseModel implements ObservableModel {
     // Реализация добавления представления в модель
     @Override
     public void addViewListener( View view) {
-        listOfViews.add( view);
+        mapOfViewGameQueueForOneView.put( view, new GameQueueForOneView( ));
     }
 
     // Известить все присоединённые представления, чтобы они могли обновить себя.
     @Override
     public void notifyViews( ) {
-        for ( View view: listOfViews) {
+        for ( View view: mapOfViewGameQueueForOneView.keySet( )) {
             view.update( );
         }
     }
 
     public GameStatus getGameStatus( ) {
         return gameStatus;
+    }
+
+    public GameEvent getNextGameEventForView(View view) {
+        return ( GameEvent) mapOfViewGameQueueForOneView.get( view).queue.peek( );
     }
 }
