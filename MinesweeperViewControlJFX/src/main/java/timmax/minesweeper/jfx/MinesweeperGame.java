@@ -18,8 +18,8 @@ public class MinesweeperGame extends Game {
     }
 
     @Override
-    public ViewMainAreaJfx initViewMainArea( BaseModel baseModel) {
-        return new MinesweeperViewMainArea( baseModel);
+    public ViewJfx initViewMainField(BaseModel baseModel) {
+        return new MinesweeperMainFieldViewJfx( baseModel);
     }
 
     @Override
