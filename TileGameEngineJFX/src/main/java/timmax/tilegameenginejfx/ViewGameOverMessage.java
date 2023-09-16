@@ -1,6 +1,5 @@
 package timmax.tilegameenginejfx;
 
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import timmax.basetilemodel.*;
 
@@ -22,7 +21,7 @@ public class ViewGameOverMessage extends View {
     public ViewGameOverMessage( BaseModel baseModel) {
         super( baseModel);
     }
-
+/*
     public void initRootFromModel( Pane root) {
         gameOverMessage = new GameOverMessage( );
         root.getChildren( ).add( gameOverMessage);
@@ -30,9 +29,10 @@ public class ViewGameOverMessage extends View {
         rootWidth = ( int)root.getWidth( );
         rootHeight = ( int)root.getHeight( );
     }
-
+*/
     @Override
     public void update( ) {
+        /*
         GameStatus gameStatus = baseModel.getGameStatus( );
         if ( gameStatus == GAME) {
             return;
@@ -50,5 +50,6 @@ public class ViewGameOverMessage extends View {
                 , GAME_OVER_MESSAGE_TEXT_SIZE
                 , rootWidth, rootHeight
         );
+        */
     }
 }

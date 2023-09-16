@@ -11,24 +11,19 @@ public abstract class Game extends Application implements GameScreen {
     public final static int APP_HEIGHT = 600; // 1200
 
     private int cellSize;
-    private Pane root;
-    private Stage primaryStage;
 
     private BaseModel baseModel;
     private GameBorderImage gameBorderImage;
-    private ViewMainAreaJfx viewMainAreaJfx;
-    private ViewGameOverMessage viewGameOverMessage;
+    // private ViewGameOverMessage viewGameOverMessage;
 
 
     @Override
     public void start( Stage primaryStage) {
-        this.primaryStage = primaryStage;
-
         baseModel = initModel( );
         GameController gameController = initGameController( baseModel, this);
 
-        root = new Pane( );
-        GameScene scene = new GameScene( root, this, gameController);
+        Pane root = new Pane( );
+        GameScene scene = new GameScene(root, this, gameController);
 
         primaryStage.setTitle( initTitle( ));
         primaryStage.setResizable( false);
@@ -40,10 +35,14 @@ public abstract class Game extends Application implements GameScreen {
         }
         primaryStage.setScene( scene);
 
-        gameBorderImage = new GameBorderImage( root);
+        gameBorderImage = new GameBorderImage(root);
 
-        viewGameOverMessage = new ViewGameOverMessage( baseModel);
-        viewMainAreaJfx = initViewMainArea( baseModel);
+        // viewGameOverMessage = new ViewGameOverMessage( baseModel);
+
+        ViewJfx viewMainFieldJfx = initViewMainField(baseModel);
+        viewMainFieldJfx.setRoot(root);
+        viewMainFieldJfx.setPrimaryStage( primaryStage);
+
         initialize( );
     }
 
@@ -52,19 +51,9 @@ public abstract class Game extends Application implements GameScreen {
         baseModel.createNewGame( );
 
         cellSize = Math.min( APP_WIDTH / baseModel.getWidth( ), APP_HEIGHT / baseModel.getHeight( ));
-
-        primaryStage.hide( );
-        root.setPrefSize(
-                baseModel.getWidth( ) * cellSize + GameBorderImage.getPaddingSide( ) + GameBorderImage.getPaddingSide( ),
-                baseModel.getHeight( ) * cellSize + GameBorderImage.getPaddingTop( ) + GameBorderImage.getPaddingDown( )
-        );
-        primaryStage.show( );
         gameBorderImage.setWidthAndHeight( baseModel.getWidth( ), baseModel.getHeight( ), cellSize);
 
-        viewMainAreaJfx.initRootFromModel( root);
-        viewGameOverMessage.initRootFromModel( root);
-
-        baseModel.notifyViews( );
+        // viewGameOverMessage.initRootFromModel( root);
     }
 
     public int getCellSize( ) {

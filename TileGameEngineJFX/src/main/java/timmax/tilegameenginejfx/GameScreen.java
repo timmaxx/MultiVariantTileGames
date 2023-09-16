@@ -14,7 +14,7 @@ public interface GameScreen {
     GameController initGameController( BaseModel baseModel, Game game);
 
     // ViewMainArea initViewMainArea( BaseModel baseModel);
-    ViewMainAreaJfx initViewMainArea( BaseModel baseModel);
+    ViewJfx initViewMainField( BaseModel baseModel);
 
     String initTitle( );
 }
