@@ -1,7 +1,6 @@
 package timmax.basetilemodel;
 
 import timmax.basetilemodel.gameevent.GameEvent;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -52,7 +51,7 @@ public class GameQueueForOneView implements Queue< GameEvent> {
     }
 
     @Override
-    public void clear() {
+    public void clear( ) {
         queue.clear( );
     }
 
@@ -73,12 +72,12 @@ public class GameQueueForOneView implements Queue< GameEvent> {
 
     @Override
     public boolean add( GameEvent gameEvent) {
-        return false;
+        return queue.add( gameEvent);
     }
 
     @Override
     public boolean offer( GameEvent gameEvent) {
-        return false;
+        return queue.offer( gameEvent);
     }
 
     @Override
