@@ -34,7 +34,7 @@ public class MinesweeperModel extends BaseModel {
     }
 
     public void open( int x, int y) {
-        gameStatus = allMinesweeperObjects.open( allMinesweeperObjects.getTileByXY( x, y));
+        setGameStatus( allMinesweeperObjects.open( allMinesweeperObjects.getTileByXY( x, y)));
         notifyViews( );
     }
 }
