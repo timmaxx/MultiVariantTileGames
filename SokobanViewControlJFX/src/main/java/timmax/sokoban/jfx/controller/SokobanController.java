@@ -1,6 +1,5 @@
 package timmax.sokoban.jfx.controller;
 
-import org.slf4j.Logger;
 import javafx.scene.input.KeyCode;
 import timmax.basetilemodel.BaseModel;
 import timmax.basetilemodel.GameStatus;
@@ -8,13 +7,9 @@ import timmax.sokoban.model.SokobanModel;
 import timmax.tilegameenginejfx.Game;
 import timmax.tilegameenginejfx.GameController;
 
-import static org.slf4j.LoggerFactory.getLogger;
 import static timmax.basetilemodel.tile.Direction.*;
 
 public class SokobanController extends GameController {
-    private static final Logger log = getLogger( SokobanController.class);
-
-
     public SokobanController( BaseModel baseModel, Game game) {
         super( baseModel, game);
     }
@@ -24,8 +19,6 @@ public class SokobanController extends GameController {
     }
 
     public void onKeyPress( KeyCode keyCode) {
-        log.debug( "onKeyPress( {})", keyCode);
-
         if ( getSokobanModel( ).getGameStatus( ) != GameStatus.GAME) {
             game.initialize( );
             return;
