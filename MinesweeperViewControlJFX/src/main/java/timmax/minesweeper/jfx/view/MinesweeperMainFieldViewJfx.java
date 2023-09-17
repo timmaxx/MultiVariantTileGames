@@ -2,8 +2,7 @@ package timmax.minesweeper.jfx.view;
 
 import javafx.scene.paint.Color;
 import timmax.basetilemodel.*;
-import timmax.basetilemodel.gameevent.GameEvent;
-import timmax.basetilemodel.gameevent.GameEventNewGame;
+import timmax.basetilemodel.gameevent.*;
 import timmax.minesweeper.model.gameevent.*;
 import timmax.tilegameenginejfx.*;
 
@@ -25,7 +24,7 @@ public class MinesweeperMainFieldViewJfx extends ViewJfx {
     private final boolean showCoordinates = false;
 
 
-    public MinesweeperMainFieldViewJfx(BaseModel baseModel) {
+    public MinesweeperMainFieldViewJfx( BaseModel baseModel) {
         super( baseModel);
     }
 
@@ -34,12 +33,15 @@ public class MinesweeperMainFieldViewJfx extends ViewJfx {
         GameEvent gameEvent;
         while ( true) {
             try {
-                gameEvent = baseModel.getNextGameEventForView(this);
+                // Единственное место, где обращение к модели можно оставить.
+                // Или даже не к модели, а к очереди, которая внутри модели, привязана к этому представлению.
+                gameEvent = baseModel.getNextGameEventForView( this);
             } catch ( NoSuchElementException nsee) {
                 break;
             }
 
             if ( gameEvent instanceof GameEventNewGame) {
+                // ToDo: Свойства модели нужно брать не напрямую из модели, а из события!
                 cellSize = Math.min( Game.APP_WIDTH / baseModel.getWidth( ), Game.APP_HEIGHT / baseModel.getHeight( ));
 
                 primaryStage.hide( );
@@ -58,23 +60,20 @@ public class MinesweeperMainFieldViewJfx extends ViewJfx {
                     }
                 }
                 primaryStage.show( );
-                System.out.println( "update after GameEventNewGame");
             } else if ( gameEvent instanceof GameEventOneTile) {
-                int x = ( (GameEventOneTile) gameEvent).getX( );
-                int y = ( (GameEventOneTile) gameEvent).getY( );
+                int x = ( ( GameEventOneTile) gameEvent).getX( );
+                int y = ( ( GameEventOneTile) gameEvent).getY( );
 
                 if ( gameEvent instanceof GameEventOneTileMine) {
                     cells[ y][ x].setCellValueEx( MINE_CELL_COLOR, MINE, cellSize);
-                    System.out.println( "update after GameEventOpenTileMine");
                 } else if ( gameEvent instanceof GameEventOneTileNoMine) {
-                    int countOfMineNeighbors = ( (GameEventOneTileNoMine) gameEvent).getCountOfMineNeighbors( );
+                    int countOfMineNeighbors = ( ( GameEventOneTileNoMine) gameEvent).getCountOfMineNeighbors( );
                     cells[ y][ x].setCellNumber( countOfMineNeighbors, cellSize);
                     cells[ y][ x].setCellColor( OPENED_CELL_COLOR);
-                    System.out.println( "update after GameEventOpenTileNoMine");
                 } else if ( gameEvent instanceof GameEventOneTileChangeFlag) {
                     String flag;
                     Color tile_cell_color;
-                    if ( ( (GameEventOneTileChangeFlag) gameEvent).isFlag( )) {
+                    if ( ( ( GameEventOneTileChangeFlag) gameEvent).isFlag( )) {
                         flag = FLAG;
                         tile_cell_color = FLAG_CELL_COLOR;
                     } else {
@@ -83,7 +82,6 @@ public class MinesweeperMainFieldViewJfx extends ViewJfx {
                     }
                     cells[ y][ x].setCellValue( flag, cellSize);
                     cells[ y][ x].setCellColor( tile_cell_color);
-                    System.out.println( "update after GameEventInverseFlag");
                 }
             }
         }
