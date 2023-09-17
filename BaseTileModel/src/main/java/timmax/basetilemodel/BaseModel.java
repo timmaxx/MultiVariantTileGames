@@ -18,7 +18,7 @@ public abstract class BaseModel implements ObservableModel {
 
     private int width;
     private int height;
-    protected GameStatus gameStatus;
+    private GameStatus gameStatus;
 
 
     public BaseModel( ) {
@@ -81,6 +81,10 @@ public abstract class BaseModel implements ObservableModel {
 
     public GameStatus getGameStatus( ) {
         return gameStatus;
+    }
+
+    protected void setGameStatus( GameStatus gameStatus) {
+        this.gameStatus = gameStatus;
     }
 
     public GameEvent getNextGameEventForView(View view) {
