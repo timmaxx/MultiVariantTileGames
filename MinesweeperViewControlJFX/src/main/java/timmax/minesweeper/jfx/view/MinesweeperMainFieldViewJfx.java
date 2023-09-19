@@ -36,9 +36,7 @@ public class MinesweeperMainFieldViewJfx extends ViewJfx {
         GameEvent gameEvent;
         while ( true) {
             try {
-                // Единственное место, где обращение к модели можно оставить.
-                // Или даже не к модели, а к очереди, которая внутри модели, привязана к этому представлению.
-                gameEvent = baseModel.getNextGameEventForView( this);
+                gameEvent = gameQueueForOneView.remove( );
             } catch ( NoSuchElementException nsee) {
                 break;
             }

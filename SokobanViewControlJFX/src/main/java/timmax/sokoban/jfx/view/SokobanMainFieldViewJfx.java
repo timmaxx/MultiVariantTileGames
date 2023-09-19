@@ -39,9 +39,7 @@ public class SokobanMainFieldViewJfx extends ViewJfx {
         while ( true) {
             GameEvent gameEvent;
             try {
-                // Единственное место, где обращение к модели можно оставить.
-                // Или даже не к модели, а к очереди, которая внутри модели, привязана к этому представлению.
-                gameEvent = baseModel.getNextGameEventForView( this);
+                gameEvent = gameQueueForOneView.remove( );
             } catch ( NoSuchElementException nsee) {
                 break;
             }
@@ -68,7 +66,7 @@ public class SokobanMainFieldViewJfx extends ViewJfx {
         cells = new GameStackPane[ height][ width];
 
         for( int y = 0; y < height; ++y) {
-            cells[ y] = new GameStackPane[ baseModel.getWidth( )];
+            cells[ y] = new GameStackPane[ width];
             for( int x = 0; x < width; ++x) {
                 cells[ y][ x] = new GameStackPane( x, y, cellSize, true, false);
                 {

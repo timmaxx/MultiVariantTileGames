@@ -2,7 +2,7 @@ package timmax.basetilemodel;
 
 // Модель-наблюдатель
 public interface ObservableModel {
-    void addViewListener( View view);
+    GameQueueForOneView addViewListener(View view);
 
     void notifyViews( );
 }

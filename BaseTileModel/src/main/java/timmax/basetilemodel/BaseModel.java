@@ -67,8 +67,10 @@ public abstract class BaseModel implements ObservableModel {
 
     // Реализация добавления представления в модель
     @Override
-    public void addViewListener( View view) {
-        mapOfViewGameQueueForOneView.put( view, new GameQueueForOneView( ));
+    public GameQueueForOneView addViewListener( View view) {
+        GameQueueForOneView gameQueueForOneView = new GameQueueForOneView( );
+        mapOfViewGameQueueForOneView.put( view, gameQueueForOneView);
+        return gameQueueForOneView;
     }
 
     // Известить все присоединённые представления, чтобы они могли обновить себя.
@@ -85,9 +87,5 @@ public abstract class BaseModel implements ObservableModel {
 
     protected void setGameStatus( GameStatus gameStatus) {
         this.gameStatus = gameStatus;
-    }
-
-    public GameEvent getNextGameEventForView(View view) {
-        return mapOfViewGameQueueForOneView.get( view).queue.remove( );
     }
 }
