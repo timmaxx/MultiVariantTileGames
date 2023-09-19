@@ -1,7 +1,5 @@
 package timmax.sokoban.model.gameobject;
 
-import timmax.basetilemodel.tile.Tile;
-import java.util.ArrayList;
 import java.util.Set;
 
 public class AllSokobanObjects {
@@ -22,16 +20,6 @@ public class AllSokobanObjects {
         this.homes = homes;
         this.player = player;
         this.countOfHomesBoxes = countOfHomesBoxes;
-    }
-
-    public ArrayList< Tile> getAll( ) {
-        ArrayList< Tile> gameObjects = new ArrayList< >( );
-        gameObjects.addAll( walls);
-        gameObjects.addAll( homes);
-        gameObjects.addAll( boxes);
-        gameObjects.add( player);
-
-        return gameObjects;
     }
 
     public int getWidth( ) {
@@ -60,5 +48,31 @@ public class AllSokobanObjects {
 
     public int getCountOfHomesBoxes( ) {
         return countOfHomesBoxes;
+    }
+
+    public WhoPersistentInTile getWhoPersistentInTile( int x, int y) {
+        for ( Wall wall: walls) {
+            if ( wall.getX( ) == x && wall.getY( ) == y) {
+                return WhoPersistentInTile.IS_WALL;
+            }
+        }
+        for ( Home home: homes) {
+            if ( home.getX( ) == x && home.getY( ) == y) {
+                return WhoPersistentInTile.IS_HOME;
+            }
+        }
+        return WhoPersistentInTile.IS_EMPTY;
+    }
+
+    public WhoMovableInTile getWhoMovableInTile( int x, int y) {
+        for ( Box box: boxes) {
+            if ( box.getX( ) == x && box.getY( ) == y) {
+                return WhoMovableInTile.IS_BOX;
+            }
+        }
+        if ( player.getX( ) == x && player.getY( ) == y) {
+            return WhoMovableInTile.IS_PLAYER;
+        }
+        return WhoMovableInTile.IS_NOBODY;
     }
 }

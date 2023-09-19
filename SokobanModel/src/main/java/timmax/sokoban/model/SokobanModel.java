@@ -6,10 +6,8 @@ import timmax.basetilemodel.tile.*;
 import timmax.sokoban.model.gameevent.*;
 import timmax.sokoban.model.gameobject.*;
 import timmax.sokoban.model.route.*;
-
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
-import java.util.*;
 
 import static timmax.basetilemodel.GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
 import static timmax.basetilemodel.GameStatus.VICTORY;
@@ -32,22 +30,18 @@ public class SokobanModel extends BaseModel {
         }
     }
 
-
-    public List< Tile> getListOfXY( int x, int y) {
-        List< Tile> result = new ArrayList< >( );
-        for ( Tile tile : allSokobanObjects.getAll( )) {
-            if ( tile.getX( ) == x && tile.getY( ) == y) {
-                result.add( tile);
-            }
-        }
-
-        return result;
-    }
-
     @Override
     public void createNewGame( ) {
         allSokobanObjects = levelLoader.getLevel( currentLevel.getValue());
         super.createNewGame( allSokobanObjects.getWidth( ), allSokobanObjects.getHeight( ));
+        for ( int y = 0; y < allSokobanObjects.getHeight( ); y++) {
+            for ( int x = 0; x < allSokobanObjects.getWidth( ); x++) {
+                WhoPersistentInTile whoPersistentInTile = allSokobanObjects.getWhoPersistentInTile( x, y);
+                WhoMovableInTile whoMovableInTile = allSokobanObjects.getWhoMovableInTile( x, y);
+                addGameEventIntoQueue( new GameEventOneTileSokobanChangeable( x, y, whoPersistentInTile, whoMovableInTile));
+            }
+        }
+        notifyViews( );
         route = new Route( );
         routeRedo = new Route( );
     }
@@ -60,31 +54,44 @@ public class SokobanModel extends BaseModel {
         Step step = route.pop( );
         Player player = allSokobanObjects.getPlayer( );
 
-        int oldBoxX = -1;
-        int oldBoxY = -1;
+        int oldBoxX;
+        int oldBoxY;
+        WhoMovableInTile oldWhoMovableInTile;
         if ( step.isBoxMoved( )) {
             for ( Box box: allSokobanObjects.getBoxes( )) {
                 if ( box.isCollision( player, step.oppositeStepDirection( ))) {
                     oldBoxX = box.getX( );
                     oldBoxY = box.getY( );
                     box.move( step.oppositeStepDirection( ));
+
+                    WhoPersistentInTile oldWhoPersistentInTile = allSokobanObjects.getWhoPersistentInTile( oldBoxX, oldBoxY);
+                    WhoMovableInTile oldBoxWhoMovableInTile = WhoMovableInTile.IS_NOBODY; // allSokobanObjects.getWhoMovableInTile( oldBoxX, oldBoxY);
+                    addGameEventIntoQueueAndNotifyViews( new GameEventOneTileSokobanChangeable( oldBoxX, oldBoxY, oldWhoPersistentInTile, oldBoxWhoMovableInTile));
+
                     break;
                 }
             }
+            oldWhoMovableInTile = WhoMovableInTile.IS_BOX;
+        } else {
+            oldWhoMovableInTile = WhoMovableInTile.IS_NOBODY;
         }
         int oldX = player.getX( );
         int oldY = player.getY( );
+
         player.move( step.oppositeStepDirection( ));
+
         int newX = player.getX( );
         int newY = player.getY( );
-        boolean isBoxMoved = step.isBoxMoved( );
-        // ToDo: Лучше в очередь записать две или три записи о тех клетках, которые были изменены.
+
+        // Done: Лучше в очередь записать две или три записи о тех клетках, которые были изменены.
         //  И по каждой из них указать ( пустая / дом) и ( пустая / игрок / коробка).
-        if ( isBoxMoved) {
-            addGameEventIntoQueueAndNotifyViews( new GameEventPlayerWithBoxMoved( oldX, oldY, newX, newY, oldBoxX, oldBoxY));
-        } else {
-            addGameEventIntoQueueAndNotifyViews( new GameEventPlayerMoved( oldX, oldY, newX, newY));
-        }
+        WhoPersistentInTile oldWhoPersistentInTile = allSokobanObjects.getWhoPersistentInTile( oldX, oldY);
+        addGameEventIntoQueueAndNotifyViews( new GameEventOneTileSokobanChangeable( oldX, oldY, oldWhoPersistentInTile, oldWhoMovableInTile));
+
+        WhoPersistentInTile newWhoPersistentInTile = allSokobanObjects.getWhoPersistentInTile( newX, newY);
+        WhoMovableInTile newWhoMovableInTile = WhoMovableInTile.IS_PLAYER; // allSokobanObjects.getWhoMovableInTile( newX, newY);
+        addGameEventIntoQueueAndNotifyViews( new GameEventOneTileSokobanChangeable( newX, newY, newWhoPersistentInTile, newWhoMovableInTile));
+
         routeRedo.push( step);
     }
 
@@ -119,49 +126,59 @@ public class SokobanModel extends BaseModel {
         return true;
     }
 
-    private boolean movePlayerIfPossible( Direction direction, boolean isRedo) {
+    private void movePlayerIfPossible(Direction direction, boolean isRedo) {
         Player player = allSokobanObjects.getPlayer( );
         if ( !isRedo) {
             if ( !checkWallCollision( player, direction)) {
-                return false;
+                return;
             }
         }
         boolean isBoxMoved = false;
-        int newBoxX = -1;
-        int newBoxY = -1;
+        int newBoxX;
+        int newBoxY;
+
         for( Box box: allSokobanObjects.getBoxes( )) {
             if ( player.isCollision( box, direction)) {
                 if ( !isRedo) {
                     if ( !checkWallCollision( box, direction)) {
-                        return false;
+                        return;
                     }
                     if ( !checkBoxCollision( box, direction)) {
-                        return false;
+                        return;
                     }
                 }
                 box.move( direction);
+
                 newBoxX = box.getX( );
                 newBoxY = box.getY( );
+
+                WhoPersistentInTile newWhoPersistentInTile = allSokobanObjects.getWhoPersistentInTile( newBoxX, newBoxY);
+                WhoMovableInTile newBoxWhoMovableInTile = WhoMovableInTile.IS_BOX; // allSokobanObjects.getWhoMovableInTile( newBoxX, newBoxY);
+                addGameEventIntoQueueAndNotifyViews( new GameEventOneTileSokobanChangeable( newBoxX, newBoxY, newWhoPersistentInTile, newBoxWhoMovableInTile));
+
                 isBoxMoved = true;
                 break;
             }
         }
         int oldX = player.getX( );
         int oldY = player.getY( );
+
         player.move( direction);
+
         int newX = player.getX( );
         int newY = player.getY( );
-        // ToDo: Лучше в очередь записать две или три записи о тех клетках, которые были изменены.
-        //  И по каждой из них указать ( пустая / дом) и ( пустая / игрок / коробка).
-        if ( isBoxMoved) {
-            addGameEventIntoQueueAndNotifyViews( new GameEventPlayerWithBoxMoved( oldX, oldY, newX, newY, newBoxX, newBoxY));
-        } else {
-            addGameEventIntoQueueAndNotifyViews( new GameEventPlayerMoved( oldX, oldY, newX, newY));
-        }
+
+        WhoPersistentInTile oldWhoPersistentInTile = allSokobanObjects.getWhoPersistentInTile( oldX, oldY);
+        WhoMovableInTile oldWhoMovableInTile = WhoMovableInTile.IS_NOBODY; // allSokobanObjects.getWhoMovableInTile( oldX, oldY);
+        addGameEventIntoQueueAndNotifyViews( new GameEventOneTileSokobanChangeable( oldX, oldY, oldWhoPersistentInTile, oldWhoMovableInTile));
+
+        WhoPersistentInTile newWhoPersistentInTile = allSokobanObjects.getWhoPersistentInTile( newX, newY);
+        WhoMovableInTile newWhoMovableInTile = WhoMovableInTile.IS_PLAYER; // allSokobanObjects.getWhoMovableInTile( newX, newY);
+        addGameEventIntoQueueAndNotifyViews( new GameEventOneTileSokobanChangeable( newX, newY, newWhoPersistentInTile, newWhoMovableInTile));
+
         route.push( new Step( direction, isBoxMoved));
         checkCompletion( );
 
-        return true;
     }
 
     private void checkCompletion( ) {
