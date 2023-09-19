@@ -5,11 +5,10 @@ import timmax.basetilemodel.*;
 import timmax.basetilemodel.gameevent.*;
 import timmax.minesweeper.model.gameevent.*;
 import timmax.tilegameenginejfx.*;
-import java.util.NoSuchElementException;
 
 import static javafx.scene.paint.Color.*;
 
-public class MinesweeperMainFieldViewJfx extends ViewJfx {
+public class MinesweeperMainFieldViewJfx extends ViewMainFieldJfx {
     private static final Color UNOPENED_CELL_COLOR = ORANGE;
     private static final Color OPENED_CELL_COLOR = GREEN;
 
@@ -19,71 +18,20 @@ public class MinesweeperMainFieldViewJfx extends ViewJfx {
     private static final String MINE = "💣"; // "\uD83D\uDCA3";
     private static final Color MINE_CELL_COLOR = RED;
 
-    private final boolean showGrid = true;
-    private final boolean showCoordinates = false;
-
 
     public MinesweeperMainFieldViewJfx( BaseModel baseModel) {
         super( baseModel);
     }
 
-    // Почти идентичное содержимое этого метода с одноименным методом в SokobanMainFieldViewJfx.
-    // ToDo:
-    //  1. Перенести в родительский класс.
-    //  2. И там через абстракцию разрулить неодинаковость.
     @Override
-    public void update( ) {
-        GameEvent gameEvent;
-        while ( true) {
-            try {
-                gameEvent = gameQueueForOneView.remove( );
-            } catch ( NoSuchElementException nsee) {
-                break;
-            }
-
-            if ( gameEvent instanceof GameEventNewGame) {
-                initMainField( ( GameEventNewGame) gameEvent);
-            } else if ( gameEvent instanceof GameEventOneTile) {
-                drawTile( ( ( GameEventOneTile) gameEvent));
-            }
-        }
+    protected void drawCellDuringInitMainField( GameStackPane cell) {
+        cell.setCellValue( "", cellSize);
+        cell.setCellColor( UNOPENED_CELL_COLOR);
     }
 
-    private void initMainField( GameEventNewGame gameEventNewGame) {
-        // ToDo: Свойства модели нужно брать не напрямую из модели, а из события!
-        int width = gameEventNewGame.getWidth( );
-        int height = gameEventNewGame.getHeight( );
-        cellSize = Math.min( Game.APP_WIDTH / width, Game.APP_HEIGHT / height);
-
-        primaryStage.hide( );
-        root.setPrefSize(
-                width * cellSize + GameBorderImage.getPaddingSide( ) + GameBorderImage.getPaddingSide( ),
-                height * cellSize + GameBorderImage.getPaddingTop( ) + GameBorderImage.getPaddingDown( )
-        );
-
-        cells = new GameStackPane[ height][ width];
-        for( int y = 0; y < height; ++y) {
-            for( int x = 0; x < width; ++x) {
-                cells[ y][ x] = new GameStackPane( x, y, cellSize, showGrid, showCoordinates);
-                {   // Наличием этого блока этот метод и отличается от одноименной функции в SokobanMainFieldViewJfx
-                    // ToDo:
-                    //  1. Сделать initMainField в родительском классе с вызовом абстрактного метода (п. 2).
-                    //  2. Сделать абстрактный метод там для возможной реализации подобного блока.
-                    //  3. В этом классе только перегрузить абстрактный метод.
-                    cells[ y][ x].setCellValue( "", cellSize);
-                    cells[ y][ x].setCellColor( UNOPENED_CELL_COLOR);
-                }
-                root.getChildren( ).add( cells[ y][ x]);
-            }
-        }
-        primaryStage.show( );
-    }
-
-    // ToDo: drawTile в родительский класс и пусть там будет абстрактной. А здесь будет реализация.
-    private void drawTile( GameEventOneTile gameEventOneTile) {
-        int x = gameEventOneTile.getX( );
-        int y = gameEventOneTile.getY( );
-        GameStackPane cell = cells[ y][ x];
+    @Override
+    protected void drawCellDuringGame( GameEventOneTile gameEventOneTile) {
+        GameStackPane cell = getCellByGameEventOneTile( gameEventOneTile);
 
         if ( gameEventOneTile instanceof GameEventOneTileOpenMine) {
             cell.setCellValueEx( MINE_CELL_COLOR, MINE, cellSize);

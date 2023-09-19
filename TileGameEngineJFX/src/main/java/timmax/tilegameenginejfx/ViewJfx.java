@@ -6,8 +6,6 @@ import timmax.basetilemodel.BaseModel;
 import timmax.basetilemodel.View;
 
 public abstract class ViewJfx extends View {
-    protected GameStackPane[ ][ ] cells;
-    protected int cellSize;
     protected Pane root;
     protected Stage primaryStage;
 
