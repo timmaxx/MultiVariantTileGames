@@ -3,8 +3,7 @@ package timmax.minesweeper.model.gameobject;
 import timmax.basetilemodel.GameStatus;
 import timmax.basetilemodel.gameevent.GameEventGameOver;
 import timmax.minesweeper.model.MinesweeperModel;
-import timmax.minesweeper.model.gameevent.GameEventOneTileMine;
-import timmax.minesweeper.model.gameevent.GameEventOneTileNoMine;
+import timmax.minesweeper.model.gameevent.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -68,12 +67,12 @@ public class AllMinesweeperObjects {
         // Если в открытой плитке мина
         if ( minesweeperTile.isMine( )) {
             // Завершение игры поражением
-            minesweeperModel.addGameEventIntoQueue( new GameEventOneTileMine( minesweeperTile.getX( ), minesweeperTile.getY( )));
+            minesweeperModel.addGameEventIntoQueue( new GameEventOneTileOpenMine( minesweeperTile.getX( ), minesweeperTile.getY( )));
             minesweeperModel.addGameEventIntoQueue( new GameEventGameOver( DEFEAT));
             return DEFEAT;
         } else {
             defineNeighbors( minesweeperTile);
-            minesweeperModel.addGameEventIntoQueue( new GameEventOneTileNoMine( minesweeperTile.getX( ), minesweeperTile.getY( ), minesweeperTile.getCountOfMineNeighbors( )));
+            minesweeperModel.addGameEventIntoQueue( new GameEventOneTileOpenNoMine( minesweeperTile.getX( ), minesweeperTile.getY( ), minesweeperTile.getCountOfMineNeighbors( )));
             // Если в соседних плитках нет мин
             if ( minesweeperTile.getCountOfMineNeighbors( ) == 0) {
                 // Пройдёмся по соседним плиткам

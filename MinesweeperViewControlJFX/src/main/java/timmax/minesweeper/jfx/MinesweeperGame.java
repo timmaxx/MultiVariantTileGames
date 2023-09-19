@@ -18,7 +18,7 @@ public class MinesweeperGame extends Game {
     }
 
     @Override
-    public ViewJfx initViewMainField(BaseModel baseModel) {
+    public ViewJfx initViewMainField( BaseModel baseModel) {
         return new MinesweeperMainFieldViewJfx( baseModel);
     }
 
