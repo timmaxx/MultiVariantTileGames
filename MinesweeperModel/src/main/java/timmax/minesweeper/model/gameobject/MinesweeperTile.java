@@ -87,7 +87,7 @@ public class MinesweeperTile extends Tile {
     }
 
     // Предоставить перечень соседних плиток
-    Set< MinesweeperTile> getNeighborTiles() {
+    Set< MinesweeperTile> getNeighborTiles( ) {
         return neighborTiles;
     }
 

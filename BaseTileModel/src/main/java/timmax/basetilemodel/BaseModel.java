@@ -2,7 +2,6 @@ package timmax.basetilemodel;
 
 import timmax.basetilemodel.gameevent.GameEvent;
 import timmax.basetilemodel.gameevent.GameEventNewGame;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -88,4 +87,12 @@ public abstract class BaseModel implements ObservableModel {
     protected void setGameStatus( GameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
+
+    abstract protected void restart( );
+
+    abstract protected void nextLevel( );
+
+    abstract protected void prevLevel( );
+
+    abstract protected void win( );
 }

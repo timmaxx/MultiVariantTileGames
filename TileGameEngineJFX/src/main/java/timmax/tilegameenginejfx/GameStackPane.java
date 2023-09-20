@@ -4,8 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
+import javafx.scene.text.*;
 
 public class GameStackPane extends StackPane {
     private static final double COORDINATE_TEXT_FONT_SIZE_COEFFICIENT = 0.15;

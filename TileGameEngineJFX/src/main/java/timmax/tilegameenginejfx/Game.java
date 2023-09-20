@@ -23,7 +23,7 @@ public abstract class Game extends Application implements GameScreen {
         GameController gameController = initGameController( baseModel, this);
 
         Pane root = new Pane( );
-        GameScene scene = new GameScene(root, this, gameController);
+        GameScene scene = new GameScene( root, this, gameController);
 
         primaryStage.setTitle( initTitle( ));
         primaryStage.setResizable( false);
@@ -35,21 +35,23 @@ public abstract class Game extends Application implements GameScreen {
         }
         primaryStage.setScene( scene);
 
-        gameBorderImage = new GameBorderImage(root);
+        gameBorderImage = new GameBorderImage( root);
 
         // viewGameOverMessage = new ViewGameOverMessage( baseModel);
 
-        ViewJfx viewMainFieldJfx = initViewMainField(baseModel);
-        viewMainFieldJfx.setRoot(root);
+        ViewJfx viewMainFieldJfx = initViewMainField( baseModel);
+        viewMainFieldJfx.setRoot( root);
         viewMainFieldJfx.setPrimaryStage( primaryStage);
 
         initialize( );
     }
 
+    // ToDo: 1. game.initialize( ) перенести в модель и тогда см. п. 2.
     @Override
     public void initialize( ) {
         baseModel.createNewGame( );
 
+        // ToDo: gameBorderImage сделать наследником (или реализующим) ViewJfx. И тогда отсюда она уйдёт. И в принципе initialize( ) уйдёт из этого класса.
         cellSize = Math.min( APP_WIDTH / baseModel.getWidth( ), APP_HEIGHT / baseModel.getHeight( ));
         gameBorderImage.setWidthAndHeight( baseModel.getWidth( ), baseModel.getHeight( ), cellSize);
 

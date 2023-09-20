@@ -3,8 +3,15 @@ package timmax.tilegameenginejfx;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+// Это:
+// - либо как-бы мега ViewJfx, на которой будут размещены несколько ViewJfx.
+// - либо в такой сцене должно быть по одной ViewJfx/
 public class GameScene extends Scene {
     private final GameController gameController;
+    // game используется для доступа к getCellSize, но этот параметр относится исключительно только к MainFieldJfx
+    // ToDo: Удалить отсюда game, но при этом опять переделывать архитектуру...
+    // ToDo: Сначала создать отдельное тестовое приложение с двумя-тремя сценами и посмотреть, как там будет с перехватом событий.
+    //       Хотя, вроде к Stage только одна Scene привязывается? Если так, то не получится.
     private final Game game;
 
 
@@ -17,6 +24,11 @@ public class GameScene extends Scene {
         setOnKeyReleased( );
     }
 
+    // ToDo:
+    // 1. Либо в пределах сцены определять над каким узлом произошло событие и ему отправлять его.
+    // 2. Либо создавать отдельную сцену для каждой ViewJfx?
+
+    // setOnMouseClicked в классе Scene объявлен final, поэтому не получилось его перегрузить в этом классе.
     private void setOnMouseClicked( ) {
         setOnMouseClicked( event -> {
             if ( game.getCellSize( ) == 0) {
@@ -43,10 +55,12 @@ public class GameScene extends Scene {
         });
     }
 
+    // setOnKeyReleased в классе Scene объявлен final, поэтому не получилось его перегрузить в этом классе.
     private void setOnKeyReleased( ) {
         setOnKeyReleased( event -> gameController.onKeyReleased( event.getCode( )));
     }
 
+    // setOnKeyPressed в классе Scene объявлен final, поэтому не получилось его перегрузить в этом классе.
     private void setOnKeyPressed( ) {
         setOnKeyPressed( event -> gameController.onKeyPress( event.getCode( )));
     }

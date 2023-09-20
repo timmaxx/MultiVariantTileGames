@@ -2,8 +2,7 @@ package timmax.tilegameenginejfx;
 
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import timmax.basetilemodel.BaseModel;
-import timmax.basetilemodel.View;
+import timmax.basetilemodel.*;
 
 public abstract class ViewJfx extends View {
     protected Pane root;

@@ -2,8 +2,7 @@ package timmax.minesweeper.model;
 
 import timmax.basetilemodel.BaseModel;
 import timmax.minesweeper.model.gameevent.GameEventOneTileChangeFlag;
-import timmax.minesweeper.model.gameobject.AllMinesweeperObjects;
-import timmax.minesweeper.model.gameobject.LevelGenerator;
+import timmax.minesweeper.model.gameobject.*;
 
 // Модель игры Сапёр
 public class MinesweeperModel extends BaseModel {
@@ -36,5 +35,21 @@ public class MinesweeperModel extends BaseModel {
     public void open( int x, int y) {
         setGameStatus( allMinesweeperObjects.open( allMinesweeperObjects.getTileByXY( x, y)));
         notifyViews( );
+    }
+
+    @Override
+    protected void restart( ) {
+    }
+
+    @Override
+    protected void nextLevel( ) {
+    }
+
+    @Override
+    protected void prevLevel( ) {
+    }
+
+    @Override
+    protected void win( ) {
     }
 }

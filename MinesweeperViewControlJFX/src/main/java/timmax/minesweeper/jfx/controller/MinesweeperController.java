@@ -1,12 +1,12 @@
 package timmax.minesweeper.jfx.controller;
 
-import timmax.basetilemodel.BaseModel;
-import timmax.basetilemodel.GameStatus;
+import timmax.basetilemodel.*;
 import timmax.minesweeper.model.MinesweeperModel;
-import timmax.tilegameenginejfx.Game;
-import timmax.tilegameenginejfx.GameController;
+import timmax.tilegameenginejfx.*;
 
 public class MinesweeperController extends GameController {
+    // ToDo: 1. game.initialize( ) перенести в модель и тогда см. п. 2.
+    // ToDo: 2. game убрать из контроллера!
     public MinesweeperController( BaseModel baseModel, Game game) {
         super( baseModel, game);
     }

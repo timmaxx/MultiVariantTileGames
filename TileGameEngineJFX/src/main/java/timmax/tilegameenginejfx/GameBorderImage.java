@@ -1,11 +1,11 @@
 package timmax.tilegameenginejfx;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 import javafx.scene.layout.Pane;
 
 import java.io.InputStream;
 
+// ToDo: gameBorderImage сделать реализующим ViewJfx.
 public class GameBorderImage extends ImageView {
     // These constants (PADDING_X) for screen.png:
     private final static int PADDING_TOP = 110;
@@ -13,6 +13,7 @@ public class GameBorderImage extends ImageView {
     private final static int PADDING_SIDE = 125;
     private final static boolean showTV = true; // false; // true;
 
+    // ToDo: Странно видеть здесь imageView. А иначе зачем было этот класс делать наследником ImageView?
     private final ImageView imageView;
 
 
