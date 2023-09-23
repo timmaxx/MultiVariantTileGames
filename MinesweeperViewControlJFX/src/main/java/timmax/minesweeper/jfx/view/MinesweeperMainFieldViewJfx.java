@@ -56,17 +56,18 @@ public class MinesweeperMainFieldViewJfx extends ViewMainFieldJfxController {
     }
 
     @Override
-    protected void debugCellDuringInitMainField( GameStackPane cell) {
+    protected void initOnMouseClickEventHandlerOnCell( GameStackPane cell) {
         cell.setOnMouseClicked( event -> {
             int x = ( ( GameStackPane)event.getSource( )).getX( );
             int y = ( ( GameStackPane)event.getSource( )).getY( );
+/*
             System.out.println(
                     " x = " + x + ", " +
                             "y = " + y + ". " +
                             "src = " + event.getSource( ) + ". " +
                             // "event.getEventType( ) = " + event.getEventType( ) + ". " +
                             "event.getButton( ) = " + event.getButton( ));
-
+*/
             switch ( event.getButton( )) {
                 case PRIMARY -> onMouseLeftClick( x, y);
                 case SECONDARY -> onMouseRightClick( x, y);
