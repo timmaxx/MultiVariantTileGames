@@ -1,22 +1,38 @@
 package timmax.tilegameenginejfx;
 
+import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import timmax.basetilemodel.*;
+import timmax.basetilemodel.gameevent.GameEvent;
 
-public abstract class ViewJfx extends View {
-    protected Pane root;
-    protected Stage primaryStage;
+public class ViewJfx extends Pane implements ViewJfxInterface {
+    protected GameQueueForOneView gameQueueForOneView;
+    // private ViewInterface view;
 
-    public ViewJfx( BaseModel baseModel) {
-        super( baseModel);
+    protected BaseModel baseModel;
+    protected Game game;
+
+
+    public ViewJfx( BaseModel baseModel, Game game) {
+        super( );
+        this.baseModel = baseModel;
+        this.game = game;
+        // view = new View( baseModel);
+        gameQueueForOneView = baseModel.addViewListener( this); // К модели привязать это представление
     }
 
-    public void setRoot( Pane root) {
-        this.root = root;
+    @Override
+    public void update( ) {
+        System.out.println( "ViewJfx.update( ) " + this.getClass( ) + " " + this);
     }
 
-    public void setPrimaryStage( Stage primaryStage) {
-        this.primaryStage = primaryStage;
+    @Override
+    public Node getStyleableNode( ) {
+        return super.getStyleableNode( );
+    }
+
+    @Override
+    public GameEvent removeFromGameQueueForOneView() {
+        return gameQueueForOneView.remove( );
     }
 }

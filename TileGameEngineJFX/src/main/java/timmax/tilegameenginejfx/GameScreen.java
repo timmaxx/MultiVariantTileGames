@@ -1,7 +1,6 @@
 package timmax.tilegameenginejfx;
 
 import timmax.basetilemodel.BaseModel;
-// import timmax.basetilemodel.ViewMainArea;
 
 // Этот интерфейс изначально не должен был ориентироваться только на JFX.
 // Но сейчас, для простоты, он уже зависит от JFX.
@@ -11,10 +10,9 @@ public interface GameScreen {
 
     BaseModel initModel( );
 
-    GameController initGameController( BaseModel baseModel, Game game);
+    // GameController initGameController( BaseModel baseModel, Game game);
 
-    // ViewMainArea initViewMainArea( BaseModel baseModel);
-    ViewJfx initViewMainField( BaseModel baseModel);
+    ViewJfx initViewMainField( BaseModel baseModel, Game game);
 
     String initTitle( );
 }
