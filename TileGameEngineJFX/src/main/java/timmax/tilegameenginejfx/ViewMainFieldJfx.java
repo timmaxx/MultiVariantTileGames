@@ -49,15 +49,19 @@ abstract public class ViewMainFieldJfx extends ViewJfx {
         for( int y = 0; y < height; ++y) {
             for( int x = 0; x < width; ++x) {
                 cells[ y][ x] = new GameStackPane( x, y, cellSize, showGrid, showCoordinates);
-                debugCellDuringInitMainField( cells[ y][ x]);
+                initOnMouseClickEventHandlerOnCell( cells[ y][ x]);
                 drawCellDuringInitMainField( cells[ y][ x]);
                 getChildren( ).add( cells[ y][ x]);
             }
         }
+        initOnKeyEventHandlerOnScene( );
         // primaryStage.show( );
     }
 
-    protected void debugCellDuringInitMainField( GameStackPane cell) {
+    protected void initOnKeyEventHandlerOnScene( ) {
+    }
+
+    protected void initOnMouseClickEventHandlerOnCell(GameStackPane cell) {
     }
 
     protected void drawCellDuringInitMainField( GameStackPane cell) {
