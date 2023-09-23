@@ -1,17 +1,20 @@
 package timmax.sokoban.jfx.view;
 
+import javafx.scene.input.KeyCode;
 import timmax.basetilemodel.*;
 import timmax.basetilemodel.gameevent.*;
+import timmax.sokoban.model.SokobanModel;
 import timmax.sokoban.model.gameevent.*;
 import timmax.sokoban.model.gameobject.*;
 import javafx.scene.paint.Color;
 import timmax.tilegameenginejfx.*;
 
 import static javafx.scene.paint.Color.*;
+import static timmax.basetilemodel.tile.Direction.*;
 import static timmax.sokoban.model.gameobject.WhoMovableInTile.*;
 import static timmax.sokoban.model.gameobject.WhoPersistentInTile.*;
 
-public class SokobanMainFieldViewJfx extends ViewMainFieldJfx {
+public class SokobanMainFieldViewJfx extends ViewMainFieldJfxController {
     private static final Color WALL_CELL_COLOR = RED;
     private static final Color HOME_CELL_COLOR = WHITE;
     private static final Color EMPTY_CELL_COLOR = BLACK;
@@ -23,8 +26,8 @@ public class SokobanMainFieldViewJfx extends ViewMainFieldJfx {
     private static final Color BOX_TEXT_COLOR = BLUE;
 
 
-    public SokobanMainFieldViewJfx( BaseModel baseModel) {
-        super( baseModel);
+    public SokobanMainFieldViewJfx( BaseModel baseModel, Game game) {
+        super( baseModel, game);
     }
 
     @Override
@@ -52,5 +55,35 @@ public class SokobanMainFieldViewJfx extends ViewMainFieldJfx {
         } else { // IS_NOBODY
             cell.setCellValue( "", cellSize);
         }
+    }
+
+    @Override
+    public void initOnKeyEventHandlerOnScene( ) {
+        getScene( ).setOnKeyPressed( event -> {
+            onKeyPress( event.getCode( ));
+            // System.out.println( event);
+        });
+    }
+
+    public void onKeyPress( KeyCode keyCode) {
+        if ( getSokobanModel( ).getGameStatus( ) != GameStatus.GAME) {
+            game.initialize( );
+            return;
+        }
+
+        if        ( keyCode.equals( KeyCode.Q))          { getSokobanModel( ).moveUndo( );
+        } else if ( keyCode.equals( KeyCode.P))          { getSokobanModel( ).moveRedo( );
+        } else if ( keyCode.equals( KeyCode.LEFT))       { getSokobanModel( ).move( LEFT);
+        } else if ( keyCode.equals( KeyCode.RIGHT))      { getSokobanModel( ).move( RIGHT);
+        } else if ( keyCode.equals( KeyCode.UP))         { getSokobanModel( ).move( UP);
+        } else if ( keyCode.equals( KeyCode.DOWN))       { getSokobanModel( ).move( DOWN);
+        } else if ( keyCode.equals( KeyCode.BACK_SPACE)) { getSokobanModel( ).prevLevel( );
+        } else if ( keyCode.equals( KeyCode.SPACE))      { getSokobanModel( ).nextLevel( );
+        } else if ( keyCode.equals( KeyCode.ESCAPE))     { getSokobanModel( ).restart( );
+        }
+    }
+
+    private SokobanModel getSokobanModel( ) {
+        return ( SokobanModel)baseModel;
     }
 }
