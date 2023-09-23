@@ -3,12 +3,13 @@ package timmax.minesweeper.jfx.view;
 import javafx.scene.paint.Color;
 import timmax.basetilemodel.*;
 import timmax.basetilemodel.gameevent.*;
+import timmax.minesweeper.model.MinesweeperModel;
 import timmax.minesweeper.model.gameevent.*;
 import timmax.tilegameenginejfx.*;
 
 import static javafx.scene.paint.Color.*;
 
-public class MinesweeperMainFieldViewJfx extends ViewMainFieldJfx {
+public class MinesweeperMainFieldViewJfx extends ViewMainFieldJfxController {
     private static final Color UNOPENED_CELL_COLOR = ORANGE;
     private static final Color OPENED_CELL_COLOR = GREEN;
 
@@ -19,8 +20,8 @@ public class MinesweeperMainFieldViewJfx extends ViewMainFieldJfx {
     private static final Color MINE_CELL_COLOR = RED;
 
 
-    public MinesweeperMainFieldViewJfx( BaseModel baseModel) {
-        super( baseModel);
+    public MinesweeperMainFieldViewJfx( BaseModel baseModel, Game game) {
+        super( baseModel, game);
     }
 
     @Override
@@ -52,5 +53,42 @@ public class MinesweeperMainFieldViewJfx extends ViewMainFieldJfx {
             cell.setCellValue( flag, cellSize);
             cell.setCellColor( tile_cell_color);
         }
+    }
+
+    @Override
+    protected void debugCellDuringInitMainField( GameStackPane cell) {
+        cell.setOnMouseClicked( event -> {
+            int x = ( ( GameStackPane)event.getSource( )).getX( );
+            int y = ( ( GameStackPane)event.getSource( )).getY( );
+            System.out.println(
+                    " x = " + x + ", " +
+                            "y = " + y + ". " +
+                            "src = " + event.getSource( ) + ". " +
+                            // "event.getEventType( ) = " + event.getEventType( ) + ". " +
+                            "event.getButton( ) = " + event.getButton( ));
+
+            switch ( event.getButton( )) {
+                case PRIMARY -> onMouseLeftClick( x, y);
+                case SECONDARY -> onMouseRightClick( x, y);
+            }
+
+        });
+    }
+
+    public void onMouseLeftClick( int x, int y) {
+        if ( getMinesweeperModel( ).getGameStatus( ) != GameStatus.GAME) {
+            game.initialize( );
+            return;
+        }
+
+        getMinesweeperModel( ).open( x, y);
+    }
+
+    public void onMouseRightClick( int x, int y) {
+        getMinesweeperModel( ).inverseFlag( x, y);
+    }
+
+    private MinesweeperModel getMinesweeperModel( ) {
+        return ( MinesweeperModel)baseModel;
     }
 }
