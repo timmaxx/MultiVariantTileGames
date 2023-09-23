@@ -26,8 +26,8 @@ public class SokobanMainFieldViewJfx extends ViewMainFieldJfxController {
     private static final Color BOX_TEXT_COLOR = BLUE;
 
 
-    public SokobanMainFieldViewJfx( BaseModel baseModel, Game game) {
-        super( baseModel, game);
+    public SokobanMainFieldViewJfx( BaseModel baseModel) {
+        super( baseModel);
     }
 
     @Override
@@ -59,15 +59,12 @@ public class SokobanMainFieldViewJfx extends ViewMainFieldJfxController {
 
     @Override
     public void initOnKeyEventHandlerOnScene( ) {
-        getScene( ).setOnKeyPressed( event -> {
-            onKeyPress( event.getCode( ));
-            // System.out.println( event);
-        });
+        getScene( ).setOnKeyPressed( event -> onKeyPress( event.getCode( )));
     }
 
     public void onKeyPress( KeyCode keyCode) {
         if ( getSokobanModel( ).getGameStatus( ) != GameStatus.GAME) {
-            game.initialize( );
+            baseModel.createNewGame( );
             return;
         }
 

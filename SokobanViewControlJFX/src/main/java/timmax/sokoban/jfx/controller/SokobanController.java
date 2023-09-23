@@ -20,7 +20,7 @@ public class SokobanController extends GameController {
 
     public void onKeyPress( KeyCode keyCode) {
         if ( getSokobanModel( ).getGameStatus( ) != GameStatus.GAME) {
-            game.initialize( );
+            // game.initialize( );
             return;
         }
 

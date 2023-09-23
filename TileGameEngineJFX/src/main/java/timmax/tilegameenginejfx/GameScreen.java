@@ -6,13 +6,11 @@ import timmax.basetilemodel.BaseModel;
 // Но сейчас, для простоты, он уже зависит от JFX.
 // Стоит разделить этот интерфейс на предка (не зависящего от JFX) и потомка (зависящего от JFX).
 public interface GameScreen {
-    void initialize( );
-
     BaseModel initModel( );
 
     // GameController initGameController( BaseModel baseModel, Game game);
 
-    ViewJfx initViewMainField( BaseModel baseModel, Game game);
+    ViewJfx initViewMainField( BaseModel baseModel);
 
     String initTitle( );
 }

@@ -11,8 +11,9 @@ abstract public class ViewMainFieldJfx extends ViewJfx {
     private final boolean showGrid = true;
     private final boolean showCoordinates = false;
 
-    public ViewMainFieldJfx( BaseModel baseModel, Game game) {
-        super( baseModel, game);
+
+    public ViewMainFieldJfx( BaseModel baseModel) {
+        super( baseModel);
     }
 
     @Override
@@ -61,7 +62,7 @@ abstract public class ViewMainFieldJfx extends ViewJfx {
     protected void initOnKeyEventHandlerOnScene( ) {
     }
 
-    protected void initOnMouseClickEventHandlerOnCell(GameStackPane cell) {
+    protected void initOnMouseClickEventHandlerOnCell( GameStackPane cell) {
     }
 
     protected void drawCellDuringInitMainField( GameStackPane cell) {

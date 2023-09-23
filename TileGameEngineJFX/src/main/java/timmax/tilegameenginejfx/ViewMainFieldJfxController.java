@@ -3,8 +3,8 @@ package timmax.tilegameenginejfx;
 import timmax.basetilemodel.BaseModel;
 
 public class ViewMainFieldJfxController extends ViewMainFieldJfx {
-    public ViewMainFieldJfxController( BaseModel baseModel, Game game) {
-        super( baseModel, game);
+    public ViewMainFieldJfxController( BaseModel baseModel) {
+        super( baseModel);
     }
 /*
     @Override

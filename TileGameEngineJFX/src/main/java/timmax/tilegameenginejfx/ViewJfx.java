@@ -10,13 +10,11 @@ public class ViewJfx extends Pane implements ViewJfxInterface {
     // private ViewInterface view;
 
     protected BaseModel baseModel;
-    protected Game game;
 
 
-    public ViewJfx( BaseModel baseModel, Game game) {
+    public ViewJfx( BaseModel baseModel) {
         super( );
         this.baseModel = baseModel;
-        this.game = game;
         // view = new View( baseModel);
         gameQueueForOneView = baseModel.addViewListener( this); // К модели привязать это представление
     }

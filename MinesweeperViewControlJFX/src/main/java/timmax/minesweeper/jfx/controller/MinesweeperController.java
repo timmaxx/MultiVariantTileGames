@@ -18,7 +18,7 @@ public class MinesweeperController extends GameController {
     @Override
     public void onMouseLeftClick( int x, int y) {
         if ( getMinesweeperModel( ).getGameStatus( ) != GameStatus.GAME) {
-            game.initialize( );
+            // game.initialize( );
             return;
         }
 

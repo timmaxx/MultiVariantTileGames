@@ -20,8 +20,8 @@ public class MinesweeperMainFieldViewJfx extends ViewMainFieldJfxController {
     private static final Color MINE_CELL_COLOR = RED;
 
 
-    public MinesweeperMainFieldViewJfx( BaseModel baseModel, Game game) {
-        super( baseModel, game);
+    public MinesweeperMainFieldViewJfx( BaseModel baseModel) {
+        super( baseModel);
     }
 
     @Override
@@ -60,14 +60,6 @@ public class MinesweeperMainFieldViewJfx extends ViewMainFieldJfxController {
         cell.setOnMouseClicked( event -> {
             int x = ( ( GameStackPane)event.getSource( )).getX( );
             int y = ( ( GameStackPane)event.getSource( )).getY( );
-/*
-            System.out.println(
-                    " x = " + x + ", " +
-                            "y = " + y + ". " +
-                            "src = " + event.getSource( ) + ". " +
-                            // "event.getEventType( ) = " + event.getEventType( ) + ". " +
-                            "event.getButton( ) = " + event.getButton( ));
-*/
             switch ( event.getButton( )) {
                 case PRIMARY -> onMouseLeftClick( x, y);
                 case SECONDARY -> onMouseRightClick( x, y);
@@ -78,7 +70,7 @@ public class MinesweeperMainFieldViewJfx extends ViewMainFieldJfxController {
 
     public void onMouseLeftClick( int x, int y) {
         if ( getMinesweeperModel( ).getGameStatus( ) != GameStatus.GAME) {
-            game.initialize( );
+            baseModel.createNewGame( );
             return;
         }
 

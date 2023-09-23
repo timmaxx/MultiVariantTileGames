@@ -18,8 +18,8 @@ public class SokobanGame extends Game {
     }
 */
     @Override
-    public ViewJfx initViewMainField( BaseModel baseModel, Game game) {
-        return new SokobanMainFieldViewJfx( baseModel, game);
+    public ViewJfx initViewMainField( BaseModel baseModel) {
+        return new SokobanMainFieldViewJfx( baseModel);
     }
 
     @Override
