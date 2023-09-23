@@ -66,7 +66,11 @@ abstract class BaseModel implements ObservableModel {
 BaseModel::gameStatus "1" *-- "1" GameStatus
 BaseModel::listOfViews "1" *-- "0*" View
 
-abstract class View {
+interface ViewInterface {
+    + update( ) void
+}
+
+abstract class View implements ViewInterface{
     # baseModel: BaseModel
     + View( BaseModel baseModel):
     # {abstract} update( ): void

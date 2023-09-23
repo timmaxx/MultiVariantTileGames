@@ -13,7 +13,7 @@ public abstract class BaseModel implements ObservableModel {
     private final static int MAX_HEIGHT = 100;
 
     // Карта представление - очередь. В очереди записываем события. Для представлений вызываем update.
-    protected final Map< View, GameQueueForOneView> mapOfViewGameQueueForOneView;
+    protected final Map< ViewInterface, GameQueueForOneView> mapOfViewGameQueueForOneView;
 
     private int width;
     private int height;
@@ -66,7 +66,7 @@ public abstract class BaseModel implements ObservableModel {
 
     // Реализация добавления представления в модель
     @Override
-    public GameQueueForOneView addViewListener( View view) {
+    public GameQueueForOneView addViewListener( ViewInterface view) {
         GameQueueForOneView gameQueueForOneView = new GameQueueForOneView( );
         mapOfViewGameQueueForOneView.put( view, gameQueueForOneView);
         return gameQueueForOneView;
@@ -75,7 +75,7 @@ public abstract class BaseModel implements ObservableModel {
     // Известить все присоединённые представления, чтобы они могли обновить себя.
     @Override
     public void notifyViews( ) {
-        for ( View view: mapOfViewGameQueueForOneView.keySet( )) {
+        for ( ViewInterface view: mapOfViewGameQueueForOneView.keySet( )) {
             view.update( );
         }
     }
