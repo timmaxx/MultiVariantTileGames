@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 // Базовая модель
-public abstract class BaseModel implements ObservableModel {
+public abstract class BaseModel {
     private final static int MIN_WIDTH = 2;
     private final static int MAX_WIDTH = 100;
     private final static int MIN_HEIGHT = 2;
@@ -14,9 +14,6 @@ public abstract class BaseModel implements ObservableModel {
 
     // Карта представление - очередь. В очереди записываем события. Для представлений вызываем update.
     protected final Map< ViewInterface, GameQueueForOneView> mapOfViewGameQueueForOneView;
-
-    private int width;
-    private int height;
     private GameStatus gameStatus;
 
 
@@ -29,9 +26,6 @@ public abstract class BaseModel implements ObservableModel {
     protected void createNewGame( int width, int height) {
         validateWidthHeight( width, height);
         gameStatus = GameStatus.GAME;
-        this.width = width;
-        this.height = height;
-
         addGameEventIntoQueueAndNotifyViews( new GameEventNewGame( width, height));
     }
 
@@ -46,6 +40,12 @@ public abstract class BaseModel implements ObservableModel {
         }
     }
 
+    public void notifyViews( ) {
+        for ( ViewInterface view: mapOfViewGameQueueForOneView.keySet( )) {
+            view.update( );
+        }
+    }
+
     private static void validateWidthHeight( int width, int height) {
         if ( width >= MIN_WIDTH && width <= MAX_WIDTH && height >= MIN_HEIGHT && height <= MAX_HEIGHT) {
             return;
@@ -56,30 +56,15 @@ public abstract class BaseModel implements ObservableModel {
                         ". But width = " + width + ", height = " + height + ".");
     }
 
-    public int getWidth( ) {
-        return width;
-    }
-
-    public int getHeight( ) {
-        return height;
-    }
-
     // Реализация добавления представления в модель
-    @Override
     public GameQueueForOneView addViewListener( ViewInterface view) {
         GameQueueForOneView gameQueueForOneView = new GameQueueForOneView( );
         mapOfViewGameQueueForOneView.put( view, gameQueueForOneView);
         return gameQueueForOneView;
     }
 
-    // Известить все присоединённые представления, чтобы они могли обновить себя.
-    @Override
-    public void notifyViews( ) {
-        for ( ViewInterface view: mapOfViewGameQueueForOneView.keySet( )) {
-            view.update( );
-        }
-    }
-
+    // Сейчас используется в контроллерах.
+    // ToDo: исключить из использования в контроллерах. Перенести исключённую логику в модель.
     public GameStatus getGameStatus( ) {
         return gameStatus;
     }
@@ -88,6 +73,7 @@ public abstract class BaseModel implements ObservableModel {
         this.gameStatus = gameStatus;
     }
 
+    // ToDo: из SokobanModel взять реализации этих методов, дополнить абстракциями и внести сюда.
     abstract protected void restart( );
 
     abstract protected void nextLevel( );
