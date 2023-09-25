@@ -7,12 +7,12 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
 
 public class GameStackPane extends StackPane {
-    private final int x;
-    private final int y;
     private static final double COORDINATE_TEXT_FONT_SIZE_COEFFICIENT = 0.15;
-
     private static final int MAX_GENERAL_TEXT_LENGTH_FOR_GENERAL_TEXT_FONT_SIZE_COEFFICIENT = 4;
     private static final double GENERAL_TEXT_FONT_SIZE_COEFFICIENT = 0.4;
+
+    private final int x;
+    private final int y;
 
 
     public GameStackPane( int x, int y, int cellSize, boolean showGrid, boolean showCoordinates) {
@@ -32,8 +32,8 @@ public class GameStackPane extends StackPane {
         }
         getRectangle( ).setWidth( cellSize);
         getRectangle( ).setHeight( cellSize);
-        setLayoutX( x * cellSize + GameBorderImage.getPaddingSide( ));
-        setLayoutY( y * cellSize + GameBorderImage.getPaddingTop( ));
+        setLayoutX( x * cellSize);
+        setLayoutY( y * cellSize);
     }
 
     public int getX() {

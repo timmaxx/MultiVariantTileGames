@@ -12,16 +12,18 @@ public abstract class Game extends Application implements GameScreen {
 
     @Override
     public void start( Stage primaryStage) {
-        BaseModel baseModel = initModel();
+        BaseModel baseModel = initModel( );
 
         Pane root = new VBox( );
 
         // viewGameOverMessage = new ViewGameOverMessage( baseModel);
 
-        ViewJfx viewMainFieldJfx = initViewMainField(baseModel);
-        root.getChildren( ).add( viewMainFieldJfx); // viewMainFieldJfx должен быть наследником Node
+        GameStackPaneController gameStackPaneController = initGameStackPaneController( baseModel);
+        ViewJfx viewMainFieldJfx = initViewMainField( baseModel, gameStackPaneController);
+        root.getChildren( ).add( viewMainFieldJfx); // viewMainFieldJfx - Наследник ViewJfx, а ViewJfx должен быть наследником Node
 
-        GameScene scene = new GameScene( root);
+        GameSceneController gameSceneController = initGameSceneController( baseModel);
+        GameScene scene = new GameScene( root, gameSceneController);
 
         primaryStage.setTitle( initTitle( ));
         primaryStage.setResizable( false);

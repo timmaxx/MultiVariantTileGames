@@ -8,9 +8,11 @@ import timmax.basetilemodel.BaseModel;
 public interface GameScreen {
     BaseModel initModel( );
 
-    // GameController initGameController( BaseModel baseModel, Game game);
-
-    ViewJfx initViewMainField( BaseModel baseModel);
+    ViewJfx initViewMainField( BaseModel baseModel, GameStackPaneController gameStackPaneController);
 
     String initTitle( );
+
+    GameSceneController initGameSceneController( BaseModel baseModel);
+
+    GameStackPaneController initGameStackPaneController( BaseModel basemodel);
 }
