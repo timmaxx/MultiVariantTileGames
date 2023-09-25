@@ -6,6 +6,7 @@ import timmax.basetilemodel.gameevent.GameEvent;
 public abstract class View implements ViewInterface {
     protected GameQueueForOneView gameQueueForOneView;
 
+
     public View( BaseModel baseModel) {
         gameQueueForOneView = baseModel.addViewListener( this); // К модели привязать это представление
     }
