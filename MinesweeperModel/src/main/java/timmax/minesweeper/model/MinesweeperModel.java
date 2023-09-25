@@ -1,7 +1,7 @@
 package timmax.minesweeper.model;
 
 import timmax.basetilemodel.BaseModel;
-import timmax.minesweeper.model.gameevent.GameEventOneTileChangeFlag;
+import timmax.minesweeper.model.gameevent.*;
 import timmax.minesweeper.model.gameobject.*;
 
 // Модель игры Сапёр
@@ -18,6 +18,7 @@ public class MinesweeperModel extends BaseModel {
     @Override
     public void createNewGame( ) {
         createNewGame( SIDE_OF_WIDTH, SIDE_OF_HEIGHT);
+        addGameEventIntoQueueAndNotifyViews( new GameEventMinesweeperPersistentParams( allMinesweeperObjects.getCountOfMines( )));
     }
 
     @Override

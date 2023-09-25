@@ -1,12 +1,11 @@
 package timmax.minesweeper.model.gameobject;
 
+import java.util.HashSet;
+import java.util.Set;
 import timmax.basetilemodel.GameStatus;
 import timmax.basetilemodel.gameevent.GameEventGameOver;
 import timmax.minesweeper.model.MinesweeperModel;
 import timmax.minesweeper.model.gameevent.*;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import static timmax.basetilemodel.GameStatus.*;
 
@@ -28,6 +27,14 @@ public class AllMinesweeperObjects {
         countOfFlags = countOfMines;
     }
 
+    public void setModel( MinesweeperModel minesweeperModel) {
+        this.minesweeperModel = minesweeperModel;
+    }
+
+    public int getCountOfMines( ) {
+        return countOfMines;
+    }
+
     // Инвертировать флаг
     public boolean inverseFlag( MinesweeperTile minesweeperTile) {
         // Если плитка уже открыта или (флагов больше нет и нет флага)
@@ -38,10 +45,16 @@ public class AllMinesweeperObjects {
         }
         minesweeperTile.inverseFlag( ); // Инвертируем флаг
         if ( minesweeperTile.isFlag( )) {
-            countOfFlags++;
-        } else {
             countOfFlags--;
+        } else {
+            countOfFlags++;
         }
+        minesweeperModel.addGameEventIntoQueue( new GameEventMinesweeperVariableParams(
+                getWidth( ) * getHeight( ) - countOfClosedTiles,
+                countOfClosedTiles,
+                countOfMines - countOfFlags,
+                countOfFlags
+        ));
         return minesweeperTile.isFlag( );
     }
 
@@ -50,7 +63,14 @@ public class AllMinesweeperObjects {
         if ( !minesweeperTile.isOpen( ) && minesweeperTile.isFlag( )) {
             return GAME;
         }
-        return openRecursive( minesweeperTile);
+        GameStatus gameStatus = openRecursive( minesweeperTile);
+        minesweeperModel.addGameEventIntoQueue( new GameEventMinesweeperVariableParams(
+                getWidth( ) * getHeight( ) - countOfClosedTiles,
+                countOfClosedTiles,
+                countOfMines - countOfFlags,
+                countOfFlags
+        ));
+        return gameStatus;
     }
 
     public MinesweeperTile getTileByXY( int x, int y) {
@@ -62,6 +82,9 @@ public class AllMinesweeperObjects {
 
     // Открыть заданную плитку, и возможно, рекурсивно ещё несколько.
     private GameStatus openRecursive( MinesweeperTile minesweeperTile) {
+        if ( minesweeperTile.isOpen( ) || minesweeperTile.isFlag( )) {
+            return GAME;
+        }
         minesweeperTile.open( );
         countOfClosedTiles--; // Количество закрытых плиток сделаем меньше
         // Если в открытой плитке мина
@@ -125,9 +148,5 @@ public class AllMinesweeperObjects {
     // Высота игрового поля
     private int getHeight( ) {
         return minesweeperTiles.length;
-    }
-
-    public void setModel( MinesweeperModel minesweeperModel) {
-        this.minesweeperModel = minesweeperModel;
     }
 }
