@@ -1,26 +1,23 @@
 package timmax.sokoban.jfx.controller;
 
 import javafx.scene.input.KeyCode;
-import timmax.basetilemodel.*;
+import timmax.basetilemodel.BaseModel;
+import timmax.tilegameenginejfx.GameSceneController;
+
+import timmax.basetilemodel.GameStatus;
 import timmax.sokoban.model.SokobanModel;
-import timmax.tilegameenginejfx.*;
 
 import static timmax.basetilemodel.tile.Direction.*;
 
-public class SokobanController extends GameController {
-    // ToDo: 1. game.initialize( ) перенести в модель и тогда см. п. 2.
-    // ToDo: 2. game убрать из контроллера!
-    public SokobanController( BaseModel baseModel, Game game) {
-        super( baseModel, game);
+public class SokobanGameSceneController extends GameSceneController {
+    public SokobanGameSceneController( BaseModel baseModel) {
+        super( baseModel);
     }
 
-    private SokobanModel getSokobanModel( ) {
-        return ( SokobanModel)baseModel;
-    }
-
-    public void onKeyPress( KeyCode keyCode) {
+    @Override
+    protected void onKeyPressed( KeyCode keyCode) {
         if ( getSokobanModel( ).getGameStatus( ) != GameStatus.GAME) {
-            // game.initialize( );
+            getSokobanModel( ).createNewGame( );
             return;
         }
 
@@ -34,5 +31,9 @@ public class SokobanController extends GameController {
         } else if ( keyCode.equals( KeyCode.SPACE))      { getSokobanModel( ).nextLevel( );
         } else if ( keyCode.equals( KeyCode.ESCAPE))     { getSokobanModel( ).restart( );
         }
+    }
+
+    private SokobanModel getSokobanModel( ) {
+        return ( SokobanModel)baseModel;
     }
 }

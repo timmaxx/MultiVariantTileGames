@@ -24,7 +24,7 @@ public class SokobanModel extends BaseModel {
 
     static {
         try {
-            System.out.println( SokobanModel.class.getResource( "levels.txt"));
+            // System.out.println( SokobanModel.class.getResource( "levels.txt"));
             levelLoader = new LevelLoader( Paths.get( SokobanModel.class.getResource( "levels.txt").toURI( )));
         } catch ( URISyntaxException e) {
         }
@@ -65,7 +65,7 @@ public class SokobanModel extends BaseModel {
                     box.move( step.oppositeStepDirection( ));
 
                     WhoPersistentInTile oldWhoPersistentInTile = allSokobanObjects.getWhoPersistentInTile( oldBoxX, oldBoxY);
-                    addGameEventIntoQueueAndNotifyViews( new GameEventOneTileSokobanChangeable( oldBoxX, oldBoxY, oldWhoPersistentInTile, IS_NOBODY));
+                    addGameEventIntoQueue( new GameEventOneTileSokobanChangeable( oldBoxX, oldBoxY, oldWhoPersistentInTile, IS_NOBODY));
 
                     break;
                 }
@@ -87,10 +87,12 @@ public class SokobanModel extends BaseModel {
             int newY = player.getY( );
 
             WhoPersistentInTile oldWhoPersistentInTile = allSokobanObjects.getWhoPersistentInTile( oldX, oldY);
-            addGameEventIntoQueueAndNotifyViews( new GameEventOneTileSokobanChangeable( oldX, oldY, oldWhoPersistentInTile, oldWhoMovableInTile));
+            addGameEventIntoQueue( new GameEventOneTileSokobanChangeable( oldX, oldY, oldWhoPersistentInTile, oldWhoMovableInTile));
 
             WhoPersistentInTile newWhoPersistentInTile = allSokobanObjects.getWhoPersistentInTile( newX, newY);
-            addGameEventIntoQueueAndNotifyViews( new GameEventOneTileSokobanChangeable( newX, newY, newWhoPersistentInTile, IS_PLAYER));
+            addGameEventIntoQueue( new GameEventOneTileSokobanChangeable( newX, newY, newWhoPersistentInTile, IS_PLAYER));
+
+            notifyViews( );
         }
 
         routeRedo.push( step);
@@ -108,16 +110,7 @@ public class SokobanModel extends BaseModel {
         Step step = routeRedo.pop( );
         movePlayerIfPossible( step.getDirection( ), true);
     }
-/*
-    private boolean isCollisionWithWall( CollisionObject gameObject, Direction direction) {
-        for( Wall wall: allSokobanObjects.getWalls( )) {
-            if ( gameObject.isCollision( wall, direction)) {
-                return false;
-            }
-        }
-        return true;
-    }
-*/
+
     private boolean isCollisionWithWall( CollisionObject gameObject, Direction direction) {
         for( Wall wall: allSokobanObjects.getWalls( )) {
             if ( gameObject.isCollision( wall, direction)) {
@@ -127,16 +120,6 @@ public class SokobanModel extends BaseModel {
         return false;
     }
 
-/*
-    private boolean isCollisionWithBox( CollisionObject gameObject, Direction direction) {
-        for( Box box: allSokobanObjects.getBoxes( )) {
-            if ( gameObject.isCollision( box, direction)) {
-                return false;
-            }
-        }
-        return true;
-    }
-*/
     private boolean isCollisionWithBox( CollisionObject gameObject, Direction direction) {
         for( Box box: allSokobanObjects.getBoxes( )) {
             if ( gameObject.isCollision( box, direction)) {
@@ -160,7 +143,7 @@ public class SokobanModel extends BaseModel {
         for( Box box: allSokobanObjects.getBoxes( )) {
             if ( player.isCollision( box, direction)) {
                 if ( !isRedo) {
-                    if (isCollisionWithWall(box, direction)) {
+                    if (isCollisionWithWall( box, direction)) {
                         return;
                     }
                     if ( isCollisionWithBox( box, direction)) {
@@ -173,7 +156,7 @@ public class SokobanModel extends BaseModel {
                 newBoxY = box.getY( );
 
                 WhoPersistentInTile newWhoPersistentInTile = allSokobanObjects.getWhoPersistentInTile( newBoxX, newBoxY);
-                addGameEventIntoQueueAndNotifyViews( new GameEventOneTileSokobanChangeable( newBoxX, newBoxY, newWhoPersistentInTile, IS_BOX));
+                addGameEventIntoQueue( new GameEventOneTileSokobanChangeable( newBoxX, newBoxY, newWhoPersistentInTile, IS_BOX));
 
                 isBoxMoved = true;
                 break;
@@ -190,10 +173,12 @@ public class SokobanModel extends BaseModel {
             int newY = player.getY( );
 
             WhoPersistentInTile oldWhoPersistentInTile = allSokobanObjects.getWhoPersistentInTile( oldX, oldY);
-            addGameEventIntoQueueAndNotifyViews(new GameEventOneTileSokobanChangeable( oldX, oldY, oldWhoPersistentInTile, IS_NOBODY));
+            addGameEventIntoQueue( new GameEventOneTileSokobanChangeable( oldX, oldY, oldWhoPersistentInTile, IS_NOBODY));
 
             WhoPersistentInTile newWhoPersistentInTile = allSokobanObjects.getWhoPersistentInTile( newX, newY);
-            addGameEventIntoQueueAndNotifyViews(new GameEventOneTileSokobanChangeable( newX, newY, newWhoPersistentInTile, IS_PLAYER));
+            addGameEventIntoQueue( new GameEventOneTileSokobanChangeable( newX, newY, newWhoPersistentInTile, IS_PLAYER));
+
+            notifyViews( );
         }
 
         route.push( new Step( direction, isBoxMoved));
@@ -221,26 +206,26 @@ public class SokobanModel extends BaseModel {
     protected void win( ) {
         setGameStatus( GameStatus.VICTORY);
         currentLevel.incValue( );
-        addGameEventIntoQueue( new GameEventGameOver( VICTORY));
+        addGameEventIntoQueueAndNotifyViews( new GameEventGameOver( VICTORY));
     }
 
     @Override
     public void nextLevel( ) {
         setGameStatus( FORCE_RESTART_OR_CHANGE_LEVEL);
         currentLevel.incValue( );
-        addGameEventIntoQueue( new GameEventGameOver( FORCE_RESTART_OR_CHANGE_LEVEL));
+        addGameEventIntoQueueAndNotifyViews( new GameEventGameOver( FORCE_RESTART_OR_CHANGE_LEVEL));
     }
 
     @Override
     public void prevLevel( ) {
         setGameStatus( FORCE_RESTART_OR_CHANGE_LEVEL);
         currentLevel.decValue( );
-        addGameEventIntoQueue( new GameEventGameOver( FORCE_RESTART_OR_CHANGE_LEVEL));
+        addGameEventIntoQueueAndNotifyViews( new GameEventGameOver( FORCE_RESTART_OR_CHANGE_LEVEL));
     }
 
     @Override
     public void restart( ) {
         setGameStatus( FORCE_RESTART_OR_CHANGE_LEVEL);
-        addGameEventIntoQueue( new GameEventGameOver( FORCE_RESTART_OR_CHANGE_LEVEL));
+        addGameEventIntoQueueAndNotifyViews( new GameEventGameOver( FORCE_RESTART_OR_CHANGE_LEVEL));
     }
 }
