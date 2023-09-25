@@ -3,13 +3,12 @@ package timmax.minesweeper.jfx.view;
 import javafx.scene.paint.Color;
 import timmax.basetilemodel.*;
 import timmax.basetilemodel.gameevent.*;
-import timmax.minesweeper.model.MinesweeperModel;
 import timmax.minesweeper.model.gameevent.*;
 import timmax.tilegameenginejfx.*;
 
 import static javafx.scene.paint.Color.*;
 
-public class MinesweeperMainFieldViewJfx extends ViewMainFieldJfxController {
+public class MinesweeperMainFieldViewJfx extends ViewMainFieldJfx {
     private static final Color UNOPENED_CELL_COLOR = ORANGE;
     private static final Color OPENED_CELL_COLOR = GREEN;
 
@@ -20,8 +19,8 @@ public class MinesweeperMainFieldViewJfx extends ViewMainFieldJfxController {
     private static final Color MINE_CELL_COLOR = RED;
 
 
-    public MinesweeperMainFieldViewJfx( BaseModel baseModel) {
-        super( baseModel);
+    public MinesweeperMainFieldViewJfx( BaseModel baseModel, GameStackPaneController gameStackPaneController) {
+        super( baseModel, gameStackPaneController);
     }
 
     @Override
@@ -53,35 +52,5 @@ public class MinesweeperMainFieldViewJfx extends ViewMainFieldJfxController {
             cell.setCellValue( flag, cellSize);
             cell.setCellColor( tile_cell_color);
         }
-    }
-
-    @Override
-    protected void initOnMouseClickEventHandlerOnCell( GameStackPane cell) {
-        cell.setOnMouseClicked( event -> {
-            int x = ( ( GameStackPane)event.getSource( )).getX( );
-            int y = ( ( GameStackPane)event.getSource( )).getY( );
-            switch ( event.getButton( )) {
-                case PRIMARY -> onMouseLeftClick( x, y);
-                case SECONDARY -> onMouseRightClick( x, y);
-            }
-
-        });
-    }
-
-    public void onMouseLeftClick( int x, int y) {
-        if ( getMinesweeperModel( ).getGameStatus( ) != GameStatus.GAME) {
-            baseModel.createNewGame( );
-            return;
-        }
-
-        getMinesweeperModel( ).open( x, y);
-    }
-
-    public void onMouseRightClick( int x, int y) {
-        getMinesweeperModel( ).inverseFlag( x, y);
-    }
-
-    private MinesweeperModel getMinesweeperModel( ) {
-        return ( MinesweeperModel)baseModel;
     }
 }
