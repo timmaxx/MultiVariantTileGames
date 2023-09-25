@@ -5,7 +5,7 @@ import javafx.scene.layout.Pane;
 import timmax.basetilemodel.*;
 import timmax.basetilemodel.gameevent.GameEvent;
 
-public abstract class ViewJfx extends Pane implements ViewJfxInterface {
+public abstract class ViewJfx extends Pane implements ViewInterface {
     protected GameQueueForOneView gameQueueForOneView;
     // private ViewInterface view;
 

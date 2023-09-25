@@ -19,13 +19,13 @@ public abstract class Game extends Application implements GameScreen {
         // viewGameOverMessage = new ViewGameOverMessage( baseModel);
 
         GameStackPaneController gameStackPaneController = initGameStackPaneController( baseModel);
-        ViewJfx viewMainFieldJfx = initViewMainField( baseModel, gameStackPaneController);
+        ViewJfx viewMainFieldJfx = initViewOfMainField( baseModel, gameStackPaneController);
         root.getChildren( ).add( viewMainFieldJfx); // viewMainFieldJfx - Наследник ViewJfx, а ViewJfx должен быть наследником Node
 
         GameSceneController gameSceneController = initGameSceneController( baseModel);
         GameScene scene = new GameScene( root, gameSceneController);
 
-        primaryStage.setTitle( initTitle( ));
+        primaryStage.setTitle( initAppTitle( ));
         primaryStage.setResizable( false);
         primaryStage.setScene( scene);
 

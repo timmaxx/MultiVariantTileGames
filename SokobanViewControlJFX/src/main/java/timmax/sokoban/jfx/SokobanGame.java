@@ -13,12 +13,12 @@ public class SokobanGame extends Game {
     }
 
     @Override
-    public ViewJfx initViewMainField( BaseModel baseModel, GameStackPaneController gameStackPaneController) {
+    public ViewJfx initViewOfMainField( BaseModel baseModel, GameStackPaneController gameStackPaneController) {
         return new SokobanMainFieldViewJfx( baseModel, gameStackPaneController);
     }
 
     @Override
-    public String initTitle( ) {
+    public String initAppTitle( ) {
         return "Sokoban";
     }
 
