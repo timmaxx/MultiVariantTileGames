@@ -1,5 +1,8 @@
 package timmax.sokoban.jfx;
 
+import java.util.ArrayList;
+import java.util.List;
+import javafx.scene.Node;
 import timmax.basetilemodel.BaseModel;
 import timmax.tilegameenginejfx.*;
 import timmax.sokoban.model.*;
@@ -30,5 +33,15 @@ public class SokobanGame extends Game {
     @Override
     public GameStackPaneController initGameStackPaneController( BaseModel basemodel) {
         return null;
+    }
+
+    @Override
+    protected List< Node> initNodeList( BaseModel baseModel) {
+        List< Node> nodeList = new ArrayList< >( );
+
+        nodeList.add( new SokobanPersistentSettings( baseModel, null));
+        nodeList.add( new SokobanVariableSettings( baseModel, null));
+
+        return nodeList;
     }
 }
