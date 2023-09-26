@@ -24,6 +24,13 @@ public abstract class Game extends Application {
         ViewJfx viewMainFieldJfx = initViewOfMainField( baseModel, gameStackPaneController);
         root.getChildren( ).add( viewMainFieldJfx); // viewMainFieldJfx - Наследник ViewJfx, а ViewJfx должен быть наследником Node
 
+        /*
+        // Вариант с ещё одним главным полем, но без GameStackPaneController
+        // - т.е. этот вариант от мыши не будет принимать сигналы.
+        ViewJfx viewMainFieldJfx2 = initViewOfMainField( baseModel, null);
+        root.getChildren( ).add( viewMainFieldJfx2);
+        */
+
         List< Node> nodeList = initNodeList( baseModel);
         root.getChildren( ).addAll( nodeList);
 

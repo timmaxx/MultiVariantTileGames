@@ -35,27 +35,31 @@ abstract public class ViewMainFieldJfx extends ViewJfx {
     }
 
     private void initMainField( GameEventNewGame gameEventNewGame) {
+        getChildren( ).removeAll( getChildren( ));
+
         int width = gameEventNewGame.getWidth( );
         int height = gameEventNewGame.getHeight( );
         cellSize = Math.min( Game.APP_WIDTH / width, Game.APP_HEIGHT / height);
 
-        // primaryStage.hide( );
-/*
-        root.setPrefSize(
-                width * cellSize + GameBorderImage.getPaddingSide( ) + GameBorderImage.getPaddingSide( ),
-                height * cellSize + GameBorderImage.getPaddingTop( ) + GameBorderImage.getPaddingDown( )
-        );
-*/
         cells = new GameStackPane[ height][ width];
         for ( int y = 0; y < height; y++) {
             for ( int x = 0; x < width; x++) {
-                cells[ y][ x] = new GameStackPane( x, y, cellSize, showGrid, showCoordinates);
-                initOnMouseClickEventHandlerOnCell( cells[ y][ x]);
-                drawCellDuringInitMainField( cells[ y][x]);
-                getChildren( ).add( cells[ y][ x]);
+                GameStackPane cell = new GameStackPane( x, y, cellSize, showGrid, showCoordinates);
+                cells[ y][ x] = cell;
+                initOnMouseClickEventHandlerOnCell( cell);
+                drawCellDuringInitMainField( cell);
+                getChildren( ).add( cell);
             }
         }
-        // primaryStage.show( );
+        // Не сильно красивое решение, нужное для того, чтобы установить ширину окна приложения
+        // исходя из ширины главного игрового поля.
+        // ToDo: Правильным было-бы:
+        //  после того, как все Node привяжутся к корню, взять ширину и высоту скомпонованных в дерево узлов и сделать
+        //  соответствующую ширину и высоту окна приложения.
+        //  Т.е. делать это нужно не в этом классе, а, например, в Game в start() после
+        //  root.getChildren( ).addAll( nodeList);
+        //  А может ещё проще - через компоновку.
+        getParent( ).getScene( ).getWindow( ).setWidth( cellSize * width + 17);
     }
 
     protected void drawCellDuringInitMainField( GameStackPane cell) {
