@@ -19,6 +19,8 @@ public class SokobanModel extends BaseModel {
 
     private AllSokobanObjects allSokobanObjects;
 
+    private int countOfBoxesInHomes;
+
     private Route route;
     private Route routeRedo = new Route( );
 
@@ -41,9 +43,11 @@ public class SokobanModel extends BaseModel {
                 addGameEventIntoQueue( new GameEventOneTileSokobanChangeable( x, y, whoPersistentInTile, whoMovableInTile));
             }
         }
-        notifyViews( );
         route = new Route( );
         routeRedo = new Route( );
+
+        addGameEventIntoQueue( new GameEventSokobanPersistentParams( allSokobanObjects.getCountOfHomesBoxes( )));
+        notifyViews( );
     }
 
     public void moveUndo( ) {
@@ -96,6 +100,7 @@ public class SokobanModel extends BaseModel {
         }
 
         routeRedo.push( step);
+        addGameEventIntoQueueAndNotifyViews( new GameEventSokobanVariableParams( route.size( ), countOfBoxesInHomes));
     }
 
     public void move( Direction direction) {
@@ -188,16 +193,17 @@ public class SokobanModel extends BaseModel {
     private void checkCompletion( ) {
         // Этот метод должен проверить, пройден ли уровень (т.е. на всех ли домах стоят ящики?).
         // Если условие выполнено, то проинформировать слушателя событий, что текущий уровень завершен.
-        int count = 0;
+        countOfBoxesInHomes = 0;
         for ( Home home : allSokobanObjects.getHomes( )) {
             for ( Box box : allSokobanObjects.getBoxes( )) {
                 if ( box.getX( ) == home.getX( ) && box.getY( ) == home.getY( )) {
-                    count++;
+                    countOfBoxesInHomes++;
                     break;
                 }
             }
         }
-        if ( count == allSokobanObjects.getCountOfHomesBoxes( )) {
+        addGameEventIntoQueueAndNotifyViews( new GameEventSokobanVariableParams( route.size( ), countOfBoxesInHomes));
+        if ( countOfBoxesInHomes == allSokobanObjects.getCountOfHomesBoxes( )) {
             win( );
         }
     }
