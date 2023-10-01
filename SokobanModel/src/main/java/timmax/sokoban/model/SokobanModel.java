@@ -155,7 +155,7 @@ public class SokobanModel extends BaseModel {
         for( Box box: allSokobanObjects.getBoxes( )) {
             if ( player.isCollision( box, direction)) {
                 if ( !isRedo) {
-                    if (isCollisionWithWall( box, direction)) {
+                    if ( isCollisionWithWall( box, direction)) {
                         return;
                     }
                     if ( isCollisionWithBox( box, direction)) {
