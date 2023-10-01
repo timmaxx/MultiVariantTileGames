@@ -1,0 +1,12 @@
+01.10.2023
+
+(30.09.2023)
+MinesweeperModel
+- Класс GameEventMinesweeperVariableParams отвечает за несколько разных событий. Разделить. Это повлияет на:
+-- GameEventMinesweeperVariableParams.
+-- AllMinesweeperObjects.
+
+(30.09.2023)
+MinesweeperViewControlsJfx
+- Класс GameEventMinesweeperVariableParams отвечает за несколько разных событий. Разделить. Это повлияет на:
+-- MinesweeperVariableSettings.

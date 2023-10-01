@@ -40,7 +40,8 @@ public class MinesweeperGame extends Game {
         List< Node> nodeList = new ArrayList< >( );
 
         nodeList.add( new MinesweeperPersistentSettings( baseModel, null));
-        nodeList.add( new MinesweeperVariableSettings( baseModel, null));
+        nodeList.add( new MinesweeperVariableSettingsOpenClose( baseModel, null));
+        nodeList.add( new MinesweeperVariableSettingsFlag( baseModel, null));
 
         return nodeList;
     }

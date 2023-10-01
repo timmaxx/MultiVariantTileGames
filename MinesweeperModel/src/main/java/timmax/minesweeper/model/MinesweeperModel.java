@@ -25,6 +25,8 @@ public class MinesweeperModel extends BaseModel {
     public void createNewGame( int width, int height) {
         allMinesweeperObjects = levelGenerator.getLevel( width, height, REST_OF_MINE_INSTALLATION_IN_PERCENTS);
         allMinesweeperObjects.setModel( this);
+        addGameEventIntoQueue( new GameEventMinesweeperVariableParamsOpenClose( 0, width * height));
+        addGameEventIntoQueue( new GameEventMinesweeperVariableParamsFlag( 0, allMinesweeperObjects.getCountOfMines( )));
         super.createNewGame( width, height);
     }
 

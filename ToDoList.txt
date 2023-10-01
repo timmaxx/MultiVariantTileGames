@@ -236,16 +236,6 @@ MinesweeperViewControlsJfx и SokobanViewControlsJfx
 - Классы MinesweeperPersistentSettings, MinesweeperVariableSettings, SokobanPersistentSettings, SokobanVariableSettings
   очень похожи. Их нужно унифицировать и общее вывести в верхний класс. Учесть не только один параметр, а более параметров.
 
-MinesweeperModel
-- Класс GameEventMinesweeperVariableParams отвечает за несколько разных событий. Разделить. Это повлияет на:
--- GameEventMinesweeperVariableParams.
--- AllMinesweeperObjects.
-
-MinesweeperViewControlsJfx
-- Класс GameEventMinesweeperVariableParams отвечает за несколько разных событий. Разделить. Это повлияет на:
--- MinesweeperPersistentSettings.
--- MinesweeperVariableSettings.
-
 SokobanModel
 - Класс GameEventSokobanVariableParams отвечает за несколько разных событий. Разделить. Это повлияет на:
 -- SokobanModel.

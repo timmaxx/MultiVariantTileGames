@@ -49,9 +49,7 @@ public class AllMinesweeperObjects {
         } else {
             countOfFlags++;
         }
-        minesweeperModel.addGameEventIntoQueue( new GameEventMinesweeperVariableParams(
-                getWidth( ) * getHeight( ) - countOfClosedTiles,
-                countOfClosedTiles,
+        minesweeperModel.addGameEventIntoQueue( new GameEventMinesweeperVariableParamsFlag(
                 countOfMines - countOfFlags,
                 countOfFlags
         ));
@@ -64,11 +62,9 @@ public class AllMinesweeperObjects {
             return GAME;
         }
         GameStatus gameStatus = openRecursive( minesweeperTile);
-        minesweeperModel.addGameEventIntoQueue( new GameEventMinesweeperVariableParams(
+        minesweeperModel.addGameEventIntoQueue( new GameEventMinesweeperVariableParamsOpenClose(
                 getWidth( ) * getHeight( ) - countOfClosedTiles,
-                countOfClosedTiles,
-                countOfMines - countOfFlags,
-                countOfFlags
+                countOfClosedTiles
         ));
         return gameStatus;
     }
