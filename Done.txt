@@ -1,4 +1,4 @@
-01.10.2023
+01.10.2023 ------------------------------------------------------------------------------------------------------------
 
 (30.09.2023)
 MinesweeperModel
@@ -10,3 +10,14 @@ MinesweeperModel
 MinesweeperViewControlsJfx
 - Класс GameEventMinesweeperVariableParams отвечает за несколько разных событий. Разделить. Это повлияет на:
 -- MinesweeperVariableSettings.
+
+(30.09.2023)
+SokobanModel
+- Класс GameEventSokobanVariableParams отвечает за несколько разных событий. Разделить. Это повлияет на:
+-- SokobanModel.
+-- GameEventSokobanVariableParams.
+
+(30.09.2023)
+SokobanViewControlsJfx
+- Класс GameEventSokobanVariableParams отвечает за несколько разных событий. Разделить. Это повлияет на:
+-- SokobanVariableSettings.

@@ -40,7 +40,8 @@ public class SokobanGame extends Game {
         List< Node> nodeList = new ArrayList< >( );
 
         nodeList.add( new SokobanPersistentSettings( baseModel, null));
-        nodeList.add( new SokobanVariableSettings( baseModel, null));
+        nodeList.add( new SokobanVariableSettingsCountOfSteps( baseModel, null));
+        nodeList.add( new SokobanVariableSettingsCountOfBoxesInHouses( baseModel, null));
 
         return nodeList;
     }

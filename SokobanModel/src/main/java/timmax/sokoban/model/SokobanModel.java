@@ -26,7 +26,6 @@ public class SokobanModel extends BaseModel {
 
     static {
         try {
-            // System.out.println( SokobanModel.class.getResource( "levels.txt"));
             levelLoader = new LevelLoader( Paths.get( SokobanModel.class.getResource( "levels.txt").toURI( )));
         } catch ( URISyntaxException e) {
         }
@@ -47,6 +46,9 @@ public class SokobanModel extends BaseModel {
         routeRedo = new Route( );
 
         addGameEventIntoQueue( new GameEventSokobanPersistentParams( allSokobanObjects.getCountOfHomesBoxes( )));
+        addGameEventIntoQueue( new GameEventSokobanVariableParamsCountOfSteps( 0));
+        calcCountOfBoxesInHomes( );
+        addGameEventIntoQueue( new GameEventSokobanVariableParamsCountOfBoxesInHouses( countOfBoxesInHomes));
         notifyViews( );
     }
 
@@ -100,7 +102,12 @@ public class SokobanModel extends BaseModel {
         }
 
         routeRedo.push( step);
-        addGameEventIntoQueueAndNotifyViews( new GameEventSokobanVariableParams( route.size( ), countOfBoxesInHomes));
+        addGameEventIntoQueue( new GameEventSokobanVariableParamsCountOfSteps( route.size( )));
+        if ( step.isBoxMoved( )) {
+            calcCountOfBoxesInHomes( );
+            addGameEventIntoQueue( new GameEventSokobanVariableParamsCountOfBoxesInHouses( countOfBoxesInHomes));
+        }
+        notifyViews( );
     }
 
     public void move( Direction direction) {
@@ -187,13 +194,19 @@ public class SokobanModel extends BaseModel {
         }
 
         route.push( new Step( direction, isBoxMoved));
+
+        addGameEventIntoQueue( new GameEventSokobanVariableParamsCountOfSteps( route.size( )));
+        if ( isBoxMoved) {
+            calcCountOfBoxesInHomes( );
+            addGameEventIntoQueue( new GameEventSokobanVariableParamsCountOfBoxesInHouses( countOfBoxesInHomes));
+        }
+        notifyViews( );
+
         checkCompletion( );
     }
 
-    private void checkCompletion( ) {
-        // Этот метод должен проверить, пройден ли уровень (т.е. на всех ли домах стоят ящики?).
-        // Если условие выполнено, то проинформировать слушателя событий, что текущий уровень завершен.
-        countOfBoxesInHomes = 0;
+    private void calcCountOfBoxesInHomes( ) {
+        int countOfBoxesInHomes = 0;
         for ( Home home : allSokobanObjects.getHomes( )) {
             for ( Box box : allSokobanObjects.getBoxes( )) {
                 if ( box.getX( ) == home.getX( ) && box.getY( ) == home.getY( )) {
@@ -202,7 +215,12 @@ public class SokobanModel extends BaseModel {
                 }
             }
         }
-        addGameEventIntoQueueAndNotifyViews( new GameEventSokobanVariableParams( route.size( ), countOfBoxesInHomes));
+        this.countOfBoxesInHomes = countOfBoxesInHomes;
+    }
+
+    private void checkCompletion( ) {
+        // Этот метод должен проверить, пройден ли уровень (т.е. на всех ли домах стоят ящики?).
+        // Если условие выполнено, то проинформировать слушателей событий, что текущий уровень завершен.
         if ( countOfBoxesInHomes == allSokobanObjects.getCountOfHomesBoxes( )) {
             win( );
         }

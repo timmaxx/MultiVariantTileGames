@@ -3,15 +3,16 @@ package timmax.sokoban.jfx.view;
 import javafx.scene.text.Text;
 import timmax.basetilemodel.BaseModel;
 import timmax.basetilemodel.gameevent.GameEvent;
-import timmax.sokoban.model.gameevent.GameEventSokobanVariableParams;
-import timmax.tilegameenginejfx.*;
+import timmax.sokoban.model.gameevent.GameEventSokobanVariableParamsCountOfBoxesInHouses;
+import timmax.tilegameenginejfx.GameStackPaneController;
+import timmax.tilegameenginejfx.ViewJfx;
 
 import java.util.NoSuchElementException;
 
-public class SokobanVariableSettings extends ViewJfx {
+public class SokobanVariableSettingsCountOfBoxesInHouses extends ViewJfx {
     private final Text messageText;
 
-    public SokobanVariableSettings(BaseModel baseModel, GameStackPaneController gameStackPaneController) {
+    public SokobanVariableSettingsCountOfBoxesInHouses( BaseModel baseModel, GameStackPaneController gameStackPaneController) {
         super( baseModel, gameStackPaneController);
         messageText = new Text( );
         getChildren( ).add( messageText);
@@ -27,12 +28,10 @@ public class SokobanVariableSettings extends ViewJfx {
                 break;
             }
 
-            if ( gameEvent instanceof GameEventSokobanVariableParams) {
+            if ( gameEvent instanceof GameEventSokobanVariableParamsCountOfBoxesInHouses) {
                 // ToDo: Разобраться и удалить ведущий '\n'
                 messageText.setText(
-                        "\nVariable settings:\n" +
-                        " Count of steps = " + ((GameEventSokobanVariableParams) gameEvent).getCountOfSteps( ) + ". " +
-                        " Count of boxes in houses = " + ((GameEventSokobanVariableParams) gameEvent).getCountOfBoxInHouses( ) + ". "
+                        "\nVariable settings - Count of boxes in houses = " + ( ( GameEventSokobanVariableParamsCountOfBoxesInHouses) gameEvent).getCountOfBoxesInHouses( ) + ". "
                 );
             }
         }
