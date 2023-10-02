@@ -239,9 +239,38 @@ MinesweeperModel и SokobanModel
 -- Либо только ...Model.
 
 Архитектура
-MinesweeperViewControlsJfx и SokobanViewControlsJfx
-- Классы MinesweeperPersistentSettings, MinesweeperVariableSettings, SokobanPersistentSettings, SokobanVariableSettings
-  очень похожи. Их нужно унифицировать и общее вывести в верхний класс. Учесть не только один параметр, а более параметров.
+TileGameEngineJfx
+- Подготовить модуль для унификации классов потомков ViewJfx, отвечающих за вывод целых значений
+  (постоянных и переменных параметров статистики партии) и их потомков в связи с их похожестью:
+-- MinesweeperPersistentSettings, MinesweeperVariableSettings,
+-- SokobanPersistentSettings, SokobanVariableSettings.
+
+Архитектура
+TileGameEngineJfx
+- Подготовить модуль для унификации классов потомков ViewJfx, отвечающих за вывод целых значений
+  (постоянных и переменных параметров статистики партии) и их потомков в связи с их работой более чем с одним полем вывода:
+-- MinesweeperPersistentSettings, MinesweeperVariableSettings,
+-- SokobanPersistentSettings, SokobanVariableSettings.
+
+Архитектура
+MinesweeperViewControlsJfx
+- Классы MinesweeperPersistentSettings, MinesweeperVariableSettings и их потомки очень похожи.
+-- Их нужно унифицировать и общее вывести в новый родительский класс.
+
+Архитектура
+MinesweeperViewControlsJfx
+- Классы MinesweeperPersistentSettings, MinesweeperVariableSettings и их потомки очень похожи.
+-- После первой унификации учесть не только один параметр, а унифицировать для более чем одного параметра.
+
+Архитектура
+SokobanViewControlsJfx
+- SokobanPersistentSettings, SokobanVariableSettings и их потомки очень похожи.
+-- Их нужно унифицировать и общее вывести в новый родительский класс.
+
+Архитектура
+SokobanViewControlsJfx
+- SokobanPersistentSettings, SokobanVariableSettings и их потомки очень похожи.
+-- После первой унификации учесть не только один параметр, а унифицировать для более чем одного параметра.
 
 MinesweeperViewControlsJfx
 - Баг (не красиво в визуализации): в MinesweeperPersistentSettings::update и в MinesweeperVariableSettings::update.
@@ -252,3 +281,16 @@ SokobanViewControlsJfx
 - Баг (не красиво в визуализации): в SokobanPersistentSettings::update и в SokobanVariableSettings::update.
   Лишние переносы строки. Т.е. если их сейчас убрать, то текст будет залазить на более верхний объект.
   Разобраться и исправить.
+
+
+02.10.2023 ------------------------------------------------------------------------------------------------------------
+
+Архитектура
+TileGameEngineJfx
+- Сейчас имеются классы потомки ViewJfx, отвечающие за вывод целых значений (постоянных и переменных параметров
+  статистики партии) и их потомки, которые могут принимать контроллер в конструкторе, чтобы работать с мышью.
+  Но в этом нет необходимости.
+  Нужно пересмотреть классы ViewJfx, ViewMainFieldJfx, ViewTextFieldsJfx чтобы каким-то классам предоставить возможность
+  работы с мышью, а каким-то нет.
+  Например, сделать это через интерфейс "Работа с мышью" и его реализацию в ViewMainFieldJfx или в новом промежуточном
+  классе между ViewJfx и ViewMainFieldJfx.
