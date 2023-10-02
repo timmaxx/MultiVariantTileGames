@@ -39,9 +39,10 @@ public class SokobanGame extends Game {
     protected List< Node> initNodeList( BaseModel baseModel) {
         List< Node> nodeList = new ArrayList< >( );
 
-        nodeList.add( new SokobanPersistentSettings( baseModel, null));
-        nodeList.add( new SokobanVariableSettingsCountOfSteps( baseModel, null));
-        nodeList.add( new SokobanVariableSettingsCountOfBoxesInHouses( baseModel, null));
+        nodeList.add( new ViewTextFieldsPersistentSettingsJfx( baseModel));
+        nodeList.add( new SokobanPersistentSettings( baseModel));
+        nodeList.add( new SokobanVariableSettingsCountOfSteps( baseModel));
+        nodeList.add( new SokobanVariableSettingsCountOfBoxesInHouses( baseModel));
 
         return nodeList;
     }
