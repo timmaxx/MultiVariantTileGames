@@ -21,3 +21,15 @@ SokobanModel
 SokobanViewControlsJfx
 - Класс GameEventSokobanVariableParams отвечает за несколько разных событий. Разделить. Это повлияет на:
 -- SokobanVariableSettings.
+
+
+02.10.2023 ------------------------------------------------------------------------------------------------------------
+
+(30.09.2023)
+Архитектура
+TileGameEngineJfx
+- Подготовить модуль для унификации классов потомков ViewJfx, отвечающих за вывод целых значений
+  (постоянных и переменных параметров статистики партии) и их потомков в связи с их похожестью:
+-- MinesweeperPersistentSettings, MinesweeperVariableSettings,
+-- SokobanPersistentSettings, SokobanVariableSettings.
+
