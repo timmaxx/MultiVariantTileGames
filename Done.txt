@@ -39,3 +39,8 @@ MinesweeperViewControlsJfx
 - Классы MinesweeperPersistentSettings, MinesweeperVariableSettings и их потомки очень похожи.
 -- Их нужно унифицировать и общее вывести в новый родительский класс.
 
+(30.09.2023)
+Архитектура
+SokobanViewControlsJfx
+- SokobanPersistentSettings, SokobanVariableSettings и их потомки очень похожи.
+-- Их нужно унифицировать и общее вывести в новый родительский класс.

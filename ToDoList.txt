@@ -253,11 +253,6 @@ MinesweeperViewControlsJfx
 Архитектура
 SokobanViewControlsJfx
 - SokobanPersistentSettings, SokobanVariableSettings и их потомки очень похожи.
--- Их нужно унифицировать и общее вывести в новый родительский класс.
-
-Архитектура
-SokobanViewControlsJfx
-- SokobanPersistentSettings, SokobanVariableSettings и их потомки очень похожи.
 -- После первой унификации учесть не только один параметр, а унифицировать для более чем одного параметра.
 
 MinesweeperViewControlsJfx
