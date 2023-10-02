@@ -1,41 +1,22 @@
 package timmax.minesweeper.jfx.view;
 
-import javafx.scene.text.Text;
 import timmax.basetilemodel.BaseModel;
 import timmax.basetilemodel.gameevent.GameEvent;
 import timmax.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsFlag;
-import timmax.tilegameenginejfx.GameStackPaneController;
-import timmax.tilegameenginejfx.ViewJfx;
+import timmax.tilegameenginejfx.ViewTextFieldsJfx;
 
-import java.util.NoSuchElementException;
-
-public class MinesweeperVariableSettingsFlag extends ViewJfx {
-    private final Text messageText;
-
-    public MinesweeperVariableSettingsFlag( BaseModel baseModel, GameStackPaneController gameStackPaneController) {
-        super( baseModel, gameStackPaneController);
-        messageText = new Text( );
-        getChildren( ).add( messageText);
+public class MinesweeperVariableSettingsFlag extends ViewTextFieldsJfx {
+    public MinesweeperVariableSettingsFlag( BaseModel baseModel) {
+        super( baseModel
+                , GameEventMinesweeperVariableParamsFlag.class
+                , "\nVariable settings - flags:\n"); // ToDo: Разобраться и удалить ведущий '\n' в commonLabel.
     }
 
     @Override
-    public void update( ) {
-        GameEvent gameEvent;
-        while ( true) {
-            try {
-                gameEvent = removeFromGameQueueForOneView( );
-            } catch ( NoSuchElementException nsee) {
-                break;
-            }
-
-            if ( gameEvent instanceof GameEventMinesweeperVariableParamsFlag) {
-                // ToDo: Разобраться и удалить ведущий '\n'
-                messageText.setText(
-                        "\nVariable settings - flags:\n" +
-                        " Flags were used = " + ( ( GameEventMinesweeperVariableParamsFlag) gameEvent).getFlagsWereUsed( ) + ". " +
-                        " Flags are still available for using = " + ( ( GameEventMinesweeperVariableParamsFlag) gameEvent).getFlagsAreStillAvailableForUsing( ) + ". "
-                );
-            }
-        }
+    protected String createStringFromGameEvent( GameEvent gameEvent) {
+        GameEventMinesweeperVariableParamsFlag ge = ( ( GameEventMinesweeperVariableParamsFlag) gameEvent);
+        return  " Flags were used = " + ge.getFlagsWereUsed( ) + ". " +
+                " Flags are still available for using = " + ge.getFlagsAreStillAvailableForUsing( ) + ". "
+        ;
     }
 }

@@ -33,3 +33,9 @@ TileGameEngineJfx
 -- MinesweeperPersistentSettings, MinesweeperVariableSettings,
 -- SokobanPersistentSettings, SokobanVariableSettings.
 
+(30.09.2023)
+Архитектура
+MinesweeperViewControlsJfx
+- Классы MinesweeperPersistentSettings, MinesweeperVariableSettings и их потомки очень похожи.
+-- Их нужно унифицировать и общее вывести в новый родительский класс.
+
