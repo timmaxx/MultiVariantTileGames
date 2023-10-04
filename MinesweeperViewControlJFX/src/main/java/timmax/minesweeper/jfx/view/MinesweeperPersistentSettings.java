@@ -1,7 +1,7 @@
 package timmax.minesweeper.jfx.view;
 
 import timmax.basetilemodel.BaseModel;
-import timmax.basetilemodel.gameevent.*;
+import timmax.basetilemodel.gameevent.GameEvent;
 import timmax.minesweeper.model.gameevent.GameEventMinesweeperPersistentParams;
 import timmax.tilegameenginejfx.*;
 
@@ -9,7 +9,7 @@ public class MinesweeperPersistentSettings extends ViewTextFieldsJfx {
     public MinesweeperPersistentSettings( BaseModel baseModel) {
         super( baseModel
                 , GameEventMinesweeperPersistentParams.class
-                , "\nPersistent settings for Minesweeper\n"); // ToDo: Разобраться и удалить ведущий '\n' в commonLabel.
+                , GameEventMinesweeperPersistentParams.commonLabel); // ToDo: Разобраться и удалить ведущий '\n' в commonLabel.
     }
 
     @Override

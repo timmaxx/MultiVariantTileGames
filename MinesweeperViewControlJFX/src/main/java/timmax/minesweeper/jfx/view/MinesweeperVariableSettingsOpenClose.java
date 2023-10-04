@@ -9,7 +9,7 @@ public class MinesweeperVariableSettingsOpenClose extends ViewTextFieldsJfx {
     public MinesweeperVariableSettingsOpenClose( BaseModel baseModel) {
         super( baseModel
                 , GameEventMinesweeperVariableParamsOpenClose.class
-                ,"\nVariable settings - open and close tiles:\n"); // ToDo: Разобраться и удалить ведущий '\n' в commonLabel.
+                , GameEventMinesweeperVariableParamsOpenClose.commonLabel); // ToDo: Разобраться и удалить ведущий '\n' в commonLabel.
     }
 
     @Override

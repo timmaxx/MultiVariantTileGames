@@ -9,7 +9,7 @@ public class MinesweeperVariableSettingsFlag extends ViewTextFieldsJfx {
     public MinesweeperVariableSettingsFlag( BaseModel baseModel) {
         super( baseModel
                 , GameEventMinesweeperVariableParamsFlag.class
-                , "\nVariable settings - flags:\n"); // ToDo: Разобраться и удалить ведущий '\n' в commonLabel.
+                , GameEventMinesweeperVariableParamsFlag.commonLabel); // ToDo: Разобраться и удалить ведущий '\n' в commonLabel.
     }
 
     @Override
