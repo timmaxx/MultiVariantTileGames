@@ -289,8 +289,8 @@ MinesweeperModel и MinesweeperViewControlsJfx
 
 Архитектура
 BaseModel и наследники (MinesweeperModel и SokobanModel)
-- Класс ? пустой (в ) и его наследники GameEventMinesweeper... (в MinesweeperModel согласно java не могут при
-  наследовании иметь независимую static переменную.
+- Класс GameEventROTextFields пустой (в BaseModel) и его наследники GameEventMinesweeper... (в MinesweeperModel
+  не могут при наследовании иметь независимую static переменную.
   Эта задача похоже связана с задачей от 30.09.2023 "Подготовить модуль для унификации классов потомков ViewJfx,
   отвечающих за вывод целых значений (постоянных и переменных параметров статистики партии) и их потомков в связи с их
   работой более чем с одним полем вывода".

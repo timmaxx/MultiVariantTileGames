@@ -3,12 +3,11 @@ package timmax.minesweeper.model.gameevent;
 import timmax.basetilemodel.gameevent.GameEventROTextFields;
 
 public class GameEventMinesweeperVariableParamsOpenClose extends GameEventROTextFields {
-    // Предполагалось, что commonLabel должна быть объявлена в GameEventROTextFields,
-    // а здесь её переопределить, но для static переменных это не работает.
-    // Но commonLabel и не должно быть не static!
-    // Текущее решение не красивое. Т.к. в каждом потомке GameEventROTextFields заново объявлено commonLabel.
-    // ToDo: Нужно найти более правильное архитектурное решение.
-    public static final String commonLabel = "\nVariable settings - open and close tiles:\n"; // ToDo: Разобраться и удалить ведущий '\n' в commonLabel.
+    // ToDo: Разобраться и удалить ведущий '\n';
+    public final static String COMMON_LABEL_OF_VARIABLE_PARAMS_OPEN_CLOSE = "\nVariable settings - open and close tiles:\n";
+
+    public final static String TILES_WERE_OPENED = " Tiles were opened = ";
+    public final static String TILES_STILL_CLOSED = " Tiles are still closed = ";
 
     private final int tilesWereOpened;
     private final int tilesAreStillClose;
@@ -23,7 +22,7 @@ public class GameEventMinesweeperVariableParamsOpenClose extends GameEventROText
         return tilesWereOpened;
     }
 
-    public int getTilesAreStillClose( ) {
+    public int getTilesStillClosed( ) {
         return tilesAreStillClose;
     }
 

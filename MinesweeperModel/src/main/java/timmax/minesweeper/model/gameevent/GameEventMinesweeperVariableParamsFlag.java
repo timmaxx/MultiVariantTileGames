@@ -3,12 +3,11 @@ package timmax.minesweeper.model.gameevent;
 import timmax.basetilemodel.gameevent.GameEventROTextFields;
 
 public class GameEventMinesweeperVariableParamsFlag extends GameEventROTextFields {
-    // Предполагалось, что commonLabel должна быть объявлена в GameEventROTextFields,
-    // а здесь её переопределить, но для static переменных это не работает.
-    // Но commonLabel и не должно быть не static!
-    // Текущее решение не красивое. Т.к. в каждом потомке GameEventROTextFields заново объявлено commonLabel.
-    // ToDo: Нужно найти более правильное архитектурное решение.
-    public static final String commonLabel = "\nVariable settings - flags:\n"; // ToDo: Разобраться и удалить ведущий '\n' в commonLabel.
+    // ToDo: Разобраться и удалить ведущий '\n';
+    public final static String COMMON_LABEL_OF_VARIABLE_PARAMS_FLAG = "\nVariable settings - flags:\n";
+
+    public final static String FLAGS_WERE_USED = " Flags were used = ";
+    public final static String FLAGS_ARE_STILL_AVAILABLE_FOR_USING = " Flags are still available for using = ";
 
     private final int flagsWereUsed;
     private final int flagsAreStillAvailableForUsing;
