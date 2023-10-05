@@ -44,3 +44,14 @@ MinesweeperViewControlsJfx
 SokobanViewControlsJfx
 - SokobanPersistentSettings, SokobanVariableSettings и их потомки очень похожи.
 -- Их нужно унифицировать и общее вывести в новый родительский класс.
+
+
+05.10.2023 ------------------------------------------------------------------------------------------------------------
+
+(30.09.2023)
+Архитектура
+TileGameEngineJfx
+- Подготовить модуль для унификации классов потомков ViewJfx, отвечающих за вывод целых значений
+  (постоянных и переменных параметров статистики партии) и их потомков в связи с их работой более чем с одним полем вывода:
+-- MinesweeperPersistentSettings, MinesweeperVariableSettings,
+-- SokobanPersistentSettings, SokobanVariableSettings.

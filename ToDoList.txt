@@ -239,13 +239,6 @@ MinesweeperModel и SokobanModel
 -- Либо только ...Model.
 
 Архитектура
-TileGameEngineJfx
-- Подготовить модуль для унификации классов потомков ViewJfx, отвечающих за вывод целых значений
-  (постоянных и переменных параметров статистики партии) и их потомков в связи с их работой более чем с одним полем вывода:
--- MinesweeperPersistentSettings, MinesweeperVariableSettings,
--- SokobanPersistentSettings, SokobanVariableSettings.
-
-Архитектура
 MinesweeperViewControlsJfx
 - Классы MinesweeperPersistentSettings, MinesweeperVariableSettings и их потомки очень похожи.
 -- После первой унификации учесть не только один параметр, а унифицировать для более чем одного параметра.
