@@ -1,15 +1,17 @@
 package timmax.sokoban.jfx.view;
 
 import timmax.basetilemodel.BaseModel;
-import timmax.basetilemodel.gameevent.*;
+import timmax.basetilemodel.gameevent.GameEvent;
 import timmax.sokoban.model.gameevent.GameEventSokobanVariableParamsCountOfSteps;
 import timmax.tilegameenginejfx.ViewTextFieldsJfx;
+
+import static timmax.sokoban.model.gameevent.GameEventSokobanVariableParamsCountOfSteps.COMMON_LABEL_OF_VARIABLE_PARAMS_COUNT_OF_STEPS;
 
 public class SokobanVariableSettingsCountOfSteps extends ViewTextFieldsJfx {
     public SokobanVariableSettingsCountOfSteps( BaseModel baseModel) {
         super( baseModel
                 , GameEventSokobanVariableParamsCountOfSteps.class
-                , "\nVariable settings - Count of steps = "); // ToDo: Разобраться и удалить ведущий '\n'
+                , COMMON_LABEL_OF_VARIABLE_PARAMS_COUNT_OF_STEPS);
     }
 
     @Override
