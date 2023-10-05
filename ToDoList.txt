@@ -238,16 +238,6 @@ MinesweeperModel и SokobanModel
 -- Либо ...Model и All...Objects.
 -- Либо только ...Model.
 
-Архитектура
-MinesweeperViewControlsJfx
-- Классы MinesweeperPersistentSettings, MinesweeperVariableSettings и их потомки очень похожи.
--- После первой унификации учесть не только один параметр, а унифицировать для более чем одного параметра.
-
-Архитектура
-SokobanViewControlsJfx
-- SokobanPersistentSettings, SokobanVariableSettings и их потомки очень похожи.
--- После первой унификации учесть не только один параметр, а унифицировать для более чем одного параметра.
-
 MinesweeperViewControlsJfx
 - Баг (не красиво в визуализации): в MinesweeperPersistentSettings::update и в MinesweeperVariableSettings::update.
   Лишние переносы строки. Т.е. если их сейчас убрать, то текст будет залазить на более верхний объект.
