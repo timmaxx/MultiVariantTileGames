@@ -1,8 +1,8 @@
 package timmax.tilegameenginejfx;
 
 import javafx.scene.text.Text;
-import timmax.basetilemodel.BaseModel;
-import timmax.basetilemodel.gameevent.GameEvent;
+import timmax.tilegame.basemodel.ConnectionToBaseModel;
+import timmax.tilegame.basemodel.gameevent.GameEvent;
 import java.util.NoSuchElementException;
 
 abstract public class ViewTextFieldsJfx extends ViewJfx {
@@ -10,8 +10,8 @@ abstract public class ViewTextFieldsJfx extends ViewJfx {
     private final Text messageText;
     Class< ? extends GameEvent> clazz;
 
-    public ViewTextFieldsJfx( BaseModel baseModel, Class< ? extends GameEvent> clazz, String commonLabel) {
-        super( baseModel, null); // ToDo: убрать отсюда null. См. ToDo от 02.10.2023.
+    public ViewTextFieldsJfx( ConnectionToBaseModel connectionToBaseModel, Class< ? extends GameEvent> clazz, String commonLabel) {
+        super( connectionToBaseModel, null); // ToDo: убрать отсюда null. См. ToDo от 02.10.2023.
 
         this.clazz = clazz;
         this.commonLabel = commonLabel;

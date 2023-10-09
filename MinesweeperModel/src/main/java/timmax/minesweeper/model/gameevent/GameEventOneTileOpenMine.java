@@ -1,6 +1,6 @@
 package timmax.minesweeper.model.gameevent;
 
-import timmax.basetilemodel.gameevent.GameEventOneTile;
+import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 
 public class GameEventOneTileOpenMine extends GameEventOneTile {
     public GameEventOneTileOpenMine( int x, int y) {

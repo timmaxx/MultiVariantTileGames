@@ -1,6 +1,6 @@
 package timmax.minesweeper.model.gameobject;
 
-import timmax.basetilemodel.tile.Tile;
+import timmax.tilegame.basemodel.tile.Tile;
 import java.util.Set;
 
 // Плитка игры Сапёр

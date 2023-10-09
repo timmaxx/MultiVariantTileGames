@@ -1,4 +1,4 @@
-package timmax.basetilemodel;
+package timmax.tilegame.basemodel;
 
 // Текущий статус игры
 public enum GameStatus {

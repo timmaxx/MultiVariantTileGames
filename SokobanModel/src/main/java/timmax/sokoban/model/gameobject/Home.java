@@ -1,6 +1,6 @@
 package timmax.sokoban.model.gameobject;
 
-import timmax.basetilemodel.tile.Tile;
+import timmax.tilegame.basemodel.tile.Tile;
 
 public class Home extends Tile implements NonMovable {
     public Home( int x, int y) {

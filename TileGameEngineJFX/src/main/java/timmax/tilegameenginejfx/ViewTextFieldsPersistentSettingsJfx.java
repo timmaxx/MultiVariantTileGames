@@ -1,12 +1,12 @@
 package timmax.tilegameenginejfx;
 
-import timmax.basetilemodel.BaseModel;
-import timmax.basetilemodel.gameevent.GameEvent;
-import timmax.basetilemodel.gameevent.GameEventNewGame;
+import timmax.tilegame.basemodel.ConnectionToBaseModel;
+import timmax.tilegame.basemodel.gameevent.GameEvent;
+import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
 
 public class ViewTextFieldsPersistentSettingsJfx extends ViewTextFieldsJfx {
-    public ViewTextFieldsPersistentSettingsJfx( BaseModel baseModel) {
-        super( baseModel
+    public ViewTextFieldsPersistentSettingsJfx( ConnectionToBaseModel connectionToBaseModel) {
+        super( connectionToBaseModel
                 , GameEventNewGame.class
                 , "\nPersistent settings:\n"); // ToDo: Разобраться и удалить ведущий '\n' в commonLabel.
     }

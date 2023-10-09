@@ -1,6 +1,6 @@
 package timmax.minesweeper.model.gameevent;
 
-import timmax.basetilemodel.gameevent.GameEventOneTile;
+import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 
 public class GameEventOneTileChangeFlag extends GameEventOneTile {
     private final boolean isFlag;

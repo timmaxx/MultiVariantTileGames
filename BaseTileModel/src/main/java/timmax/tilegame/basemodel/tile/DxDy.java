@@ -1,4 +1,4 @@
-package timmax.basetilemodel.tile;
+package timmax.tilegame.basemodel.tile;
 
 // Смещение для объекта игры за один шаг.
 public class DxDy {

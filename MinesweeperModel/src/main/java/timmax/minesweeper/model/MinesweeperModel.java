@@ -1,6 +1,7 @@
 package timmax.minesweeper.model;
 
-import timmax.basetilemodel.BaseModel;
+import timmax.tilegame.basemodel.BaseModel;
+import timmax.tilegame.basemodel.TransportModelFromModelToViews;
 import timmax.minesweeper.model.gameevent.*;
 import timmax.minesweeper.model.gameobject.*;
 
@@ -13,6 +14,10 @@ public class MinesweeperModel extends BaseModel {
     private final LevelGenerator levelGenerator = new LevelGenerator( );
 
     private AllMinesweeperObjects allMinesweeperObjects;
+
+    public MinesweeperModel( TransportModelFromModelToViews transportModelFromModelToViews) {
+        super( transportModelFromModelToViews);
+    }
 
 
     @Override

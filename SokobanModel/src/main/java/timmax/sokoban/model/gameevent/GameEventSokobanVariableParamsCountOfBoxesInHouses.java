@@ -1,6 +1,6 @@
 package timmax.sokoban.model.gameevent;
 
-import timmax.basetilemodel.gameevent.GameEvent;
+import timmax.tilegame.basemodel.gameevent.GameEvent;
 
 public class GameEventSokobanVariableParamsCountOfBoxesInHouses extends GameEvent {
     // ToDo: Разобраться и удалить ведущий '\n'

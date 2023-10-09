@@ -1,10 +1,11 @@
 package timmax.sokoban.jfx.view;
 
 import timmax.basetilemodel.*;
-import timmax.basetilemodel.gameevent.*;
 import timmax.sokoban.model.gameevent.*;
 import timmax.sokoban.model.gameobject.*;
 import javafx.scene.paint.Color;
+import timmax.tilegame.basemodel.BaseModel;
+import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegameenginejfx.*;
 
 import static javafx.scene.paint.Color.*;
@@ -23,7 +24,7 @@ public class SokobanMainFieldViewJfx extends ViewMainFieldJfx {
     private static final Color BOX_TEXT_COLOR = BLUE;
 
 
-    public SokobanMainFieldViewJfx( BaseModel baseModel, GameStackPaneController gameStackPaneController) {
+    public SokobanMainFieldViewJfx(BaseModel baseModel, GameStackPaneController gameStackPaneController) {
         super( baseModel, gameStackPaneController);
     }
 

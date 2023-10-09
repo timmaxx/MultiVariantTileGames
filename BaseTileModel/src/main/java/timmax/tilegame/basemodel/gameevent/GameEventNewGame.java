@@ -1,4 +1,4 @@
-package timmax.basetilemodel.gameevent;
+package timmax.tilegame.basemodel.gameevent;
 
 public class GameEventNewGame extends GameEvent {
     private final int width;

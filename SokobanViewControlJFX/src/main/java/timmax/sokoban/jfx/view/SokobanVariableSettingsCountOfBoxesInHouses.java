@@ -1,7 +1,7 @@
 package timmax.sokoban.jfx.view;
 
-import timmax.basetilemodel.BaseModel;
-import timmax.basetilemodel.gameevent.GameEvent;
+import timmax.tilegame.basemodel.BaseModel;
+import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.sokoban.model.gameevent.GameEventSokobanVariableParamsCountOfBoxesInHouses;
 import timmax.tilegameenginejfx.ViewTextFieldsJfx;
 

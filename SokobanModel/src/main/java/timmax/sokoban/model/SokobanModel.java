@@ -1,15 +1,18 @@
 package timmax.sokoban.model;
 
 import timmax.basetilemodel.*;
-import timmax.basetilemodel.gameevent.GameEventGameOver;
-import timmax.basetilemodel.tile.*;
+import timmax.tilegame.basemodel.BaseModel;
+import timmax.tilegame.basemodel.GameStatus;
+import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.sokoban.model.gameevent.*;
 import timmax.sokoban.model.gameobject.*;
 import timmax.sokoban.model.route.*;
+import timmax.tilegame.basemodel.tile.Direction;
+
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 
-import static timmax.basetilemodel.GameStatus.*;
+import static timmax.tilegame.basemodel.GameStatus.*;
 import static timmax.sokoban.model.gameobject.WhoMovableInTile.*;
 
 public class SokobanModel extends BaseModel {

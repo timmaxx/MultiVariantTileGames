@@ -1,6 +1,6 @@
 package timmax.sokoban.model.gameevent;
 
-import timmax.basetilemodel.gameevent.GameEventOneTile;
+import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.sokoban.model.gameobject.*;
 
 public class GameEventOneTileSokobanChangeable extends GameEventOneTile {

@@ -1,13 +1,11 @@
 package timmax.sokoban.jfx.controller;
 
 import javafx.scene.input.KeyCode;
-import timmax.basetilemodel.BaseModel;
+import timmax.tilegame.basemodel.BaseModel;
 import timmax.tilegameenginejfx.GameSceneController;
 
-import timmax.basetilemodel.GameStatus;
+import timmax.tilegame.basemodel.GameStatus;
 import timmax.sokoban.model.SokobanModel;
-
-import static timmax.basetilemodel.tile.Direction.*;
 
 public class SokobanGameSceneController extends GameSceneController {
     public SokobanGameSceneController( BaseModel baseModel) {

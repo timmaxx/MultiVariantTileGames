@@ -1,4 +1,4 @@
-package timmax.basetilemodel.tile;
+package timmax.tilegame.basemodel.tile;
 
 // Плитка игрового поля
 public /*abstract*/ class Tile {

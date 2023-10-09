@@ -3,7 +3,7 @@ package timmax.sokoban.jfx;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.Node;
-import timmax.basetilemodel.BaseModel;
+import timmax.tilegame.basemodel.BaseModel;
 import timmax.tilegameenginejfx.*;
 import timmax.sokoban.model.*;
 import timmax.sokoban.jfx.view.*;

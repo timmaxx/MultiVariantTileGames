@@ -2,12 +2,12 @@ package timmax.minesweeper.model.gameobject;
 
 import java.util.HashSet;
 import java.util.Set;
-import timmax.basetilemodel.GameStatus;
-import timmax.basetilemodel.gameevent.GameEventGameOver;
+import timmax.tilegame.basemodel.GameStatus;
+import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.minesweeper.model.MinesweeperModel;
 import timmax.minesweeper.model.gameevent.*;
 
-import static timmax.basetilemodel.GameStatus.*;
+import static timmax.tilegame.basemodel.GameStatus.*;
 
 // Все объекты игры Сапёр
 public class AllMinesweeperObjects {

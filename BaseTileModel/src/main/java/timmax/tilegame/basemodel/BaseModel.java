@@ -1,7 +1,9 @@
-package timmax.basetilemodel;
+package timmax.tilegame.basemodel;
 
-import timmax.basetilemodel.gameevent.GameEvent;
-import timmax.basetilemodel.gameevent.GameEventNewGame;
+import timmax.tilegame.basemodel.gameevent.GameEvent;
+import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
+import timmax.tilegame.baseview.ViewInterface;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,11 +15,13 @@ public abstract class BaseModel {
     private final static int MAX_HEIGHT = 100;
 
     // Карта представление - очередь. В очереди записываем события. Для представлений вызываем update.
-    protected final Map< ViewInterface, GameQueueForOneView> mapOfViewGameQueueForOneView;
+    protected final Map<ViewInterface, GameQueueForOneView> mapOfViewGameQueueForOneView;
     private GameStatus gameStatus;
+    private TransportModelFromModelToViews transportModelFromModelToViews;
 
 
-    public BaseModel( ) {
+    public BaseModel( TransportModelFromModelToViews transportModelFromModelToViews) {
+        this.transportModelFromModelToViews = transportModelFromModelToViews;
         mapOfViewGameQueueForOneView = new HashMap< >( );
     }
 
@@ -57,8 +61,8 @@ public abstract class BaseModel {
     }
 
     // Реализация добавления представления в модель
-    public GameQueueForOneView addViewListener( ViewInterface view) {
-        GameQueueForOneView gameQueueForOneView = new GameQueueForOneView( );
+    public GameQueueForOneView addView(ViewInterface view) {
+        GameQueueForOneView gameQueueForOneView = new GameQueueForOneView( transportModelFromModelToViews);
         mapOfViewGameQueueForOneView.put( view, gameQueueForOneView);
         return gameQueueForOneView;
     }

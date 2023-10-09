@@ -1,6 +1,7 @@
 package timmax.sokoban.model.gameobject;
 
-import timmax.basetilemodel.tile.*;
+import timmax.tilegame.basemodel.tile.Direction;
+import timmax.tilegame.basemodel.tile.Tile;
 
 public abstract class CollisionMovableObject extends CollisionObject implements Movable {
     public CollisionMovableObject( int x, int y) {

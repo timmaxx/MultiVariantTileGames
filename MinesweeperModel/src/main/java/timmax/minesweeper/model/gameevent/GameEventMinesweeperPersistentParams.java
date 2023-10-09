@@ -1,6 +1,6 @@
 package timmax.minesweeper.model.gameevent;
 
-import timmax.basetilemodel.gameevent.GameEventROTextFields;
+import timmax.tilegame.basemodel.gameevent.GameEventROTextFields;
 
 public class GameEventMinesweeperPersistentParams extends GameEventROTextFields {
     // ToDo: Разобраться и удалить ведущий '\n';

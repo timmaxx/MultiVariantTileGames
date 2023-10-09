@@ -1,6 +1,6 @@
 package timmax.sokoban.model.route;
 
-import timmax.basetilemodel.tile.Direction;
+import timmax.tilegame.basemodel.tile.Direction;
 
 public class Step {
     private final Direction direction;

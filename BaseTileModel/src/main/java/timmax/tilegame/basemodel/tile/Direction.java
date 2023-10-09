@@ -1,4 +1,4 @@
-package timmax.basetilemodel.tile;
+package timmax.tilegame.basemodel.tile;
 
 // Направление смещения
 public enum Direction {

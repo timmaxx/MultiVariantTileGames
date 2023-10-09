@@ -2,8 +2,9 @@ package timmax.minesweeper.jfx.view;
 
 import javafx.scene.paint.Color;
 import timmax.basetilemodel.*;
-import timmax.basetilemodel.gameevent.*;
 import timmax.minesweeper.model.gameevent.*;
+import timmax.tilegame.basemodel.ConnectionToBaseModel;
+import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegameenginejfx.*;
 
 import static javafx.scene.paint.Color.*;
@@ -19,9 +20,15 @@ public class MinesweeperMainFieldViewJfx extends ViewMainFieldJfx {
     private static final Color MINE_CELL_COLOR = RED;
 
 
+/*
     public MinesweeperMainFieldViewJfx( BaseModel baseModel, GameStackPaneController gameStackPaneController) {
         super( baseModel, gameStackPaneController);
     }
+*/
+    public MinesweeperMainFieldViewJfx(ConnectionToBaseModel connectionToBaseModel, GameStackPaneController gameStackPaneController) {
+        super( connectionToBaseModel, gameStackPaneController);
+    }
+
 
     @Override
     protected void drawCellDuringInitMainField( GameStackPane cell) {

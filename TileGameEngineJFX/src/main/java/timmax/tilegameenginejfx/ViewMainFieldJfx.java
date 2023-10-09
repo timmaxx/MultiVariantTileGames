@@ -1,7 +1,10 @@
 package timmax.tilegameenginejfx;
 
-import timmax.basetilemodel.BaseModel;
-import timmax.basetilemodel.gameevent.*;
+import timmax.tilegame.basemodel.ConnectionToBaseModel;
+import timmax.tilegame.basemodel.gameevent.GameEvent;
+import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
+import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
+
 import java.util.NoSuchElementException;
 
 abstract public class ViewMainFieldJfx extends ViewJfx {
@@ -12,8 +15,8 @@ abstract public class ViewMainFieldJfx extends ViewJfx {
     protected int cellSize;
 
 
-    public ViewMainFieldJfx( BaseModel baseModel, GameStackPaneController gameStackPaneController) {
-        super( baseModel, gameStackPaneController);
+    public ViewMainFieldJfx( ConnectionToBaseModel connectionToBaseModel, GameStackPaneController gameStackPaneController) {
+        super( connectionToBaseModel, gameStackPaneController);
     }
 
     @Override

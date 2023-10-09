@@ -1,15 +1,15 @@
 package timmax.minesweeper.jfx.view;
 
-import timmax.basetilemodel.BaseModel;
-import timmax.basetilemodel.gameevent.GameEvent;
+import timmax.tilegame.basemodel.ConnectionToBaseModel;
+import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsFlag;
 import timmax.tilegameenginejfx.ViewTextFieldsJfx;
 
 import static timmax.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsFlag.*;
 
 public class MinesweeperVariableSettingsFlag extends ViewTextFieldsJfx {
-    public MinesweeperVariableSettingsFlag( BaseModel baseModel) {
-        super( baseModel
+    public MinesweeperVariableSettingsFlag( ConnectionToBaseModel connectionToBaseModel) {
+        super( connectionToBaseModel
                 , GameEventMinesweeperVariableParamsFlag.class
                 , COMMON_LABEL_OF_VARIABLE_PARAMS_FLAG);
     }

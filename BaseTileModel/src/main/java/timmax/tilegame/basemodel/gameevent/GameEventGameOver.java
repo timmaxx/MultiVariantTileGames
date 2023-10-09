@@ -1,6 +1,6 @@
-package timmax.basetilemodel.gameevent;
+package timmax.tilegame.basemodel.gameevent;
 
-import timmax.basetilemodel.GameStatus;
+import timmax.tilegame.basemodel.GameStatus;
 
 public class GameEventGameOver extends GameEvent {
     private final GameStatus gameStatus;

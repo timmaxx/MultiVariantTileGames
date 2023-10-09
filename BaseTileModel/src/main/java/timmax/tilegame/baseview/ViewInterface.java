@@ -1,6 +1,6 @@
-package timmax.basetilemodel;
+package timmax.tilegame.baseview;
 
-import timmax.basetilemodel.gameevent.GameEvent;
+import timmax.tilegame.basemodel.gameevent.GameEvent;
 
 public interface ViewInterface {
     void update( ); // Обновить представление (по данным модели)

@@ -1,6 +1,6 @@
 package timmax.sokoban.model.gameobject;
 
-import timmax.basetilemodel.tile.Direction;
+import timmax.tilegame.basemodel.tile.Direction;
 
 // For boxes and player.
 public interface Movable {

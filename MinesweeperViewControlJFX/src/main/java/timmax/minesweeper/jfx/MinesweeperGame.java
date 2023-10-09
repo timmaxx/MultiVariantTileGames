@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.Node;
 import timmax.basetilemodel.*;
+import timmax.tilegame.basemodel.BaseModel;
 import timmax.tilegameenginejfx.*;
 import timmax.minesweeper.model.*;
 import timmax.minesweeper.jfx.view.*;
@@ -36,7 +37,7 @@ public class MinesweeperGame extends Game {
     }
 
     @Override
-    protected List<Node> initNodeList( BaseModel baseModel) {
+    protected List< Node> initNodeList( BaseModel baseModel) {
         List< Node> nodeList = new ArrayList< >( );
 
         nodeList.add( new ViewTextFieldsPersistentSettingsJfx( baseModel));

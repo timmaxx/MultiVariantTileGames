@@ -1,4 +1,4 @@
-package timmax.basetilemodel.gameevent;
+package timmax.tilegame.basemodel.gameevent;
 
 public abstract class GameEventOneTile extends GameEvent {
     private final int x;

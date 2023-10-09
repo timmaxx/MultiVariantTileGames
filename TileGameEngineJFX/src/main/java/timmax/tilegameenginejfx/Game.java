@@ -5,7 +5,7 @@ import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.layout.*;
 import javafx.stage.*;
-import timmax.basetilemodel.BaseModel;
+import timmax.tilegame.basemodel.BaseModel;
 
 public abstract class Game extends Application {
     public final static int APP_WIDTH = 800; // 1600;
