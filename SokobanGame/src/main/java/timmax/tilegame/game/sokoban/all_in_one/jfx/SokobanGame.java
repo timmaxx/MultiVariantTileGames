@@ -1,4 +1,4 @@
-package timmax.tilegame.game.sokoban.jfx;
+package timmax.tilegame.game.sokoban.all_in_one.jfx;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import javafx.scene.Node;
 
 import timmax.tilegame.basemodel.BaseModel;
 
-import timmax.tilegame.guiengine.jfx.*;
+import timmax.tilegame.guiengine.jfx.Game;
 import timmax.tilegame.guiengine.jfx.view.ViewJfx;
 import timmax.tilegame.guiengine.jfx.view.ViewTextFieldsPersistentSettingsJfx;
 import timmax.tilegame.guiengine.jfx.controller.GameSceneController;
@@ -14,10 +14,10 @@ import timmax.tilegame.guiengine.jfx.controller.GameStackPaneController;
 
 import timmax.tilegame.game.sokoban.model.SokobanModel;
 
-import timmax.tilegame.game.sokoban.jfx.view.SokobanVariableSettingsCountOfBoxesInHouses;
-import timmax.tilegame.game.sokoban.jfx.view.SokobanVariableSettingsCountOfSteps;
 import timmax.tilegame.game.sokoban.jfx.view.SokobanMainFieldViewJfx;
 import timmax.tilegame.game.sokoban.jfx.view.SokobanPersistentSettings;
+import timmax.tilegame.game.sokoban.jfx.view.SokobanVariableSettingsCountOfBoxesInHouses;
+import timmax.tilegame.game.sokoban.jfx.view.SokobanVariableSettingsCountOfSteps;
 import timmax.tilegame.game.sokoban.jfx.controller.SokobanGameSceneController;
 
 public class SokobanGame extends Game {

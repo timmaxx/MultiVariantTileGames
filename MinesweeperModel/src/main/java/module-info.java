@@ -1,9 +1,8 @@
-module timmax.minesweeper.model {
-    requires timmax.basetilemodel;
-    requires spring.context;
-    requires org.slf4j;
+module timmax.tilegame.game.minesweeper.model {
     requires java.compiler;
     requires java.annotation;
+    requires org.slf4j;
+    requires timmax.tilegame.basetilemodel;
 
     exports timmax.tilegame.game.minesweeper.model;
     exports timmax.tilegame.game.minesweeper.model.gameevent;

@@ -18,5 +18,7 @@
         <module>SokobanModel</module>
         <module>SokobanViewControlJFX</module>
         <module>BasePersistent</module>
+        <module>MinesweeperGame</module>
+        <module>SokobanGame</module>
     </modules>
 </project>

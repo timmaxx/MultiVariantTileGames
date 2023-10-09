@@ -1,5 +1,5 @@
-module timmax.sokoban.model {
-    requires timmax.basetilemodel;
+module timmax.tilegame.game.sokoban.model {
+    requires timmax.tilegame.basetilemodel;
 
     exports timmax.tilegame.game.sokoban.model;
     exports timmax.tilegame.game.sokoban.model.gameobject;

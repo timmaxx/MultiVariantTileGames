@@ -1,6 +1,6 @@
-module timmax.tilegameenginejfx {
+module timmax.tilegame.guiengine.jfx {
     requires javafx.graphics;
-    requires timmax.basetilemodel;
+    requires timmax.tilegame.basetilemodel;
 
     exports timmax.tilegame.guiengine.jfx;
     exports timmax.tilegame.guiengine.jfx.view;
