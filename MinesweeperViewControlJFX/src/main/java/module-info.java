@@ -6,5 +6,5 @@ module timmax.minesweeper.jfx {
     requires org.slf4j;
     requires spring.context;
 
-    exports timmax.minesweeper.jfx;
+    exports timmax.tilegame.game.minesweeper.jfx;
 }

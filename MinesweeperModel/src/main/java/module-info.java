@@ -5,6 +5,6 @@ module timmax.minesweeper.model {
     requires java.compiler;
     requires java.annotation;
 
-    exports timmax.minesweeper.model;
-    exports timmax.minesweeper.model.gameevent;
+    exports timmax.tilegame.game.minesweeper.model;
+    exports timmax.tilegame.game.minesweeper.model.gameevent;
 }

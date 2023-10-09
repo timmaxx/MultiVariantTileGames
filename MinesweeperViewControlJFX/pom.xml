@@ -83,7 +83,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>timmax.minesweeper/timmax.minesweeper.jfx.MinesweeperGame</mainClass>
+                            <mainClass>timmax.minesweeper/timmax.tilegame.game.minesweeper.jfx.MinesweeperGame</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

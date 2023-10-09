@@ -1,5 +1,6 @@
 module timmax.basetilemodel {
-    exports timmax.basetilemodel;
-    exports timmax.basetilemodel.tile;
-    exports timmax.basetilemodel.gameevent;
+    exports timmax.tilegame.basemodel;
+    exports timmax.tilegame.basemodel.tile;
+    exports timmax.tilegame.basemodel.gameevent;
+    exports timmax.tilegame.baseview;
 }
