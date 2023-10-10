@@ -36,11 +36,17 @@ public class MinesweeperModel extends BaseModel {
     }
 
     public void inverseFlag( int x, int y) {
+        if ( verifyGameStatusNotGameAndMayBeCreateNewGame( )) {
+            return;
+        }
         boolean isFlag = allMinesweeperObjects.inverseFlag( allMinesweeperObjects.getTileByXY( x, y));
         addGameEventIntoQueueAndNotifyViews( new GameEventOneTileChangeFlag( x, y, isFlag));
     }
 
     public void open( int x, int y) {
+        if ( verifyGameStatusNotGameAndMayBeCreateNewGame( )) {
+            return;
+        }
         setGameStatus( allMinesweeperObjects.open( allMinesweeperObjects.getTileByXY( x, y)));
         notifyViews( );
     }

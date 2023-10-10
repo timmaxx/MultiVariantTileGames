@@ -29,6 +29,7 @@ public class SokobanModel extends BaseModel {
     private Route route;
     private Route routeRedo = new Route( );
 
+
     static {
         try {
             levelLoader = new LevelLoader( Paths.get( SokobanModel.class.getResource( "levels.txt").toURI( )));
@@ -58,6 +59,9 @@ public class SokobanModel extends BaseModel {
     }
 
     public void moveUndo( ) {
+        if ( verifyGameStatusNotGameAndMayBeCreateNewGame( )) {
+            return;
+        }
         if ( route.size( ) <= 0) {
             return;
         }
@@ -116,11 +120,17 @@ public class SokobanModel extends BaseModel {
     }
 
     public void move( Direction direction) {
+        if ( verifyGameStatusNotGameAndMayBeCreateNewGame( )) {
+            return;
+        }
         movePlayerIfPossible( direction, false);
         routeRedo = new Route( );
     }
 
     public void moveRedo( ) {
+        if ( verifyGameStatusNotGameAndMayBeCreateNewGame( )) {
+            return;
+        }
         if ( routeRedo.size( ) <= 0) {
             return;
         }
@@ -240,6 +250,9 @@ public class SokobanModel extends BaseModel {
 
     @Override
     public void nextLevel( ) {
+        if ( verifyGameStatusNotGameAndMayBeCreateNewGame( )) {
+            return;
+        }
         setGameStatus( FORCE_RESTART_OR_CHANGE_LEVEL);
         currentLevel.incValue( );
         addGameEventIntoQueueAndNotifyViews( new GameEventGameOver( FORCE_RESTART_OR_CHANGE_LEVEL));
@@ -247,6 +260,9 @@ public class SokobanModel extends BaseModel {
 
     @Override
     public void prevLevel( ) {
+        if ( verifyGameStatusNotGameAndMayBeCreateNewGame( )) {
+            return;
+        }
         setGameStatus( FORCE_RESTART_OR_CHANGE_LEVEL);
         currentLevel.decValue( );
         addGameEventIntoQueueAndNotifyViews( new GameEventGameOver( FORCE_RESTART_OR_CHANGE_LEVEL));
@@ -254,6 +270,9 @@ public class SokobanModel extends BaseModel {
 
     @Override
     public void restart( ) {
+        if ( verifyGameStatusNotGameAndMayBeCreateNewGame( )) {
+            return;
+        }
         setGameStatus( FORCE_RESTART_OR_CHANGE_LEVEL);
         addGameEventIntoQueueAndNotifyViews( new GameEventGameOver( FORCE_RESTART_OR_CHANGE_LEVEL));
     }

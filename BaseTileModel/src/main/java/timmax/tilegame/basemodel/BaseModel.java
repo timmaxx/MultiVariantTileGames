@@ -1,11 +1,11 @@
 package timmax.tilegame.basemodel;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
 import timmax.tilegame.baseview.ViewInterface;
-
-import java.util.HashMap;
-import java.util.Map;
 
 // Базовая модель
 public abstract class BaseModel {
@@ -65,9 +65,7 @@ public abstract class BaseModel {
         return gameQueueForOneView;
     }
 
-    // Сейчас используется в контроллерах.
-    // ToDo: исключить из использования в контроллерах. Перенести исключённую логику в модель.
-    public GameStatus getGameStatus( ) {
+    protected GameStatus getGameStatus( ) {
         return gameStatus;
     }
 
@@ -75,7 +73,6 @@ public abstract class BaseModel {
         this.gameStatus = gameStatus;
     }
 
-    // ToDo: из SokobanModel взять реализации этих методов, дополнить абстракциями и внести сюда.
     abstract protected void restart( );
 
     abstract protected void nextLevel( );
@@ -83,4 +80,12 @@ public abstract class BaseModel {
     abstract protected void prevLevel( );
 
     abstract protected void win( );
+
+    protected boolean verifyGameStatusNotGameAndMayBeCreateNewGame( ) {
+        if ( getGameStatus( ) != GameStatus.GAME) {
+            createNewGame( );
+            return true;
+        }
+        return false;
+    }
 }

@@ -3,7 +3,6 @@ package timmax.tilegame.game.sokoban.jfx.controller;
 import javafx.scene.input.KeyCode;
 
 import timmax.tilegame.basemodel.BaseModel;
-import timmax.tilegame.basemodel.GameStatus;
 
 import timmax.tilegame.guiengine.jfx.controller.GameSceneController;
 
@@ -18,14 +17,6 @@ public class SokobanGameSceneController extends GameSceneController {
 
     @Override
     public void onKeyPressed( KeyCode keyCode) {
-        // ToDo: Такое условие не хорошо иметь в контроллере, т.к. контроллер пытается запросить состояние игры.
-        //  А этим должны заниматься выборки, а не контроллер! Убрать в модель.
-        // Например, здесь в отдельный метод, который вызывать при каждом поступлении любой команды.
-        if ( getSokobanModel( ).getGameStatus( ) != GameStatus.GAME) {
-            getSokobanModel( ).createNewGame( );
-            return;
-        }
-
         if        ( keyCode.equals( KeyCode.Q))          { getSokobanModel( ).moveUndo( );
         } else if ( keyCode.equals( KeyCode.P))          { getSokobanModel( ).moveRedo( );
         } else if ( keyCode.equals( KeyCode.LEFT))       { getSokobanModel( ).move( LEFT);
