@@ -14,6 +14,9 @@ public class MinesweeperGameStackPaneController extends GameStackPaneController 
 
     @Override
     public void onMousePrimaryClick( int x, int y) {
+        // ToDo: Такое условие не хорошо иметь в контроллере, т.к. контроллер пытается запросить состояние игры.
+        //  А этим должны заниматься выборки, а не контроллер! Убрать в модель.
+        // Например, здесь в отдельный метод, который вызывать при каждом поступлении любой команды.
         if ( getMinesweeperModel( ).getGameStatus( ) != GameStatus.GAME) {
             getMinesweeperModel( ).createNewGame( );
             return;
