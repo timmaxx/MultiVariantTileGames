@@ -12,7 +12,7 @@ import timmax.tilegame.guiengine.jfx.controller.GameStackPaneController;
 
 public abstract class ViewJfx extends Pane implements View {
     private final GameQueueForOneView gameQueueForOneView;
-    protected GameStackPaneController gameStackPaneController;
+    protected final GameStackPaneController gameStackPaneController;
 
 
     public ViewJfx( BaseModel baseModel, GameStackPaneController gameStackPaneController) {
@@ -36,8 +36,8 @@ public abstract class ViewJfx extends Pane implements View {
 import timmax.tilegame.baseview.BaseView;
 
 public abstract class ViewJfx extends Pane implements View {
-    private View view;
-    protected GameStackPaneController gameStackPaneController;
+    private final View view;
+    protected final GameStackPaneController gameStackPaneController;
 
 
     public ViewJfx( BaseModel baseModel, GameStackPaneController gameStackPaneController) {
