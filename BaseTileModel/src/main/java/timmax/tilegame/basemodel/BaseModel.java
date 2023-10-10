@@ -5,7 +5,7 @@ import java.util.Map;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
-import timmax.tilegame.baseview.ViewInterface;
+import timmax.tilegame.baseview.View;
 
 // Базовая модель
 public abstract class BaseModel {
@@ -15,7 +15,7 @@ public abstract class BaseModel {
     private final static int MAX_HEIGHT = 100;
 
     // Карта представление - очередь. В очереди записываем события. Для представлений вызываем update.
-    protected final Map< ViewInterface, GameQueueForOneView> mapOfViewGameQueueForOneView;
+    protected final Map< View, GameQueueForOneView> mapOfViewGameQueueForOneView;
     private GameStatus gameStatus;
 
 
@@ -43,7 +43,7 @@ public abstract class BaseModel {
     }
 
     public void notifyViews( ) {
-        for ( ViewInterface view: mapOfViewGameQueueForOneView.keySet( )) {
+        for ( View view: mapOfViewGameQueueForOneView.keySet( )) {
             view.update( );
         }
     }
@@ -59,7 +59,7 @@ public abstract class BaseModel {
     }
 
     // Реализация добавления представления в модель
-    public GameQueueForOneView addViewListener( ViewInterface view) {
+    public GameQueueForOneView addViewListener( View view) {
         GameQueueForOneView gameQueueForOneView = new GameQueueForOneView( );
         mapOfViewGameQueueForOneView.put( view, gameQueueForOneView);
         return gameQueueForOneView;

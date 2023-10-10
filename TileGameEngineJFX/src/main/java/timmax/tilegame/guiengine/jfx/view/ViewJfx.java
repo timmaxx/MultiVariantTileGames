@@ -6,11 +6,11 @@ import javafx.scene.layout.Pane;
 import timmax.tilegame.basemodel.BaseModel;
 import timmax.tilegame.basemodel.GameQueueForOneView;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
-import timmax.tilegame.baseview.ViewInterface;
+import timmax.tilegame.baseview.View;
 
 import timmax.tilegame.guiengine.jfx.controller.GameStackPaneController;
 
-public abstract class ViewJfx extends Pane implements ViewInterface {
+public abstract class ViewJfx extends Pane implements View {
     protected GameQueueForOneView gameQueueForOneView;
     // private ViewInterface view;
 
