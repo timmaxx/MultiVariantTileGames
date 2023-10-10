@@ -20,7 +20,7 @@ import timmax.tilegame.game.sokoban.jfx.view.SokobanVariableSettingsCountOfBoxes
 import timmax.tilegame.game.sokoban.jfx.view.SokobanVariableSettingsCountOfSteps;
 import timmax.tilegame.game.sokoban.jfx.controller.SokobanGameSceneController;
 
-public class SokobanGame extends Game {
+public class SokobanAll_In_OneJfx extends Game {
     @Override
     public BaseModel initModel( ) {
         return new SokobanModel( );

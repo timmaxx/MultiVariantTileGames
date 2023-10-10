@@ -20,7 +20,7 @@ import timmax.tilegame.game.minesweeper.jfx.view.MinesweeperVariableSettingsFlag
 import timmax.tilegame.game.minesweeper.jfx.view.MinesweeperVariableSettingsOpenClose;
 import timmax.tilegame.game.minesweeper.jfx.controller.MinesweeperGameStackPaneController;
 
-public class MinesweeperGame extends Game {
+public class MinesweeperAll_In_OneJfx extends Game {
     @Override
     public BaseModel initModel( ) {
         return new MinesweeperModel( );
@@ -47,7 +47,7 @@ public class MinesweeperGame extends Game {
     }
 
     @Override
-    protected List<Node> initNodeList( BaseModel baseModel) {
+    protected List< Node> initNodeList( BaseModel baseModel) {
         List< Node> nodeList = new ArrayList< >( );
 
         nodeList.add( new ViewTextFieldsPersistentSettingsJfx( baseModel));
