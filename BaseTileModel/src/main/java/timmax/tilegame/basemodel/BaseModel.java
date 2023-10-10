@@ -3,6 +3,7 @@ package timmax.tilegame.basemodel;
 import java.util.HashMap;
 import java.util.Map;
 
+import timmax.tilegame.basemodel.gamecommand.GameCommand;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
 import timmax.tilegame.baseview.View;
@@ -15,12 +16,15 @@ public abstract class BaseModel {
     private final static int MAX_HEIGHT = 100;
 
     // Карта представление - очередь. В очереди записываем события. Для представлений вызываем update.
-    protected final Map< View, GameQueueForOneView> mapOfViewGameQueueForOneView;
+    protected final Map< View, GameEventQueueForOneView> mapOfViewGameQueueForOneView;
     private GameStatus gameStatus;
+
+    private final GameCommandQueue gameCommandQueue;
 
 
     public BaseModel( ) {
         mapOfViewGameQueueForOneView = new HashMap< >( );
+        gameCommandQueue = new GameCommandQueue( );
     }
 
     abstract public void createNewGame( );
@@ -37,7 +41,7 @@ public abstract class BaseModel {
     }
 
     public void addGameEventIntoQueue( GameEvent gameEvent) {
-        for ( GameQueueForOneView queue: mapOfViewGameQueueForOneView.values( )) {
+        for ( GameEventQueueForOneView queue: mapOfViewGameQueueForOneView.values( )) {
             queue.add( gameEvent);
         }
     }
@@ -59,10 +63,10 @@ public abstract class BaseModel {
     }
 
     // Реализация добавления представления в модель
-    public GameQueueForOneView addViewListener( View view) {
-        GameQueueForOneView gameQueueForOneView = new GameQueueForOneView( );
-        mapOfViewGameQueueForOneView.put( view, gameQueueForOneView);
-        return gameQueueForOneView;
+    public GameEventQueueForOneView addViewListener( View view) {
+        GameEventQueueForOneView gameEventQueueForOneView = new GameEventQueueForOneView( );
+        mapOfViewGameQueueForOneView.put( view, gameEventQueueForOneView);
+        return gameEventQueueForOneView;
     }
 
     protected GameStatus getGameStatus( ) {
@@ -87,5 +91,17 @@ public abstract class BaseModel {
             return true;
         }
         return false;
+    }
+
+    public void readAllCommandsFromQueueAndExecute( ) {
+        while ( gameCommandQueue.size() != 0) {
+            GameCommand gameCommand = gameCommandQueue.remove();
+            gameCommand.execute(this);
+        }
+    }
+
+    public void addCommandIntoQueue( GameCommand gameCommand) {
+        gameCommandQueue.add( gameCommand);
+        readAllCommandsFromQueueAndExecute( );
     }
 }

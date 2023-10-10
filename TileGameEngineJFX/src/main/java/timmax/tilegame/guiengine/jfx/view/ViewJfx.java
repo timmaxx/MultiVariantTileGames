@@ -4,21 +4,21 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 import timmax.tilegame.basemodel.BaseModel;
-import timmax.tilegame.basemodel.GameQueueForOneView;
+import timmax.tilegame.basemodel.GameEventQueueForOneView;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.baseview.View;
 
 import timmax.tilegame.guiengine.jfx.controller.GameStackPaneController;
 
 public abstract class ViewJfx extends Pane implements View {
-    private final GameQueueForOneView gameQueueForOneView;
+    private final GameEventQueueForOneView gameEventQueueForOneView;
     protected final GameStackPaneController gameStackPaneController;
 
 
     public ViewJfx( BaseModel baseModel, GameStackPaneController gameStackPaneController) {
         super( );
         this.gameStackPaneController = gameStackPaneController;
-        gameQueueForOneView = baseModel.addViewListener( this);
+        gameEventQueueForOneView = baseModel.addViewListener( this);
     }
 
     @Override
@@ -28,6 +28,6 @@ public abstract class ViewJfx extends Pane implements View {
 
     @Override
     public GameEvent removeFromGameQueueForOneView( ) {
-        return gameQueueForOneView.remove( );
+        return gameEventQueueForOneView.remove( );
     }
 }

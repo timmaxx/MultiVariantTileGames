@@ -5,7 +5,7 @@ import java.util.Queue;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 
-public class GameQueueForOneView {
+public class GameEventQueueForOneView {
     Queue< GameEvent> queue = new LinkedList< >( );
 
     public boolean add( GameEvent gameEvent) {
