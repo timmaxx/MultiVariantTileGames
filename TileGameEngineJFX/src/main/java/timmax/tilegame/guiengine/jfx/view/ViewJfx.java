@@ -31,29 +31,3 @@ public abstract class ViewJfx extends Pane implements View {
         return gameQueueForOneView.remove( );
     }
 }
-
-/*
-import timmax.tilegame.baseview.BaseView;
-
-public abstract class ViewJfx extends Pane implements View {
-    private final View view;
-    protected final GameStackPaneController gameStackPaneController;
-
-
-    public ViewJfx( BaseModel baseModel, GameStackPaneController gameStackPaneController) {
-        super( );
-        view = new BaseView( baseModel);
-        this.gameStackPaneController = gameStackPaneController;
-    }
-
-    @Override
-    public Node getStyleableNode( ) {
-        return super.getStyleableNode( );
-    }
-
-    @Override
-    public GameEvent removeFromGameQueueForOneView( ) {
-        return view.removeFromGameQueueForOneView( );
-    }
-}
-*/
