@@ -11,21 +11,14 @@ import timmax.tilegame.baseview.View;
 import timmax.tilegame.guiengine.jfx.controller.GameStackPaneController;
 
 public abstract class ViewJfx extends Pane implements View {
-    protected GameQueueForOneView gameQueueForOneView;
-    // private ViewInterface view;
-
-    protected BaseModel baseModel;
-
+    private final GameQueueForOneView gameQueueForOneView;
     protected GameStackPaneController gameStackPaneController;
 
 
     public ViewJfx( BaseModel baseModel, GameStackPaneController gameStackPaneController) {
         super( );
-        this.baseModel = baseModel;
         this.gameStackPaneController = gameStackPaneController;
-
-        // view = new View( baseModel);
-        gameQueueForOneView = baseModel.addViewListener( this); // К модели привязать это представление
+        gameQueueForOneView = baseModel.addViewListener( this);
     }
 
     @Override
@@ -38,3 +31,29 @@ public abstract class ViewJfx extends Pane implements View {
         return gameQueueForOneView.remove( );
     }
 }
+
+/*
+import timmax.tilegame.baseview.BaseView;
+
+public abstract class ViewJfx extends Pane implements View {
+    private View view;
+    protected GameStackPaneController gameStackPaneController;
+
+
+    public ViewJfx( BaseModel baseModel, GameStackPaneController gameStackPaneController) {
+        super( );
+        view = new BaseView( baseModel);
+        this.gameStackPaneController = gameStackPaneController;
+    }
+
+    @Override
+    public Node getStyleableNode( ) {
+        return super.getStyleableNode( );
+    }
+
+    @Override
+    public GameEvent removeFromGameQueueForOneView( ) {
+        return view.removeFromGameQueueForOneView( );
+    }
+}
+*/
