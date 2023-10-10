@@ -93,7 +93,7 @@ public abstract class BaseModel {
         return false;
     }
 
-    public void readAllCommandsFromQueueAndExecute( ) {
+    private void readAllCommandsFromQueueAndExecute( ) {
         while ( gameCommandQueue.size() != 0) {
             GameCommand gameCommand = gameCommandQueue.remove();
             gameCommand.execute(this);
