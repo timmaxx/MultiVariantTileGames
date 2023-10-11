@@ -4,7 +4,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 import timmax.tilegame.basemodel.BaseModel;
-import timmax.tilegame.basemodel.GameEventQueueForOneView;
+import timmax.tilegame.transport.GameEventQueueForOneView;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.baseview.View;
 

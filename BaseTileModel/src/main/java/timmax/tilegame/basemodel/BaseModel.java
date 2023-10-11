@@ -7,6 +7,8 @@ import timmax.tilegame.basemodel.gamecommand.GameCommand;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
 import timmax.tilegame.baseview.View;
+import timmax.tilegame.transport.GameCommandQueueOfModel;
+import timmax.tilegame.transport.GameEventQueueForOneView;
 
 // Базовая модель
 public abstract class BaseModel {
@@ -19,12 +21,12 @@ public abstract class BaseModel {
     protected final Map< View, GameEventQueueForOneView> mapOfViewGameQueueForOneView;
     private GameStatus gameStatus;
 
-    private final GameCommandQueue gameCommandQueue;
+    private final GameCommandQueueOfModel gameCommandQueueOfModel;
 
 
     public BaseModel( ) {
         mapOfViewGameQueueForOneView = new HashMap< >( );
-        gameCommandQueue = new GameCommandQueue( );
+        gameCommandQueueOfModel = new GameCommandQueueOfModel( this);
     }
 
     abstract public void createNewGame( );
@@ -93,15 +95,7 @@ public abstract class BaseModel {
         return false;
     }
 
-    private void readAllCommandsFromQueueAndExecute( ) {
-        while ( gameCommandQueue.size() != 0) {
-            GameCommand gameCommand = gameCommandQueue.remove();
-            gameCommand.execute(this);
-        }
-    }
-
     public void addCommandIntoQueue( GameCommand gameCommand) {
-        gameCommandQueue.add( gameCommand);
-        readAllCommandsFromQueueAndExecute( );
+        gameCommandQueueOfModel.add( gameCommand);
     }
 }

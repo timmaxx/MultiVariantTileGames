@@ -1,4 +1,4 @@
-package timmax.tilegame.basemodel;
+package timmax.tilegame.transport;
 
 import java.util.LinkedList;
 import java.util.Queue;

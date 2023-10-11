@@ -8,7 +8,6 @@ import timmax.tilegame.basemodel.gamecommand.GameCommand;
 import timmax.tilegame.guiengine.jfx.controller.GameSceneController;
 
 import timmax.tilegame.game.sokoban.model.gamecommand.*;
-import timmax.tilegame.game.sokoban.model.SokobanModel;
 
 import static timmax.tilegame.basemodel.tile.Direction.*;
 
@@ -33,10 +32,6 @@ public class SokobanGameSceneController extends GameSceneController {
         if ( gameCommand == null) {
             return;
         }
-        getSokobanModel( ).addCommandIntoQueue( gameCommand);
-    }
-
-    private SokobanModel getSokobanModel( ) {
-        return ( SokobanModel)baseModel;
+        gameCommandQueueOfController.add( gameCommand);
     }
 }
