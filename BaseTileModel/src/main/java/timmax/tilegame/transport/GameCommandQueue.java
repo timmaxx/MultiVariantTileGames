@@ -17,8 +17,11 @@ public abstract class GameCommandQueue {
 
     public boolean add( GameCommand gameCommand) {
         boolean result = commandQueue.add( gameCommand);
+        if ( !result) {
+            return false;
+        }
         transport( );
-        return result;
+        return true;
     }
 
     public GameCommand remove( ) {

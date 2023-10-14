@@ -8,7 +8,7 @@ import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.GameCommandQueueOfModel;
-import timmax.tilegame.transport.GameEventQueueForOneView;
+import timmax.tilegame.transport.GameEventQueue;
 
 // Базовая модель
 public abstract class BaseModel {
@@ -18,14 +18,14 @@ public abstract class BaseModel {
     private final static int MAX_HEIGHT = 100;
 
     // Карта представление - очередь. В очереди записываем события. Для представлений вызываем update.
-    protected final Map< View, GameEventQueueForOneView> mapOfViewGameQueueForOneView;
+    protected final Map< View, GameEventQueue> mapOfViewGameQueue;
     private GameStatus gameStatus;
 
     private final GameCommandQueueOfModel gameCommandQueueOfModel;
 
 
     public BaseModel( ) {
-        mapOfViewGameQueueForOneView = new HashMap< >( );
+        mapOfViewGameQueue = new HashMap< >( );
         gameCommandQueueOfModel = new GameCommandQueueOfModel( this);
     }
 
@@ -43,13 +43,13 @@ public abstract class BaseModel {
     }
 
     public void addGameEventIntoQueue( GameEvent gameEvent) {
-        for ( GameEventQueueForOneView queue: mapOfViewGameQueueForOneView.values( )) {
+        for ( GameEventQueue queue: mapOfViewGameQueue.values( )) {
             queue.add( gameEvent);
         }
     }
 
     public void notifyViews( ) {
-        for ( View view: mapOfViewGameQueueForOneView.keySet( )) {
+        for ( View view: mapOfViewGameQueue.keySet( )) {
             view.update( );
         }
     }
@@ -64,11 +64,11 @@ public abstract class BaseModel {
                         ". But width = " + width + ", height = " + height + ".");
     }
 
-    // Реализация добавления представления в модель
-    public GameEventQueueForOneView addViewListener( View view) {
-        GameEventQueueForOneView gameEventQueueForOneView = new GameEventQueueForOneView( );
-        mapOfViewGameQueueForOneView.put( view, gameEventQueueForOneView);
-        return gameEventQueueForOneView;
+
+    public GameEventQueue addViewListener( View view) {
+        GameEventQueue gameEventQueue = new GameEventQueue( );
+        mapOfViewGameQueue.put( view, gameEventQueue);
+        return gameEventQueue;
     }
 
     protected GameStatus getGameStatus( ) {
