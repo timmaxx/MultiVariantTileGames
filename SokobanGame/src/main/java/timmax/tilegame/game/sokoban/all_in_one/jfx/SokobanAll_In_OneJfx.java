@@ -6,7 +6,7 @@ import javafx.scene.Node;
 
 import timmax.tilegame.basemodel.BaseModel;
 
-import timmax.tilegame.guiengine.jfx.Game;
+import timmax.tilegame.guiengine.jfx.GameAll_In_OneJfx;
 import timmax.tilegame.guiengine.jfx.view.ViewJfx;
 import timmax.tilegame.guiengine.jfx.view.ViewTextFieldsPersistentSettingsJfx;
 import timmax.tilegame.guiengine.jfx.controller.GameSceneController;
@@ -20,7 +20,7 @@ import timmax.tilegame.game.sokoban.jfx.view.SokobanVariableSettingsCountOfBoxes
 import timmax.tilegame.game.sokoban.jfx.view.SokobanVariableSettingsCountOfSteps;
 import timmax.tilegame.game.sokoban.jfx.controller.SokobanGameSceneController;
 
-public class SokobanAll_In_OneJfx extends Game {
+public class SokobanAll_In_OneJfx extends GameAll_In_OneJfx {
     @Override
     public BaseModel initModel( ) {
         return new SokobanModel( );
