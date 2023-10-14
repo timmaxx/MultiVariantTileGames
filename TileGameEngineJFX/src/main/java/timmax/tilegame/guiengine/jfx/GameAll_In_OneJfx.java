@@ -15,26 +15,35 @@ import timmax.tilegame.guiengine.jfx.controller.GameStackPaneController;
 public abstract class GameAll_In_OneJfx extends Application {
     @Override
     public void start( Stage primaryStage) {
+        // Сервер
+        // Для модели отделенной от клиента где-то здесь открывать серверный WebSocket
         BaseModel baseModel = initModel( );
 
-        Pane root = new VBox( );
 
-        GameStackPaneController gameStackPaneController = initGameStackPaneController( baseModel);
-        ViewJfx viewMainFieldJfx = initViewOfMainField( baseModel, gameStackPaneController);
-        root.getChildren( ).add( viewMainFieldJfx);
+        // Клиент
+        {   // Для модели отделенной от клиента где-то здесь открывать клиентский WebSocket.
+            // И создавать свой BaseModel (но уже не тот, что на сервере, а тот, который будет соединением к серверному).
+            Pane root = new VBox( );
 
-        List< Node> nodeList = initNodeList( baseModel);
-        root.getChildren( ).addAll( nodeList);
+            GameStackPaneController gameStackPaneController = initGameStackPaneController( baseModel);
+            ViewJfx viewMainFieldJfx = initViewOfMainField( baseModel, gameStackPaneController);
+            root.getChildren( ).add( viewMainFieldJfx);
 
-        GameSceneController gameSceneController = initGameSceneController( baseModel);
-        GameScene scene = new GameScene( root, gameSceneController);
+            List< Node> nodeList = initNodeList( baseModel);
+            root.getChildren( ).addAll( nodeList);
 
-        primaryStage.setTitle( initAppTitle( ));
-        primaryStage.setResizable( false);
-        primaryStage.setScene( scene);
+            GameSceneController gameSceneController = initGameSceneController( baseModel);
+            GameScene scene = new GameScene( root, gameSceneController);
 
+            primaryStage.setTitle( initAppTitle( ));
+            primaryStage.setResizable( false);
+            primaryStage.setScene( scene);
+        }
+
+        // Сервер
         baseModel.createNewGame( );
 
+        // Клиент
         primaryStage.show( );
     }
 

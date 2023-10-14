@@ -21,11 +21,14 @@ import timmax.tilegame.game.minesweeper.jfx.view.MinesweeperVariableSettingsOpen
 import timmax.tilegame.game.minesweeper.jfx.controller.MinesweeperGameStackPaneController;
 
 public class MinesweeperAll_In_OneJfx extends GameAll_In_OneJfx {
+    // Сервер
     @Override
     public BaseModel initModel( ) {
         return new MinesweeperModel( );
     }
 
+
+    // Клиент. Этот метод и далее.
     @Override
     public ViewJfx initViewOfMainField( BaseModel baseModel, GameStackPaneController gameStackPaneController) {
         return new MinesweeperMainFieldViewJfx( baseModel, gameStackPaneController);

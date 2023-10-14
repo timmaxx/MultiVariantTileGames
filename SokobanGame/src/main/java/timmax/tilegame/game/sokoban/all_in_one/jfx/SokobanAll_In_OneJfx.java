@@ -21,11 +21,14 @@ import timmax.tilegame.game.sokoban.jfx.view.SokobanVariableSettingsCountOfSteps
 import timmax.tilegame.game.sokoban.jfx.controller.SokobanGameSceneController;
 
 public class SokobanAll_In_OneJfx extends GameAll_In_OneJfx {
+    // Сервер
     @Override
     public BaseModel initModel( ) {
         return new SokobanModel( );
     }
 
+
+    // Клиент. Этот метод и далее.
     @Override
     public ViewJfx initViewOfMainField( BaseModel baseModel, GameStackPaneController gameStackPaneController) {
         return new SokobanMainFieldViewJfx( baseModel, gameStackPaneController);
