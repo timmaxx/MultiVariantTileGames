@@ -3,7 +3,7 @@ package timmax.tilegame.game.sokoban.model;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 
-import timmax.tilegame.basemodel.BaseModel;
+import timmax.tilegame.basemodel.ServerBaseModel;
 import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.tile.Direction;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
@@ -19,7 +19,7 @@ import timmax.tilegame.game.sokoban.model.route.Step;
 import static timmax.tilegame.basemodel.GameStatus.*;
 import static timmax.tilegame.game.sokoban.model.gameobject.WhoMovableInTile.*;
 
-public class SokobanModel extends BaseModel {
+public class SokobanModel extends ServerBaseModel {
     private static LevelLoader levelLoader;
 
     private final CurrentLevel currentLevel = new CurrentLevel( );
@@ -242,7 +242,7 @@ public class SokobanModel extends BaseModel {
     }
 
     @Override
-    protected void win( ) {
+    public void win( ) {
         setGameStatus( GameStatus.VICTORY);
         currentLevel.incValue( );
         addGameEventIntoQueueAndNotifyViews( new GameEventGameOver( VICTORY));

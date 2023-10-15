@@ -1,6 +1,6 @@
 package timmax.tilegame.game.minesweeper.model;
 
-import timmax.tilegame.basemodel.BaseModel;
+import timmax.tilegame.basemodel.ServerBaseModel;
 
 import timmax.tilegame.game.minesweeper.model.gameevent.GameEventOneTileChangeFlag;
 import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperPersistentParams;
@@ -10,7 +10,7 @@ import timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects;
 import timmax.tilegame.game.minesweeper.model.gameobject.LevelGenerator;
 
 // Модель игры Сапёр
-public class MinesweeperModel extends BaseModel {
+public class MinesweeperModel extends ServerBaseModel {
     private static final int REST_OF_MINE_INSTALLATION_IN_PERCENTS = 10;
     private final static int SIDE_OF_WIDTH = 15;
     private final static int SIDE_OF_HEIGHT = 10;
@@ -55,18 +55,18 @@ public class MinesweeperModel extends BaseModel {
     }
 
     @Override
-    protected void restart( ) {
+    public void restart( ) {
     }
 
     @Override
-    protected void nextLevel( ) {
+    public void nextLevel( ) {
     }
 
     @Override
-    protected void prevLevel( ) {
+    public void prevLevel( ) {
     }
 
     @Override
-    protected void win( ) {
+    public void win( ) {
     }
 }
