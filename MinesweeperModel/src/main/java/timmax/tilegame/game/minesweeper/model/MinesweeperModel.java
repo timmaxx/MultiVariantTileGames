@@ -39,8 +39,11 @@ public class MinesweeperModel extends BaseModel {
         if ( verifyGameStatusNotGameAndMayBeCreateNewGame( )) {
             return;
         }
-        boolean isFlag = allMinesweeperObjects.inverseFlag( allMinesweeperObjects.getTileByXY( x, y));
-        addGameEventIntoQueueAndNotifyViews( new GameEventOneTileChangeFlag( x, y, isFlag));
+        try {
+            boolean isFlag = allMinesweeperObjects.inverseFlag(allMinesweeperObjects.getTileByXY(x, y));
+            addGameEventIntoQueueAndNotifyViews( new GameEventOneTileChangeFlag( x, y, isFlag));
+        } catch ( RuntimeException rte) {
+        }
     }
 
     public void open( int x, int y) {
