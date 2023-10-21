@@ -8,18 +8,14 @@
         <outputRelativeToContentRoot value="true" />
         <module name="SokobanViewControlJFX" />
         <module name="BaseTileModel" />
-        <module name="SokobanGame" />
-        <module name="MinesweeperGame" />
         <module name="WebSocketServer" />
         <module name="MinesweeperViewControlJFX" />
         <module name="MinesweeperModel" />
+        <module name="GameClients" />
         <module name="TileGameEngineJFX" />
         <module name="SokobanModel" />
         <module name="WebSocketClient" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="BasePersistent" target="18" />
-    </bytecodeTargetLevel>
   </component>
 </project>

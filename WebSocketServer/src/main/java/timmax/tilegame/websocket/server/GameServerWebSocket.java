@@ -15,6 +15,7 @@ import org.java_websocket.server.WebSocketServer;
 import timmax.tilegame.basemodel.ServerBaseModel;
 import timmax.tilegame.basemodel.gamecommand.GameCommand;
 
+import timmax.tilegame.game.sokoban.model.SokobanModel;
 import timmax.tilegame.transport.TransportOfModel;
 
 import timmax.tilegame.game.minesweeper.model.MinesweeperModel;
@@ -48,6 +49,7 @@ public class GameServerWebSocket extends WebSocketServer {
         TransportOfModel transportOfModel = new TransportOfModelWebSocket( webSocket);
         // Создать модель для клиента
         ServerBaseModel baseModel = new MinesweeperModel( transportOfModel);
+        // ServerBaseModel baseModel = new SokobanModel( transportOfModel);
         // И добавить её в карту
         webSocketBaseModelBidiMap.put( webSocket, baseModel);
         // System.out.println( "Socked and model were added to two-way map socket - model.");

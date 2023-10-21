@@ -4,4 +4,5 @@ module WebSocketServer {
     requires com.fasterxml.jackson.databind;
     requires timmax.tilegame.basetilemodel;
     requires timmax.tilegame.game.minesweeper.model;
+    requires timmax.tilegame.game.sokoban.model;
 }

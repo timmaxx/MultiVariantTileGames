@@ -1,4 +1,4 @@
-package timmax.tilegame.game.minesweeper.client.websocket.jfx;
+package timmax.tilegame.client;
 
 import java.util.ArrayList;
 import java.util.List;

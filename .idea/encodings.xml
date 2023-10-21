@@ -5,16 +5,14 @@
     <file url="file://$PROJECT_DIR$/BasePersistent/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/BaseTileModel/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/BaseTileModel/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/GameClients/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/GameClients/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/MineSweeperViewControlWeb/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/MineSweeperViewControlWeb/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/MinesweeperGame/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/MinesweeperGame/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/MinesweeperModel/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/MinesweeperModel/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/MinesweeperViewControlJFX/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/MinesweeperViewControlJFX/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/SokobanGame/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/SokobanGame/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/SokobanModel/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/SokobanModel/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/SokobanViewControlJFX/src/main/java" charset="UTF-8" />

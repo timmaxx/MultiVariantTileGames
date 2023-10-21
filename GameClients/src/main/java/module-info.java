@@ -1,4 +1,4 @@
-module timmax.tilegame.game.minesweeper.client.websocket.jfx {
+module timmax.tilegame.client {
     requires javafx.graphics;
     requires org.slf4j;
     requires timmax.tilegame.basetilemodel;
@@ -6,5 +6,5 @@ module timmax.tilegame.game.minesweeper.client.websocket.jfx {
     requires timmax.tilegame.game.minesweeper.model;
     requires timmax.tilegame.game.minesweeper.jfx;
 
-    exports timmax.tilegame.game.minesweeper.client.websocket.jfx;
+    exports timmax.tilegame.client;
 }
