@@ -21,5 +21,9 @@
     <file url="file://$PROJECT_DIR$/SokobanViewControlJFX/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/TileGameEngineJFX/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/TileGameEngineJFX/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WebSocketClient/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WebSocketClient/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WebSocketServer/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WebSocketServer/src/main/resources" charset="UTF-8" />
   </component>
 </project>

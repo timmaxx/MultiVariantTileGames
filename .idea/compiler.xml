@@ -11,10 +11,12 @@
         <module name="BaseTileModel" />
         <module name="SokobanGame" />
         <module name="MinesweeperGame" />
+        <module name="WebSocketServer" />
         <module name="MinesweeperViewControlJFX" />
         <module name="MinesweeperModel" />
         <module name="TileGameEngineJFX" />
         <module name="SokobanModel" />
+        <module name="WebSocketClient" />
       </profile>
     </annotationProcessing>
   </component>
