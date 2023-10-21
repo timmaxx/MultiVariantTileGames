@@ -10,6 +10,5 @@ public class GameCommandQueueOfController extends GameCommandQueue {
 
     @Override
     protected void whatToDoWithCommand( GameCommand gameCommand) {
-        baseModel.addCommandIntoQueue( gameCommand);
     }
 }

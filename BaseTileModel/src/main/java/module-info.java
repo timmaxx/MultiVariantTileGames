@@ -1,4 +1,6 @@
 module timmax.tilegame.basetilemodel {
+    requires com.fasterxml.jackson.annotation;
+
     exports timmax.tilegame.basemodel;
     exports timmax.tilegame.baseview;
     exports timmax.tilegame.basecontroller;
@@ -6,4 +8,7 @@ module timmax.tilegame.basetilemodel {
     exports timmax.tilegame.basemodel.gameevent;
     exports timmax.tilegame.basemodel.gamecommand;
     exports timmax.tilegame.transport;
+
+    opens timmax.tilegame.basemodel.gameevent to com.fasterxml.jackson.databind;
+    opens timmax.tilegame.basemodel.gamecommand to com.fasterxml.jackson.databind;
 }

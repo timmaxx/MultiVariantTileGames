@@ -1,14 +1,9 @@
 package timmax.tilegame.basemodel;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import timmax.tilegame.basemodel.gamecommand.GameCommand;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
 import timmax.tilegame.baseview.View;
-import timmax.tilegame.transport.GameCommandQueueOfModel;
-import timmax.tilegame.transport.GameEventQueue;
+import timmax.tilegame.transport.TransportOfModel;
 
 // Базовая модель
 public abstract class ServerBaseModel implements BaseModel {
@@ -17,15 +12,16 @@ public abstract class ServerBaseModel implements BaseModel {
     private final static int MIN_HEIGHT = 2;
     private final static int MAX_HEIGHT = 100;
 
-    protected final Map< View, GameEventQueue> mapOfViewGameQueue;
-    private final GameCommandQueueOfModel gameCommandQueueOfModel;
-
     private GameStatus gameStatus;
+    protected TransportOfModel transportOfModel;
 
 
-    public ServerBaseModel( ) {
-        mapOfViewGameQueue = new HashMap< >( );
-        gameCommandQueueOfModel = new GameCommandQueueOfModel( this);
+    public ServerBaseModel( TransportOfModel transportOfModel) {
+        this.transportOfModel = transportOfModel;
+    }
+
+    @Override
+    public void addView( View view) {
     }
 
     protected void createNewGame( int width, int height) {
@@ -34,21 +30,8 @@ public abstract class ServerBaseModel implements BaseModel {
         addGameEventIntoQueueAndNotifyViews( new GameEventNewGame( width, height));
     }
 
-    protected void addGameEventIntoQueueAndNotifyViews( GameEvent gameEvent) {
-        addGameEventIntoQueue( gameEvent);
-        notifyViews( );
-    }
-
-    public void addGameEventIntoQueue( GameEvent gameEvent) {
-        for ( GameEventQueue queue: mapOfViewGameQueue.values( )) {
-            queue.add( gameEvent);
-        }
-    }
-
-    public void notifyViews( ) {
-        for ( View view: mapOfViewGameQueue.keySet( )) {
-            view.update( );
-        }
+    public void addGameEventIntoQueueAndNotifyViews( GameEvent gameEvent) {
+        transportOfModel.sendGameEvent( gameEvent);
     }
 
     private static void validateWidthHeight( int width, int height) {
@@ -59,13 +42,6 @@ public abstract class ServerBaseModel implements BaseModel {
                 "It must be width >= " + MIN_WIDTH + " && width <= " + MAX_WIDTH +
                         " && height >= " + MIN_HEIGHT + " && height <= " + MAX_HEIGHT +
                         ". But width = " + width + ", height = " + height + ".");
-    }
-
-
-    public GameEventQueue addViewListener( View view) {
-        GameEventQueue gameEventQueue = new GameEventQueue( );
-        mapOfViewGameQueue.put( view, gameEventQueue);
-        return gameEventQueue;
     }
 
     protected GameStatus getGameStatus( ) {
@@ -82,9 +58,5 @@ public abstract class ServerBaseModel implements BaseModel {
             return true;
         }
         return false;
-    }
-
-    public void addCommandIntoQueue( GameCommand gameCommand) {
-        gameCommandQueueOfModel.add( gameCommand);
     }
 }
