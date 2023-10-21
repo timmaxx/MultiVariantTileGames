@@ -6,5 +6,5 @@ module timmax.tilegame.game.minesweeper.all_in_one.jfx {
     requires timmax.tilegame.game.minesweeper.model;
     requires timmax.tilegame.game.minesweeper.jfx;
 
-    exports timmax.tilegame.game.minesweeper.all_in_one.jfx;
+    exports timmax.tilegame.game.minesweeper.client.websocket.jfx;
 }
