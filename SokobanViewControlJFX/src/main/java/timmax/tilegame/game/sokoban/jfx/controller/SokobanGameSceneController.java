@@ -5,6 +5,8 @@ import javafx.scene.input.KeyCode;
 import timmax.tilegame.basemodel.BaseModel;
 import timmax.tilegame.basemodel.gamecommand.GameCommand;
 
+import timmax.tilegame.transport.TransportOfController;
+
 import timmax.tilegame.guiengine.jfx.controller.GameSceneController;
 
 import timmax.tilegame.game.sokoban.model.gamecommand.*;
@@ -12,8 +14,8 @@ import timmax.tilegame.game.sokoban.model.gamecommand.*;
 import static timmax.tilegame.basemodel.tile.Direction.*;
 
 public class SokobanGameSceneController extends GameSceneController {
-    public SokobanGameSceneController( BaseModel baseModel) {
-        super( baseModel);
+    public SokobanGameSceneController( BaseModel baseModel, TransportOfController transportOfController) {
+        super( baseModel, transportOfController);
     }
 
     @Override
@@ -32,6 +34,6 @@ public class SokobanGameSceneController extends GameSceneController {
         if ( gameCommand == null) {
             return;
         }
-        gameCommandQueueOfController.add( gameCommand);
+        sendCommand( gameCommand);
     }
 }

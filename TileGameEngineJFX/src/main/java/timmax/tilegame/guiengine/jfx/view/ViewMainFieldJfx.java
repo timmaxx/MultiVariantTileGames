@@ -39,9 +39,6 @@ abstract public class ViewMainFieldJfx extends ViewJfx {
     }
 
     private void initMainField( GameEventNewGame gameEventNewGame) {
-        System.out.println( "initMainField");
-        System.out.println( "getParent( ).getScene( ).getWindow( ).getWidth() = " + getParent( ).getScene( ).getWindow( ).getWidth());
-        System.out.println( "getParent( ).getScene( ).getWindow( ).getHeight() = " + getParent( ).getScene( ).getWindow( ).getHeight());
         getChildren( ).removeAll( getChildren( ));
         ( ( Stage)( getParent( ).getScene( ).getWindow( ))).setResizable( true);
 
@@ -74,10 +71,6 @@ abstract public class ViewMainFieldJfx extends ViewJfx {
         //  40 - количество пикселей сверху и снизу (высота заголовка окна приложения), что-бы главное поле влезло во внутреннее окно - PrimaryStage
         // 180 - количество пикселей в высоту, нужное для достаточного отображения четырёх текстовых выборок
         getParent( ).getScene( ).getWindow( ).setHeight( cellSize * height + 40 + 180);
-
-        System.out.println( "initMainField 2");
-        System.out.println( "getParent( ).getScene( ).getWindow( ).getWidth() = " + getParent( ).getScene( ).getWindow( ).getWidth());
-        System.out.println( "getParent( ).getScene( ).getWindow( ).getHeight() = " + getParent( ).getScene( ).getWindow( ).getHeight());
 
         //( ( Stage)( getParent( ).getScene( ).getWindow( ))).setResizable( false);
     }

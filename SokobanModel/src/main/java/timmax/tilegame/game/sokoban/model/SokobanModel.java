@@ -8,6 +8,8 @@ import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.tile.Direction;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 
+import timmax.tilegame.transport.TransportOfModel;
+
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventOneTileSokobanChangeable;
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanPersistentParams;
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanVariableParamsCountOfBoxesInHouses;
@@ -37,6 +39,10 @@ public class SokobanModel extends ServerBaseModel {
         }
     }
 
+    public SokobanModel( TransportOfModel transportOfModel) {
+        super( transportOfModel);
+    }
+
     @Override
     public void createNewGame( ) {
         allSokobanObjects = levelLoader.getLevel( currentLevel.getValue( ));
@@ -45,17 +51,16 @@ public class SokobanModel extends ServerBaseModel {
             for ( int x = 0; x < allSokobanObjects.getWidth( ); x++) {
                 WhoPersistentInTile whoPersistentInTile = allSokobanObjects.getWhoPersistentInTile( x, y);
                 WhoMovableInTile whoMovableInTile = allSokobanObjects.getWhoMovableInTile( x, y);
-                addGameEventIntoQueue( new GameEventOneTileSokobanChangeable( x, y, whoPersistentInTile, whoMovableInTile));
+                addGameEventIntoQueueAndNotifyViews( new GameEventOneTileSokobanChangeable( x, y, whoPersistentInTile, whoMovableInTile));
             }
         }
         route = new Route( );
         routeRedo = new Route( );
 
-        addGameEventIntoQueue( new GameEventSokobanPersistentParams( allSokobanObjects.getCountOfHomesBoxes( )));
-        addGameEventIntoQueue( new GameEventSokobanVariableParamsCountOfSteps( 0));
+        addGameEventIntoQueueAndNotifyViews( new GameEventSokobanPersistentParams( allSokobanObjects.getCountOfHomesBoxes( )));
+        addGameEventIntoQueueAndNotifyViews( new GameEventSokobanVariableParamsCountOfSteps( 0));
         calcCountOfBoxesInHomes( );
-        addGameEventIntoQueue( new GameEventSokobanVariableParamsCountOfBoxesInHouses( countOfBoxesInHomes));
-        notifyViews( );
+        addGameEventIntoQueueAndNotifyViews( new GameEventSokobanVariableParamsCountOfBoxesInHouses( countOfBoxesInHomes));
     }
 
     public void moveUndo( ) {
@@ -80,7 +85,7 @@ public class SokobanModel extends ServerBaseModel {
                     box.move( step.oppositeStepDirection( ));
 
                     WhoPersistentInTile oldWhoPersistentInTile = allSokobanObjects.getWhoPersistentInTile( oldBoxX, oldBoxY);
-                    addGameEventIntoQueue( new GameEventOneTileSokobanChangeable( oldBoxX, oldBoxY, oldWhoPersistentInTile, IS_NOBODY));
+                    addGameEventIntoQueueAndNotifyViews( new GameEventOneTileSokobanChangeable( oldBoxX, oldBoxY, oldWhoPersistentInTile, IS_NOBODY));
 
                     break;
                 }
@@ -95,12 +100,11 @@ public class SokobanModel extends ServerBaseModel {
         addGameEventAboutPlayer( direction, player, oldWhoMovableInTile);
         routeRedo.push( step);
 
-        addGameEventIntoQueue( new GameEventSokobanVariableParamsCountOfSteps( route.size( )));
+        addGameEventIntoQueueAndNotifyViews( new GameEventSokobanVariableParamsCountOfSteps( route.size( )));
         if ( step.isBoxMoved( )) {
             calcCountOfBoxesInHomes( );
-            addGameEventIntoQueue( new GameEventSokobanVariableParamsCountOfBoxesInHouses( countOfBoxesInHomes));
+            addGameEventIntoQueueAndNotifyViews( new GameEventSokobanVariableParamsCountOfBoxesInHouses( countOfBoxesInHomes));
         }
-        notifyViews( );
     }
 
     public void move( Direction direction) {
@@ -167,7 +171,7 @@ public class SokobanModel extends ServerBaseModel {
                 newBoxY = box.getY( );
 
                 WhoPersistentInTile newWhoPersistentInTile = allSokobanObjects.getWhoPersistentInTile( newBoxX, newBoxY);
-                addGameEventIntoQueue( new GameEventOneTileSokobanChangeable( newBoxX, newBoxY, newWhoPersistentInTile, IS_BOX));
+                addGameEventIntoQueueAndNotifyViews( new GameEventOneTileSokobanChangeable( newBoxX, newBoxY, newWhoPersistentInTile, IS_BOX));
 
                 isBoxMoved = true;
                 break;
@@ -177,12 +181,11 @@ public class SokobanModel extends ServerBaseModel {
         addGameEventAboutPlayer(direction, player, IS_NOBODY);
         route.push( new Step( direction, isBoxMoved));
 
-        addGameEventIntoQueue( new GameEventSokobanVariableParamsCountOfSteps( route.size( )));
+        addGameEventIntoQueueAndNotifyViews( new GameEventSokobanVariableParamsCountOfSteps( route.size( )));
         if ( isBoxMoved) {
             calcCountOfBoxesInHomes( );
-            addGameEventIntoQueue( new GameEventSokobanVariableParamsCountOfBoxesInHouses( countOfBoxesInHomes));
+            addGameEventIntoQueueAndNotifyViews( new GameEventSokobanVariableParamsCountOfBoxesInHouses( countOfBoxesInHomes));
         }
-        notifyViews( );
 
         checkCompletion( );
     }
@@ -195,16 +198,14 @@ public class SokobanModel extends ServerBaseModel {
         x = player.getX( );
         y = player.getY( );
         whoPersistentInTile = allSokobanObjects.getWhoPersistentInTile( x, y);
-        addGameEventIntoQueue( new GameEventOneTileSokobanChangeable( x, y, whoPersistentInTile, whoMovableInTile));
+        addGameEventIntoQueueAndNotifyViews( new GameEventOneTileSokobanChangeable( x, y, whoPersistentInTile, whoMovableInTile));
 
         player.move( direction);
 
         x = player.getX( );
         y = player.getY( );
         whoPersistentInTile = allSokobanObjects.getWhoPersistentInTile( x, y);
-        addGameEventIntoQueue( new GameEventOneTileSokobanChangeable( x, y, whoPersistentInTile, IS_PLAYER));
-
-        notifyViews( );
+        addGameEventIntoQueueAndNotifyViews( new GameEventOneTileSokobanChangeable( x, y, whoPersistentInTile, IS_PLAYER));
     }
 
     private void calcCountOfBoxesInHomes( ) {

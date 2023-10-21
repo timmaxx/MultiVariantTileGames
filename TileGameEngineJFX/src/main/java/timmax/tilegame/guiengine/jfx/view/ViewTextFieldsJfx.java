@@ -19,10 +19,6 @@ abstract public class ViewTextFieldsJfx extends ViewJfx {
         this.commonLabel = commonLabel;
         messageText = new Text( );
         getChildren( ).add( messageText);
-        System.out.println( getClass( ));
-        System.out.println( getChildren( ).getClass( ));
-        // ( ( Stage)( getParent( ).getScene( ).getWindow( ))).setResizable( true);
-        // ( ( Stage)( getParent( ).getScene( ).getWindow( ))).setResizable( false);
     }
 
     @Override
