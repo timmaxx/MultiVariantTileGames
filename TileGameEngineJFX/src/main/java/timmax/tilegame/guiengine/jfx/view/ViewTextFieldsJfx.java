@@ -1,7 +1,7 @@
 package timmax.tilegame.guiengine.jfx.view;
 
+import javafx.application.Platform;
 import javafx.scene.text.Text;
-import java.util.NoSuchElementException;
 
 import timmax.tilegame.basemodel.BaseModel;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
@@ -19,24 +19,25 @@ abstract public class ViewTextFieldsJfx extends ViewJfx {
         this.commonLabel = commonLabel;
         messageText = new Text( );
         getChildren( ).add( messageText);
+        System.out.println( getClass( ));
+        System.out.println( getChildren( ).getClass( ));
+        // ( ( Stage)( getParent( ).getScene( ).getWindow( ))).setResizable( true);
+        // ( ( Stage)( getParent( ).getScene( ).getWindow( ))).setResizable( false);
     }
 
     @Override
-    public void update( ) {
-        GameEvent gameEvent;
-        while ( true) {
-            try {
-                gameEvent = removeFromGameQueueForOneView( );
-            } catch ( NoSuchElementException nsee) {
-                break;
-            }
-
-            if ( gameEvent.getClass( ) != clazz) {
-                continue;
-            }
-
-            messageText.setText( commonLabel + createStringFromGameEvent( gameEvent));
+    public void update( GameEvent gameEvent) {
+        if ( gameEvent.getClass( ) != clazz) {
+            return;
         }
+
+        Platform.runLater( new Runnable( ) {
+            @Override
+            public void run( ) {
+                // do your GUI stuff here
+                messageText.setText( commonLabel + createStringFromGameEvent( gameEvent));
+            }
+        });
     }
 
     abstract protected String createStringFromGameEvent( GameEvent gameEvent);

@@ -1,7 +1,7 @@
 package timmax.tilegame.guiengine.jfx.view;
 
-import java.util.NoSuchElementException;
-
+import javafx.application.Platform;
+import javafx.stage.Stage;
 import timmax.tilegame.basemodel.BaseModel;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
@@ -24,25 +24,26 @@ abstract public class ViewMainFieldJfx extends ViewJfx {
     }
 
     @Override
-    public void update( ) {
-        GameEvent gameEvent;
-        while ( true) {
-            try {
-                gameEvent = removeFromGameQueueForOneView( );
-            } catch ( NoSuchElementException nsee) {
-                break;
+    public void update( GameEvent gameEvent) {
+        Platform.runLater( new Runnable( ) {
+            @Override
+            public void run( ) {
+                // do your GUI stuff here
+                if ( gameEvent instanceof GameEventNewGame) {
+                    initMainField( ( GameEventNewGame) gameEvent);
+                } else if ( gameEvent instanceof GameEventOneTile) {
+                    drawCellDuringGame( ( ( GameEventOneTile) gameEvent));
+                }
             }
-
-            if ( gameEvent instanceof GameEventNewGame) {
-                initMainField( ( GameEventNewGame) gameEvent);
-            } else if ( gameEvent instanceof GameEventOneTile) {
-                drawCellDuringGame( ( ( GameEventOneTile) gameEvent));
-            }
-        }
+        });
     }
 
     private void initMainField( GameEventNewGame gameEventNewGame) {
+        System.out.println( "initMainField");
+        System.out.println( "getParent( ).getScene( ).getWindow( ).getWidth() = " + getParent( ).getScene( ).getWindow( ).getWidth());
+        System.out.println( "getParent( ).getScene( ).getWindow( ).getHeight() = " + getParent( ).getScene( ).getWindow( ).getHeight());
         getChildren( ).removeAll( getChildren( ));
+        ( ( Stage)( getParent( ).getScene( ).getWindow( ))).setResizable( true);
 
         int width = gameEventNewGame.getWidth( );
         int height = gameEventNewGame.getHeight( );
@@ -66,7 +67,19 @@ abstract public class ViewMainFieldJfx extends ViewJfx {
         //  Т.е. делать это нужно не в этом классе, а, например, в Game в start() после
         //  root.getChildren( ).addAll( nodeList);
         //  А может ещё проще - через компоновку.
+        // this.setWidth( cellSize * width);
+        // this.setHeight( cellSize * height);
+        //  17 - количество пикселей слева и справа, что-бы главное поле влезло во внутреннее окно - PrimaryStage
         getParent( ).getScene( ).getWindow( ).setWidth( cellSize * width + 17);
+        //  40 - количество пикселей сверху и снизу (высота заголовка окна приложения), что-бы главное поле влезло во внутреннее окно - PrimaryStage
+        // 180 - количество пикселей в высоту, нужное для достаточного отображения четырёх текстовых выборок
+        getParent( ).getScene( ).getWindow( ).setHeight( cellSize * height + 40 + 180);
+
+        System.out.println( "initMainField 2");
+        System.out.println( "getParent( ).getScene( ).getWindow( ).getWidth() = " + getParent( ).getScene( ).getWindow( ).getWidth());
+        System.out.println( "getParent( ).getScene( ).getWindow( ).getHeight() = " + getParent( ).getScene( ).getWindow( ).getHeight());
+
+        //( ( Stage)( getParent( ).getScene( ).getWindow( ))).setResizable( false);
     }
 
     protected void drawCellDuringInitMainField( GameStackPane cell) {
