@@ -54,7 +54,7 @@ public class AllMinesweeperObjects {
         } else {
             countOfFlags++;
         }
-        minesweeperModel.addGameEventIntoQueue( new GameEventMinesweeperVariableParamsFlag(
+        minesweeperModel.addGameEventIntoQueueAndNotifyViews( new GameEventMinesweeperVariableParamsFlag(
                 countOfMines - countOfFlags,
                 countOfFlags
         ));
@@ -67,7 +67,7 @@ public class AllMinesweeperObjects {
             return GAME;
         }
         GameStatus gameStatus = openRecursive( minesweeperTile);
-        minesweeperModel.addGameEventIntoQueue( new GameEventMinesweeperVariableParamsOpenClose(
+        minesweeperModel.addGameEventIntoQueueAndNotifyViews( new GameEventMinesweeperVariableParamsOpenClose(
                 getWidth( ) * getHeight( ) - countOfClosedTiles,
                 countOfClosedTiles
         ));
@@ -91,12 +91,12 @@ public class AllMinesweeperObjects {
         // Если в открытой плитке мина
         if ( minesweeperTile.isMine( )) {
             // Завершение игры поражением
-            minesweeperModel.addGameEventIntoQueue( new GameEventOneTileOpenMine( minesweeperTile.getX( ), minesweeperTile.getY( )));
-            minesweeperModel.addGameEventIntoQueue( new GameEventGameOver( DEFEAT));
+            minesweeperModel.addGameEventIntoQueueAndNotifyViews( new GameEventOneTileOpenMine( minesweeperTile.getX( ), minesweeperTile.getY( )));
+            minesweeperModel.addGameEventIntoQueueAndNotifyViews( new GameEventGameOver( DEFEAT));
             return DEFEAT;
         } else {
             defineNeighbors( minesweeperTile);
-            minesweeperModel.addGameEventIntoQueue( new GameEventOneTileOpenNoMine( minesweeperTile.getX( ), minesweeperTile.getY( ), minesweeperTile.getCountOfMineNeighbors( )));
+            minesweeperModel.addGameEventIntoQueueAndNotifyViews( new GameEventOneTileOpenNoMine( minesweeperTile.getX( ), minesweeperTile.getY( ), minesweeperTile.getCountOfMineNeighbors( )));
             // Если в соседних плитках нет мин
             if ( minesweeperTile.getCountOfMineNeighbors( ) == 0) {
                 // Пройдёмся по соседним плиткам
@@ -113,7 +113,7 @@ public class AllMinesweeperObjects {
         // Если количество не открытых плиток равно количеству мин
         if ( countOfClosedTiles == countOfMines && !minesweeperTile.isMine( )) {
             // Игра окончена победой
-            minesweeperModel.addGameEventIntoQueue( new GameEventGameOver( VICTORY));
+            minesweeperModel.addGameEventIntoQueueAndNotifyViews( new GameEventGameOver( VICTORY));
             return VICTORY;
         }
         // Продолжаем игру

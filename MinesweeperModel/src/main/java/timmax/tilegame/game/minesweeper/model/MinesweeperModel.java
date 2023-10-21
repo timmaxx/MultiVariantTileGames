@@ -8,6 +8,7 @@ import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVari
 import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsOpenClose;
 import timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects;
 import timmax.tilegame.game.minesweeper.model.gameobject.LevelGenerator;
+import timmax.tilegame.transport.TransportOfModel;
 
 // Модель игры Сапёр
 public class MinesweeperModel extends ServerBaseModel {
@@ -19,6 +20,9 @@ public class MinesweeperModel extends ServerBaseModel {
 
     private AllMinesweeperObjects allMinesweeperObjects;
 
+    public MinesweeperModel( TransportOfModel transportOfModel) {
+        super( transportOfModel);
+    }
 
     @Override
     public void createNewGame( ) {
@@ -30,8 +34,9 @@ public class MinesweeperModel extends ServerBaseModel {
     public void createNewGame( int width, int height) {
         allMinesweeperObjects = levelGenerator.getLevel( width, height, REST_OF_MINE_INSTALLATION_IN_PERCENTS);
         allMinesweeperObjects.setModel( this);
-        addGameEventIntoQueue( new GameEventMinesweeperVariableParamsOpenClose( 0, width * height));
-        addGameEventIntoQueue( new GameEventMinesweeperVariableParamsFlag( 0, allMinesweeperObjects.getCountOfMines( )));
+
+        addGameEventIntoQueueAndNotifyViews( new GameEventMinesweeperVariableParamsOpenClose( 0, width * height));
+        addGameEventIntoQueueAndNotifyViews( new GameEventMinesweeperVariableParamsFlag( 0, allMinesweeperObjects.getCountOfMines( )));
         super.createNewGame( width, height);
     }
 
@@ -51,7 +56,6 @@ public class MinesweeperModel extends ServerBaseModel {
             return;
         }
         setGameStatus( allMinesweeperObjects.open( allMinesweeperObjects.getTileByXY( x, y)));
-        notifyViews( );
     }
 
     @Override
