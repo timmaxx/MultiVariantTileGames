@@ -1,0 +1,95 @@
+1. Улучшенный instanceof
+
+if (obj instanceof String str) {
+    System.out.println(str.toLowerCase());
+}
+
+
+2. Порядок использования модификаторов в Java: public, abstract, static, final, volatile, synchronized
+Используйте следующий порядок модификаторов
+
+public / private / protected
+abstract
+static
+final
+transient
+volatile
+**default**
+synchronized
+native
+strictfp
+
+В соответствии с "Java Style Guidelines"
+http://cr.openjdk.java.net/~alundblad/styleguide/index-v6.html#toc-modifiers
+
+JAVA
+// пример
+public static volatile Integer someName;
+public static final String name;
+
+
+3. Большая задача: Пишем игру Тетрис
+https://javarush.com/quests/lectures/questcollections.level02.lecture15
+
+
+4. Пристальный взгляд на отладку JavaScript приложений
+https://habr.com/ru/companies/kaspersky/articles/760922/
+
+5. Автоматизация тестирования специфических сценариев
+https://habr.com/ru/companies/gnivc/articles/764396/
+
+6. Как мы построили свой лунапарк (с блекджеком, разумеется) или опыт внедрения системы управления ИТ-проектами
+https://habr.com/ru/companies/nlmk/articles/764476/
+
+7. Чтение на выходные: «Дао Toyota: 14 принципов менеджмента ведущей компании мира»
+https://habr.com/ru/companies/onlinepatent/articles/764474/
+
+8. Вы кто такие, я вас не знаю, или Как мы делаем JWT-аутентификацию
+
+9. Настройка CI/CD для Gitlab-репозитория: схемы и гайд по шагам
+https://habr.com/ru/articles/764568/
+
+10. XML, Сериализация в XML
+https://javarush.com/quests/lectures/questcollections.level03.lecture06
+https://javarush.com/quests/lectures/questcollections.level03.lecture07
+https://javarush.com/quests/lectures/questcollections.level03.lecture08
+https://javarush.com/quests/lectures/questcollections.level03.lecture09
+https://javarush.com/quests/lectures/questcollections.level03.lecture10
+
+11. JSON
+https://javarush.com/quests/lectures/questcollections.level03.lecture02
+
+12. Инвертировать отображение карты в Java
+https://www.techiedelight.com/ru/invert-mapping-map-java/
+
+13. Основы JavaScript
+https://ru.hexlet.io/courses/js-basics
+
+JavaScript - Полный Курс JavaScript Для Начинающих [11 ЧАСОВ]
+https://www.youtube.com/watch?v=CxgOKJh4zWE&ab_channel=BogdanStashchuk
+
+Java Swing GUI
+https://pro-java.ru/category/java-swing-gui/
+https://pro-java.ru/gotovye-programmy-java/prostoj-kalkulyator-na-java/
+
+WebSocket: Реализация web-приложения с использованием Jetty Web Socket. Часть 1
+https://habr.com/ru/articles/128380/
+
+WebSockets
+https://javarush.com/quests/lectures/questspring.level05.lecture11
+
+Использование WebSocket для создания интерактивных web-приложений
+https://spring-projects.ru/guides/messaging-stomp-websocket/
+
+Пишем чат с использованием Spring Boot и WebSockets
+https://habr.com/ru/companies/otus/articles/516702/
+
+Spring — это не страшно, или как стартовать WEB-сервер со Spring Boot за 5 минут
+https://javarush.com/groups/posts/3092-spring-ehto-nestrashno
+
+Thread'ом Java не испортишь: Часть I — потоки
+https://javarush.com/groups/posts/2047-threadom-java-ne-isportishjh--chastjh-i---potoki
+
+Как упростить себе жизнь: удобные юнит-тесты с JUnit и AssertJ
+https://habr.com/ru/companies/skillbox/articles/767804/
+
