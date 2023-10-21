@@ -1,4 +1,4 @@
-package timmax.tilegame.game.minesweeper.all_in_one.jfx;
+package timmax.tilegame.game.minesweeper.client.websocket.jfx;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,29 +6,21 @@ import javafx.scene.Node;
 
 import timmax.tilegame.basemodel.BaseModel;
 
-import timmax.tilegame.guiengine.jfx.GameAll_In_OneJfx;
 import timmax.tilegame.guiengine.jfx.view.ViewJfx;
 import timmax.tilegame.guiengine.jfx.view.ViewTextFieldsPersistentSettingsJfx;
 import timmax.tilegame.guiengine.jfx.controller.GameSceneController;
 import timmax.tilegame.guiengine.jfx.controller.GameStackPaneController;
 
-import timmax.tilegame.game.minesweeper.model.MinesweeperModel;
+import timmax.tilegame.guiengine.jfx.GameClientWebSocketJfx;
 
 import timmax.tilegame.game.minesweeper.jfx.view.MinesweeperMainFieldViewJfx;
 import timmax.tilegame.game.minesweeper.jfx.view.MinesweeperPersistentSettings;
 import timmax.tilegame.game.minesweeper.jfx.view.MinesweeperVariableSettingsFlag;
 import timmax.tilegame.game.minesweeper.jfx.view.MinesweeperVariableSettingsOpenClose;
 import timmax.tilegame.game.minesweeper.jfx.controller.MinesweeperGameStackPaneController;
+import timmax.tilegame.transport.TransportOfController;
 
-public class MinesweeperAll_In_OneJfx extends GameAll_In_OneJfx {
-    // Сервер
-    @Override
-    public BaseModel initModel( ) {
-        return new MinesweeperModel( );
-    }
-
-
-    // Клиент. Этот метод и далее.
+public class MinesweeperClientWebSocketJfx extends GameClientWebSocketJfx {
     @Override
     public ViewJfx initViewOfMainField( BaseModel baseModel, GameStackPaneController gameStackPaneController) {
         return new MinesweeperMainFieldViewJfx( baseModel, gameStackPaneController);
@@ -40,17 +32,17 @@ public class MinesweeperAll_In_OneJfx extends GameAll_In_OneJfx {
     }
 
     @Override
-    public GameSceneController initGameSceneController( BaseModel baseModel) {
+    public GameSceneController initGameSceneController( BaseModel baseModel, TransportOfController transportOfController) {
         return null;
     }
 
     @Override
-    public GameStackPaneController initGameStackPaneController( BaseModel basemodel) {
-        return new MinesweeperGameStackPaneController( basemodel);
+    public GameStackPaneController initGameStackPaneController( BaseModel basemodel, TransportOfController transportOfController) {
+        return new MinesweeperGameStackPaneController( basemodel, transportOfController);
     }
 
     @Override
-    protected List< Node> initNodeList( BaseModel baseModel) {
+    protected List< Node> initNodeList( BaseModel baseModel, TransportOfController transportOfController) {
         List< Node> nodeList = new ArrayList< >( );
 
         nodeList.add( new ViewTextFieldsPersistentSettingsJfx( baseModel));
