@@ -15,6 +15,7 @@ import timmax.tilegame.baseview.View;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class NetModel extends WebSocketClient implements BaseModel {
+    // private MainGameClientStatus mainGameClientStatus = NO_CONNECT;
     private final List< View> viewList;
 
 
@@ -28,6 +29,8 @@ public class NetModel extends WebSocketClient implements BaseModel {
     @Override
     public void onOpen( ServerHandshake serverHandshake) {
         // System.out.println( "onOpen( serverHandshake = " + serverHandshake + ").");
+        // mainGameClientStatus = CONNECT_NON_IDENT;
+        // mainGameClientStatus = CONNECT_AUTHORIZED;
     }
 
     @Override
