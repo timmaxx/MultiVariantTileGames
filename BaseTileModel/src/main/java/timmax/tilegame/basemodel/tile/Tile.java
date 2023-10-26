@@ -20,7 +20,7 @@ public class Tile {
     }
 
     public Tile add( Direction direction) {
-        return add( direction.getDxDy());
+        return add( direction.getDxDy( ));
     }
 
     public Tile add( DxDy dxDy) {
@@ -32,7 +32,7 @@ public class Tile {
         if ( this == o) return true;
         if ( o == null || getClass( ) != o.getClass( )) return false;
 
-        Tile tile = (Tile) o;
+        Tile tile = ( Tile) o;
 
         if ( x != tile.x) return false;
         return y == tile.y;
