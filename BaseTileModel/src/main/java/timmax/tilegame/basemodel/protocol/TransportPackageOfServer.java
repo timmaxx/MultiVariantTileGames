@@ -19,7 +19,7 @@ public class TransportPackageOfServer extends TransportPackage< TypeOfTransportP
     }
 
     @Override
-    MapOfStructOfTransportPackage initMapOfStructOfTransportPackage( ) {
+    MapOfStructOfTransportPackage< TypeOfTransportPackageOfServer> initMapOfStructOfTransportPackage( ) {
         return new MapOfStructOfTransportPackageOfServer( );
     }
 }

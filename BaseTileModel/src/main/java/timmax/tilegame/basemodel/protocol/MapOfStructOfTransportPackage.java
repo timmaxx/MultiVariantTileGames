@@ -6,14 +6,14 @@ import java.util.Map;
 public class MapOfStructOfTransportPackage< InOutPackType> {
     // Также см. EnumSet и EnumMap
     // https://habr.com/ru/articles/267389/
-    protected final Map< InOutPackType, Map< String, Class>> mapOfUniversalType;
+    protected final Map< InOutPackType, Map< String, Class< ?>>> mapOfUniversalType;
 
 
     public MapOfStructOfTransportPackage( ) {
         mapOfUniversalType = new HashMap< >( );
     }
 
-    public Map< String, Class> getMapParamName_ClassByReqType( InOutPackType inOutPackType) {
+    public Map< String, Class< ?>> getMapParamName_ClassByReqType( InOutPackType inOutPackType) {
         return mapOfUniversalType.get( inOutPackType);
     }
 /*

@@ -347,29 +347,3 @@ BaseModel, WebSocketServer, WebSocketClient
 
 29.10.2023 ------------------------------------------------------------------------------------------------------------
 
-D:\japps\Multi-variant tile games\BaseTileModel\src\main\java\timmax\tilegame\basemodel\protocol\MapOfStructOfTransportPackage.java
-Warning:(9, 54) Raw use of parameterized class 'Class'
-Warning:(16, 25) Raw use of parameterized class 'Class'
-Warning:(20, 12) Raw use of parameterized class 'Class'
-D:\japps\Multi-variant tile games\BaseTileModel\src\main\java\timmax\tilegame\basemodel\protocol\MapOfStructOfTransportPackageOfServer.java
-Warning:(17, 22) Raw use of parameterized class 'Class'
-Warning:(43, 22) Raw use of parameterized class 'Class'
-Warning:(52, 22) Raw use of parameterized class 'Class'
-
-D:\japps\Multi-variant tile games\BaseTileModel\src\main\java\timmax\tilegame\basemodel\protocol\TransportPackageOfServer.java
-Warning:(22, 5) Raw use of parameterized class 'MapOfStructOfTransportPackage'
-
-D:\japps\Multi-variant tile games\BaseTileModel\src\main\java\timmax\tilegame\basemodel\protocol\TransportPackageOfClient.java
-Warning:(17, 52) Raw use of parameterized class 'Map'
-Warning:(18, 48) Unchecked assignment: 'java.util.Map' to 'java.util.Map<java.lang.String,java.lang.Object>'
-Warning:(22, 5) Raw use of parameterized class 'MapOfStructOfTransportPackage'
-
-D:\japps\Multi-variant tile games\BaseTileModel\src\main\java\timmax\tilegame\basemodel\protocol\TransportPackage.java
-Warning:(23, 41) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.MapOfStructOfTransportPackage' to 'timmax.tilegame.basemodel.protocol.MapOfStructOfTransportPackage<InOutPackType>'
-Warning:(24, 22) Raw use of parameterized class 'Class'
-Warning:(38, 41) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.MapOfStructOfTransportPackage' to 'timmax.tilegame.basemodel.protocol.MapOfStructOfTransportPackage<InOutPackType>'
-Warning:(39, 22) Raw use of parameterized class 'Class'
-Warning:(45, 38) Raw use of parameterized class 'Class'
-Warning:(48, 17) Raw use of parameterized class 'Class'
-Warning:(50, 21) 'continue' is unnecessary as the last statement in a loop
-Warning:(81, 14) Raw use of parameterized class 'MapOfStructOfTransportPackage'

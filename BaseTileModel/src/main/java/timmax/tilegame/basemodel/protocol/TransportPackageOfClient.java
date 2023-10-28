@@ -14,12 +14,12 @@ public class TransportPackageOfClient extends TransportPackage< TypeOfTransportP
     @JsonCreator( mode = PROPERTIES)
     public TransportPackageOfClient(
             @JsonProperty( "inOutPackType") TypeOfTransportPackageOfClient typeOfTransportPackageOfClient,
-            @JsonProperty( "mapOfParamName_Value") Map mapOfParamName_Value) {
+            @JsonProperty( "mapOfParamName_Value") Map< String, Object> mapOfParamName_Value) {
         super( typeOfTransportPackageOfClient, mapOfParamName_Value);
     }
 
     @Override
-    MapOfStructOfTransportPackage initMapOfStructOfTransportPackage( ) {
+    MapOfStructOfTransportPackage< TypeOfTransportPackageOfClient> initMapOfStructOfTransportPackage( ) {
         return new MapOfStructOfTransportPackageOfClient( );
     }
 }

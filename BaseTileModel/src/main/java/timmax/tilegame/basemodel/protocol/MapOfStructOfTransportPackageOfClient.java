@@ -14,7 +14,7 @@ public class MapOfStructOfTransportPackageOfClient extends MapOfStructOfTranspor
     public MapOfStructOfTransportPackageOfClient( ) {
         super( );
 
-        Map< String, Class> mapOfParamName_Class__Login = new HashMap< >( );
+        Map< String, Class< ?>> mapOfParamName_Class__Login = new HashMap< >( );
         mapOfParamName_Class__Login.put( "userName", String.class);
         mapOfParamName_Class__Login.put( "password", String.class);
         mapOfUniversalType.put( REQ_LOGIN, mapOfParamName_Class__Login);
@@ -23,7 +23,7 @@ public class MapOfStructOfTransportPackageOfClient extends MapOfStructOfTranspor
 
         mapOfUniversalType.put( REQ_GAME_TYPE_MAP, Collections.emptyMap( ));
 
-        Map< String, Class> mapOfParamName_Class__SelectGameType = new HashMap< >( );
+        Map< String, Class< ?>> mapOfParamName_Class__SelectGameType = new HashMap< >( );
         mapOfParamName_Class__SelectGameType.put( "gameType", ServerBaseModel.class);
         mapOfUniversalType.put( REQ_SELECT_GAME_TYPE, mapOfParamName_Class__SelectGameType);
     }
