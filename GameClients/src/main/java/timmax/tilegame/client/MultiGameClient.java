@@ -71,8 +71,8 @@ public class MultiGameClient extends Application {
                 netModel[ 0].addViewOnLogin( textFieldUser);
                 netModel[ 0].addViewOnLogin( passwordField);
 
-                netModel[ 0].addViewOnLogout( textFieldUser);
-                netModel[ 0].addViewOnLogout( passwordField);
+                // netModel[ 0].addViewOnLogout( textFieldUser);
+                // netModel[ 0].addViewOnLogout( passwordField);
             } catch ( URISyntaxException e) {
                 throw new RuntimeException(e);
             }
