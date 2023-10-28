@@ -1,5 +1,6 @@
 package timmax.tilegame.websocket.client;
 
+import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URI;
 import java.util.HashMap;
@@ -10,26 +11,24 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
-import timmax.tilegame.basemodel.ServerBaseModel;
+import timmax.tilegame.basemodel.credential.ResultOfCredential;
 import timmax.tilegame.basemodel.protocol.*;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackageOfServer.*;
 
 public class MultiGameWebSocketClient extends WebSocketClient {
-    // private MainGameClientStatus mainGameClientStatus = NO_CONNECT;
-    // private final StringWriter writer = new StringWriter( );
+    private final StringWriter writer = new StringWriter( );
     private final ObjectMapper mapper = new ObjectMapper( );
-    // private TransportPackageOfClient lastRequest;
-    // private Class serverBaseModelClass;
 
     private final Map< MultiGameWebSocketClientObserverOnOpen, String> mapOfMultiGameWebSocketClientObserver_String__OnOpen = new HashMap< >( );
     private final Map< MultiGameWebSocketClientObserverOnClose, String> mapOfMultiGameWebSocketClientObserver_String__OnClose = new HashMap< >( );
-/*
     private final Map< MultiGameWebSocketClientObserverOnLogin, String> mapOfMultiGameWebSocketClientObserver_String__OnLogin = new HashMap< >( );
+/*
     private final Map< MultiGameWebSocketClientObserverOnLogout, String> mapOfMultiGameWebSocketClientObserver_String__OnLogout = new HashMap< >( );
     private final Map< MultiGameWebSocketClientObserverOnSelectGameType, String> mapOfMultiGameWebSocketClientObserver_String__OnSelectGameType = new HashMap< >( );
     private final Map< MultiGameWebSocketClientObserverOnGameTypeMap, String> mapOfMultiGameWebSocketClientObserver_String__OnGameTypeMap = new HashMap< >( );
 */
+
 
     public void addViewOnOpen( MultiGameWebSocketClientObserverOnOpen multiGameWebSocketClientObserverOnOpen) {
         mapOfMultiGameWebSocketClientObserver_String__OnOpen.put( multiGameWebSocketClientObserverOnOpen, "");
@@ -38,11 +37,11 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     public void addViewOnClose( MultiGameWebSocketClientObserverOnClose multiGameWebSocketClientObserverOnClose) {
         mapOfMultiGameWebSocketClientObserver_String__OnClose.put( multiGameWebSocketClientObserverOnClose, "");
     }
-/*
-    public void addViewOnLogin( MultiGameWebSocketClientObserverOnLogin multiGameWebSocketClientObserverOnLogin) {
-        mapOfMultiGameWebSocketClientObserver_String__OnLogin.put(multiGameWebSocketClientObserverOnLogin, "");
-    }
 
+    public void addViewOnLogin( MultiGameWebSocketClientObserverOnLogin multiGameWebSocketClientObserverOnLogin) {
+        mapOfMultiGameWebSocketClientObserver_String__OnLogin.put( multiGameWebSocketClientObserverOnLogin, "");
+    }
+/*
     public void addViewOnLogout( MultiGameWebSocketClientObserverOnLogout multiGameWebSocketClientObserverOnLogout) {
         mapOfMultiGameWebSocketClientObserver_String__OnLogout.put( multiGameWebSocketClientObserverOnLogout, "");
     }
@@ -61,9 +60,8 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     }
 
 // 2
-/*
     public void login( String userName, String password) {
-        Map< String, Object> mapOfParamName_Value = new HashMap<>();
+        Map< String, Object> mapOfParamName_Value = new HashMap< >( );
         mapOfParamName_Value.put( "userName", userName);
         mapOfParamName_Value.put( "password", password);
         sendRequest( new TransportPackageOfClient( TypeOfTransportPackageOfClient.REQ_LOGIN, mapOfParamName_Value));
@@ -72,7 +70,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     public void logout( ) {
         sendRequest( new TransportPackageOfClient( TypeOfTransportPackageOfClient.REQ_LOGOUT));
     }
-*/
+
 /*
 // 3
     public void getGameTypeMap( ) {
@@ -133,21 +131,19 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     }
 */
 
-/*
+
     private void sendRequest( TransportPackageOfClient transportPackageOfClient) {
         try {
             mapper.writeValue( writer, transportPackageOfClient);
             send( writer.toString( ));
-            // lastRequest = transportPackageOfClient;
         } catch ( IOException e) {
             throw new RuntimeException( e);
         }
     }
-*/
+
     @Override
     public void onOpen( ServerHandshake handshakedata) {
         System.out.println( "onOpen");
-        // mainGameClientStatus = CONNECT_NON_IDENT;
         for ( MultiGameWebSocketClientObserverOnOpen multiGameWebSocketClientObserverOnOpen: mapOfMultiGameWebSocketClientObserver_String__OnOpen.keySet()) {
             multiGameWebSocketClientObserverOnOpen.updateOnOpen( handshakedata);
         }
@@ -160,12 +156,10 @@ public class MultiGameWebSocketClient extends WebSocketClient {
             TransportPackageOfServer transportPackageOfServer = mapper.readValue( message, TransportPackageOfServer.class);
             TypeOfTransportPackageOfServer typeOfTransportPackageOfServer = transportPackageOfServer.getInOutPackType( );
             if ( typeOfTransportPackageOfServer == INFO_LOGIN) {
-                System.out.println( "Сервер говорит о результате залогирования.");
-                // mainGameClientStatus = CONNECT_AUTHORIZED;
-            } else if ( typeOfTransportPackageOfServer == INFO_LOGOUT) {
-                System.out.println( "Сервер говорит о результате разлогирования.");
-                // mainGameClientStatus = CONNECT_NON_IDENT;
-            } else if ( typeOfTransportPackageOfServer == INFO_GAME_TYPE_MAP) {
+                onLogin( transportPackageOfServer);
+            }/* else if ( typeOfTransportPackageOfServer == INFO_LOGOUT) {
+                onLogout( transportPackageOfServer);
+            }*/ /*else if ( typeOfTransportPackageOfServer == INFO_GAME_TYPE_MAP) {
                 System.out.println( "Сервер говорит о результате запроса перечня типов игр.");
                 // Читаем и передаём карту клиенту - пусть из неё выбирает себе тип игры.
                 Map< String, Object> mapOfParamName_Value = transportPackageOfServer.getMapOfParamName_Value( );
@@ -178,7 +172,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
                 Map< String, Object> mapOfParamName_Value = transportPackageOfServer.getMapOfParamName_Value( );
                 ServerBaseModel serverBaseModel = ( ( ServerBaseModel)mapOfParamName_Value.get( "gameType"));
                 System.out.println( serverBaseModel);
-            }
+            }*/
         } catch ( JsonProcessingException jpe) {
             throw new RuntimeException( jpe);
         }
@@ -196,4 +190,23 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     public void onError( Exception ex) {
         System.out.println( "onError");
     }
+
+    protected void onLogin( TransportPackageOfServer transportPackageOfServer) {
+        // Map< String, ResultOfCredential> m = (Map< String, ResultOfCredential>)(transportPackageOfServer.getMapOfParamName_Value());
+        ResultOfCredential resultOfCredential = ResultOfCredential.valueOf( ( String)( transportPackageOfServer.getMapOfParamName_Value( ).get( "resultOfCredential")));
+        if ( resultOfCredential == ResultOfCredential.NOT_AUTHORISED) {
+            System.out.println( "Сервер сообщил о не успешных идентификации и/или аутентификации и/или авторизации.");
+        } else if ( resultOfCredential == ResultOfCredential.AUTHORISED) {
+            System.out.println( "Сервер сообщил об успешных идентификации, аутентификации и авторизации.");
+        }
+
+        for ( MultiGameWebSocketClientObserverOnLogin multiGameWebSocketClientObserverOnLogin: mapOfMultiGameWebSocketClientObserver_String__OnLogin.keySet()) {
+            multiGameWebSocketClientObserverOnLogin.updateOnLogin( resultOfCredential);
+        }
+    }
+/*
+    protected void onLogout( TransportPackageOfServer transportPackageOfServer) {
+        System.out.println( "Сервер говорит о результате разлогирования.");
+    }
+*/
 }
