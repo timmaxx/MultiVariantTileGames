@@ -2,11 +2,12 @@ package timmax.tilegame.client;
 
 import javafx.scene.control.Button;
 import org.java_websocket.handshake.ServerHandshake;
+
 import timmax.tilegame.websocket.client.MultiGameWebSocketClientObserverOnClose;
 import timmax.tilegame.websocket.client.MultiGameWebSocketClientObserverOnOpen;
 
 public class ButtonDisconnect extends Button implements MultiGameWebSocketClientObserverOnOpen, MultiGameWebSocketClientObserverOnClose {
-    public ButtonDisconnect(String text) {
+    public ButtonDisconnect( String text) {
         super( text);
     }
 
@@ -16,7 +17,7 @@ public class ButtonDisconnect extends Button implements MultiGameWebSocketClient
     }
 
     @Override
-    public void updateOnClose() {
+    public void updateOnClose( ) {
         setDisable( true);
     }
 }

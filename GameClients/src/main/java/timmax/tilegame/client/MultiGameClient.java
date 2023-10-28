@@ -1,21 +1,17 @@
 package timmax.tilegame.client;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.control.TextField;
-import timmax.tilegame.websocket.client.MultiGameWebSocketClient;
 
-import java.net.URI;
-import java.net.URISyntaxException;
+import timmax.tilegame.websocket.client.MultiGameWebSocketClient;
 
 public class MultiGameClient extends Application {
     public static void main( String[ ] args) {
@@ -37,45 +33,68 @@ public class MultiGameClient extends Application {
         ButtonDisconnect buttonDisconnect = new ButtonDisconnect( "Disconnect");
         buttonDisconnect.setDisable( true);
 
-        buttonConnect.setOnAction( new EventHandler< ActionEvent>( ) {
-            @Override
-            public void handle( ActionEvent event) {
-                labelConnectString.setText( labelProtocol.getText( ) + "://" + textFieldServerAddress.getText( ) + ":" + textFieldServerPort.getText( ));
-                try {
-                    labelConnectString.setText( labelProtocol.getText( ) + "://" + textFieldServerAddress.getText( ) + ":" + textFieldServerPort.getText( ));
-                    netModel[0] = new MultiGameWebSocketClient( new URI( labelConnectString.getText()));
-                    netModel[0].addViewOnOpen( buttonConnect);
-                    netModel[0].addViewOnOpen( buttonDisconnect);
-                    netModel[0].addViewOnOpen( textFieldServerAddress);
-                    netModel[0].addViewOnOpen( textFieldServerPort);
-                    netModel[0].addViewOnClose( buttonConnect);
-                    netModel[0].addViewOnClose( buttonDisconnect);
-                    netModel[0].addViewOnClose( textFieldServerAddress);
-                    netModel[0].addViewOnClose( textFieldServerPort);
-                } catch ( URISyntaxException e) {
-                    throw new RuntimeException(e);
-                }
-                netModel[ 0].connect();
+        // Эти свойства определены ниже, т.к. WebSocketClient нельзя использовать повторно!
+        // buttonConnect.setOnAction
+        // buttonDisconnect.setOnAction
+
+        paneForServerAddress.getChildren( ).addAll( labelProtocol, textFieldServerAddress, textFieldServerPort, buttonConnect, labelConnectString, buttonDisconnect);
+        // ------------------------------------------------------------------------------------------------------------
+
+        Pane paneForUserAndPassword = new HBox( );
+        Label labelUser = new Label( "User");
+        TextFieldOnLoginOnLogout textFieldUser = new TextFieldOnLoginOnLogout( "");
+        textFieldUser.setDisable( true);
+        Label labelPassword = new Label( "Password");
+        PasswordFieldOnLoginOnLogout passwordField = new PasswordFieldOnLoginOnLogout( );
+        passwordField.setDisable( true);
+        Button buttonLogin = new Button( "Login");
+        Button buttonLogout = new Button( "Logoff");
+        buttonLogout.setDisable( true);
+        paneForUserAndPassword.getChildren( ).addAll( labelUser, textFieldUser, labelPassword, passwordField, buttonLogin, buttonLogout);
+        // ------------------------------------------------------------------------------------------------------------
+
+        buttonConnect.setOnAction( event -> {
+            labelConnectString.setText( labelProtocol.getText( ) + "://" + textFieldServerAddress.getText( ) + ":" + textFieldServerPort.getText( ));
+            try {
+                netModel[ 0] = new MultiGameWebSocketClient( new URI( labelConnectString.getText( )));
+
+                netModel[ 0].addViewOnOpen( buttonConnect);
+                netModel[ 0].addViewOnOpen( buttonDisconnect);
+                netModel[ 0].addViewOnOpen( textFieldServerAddress);
+                netModel[ 0].addViewOnOpen( textFieldServerPort);
+
+                netModel[ 0].addViewOnClose( buttonConnect);
+                netModel[ 0].addViewOnClose( buttonDisconnect);
+                netModel[ 0].addViewOnClose( textFieldServerAddress);
+                netModel[ 0].addViewOnClose( textFieldServerPort);
+
+                netModel[ 0].addViewOnLogin( textFieldUser);
+                netModel[ 0].addViewOnLogin( passwordField);
+
+                netModel[ 0].addViewOnLogout( textFieldUser);
+                netModel[ 0].addViewOnLogout( passwordField);
+            } catch ( URISyntaxException e) {
+                throw new RuntimeException(e);
             }
+            netModel[ 0].connect();
         });
+
+        /*
         buttonDisconnect.setOnAction( new EventHandler< ActionEvent>( ) {
             @Override
             public void handle( ActionEvent event) {
                 netModel[ 0].close( );
             }
         });
-        paneForServerAddress.getChildren( ).addAll( labelProtocol, textFieldServerAddress, textFieldServerPort, buttonConnect, labelConnectString, buttonDisconnect);
-        // ------------------------------------------------------------------------------------------------------------
+        */
+        buttonDisconnect.setOnAction( event -> netModel[ 0].close( ));
 
-        Pane paneForUserAndPassword = new HBox( );
-        Label labelUser = new Label( "User");
-        TextField textFieldUser = new TextField( "");
-        Label labelPassword = new Label( "Password");
-        PasswordField passwordField = new PasswordField( );
-        Button buttonLogin = new Button( "Login");
-        Button buttonLogoff = new Button( "Logoff");
-        buttonLogoff.setDisable( true);
-        paneForUserAndPassword.getChildren( ).addAll( labelUser, textFieldUser, labelPassword, passwordField, buttonLogin, buttonLogoff);
+        buttonLogin.setOnAction( event -> {
+            netModel[ 0].login( "u1", "1");
+            // netModel[ 0].login( textFieldUser.getText( ), passwordField.getText( ));
+        });
+
+        buttonLogout.setOnAction( event -> netModel[ 0].logout( ));
         // ------------------------------------------------------------------------------------------------------------
 
         // LabelStatusBar
