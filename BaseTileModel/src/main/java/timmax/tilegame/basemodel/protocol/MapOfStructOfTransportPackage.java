@@ -13,11 +13,12 @@ public class MapOfStructOfTransportPackage< InOutPackType> {
         mapOfUniversalType = new HashMap< >( );
     }
 
-    public Map< String, Class> getMapString_ClassByReqType( InOutPackType inOutPackType) {
+    public Map< String, Class> getMapParamName_ClassByReqType( InOutPackType inOutPackType) {
         return mapOfUniversalType.get( inOutPackType);
     }
-
+/*
     public Class getClassByReqTypeAndParamName( InOutPackType inOutPackType, String paramName) {
         return mapOfUniversalType.get( inOutPackType).get( paramName);
     }
+    */
 }

@@ -1,16 +1,25 @@
 package timmax.tilegame.basemodel.protocol;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
 import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@JsonTypeInfo( use = JsonTypeInfo.Id.CLASS, property="type")
+import static com.fasterxml.jackson.annotation.JsonCreator.Mode.PROPERTIES;
+
 public class TransportPackageOfServer extends TransportPackage< TypeOfTransportPackageOfServer> {
     public TransportPackageOfServer( TypeOfTransportPackageOfServer typeOfTransportPackageOfServer) {
         super( typeOfTransportPackageOfServer);
     }
 
-    public TransportPackageOfServer( TypeOfTransportPackageOfServer typeOfTransportPackageOfServer, Map< String, Object> mapOfParamName_Value) {
+    @JsonCreator( mode = PROPERTIES)
+    public TransportPackageOfServer(
+            @JsonProperty( "inOutPackType") TypeOfTransportPackageOfServer typeOfTransportPackageOfServer,
+            @JsonProperty( "mapOfParamName_Value") Map< String, Object> mapOfParamName_Value) {
         super( typeOfTransportPackageOfServer, mapOfParamName_Value);
+    }
+
+    @Override
+    MapOfStructOfTransportPackage initMapOfStructOfTransportPackage( ) {
+        return new MapOfStructOfTransportPackageOfServer( );
     }
 }
