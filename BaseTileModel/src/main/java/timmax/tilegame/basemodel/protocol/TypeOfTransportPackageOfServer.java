@@ -1,10 +1,10 @@
 package timmax.tilegame.basemodel.protocol;
 
 public enum TypeOfTransportPackageOfServer {
-    INFO_LOGIN,
+    INFO_LOGIN/*,
     INFO_LOGOUT,
     INFO_GAME_TYPE_MAP,
-    INFO_SELECT_GAME_TYPE/*,
+    INFO_SELECT_GAME_TYPE,
     INFO_CREATE_GAME_SERIES,
     INFO_GAME_SERIES_MAP,
     INFO_GAME_MATCH_MAP,
