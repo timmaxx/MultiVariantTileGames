@@ -1,24 +1,22 @@
 package timmax.tilegame.basemodel.protocol;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
-public class MapOfStructOfTransportPackage< InOutPackType> {
-    // Также см. EnumSet и EnumMap
-    // https://habr.com/ru/articles/267389/
-    protected final Map< InOutPackType, Map< String, Class< ?>>> mapOfUniversalType;
+public class MapOfStructOfTransportPackage {
+    protected final Map<TypeOfTransportPackage, Map<String, Class<?>>> mapOfUniversalType;
 
 
-    public MapOfStructOfTransportPackage( ) {
-        mapOfUniversalType = new HashMap< >( );
+    public MapOfStructOfTransportPackage() {
+        mapOfUniversalType = new EnumMap<>(TypeOfTransportPackage.class);
     }
 
-    public Map< String, Class< ?>> getMapParamName_ClassByReqType( InOutPackType inOutPackType) {
-        return mapOfUniversalType.get( inOutPackType);
+    public Map<String, Class<?>> getMapParamName_ClassByReqType(TypeOfTransportPackage typeOfTransportPackage) {
+        return mapOfUniversalType.get(typeOfTransportPackage);
     }
 /*
     public Class getClassByReqTypeAndParamName( InOutPackType inOutPackType, String paramName) {
         return mapOfUniversalType.get( inOutPackType).get( paramName);
     }
-    */
+*/
 }

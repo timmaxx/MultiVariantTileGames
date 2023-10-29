@@ -10,9 +10,11 @@ module timmax.tilegame.basetilemodel {
     exports timmax.tilegame.basemodel.protocol;
     exports timmax.tilegame.basemodel.clientappstatus;
     exports timmax.tilegame.basemodel.credential;
+    exports timmax.tilegame.basemodel.protocol.exception;
     exports timmax.tilegame.transport;
 
     opens timmax.tilegame.basemodel.gameevent to com.fasterxml.jackson.databind;
     opens timmax.tilegame.basemodel.gamecommand to com.fasterxml.jackson.databind;
     opens timmax.tilegame.basemodel.protocol to com.fasterxml.jackson.databind;
+    opens timmax.tilegame.basemodel.protocol.exception to com.fasterxml.jackson.databind;
 }

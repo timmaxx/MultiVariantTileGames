@@ -1,19 +1,24 @@
 package timmax.tilegame.basemodel.protocol;
 
-public class ParamName_ServerBaseModelClass {
-    private final String paramName;
-    private final Class clazz;
+// import timmax.tilegame.basemodel.ServerBaseModel;
 
-    public ParamName_ServerBaseModelClass( String paramName, Class clazz) {
+public class ParamName_ServerBaseModelClass {
+/*
+    private final String paramName;
+    private final Class<? extends ServerBaseModel> clazz;
+
+    public ParamName_ServerBaseModelClass(String paramName, Class<? extends ServerBaseModel> clazz) {
         this.paramName = paramName;
         this.clazz = clazz;
     }
-
-    public String getParamName( ) {
+*/
+/*
+    public String getParamName() {
         return paramName;
     }
 
-    public Class getClazz( ) {
+    public Class<? extends ServerBaseModel> getClazz() {
         return clazz;
     }
+*/
 }

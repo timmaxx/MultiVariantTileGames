@@ -1,25 +1,33 @@
 package timmax.tilegame.basemodel.protocol;
 
 import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import static com.fasterxml.jackson.annotation.JsonCreator.Mode.PROPERTIES;
 
-public class TransportPackageOfServer extends TransportPackage< TypeOfTransportPackageOfServer> {
-    public TransportPackageOfServer( TypeOfTransportPackageOfServer typeOfTransportPackageOfServer) {
-        super( typeOfTransportPackageOfServer);
-    }
+public class TransportPackageOfServer extends TransportPackage {
+    private static MapOfStructOfTransportPackageOfServer mapOfStructOfTransportPackageOfServer;
 
-    @JsonCreator( mode = PROPERTIES)
+    /*
+        public TransportPackageOfServer(TypeOfTransportPackage typeOfTransportPackage) {
+            super(typeOfTransportPackage);
+        }
+    */
+
+    @JsonCreator(mode = PROPERTIES)
     public TransportPackageOfServer(
-            @JsonProperty( "inOutPackType") TypeOfTransportPackageOfServer typeOfTransportPackageOfServer,
-            @JsonProperty( "mapOfParamName_Value") Map< String, Object> mapOfParamName_Value) {
-        super( typeOfTransportPackageOfServer, mapOfParamName_Value);
+            @JsonProperty("typeOfTransportPackage") TypeOfTransportPackage typeOfTransportPackage,
+            @JsonProperty("mapOfParamName_Value") Map<String, Object> mapOfParamName_Value) {
+        super(typeOfTransportPackage, mapOfParamName_Value);
     }
 
     @Override
-    MapOfStructOfTransportPackage< TypeOfTransportPackageOfServer> initMapOfStructOfTransportPackage( ) {
-        return new MapOfStructOfTransportPackageOfServer( );
+    MapOfStructOfTransportPackage initMapOfStructOfTransportPackage() {
+        if (mapOfStructOfTransportPackageOfServer == null) {
+            mapOfStructOfTransportPackageOfServer = new MapOfStructOfTransportPackageOfServer();
+        }
+        return mapOfStructOfTransportPackageOfServer;
     }
 }
