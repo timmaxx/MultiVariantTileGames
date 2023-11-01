@@ -1,18 +1,17 @@
 package timmax.tilegame.client;
 
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import timmax.tilegame.websocket.client.MultiGameWebSocketClient;
+import timmax.tilegame.client.statuscontrol.Pane01ServerConnect;
+import timmax.tilegame.client.statuscontrol.Pane02UserLogin;
+import timmax.tilegame.websocket.client.Observer011OnOpen;
 
 public class MultiGameClient extends Application {
     public static void main(String[] args) {
@@ -23,84 +22,17 @@ public class MultiGameClient extends Application {
     public void start(Stage primaryStage) {
         Pane root = new VBox();
 
-        // ------------------------------------------------------------------------------------------------------------
-        Pane paneForServerAddress = new HBox();
-        final MultiGameWebSocketClient[] netModel = {null};
-        Label labelProtocol = new Label("ws");
-        TextFieldOnOpenOnClose textFieldServerAddress = new TextFieldOnOpenOnClose("localhost");
-        TextFieldOnOpenOnClose textFieldServerPort = new TextFieldOnOpenOnClose("8887");
-        ButtonConnect buttonConnect = new ButtonConnect("Connect");
-        Label labelConnectString = new Label();
-        ButtonDisconnect buttonDisconnect = new ButtonDisconnect("Disconnect");
-        buttonDisconnect.setDisable(true);
+        Pane01ServerConnect pane01ServerConnect = new Pane01ServerConnect();
+        Pane02UserLogin pane02UserLogin = new Pane02UserLogin();
 
-        // Эти свойства определены ниже, т.к. WebSocketClient нельзя использовать повторно!
-        // buttonConnect.setOnAction
-        // buttonDisconnect.setOnAction
+        Map<Observer011OnOpen, String> mapOfObserver011OnOpen__String = new HashMap<>();
+        mapOfObserver011OnOpen__String.put(pane02UserLogin, "");
+        pane01ServerConnect.setMapOfObserver011OnOpen__String(mapOfObserver011OnOpen__String);
 
-        paneForServerAddress.getChildren().addAll(labelProtocol, textFieldServerAddress, textFieldServerPort, buttonConnect, labelConnectString, buttonDisconnect);
-        // ------------------------------------------------------------------------------------------------------------
+        // LabelStatusBar // Найти или создать контрол, который обычно размещается внизу окна
+        // и может показывать инфу о статусах приложения.
 
-        Pane paneForUserAndPassword = new HBox();
-        Label labelUser = new Label("User");
-        TextFieldOnLoginOnLogout textFieldUser = new TextFieldOnLoginOnLogout("");
-        textFieldUser.setDisable(true);
-        Label labelPassword = new Label("Password");
-        PasswordFieldOnLoginOnLogout passwordField = new PasswordFieldOnLoginOnLogout();
-        passwordField.setDisable(true);
-        Button buttonLogin = new Button("Login");
-        Button buttonLogout = new Button("Logoff");
-        buttonLogout.setDisable(true);
-        paneForUserAndPassword.getChildren().addAll(labelUser, textFieldUser, labelPassword, passwordField, buttonLogin, buttonLogout);
-        // ------------------------------------------------------------------------------------------------------------
-
-        buttonConnect.setOnAction(event -> {
-            labelConnectString.setText(labelProtocol.getText() + "://" + textFieldServerAddress.getText() + ":" + textFieldServerPort.getText());
-            try {
-                netModel[0] = new MultiGameWebSocketClient(new URI(labelConnectString.getText()));
-
-                netModel[0].addViewOnOpen(buttonConnect);
-                netModel[0].addViewOnOpen(buttonDisconnect);
-                netModel[0].addViewOnOpen(textFieldServerAddress);
-                netModel[0].addViewOnOpen(textFieldServerPort);
-
-                netModel[0].addViewOnClose(buttonConnect);
-                netModel[0].addViewOnClose(buttonDisconnect);
-                netModel[0].addViewOnClose(textFieldServerAddress);
-                netModel[0].addViewOnClose(textFieldServerPort);
-
-                netModel[0].addViewOnLogin(textFieldUser);
-                netModel[0].addViewOnLogin(passwordField);
-
-                // netModel[ 0].addViewOnLogout( textFieldUser);
-                // netModel[ 0].addViewOnLogout( passwordField);
-            } catch (URISyntaxException e) {
-                throw new RuntimeException(e);
-            }
-            netModel[0].connect();
-        });
-
-        /*
-        buttonDisconnect.setOnAction( new EventHandler< ActionEvent>( ) {
-            @Override
-            public void handle( ActionEvent event) {
-                netModel[ 0].close( );
-            }
-        });
-        */
-        buttonDisconnect.setOnAction(event -> netModel[0].close());
-
-        buttonLogin.setOnAction(event -> {
-            netModel[0].login("u1", "1");
-            // netModel[ 0].login( textFieldUser.getText( ), passwordField.getText( ));
-        });
-
-        // buttonLogout.setOnAction( event -> netModel[ 0].logout( ));
-        // ------------------------------------------------------------------------------------------------------------
-
-        // LabelStatusBar
-
-        root.getChildren().addAll(paneForServerAddress, paneForUserAndPassword);
+        root.getChildren().addAll(pane01ServerConnect, pane02UserLogin);
 
         Scene scene = new Scene(root);
         primaryStage.setTitle("Multi Game Client");
