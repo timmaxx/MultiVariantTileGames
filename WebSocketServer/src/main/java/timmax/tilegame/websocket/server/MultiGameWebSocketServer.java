@@ -19,7 +19,6 @@ import timmax.tilegame.basemodel.protocol.*;
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.LOGIN;
 
 public class MultiGameWebSocketServer extends WebSocketServer {
-    private final StringWriter writer = new StringWriter();
     private final ObjectMapper mapper = new ObjectMapper();
 
 
@@ -64,6 +63,7 @@ public class MultiGameWebSocketServer extends WebSocketServer {
 
     private void sendRequest(WebSocket webSocket, TransportPackageOfServer transportPackageOfServer) {
         try {
+            StringWriter writer = new StringWriter();
             mapper.writeValue(writer, transportPackageOfServer);
             webSocket.send(writer.toString());
         } catch (IOException e) {

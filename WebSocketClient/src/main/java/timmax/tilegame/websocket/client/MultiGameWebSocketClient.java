@@ -17,12 +17,11 @@ import timmax.tilegame.basemodel.protocol.*;
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.LOGIN;
 
 public class MultiGameWebSocketClient extends WebSocketClient {
-    private final StringWriter writer = new StringWriter();
     private final ObjectMapper mapper = new ObjectMapper();
 
-    private final Map<MultiGameWebSocketClientObserverOnOpen, String> mapOfMultiGameWebSocketClientObserver_String__OnOpen = new HashMap<>();
-    private final Map<MultiGameWebSocketClientObserverOnClose, String> mapOfMultiGameWebSocketClientObserver_String__OnClose = new HashMap<>();
-    private final Map<MultiGameWebSocketClientObserverOnLogin, String> mapOfMultiGameWebSocketClientObserver_String__OnLogin = new HashMap<>();
+    private final Map<Observer011OnOpen, String> mapOfObserver_String__OnOpen = new HashMap<>();
+    private final Map<Observer010OnClose, String> mapOfObserver_String__OnClose = new HashMap<>();
+    private final Map<Observer021OnLogin, String> mapOfObserver_String__OnLogin = new HashMap<>();
 /*
     private final Map< MultiGameWebSocketClientObserverOnLogout, String> mapOfMultiGameWebSocketClientObserver_String__OnLogout = new HashMap< >( );
     private final Map< MultiGameWebSocketClientObserverOnSelectGameType, String> mapOfMultiGameWebSocketClientObserver_String__OnSelectGameType = new HashMap< >( );
@@ -30,16 +29,16 @@ public class MultiGameWebSocketClient extends WebSocketClient {
 */
 
 
-    public void addViewOnOpen(MultiGameWebSocketClientObserverOnOpen multiGameWebSocketClientObserverOnOpen) {
-        mapOfMultiGameWebSocketClientObserver_String__OnOpen.put(multiGameWebSocketClientObserverOnOpen, "");
+    public void addViewOnOpen(Observer011OnOpen observer011OnOpen) {
+        mapOfObserver_String__OnOpen.put(observer011OnOpen, "");
     }
 
-    public void addViewOnClose(MultiGameWebSocketClientObserverOnClose multiGameWebSocketClientObserverOnClose) {
-        mapOfMultiGameWebSocketClientObserver_String__OnClose.put(multiGameWebSocketClientObserverOnClose, "");
+    public void addViewOnClose(Observer010OnClose observer010OnClose) {
+        mapOfObserver_String__OnClose.put(observer010OnClose, "");
     }
 
-    public void addViewOnLogin(MultiGameWebSocketClientObserverOnLogin multiGameWebSocketClientObserverOnLogin) {
-        mapOfMultiGameWebSocketClientObserver_String__OnLogin.put(multiGameWebSocketClientObserverOnLogin, "");
+    public void addViewOnLogin(Observer021OnLogin observer021OnLogin) {
+        mapOfObserver_String__OnLogin.put(observer021OnLogin, "");
     }
 
     /*
@@ -55,6 +54,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
             mapOfMultiGameWebSocketClientObserver_String__OnGameTypeMap.put( multiGameWebSocketClientObserverOnGameTypeMap, "");
         }
     */
+
     public MultiGameWebSocketClient(URI serverUri) {
         super(serverUri);
         System.out.println(serverUri);
@@ -128,6 +128,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
 
     private void sendRequest(TransportPackageOfClient transportPackageOfClient) {
         try {
+            StringWriter writer = new StringWriter();
             mapper.writeValue(writer, transportPackageOfClient);
             System.out.println("writer = " + writer);
             send(writer.toString());
@@ -139,8 +140,8 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     @Override
     public void onOpen(ServerHandshake handshakedata) {
         System.out.println("onOpen");
-        for (MultiGameWebSocketClientObserverOnOpen multiGameWebSocketClientObserverOnOpen : mapOfMultiGameWebSocketClientObserver_String__OnOpen.keySet()) {
-            multiGameWebSocketClientObserverOnOpen.updateOnOpen(handshakedata);
+        for (Observer011OnOpen observer011OnOpen : mapOfObserver_String__OnOpen.keySet()) {
+            observer011OnOpen.updateOnOpen(handshakedata, this);
         }
     }
 
@@ -177,8 +178,8 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     @Override
     public void onClose(int code, String reason, boolean remote) {
         System.out.println("onClose");
-        for (MultiGameWebSocketClientObserverOnClose multiGameWebSocketClientObserverOnClose : mapOfMultiGameWebSocketClientObserver_String__OnClose.keySet()) {
-            multiGameWebSocketClientObserverOnClose.updateOnClose();
+        for (Observer010OnClose observer010OnClose : mapOfObserver_String__OnClose.keySet()) {
+            observer010OnClose.updateOnClose();
         }
     }
 
@@ -195,8 +196,8 @@ public class MultiGameWebSocketClient extends WebSocketClient {
             System.out.println("Сервер сообщил об успешных идентификации, аутентификации и авторизации.");
         }
 
-        for (MultiGameWebSocketClientObserverOnLogin multiGameWebSocketClientObserverOnLogin : mapOfMultiGameWebSocketClientObserver_String__OnLogin.keySet()) {
-            multiGameWebSocketClientObserverOnLogin.updateOnLogin(resultOfCredential);
+        for (Observer021OnLogin observer021OnLogin : mapOfObserver_String__OnLogin.keySet()) {
+            observer021OnLogin.updateOnLogin(resultOfCredential);
         }
     }
 /*
