@@ -15,6 +15,7 @@ import timmax.tilegame.basemodel.credential.ResultOfCredential;
 import timmax.tilegame.basemodel.protocol.*;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.LOGIN;
+import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.LOGOUT;
 
 public class MultiGameWebSocketClient extends WebSocketClient {
     private final ObjectMapper mapper = new ObjectMapper();
@@ -22,30 +23,30 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     private final Map<Observer011OnOpen, String> mapOfObserver_String__OnOpen = new HashMap<>();
     private final Map<Observer010OnClose, String> mapOfObserver_String__OnClose = new HashMap<>();
     private final Map<Observer021OnLogin, String> mapOfObserver_String__OnLogin = new HashMap<>();
+    private final Map<Observer020OnLogout, String> mapOfObserver_String__OnLogout = new HashMap<>();
 /*
-    private final Map< MultiGameWebSocketClientObserverOnLogout, String> mapOfMultiGameWebSocketClientObserver_String__OnLogout = new HashMap< >( );
     private final Map< MultiGameWebSocketClientObserverOnSelectGameType, String> mapOfMultiGameWebSocketClientObserver_String__OnSelectGameType = new HashMap< >( );
     private final Map< MultiGameWebSocketClientObserverOnGameTypeMap, String> mapOfMultiGameWebSocketClientObserver_String__OnGameTypeMap = new HashMap< >( );
 */
 
 
+    public void addViewOnClose(Observer010OnClose observer010OnClose) {
+        mapOfObserver_String__OnClose.put(observer010OnClose, "");
+    }
+
     public void addViewOnOpen(Observer011OnOpen observer011OnOpen) {
         mapOfObserver_String__OnOpen.put(observer011OnOpen, "");
     }
 
-    public void addViewOnClose(Observer010OnClose observer010OnClose) {
-        mapOfObserver_String__OnClose.put(observer010OnClose, "");
+    public void addViewOnLogout(Observer020OnLogout observerOnLogout) {
+        mapOfObserver_String__OnLogout.put(observerOnLogout, "");
     }
 
     public void addViewOnLogin(Observer021OnLogin observer021OnLogin) {
         mapOfObserver_String__OnLogin.put(observer021OnLogin, "");
     }
 
-    /*
-        public void addViewOnLogout( MultiGameWebSocketClientObserverOnLogout multiGameWebSocketClientObserverOnLogout) {
-            mapOfMultiGameWebSocketClientObserver_String__OnLogout.put( multiGameWebSocketClientObserverOnLogout, "");
-        }
-
+/*
         public void addViewOnSelectGameType( MultiGameWebSocketClientObserverOnSelectGameType multiGameWebSocketClientObserverOnSelectGameType) {
             mapOfMultiGameWebSocketClientObserver_String__OnSelectGameType.put( multiGameWebSocketClientObserverOnSelectGameType, "");
         }
@@ -67,11 +68,11 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         mapOfParamName_Value.put("password", password);
         sendRequest(new TransportPackageOfClient(LOGIN, mapOfParamName_Value));
     }
-/*
-    public void logout( ) {
-        sendRequest( new TransportPackageOfClient( TypeOfTransportPackage.LOGOUT));
-    }
 
+    public void logout() {
+        sendRequest(new TransportPackageOfClient(LOGOUT));
+    }
+/*
 // 3
     public void getGameTypeMap( ) {
         sendRequest( new TransportPackageOfClient( TypeOfTransportPackageOfClient.REQ_GAME_TYPE_MAP));
@@ -130,7 +131,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         try {
             StringWriter writer = new StringWriter();
             mapper.writeValue(writer, transportPackageOfClient);
-            System.out.println("writer = " + writer);
+            // System.out.println("writer = " + writer);
             send(writer.toString());
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -148,15 +149,15 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     @Override
     public void onMessage(String message) {
         System.out.println("onMessage");
-        System.out.println("message = " + message);
+        // System.out.println("message = " + message);
         try {
             TransportPackageOfServer transportPackageOfServer = mapper.readValue(message, TransportPackageOfServer.class);
             TypeOfTransportPackage typeOfTransportPackageOfServer = transportPackageOfServer.getTypeOfTransportPackage();
             if (typeOfTransportPackageOfServer == LOGIN) {
                 onLogin(transportPackageOfServer);
-            }/* else if ( typeOfTransportPackageOfServer == INFO_LOGOUT) {
-                onLogout( transportPackageOfServer);
-            } else if ( typeOfTransportPackageOfServer == INFO_GAME_TYPE_MAP) {
+            } else if (typeOfTransportPackageOfServer == LOGOUT) {
+                onLogout(transportPackageOfServer);
+            }/* else if ( typeOfTransportPackageOfServer == INFO_GAME_TYPE_MAP) {
                 System.out.println( "Сервер говорит о результате запроса перечня типов игр.");
                 // Читаем и передаём карту клиенту - пусть из неё выбирает себе тип игры.
                 Map< String, Object> mapOfParamName_Value = transportPackageOfServer.getMapOfParamName_Value( );
@@ -181,11 +182,14 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         for (Observer010OnClose observer010OnClose : mapOfObserver_String__OnClose.keySet()) {
             observer010OnClose.updateOnClose();
         }
+        System.out.println("----------");
     }
 
     @Override
     public void onError(Exception ex) {
-        System.out.println("onError");
+        System.err.println("onError");
+        ex.printStackTrace();
+        System.err.println("----------");
     }
 
     protected void onLogin(TransportPackageOfServer transportPackageOfServer) {
@@ -199,10 +203,14 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         for (Observer021OnLogin observer021OnLogin : mapOfObserver_String__OnLogin.keySet()) {
             observer021OnLogin.updateOnLogin(resultOfCredential);
         }
+        System.out.println("----------");
     }
-/*
-    protected void onLogout( TransportPackageOfServer transportPackageOfServer) {
-        System.out.println( "Сервер говорит о результате разлогирования.");
+
+    protected void onLogout(TransportPackageOfServer transportPackageOfServer) {
+        System.out.println("Сервер говорит о результате разлогирования.");
+        for (Observer020OnLogout observer021OnLogout : mapOfObserver_String__OnLogout.keySet()) {
+            observer021OnLogout.updateOnLogout();
+        }
+        System.out.println("----------");
     }
-*/
 }

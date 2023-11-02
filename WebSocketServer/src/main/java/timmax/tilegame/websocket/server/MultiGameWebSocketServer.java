@@ -17,6 +17,7 @@ import timmax.tilegame.basemodel.credential.ResultOfCredential;
 import timmax.tilegame.basemodel.protocol.*;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.LOGIN;
+import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.LOGOUT;
 
 public class MultiGameWebSocketServer extends WebSocketServer {
     private final ObjectMapper mapper = new ObjectMapper();
@@ -64,9 +65,16 @@ public class MultiGameWebSocketServer extends WebSocketServer {
     private void sendRequest(WebSocket webSocket, TransportPackageOfServer transportPackageOfServer) {
         try {
             StringWriter writer = new StringWriter();
+            // System.out.println("sendRequest. After 'StringWriter writer = new StringWriter();'");
             mapper.writeValue(writer, transportPackageOfServer);
+            // System.out.println("sendRequest. After 'mapper.writeValue(writer, transportPackageOfServer);'");
+            // System.out.println("writer. Begin");
+            // System.out.println(writer);
+            // System.out.println("writer. End");
             webSocket.send(writer.toString());
         } catch (IOException e) {
+            System.err.println("catch (IOException e)");
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
@@ -87,19 +95,18 @@ public class MultiGameWebSocketServer extends WebSocketServer {
 
     @Override
     public void onMessage(WebSocket webSocket, String message) {
-        System.out.println("onMessage");
-        System.out.println("message = " + message);
+        // System.out.println("onMessage");
+        // System.out.println("message = " + message);
         try {
             TransportPackageOfClient transportPackageOfClient = mapper.readValue(message, TransportPackageOfClient.class);
-            System.out.println("transportPackageOfClient = " + transportPackageOfClient);
+            // System.out.println("transportPackageOfClient = " + transportPackageOfClient);
             TypeOfTransportPackage typeOfTransportPackage = transportPackageOfClient.getTypeOfTransportPackage();
-            System.out.println("typeOfTransportPackage = " + typeOfTransportPackage);
+            // System.out.println("typeOfTransportPackage = " + typeOfTransportPackage);
             if (typeOfTransportPackage == LOGIN) {
                 onLogin(webSocket, transportPackageOfClient);
-            }/* else if ( typeOfTransportPackageOfClient == LOGOUT) {
-                // Клиент хочет разлогиниться.
-                System.out.println( "Клиент хочет разлогиниться.");
-            } else if ( typeOfTransportPackageOfClient == REQ_GAME_TYPE_MAP) {
+            } else if (typeOfTransportPackage == LOGOUT) {
+                onLogout(webSocket);
+            }/* else if ( typeOfTransportPackageOfClient == REQ_GAME_TYPE_MAP) {
                 // Клиент просит дать ему перечень вариантов типов игр.
                 System.out.println( "Клиент просит дать ему перечень вариантов типов игр.");
             } else if ( typeOfTransportPackageOfClient == REQ_SELECT_GAME_TYPE) {
@@ -108,7 +115,11 @@ public class MultiGameWebSocketServer extends WebSocketServer {
                 Map< String, Object> mapOfParamName_Value = transportPackageOfClient.getMapOfParamName_Value( );
                 ServerBaseModel serverBaseModel = ( ( ServerBaseModel)mapOfParamName_Value.get( "gameType"));
                 System.out.println( serverBaseModel);
-            }*/
+            }*/ else {
+                System.err.println("Server doesn't know received typeOfTransportPackage.");
+                System.err.println("typeOfTransportPackage = " + typeOfTransportPackage);
+                System.exit(1);
+            }
         } catch (JsonProcessingException jpe) {
             // От клиента поступило что-то, что не понятно серверу.
             // Можно:
@@ -126,6 +137,9 @@ public class MultiGameWebSocketServer extends WebSocketServer {
 
     @Override
     public void onError(WebSocket conn, Exception ex) {
+        System.err.println("onError");
+        ex.printStackTrace();
+        System.err.println("----------");
     }
 
     @Override
@@ -157,5 +171,16 @@ public class MultiGameWebSocketServer extends WebSocketServer {
         // sendRequest( webSocket, new TransportPackageOfServer( TypeOfTransportPackageOfServer.INFO_LOGIN, mapOfParamName_Value__ForSendToClient));
         TransportPackageOfServer transportPackageOfServer = new TransportPackageOfServer(LOGIN, mapOfParamName_Value__ForSendToClient);
         sendRequest(webSocket, transportPackageOfServer);
+        System.out.println("----------");
+    }
+
+    protected void onLogout(WebSocket webSocket) {
+        System.out.println("Клиент хочет стать анонимным.");
+
+        System.out.println("Сообщим клиенту об этом.");
+        TransportPackageOfServer transportPackageOfServer = new TransportPackageOfServer(LOGOUT);
+        // System.out.println("onLogout. After 'TransportPackageOfServer transportPackageOfServer = new TransportPackageOfServer(LOGOUT);'");
+        sendRequest(webSocket, transportPackageOfServer);
+        System.out.println("----------");
     }
 }
