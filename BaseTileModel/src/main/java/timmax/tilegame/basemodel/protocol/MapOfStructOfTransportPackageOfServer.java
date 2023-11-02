@@ -1,10 +1,13 @@
 package timmax.tilegame.basemodel.protocol;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import timmax.tilegame.basemodel.credential.ResultOfCredential;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.LOGIN;
+import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.LOGOUT;
 
 public class MapOfStructOfTransportPackageOfServer extends MapOfStructOfTransportPackage {
     public MapOfStructOfTransportPackageOfServer() {
@@ -13,9 +16,9 @@ public class MapOfStructOfTransportPackageOfServer extends MapOfStructOfTranspor
         Map<String, Class<?>> mapOfParamName_Class__Login = new HashMap<>();
         mapOfParamName_Class__Login.put("resultOfCredential", ResultOfCredential.class);
         mapOfUniversalType.put(LOGIN, mapOfParamName_Class__Login);
-/*
-        mapOfUniversalType.put(LOGOUT, Collections.emptyMap());
 
+        mapOfUniversalType.put(LOGOUT, Collections.emptyMap());
+/*
         Map<String, Class<?>> mapOfParamName_Class__GameTypeMap = new HashMap<>();
         // По хорошему, в следующей строке, вместо
         // Map.class

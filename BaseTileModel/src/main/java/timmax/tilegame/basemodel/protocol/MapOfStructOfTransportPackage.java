@@ -11,7 +11,12 @@ public class MapOfStructOfTransportPackage {
         mapOfUniversalType = new EnumMap<>(TypeOfTransportPackage.class);
     }
 
-    public Map<String, Class<?>> getMapParamName_ClassByReqType(TypeOfTransportPackage typeOfTransportPackage) {
+    public Map<String, Class<?>> getMapParamName_ClassByTypeOfTransportPackage(TypeOfTransportPackage typeOfTransportPackage) {
+        if (!mapOfUniversalType.containsKey(typeOfTransportPackage)) {
+            System.err.println("There aren't key = '" + typeOfTransportPackage + "' in mapOfUniversalType.");
+            System.exit(1);
+        }
+
         return mapOfUniversalType.get(typeOfTransportPackage);
     }
 /*

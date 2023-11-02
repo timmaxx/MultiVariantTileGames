@@ -10,11 +10,10 @@ import static com.fasterxml.jackson.annotation.JsonCreator.Mode.PROPERTIES;
 public class TransportPackageOfServer extends TransportPackage {
     private static MapOfStructOfTransportPackageOfServer mapOfStructOfTransportPackageOfServer;
 
-    /*
-        public TransportPackageOfServer(TypeOfTransportPackage typeOfTransportPackage) {
-            super(typeOfTransportPackage);
-        }
-    */
+
+    public TransportPackageOfServer(TypeOfTransportPackage typeOfTransportPackage) {
+        super(typeOfTransportPackage);
+    }
 
     @JsonCreator(mode = PROPERTIES)
     public TransportPackageOfServer(

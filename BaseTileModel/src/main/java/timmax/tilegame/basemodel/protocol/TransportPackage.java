@@ -1,18 +1,18 @@
 package timmax.tilegame.basemodel.protocol;
 
+import java.util.Collections;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import timmax.tilegame.basemodel.protocol.exception.MultiGameProtocolException;
 
 import static com.fasterxml.jackson.annotation.JsonCreator.Mode.PROPERTIES;
 
 public abstract class TransportPackage {
-    /*
-        private final static String ERROR_MESSAGE_PARAMETERS_LIST_IS_EMPTY_BUT_IT_IS_WRONG =
-                "Transport package is '%s'. Type of transport package is '%s'. There are not any parameters, but they must be %d.";
-    */
+    private final static String ERROR_MESSAGE_PARAMETERS_LIST_IS_EMPTY_BUT_IT_IS_WRONG =
+            "Transport package is '%s'. Type of transport package is '%s'. There are not any parameters, but they must be %d.";
     private final static String ERROR_MESSAGE_COUNT_OF_PARAMETERS_IN_SPECIFICATION_IS_NOT_EQUAL_COUNT_OF_PARAMETERS_IN_THIS_PACKAGE =
             "\nTransport package is '%s'. \nType of transport package is '%s'. \nCount of parameters in specification of protocol is %d and it is not equal count of parameters in package %d.";
     private final static String ERROR_MESSAGE_TYPE_OF_PARAMETER_IN_SPECIFICATION_IS_NOT_EQUAL_TYPE_OF_PARAMETERS_IN_THIS_PACKAGE =
@@ -22,31 +22,33 @@ public abstract class TransportPackage {
     private final TypeOfTransportPackage typeOfTransportPackage;
     private final Map<String, Object> mapOfParamName_Value;
 
-    /*
-        public TransportPackage(InOutPackType typeOfTransportPackage) {
-            mapOfStructOfTransportPackage = initMapOfStructOfTransportPackage();
-            Map<String, Class<?>> mapOfName_Class = mapOfStructOfTransportPackage.getMapParamName_ClassByReqType(typeOfTransportPackage);
 
-            if (!mapOfName_Class.isEmpty()) {
-                throw new RuntimeException(String.format(ERROR_MESSAGE_PARAMETERS_LIST_IS_EMPTY_BUT_IT_IS_WRONG, typeOfTransportPackage.getClass(), typeOfTransportPackage, mapOfName_Class.size()));
-            }
+    public TransportPackage(TypeOfTransportPackage typeOfTransportPackage) {
+        mapOfStructOfTransportPackage = initMapOfStructOfTransportPackage();
+        // System.out.println("public TransportPackage(TypeOfTransportPackage typeOfTransportPackage). After 'mapOfStructOfTransportPackage = initMapOfStructOfTransportPackage();'");
+        Map<String, Class<?>> mapOfName_Class = mapOfStructOfTransportPackage.getMapParamName_ClassByTypeOfTransportPackage(typeOfTransportPackage);
+        // System.out.println("public TransportPackage(TypeOfTransportPackage typeOfTransportPackage). After 'Map<String, Class<?>> mapOfName_Class = mapOfStructOfTransportPackage.getMapParamName_ClassByTypeOfTransportPackage(typeOfTransportPackage);'");
+        // System.out.println("mapOfName_Class = " + mapOfName_Class);
 
-            this.typeOfTransportPackage = typeOfTransportPackage;
-            this.mapOfParamName_Value = Collections.emptyMap();
+        if (!mapOfName_Class.isEmpty()) {
+            // System.err.println("public TransportPackage(TypeOfTransportPackage typeOfTransportPackage). After 'if (!mapOfName_Class.isEmpty())'");
+            throw new RuntimeException(String.format(ERROR_MESSAGE_PARAMETERS_LIST_IS_EMPTY_BUT_IT_IS_WRONG, typeOfTransportPackage.getClass(), typeOfTransportPackage, mapOfName_Class.size()));
         }
-    */
+        // System.out.println("After if");
+
+        this.typeOfTransportPackage = typeOfTransportPackage;
+        // System.out.println("After 'this.typeOfTransportPackage = typeOfTransportPackage;'");
+        this.mapOfParamName_Value = Collections.emptyMap();
+        // System.out.println("After 'this.mapOfParamName_Value = Collections.emptyMap();'");
+    }
+
     @JsonCreator(mode = PROPERTIES)
     public TransportPackage(
             @JsonProperty("typeOfTransportPackage") TypeOfTransportPackage typeOfTransportPackage,
             @JsonProperty("mapOfParamName_Value") Map<String, Object> mapOfParamName_Value) throws MultiGameProtocolException {
-        // ToDo: Сейчас initMapOfStructOfTransportPackage() реализован в классах наследниках.
-        //       Из-за этого в них приходится дублировать конструкторы.
-        //       Предлагается реализовать initMapOfStructOfTransportPackage() в отдельном сервисном классе и
-        //       аргументом ему передавать this.getClass().
-        //       Тогда классы-наследники этого класса удалим.
         mapOfStructOfTransportPackage = initMapOfStructOfTransportPackage();
 
-        Map<String, Class<?>> mapOfParamName_Class = mapOfStructOfTransportPackage.getMapParamName_ClassByReqType(typeOfTransportPackage);
+        Map<String, Class<?>> mapOfParamName_Class = mapOfStructOfTransportPackage.getMapParamName_ClassByTypeOfTransportPackage(typeOfTransportPackage);
 
         StringBuilder stringBuilder = new StringBuilder();
         if (mapOfParamName_Class.size() != mapOfParamName_Value.size()) {
