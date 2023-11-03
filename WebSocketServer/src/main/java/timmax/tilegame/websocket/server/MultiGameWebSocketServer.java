@@ -76,6 +76,9 @@ public class MultiGameWebSocketServer extends WebSocketServer {
             System.err.println("catch (IOException e)");
             e.printStackTrace();
             throw new RuntimeException(e);
+        } catch (RuntimeException rte) {
+            rte.printStackTrace();
+            System.exit(1);
         }
     }
 
@@ -85,6 +88,7 @@ public class MultiGameWebSocketServer extends WebSocketServer {
         // ToDo: Для каждого соединения можно создавать отдельный поток-нить.
         //       Соответственно, нужна карта, в которой будет храниться:
         //       webSocket, нить, модель игры.
+        //       Но, вполне возможно, что это и так уже делается ядром WinSocket...
     }
 
     @Override
@@ -126,11 +130,15 @@ public class MultiGameWebSocketServer extends WebSocketServer {
             // 1. Либо отключить такого клиента.
             // 2. Совсем упасть серверу.
 
-            // throw Должно было привести к полному падению. Не получается почему-то.
+            // throw Должно было привести к полному падению. Но так не получается, из-за того, что onMessage (да и
+            // другие методы) вызывается не в основном потоке-нити, а в дочернем.
             // throw new RuntimeException(jpe);
 
             // Тогда будем падать так:
             jpe.printStackTrace();
+            System.exit(1);
+        } catch (RuntimeException rte) {
+            rte.printStackTrace();
             System.exit(1);
         }
     }
@@ -168,8 +176,15 @@ public class MultiGameWebSocketServer extends WebSocketServer {
         System.out.println("Сообщим клиенту об этом.");
         mapOfParamName_Value__ForSendToClient.put("resultOfCredential", resultOfCredential);
 
-        // sendRequest( webSocket, new TransportPackageOfServer( TypeOfTransportPackageOfServer.INFO_LOGIN, mapOfParamName_Value__ForSendToClient));
-        TransportPackageOfServer transportPackageOfServer = new TransportPackageOfServer(LOGIN, mapOfParamName_Value__ForSendToClient);
+        TransportPackageOfServer transportPackageOfServer = null;
+        try {
+            // sendRequest( webSocket, new TransportPackageOfServer( TypeOfTransportPackageOfServer.INFO_LOGIN, mapOfParamName_Value__ForSendToClient));
+            transportPackageOfServer = new TransportPackageOfServer(LOGIN, mapOfParamName_Value__ForSendToClient);
+        } catch (RuntimeException rte) {
+            rte.printStackTrace();
+            System.exit(1);
+        }
+
         sendRequest(webSocket, transportPackageOfServer);
         System.out.println("----------");
     }
@@ -178,7 +193,13 @@ public class MultiGameWebSocketServer extends WebSocketServer {
         System.out.println("Клиент хочет стать анонимным.");
 
         System.out.println("Сообщим клиенту об этом.");
-        TransportPackageOfServer transportPackageOfServer = new TransportPackageOfServer(LOGOUT);
+        TransportPackageOfServer transportPackageOfServer = null;
+        try {
+            transportPackageOfServer = new TransportPackageOfServer(LOGOUT);
+        } catch (RuntimeException rte) {
+            rte.printStackTrace();
+            System.exit(1);
+        }
         // System.out.println("onLogout. After 'TransportPackageOfServer transportPackageOfServer = new TransportPackageOfServer(LOGOUT);'");
         sendRequest(webSocket, transportPackageOfServer);
         System.out.println("----------");

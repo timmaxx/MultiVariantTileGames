@@ -66,11 +66,27 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         Map<String, Object> mapOfParamName_Value = new HashMap<>();
         mapOfParamName_Value.put("userName", userName);
         mapOfParamName_Value.put("password", password);
-        sendRequest(new TransportPackageOfClient(LOGIN, mapOfParamName_Value));
+
+        // Здесь и в других методах "оборачиваем" 'new TransportPackageOfClient()' try-ем, т.к. если исключения будут
+        // возникать в глубине вызовов, но учитывая, что работа метода идёт не в основном потоке, а в дочернем,
+        // JVM просто ничего не сделает с исключениями.
+        // Ещё можно было-бы попробовать поработать с setUncaughtExceptionHandler(), если-бы WebSocketClient
+        // (да и WebSocketServer) били-бы наследниками Thread. Но это не так.
+        try {
+            sendRequest(new TransportPackageOfClient(LOGIN, mapOfParamName_Value));
+        } catch (RuntimeException rte) {
+            rte.printStackTrace();
+            System.exit(1);
+        }
     }
 
     public void logout() {
+        try {
         sendRequest(new TransportPackageOfClient(LOGOUT));
+        } catch (RuntimeException rte) {
+            rte.printStackTrace();
+            System.exit(1);
+        }
     }
 /*
 // 3
@@ -135,7 +151,10 @@ public class MultiGameWebSocketClient extends WebSocketClient {
             send(writer.toString());
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
+        }/* catch (RuntimeException rte) {
+            rte.printStackTrace();
+            System.exit(1);
+        }*/
     }
 
     @Override
@@ -172,7 +191,22 @@ public class MultiGameWebSocketClient extends WebSocketClient {
                 System.out.println( serverBaseModel);
             }*/
         } catch (JsonProcessingException jpe) {
-            throw new RuntimeException(jpe);
+            // От сервера поступило что-то, что не понятно клиенту.
+            // Можно:
+            // 1. Либо отключиться от сервера.
+            // 2. Совсем упасть клиенту.
+
+            // throw Должно было привести к полному падению. Не получается почему-то.
+            // throw new RuntimeException(jpe);
+
+            // Тогда будем падать так:
+            jpe.printStackTrace();
+            System.exit(1);
+        } catch (RuntimeException rte) {
+            System.out.println("onMessage");
+            rte.printStackTrace();
+            System.exit(1);
+            System.out.println("onMessage. End");
         }
     }
 

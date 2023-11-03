@@ -71,12 +71,17 @@ public abstract class TransportPackage {
             // Предполагалось, что 'throw multiGameProtocolException;' должен был привести и к выводу стек-трейса и
             // к остановке приложения. Но этого не происходит.
             // Поэтому вместо простого
-            // throw new MultiGameProtocolException( stringBuilder.toString( ));
+            throw new MultiGameProtocolException( stringBuilder.toString( ));
 
-            // Делаем так:
+            /*
+            // Делали так:
             MultiGameProtocolException multiGameProtocolException = new MultiGameProtocolException(stringBuilder.toString());
             multiGameProtocolException.printStackTrace();
             System.exit(1);
+            */
+
+            // Опять вернулся к throw new MultiGameProtocolException, но одновременно с этим пришлось "обернуть" try-ем
+            // места вызовов работы с протоколом.
         }
 
         this.typeOfTransportPackage = typeOfTransportPackage;

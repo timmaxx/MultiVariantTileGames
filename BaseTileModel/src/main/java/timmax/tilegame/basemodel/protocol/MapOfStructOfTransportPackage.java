@@ -13,8 +13,7 @@ public class MapOfStructOfTransportPackage {
 
     public Map<String, Class<?>> getMapParamName_ClassByTypeOfTransportPackage(TypeOfTransportPackage typeOfTransportPackage) {
         if (!mapOfUniversalType.containsKey(typeOfTransportPackage)) {
-            System.err.println("There aren't key = '" + typeOfTransportPackage + "' in mapOfUniversalType.");
-            System.exit(1);
+            throw new RuntimeException("There aren't key = '" + typeOfTransportPackage + "' in mapOfUniversalType.");
         }
 
         return mapOfUniversalType.get(typeOfTransportPackage);
