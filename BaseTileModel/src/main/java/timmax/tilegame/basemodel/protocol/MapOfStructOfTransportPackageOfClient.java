@@ -9,7 +9,7 @@ import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.LOGOUT;
 
 public class MapOfStructOfTransportPackageOfClient extends MapOfStructOfTransportPackage {
     public MapOfStructOfTransportPackageOfClient() {
-        mapOfUniversalType = Collections.unmodifiableMap(new EnumMap<>(TypeOfTransportPackage.class) {{
+        super(new EnumMap<>(TypeOfTransportPackage.class) {{
             put(LOGIN, new HashMap<>() {{
                 put("userName", String.class);
                 put("password", String.class);

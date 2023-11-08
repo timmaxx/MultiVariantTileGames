@@ -1,10 +1,15 @@
 package timmax.tilegame.basemodel.protocol;
 
+import java.util.Collections;
 import java.util.Map;
 
 public abstract class MapOfStructOfTransportPackage {
-    protected Map<TypeOfTransportPackage, Map<String, Class<?>>> mapOfUniversalType;
+    protected final Map<TypeOfTransportPackage, Map<String, Class<?>>> mapOfUniversalType;
 
+
+    public MapOfStructOfTransportPackage(Map<TypeOfTransportPackage, Map<String, Class<?>>> map) {
+        mapOfUniversalType = Collections.unmodifiableMap(map);
+    }
 
     public Map<String, Class<?>> getMapParamName_ClassByTypeOfTransportPackage(TypeOfTransportPackage typeOfTransportPackage) {
         if (!mapOfUniversalType.containsKey(typeOfTransportPackage)) {
