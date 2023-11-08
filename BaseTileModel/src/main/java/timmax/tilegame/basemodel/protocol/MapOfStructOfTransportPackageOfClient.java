@@ -1,6 +1,7 @@
 package timmax.tilegame.basemodel.protocol;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.LOGIN;
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.LOGOUT;
@@ -9,10 +10,10 @@ public class MapOfStructOfTransportPackageOfClient extends MapOfStructOfTranspor
     public MapOfStructOfTransportPackageOfClient() {
         super();
 
-        Map<String, Class<?>> mapOfParamName_Class__Login = new HashMap<>();
-        mapOfParamName_Class__Login.put("userName", String.class);
-        mapOfParamName_Class__Login.put("password", String.class);
-        mapOfUniversalType.put(LOGIN, mapOfParamName_Class__Login);
+        mapOfUniversalType.put(LOGIN, new HashMap<>() {{
+            put("userName", String.class);
+            put("password", String.class);
+        }});
 
         mapOfUniversalType.put(LOGOUT, Collections.emptyMap());
 /*

@@ -2,7 +2,6 @@ package timmax.tilegame.basemodel.protocol;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
 
 import timmax.tilegame.basemodel.credential.ResultOfCredential;
 
@@ -13,9 +12,9 @@ public class MapOfStructOfTransportPackageOfServer extends MapOfStructOfTranspor
     public MapOfStructOfTransportPackageOfServer() {
         super();
 
-        Map<String, Class<?>> mapOfParamName_Class__Login = new HashMap<>();
-        mapOfParamName_Class__Login.put("resultOfCredential", ResultOfCredential.class);
-        mapOfUniversalType.put(LOGIN, mapOfParamName_Class__Login);
+        mapOfUniversalType.put(LOGIN, new HashMap<>() {{
+            put("resultOfCredential", ResultOfCredential.class);
+        }});
 
         mapOfUniversalType.put(LOGOUT, Collections.emptyMap());
 /*
