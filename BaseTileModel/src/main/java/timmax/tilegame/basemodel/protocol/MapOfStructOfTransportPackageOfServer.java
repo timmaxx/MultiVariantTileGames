@@ -1,6 +1,7 @@
 package timmax.tilegame.basemodel.protocol;
 
 import java.util.Collections;
+import java.util.EnumMap;
 import java.util.HashMap;
 
 import timmax.tilegame.basemodel.credential.ResultOfCredential;
@@ -10,13 +11,12 @@ import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.LOGOUT;
 
 public class MapOfStructOfTransportPackageOfServer extends MapOfStructOfTransportPackage {
     public MapOfStructOfTransportPackageOfServer() {
-        super();
-
-        mapOfUniversalType.put(LOGIN, new HashMap<>() {{
-            put("resultOfCredential", ResultOfCredential.class);
+        mapOfUniversalType = Collections.unmodifiableMap(new EnumMap<>(TypeOfTransportPackage.class) {{
+            put(LOGIN, new HashMap<>() {{
+                put("resultOfCredential", ResultOfCredential.class);
+            }});
+            put(LOGOUT, Collections.emptyMap());
         }});
-
-        mapOfUniversalType.put(LOGOUT, Collections.emptyMap());
 /*
         Map<String, Class<?>> mapOfParamName_Class__GameTypeMap = new HashMap<>();
         // По хорошему, в следующей строке, вместо
