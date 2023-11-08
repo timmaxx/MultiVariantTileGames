@@ -12,9 +12,9 @@ import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.LOGOUT;
 public class MapOfStructOfTransportPackageOfServer extends MapOfStructOfTransportPackage {
     public MapOfStructOfTransportPackageOfServer() {
         super(new EnumMap<>(TypeOfTransportPackage.class) {{
-            put(LOGIN, new HashMap<>() {{
+            put(LOGIN, Collections.unmodifiableMap(new HashMap<>() {{
                 put("resultOfCredential", ResultOfCredential.class);
-            }});
+            }}));
             put(LOGOUT, Collections.emptyMap());
         }});
 /*
