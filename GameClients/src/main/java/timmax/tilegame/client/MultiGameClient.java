@@ -38,21 +38,11 @@ public class MultiGameClient extends Application {
         primaryStage.setTitle("Multi Game Client");
         primaryStage.setScene(scene);
         primaryStage.show();
-
-        primaryStage.setOnCloseRequest(we -> {
-            System.out.println("Stage is closing");
-
-            // Предотвратить закрытие окна:
-            // we.consume();
-        });
-
     }
 
     @Override
 
-    public void stop(){
-        // Здесь Вы можете прописать все действия при закрытии Вашего приложения.
-        System.out.println("App is stopped");
+    public void stop() {
         System.exit(0);
     }
 }
