@@ -166,15 +166,19 @@ public class MultiGameWebSocketServer extends WebSocketServer {
         // создан при onOpen) сверить входящие имя пользователя и пароль с теми, которые есть на сервере.
         // И результат отправить клиенту.
         // Но сейчас (пока с отдельными нитями не начали реализовывать) запросим в текущей нити.
-        Map<String, Object> mapOfParamName_Value__ForSendToClient = new HashMap<>();
         ResultOfCredential resultOfCredential = Credentials.verifyUserAndPassword(userName, password);
         if (resultOfCredential == ResultOfCredential.NOT_AUTHORISED) {
+            userName = "";
             System.out.println("Не успешная идентификацию и/или аутентификацию и/или авторизация.");
         } else if (resultOfCredential == ResultOfCredential.AUTHORISED) {
             System.out.println("Успешная идентификация, аутентификация и авторизация.");
         }
         System.out.println("Сообщим клиенту об этом.");
-        mapOfParamName_Value__ForSendToClient.put("resultOfCredential", resultOfCredential);
+        String finalUserName = userName;
+        Map<String, Object> mapOfParamName_Value__ForSendToClient = new HashMap<>(){{
+            put("resultOfCredential", resultOfCredential);
+            put("userName", finalUserName);
+        }};
 
         TransportPackageOfServer transportPackageOfServer = null;
         try {

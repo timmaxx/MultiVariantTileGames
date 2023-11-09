@@ -47,6 +47,7 @@ public class Pane01ServerConnect extends HBox implements
 
         buttonConnect.setOnAction(event -> {
             netModel = new MultiGameWebSocketClient(getURIFromControls());
+            System.out.println("getMainGameClientStatus() = " + netModel.getMainGameClientStatus());
 
             netModel.addViewOnClose(this);
             netModel.addViewOnOpen(this);

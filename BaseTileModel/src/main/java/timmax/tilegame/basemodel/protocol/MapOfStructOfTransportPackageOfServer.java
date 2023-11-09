@@ -14,6 +14,7 @@ public class MapOfStructOfTransportPackageOfServer extends MapOfStructOfTranspor
         super(new EnumMap<>(TypeOfTransportPackage.class) {{
             put(LOGIN, Collections.unmodifiableMap(new HashMap<>() {{
                 put("resultOfCredential", ResultOfCredential.class);
+                put("userName", String.class);
             }}));
             put(LOGOUT, Collections.emptyMap());
         }});
