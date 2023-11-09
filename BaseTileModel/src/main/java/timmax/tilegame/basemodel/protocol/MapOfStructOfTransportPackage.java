@@ -4,11 +4,11 @@ import java.util.Collections;
 import java.util.Map;
 
 public abstract class MapOfStructOfTransportPackage {
-    protected final Map<TypeOfTransportPackage, Map<String, Class<?>>> mapOfUniversalType;
+    private final Map<TypeOfTransportPackage, Map<String, Class<?>>> mapOfUniversalType;
 
 
-    public MapOfStructOfTransportPackage(Map<TypeOfTransportPackage, Map<String, Class<?>>> map) {
-        mapOfUniversalType = Collections.unmodifiableMap(map);
+    public MapOfStructOfTransportPackage(Map<TypeOfTransportPackage, Map<String, Class<?>>> mapOfUniversalType) {
+        this.mapOfUniversalType = Collections.unmodifiableMap(mapOfUniversalType);
     }
 
     public Map<String, Class<?>> getMapParamName_ClassByTypeOfTransportPackage(TypeOfTransportPackage typeOfTransportPackage) {
@@ -19,8 +19,8 @@ public abstract class MapOfStructOfTransportPackage {
         return mapOfUniversalType.get(typeOfTransportPackage);
     }
 /*
-    public Class getClassByReqTypeAndParamName( InOutPackType inOutPackType, String paramName) {
-        return mapOfUniversalType.get( inOutPackType).get( paramName);
+    public Class<?> getClassByReqTypeAndParamName( TypeOfTransportPackage typeOfTransportPackage, String paramName) {
+        return mapOfUniversalType.get( typeOfTransportPackage).get( paramName);
     }
 */
 }

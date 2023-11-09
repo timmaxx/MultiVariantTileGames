@@ -25,21 +25,14 @@ public abstract class TransportPackage {
 
     public TransportPackage(TypeOfTransportPackage typeOfTransportPackage) {
         mapOfStructOfTransportPackage = initMapOfStructOfTransportPackage();
-        // System.out.println("public TransportPackage(TypeOfTransportPackage typeOfTransportPackage). After 'mapOfStructOfTransportPackage = initMapOfStructOfTransportPackage();'");
-        Map<String, Class<?>> mapOfName_Class = mapOfStructOfTransportPackage.getMapParamName_ClassByTypeOfTransportPackage(typeOfTransportPackage);
-        // System.out.println("public TransportPackage(TypeOfTransportPackage typeOfTransportPackage). After 'Map<String, Class<?>> mapOfName_Class = mapOfStructOfTransportPackage.getMapParamName_ClassByTypeOfTransportPackage(typeOfTransportPackage);'");
-        // System.out.println("mapOfName_Class = " + mapOfName_Class);
+        Map<String, Class<?>> mapOfParamName_Class = mapOfStructOfTransportPackage.getMapParamName_ClassByTypeOfTransportPackage(typeOfTransportPackage);
 
-        if (!mapOfName_Class.isEmpty()) {
-            // System.err.println("public TransportPackage(TypeOfTransportPackage typeOfTransportPackage). After 'if (!mapOfName_Class.isEmpty())'");
-            throw new RuntimeException(String.format(ERROR_MESSAGE_PARAMETERS_LIST_IS_EMPTY_BUT_IT_IS_WRONG, typeOfTransportPackage.getClass(), typeOfTransportPackage, mapOfName_Class.size()));
+        if (!mapOfParamName_Class.isEmpty()) {
+            throw new RuntimeException(String.format(ERROR_MESSAGE_PARAMETERS_LIST_IS_EMPTY_BUT_IT_IS_WRONG, typeOfTransportPackage.getClass(), typeOfTransportPackage, mapOfParamName_Class.size()));
         }
-        // System.out.println("After if");
 
         this.typeOfTransportPackage = typeOfTransportPackage;
-        // System.out.println("After 'this.typeOfTransportPackage = typeOfTransportPackage;'");
         this.mapOfParamName_Value = Collections.emptyMap();
-        // System.out.println("After 'this.mapOfParamName_Value = Collections.emptyMap();'");
     }
 
     @JsonCreator(mode = PROPERTIES)
@@ -57,8 +50,8 @@ public abstract class TransportPackage {
         } else {
             for (Map.Entry<String, Class<?>> nameParam : mapOfParamName_Class.entrySet()) {
                 String paramName = nameParam.getKey();
-                Object value = mapOfParamName_Value.get(paramName);
                 Class<?> clazz = nameParam.getValue();
+                Object value = mapOfParamName_Value.get(paramName);
                 if ((value.getClass() != String.class || !clazz.isEnum())
                         && (value.getClass() != clazz)) {
                     stringBuilder.append(String.format(ERROR_MESSAGE_TYPE_OF_PARAMETER_IN_SPECIFICATION_IS_NOT_EQUAL_TYPE_OF_PARAMETERS_IN_THIS_PACKAGE,
@@ -68,20 +61,7 @@ public abstract class TransportPackage {
         }
 
         if (stringBuilder.toString().length() > 0) {
-            // Предполагалось, что 'throw multiGameProtocolException;' должен был привести и к выводу стек-трейса и
-            // к остановке приложения. Но этого не происходит.
-            // Поэтому вместо простого
             throw new MultiGameProtocolException( stringBuilder.toString( ));
-
-            /*
-            // Делали так:
-            MultiGameProtocolException multiGameProtocolException = new MultiGameProtocolException(stringBuilder.toString());
-            multiGameProtocolException.printStackTrace();
-            System.exit(1);
-            */
-
-            // Опять вернулся к throw new MultiGameProtocolException, но одновременно с этим пришлось "обернуть" try-ем
-            // места вызовов работы с протоколом.
         }
 
         this.typeOfTransportPackage = typeOfTransportPackage;
