@@ -3,25 +3,30 @@ package timmax.tilegame.websocket.server;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.net.InetSocketAddress;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Stream;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+// import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
+import timmax.tilegame.basemodel.ServerBaseModel;
 import timmax.tilegame.basemodel.credential.Credentials;
 import timmax.tilegame.basemodel.credential.ResultOfCredential;
 import timmax.tilegame.basemodel.protocol.*;
+// import timmax.tilegame.basemodel.protocol.structs.SetOfServerBaseModel;
+import timmax.tilegame.game.minesweeper.model.MinesweeperModel;
+import timmax.tilegame.game.sokoban.model.SokobanModel;
 
-import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.LOGIN;
-import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.LOGOUT;
+import static java.util.stream.Collectors.toList;
+import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
 public class MultiGameWebSocketServer extends WebSocketServer {
     private final ObjectMapper mapper = new ObjectMapper();
-
+    // private final XmlMapper mapper = new XmlMapper();
 
     public MultiGameWebSocketServer(int port) {
         super(new InetSocketAddress(port));
@@ -67,10 +72,10 @@ public class MultiGameWebSocketServer extends WebSocketServer {
             StringWriter writer = new StringWriter();
             // System.out.println("sendRequest. After 'StringWriter writer = new StringWriter();'");
             mapper.writeValue(writer, transportPackageOfServer);
-            // System.out.println("sendRequest. After 'mapper.writeValue(writer, transportPackageOfServer);'");
-            // System.out.println("writer. Begin");
-            // System.out.println(writer);
-            // System.out.println("writer. End");
+            System.out.println("sendRequest. After 'mapper.writeValue(writer, transportPackageOfServer);'");
+            System.out.println("writer. Begin");
+            System.out.println(writer);
+            System.out.println("writer. End");
             webSocket.send(writer.toString());
         } catch (IOException e) {
             System.err.println("catch (IOException e)");
@@ -110,10 +115,9 @@ public class MultiGameWebSocketServer extends WebSocketServer {
                 onLogin(webSocket, transportPackageOfClient);
             } else if (typeOfTransportPackage == LOGOUT) {
                 onLogout(webSocket);
-            }/* else if ( typeOfTransportPackageOfClient == REQ_GAME_TYPE_MAP) {
-                // Клиент просит дать ему перечень вариантов типов игр.
-                System.out.println( "Клиент просит дать ему перечень вариантов типов игр.");
-            } else if ( typeOfTransportPackageOfClient == REQ_SELECT_GAME_TYPE) {
+            } else if (typeOfTransportPackage == GET_GAME_TYPE_SET) {
+                onGetGameTypeSet(webSocket);
+            }/* else if ( typeOfTransportPackageOfClient == REQ_SELECT_GAME_TYPE) {
                 // Клиент хочет выбрать определённый тип игры.
                 System.out.println( "Клиент хочет выбрать определённый тип игры.");
                 Map< String, Object> mapOfParamName_Value = transportPackageOfClient.getMapOfParamName_Value( );
@@ -175,15 +179,30 @@ public class MultiGameWebSocketServer extends WebSocketServer {
         }
         System.out.println("Сообщим клиенту об этом.");
         String finalUserName = userName;
+/*
         Map<String, Object> mapOfParamName_Value__ForSendToClient = new HashMap<>(){{
             put("resultOfCredential", resultOfCredential);
             put("userName", finalUserName);
         }};
-
+*/
         TransportPackageOfServer transportPackageOfServer = null;
         try {
-            // sendRequest( webSocket, new TransportPackageOfServer( TypeOfTransportPackageOfServer.INFO_LOGIN, mapOfParamName_Value__ForSendToClient));
-            transportPackageOfServer = new TransportPackageOfServer(LOGIN, mapOfParamName_Value__ForSendToClient);
+            /*
+            transportPackageOfServer = new TransportPackageOfServer(
+                    LOGIN,
+                    new HashMap<>(){{
+                        put("resultOfCredential", resultOfCredential);
+                        put("userName", finalUserName);
+            }});
+            */
+            Map<String, Object> map = new HashMap<>() {{
+                put("resultOfCredential", resultOfCredential);
+                put("userName", finalUserName);
+            }};
+            transportPackageOfServer = new TransportPackageOfServer(
+                    LOGIN,
+                    map);
+
         } catch (RuntimeException rte) {
             rte.printStackTrace();
             System.exit(1);
@@ -204,7 +223,102 @@ public class MultiGameWebSocketServer extends WebSocketServer {
             rte.printStackTrace();
             System.exit(1);
         }
-        // System.out.println("onLogout. After 'TransportPackageOfServer transportPackageOfServer = new TransportPackageOfServer(LOGOUT);'");
+        sendRequest(webSocket, transportPackageOfServer);
+        System.out.println("----------");
+    }
+
+    protected void onGetGameTypeSet(WebSocket webSocket) {
+        System.out.println("Клиент просит дать ему перечень вариантов типов игр.");
+
+        TransportPackageOfServer transportPackageOfServer = null;
+        try {
+            System.out.println("onGetGameTypeSet 2");
+/*            transportPackageOfServer = new TransportPackageOfServer(
+                    GET_GAME_TYPE_SET,
+                    new HashMap<>(){{
+                        put("gameTypeSet", new SetOfServerBaseModel(){{
+                            add(MinesweeperModel.class);
+                            add(SokobanModel.class);
+                        }});
+                    }});*/
+/*
+            //  1. +
+            //  При "Double brace инициализации" создаётся анонимный класс (наследник ArrayList).
+            //  И в дальнейшем, при проверке на точное совпадение типа с ArrayList, будет не успех.
+            //  Далее, вместо полного совпадения сделан класс и статический метод в нём, заменяющий оператор
+            //  'goalInstance instanceof SomeClass' - где SomeClass - явное имя класса.
+            //  на вызов
+            //  'Classes.instanceOf(goalInstance, someClass)' - someClass - переменная типа Class.
+            //  Поэтому этот вариант уже будет работать, но т.к. "Double brace инициализации" - антипаттерн из-за
+            //  неявного применения дополнительного анонимного класса, лучше рассмотреть варианты 3 и 5.
+            List<Class<? extends ServerBaseModel>> arrayList = new ArrayList<>() {{
+                add(MinesweeperModel.class);
+                add(SokobanModel.class);
+            }};
+*/
+/*
+            //  2. ---
+            //  При таком варианте не создаётся анонимный класс, но выглядит менее лаконично.
+            List<Class<? extends ServerBaseModel>> arrayList = new ArrayList<>();
+            arrayList.add(MinesweeperModel.class);
+            arrayList.add(SokobanModel.class);
+*/
+/*
+            //  3. ++
+            //  Такой вариант работает.
+            List<Class<? extends ServerBaseModel>> arrayList = new ArrayList<>(Arrays.asList(
+                    MinesweeperModel.class,
+                    SokobanModel.class
+            ));
+*/
+/*
+            //  4. --
+            //  Предыдущий вариант, завёрнутый в unmodifiableList.
+            //  Тип экземпляра получается java.util.Collection$UnmodifableRandomAccessList@xxxx, что тоже не очень подходит.
+            //  Его родителем является java.util.Collections
+            //
+            List<Class<?>> arrayList = Collections.unmodifiableList(new ArrayList<>(Arrays.asList(
+                    MinesweeperModel.class,
+                    SokobanModel.class
+            )));
+*/
+
+            //  5. +++
+            List<Class<? extends ServerBaseModel>> arrayList = Stream.of(
+                            MinesweeperModel.class,
+                            SokobanModel.class)
+                    .collect(toList());
+
+/*
+            //  6. ---
+            List<Class<? extends ServerBaseModel>> arrayList = Collections.unmodifiableList(Stream.of(
+                            MinesweeperModel.class,
+                            SokobanModel.class)
+                    .collect(toList()));
+*/
+            Map<String, Object> map = new HashMap<>() {{
+                /*
+                put("gameTypeSet", new SetOfServerBaseModel() {{
+                    add(MinesweeperModel.class);
+                    add(SokobanModel.class);
+                }});
+                */
+                put("gameTypeSet", /*new ArrayList() {{
+                    add(MinesweeperModel.class);
+                    add(SokobanModel.class);
+                }}*/
+                        arrayList);
+            }};
+            System.out.println("onGetGameTypeSet 2 2");
+            transportPackageOfServer = new TransportPackageOfServer(
+                    GET_GAME_TYPE_SET,
+                    map
+            );
+            System.out.println("onGetGameTypeSet 3");
+        } catch (RuntimeException rte) {
+            rte.printStackTrace();
+            System.exit(1);
+        }
         sendRequest(webSocket, transportPackageOfServer);
         System.out.println("----------");
     }

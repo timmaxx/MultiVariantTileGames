@@ -10,20 +10,23 @@ import org.java_websocket.handshake.ServerHandshake;
 import timmax.tilegame.basemodel.credential.ResultOfCredential;
 import timmax.tilegame.websocket.client.*;
 
+// import java.util.Map;
+
 public class Pane02UserLogin extends HBox implements
         Observer010OnClose,
         Observer011OnOpen,
         Observer020OnLogout,
         Observer021OnLogin {
 
-    MultiGameWebSocketClient netModel;
+    private MultiGameWebSocketClient netModel;
 
-    Label labelUser;
-    TextField textFieldUser;
-    Label labelPassword;
-    PasswordField passwordField;
-    Button buttonLogin;
-    Button buttonLogout;
+    private final Label labelUser;
+    private final TextField textFieldUser;
+    private final Label labelPassword;
+    private final PasswordField passwordField;
+    private final Button buttonLogin;
+    private final Button buttonLogout;
+    // private Map<Observer021OnLogin, String> mapOfObserver021OnLogin__String;
 
 
     public Pane02UserLogin() {
@@ -106,7 +109,7 @@ public class Pane02UserLogin extends HBox implements
     }
 
     @Override
-    public void updateOnLogin(ResultOfCredential resultOfCredential) {
+    public void updateOnLogin(ResultOfCredential resultOfCredential, MultiGameWebSocketClient multiGameWebSocketClient) {
         // System.out.println("Pane02ConnectNonIdent::updateOnLogin");
 
         boolean loginDisabled = resultOfCredential == ResultOfCredential.AUTHORISED;

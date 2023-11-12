@@ -1,22 +1,28 @@
 package timmax.tilegame.basemodel.protocol;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
 
 import timmax.tilegame.basemodel.credential.ResultOfCredential;
+//import timmax.tilegame.basemodel.protocol.structs.SetOfServerBaseModel;
 
-import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.LOGIN;
-import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.LOGOUT;
+import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
 public class MapOfStructOfTransportPackageOfServer extends MapOfStructOfTransportPackage {
     public MapOfStructOfTransportPackageOfServer() {
+        //  ToDo: Переписать инициализацию с отказом от "двухскобочной инициализации"
         super(new EnumMap<>(TypeOfTransportPackage.class) {{
             put(LOGIN, Collections.unmodifiableMap(new HashMap<>() {{
                 put("resultOfCredential", ResultOfCredential.class);
                 put("userName", String.class);
             }}));
             put(LOGOUT, Collections.emptyMap());
+            put(GET_GAME_TYPE_SET, Collections.unmodifiableMap(new HashMap<>() {{
+                // put("gameTypeSet", SetOfServerBaseModel.class);
+                put("gameTypeSet", ArrayList.class);
+            }}));
         }});
 /*
         Map<String, Class<?>> mapOfParamName_Class__GameTypeMap = new HashMap<>();

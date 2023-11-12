@@ -166,13 +166,11 @@ MultiGameWebSocketClient введён для того, чтобы многова
 - REQ_READINESS_MAP         - void getReadinessMap( )
 */
 
-
 - void onStart()
 - void onOpen(WebSocket conn, ClientHandshake handshake)
 - void onClose(WebSocket conn, int code, String reason, boolean remote)
 - void onMessage(WebSocket conn, String message)
 - void onError(WebSocket conn, Exception ex)
-
 
 У сервера многовариантных игровых моделей будет свой перечень методов для отправки сообщений клиенту.
 Позже опишу... Здесь пока приведу перечень типов сообщений сервера
@@ -224,10 +222,15 @@ File - Settings - Editor - Code style - Java - Spaces - Within
 - с пробелом после открывающей скобки, (мне это и хотелось)
 - с пробелом перед закрывающей скобкой. (а вот это мне не хотелось)
 
-
 Коллекции в Java: о чём многие забывают
 https://habr.com/ru/articles/267389/
 - EnumSet и EnumMap
   До сих пор встречается код, где значения типа enum используют в качестве ключей в HashSet и HashMap.
   Хотя это работает, но оно неоправданно расточительно.
   Существующие специальные классы EnumSet и EnumMap значительно производительнее.
+
+
+12.11.2023 ------------------------------------------------------------------------------------------------------------
+
+Double brace инициализация (это антипаттерн)
+https://javarush.com/groups/posts/1457-double-brace-inicializacija

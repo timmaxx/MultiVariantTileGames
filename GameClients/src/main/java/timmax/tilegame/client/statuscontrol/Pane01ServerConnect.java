@@ -24,8 +24,8 @@ public class Pane01ServerConnect extends HBox implements
     private final Label labelConnectString;
     private final Button buttonDisconnect;
 
-    // private Map<Observer020OnLogout, String> mapOfObserver020OnLogout__String;
     private Map<Observer011OnOpen, String> mapOfObserver011OnOpen__String;
+    private Map<Observer021OnLogin, String> mapOfObserver021OnLogin__string;
 
 
     public Pane01ServerConnect() {
@@ -55,6 +55,9 @@ public class Pane01ServerConnect extends HBox implements
             for (Observer011OnOpen observer011OnOpen : mapOfObserver011OnOpen__String.keySet()) {
                 netModel.addViewOnOpen(observer011OnOpen);
             }
+            for (Observer021OnLogin observer021OnLogin : mapOfObserver021OnLogin__string.keySet()) {
+                netModel.addViewOnLogin(observer021OnLogin);
+            }
 
             textFieldServerAddress.setDisable(true);
             textFieldServerPort.setDisable(true);
@@ -71,6 +74,10 @@ public class Pane01ServerConnect extends HBox implements
 
     public void setMapOfObserver011OnOpen__String(Map<Observer011OnOpen, String> mapOfObserver011OnOpen__String) {
         this.mapOfObserver011OnOpen__String = mapOfObserver011OnOpen__String;
+    }
+
+    public void setMapOfObserver021OnLogin__String(Map<Observer021OnLogin, String> mapOfObserver021OnLogin__string) {
+        this.mapOfObserver021OnLogin__string = mapOfObserver021OnLogin__string;
     }
 
     public URI getURIFromControls() {
