@@ -1,21 +1,20 @@
 package timmax.tilegame.basemodel.protocol;
 
 import java.util.Collections;
-import java.util.EnumMap;
-import java.util.HashMap;
+import java.util.Map;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
 public class MapOfStructOfTransportPackageOfClient extends MapOfStructOfTransportPackage {
     public MapOfStructOfTransportPackageOfClient() {
-        super(new EnumMap<>(TypeOfTransportPackage.class) {{
-            put(LOGIN, Collections.unmodifiableMap(new HashMap<>() {{
-                put("userName", String.class);
-                put("password", String.class);
-            }}));
-            put(LOGOUT, Collections.emptyMap());
-            put(GET_GAME_TYPE_SET, Collections.emptyMap());
-        }});
+        super(Map.of(
+                LOGIN, Map.of(
+                        "userName", String.class,
+                        "password", String.class
+                ),
+                LOGOUT, Collections.emptyMap(),
+                GET_GAME_TYPE_SET, Collections.emptyMap()
+        ));
 
 /*
         Map<String, Class<?>> mapOfParamName_Class__SelectGameType = new HashMap<>();

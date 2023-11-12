@@ -9,22 +9,20 @@ import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-// import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
+
 import timmax.tilegame.basemodel.ServerBaseModel;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.credential.ResultOfCredential;
 import timmax.tilegame.basemodel.protocol.TransportPackageOfClient;
 import timmax.tilegame.basemodel.protocol.TransportPackageOfServer;
 import timmax.tilegame.basemodel.protocol.TypeOfTransportPackage;
-// import timmax.tilegame.basemodel.protocol.structs.SetOfServerBaseModel;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
 public class MultiGameWebSocketClient extends WebSocketClient {
     private final ObjectMapper mapper = new ObjectMapper();
-    // private final XmlMapper mapper = new XmlMapper();
 
     private final Map<Observer011OnOpen, String> mapOfObserver_String__OnOpen = new HashMap<>();
     private final Map<Observer010OnClose, String> mapOfObserver_String__OnClose = new HashMap<>();
@@ -34,6 +32,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         private final Map< MultiGameWebSocketClientObserverOnSelectGameType, String> mapOfMultiGameWebSocketClientObserver_String__OnSelectGameType = new HashMap< >( );
         private final Map< MultiGameWebSocketClientObserverOnGameTypeMap, String> mapOfMultiGameWebSocketClientObserver_String__OnGameTypeMap = new HashMap< >( );
     */
+
     private String userName = "";
 
 
@@ -68,14 +67,14 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     }
 
 /*
-        public void addViewOnSelectGameType( MultiGameWebSocketClientObserverOnSelectGameType multiGameWebSocketClientObserverOnSelectGameType) {
-            mapOfMultiGameWebSocketClientObserver_String__OnSelectGameType.put( multiGameWebSocketClientObserverOnSelectGameType, "");
-        }
+    public void addViewOnSelectGameType( MultiGameWebSocketClientObserverOnSelectGameType multiGameWebSocketClientObserverOnSelectGameType) {
+        mapOfMultiGameWebSocketClientObserver_String__OnSelectGameType.put( multiGameWebSocketClientObserverOnSelectGameType, "");
+    }
 
-        public void addViewOnGameTypeMap( MultiGameWebSocketClientObserverOnGameTypeMap multiGameWebSocketClientObserverOnGameTypeMap) {
-            mapOfMultiGameWebSocketClientObserver_String__OnGameTypeMap.put( multiGameWebSocketClientObserverOnGameTypeMap, "");
-        }
-    */
+    public void addViewOnGameTypeMap( MultiGameWebSocketClientObserverOnGameTypeMap multiGameWebSocketClientObserverOnGameTypeMap) {
+        mapOfMultiGameWebSocketClientObserver_String__OnGameTypeMap.put( multiGameWebSocketClientObserverOnGameTypeMap, "");
+    }
+*/
 
     public MultiGameWebSocketClient(URI serverUri) {
         super(serverUri);
@@ -198,9 +197,11 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     public void onMessage(String message) {
         System.out.println("onMessage");
         System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
+/*
         System.out.println("writer. Begin");
         System.out.println(message);
         System.out.println("writer. End");
+*/
         try {
             TransportPackageOfServer transportPackageOfServer = mapper.readValue(message, TransportPackageOfServer.class);
             TypeOfTransportPackage typeOfTransportPackageOfServer = transportPackageOfServer.getTypeOfTransportPackage();
@@ -285,20 +286,6 @@ public class MultiGameWebSocketClient extends WebSocketClient {
 
     protected void onGetGameTypeSet(TransportPackageOfServer transportPackageOfServer) {
         System.out.println("Сервер говорит о результате запроса перечня типов игр.");
-/*
-        SetOfServerBaseModel setOfServerBaseModel = (SetOfServerBaseModel) (transportPackageOfServer.getMapOfParamName_Value().get("gameTypeSet"));
-
-        // Читаем и передаём карту клиенту - пусть из неё выбирает себе тип игры.
-        for ( Class<? extends ServerBaseModel> serverBaseModelClass: setOfServerBaseModel) {
-            System.out.println(serverBaseModelClass);
-        }
-*/
-/*
-        ArrayList<Class<? extends ServerBaseModel>> arrayList = (ArrayList<Class<? extends ServerBaseModel>>) transportPackageOfServer.getMapOfParamName_Value().get("gameTypeSet");
-        for ( Class<? extends ServerBaseModel> serverBaseModelClass: arrayList) {
-            System.out.println(serverBaseModelClass);
-        }
-*/
         ArrayList<String> arrayList = (ArrayList<String>) transportPackageOfServer.getMapOfParamName_Value().get("gameTypeSet");
         ArrayList<Class<? extends ServerBaseModel>> arrayListOfServerBaseModelClass = new ArrayList<>();
         for (String serverBaseModelClass : arrayList) {
@@ -311,14 +298,6 @@ public class MultiGameWebSocketClient extends WebSocketClient {
             }
             System.out.println(clazz);
         }
-
-        /*
-        Map< String, Object> mapOfParamName_Value = transportPackageOfServer.getMapOfParamName_Value( );
-        Map< Class, String> map = ( ( Map< Class, String>)mapOfParamName_Value.get( "gameTypeMap"));
-        for ( Class clazz: map.keySet()) {
-            System.out.println( clazz);
-        }
-        */
         System.out.println("----------");
     }
 }
