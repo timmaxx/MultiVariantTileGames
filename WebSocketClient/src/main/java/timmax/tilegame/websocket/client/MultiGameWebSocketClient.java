@@ -3,9 +3,7 @@ package timmax.tilegame.websocket.client;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,16 +22,17 @@ import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 public class MultiGameWebSocketClient extends WebSocketClient {
     private final ObjectMapper mapper = new ObjectMapper();
 
-    private final Map<Observer011OnOpen, String> mapOfObserver_String__OnOpen = new HashMap<>();
     private final Map<Observer010OnClose, String> mapOfObserver_String__OnClose = new HashMap<>();
-    private final Map<Observer021OnLogin, String> mapOfObserver_String__OnLogin = new HashMap<>();
+    private final Map<Observer011OnOpen, String> mapOfObserver_String__OnOpen = new HashMap<>();
     private final Map<Observer020OnLogout, String> mapOfObserver_String__OnLogout = new HashMap<>();
-    /*
-        private final Map< MultiGameWebSocketClientObserverOnSelectGameType, String> mapOfMultiGameWebSocketClientObserver_String__OnSelectGameType = new HashMap< >( );
-        private final Map< MultiGameWebSocketClientObserverOnGameTypeMap, String> mapOfMultiGameWebSocketClientObserver_String__OnGameTypeMap = new HashMap< >( );
-    */
+    private final Map<Observer021OnLogin, String> mapOfObserver_String__OnLogin = new HashMap<>();
+    private final Map<Observer032OnGetGameTypeSet, String> mapOfObserver_String__OnGetGameTypeSet = new HashMap< >( );
+/*
+    private final Map< MultiGameWebSocketClientObserverOnSelectGameType, String> mapOfMultiGameWebSocketClientObserver_String__OnSelectGameType = new HashMap< >( );
+*/
 
     private String userName = "";
+    private ArrayList<Class<? extends ServerBaseModel>> arrayListOfServerBaseModelClass = new ArrayList<>();
 
 
     public MainGameClientStatus getMainGameClientStatus() {
@@ -66,13 +65,13 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         mapOfObserver_String__OnLogin.put(observer021OnLogin, "");
     }
 
+    public void addViewOnGetGameTypeSet(Observer032OnGetGameTypeSet ObserverOnGetGameTypeSet) {
+        mapOfObserver_String__OnGetGameTypeSet.put( ObserverOnGetGameTypeSet, "");
+    }
+
 /*
     public void addViewOnSelectGameType( MultiGameWebSocketClientObserverOnSelectGameType multiGameWebSocketClientObserverOnSelectGameType) {
         mapOfMultiGameWebSocketClientObserver_String__OnSelectGameType.put( multiGameWebSocketClientObserverOnSelectGameType, "");
-    }
-
-    public void addViewOnGameTypeMap( MultiGameWebSocketClientObserverOnGameTypeMap multiGameWebSocketClientObserverOnGameTypeMap) {
-        mapOfMultiGameWebSocketClientObserver_String__OnGameTypeMap.put( multiGameWebSocketClientObserverOnGameTypeMap, "");
     }
 */
 
@@ -170,33 +169,37 @@ public class MultiGameWebSocketClient extends WebSocketClient {
 */
 
     private void sendRequest(TransportPackageOfClient transportPackageOfClient) {
-        System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
+        // System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
         try {
             StringWriter writer = new StringWriter();
             mapper.writeValue(writer, transportPackageOfClient);
-            // System.out.println("writer = " + writer);
+/*
+        System.out.println("writer. Begin");
+        System.out.println(message);
+        System.out.println("writer. End");
+*/
             send(writer.toString());
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }/* catch (RuntimeException rte) {
+        } catch (RuntimeException rte) {
             rte.printStackTrace();
             System.exit(1);
-        }*/
+        }
     }
 
     @Override
     public void onOpen(ServerHandshake handshakedata) {
         System.out.println("onOpen");
-        System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
+        // System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
         for (Observer011OnOpen observer011OnOpen : mapOfObserver_String__OnOpen.keySet()) {
-            observer011OnOpen.updateOnOpen(handshakedata, this);
+            observer011OnOpen.updateOnOpen(handshakedata);
         }
     }
 
     @Override
     public void onMessage(String message) {
         System.out.println("onMessage");
-        System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
+        // System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
 /*
         System.out.println("writer. Begin");
         System.out.println(message);
@@ -241,6 +244,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     @Override
     public void onClose(int code, String reason, boolean remote) {
         System.out.println("onClose");
+        arrayListOfServerBaseModelClass = new ArrayList<>();
         userName = "";
         // ToDo: Все данные состояния, которые после этого состояния, д.б. стёрты.
         for (Observer010OnClose observer010OnClose : mapOfObserver_String__OnClose.keySet()) {
@@ -260,6 +264,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         ResultOfCredential resultOfCredential = ResultOfCredential.valueOf((String) (transportPackageOfServer.getMapOfParamName_Value().get("resultOfCredential")));
         if (resultOfCredential == ResultOfCredential.NOT_AUTHORISED) {
             System.out.println("Сервер сообщил о не успешных идентификации и/или аутентификации и/или авторизации.");
+            arrayListOfServerBaseModelClass = new ArrayList<>();
             userName = "";
             // ToDo: Все данные состояния, которые после этого состояния, д.б. стёрты.
         } else if (resultOfCredential == ResultOfCredential.AUTHORISED) {
@@ -269,13 +274,14 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         }
 
         for (Observer021OnLogin observer021OnLogin : mapOfObserver_String__OnLogin.keySet()) {
-            observer021OnLogin.updateOnLogin(resultOfCredential, this);
+            observer021OnLogin.updateOnLogin(resultOfCredential);
         }
         System.out.println("----------");
     }
 
     protected void onLogout(TransportPackageOfServer transportPackageOfServer) {
         System.out.println("Сервер говорит о результате разлогирования.");
+        arrayListOfServerBaseModelClass = new ArrayList<>();
         userName = "";
         // ToDo: Все данные состояния, которые после этого состояния, д.б. стёрты.
         for (Observer020OnLogout observer021OnLogout : mapOfObserver_String__OnLogout.keySet()) {
@@ -287,7 +293,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     protected void onGetGameTypeSet(TransportPackageOfServer transportPackageOfServer) {
         System.out.println("Сервер говорит о результате запроса перечня типов игр.");
         ArrayList<String> arrayList = (ArrayList<String>) transportPackageOfServer.getMapOfParamName_Value().get("gameTypeSet");
-        ArrayList<Class<? extends ServerBaseModel>> arrayListOfServerBaseModelClass = new ArrayList<>();
+        arrayListOfServerBaseModelClass = new ArrayList<>();
         for (String serverBaseModelClass : arrayList) {
             Class<? extends ServerBaseModel> clazz;
             try {
@@ -296,7 +302,10 @@ public class MultiGameWebSocketClient extends WebSocketClient {
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println(clazz);
+        }
+
+        for ( Observer032OnGetGameTypeSet observer032OnGetGameTypeSet: mapOfObserver_String__OnGetGameTypeSet.keySet()) {
+            observer032OnGetGameTypeSet.updateOnGetGameTypeSet(arrayListOfServerBaseModelClass);
         }
         System.out.println("----------");
     }

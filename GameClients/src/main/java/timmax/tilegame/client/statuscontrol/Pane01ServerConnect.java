@@ -2,7 +2,6 @@ package timmax.tilegame.client.statuscontrol;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Map;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,9 +12,10 @@ import org.java_websocket.handshake.ServerHandshake;
 import timmax.tilegame.websocket.client.*;
 
 public class Pane01ServerConnect extends HBox implements
-        Observer011OnOpen,
-        Observer010OnClose {
-    private MultiGameWebSocketClient netModel;
+        Observer010OnClose,
+        Observer011OnOpen {
+
+    private final MultiGameWebSocketClientManyTimesUse netModel;
 
     private final Label labelProtocol;
     private final TextField textFieldServerAddress;
@@ -24,12 +24,10 @@ public class Pane01ServerConnect extends HBox implements
     private final Label labelConnectString;
     private final Button buttonDisconnect;
 
-    private Map<Observer011OnOpen, String> mapOfObserver011OnOpen__String;
-    private Map<Observer021OnLogin, String> mapOfObserver021OnLogin__string;
 
-
-    public Pane01ServerConnect() {
+    public Pane01ServerConnect(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
         super();
+        this.netModel = multiGameWebSocketClientManyTimesUse;
 
         labelProtocol = new Label("ws");
         textFieldServerAddress = new TextField();
@@ -43,41 +41,22 @@ public class Pane01ServerConnect extends HBox implements
             textFieldServerPort.setText("8887");
         }
 
+        updateOnClose();
         getChildren().addAll(labelProtocol, textFieldServerAddress, textFieldServerPort, buttonConnect, labelConnectString, buttonDisconnect);
 
+        netModel.addViewOnClose(this);
+        netModel.addViewOnOpen(this);
+
         buttonConnect.setOnAction(event -> {
-            netModel = new MultiGameWebSocketClient(getURIFromControls());
-            System.out.println("getMainGameClientStatus() = " + netModel.getMainGameClientStatus());
-
-            netModel.addViewOnClose(this);
-            netModel.addViewOnOpen(this);
-
-            for (Observer011OnOpen observer011OnOpen : mapOfObserver011OnOpen__String.keySet()) {
-                netModel.addViewOnOpen(observer011OnOpen);
-            }
-            for (Observer021OnLogin observer021OnLogin : mapOfObserver021OnLogin__string.keySet()) {
-                netModel.addViewOnLogin(observer021OnLogin);
-            }
-
-            textFieldServerAddress.setDisable(true);
-            textFieldServerPort.setDisable(true);
-            buttonConnect.setDisable(true);
-            buttonDisconnect.setDisable(true);
-
+            netModel.setURI(getURIFromControls());
+            disableAllControls();
             netModel.connect();
         });
 
-        buttonDisconnect.setOnAction(event -> netModel.close());
-
-        updateOnClose();
-    }
-
-    public void setMapOfObserver011OnOpen__String(Map<Observer011OnOpen, String> mapOfObserver011OnOpen__String) {
-        this.mapOfObserver011OnOpen__String = mapOfObserver011OnOpen__String;
-    }
-
-    public void setMapOfObserver021OnLogin__String(Map<Observer021OnLogin, String> mapOfObserver021OnLogin__string) {
-        this.mapOfObserver021OnLogin__string = mapOfObserver021OnLogin__string;
+        buttonDisconnect.setOnAction(event -> {
+            disableAllControls();
+            netModel.close();
+        });
     }
 
     public URI getURIFromControls() {
@@ -89,18 +68,23 @@ public class Pane01ServerConnect extends HBox implements
         }
     }
 
+    private void disableAllControls() {
+        textFieldServerAddress.setDisable(true);
+        textFieldServerPort.setDisable(true);
+        buttonConnect.setDisable(true);
+        buttonDisconnect.setDisable(true);
+    }
+
     @Override
     public void updateOnClose() {
         textFieldServerAddress.setDisable(false);
         textFieldServerPort.setDisable(false);
         buttonConnect.setDisable(false);
         buttonDisconnect.setDisable(true);
-
-        netModel = null;
     }
 
     @Override
-    public void updateOnOpen(ServerHandshake handshakedata, MultiGameWebSocketClient multiGameWebSocketClient) {
+    public void updateOnOpen(ServerHandshake handshakedata) {
         textFieldServerAddress.setDisable(true);
         textFieldServerPort.setDisable(true);
         buttonConnect.setDisable(true);

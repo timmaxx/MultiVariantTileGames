@@ -10,15 +10,13 @@ import org.java_websocket.handshake.ServerHandshake;
 import timmax.tilegame.basemodel.credential.ResultOfCredential;
 import timmax.tilegame.websocket.client.*;
 
-// import java.util.Map;
-
 public class Pane02UserLogin extends HBox implements
         Observer010OnClose,
         Observer011OnOpen,
         Observer020OnLogout,
         Observer021OnLogin {
 
-    private MultiGameWebSocketClient netModel;
+    private final MultiGameWebSocketClientManyTimesUse netModel;
 
     private final Label labelUser;
     private final TextField textFieldUser;
@@ -26,72 +24,58 @@ public class Pane02UserLogin extends HBox implements
     private final PasswordField passwordField;
     private final Button buttonLogin;
     private final Button buttonLogout;
-    // private Map<Observer021OnLogin, String> mapOfObserver021OnLogin__String;
 
 
-    public Pane02UserLogin() {
+    public Pane02UserLogin(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
+        super();
+        this.netModel = multiGameWebSocketClientManyTimesUse;
+
         labelUser = new Label("User");
         textFieldUser = new TextField();
         labelPassword = new Label("Password");
         passwordField = new PasswordField();
         buttonLogin = new Button("Login");
         buttonLogout = new Button("Logout");
-        updateOnClose();
 
         {   // Инициализация для отладки. Потом убрать совсем, либо через конфигурационный файл, но только имя (не пароль)!
             textFieldUser.setText("u1");
             passwordField.setText("1");
         }
 
+        updateOnClose();
         getChildren().addAll(labelUser, textFieldUser, labelPassword, passwordField, buttonLogin, buttonLogout);
 
+        netModel.addViewOnClose(this);
+        netModel.addViewOnOpen(this);
+        netModel.addViewOnLogout(this);
+        netModel.addViewOnLogin(this);
+
         buttonLogin.setOnAction(event -> {
-            // System.out.println("buttonLogin.action. event = " + event);
-
-            textFieldUser.setDisable(true);
-            passwordField.setDisable(true);
-            buttonLogin.setDisable(true);
-            buttonLogout.setDisable(true);
-
-            // netModel.login("u1", "1");
-            netModel.login( textFieldUser.getText( ), passwordField.getText( ));
+            disableAllControls();
+            netModel.login(textFieldUser.getText(), passwordField.getText());
         });
 
-        buttonLogout.setOnAction(event ->{
-            // System.out.println("buttonLogout.action. event = " + event);
-
-            textFieldUser.setDisable(true);
-            passwordField.setDisable(true);
-            buttonLogin.setDisable(true);
-            buttonLogout.setDisable(true);
+        buttonLogout.setOnAction(event -> {
+            disableAllControls();
             netModel.logout();
         });
     }
 
-    @Override
-    public void updateOnClose() {
-        // System.out.println("Pane02ConnectNonIdent::updateOnClose");
-
+    private void disableAllControls() {
         textFieldUser.setDisable(true);
         passwordField.setDisable(true);
         buttonLogin.setDisable(true);
         buttonLogout.setDisable(true);
+    }
 
-        this.netModel = null;
+    @Override
+    public void updateOnClose() {
+        disableAllControls();
     }
 
     // Для этой группы контролов функционал установки доступности этих контролов при updateOnOpen и при updateOnLogout одинаков
     @Override
-    public void updateOnOpen(ServerHandshake handshakedata, MultiGameWebSocketClient multiGameWebSocketClient) {
-        // System.out.println("Pane02ConnectNonIdent::updateOnOpen");
-
-        this.netModel = multiGameWebSocketClient;
-        multiGameWebSocketClient.addViewOnClose(this);
-        // multiGameWebSocketClient.addViewOnOpen(this); // Не обязательно
-
-        multiGameWebSocketClient.addViewOnLogout(this);
-        multiGameWebSocketClient.addViewOnLogin(this);
-
+    public void updateOnOpen(ServerHandshake handshakedata) {
         textFieldUser.setDisable(false);
         passwordField.setDisable(false);
         buttonLogin.setDisable(false);
@@ -100,8 +84,6 @@ public class Pane02UserLogin extends HBox implements
 
     @Override
     public void updateOnLogout() {
-        // System.out.println("Pane02ConnectNonIdent::updateOnLogout");
-
         textFieldUser.setDisable(false);
         passwordField.setDisable(false);
         buttonLogin.setDisable(false);
@@ -109,9 +91,7 @@ public class Pane02UserLogin extends HBox implements
     }
 
     @Override
-    public void updateOnLogin(ResultOfCredential resultOfCredential, MultiGameWebSocketClient multiGameWebSocketClient) {
-        // System.out.println("Pane02ConnectNonIdent::updateOnLogin");
-
+    public void updateOnLogin(ResultOfCredential resultOfCredential) {
         boolean loginDisabled = resultOfCredential == ResultOfCredential.AUTHORISED;
         textFieldUser.setDisable(loginDisabled);
         passwordField.setDisable(loginDisabled);
