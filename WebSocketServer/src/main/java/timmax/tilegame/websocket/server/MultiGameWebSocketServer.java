@@ -75,22 +75,30 @@ public class MultiGameWebSocketServer extends WebSocketServer {
 
     @Override
     public void onOpen(WebSocket webSocket, ClientHandshake clientHandshake) {
-        System.out.println("Connect from '" + webSocket + "' are opened.");
+        System.out.println("onOpen");
+        // System.out.println("Connect from '" + webSocket + "' are opened.");
+        System.out.println(webSocket + ".");
+        // System.out.println(webSocket + ". Connect are opened.");
         // ToDo: Для каждого соединения можно создавать отдельный поток-нить.
         //       Соответственно, нужна карта, в которой будет храниться:
         //       webSocket, нить, модель игры.
         //       Но, вполне возможно, что это и так уже делается ядром WinSocket...
+        System.out.println("----------");
     }
 
     @Override
     public void onClose(WebSocket webSocket, int code, String reason, boolean remote) {
-        System.out.println("Connect from '" + webSocket + "' was closed.");
+        System.out.println("onClose");
+        System.out.println(webSocket + ".");
+        System.out.println("Connect was closed.");
         System.out.println("Code = " + code + ". Reason = " + reason + ". Remote = " + remote + ".");
+        System.out.println("----------");
     }
 
     @Override
     public void onMessage(WebSocket webSocket, String message) {
         // System.out.println("onMessage");
+        System.out.println(webSocket + ".");
         // System.out.println("message = " + message);
         try {
             TransportPackageOfClient transportPackageOfClient = mapper.readValue(message, TransportPackageOfClient.class);
@@ -132,8 +140,9 @@ public class MultiGameWebSocketServer extends WebSocketServer {
     }
 
     @Override
-    public void onError(WebSocket conn, Exception ex) {
+    public void onError(WebSocket webSocket, Exception ex) {
         System.err.println("onError");
+        System.out.println(webSocket + ".");
         ex.printStackTrace();
         System.err.println("----------");
     }
@@ -141,10 +150,11 @@ public class MultiGameWebSocketServer extends WebSocketServer {
     @Override
     public void onStart() {
         System.out.println("MultiGameWebSocketServer started on port: " + getPort() + ".");
+        System.err.println("----------");
     }
 
     protected void onLogin(WebSocket webSocket, TransportPackageOfClient transportPackageOfClient) {
-        System.out.println("Клиент хочет пройти идентификацию, аутентификацию, авторизацию.");
+        System.out.println("onLogin");
         Map<String, Object> mapOfParamName_Value = transportPackageOfClient.getMapOfParamName_Value();
         String userName = ((String) mapOfParamName_Value.get("userName"));
         String password = ((String) mapOfParamName_Value.get("password"));
@@ -161,14 +171,13 @@ public class MultiGameWebSocketServer extends WebSocketServer {
         } else if (resultOfCredential == ResultOfCredential.AUTHORISED) {
             System.out.println("Успешная идентификация, аутентификация и авторизация.");
         }
-        System.out.println("Сообщим клиенту об этом.");
         String finalUserName = userName;
 
         TransportPackageOfServer transportPackageOfServer = null;
         try {
             transportPackageOfServer = new TransportPackageOfServer(
                     LOGIN,
-                    Map.of( "resultOfCredential", resultOfCredential,
+                    Map.of("resultOfCredential", resultOfCredential,
                             "userName", finalUserName
                     )
             );
@@ -182,7 +191,7 @@ public class MultiGameWebSocketServer extends WebSocketServer {
     }
 
     protected void onLogout(WebSocket webSocket) {
-        System.out.println("Клиент хочет стать анонимным.");
+        System.out.println("onLogout");
 
         TransportPackageOfServer transportPackageOfServer = null;
         try {
@@ -196,18 +205,17 @@ public class MultiGameWebSocketServer extends WebSocketServer {
     }
 
     protected void onGetGameTypeSet(WebSocket webSocket) {
-        System.out.println("Клиент просит дать ему перечень вариантов типов игр.");
+        System.out.println("onGetGameTypeSet");
 
         TransportPackageOfServer transportPackageOfServer = null;
         try {
             transportPackageOfServer = new TransportPackageOfServer(
                     GET_GAME_TYPE_SET,
-                    Map.of( "gameTypeSet",
+                    Map.of("gameTypeSet",
                             Stream.of(
                                     MinesweeperModel.class,
-                                    SokobanModel.class)
-                            .collect(toList()
-                            )
+                                    SokobanModel.class
+                            ).collect(toList())
                     )
             );
         } catch (RuntimeException rte) {

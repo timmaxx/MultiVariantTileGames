@@ -45,20 +45,16 @@ public abstract class TransportPackage {
 
         StringBuilder stringBuilder = new StringBuilder();
         if (mapOfParamName_Class.size() != mapOfParamName_Value.size()) {
-            System.out.println("TransportPackage(..., ...). 3 1");
             stringBuilder.append(String.format(ERROR_MESSAGE_COUNT_OF_PARAMETERS_IN_SPECIFICATION_IS_NOT_EQUAL_COUNT_OF_PARAMETERS_IN_THIS_PACKAGE,
                     typeOfTransportPackage.getClass(), typeOfTransportPackage, mapOfParamName_Class.size(), mapOfParamName_Value.size()));
         } else {
-            System.out.println("TransportPackage(..., ...). 3 2");
             for (Map.Entry<String, Class<?>> nameParam : mapOfParamName_Class.entrySet()) {
                 String paramName = nameParam.getKey();
                 Class<?> clazz = nameParam.getValue();
                 Object value = mapOfParamName_Value.get(paramName);
 
                 if ((value.getClass() != String.class || !clazz.isEnum())
-                        // && (value.getClass() != clazz)
-                        && (!Classes.isInstanceOf(value, clazz))
-                ) {
+                        && (!Classes.isInstanceOf(value, clazz))) {
                     stringBuilder.append(String.format(ERROR_MESSAGE_TYPE_OF_PARAMETER_IN_SPECIFICATION_IS_NOT_EQUAL_TYPE_OF_PARAMETERS_IN_THIS_PACKAGE,
                             typeOfTransportPackage.getClass(), typeOfTransportPackage, paramName, clazz, value, value.getClass()));
                 }

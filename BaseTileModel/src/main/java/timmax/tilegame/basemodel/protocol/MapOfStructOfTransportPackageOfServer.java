@@ -1,25 +1,23 @@
 package timmax.tilegame.basemodel.protocol;
 
-//import java.util.*;
-
-import timmax.tilegame.basemodel.credential.ResultOfCredential;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
+
+import timmax.tilegame.basemodel.credential.ResultOfCredential;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
 public class MapOfStructOfTransportPackageOfServer extends MapOfStructOfTransportPackage {
     public MapOfStructOfTransportPackageOfServer() {
-        super( Map.of(
-            LOGIN, Map.of(
-                    "resultOfCredential", ResultOfCredential.class,
-                    "userName", String.class
+        super(Map.of(
+                LOGIN, Map.of(
+                        "resultOfCredential", ResultOfCredential.class,
+                        "userName", String.class
                 ),
-            LOGOUT, Collections.emptyMap(),
-            GET_GAME_TYPE_SET, Map.of(
-                    "gameTypeSet", ArrayList.class
+                LOGOUT, Collections.emptyMap(),
+                GET_GAME_TYPE_SET, Map.of(
+                        "gameTypeSet", ArrayList.class
                 )
         ));
 
