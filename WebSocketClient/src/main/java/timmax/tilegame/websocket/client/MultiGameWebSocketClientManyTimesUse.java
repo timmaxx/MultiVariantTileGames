@@ -1,10 +1,11 @@
 package timmax.tilegame.websocket.client;
 
-import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
-
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
+
+import timmax.tilegame.basemodel.ServerBaseModel;
+import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 
 public class MultiGameWebSocketClientManyTimesUse {
     private MultiGameWebSocketClient multiGameWebSocketClient;
@@ -14,10 +15,9 @@ public class MultiGameWebSocketClientManyTimesUse {
     private final Map<Observer011OnOpen, String> mapOfObserver_String__OnOpen = new HashMap<>();
     private final Map<Observer020OnLogout, String> mapOfObserver_String__OnLogout = new HashMap<>();
     private final Map<Observer021OnLogin, String> mapOfObserver_String__OnLogin = new HashMap<>();
-    private final Map<Observer032OnGetGameTypeSet, String> mapOfObserver_String__OnGetGameTypeSet = new HashMap< >( );
-    /*
-        private final Map< MultiGameWebSocketClientObserverOnSelectGameType, String> mapOfMultiGameWebSocketClientObserver_String__OnSelectGameType = new HashMap< >( );
-    */
+    private final Map<Observer032OnGetGameTypeSet, String> mapOfObserver_String__OnGetGameTypeSet = new HashMap<>();
+    private final Map<Observer033OnSelectGameType, String> mapOfObserver_String__OnSelectGameType = new HashMap<>();
+
 
     public MultiGameWebSocketClientManyTimesUse() {
         System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
@@ -67,7 +67,7 @@ public class MultiGameWebSocketClientManyTimesUse {
         if (multiGameWebSocketClient == null) {
             return;
         }
-        for (Observer020OnLogout observer020OnLogout: mapOfObserver_String__OnLogout.keySet()) {
+        for (Observer020OnLogout observer020OnLogout : mapOfObserver_String__OnLogout.keySet()) {
             multiGameWebSocketClient.addViewOnLogout(observer020OnLogout);
         }
     }
@@ -100,6 +100,20 @@ public class MultiGameWebSocketClientManyTimesUse {
         }
     }
 
+    public void addViewOnSelectGameType(Observer033OnSelectGameType observer033OnSelectGameType) {
+        mapOfObserver_String__OnSelectGameType.put(observer033OnSelectGameType, "");
+        updateListOfViewOfSelectGameTypeForWebSocketClient();
+    }
+
+    private void updateListOfViewOfSelectGameTypeForWebSocketClient() {
+        if (multiGameWebSocketClient == null) {
+            return;
+        }
+        for (Observer033OnSelectGameType observer033OnSelectGameType : mapOfObserver_String__OnSelectGameType.keySet()) {
+            multiGameWebSocketClient.addViewOnSelectGameType(observer033OnSelectGameType);
+        }
+    }
+
     public void setURI(URI uri) {
         this.uri = uri;
         if (multiGameWebSocketClient == null) {
@@ -124,6 +138,7 @@ public class MultiGameWebSocketClientManyTimesUse {
         updateListOfViewOfLogoutForWebSocketClient();
         updateListOfViewOfLoginForWebSocketClient();
         updateListOfViewOfGetGameTypeSetForWebSocketClient();
+        updateListOfViewOfSelectGameTypeForWebSocketClient();
 
         multiGameWebSocketClient.connect();
     }
@@ -133,10 +148,14 @@ public class MultiGameWebSocketClientManyTimesUse {
     }
 
     public void login(String userName, String password) {
-        multiGameWebSocketClient.login( userName, password);
+        multiGameWebSocketClient.login(userName, password);
     }
 
     public void getGameTypeSet() {
         multiGameWebSocketClient.getGameTypeSet();
+    }
+
+    public void gameTypeSelect(Class<? extends ServerBaseModel> serverBaseModelClass) {
+        multiGameWebSocketClient.gameTypeSelect(serverBaseModelClass);
     }
 }

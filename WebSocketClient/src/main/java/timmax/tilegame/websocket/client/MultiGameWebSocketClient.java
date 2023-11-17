@@ -27,12 +27,11 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     private final Map<Observer020OnLogout, String> mapOfObserver_String__OnLogout = new HashMap<>();
     private final Map<Observer021OnLogin, String> mapOfObserver_String__OnLogin = new HashMap<>();
     private final Map<Observer032OnGetGameTypeSet, String> mapOfObserver_String__OnGetGameTypeSet = new HashMap<>();
-/*
-    private final Map< MultiGameWebSocketClientObserverOnSelectGameType, String> mapOfMultiGameWebSocketClientObserver_String__OnSelectGameType = new HashMap< >( );
-*/
+    private final Map<Observer033OnSelectGameType, String> mapOfObserver_String__OnSelectGameType = new HashMap<>();
 
     private String userName = "";
     private ArrayList<Class<? extends ServerBaseModel>> arrayListOfServerBaseModelClass = new ArrayList<>();
+    private Class<? extends ServerBaseModel> serverBaseModelClass = null;
 
 
     public MainGameClientStatus getMainGameClientStatus() {
@@ -44,6 +43,9 @@ public class MultiGameWebSocketClient extends WebSocketClient {
                 return MainGameClientStatus.CONNECT_NON_IDENT;
             } else {
                 if (arrayListOfServerBaseModelClass.size() > 0) {
+                    if (serverBaseModelClass != null) {
+                        return MainGameClientStatus.GAME_TYPE_SELECT;
+                    }
                     return MainGameClientStatus.GET_GAME_TYPE_SET;
                 }
                 return MainGameClientStatus.CONNECT_AUTHORIZED;
@@ -72,11 +74,9 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         mapOfObserver_String__OnGetGameTypeSet.put(ObserverOnGetGameTypeSet, "");
     }
 
-/*
-    public void addViewOnSelectGameType( MultiGameWebSocketClientObserverOnSelectGameType multiGameWebSocketClientObserverOnSelectGameType) {
-        mapOfMultiGameWebSocketClientObserver_String__OnSelectGameType.put( multiGameWebSocketClientObserverOnSelectGameType, "");
+    public void addViewOnSelectGameType(Observer033OnSelectGameType observer033OnSelectGameType) {
+        mapOfObserver_String__OnSelectGameType.put(observer033OnSelectGameType, "");
     }
-*/
 
     public MultiGameWebSocketClient(URI serverUri) {
         super(serverUri);
@@ -85,9 +85,10 @@ public class MultiGameWebSocketClient extends WebSocketClient {
 
     // 2
     public void login(String userName, String password) {
-        Map<String, Object> mapOfParamName_Value = new HashMap<>();
-        mapOfParamName_Value.put("userName", userName);
-        mapOfParamName_Value.put("password", password);
+        Map<String, Object> mapOfParamName_Value = Map.of(
+                "userName", userName,
+                "password", password
+        );
 
         // Здесь и в других методах "оборачиваем" 'new TransportPackageOfClient()' try-ем, т.к. если исключения будут
         // возникать в глубине вызовов, но учитывая, что работа метода идёт не в основном потоке, а в дочернем,
@@ -121,13 +122,15 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         }
     }
 
-/*
-    public void selectGameType( Class serverBaseModelClass) {
-        Map< String, Object> mapOfParamName_Value = new HashMap<>();
-        mapOfParamName_Value.put( "gameType", serverBaseModelClass);
-        sendRequest( new TransportPackageOfClient( SELECT_GAME_TYPE, mapOfParamName_Value));
+    public void gameTypeSelect(Class<? extends ServerBaseModel> serverBaseModelClass) {
+        Map<String, Object> mapOfParamName_Value = Map.of("gameType", serverBaseModelClass.getName());
+        try {
+            sendRequest(new TransportPackageOfClient(SELECT_GAME_TYPE, mapOfParamName_Value));
+        } catch (RuntimeException rte) {
+            rte.printStackTrace();
+            System.exit(1);
+        }
     }
-*/
 
 /*
 // 4
@@ -177,9 +180,10 @@ public class MultiGameWebSocketClient extends WebSocketClient {
             StringWriter writer = new StringWriter();
             mapper.writeValue(writer, transportPackageOfClient);
 /*
-        System.out.println("writer. Begin");
-        System.out.println(message);
-        System.out.println("writer. End");
+            System.out.println("sendRequest");
+            System.out.println("--- begin of message ---");
+            System.out.println(writer);
+            System.out.println("--- end of message ---");
 */
             send(writer.toString());
         } catch (IOException e) {
@@ -205,9 +209,9 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         System.out.println("onMessage");
         // System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
 /*
-        System.out.println("writer. Begin");
-        System.out.println(message);
-        System.out.println("writer. End");
+            System.out.println("--- begin of message ---");
+            System.out.println(message);
+            System.out.println("--- end of message ---");
 */
         try {
             TransportPackageOfServer transportPackageOfServer = mapper.readValue(message, TransportPackageOfServer.class);
@@ -218,12 +222,9 @@ public class MultiGameWebSocketClient extends WebSocketClient {
                 onLogout(transportPackageOfServer);
             } else if (typeOfTransportPackageOfServer == GET_GAME_TYPE_SET) {
                 onGetGameTypeSet(transportPackageOfServer);
-            }/* else if ( typeOfTransportPackageOfServer == INFO_SELECT_GAME_TYPE) {
-                System.out.println( "Сервер рассмотрел желание клиента о выборе типа игры и сообщает ему о выбранном варианте.");
-                Map< String, Object> mapOfParamName_Value = transportPackageOfServer.getMapOfParamName_Value( );
-                ServerBaseModel serverBaseModel = ( ( ServerBaseModel)mapOfParamName_Value.get( "gameType"));
-                System.out.println( serverBaseModel);
-            }*/
+            } else if (typeOfTransportPackageOfServer == SELECT_GAME_TYPE) {
+                onSelectGameType(transportPackageOfServer);
+            }
         } catch (JsonProcessingException jpe) {
             // От сервера поступило что-то, что не понятно клиенту.
             // Можно:
@@ -311,6 +312,21 @@ public class MultiGameWebSocketClient extends WebSocketClient {
 
         for (Observer032OnGetGameTypeSet observer032OnGetGameTypeSet : mapOfObserver_String__OnGetGameTypeSet.keySet()) {
             observer032OnGetGameTypeSet.updateOnGetGameTypeSet(arrayListOfServerBaseModelClass);
+        }
+    }
+
+    protected void onSelectGameType(TransportPackageOfServer transportPackageOfServer) {
+        System.out.println("onSelectGameType");
+        Map<String, Object> mapOfParamName_Value = transportPackageOfServer.getMapOfParamName_Value();
+        String serverBaseModelString = (String) (mapOfParamName_Value.get("gameType"));
+        try {
+            serverBaseModelClass = (Class<? extends ServerBaseModel>) Class.forName(serverBaseModelString);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        for (Observer033OnSelectGameType observer033OnSelectGameType : mapOfObserver_String__OnSelectGameType.keySet()) {
+            observer033OnSelectGameType.updateOnSelectGameType(serverBaseModelClass);
         }
     }
 }

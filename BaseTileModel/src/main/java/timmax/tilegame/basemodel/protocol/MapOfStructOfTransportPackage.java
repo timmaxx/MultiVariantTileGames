@@ -18,9 +18,4 @@ public abstract class MapOfStructOfTransportPackage {
 
         return mapOfUniversalType.get(typeOfTransportPackage);
     }
-/*
-    public Class<?> getClassByReqTypeAndParamName( TypeOfTransportPackage typeOfTransportPackage, String paramName) {
-        return mapOfUniversalType.get( typeOfTransportPackage).get( paramName);
-    }
-*/
 }

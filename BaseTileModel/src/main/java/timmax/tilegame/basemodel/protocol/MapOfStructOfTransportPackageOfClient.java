@@ -13,13 +13,10 @@ public class MapOfStructOfTransportPackageOfClient extends MapOfStructOfTranspor
                         "password", String.class
                 ),
                 LOGOUT, Collections.emptyMap(),
-                GET_GAME_TYPE_SET, Collections.emptyMap()
+                GET_GAME_TYPE_SET, Collections.emptyMap(),
+                SELECT_GAME_TYPE, Map.of(
+                        "gameType", String.class
+                )
         ));
-
-/*
-        Map<String, Class<?>> mapOfParamName_Class__SelectGameType = new HashMap<>();
-        mapOfParamName_Class__SelectGameType.put("gameType", ServerBaseModel.class);
-        mapOfUniversalType.put(SELECT_GAME_TYPE, mapOfParamName_Class__SelectGameType);
-*/
     }
 }

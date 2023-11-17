@@ -42,17 +42,33 @@ public abstract class TransportPackage {
         mapOfStructOfTransportPackage = initMapOfStructOfTransportPackage();
 
         Map<String, Class<?>> mapOfParamName_Class = mapOfStructOfTransportPackage.getMapParamName_ClassByTypeOfTransportPackage(typeOfTransportPackage);
-
         StringBuilder stringBuilder = new StringBuilder();
+
         if (mapOfParamName_Class.size() != mapOfParamName_Value.size()) {
             stringBuilder.append(String.format(ERROR_MESSAGE_COUNT_OF_PARAMETERS_IN_SPECIFICATION_IS_NOT_EQUAL_COUNT_OF_PARAMETERS_IN_THIS_PACKAGE,
                     typeOfTransportPackage.getClass(), typeOfTransportPackage, mapOfParamName_Class.size(), mapOfParamName_Value.size()));
         } else {
+/*
+            System.out.println("mapOfParamName_Class = " + mapOfParamName_Class);
+            System.out.println("mapOfParamName_Value = " + mapOfParamName_Value);
+*/
             for (Map.Entry<String, Class<?>> nameParam : mapOfParamName_Class.entrySet()) {
                 String paramName = nameParam.getKey();
                 Class<?> clazz = nameParam.getValue();
-                Object value = mapOfParamName_Value.get(paramName);
+//              System.out.println("paramName = " + paramName);
 
+                if (!mapOfParamName_Value.containsKey(paramName)) {
+                    stringBuilder.append("\nmapOfParamName_Value does not contains key = '" + paramName + "'");
+                    stringBuilder.append("\nmapOfParamName_Value = " + mapOfParamName_Value);
+                    stringBuilder.append("\nmapOfParamName_Class = " + mapOfParamName_Class);
+                    break;
+                }
+
+                Object value = mapOfParamName_Value.get(paramName);
+/*
+                System.out.println("value = " + value);
+                System.out.println("value.getClass() = " + value.getClass());
+*/
                 if ((value.getClass() != String.class || !clazz.isEnum())
                         && (!Classes.isInstanceOf(value, clazz))) {
                     stringBuilder.append(String.format(ERROR_MESSAGE_TYPE_OF_PARAMETER_IN_SPECIFICATION_IS_NOT_EQUAL_TYPE_OF_PARAMETERS_IN_THIS_PACKAGE,
