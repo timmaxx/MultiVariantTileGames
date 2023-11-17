@@ -13,6 +13,7 @@ import org.java_websocket.handshake.ServerHandshake;
 import timmax.tilegame.basemodel.ServerBaseModel;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.credential.ResultOfCredential;
+import timmax.tilegame.basemodel.protocol.ClientState;
 import timmax.tilegame.basemodel.protocol.TransportPackageOfClient;
 import timmax.tilegame.basemodel.protocol.TransportPackageOfServer;
 import timmax.tilegame.basemodel.protocol.TypeOfTransportPackage;
@@ -30,28 +31,15 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     private final Map<Observer030OnForgetGameTypeSet, String> mapOfObserver_String__OnForgetGameTypeSet = new HashMap<>();
     private final Map<Observer031OnGetGameTypeSet, String> mapOfObserver_String__OnGetGameTypeSet = new HashMap<>();
     private final Map<Observer041OnSelectGameType, String> mapOfObserver_String__OnSelectGameType = new HashMap<>();
-
-    private String userName = "";
-    private ArrayList<Class<? extends ServerBaseModel>> arrayListOfServerBaseModelClass = new ArrayList<>();
-    private Class<? extends ServerBaseModel> serverBaseModelClass = null;
+    private final ClientState clientState = new ClientState();
 
 
     public MainGameClientStatus getMainGameClientStatus() {
-        if (!this.isOpen() || this.isClosed()) {
+        if (!isOpen() || isClosed()) {
             return MainGameClientStatus.NO_CONNECT;
         }
-        if (this.isOpen()) {
-            if (userName.equals("")) {
-                return MainGameClientStatus.CONNECT_NON_IDENT;
-            } else {
-                if (arrayListOfServerBaseModelClass.size() > 0) {
-                    if (serverBaseModelClass != null) {
-                        return MainGameClientStatus.GAME_TYPE_SELECT;
-                    }
-                    return MainGameClientStatus.GET_GAME_TYPE_SET;
-                }
-                return MainGameClientStatus.CONNECT_AUTHORIZED;
-            }
+        if (isOpen()) {
+            return clientState.getMainGameClientStatus();
         }
         throw new RuntimeException("Unknown state.");
     }
@@ -178,10 +166,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     public void onClose(int code, String reason, boolean remote) {
         System.out.println("onClose");
 
-        {   // ToDo: Все данные состояния, которые после этого состояния, д.б. стёрты.
-            arrayListOfServerBaseModelClass = new ArrayList<>();
-            userName = "";
-        }
+        clientState.setUserName("");
         for (Observer010OnClose observer010OnClose : mapOfObserver_String__OnClose.keySet()) {
             observer010OnClose.updateOnClose();
         }
@@ -193,11 +178,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     public void onOpen(ServerHandshake handshakedata) {
         System.out.println("onOpen");
 
-        {   // ToDo: Все данные состояния, которые после этого состояния, д.б. стёрты.
-            serverBaseModelClass = null;
-            arrayListOfServerBaseModelClass = new ArrayList<>();
-            userName = "";
-        }
+        clientState.setUserName("");
         System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
         for (Observer011OnOpen observer011OnOpen : mapOfObserver_String__OnOpen.keySet()) {
             observer011OnOpen.updateOnOpen();
@@ -262,11 +243,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     protected void onLogout(TransportPackageOfServer transportPackageOfServer) {
         System.out.println("onLogout");
 
-        {   // ToDo: Все данные состояния, которые после этого состояния, д.б. стёрты.
-            serverBaseModelClass = null;
-            arrayListOfServerBaseModelClass = new ArrayList<>();
-            userName = "";
-        }
+        clientState.setUserName("");
         for (Observer020OnLogout observer021OnLogout : mapOfObserver_String__OnLogout.keySet()) {
             observer021OnLogout.updateOnLogout();
         }
@@ -278,18 +255,10 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         ResultOfCredential resultOfCredential = ResultOfCredential.valueOf((String) (transportPackageOfServer.get("resultOfCredential")));
         if (resultOfCredential == ResultOfCredential.NOT_AUTHORISED) {
             System.out.println("Сервер сообщил о не успешных идентификации и/или аутентификации и/или авторизации.");
-            {   // ToDo: Все данные состояния, которые после этого состояния, д.б. стёрты.
-                serverBaseModelClass = null;
-                arrayListOfServerBaseModelClass = new ArrayList<>();
-                userName = "";
-            }
+            clientState.setUserName("");
         } else if (resultOfCredential == ResultOfCredential.AUTHORISED) {
             System.out.println("Сервер сообщил об успешных идентификации, аутентификации и авторизации.");
-            {   // ToDo: Все данные состояния, которые после этого состояния, д.б. стёрты.
-                serverBaseModelClass = null;
-                arrayListOfServerBaseModelClass = new ArrayList<>();
-            }
-            userName = (String) transportPackageOfServer.get("userName");
+            clientState.setUserName((String) transportPackageOfServer.get("userName"));
         }
 
         for (Observer021OnLogin observer021OnLogin : mapOfObserver_String__OnLogin.keySet()) {
@@ -300,10 +269,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     protected void onForgetGameTypeSet(TransportPackageOfServer transportPackageOfServer) {
         System.out.println("onForgetGameTypeSet");
 
-        {   // ToDo: Все данные состояния, которые после этого состояния, д.б. стёрты.
-            serverBaseModelClass = null;
-            arrayListOfServerBaseModelClass = new ArrayList<>();
-        }
+        clientState.setArrayListOfServerBaseModelClass(new ArrayList<>());
         for (Observer030OnForgetGameTypeSet observer030OnForgetGameTypeSet : mapOfObserver_String__OnForgetGameTypeSet.keySet()) {
             observer030OnForgetGameTypeSet.updateOnForgetGameTypeSet();
         }
@@ -312,23 +278,20 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     protected void onGetGameTypeSet(TransportPackageOfServer transportPackageOfServer) {
         System.out.println("onGetGameTypeSet");
 
-        {   // ToDo: Все данные состояния, которые после этого состояния, д.б. стёрты.
-            serverBaseModelClass = null;
-            arrayListOfServerBaseModelClass = new ArrayList<>();
-        }
+        clientState.setArrayListOfServerBaseModelClass(new ArrayList<>());
         ArrayList<String> arrayList = (ArrayList<String>) transportPackageOfServer.get("gameTypeSet");
         for (String serverBaseModelClass : arrayList) {
             Class<? extends ServerBaseModel> clazz;
             try {
                 clazz = (Class<? extends ServerBaseModel>) Class.forName(serverBaseModelClass);
-                arrayListOfServerBaseModelClass.add(clazz);
+                clientState.addServerBaseModelClass(clazz);
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
         }
 
         for (Observer031OnGetGameTypeSet observer031OnGetGameTypeSet : mapOfObserver_String__OnGetGameTypeSet.keySet()) {
-            observer031OnGetGameTypeSet.updateOnGetGameTypeSet(arrayListOfServerBaseModelClass);
+            observer031OnGetGameTypeSet.updateOnGetGameTypeSet(clientState.getArrayListOfServerBaseModelClass());
         }
     }
 
@@ -337,13 +300,13 @@ public class MultiGameWebSocketClient extends WebSocketClient {
 
         String serverBaseModelString = (String) (transportPackageOfServer.get("gameType"));
         try {
-            serverBaseModelClass = (Class<? extends ServerBaseModel>) Class.forName(serverBaseModelString);
+            clientState.setServerBaseModelClass((Class<? extends ServerBaseModel>) Class.forName(serverBaseModelString));
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
 
         for (Observer041OnSelectGameType observer041OnSelectGameType : mapOfObserver_String__OnSelectGameType.keySet()) {
-            observer041OnSelectGameType.updateOnSelectGameType(serverBaseModelClass);
+            observer041OnSelectGameType.updateOnSelectGameType(clientState.getServerBaseModelClass());
         }
     }
 }
