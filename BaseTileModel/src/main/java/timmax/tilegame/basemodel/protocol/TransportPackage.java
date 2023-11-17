@@ -98,8 +98,16 @@ public abstract class TransportPackage {
         return typeOfTransportPackage;
     }
 
+    // На неиспользование этого метода указывает компилятор.
+    // И явно этот метод не нужно использовать, т.к. всё равно потом будет вызван get (для чистоты кода).
+    // Но если удалить его, то не будет работать JSON десериализация:
+    //   Caused by: java.lang.NullPointerException: Cannot invoke "java.util.Map.size()" because "mapOfParamName_Value" is null
     public Map<String, Object> getMapOfParamName_Value() {
         return mapOfParamName_Value;
+    }
+
+    public Object get(String paramName) {
+        return mapOfParamName_Value.get(paramName);
     }
 
     abstract MapOfStructOfTransportPackage initMapOfStructOfTransportPackage();

@@ -22,10 +22,12 @@ import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 public class MultiGameWebSocketClient extends WebSocketClient {
     private final ObjectMapper mapper = new ObjectMapper();
 
+    // ToDo: Переделать Map на Set.
     private final Map<Observer010OnClose, String> mapOfObserver_String__OnClose = new HashMap<>();
     private final Map<Observer011OnOpen, String> mapOfObserver_String__OnOpen = new HashMap<>();
     private final Map<Observer020OnLogout, String> mapOfObserver_String__OnLogout = new HashMap<>();
     private final Map<Observer021OnLogin, String> mapOfObserver_String__OnLogin = new HashMap<>();
+    private final Map<Observer030OnForgetGameTypeSet, String> mapOfObserver_String__OnForgetGameTypeSet = new HashMap<>();
     private final Map<Observer031OnGetGameTypeSet, String> mapOfObserver_String__OnGetGameTypeSet = new HashMap<>();
     private final Map<Observer041OnSelectGameType, String> mapOfObserver_String__OnSelectGameType = new HashMap<>();
 
@@ -70,6 +72,10 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         mapOfObserver_String__OnLogin.put(observer021OnLogin, "");
     }
 
+    public void addViewOnForgetGameTypeSet(Observer030OnForgetGameTypeSet observer030OnForgetGameTypeSet) {
+        mapOfObserver_String__OnForgetGameTypeSet.put(observer030OnForgetGameTypeSet, "");
+    }
+
     public void addViewOnGetGameTypeSet(Observer031OnGetGameTypeSet ObserverOnGetGameTypeSet) {
         mapOfObserver_String__OnGetGameTypeSet.put(ObserverOnGetGameTypeSet, "");
     }
@@ -84,25 +90,6 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     }
 
     // 2
-    public void login(String userName, String password) {
-        Map<String, Object> mapOfParamName_Value = Map.of(
-                "userName", userName,
-                "password", password
-        );
-
-        // Здесь и в других методах "оборачиваем" 'new TransportPackageOfClient()' try-ем, т.к. если исключения будут
-        // возникать в глубине вызовов, но учитывая, что работа метода идёт не в основном потоке, а в дочернем,
-        // JVM просто ничего не сделает с исключениями.
-        // Ещё можно было-бы попробовать поработать с setUncaughtExceptionHandler(), если-бы WebSocketClient
-        // (да и WebSocketServer) били-бы наследниками Thread. Но это не так.
-        try {
-            sendRequest(new TransportPackageOfClient(LOGIN, mapOfParamName_Value));
-        } catch (RuntimeException rte) {
-            rte.printStackTrace();
-            System.exit(1);
-        }
-    }
-
     public void logout() {
         try {
             sendRequest(new TransportPackageOfClient(LOGOUT));
@@ -112,7 +99,37 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         }
     }
 
+    public void login(String userName, String password) {
+        // Здесь и в других методах "оборачиваем" 'new TransportPackageOfClient()' try-ем, т.к. если исключения будут
+        // возникать в глубине вызовов, но учитывая, что работа метода идёт не в основном потоке, а в дочернем,
+        // JVM просто ничего не сделает с исключениями.
+        // Ещё можно было-бы попробовать поработать с setUncaughtExceptionHandler(), если-бы WebSocketClient
+        // (да и WebSocketServer) били-бы наследниками Thread. Но это не так.
+        try {
+            sendRequest(new TransportPackageOfClient(
+                    LOGIN,
+                    Map.of(
+                            "userName", userName,
+                            "password", password
+                    ))
+            );
+        } catch (RuntimeException rte) {
+            rte.printStackTrace();
+            System.exit(1);
+        }
+    }
+
     // 3
+    public void forgetGameTypeSet() {
+        // ToDo: forgetSelectGameType()
+        try {
+            sendRequest(new TransportPackageOfClient(FORGET_GAME_TYPE_SET));
+        } catch (RuntimeException rte) {
+            rte.printStackTrace();
+            System.exit(1);
+        }
+    }
+
     public void getGameTypeSet() {
         try {
             sendRequest(new TransportPackageOfClient(GET_GAME_TYPE_SET));
@@ -123,56 +140,19 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     }
 
     public void gameTypeSelect(Class<? extends ServerBaseModel> serverBaseModelClass) {
-        Map<String, Object> mapOfParamName_Value = Map.of("gameType", serverBaseModelClass.getName());
         try {
-            sendRequest(new TransportPackageOfClient(SELECT_GAME_TYPE, mapOfParamName_Value));
+            sendRequest(new TransportPackageOfClient(
+                    SELECT_GAME_TYPE,
+                    Map.of(
+                            "gameType",
+                            serverBaseModelClass.getName()
+                    ))
+            );
         } catch (RuntimeException rte) {
             rte.printStackTrace();
             System.exit(1);
         }
     }
-
-/*
-// 4
-    public void createGameSeries( ) {
-        sendRequest( new TransportPackageOfClient( TypeOfClientTransportPackage.REQ_CREATE_GAME_SERIES));
-    }
-
-    public void getGameSeriesMap( ) {
-        sendRequest( new TransportPackageOfClient( TypeOfClientTransportPackage.REQ_GAME_SERIES_MAP));
-    }
-
-    public void selectGameSeries() {
-        sendRequest( new TransportPackageOfClient( TypeOfClientTransportPackage.REQ_SELECT_GAME_SERIES));
-    }
-
-// 5
-    public void getGameMatchMap() {
-        sendRequest( new TransportPackageOfClient( TypeOfClientTransportPackage.REQ_GAME_MATCH_MAP));
-    }
-
-    public void selectSelectGameMatch() {
-        sendRequest( new TransportPackageOfClient( TypeOfClientTransportPackage.REQ_SELECT_GAME_MATCH));
-    }
-
-// 6
-    public void getPlayerSideMap() {
-        sendRequest( new TransportPackageOfClient( TypeOfClientTransportPackage.REQ_PLAYER_SIDE_MAP));
-    }
-
-    public void selectPlayerSide() {
-        sendRequest( new TransportPackageOfClient( TypeOfClientTransportPackage.REQ_SELECT_PLAYER_SIDE));
-    }
-
-// 7
-    public void declareReadiness() {
-        sendRequest( new TransportPackageOfClient( TypeOfClientTransportPackage.REQ_DECLARE_READINESS));
-    }
-
-    public void getReadinessMap() {
-        sendRequest( new TransportPackageOfClient( TypeOfClientTransportPackage.REQ_READINESS_MAP));
-    }
-*/
 
     private void sendRequest(TransportPackageOfClient transportPackageOfClient) {
         // System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
@@ -195,8 +175,29 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     }
 
     @Override
+    public void onClose(int code, String reason, boolean remote) {
+        System.out.println("onClose");
+
+        {   // ToDo: Все данные состояния, которые после этого состояния, д.б. стёрты.
+            arrayListOfServerBaseModelClass = new ArrayList<>();
+            userName = "";
+        }
+        for (Observer010OnClose observer010OnClose : mapOfObserver_String__OnClose.keySet()) {
+            observer010OnClose.updateOnClose();
+        }
+        System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
+        System.out.println("----------");
+    }
+
+    @Override
     public void onOpen(ServerHandshake handshakedata) {
         System.out.println("onOpen");
+
+        {   // ToDo: Все данные состояния, которые после этого состояния, д.б. стёрты.
+            serverBaseModelClass = null;
+            arrayListOfServerBaseModelClass = new ArrayList<>();
+            userName = "";
+        }
         System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
         for (Observer011OnOpen observer011OnOpen : mapOfObserver_String__OnOpen.keySet()) {
             observer011OnOpen.updateOnOpen(handshakedata);
@@ -205,8 +206,17 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     }
 
     @Override
+    public void onError(Exception ex) {
+        System.err.println("onError");
+
+        ex.printStackTrace();
+        System.err.println("----------");
+    }
+
+    @Override
     public void onMessage(String message) {
         System.out.println("onMessage");
+
         // System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
 /*
             System.out.println("--- begin of message ---");
@@ -216,10 +226,12 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         try {
             TransportPackageOfServer transportPackageOfServer = mapper.readValue(message, TransportPackageOfServer.class);
             TypeOfTransportPackage typeOfTransportPackageOfServer = transportPackageOfServer.getTypeOfTransportPackage();
-            if (typeOfTransportPackageOfServer == LOGIN) {
-                onLogin(transportPackageOfServer);
-            } else if (typeOfTransportPackageOfServer == LOGOUT) {
+            if (typeOfTransportPackageOfServer == LOGOUT) {
                 onLogout(transportPackageOfServer);
+            } else if (typeOfTransportPackageOfServer == LOGIN) {
+                onLogin(transportPackageOfServer);
+            } else if (typeOfTransportPackageOfServer == FORGET_GAME_TYPE_SET) {
+                onForgetGameTypeSet(transportPackageOfServer);
             } else if (typeOfTransportPackageOfServer == GET_GAME_TYPE_SET) {
                 onGetGameTypeSet(transportPackageOfServer);
             } else if (typeOfTransportPackageOfServer == SELECT_GAME_TYPE) {
@@ -247,38 +259,37 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         System.out.println("----------");
     }
 
-    @Override
-    public void onClose(int code, String reason, boolean remote) {
-        System.out.println("onClose");
-        arrayListOfServerBaseModelClass = new ArrayList<>();
-        userName = "";
-        // ToDo: Все данные состояния, которые после этого состояния, д.б. стёрты.
-        for (Observer010OnClose observer010OnClose : mapOfObserver_String__OnClose.keySet()) {
-            observer010OnClose.updateOnClose();
-        }
-        System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
-        System.out.println("----------");
-    }
+    protected void onLogout(TransportPackageOfServer transportPackageOfServer) {
+        System.out.println("onLogout");
 
-    @Override
-    public void onError(Exception ex) {
-        System.err.println("onError");
-        ex.printStackTrace();
-        System.err.println("----------");
+        {   // ToDo: Все данные состояния, которые после этого состояния, д.б. стёрты.
+            serverBaseModelClass = null;
+            arrayListOfServerBaseModelClass = new ArrayList<>();
+            userName = "";
+        }
+        for (Observer020OnLogout observer021OnLogout : mapOfObserver_String__OnLogout.keySet()) {
+            observer021OnLogout.updateOnLogout();
+        }
     }
 
     protected void onLogin(TransportPackageOfServer transportPackageOfServer) {
         System.out.println("onLogin");
-        ResultOfCredential resultOfCredential = ResultOfCredential.valueOf((String) (transportPackageOfServer.getMapOfParamName_Value().get("resultOfCredential")));
+
+        ResultOfCredential resultOfCredential = ResultOfCredential.valueOf((String) (transportPackageOfServer.get("resultOfCredential")));
         if (resultOfCredential == ResultOfCredential.NOT_AUTHORISED) {
             System.out.println("Сервер сообщил о не успешных идентификации и/или аутентификации и/или авторизации.");
-            arrayListOfServerBaseModelClass = new ArrayList<>();
-            userName = "";
-            // ToDo: Все данные состояния, которые после этого состояния, д.б. стёрты.
+            {   // ToDo: Все данные состояния, которые после этого состояния, д.б. стёрты.
+                serverBaseModelClass = null;
+                arrayListOfServerBaseModelClass = new ArrayList<>();
+                userName = "";
+            }
         } else if (resultOfCredential == ResultOfCredential.AUTHORISED) {
             System.out.println("Сервер сообщил об успешных идентификации, аутентификации и авторизации.");
-            Map<String, Object> mapOfParamName_Value = transportPackageOfServer.getMapOfParamName_Value();
-            userName = ((String) mapOfParamName_Value.get("userName"));
+            {   // ToDo: Все данные состояния, которые после этого состояния, д.б. стёрты.
+                serverBaseModelClass = null;
+                arrayListOfServerBaseModelClass = new ArrayList<>();
+            }
+            userName = (String) transportPackageOfServer.get("userName");
         }
 
         for (Observer021OnLogin observer021OnLogin : mapOfObserver_String__OnLogin.keySet()) {
@@ -286,20 +297,26 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         }
     }
 
-    protected void onLogout(TransportPackageOfServer transportPackageOfServer) {
-        System.out.println("onLogout");
-        arrayListOfServerBaseModelClass = new ArrayList<>();
-        userName = "";
-        // ToDo: Все данные состояния, которые после этого состояния, д.б. стёрты.
-        for (Observer020OnLogout observer021OnLogout : mapOfObserver_String__OnLogout.keySet()) {
-            observer021OnLogout.updateOnLogout();
+    protected void onForgetGameTypeSet(TransportPackageOfServer transportPackageOfServer) {
+        System.out.println("onForgetGameTypeSet");
+
+        {   // ToDo: Все данные состояния, которые после этого состояния, д.б. стёрты.
+            serverBaseModelClass = null;
+            arrayListOfServerBaseModelClass = new ArrayList<>();
+        }
+        for (Observer030OnForgetGameTypeSet observer030OnForgetGameTypeSet : mapOfObserver_String__OnForgetGameTypeSet.keySet()) {
+            observer030OnForgetGameTypeSet.updateOnForgetGameTypeSet();
         }
     }
 
     protected void onGetGameTypeSet(TransportPackageOfServer transportPackageOfServer) {
         System.out.println("onGetGameTypeSet");
-        ArrayList<String> arrayList = (ArrayList<String>) transportPackageOfServer.getMapOfParamName_Value().get("gameTypeSet");
-        arrayListOfServerBaseModelClass = new ArrayList<>();
+
+        {   // ToDo: Все данные состояния, которые после этого состояния, д.б. стёрты.
+            serverBaseModelClass = null;
+            arrayListOfServerBaseModelClass = new ArrayList<>();
+        }
+        ArrayList<String> arrayList = (ArrayList<String>) transportPackageOfServer.get("gameTypeSet");
         for (String serverBaseModelClass : arrayList) {
             Class<? extends ServerBaseModel> clazz;
             try {
@@ -317,8 +334,8 @@ public class MultiGameWebSocketClient extends WebSocketClient {
 
     protected void onSelectGameType(TransportPackageOfServer transportPackageOfServer) {
         System.out.println("onSelectGameType");
-        Map<String, Object> mapOfParamName_Value = transportPackageOfServer.getMapOfParamName_Value();
-        String serverBaseModelString = (String) (mapOfParamName_Value.get("gameType"));
+
+        String serverBaseModelString = (String) (transportPackageOfServer.get("gameType"));
         try {
             serverBaseModelClass = (Class<? extends ServerBaseModel>) Class.forName(serverBaseModelString);
         } catch (ClassNotFoundException e) {

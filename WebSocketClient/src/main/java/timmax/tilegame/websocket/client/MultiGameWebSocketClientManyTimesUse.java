@@ -11,10 +11,12 @@ public class MultiGameWebSocketClientManyTimesUse {
     private MultiGameWebSocketClient multiGameWebSocketClient;
     private URI uri;
 
+    // ToDo: Переделать Map на Set.
     private final Map<Observer010OnClose, String> mapOfObserver_String__OnClose = new HashMap<>();
     private final Map<Observer011OnOpen, String> mapOfObserver_String__OnOpen = new HashMap<>();
     private final Map<Observer020OnLogout, String> mapOfObserver_String__OnLogout = new HashMap<>();
     private final Map<Observer021OnLogin, String> mapOfObserver_String__OnLogin = new HashMap<>();
+    private final Map<Observer030OnForgetGameTypeSet, String> mapOfObserver_String__OnForgetGameTypeSet = new HashMap<>();
     private final Map<Observer031OnGetGameTypeSet, String> mapOfObserver_String__OnGetGameTypeSet = new HashMap<>();
     private final Map<Observer041OnSelectGameType, String> mapOfObserver_String__OnSelectGameType = new HashMap<>();
 
@@ -86,6 +88,20 @@ public class MultiGameWebSocketClientManyTimesUse {
         }
     }
 
+    public void addViewOnForgetGameTypeSet(Observer030OnForgetGameTypeSet observer030OnForgetGameTypeSet) {
+        mapOfObserver_String__OnForgetGameTypeSet.put(observer030OnForgetGameTypeSet, "");
+        updateListOfViewOfForgetGameTypeSetForWebSocketClient();
+    }
+
+    private void updateListOfViewOfForgetGameTypeSetForWebSocketClient() {
+        if (multiGameWebSocketClient == null) {
+            return;
+        }
+        for (Observer030OnForgetGameTypeSet observer030OnForgetGameTypeSet : mapOfObserver_String__OnForgetGameTypeSet.keySet()) {
+            multiGameWebSocketClient.addViewOnForgetGameTypeSet(observer030OnForgetGameTypeSet);
+        }
+    }
+
     public void addViewOnGetGameTypeSet(Observer031OnGetGameTypeSet observer031OnGetGameTypeSet) {
         mapOfObserver_String__OnGetGameTypeSet.put(observer031OnGetGameTypeSet, "");
         updateListOfViewOfGetGameTypeSetForWebSocketClient();
@@ -137,6 +153,7 @@ public class MultiGameWebSocketClientManyTimesUse {
         updateListOfViewOfOpenForWebSocketClient();
         updateListOfViewOfLogoutForWebSocketClient();
         updateListOfViewOfLoginForWebSocketClient();
+        updateListOfViewOfForgetGameTypeSetForWebSocketClient();
         updateListOfViewOfGetGameTypeSetForWebSocketClient();
         updateListOfViewOfSelectGameTypeForWebSocketClient();
 
@@ -149,6 +166,10 @@ public class MultiGameWebSocketClientManyTimesUse {
 
     public void login(String userName, String password) {
         multiGameWebSocketClient.login(userName, password);
+    }
+
+    public void forgetGameTypeSet() {
+        multiGameWebSocketClient.forgetGameTypeSet();
     }
 
     public void getGameTypeSet() {

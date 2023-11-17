@@ -11,11 +11,12 @@ import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 public class MapOfStructOfTransportPackageOfServer extends MapOfStructOfTransportPackage {
     public MapOfStructOfTransportPackageOfServer() {
         super(Map.of(
+                LOGOUT, Collections.emptyMap(),
                 LOGIN, Map.of(
                         "resultOfCredential", ResultOfCredential.class,
                         "userName", String.class
                 ),
-                LOGOUT, Collections.emptyMap(),
+                FORGET_GAME_TYPE_SET, Collections.emptyMap(),
                 GET_GAME_TYPE_SET, Map.of(
                         "gameTypeSet", ArrayList.class
                 ),

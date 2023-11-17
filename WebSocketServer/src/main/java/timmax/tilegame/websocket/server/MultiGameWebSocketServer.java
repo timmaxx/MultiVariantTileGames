@@ -29,30 +29,6 @@ public class MultiGameWebSocketServer extends WebSocketServer {
     public MultiGameWebSocketServer(int port) {
         super(new InetSocketAddress(port));
     }
-/*
-    public void infoLogin( WebSocket webSocket) {
-        sendRequest( webSocket, new TransportPackageOfServer( TypeOfTransportPackageOfServer.INFO_LOGIN));
-    }
-
-    public void infoLogout( WebSocket webSocket) {
-        sendRequest( webSocket, new TransportPackageOfServer( TypeOfTransportPackageOfServer.INFO_LOGOUT));
-    }
-*/
-/*
-    public void infoGameTypeMap( WebSocket webSocket, Map< ServerBaseModel, String> mapOfServerBaseModel_String) {
-        Map< String, Object> mapOfParamName_Value = new HashMap< >( );
-        mapOfParamName_Value.put( "gameTypeMap", mapOfServerBaseModel_String);
-        sendRequest( webSocket, new TransportPackageOfServer( TypeOfTransportPackageOfServer.INFO_GAME_TYPE_MAP, mapOfParamName_Value));
-    }
-
-    public void infoSelectGameType( WebSocket webSocket, Class serverBaseModelClass) {
-        // Сервер ознакомился с желанием клиента выбирал для него тип игры.
-        Map< String, Object> mapOfParamName_Value = new HashMap< >( );
-        mapOfParamName_Value.put( "gameType", serverBaseModelClass);
-        sendRequest( webSocket, new TransportPackageOfServer( TypeOfTransportPackageOfServer.INFO_SELECT_GAME_TYPE, mapOfParamName_Value));
-    }
-*/
-
 
     private void sendRequest(WebSocket webSocket, TransportPackageOfServer transportPackageOfServer) {
         try {
@@ -75,6 +51,21 @@ public class MultiGameWebSocketServer extends WebSocketServer {
     }
 
     @Override
+    public void onStart() {
+        System.out.println("MultiGameWebSocketServer started on port: " + getPort() + ".");
+        System.err.println("----------");
+    }
+
+    @Override
+    public void onClose(WebSocket webSocket, int code, String reason, boolean remote) {
+        System.out.println("onClose");
+        System.out.println(webSocket + ".");
+        System.out.println("Connect was closed.");
+        System.out.println("Code = " + code + ". Reason = " + reason + ". Remote = " + remote + ".");
+        System.out.println("----------");
+    }
+
+    @Override
     public void onOpen(WebSocket webSocket, ClientHandshake clientHandshake) {
         System.out.println("onOpen");
         // System.out.println("Connect from '" + webSocket + "' are opened.");
@@ -88,12 +79,11 @@ public class MultiGameWebSocketServer extends WebSocketServer {
     }
 
     @Override
-    public void onClose(WebSocket webSocket, int code, String reason, boolean remote) {
-        System.out.println("onClose");
+    public void onError(WebSocket webSocket, Exception ex) {
+        System.err.println("onError");
         System.out.println(webSocket + ".");
-        System.out.println("Connect was closed.");
-        System.out.println("Code = " + code + ". Reason = " + reason + ". Remote = " + remote + ".");
-        System.out.println("----------");
+        ex.printStackTrace();
+        System.err.println("----------");
     }
 
     @Override
@@ -108,10 +98,12 @@ public class MultiGameWebSocketServer extends WebSocketServer {
         try {
             TransportPackageOfClient transportPackageOfClient = mapper.readValue(message, TransportPackageOfClient.class);
             TypeOfTransportPackage typeOfTransportPackage = transportPackageOfClient.getTypeOfTransportPackage();
-            if (typeOfTransportPackage == LOGIN) {
-                onLogin(webSocket, transportPackageOfClient);
-            } else if (typeOfTransportPackage == LOGOUT) {
+            if (typeOfTransportPackage == LOGOUT) {
                 onLogout(webSocket);
+            } else if (typeOfTransportPackage == LOGIN) {
+                onLogin(webSocket, transportPackageOfClient);
+            } else if (typeOfTransportPackage == FORGET_GAME_TYPE_SET) {
+                onForgetGameTypeSet(webSocket);
             } else if (typeOfTransportPackage == GET_GAME_TYPE_SET) {
                 onGetGameTypeSet(webSocket);
             } else if ( typeOfTransportPackage == SELECT_GAME_TYPE) {
@@ -140,25 +132,26 @@ public class MultiGameWebSocketServer extends WebSocketServer {
         }
     }
 
-    @Override
-    public void onError(WebSocket webSocket, Exception ex) {
-        System.err.println("onError");
-        System.out.println(webSocket + ".");
-        ex.printStackTrace();
-        System.err.println("----------");
-    }
+    protected void onLogout(WebSocket webSocket) {
+        System.out.println("onLogout");
 
-    @Override
-    public void onStart() {
-        System.out.println("MultiGameWebSocketServer started on port: " + getPort() + ".");
-        System.err.println("----------");
+        TransportPackageOfServer transportPackageOfServer = null;
+        try {
+            transportPackageOfServer = new TransportPackageOfServer(LOGOUT);
+        } catch (RuntimeException rte) {
+            rte.printStackTrace();
+            System.exit(1);
+        }
+        sendRequest(webSocket, transportPackageOfServer);
+        System.out.println("----------");
     }
 
     protected void onLogin(WebSocket webSocket, TransportPackageOfClient transportPackageOfClient) {
         System.out.println("onLogin");
-        Map<String, Object> mapOfParamName_Value = transportPackageOfClient.getMapOfParamName_Value();
-        String userName = ((String) mapOfParamName_Value.get("userName"));
-        String password = ((String) mapOfParamName_Value.get("password"));
+
+        String userName = ((String) transportPackageOfClient.get("userName"));
+        String password = ((String) transportPackageOfClient.get("password"));
+
         System.out.println("userName = " + userName + " | " + "password = *"); // Пароль не выводим:
 
         // Имя пользователя и пароль извлечены. Теперь можно в отдельном потоке (вероятно в том, который был
@@ -192,12 +185,12 @@ public class MultiGameWebSocketServer extends WebSocketServer {
         System.out.println("----------");
     }
 
-    protected void onLogout(WebSocket webSocket) {
-        System.out.println("onLogout");
+    protected void onForgetGameTypeSet(WebSocket webSocket) {
+        System.out.println("onForgetGameTypeSet");
 
         TransportPackageOfServer transportPackageOfServer = null;
         try {
-            transportPackageOfServer = new TransportPackageOfServer(LOGOUT);
+            transportPackageOfServer = new TransportPackageOfServer(FORGET_GAME_TYPE_SET);
         } catch (RuntimeException rte) {
             rte.printStackTrace();
             System.exit(1);
@@ -232,7 +225,7 @@ public class MultiGameWebSocketServer extends WebSocketServer {
         System.out.println("onSelectGameType");
 
         // System.out.println("transportPackageOfClient = " + transportPackageOfClient);
-        String model = (String)transportPackageOfClient.getMapOfParamName_Value().get("gameType");
+        String model = (String)transportPackageOfClient.get("gameType");
         // ToDo: Проверить, что model одна из списка возможных моделей, которые были отправлены ранее этому клиенту.
 
         TransportPackageOfServer transportPackageOfServer = null;

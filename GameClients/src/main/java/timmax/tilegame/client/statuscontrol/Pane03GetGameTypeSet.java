@@ -13,8 +13,8 @@ public class Pane03GetGameTypeSet extends HBox implements
         Observer010OnClose,
         Observer020OnLogout,
         Observer021OnLogin,
-        Observer031OnGetGameTypeSet,
-        Observer041OnSelectGameType {
+        Observer030OnForgetGameTypeSet,
+        Observer031OnGetGameTypeSet {
 
     private final MultiGameWebSocketClientManyTimesUse netModel;
 
@@ -35,8 +35,8 @@ public class Pane03GetGameTypeSet extends HBox implements
         netModel.addViewOnClose(this);
         netModel.addViewOnLogout(this);
         netModel.addViewOnLogin(this);
+        netModel.addViewOnForgetGameTypeSet(this);
         netModel.addViewOnGetGameTypeSet(this);
-        netModel.addViewOnSelectGameType(this);
 
         buttonGetGameTypeSet.setOnAction(event -> {
             disableAllControls();
@@ -44,8 +44,8 @@ public class Pane03GetGameTypeSet extends HBox implements
         });
 
         buttonForgetGameTypeSet.setOnAction(event -> {
-            // disableAllControls();
-            // netModel.forgetGameTypeSet();
+            disableAllControls();
+            netModel.forgetGameTypeSet();
         });
     }
 
@@ -62,24 +62,24 @@ public class Pane03GetGameTypeSet extends HBox implements
     @Override
     public void updateOnLogout() {
         disableAllControls();
-        // comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
-        // textFieldSelectGameType.setText("");
     }
 
     @Override
     public void updateOnLogin(ResultOfCredential resultOfCredential) {
         boolean loginDisabled = resultOfCredential == ResultOfCredential.AUTHORISED;
         buttonGetGameTypeSet.setDisable(!loginDisabled);
+        buttonForgetGameTypeSet.setDisable(true);
+    }
+
+    @Override
+    public void updateOnForgetGameTypeSet() {
+        buttonGetGameTypeSet.setDisable(false);
+        buttonForgetGameTypeSet.setDisable(true);
     }
 
     @Override
     public void updateOnGetGameTypeSet(ArrayList<Class<? extends ServerBaseModel>> arrayOfServerBaseModel) {
-        buttonGetGameTypeSet.setDisable(false);
+        buttonGetGameTypeSet.setDisable(true);
         buttonForgetGameTypeSet.setDisable(false);
-    }
-
-    @Override
-    public void updateOnSelectGameType(Class<? extends ServerBaseModel> serverBaseModelClass) {
-        System.out.println("serverBaseModelClass = " + serverBaseModelClass);
     }
 }
