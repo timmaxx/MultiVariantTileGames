@@ -26,8 +26,8 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     private final Map<Observer011OnOpen, String> mapOfObserver_String__OnOpen = new HashMap<>();
     private final Map<Observer020OnLogout, String> mapOfObserver_String__OnLogout = new HashMap<>();
     private final Map<Observer021OnLogin, String> mapOfObserver_String__OnLogin = new HashMap<>();
-    private final Map<Observer032OnGetGameTypeSet, String> mapOfObserver_String__OnGetGameTypeSet = new HashMap<>();
-    private final Map<Observer033OnSelectGameType, String> mapOfObserver_String__OnSelectGameType = new HashMap<>();
+    private final Map<Observer031OnGetGameTypeSet, String> mapOfObserver_String__OnGetGameTypeSet = new HashMap<>();
+    private final Map<Observer041OnSelectGameType, String> mapOfObserver_String__OnSelectGameType = new HashMap<>();
 
     private String userName = "";
     private ArrayList<Class<? extends ServerBaseModel>> arrayListOfServerBaseModelClass = new ArrayList<>();
@@ -70,12 +70,12 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         mapOfObserver_String__OnLogin.put(observer021OnLogin, "");
     }
 
-    public void addViewOnGetGameTypeSet(Observer032OnGetGameTypeSet ObserverOnGetGameTypeSet) {
+    public void addViewOnGetGameTypeSet(Observer031OnGetGameTypeSet ObserverOnGetGameTypeSet) {
         mapOfObserver_String__OnGetGameTypeSet.put(ObserverOnGetGameTypeSet, "");
     }
 
-    public void addViewOnSelectGameType(Observer033OnSelectGameType observer033OnSelectGameType) {
-        mapOfObserver_String__OnSelectGameType.put(observer033OnSelectGameType, "");
+    public void addViewOnSelectGameType(Observer041OnSelectGameType observer041OnSelectGameType) {
+        mapOfObserver_String__OnSelectGameType.put(observer041OnSelectGameType, "");
     }
 
     public MultiGameWebSocketClient(URI serverUri) {
@@ -310,8 +310,8 @@ public class MultiGameWebSocketClient extends WebSocketClient {
             }
         }
 
-        for (Observer032OnGetGameTypeSet observer032OnGetGameTypeSet : mapOfObserver_String__OnGetGameTypeSet.keySet()) {
-            observer032OnGetGameTypeSet.updateOnGetGameTypeSet(arrayListOfServerBaseModelClass);
+        for (Observer031OnGetGameTypeSet observer031OnGetGameTypeSet : mapOfObserver_String__OnGetGameTypeSet.keySet()) {
+            observer031OnGetGameTypeSet.updateOnGetGameTypeSet(arrayListOfServerBaseModelClass);
         }
     }
 
@@ -325,8 +325,8 @@ public class MultiGameWebSocketClient extends WebSocketClient {
             throw new RuntimeException(e);
         }
 
-        for (Observer033OnSelectGameType observer033OnSelectGameType : mapOfObserver_String__OnSelectGameType.keySet()) {
-            observer033OnSelectGameType.updateOnSelectGameType(serverBaseModelClass);
+        for (Observer041OnSelectGameType observer041OnSelectGameType : mapOfObserver_String__OnSelectGameType.keySet()) {
+            observer041OnSelectGameType.updateOnSelectGameType(serverBaseModelClass);
         }
     }
 }
