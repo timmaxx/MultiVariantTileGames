@@ -1,61 +1,58 @@
 package timmax.tilegame.client.statuscontrol;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 
 import timmax.tilegame.basemodel.ServerBaseModel;
 import timmax.tilegame.basemodel.credential.ResultOfCredential;
 import timmax.tilegame.websocket.client.*;
 
-public class Pane03GetGameTypeSet extends HBox implements
+public class Pane03GetGameTypeSet extends AbstractConnectStatePane implements
         Observer010OnClose,
+        Observer011OnOpen,
         Observer020OnLogout,
         Observer021OnLogin,
         Observer030OnForgetGameTypeSet,
         Observer031OnGetGameTypeSet {
-
-    private final MultiGameWebSocketClientManyTimesUse netModel;
 
     private final Button buttonGetGameTypeSet;
     private final Button buttonForgetGameTypeSet;
 
 
     public Pane03GetGameTypeSet(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
-        super();
-        this.netModel = multiGameWebSocketClientManyTimesUse;
-
         buttonGetGameTypeSet = new Button("Get the game type set");
         buttonForgetGameTypeSet = new Button("Forget the game type set");
 
-        updateOnClose();
-        getChildren().addAll(buttonGetGameTypeSet, buttonForgetGameTypeSet);
-
-        netModel.addViewOnClose(this);
-        netModel.addViewOnLogout(this);
-        netModel.addViewOnLogin(this);
-        netModel.addViewOnForgetGameTypeSet(this);
-        netModel.addViewOnGetGameTypeSet(this);
+        multiGameWebSocketClientManyTimesUse.addViewOnClose(this);
+        multiGameWebSocketClientManyTimesUse.addViewOnOpen(this);
+        multiGameWebSocketClientManyTimesUse.addViewOnLogout(this);
+        multiGameWebSocketClientManyTimesUse.addViewOnLogin(this);
+        multiGameWebSocketClientManyTimesUse.addViewOnForgetGameTypeSet(this);
+        multiGameWebSocketClientManyTimesUse.addViewOnGetGameTypeSet(this);
 
         buttonGetGameTypeSet.setOnAction(event -> {
             disableAllControls();
-            netModel.getGameTypeSet();
+            multiGameWebSocketClientManyTimesUse.getGameTypeSet();
         });
 
         buttonForgetGameTypeSet.setOnAction(event -> {
             disableAllControls();
-            netModel.forgetGameTypeSet();
+            multiGameWebSocketClientManyTimesUse.forgetGameTypeSet();
         });
-    }
 
-    private void disableAllControls() {
-        buttonGetGameTypeSet.setDisable(true);
-        buttonForgetGameTypeSet.setDisable(true);
+        setListsOfControlsAndAllDisable(
+                List.of(buttonGetGameTypeSet),
+                List.of(buttonForgetGameTypeSet));
     }
 
     @Override
     public void updateOnClose() {
+        disableAllControls();
+    }
+
+    @Override
+    public void updateOnOpen() {
         disableAllControls();
     }
 
@@ -73,13 +70,11 @@ public class Pane03GetGameTypeSet extends HBox implements
 
     @Override
     public void updateOnForgetGameTypeSet() {
-        buttonGetGameTypeSet.setDisable(false);
-        buttonForgetGameTypeSet.setDisable(true);
+        setDisableControlsNextState(false);
     }
 
     @Override
-    public void updateOnGetGameTypeSet(ArrayList<Class<? extends ServerBaseModel>> arrayOfServerBaseModel) {
-        buttonGetGameTypeSet.setDisable(true);
-        buttonForgetGameTypeSet.setDisable(false);
+    public void updateOnGetGameTypeSet(List<Class<? extends ServerBaseModel>> arrayOfServerBaseModel) {
+        setDisableControlsNextState(true);
     }
 }

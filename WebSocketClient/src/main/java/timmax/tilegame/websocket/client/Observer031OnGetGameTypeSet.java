@@ -1,9 +1,9 @@
 package timmax.tilegame.websocket.client;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import timmax.tilegame.basemodel.ServerBaseModel;
 
 public interface Observer031OnGetGameTypeSet {
-    void updateOnGetGameTypeSet(ArrayList<Class<? extends ServerBaseModel>> arrayOfServerBaseModel);
+    void updateOnGetGameTypeSet(List<Class<? extends ServerBaseModel>> arrayOfServerBaseModel);
 }

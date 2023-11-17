@@ -200,7 +200,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         }
         System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
         for (Observer011OnOpen observer011OnOpen : mapOfObserver_String__OnOpen.keySet()) {
-            observer011OnOpen.updateOnOpen(handshakedata);
+            observer011OnOpen.updateOnOpen();
         }
         System.out.println("----------");
     }
