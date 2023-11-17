@@ -1,3 +1,4 @@
 Файл сформирован в ветке dev
 
 0001 - Реализация работы с MainGameClientStatus.GAME_TYPE_SELECTED
+0002 - Обобщение классов пакета timmax.tilegame.basemodel.protocol
