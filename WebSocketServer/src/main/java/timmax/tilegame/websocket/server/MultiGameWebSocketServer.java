@@ -13,7 +13,6 @@ import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
 import timmax.tilegame.basemodel.credential.Credentials;
-import timmax.tilegame.basemodel.credential.ResultOfCredential;
 import timmax.tilegame.basemodel.protocol.*;
 
 import timmax.tilegame.game.minesweeper.model.MinesweeperModel;
@@ -89,7 +88,7 @@ public class MultiGameWebSocketServer extends WebSocketServer {
     @Override
     public void onMessage(WebSocket webSocket, String message) {
         System.out.println("onMessage");
-        System.out.println(webSocket + ".");
+        System.out.println(webSocket);
 /*
         System.out.println("--- begin of message ---");
         System.out.println(message);
@@ -151,14 +150,12 @@ public class MultiGameWebSocketServer extends WebSocketServer {
         // создан при onOpen) сверить входящие имя пользователя и пароль с теми, которые есть на сервере.
         // И результат отправить клиенту.
         // Но сейчас (пока с отдельными нитями не начали реализовывать) запросим в текущей нити.
-        ResultOfCredential resultOfCredential = Credentials.verifyUserAndPassword(userName, password);
-        if (resultOfCredential == ResultOfCredential.NOT_AUTHORISED) {
-            System.out.println("Не успешная идентификацию и/или аутентификацию и/или авторизация.");
-            logoutAnswer(webSocket);
-        } else if (resultOfCredential == ResultOfCredential.AUTHORISED) {
-            System.out.println("Успешная идентификация, аутентификация и авторизация.");
+
+        if (Credentials.isUserAndPasswordCorrect(userName, password)) {
             // ToDo: Нужно зафиксировать для этого webSocket имя пользователя (и потом другие параметры авторизации).
-            loginAnswer(webSocket, userName, resultOfCredential);
+            loginAnswer(webSocket, userName);
+        } else {
+            logoutAnswer(webSocket);
         }
     }
 
@@ -173,14 +170,12 @@ public class MultiGameWebSocketServer extends WebSocketServer {
         sendRequest(webSocket, transportPackageOfServer);
     }
 
-    private void loginAnswer(WebSocket webSocket, String userName, ResultOfCredential resultOfCredential) {
+    private void loginAnswer(WebSocket webSocket, String userName) {
         TransportPackageOfServer transportPackageOfServer = null;
         try {
             transportPackageOfServer = new TransportPackageOfServer(
                     LOGIN,
-                    Map.of("resultOfCredential", resultOfCredential,
-                            "userName", userName
-                    )
+                    Map.of("userName", userName)
             );
         } catch (RuntimeException rte) {
             rte.printStackTrace();
@@ -211,6 +206,9 @@ public class MultiGameWebSocketServer extends WebSocketServer {
                     GET_GAME_TYPE_SET,
                     Map.of("gameTypeSet",
                             Stream.of(
+                                    // ToDo: Перечень классов вариантов игр следует делать не в коде. Варианты:
+                                    //       - файл параметров,
+                                    //       - классы, хранящиеся по определённому пути.
                                     MinesweeperModel.class,
                                     SokobanModel.class
                             ).collect(toList())

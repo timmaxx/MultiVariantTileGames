@@ -5,7 +5,6 @@ import java.util.List;
 import javafx.scene.control.Button;
 
 import timmax.tilegame.basemodel.ServerBaseModel;
-import timmax.tilegame.basemodel.credential.ResultOfCredential;
 import timmax.tilegame.websocket.client.*;
 
 public class Pane03GetGameTypeSet extends AbstractConnectStatePane implements
@@ -16,13 +15,10 @@ public class Pane03GetGameTypeSet extends AbstractConnectStatePane implements
         Observer030OnForgetGameTypeSet,
         Observer031OnGetGameTypeSet {
 
-    private final Button buttonGetGameTypeSet;
-    private final Button buttonForgetGameTypeSet;
-
 
     public Pane03GetGameTypeSet(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
-        buttonGetGameTypeSet = new Button("Get the game type set");
-        buttonForgetGameTypeSet = new Button("Forget the game type set");
+        Button buttonGetGameTypeSet = new Button("Get the game type set");
+        Button buttonForgetGameTypeSet = new Button("Forget the game type set");
 
         multiGameWebSocketClientManyTimesUse.addViewOnClose(this);
         multiGameWebSocketClientManyTimesUse.addViewOnOpen(this);
@@ -62,10 +58,8 @@ public class Pane03GetGameTypeSet extends AbstractConnectStatePane implements
     }
 
     @Override
-    public void updateOnLogin(ResultOfCredential resultOfCredential) {
-        boolean loginDisabled = resultOfCredential == ResultOfCredential.AUTHORISED;
-        buttonGetGameTypeSet.setDisable(!loginDisabled);
-        buttonForgetGameTypeSet.setDisable(true);
+    public void updateOnLogin() {
+        setDisableControlsNextState(false);
     }
 
     @Override

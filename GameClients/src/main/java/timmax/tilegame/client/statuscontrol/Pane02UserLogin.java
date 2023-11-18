@@ -4,7 +4,6 @@ import java.util.List;
 
 import javafx.scene.control.*;
 
-import timmax.tilegame.basemodel.credential.ResultOfCredential;
 import timmax.tilegame.websocket.client.*;
 
 public class Pane02UserLogin extends AbstractConnectStatePane implements
@@ -19,7 +18,6 @@ public class Pane02UserLogin extends AbstractConnectStatePane implements
     public Pane02UserLogin(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
         Label labelUser = new Label("User");
         TextField textFieldUser = new TextField();
-        // private final TextField textFieldUser;
         Label labelPassword = new Label("Password");
         passwordField = new PasswordField();
         Button buttonLogin = new Button("Login");
@@ -66,8 +64,7 @@ public class Pane02UserLogin extends AbstractConnectStatePane implements
     }
 
     @Override
-    public void updateOnLogin(ResultOfCredential resultOfCredential) {
-        boolean loginDisabled = resultOfCredential == ResultOfCredential.AUTHORISED;
-        setDisableControlsNextState(loginDisabled);
+    public void updateOnLogin() {
+        setDisableControlsNextState(true);
     }
 }

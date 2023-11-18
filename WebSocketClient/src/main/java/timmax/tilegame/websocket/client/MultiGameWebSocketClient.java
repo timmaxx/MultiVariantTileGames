@@ -12,7 +12,6 @@ import org.java_websocket.handshake.ServerHandshake;
 
 import timmax.tilegame.basemodel.ServerBaseModel;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
-import timmax.tilegame.basemodel.credential.ResultOfCredential;
 import timmax.tilegame.basemodel.protocol.ClientState;
 import timmax.tilegame.basemodel.protocol.TransportPackageOfClient;
 import timmax.tilegame.basemodel.protocol.TransportPackageOfServer;
@@ -22,6 +21,7 @@ import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
 public class MultiGameWebSocketClient extends WebSocketClient {
     private final ObjectMapper mapper = new ObjectMapper();
+    private final ClientState clientState = new ClientState();
 
     // ToDo: Переделать Map на Set.
     private final Map<Observer010OnClose, String> mapOfObserver_String__OnClose = new HashMap<>();
@@ -31,7 +31,6 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     private final Map<Observer030OnForgetGameTypeSet, String> mapOfObserver_String__OnForgetGameTypeSet = new HashMap<>();
     private final Map<Observer031OnGetGameTypeSet, String> mapOfObserver_String__OnGetGameTypeSet = new HashMap<>();
     private final Map<Observer041OnSelectGameType, String> mapOfObserver_String__OnSelectGameType = new HashMap<>();
-    private final ClientState clientState = new ClientState();
 
 
     public MainGameClientStatus getMainGameClientStatus() {
@@ -252,17 +251,9 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     protected void onLogin(TransportPackageOfServer transportPackageOfServer) {
         System.out.println("onLogin");
 
-        ResultOfCredential resultOfCredential = ResultOfCredential.valueOf((String) (transportPackageOfServer.get("resultOfCredential")));
-        if (resultOfCredential == ResultOfCredential.NOT_AUTHORISED) {
-            System.out.println("Сервер сообщил о не успешных идентификации и/или аутентификации и/или авторизации.");
-            clientState.setUserName("");
-        } else if (resultOfCredential == ResultOfCredential.AUTHORISED) {
-            System.out.println("Сервер сообщил об успешных идентификации, аутентификации и авторизации.");
-            clientState.setUserName((String) transportPackageOfServer.get("userName"));
-        }
-
+        clientState.setUserName((String) transportPackageOfServer.get("userName"));
         for (Observer021OnLogin observer021OnLogin : mapOfObserver_String__OnLogin.keySet()) {
-            observer021OnLogin.updateOnLogin(resultOfCredential);
+            observer021OnLogin.updateOnLogin();
         }
     }
 
@@ -290,6 +281,9 @@ public class MultiGameWebSocketClient extends WebSocketClient {
             }
         }
 
+        // ToDo: Поскольку список типов иг уже записан в clientState, то не нужно его передавать через update...()
+        //       (здесь это updateOnGetGameTypeSet()).
+        //       Тогда все интерфейсы с подобными update...() станут проще и унифицированее.
         for (Observer031OnGetGameTypeSet observer031OnGetGameTypeSet : mapOfObserver_String__OnGetGameTypeSet.keySet()) {
             observer031OnGetGameTypeSet.updateOnGetGameTypeSet(clientState.getArrayListOfServerBaseModelClass());
         }

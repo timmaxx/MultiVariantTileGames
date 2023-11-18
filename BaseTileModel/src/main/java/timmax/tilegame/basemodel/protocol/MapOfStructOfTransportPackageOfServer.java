@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
 
-import timmax.tilegame.basemodel.credential.ResultOfCredential;
-
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
 public class MapOfStructOfTransportPackageOfServer extends MapOfStructOfTransportPackage {
@@ -13,7 +11,6 @@ public class MapOfStructOfTransportPackageOfServer extends MapOfStructOfTranspor
         super(Map.of(
                 LOGOUT, Collections.emptyMap(),
                 LOGIN, Map.of(
-                        "resultOfCredential", ResultOfCredential.class,
                         "userName", String.class
                 ),
                 FORGET_GAME_TYPE_SET, Collections.emptyMap(),

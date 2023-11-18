@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import timmax.tilegame.basemodel.ServerBaseModel;
-import timmax.tilegame.basemodel.credential.ResultOfCredential;
 import timmax.tilegame.websocket.client.*;
 
 public class Pane04SelectGameType extends AbstractConnectStatePane implements
@@ -86,7 +85,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane implements
     }
 
     @Override
-    public void updateOnLogin(ResultOfCredential resultOfCredential) {
+    public void updateOnLogin() {
         disableAllControls();
         Platform.runLater(() -> {
             comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
