@@ -130,20 +130,13 @@ public class MultiGameWebSocketServer extends WebSocketServer {
             rte.printStackTrace();
             System.exit(1);
         }
+        System.out.println("----------");
     }
 
     protected void onLogout(WebSocket webSocket) {
         System.out.println("onLogout");
 
-        TransportPackageOfServer transportPackageOfServer = null;
-        try {
-            transportPackageOfServer = new TransportPackageOfServer(LOGOUT);
-        } catch (RuntimeException rte) {
-            rte.printStackTrace();
-            System.exit(1);
-        }
-        sendRequest(webSocket, transportPackageOfServer);
-        System.out.println("----------");
+        logoutAnswer(webSocket);
     }
 
     protected void onLogin(WebSocket webSocket, TransportPackageOfClient transportPackageOfClient) {
@@ -160,29 +153,40 @@ public class MultiGameWebSocketServer extends WebSocketServer {
         // Но сейчас (пока с отдельными нитями не начали реализовывать) запросим в текущей нити.
         ResultOfCredential resultOfCredential = Credentials.verifyUserAndPassword(userName, password);
         if (resultOfCredential == ResultOfCredential.NOT_AUTHORISED) {
-            userName = "";
             System.out.println("Не успешная идентификацию и/или аутентификацию и/или авторизация.");
+            logoutAnswer(webSocket);
         } else if (resultOfCredential == ResultOfCredential.AUTHORISED) {
             System.out.println("Успешная идентификация, аутентификация и авторизация.");
             // ToDo: Нужно зафиксировать для этого webSocket имя пользователя (и потом другие параметры авторизации).
+            loginAnswer(webSocket, userName, resultOfCredential);
         }
-        String finalUserName = userName;
+    }
 
+    private void logoutAnswer(WebSocket webSocket) {
+        TransportPackageOfServer transportPackageOfServer = null;
+        try {
+            transportPackageOfServer = new TransportPackageOfServer(LOGOUT);
+        } catch (RuntimeException rte) {
+            rte.printStackTrace();
+            System.exit(1);
+        }
+        sendRequest(webSocket, transportPackageOfServer);
+    }
+
+    private void loginAnswer(WebSocket webSocket, String userName, ResultOfCredential resultOfCredential) {
         TransportPackageOfServer transportPackageOfServer = null;
         try {
             transportPackageOfServer = new TransportPackageOfServer(
                     LOGIN,
                     Map.of("resultOfCredential", resultOfCredential,
-                            "userName", finalUserName
+                            "userName", userName
                     )
             );
         } catch (RuntimeException rte) {
             rte.printStackTrace();
             System.exit(1);
         }
-
         sendRequest(webSocket, transportPackageOfServer);
-        System.out.println("----------");
     }
 
     protected void onForgetGameTypeSet(WebSocket webSocket) {
@@ -196,7 +200,6 @@ public class MultiGameWebSocketServer extends WebSocketServer {
             System.exit(1);
         }
         sendRequest(webSocket, transportPackageOfServer);
-        System.out.println("----------");
     }
 
     protected void onGetGameTypeSet(WebSocket webSocket) {
@@ -218,7 +221,6 @@ public class MultiGameWebSocketServer extends WebSocketServer {
             System.exit(1);
         }
         sendRequest(webSocket, transportPackageOfServer);
-        System.out.println("----------");
     }
 
     protected void onSelectGameType(WebSocket webSocket, TransportPackageOfClient transportPackageOfClient) {
@@ -239,6 +241,5 @@ public class MultiGameWebSocketServer extends WebSocketServer {
             System.exit(1);
         }
         sendRequest(webSocket, transportPackageOfServer);
-        System.out.println("----------");
     }
 }
