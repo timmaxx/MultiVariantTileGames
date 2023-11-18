@@ -21,7 +21,7 @@ import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
 public class MultiGameWebSocketClient extends WebSocketClient {
     private final ObjectMapper mapper = new ObjectMapper();
-    private final ClientState clientState = new ClientState();
+    private final ClientState clientState;
 
     // ToDo: Переделать Map на Set.
     private final Map<Observer010OnClose, String> mapOfObserver_String__OnClose = new HashMap<>();
@@ -71,8 +71,9 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         mapOfObserver_String__OnSelectGameType.put(observer041OnSelectGameType, "");
     }
 
-    public MultiGameWebSocketClient(URI serverUri) {
+    public MultiGameWebSocketClient(URI serverUri, ClientState clientState) {
         super(serverUri);
+        this.clientState = clientState;
         System.out.println(serverUri);
     }
 
@@ -108,7 +109,6 @@ public class MultiGameWebSocketClient extends WebSocketClient {
 
     // 3
     public void forgetGameTypeSet() {
-        // ToDo: forgetSelectGameType()
         try {
             sendRequest(new TransportPackageOfClient(FORGET_GAME_TYPE_SET));
         } catch (RuntimeException rte) {
@@ -126,6 +126,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         }
     }
 
+    // 4
     public void gameTypeSelect(Class<? extends ServerBaseModel> serverBaseModelClass) {
         try {
             sendRequest(new TransportPackageOfClient(
@@ -285,7 +286,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         //       (здесь это updateOnGetGameTypeSet()).
         //       Тогда все интерфейсы с подобными update...() станут проще и унифицированее.
         for (Observer031OnGetGameTypeSet observer031OnGetGameTypeSet : mapOfObserver_String__OnGetGameTypeSet.keySet()) {
-            observer031OnGetGameTypeSet.updateOnGetGameTypeSet(clientState.getArrayListOfServerBaseModelClass());
+            observer031OnGetGameTypeSet.updateOnGetGameTypeSet();
         }
     }
 
@@ -300,7 +301,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         }
 
         for (Observer041OnSelectGameType observer041OnSelectGameType : mapOfObserver_String__OnSelectGameType.keySet()) {
-            observer041OnSelectGameType.updateOnSelectGameType(clientState.getServerBaseModelClass());
+            observer041OnSelectGameType.updateOnSelectGameType();
         }
     }
 }

@@ -6,10 +6,10 @@ import java.util.Map;
 
 import timmax.tilegame.basemodel.ServerBaseModel;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
+import timmax.tilegame.basemodel.protocol.ClientState;
 
 public class MultiGameWebSocketClientManyTimesUse {
-    private MultiGameWebSocketClient multiGameWebSocketClient;
-    private URI uri;
+    private final ClientState clientState = new ClientState();
 
     // ToDo: Переделать Map на Set.
     private final Map<Observer010OnClose, String> mapOfObserver_String__OnClose = new HashMap<>();
@@ -20,6 +20,13 @@ public class MultiGameWebSocketClientManyTimesUse {
     private final Map<Observer031OnGetGameTypeSet, String> mapOfObserver_String__OnGetGameTypeSet = new HashMap<>();
     private final Map<Observer041OnSelectGameType, String> mapOfObserver_String__OnSelectGameType = new HashMap<>();
 
+    private MultiGameWebSocketClient multiGameWebSocketClient;
+    private URI uri;
+
+
+    public ClientState getClientState() {
+        return clientState;
+    }
 
     public MultiGameWebSocketClientManyTimesUse() {
         System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
@@ -147,7 +154,7 @@ public class MultiGameWebSocketClientManyTimesUse {
     }
 
     public void connect() {
-        multiGameWebSocketClient = new MultiGameWebSocketClient(uri);
+        multiGameWebSocketClient = new MultiGameWebSocketClient(uri, clientState);
 
         updateListOfViewOfCloseForWebSocketClient();
         updateListOfViewOfOpenForWebSocketClient();

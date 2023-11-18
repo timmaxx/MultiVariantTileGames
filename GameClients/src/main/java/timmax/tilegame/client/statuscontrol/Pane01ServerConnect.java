@@ -14,15 +14,17 @@ public class Pane01ServerConnect extends AbstractConnectStatePane implements
         Observer010OnClose,
         Observer011OnOpen {
 
-    private final Label labelProtocol;
     private final TextField textFieldServerAddress;
     private final TextField textFieldServerPort;
     private final Label labelConnectString;
 
 
     public Pane01ServerConnect(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
-        labelProtocol = new Label("ws");
+        super(multiGameWebSocketClientManyTimesUse.getClientState());
+
+        Label labelServerAddress = new Label("Address");
         textFieldServerAddress = new TextField();
+        Label labelServerPort = new Label("Port");
         textFieldServerPort = new TextField();
         Button buttonConnect = new Button("Connect");
         labelConnectString = new Label();
@@ -37,8 +39,8 @@ public class Pane01ServerConnect extends AbstractConnectStatePane implements
         multiGameWebSocketClientManyTimesUse.addViewOnOpen(this);
 
         buttonConnect.setOnAction(event -> {
-            multiGameWebSocketClientManyTimesUse.setURI(getURIFromControls());
             disableAllControls();
+            multiGameWebSocketClientManyTimesUse.setURI(getURIFromControls());
             multiGameWebSocketClientManyTimesUse.connect();
         });
 
@@ -48,14 +50,14 @@ public class Pane01ServerConnect extends AbstractConnectStatePane implements
         });
 
         setListsOfControlsAndAllDisable(
-                List.of(labelProtocol, textFieldServerAddress, textFieldServerPort, buttonConnect, labelConnectString),
+                List.of(labelServerAddress, textFieldServerAddress, labelServerPort, textFieldServerPort, buttonConnect, labelConnectString),
                 List.of(buttonDisconnect)
         );
         setDisableControlsNextState(false);
     }
 
     public URI getURIFromControls() {
-        labelConnectString.setText(labelProtocol.getText() + "://" + textFieldServerAddress.getText() + ":" + textFieldServerPort.getText());
+        labelConnectString.setText("ws://" + textFieldServerAddress.getText() + ":" + textFieldServerPort.getText());
         try {
             return new URI(labelConnectString.getText());
         } catch (URISyntaxException e) {

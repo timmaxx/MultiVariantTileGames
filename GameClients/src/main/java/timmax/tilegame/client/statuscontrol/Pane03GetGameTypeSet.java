@@ -4,7 +4,6 @@ import java.util.List;
 
 import javafx.scene.control.Button;
 
-import timmax.tilegame.basemodel.ServerBaseModel;
 import timmax.tilegame.websocket.client.*;
 
 public class Pane03GetGameTypeSet extends AbstractConnectStatePane implements
@@ -17,6 +16,8 @@ public class Pane03GetGameTypeSet extends AbstractConnectStatePane implements
 
 
     public Pane03GetGameTypeSet(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
+        super(multiGameWebSocketClientManyTimesUse.getClientState());
+
         Button buttonGetGameTypeSet = new Button("Get the game type set");
         Button buttonForgetGameTypeSet = new Button("Forget the game type set");
 
@@ -68,7 +69,7 @@ public class Pane03GetGameTypeSet extends AbstractConnectStatePane implements
     }
 
     @Override
-    public void updateOnGetGameTypeSet(List<Class<? extends ServerBaseModel>> arrayOfServerBaseModel) {
+    public void updateOnGetGameTypeSet() {
         setDisableControlsNextState(true);
     }
 }

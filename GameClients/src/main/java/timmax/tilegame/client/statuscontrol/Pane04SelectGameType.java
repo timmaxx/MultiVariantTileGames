@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+
 import timmax.tilegame.basemodel.ServerBaseModel;
 import timmax.tilegame.websocket.client.*;
 
@@ -24,6 +25,8 @@ public class Pane04SelectGameType extends AbstractConnectStatePane implements
 
 
     public Pane04SelectGameType(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
+        super(multiGameWebSocketClientManyTimesUse.getClientState());
+
         comboBoxGameTypeSet = new ComboBox<>();
         Button buttonSelectGameType = new Button("Select the game type");
         textFieldSelectGameType = new TextField();
@@ -44,7 +47,6 @@ public class Pane04SelectGameType extends AbstractConnectStatePane implements
 
         buttonSelectGameType.setOnAction(event -> {
             disableAllControls();
-            System.out.println("comboBoxGameTypeSet.getValue() = " + comboBoxGameTypeSet.getValue());
             multiGameWebSocketClientManyTimesUse.gameTypeSelect(comboBoxGameTypeSet.getValue());
         });
 
@@ -108,16 +110,15 @@ public class Pane04SelectGameType extends AbstractConnectStatePane implements
     }
 
     @Override
-    public void updateOnGetGameTypeSet(List<Class<? extends ServerBaseModel>> arrayOfServerBaseModel) {
-        comboBoxGameTypeSet.setItems(FXCollections.observableArrayList(arrayOfServerBaseModel));
+    public void updateOnGetGameTypeSet() {
+        comboBoxGameTypeSet.setItems(FXCollections.observableArrayList(clientState.getArrayListOfServerBaseModelClass()));
         textFieldSelectGameType.setText("");
         setDisableControlsNextState(false);
     }
 
     @Override
-    public void updateOnSelectGameType(Class<? extends ServerBaseModel> serverBaseModelClass) {
-        System.out.println("serverBaseModelClass = " + serverBaseModelClass);
-        textFieldSelectGameType.setText(serverBaseModelClass.getName());
+    public void updateOnSelectGameType() {
+        textFieldSelectGameType.setText(clientState.getServerBaseModelClass().getName());
         setDisableControlsNextState(true);
     }
 }

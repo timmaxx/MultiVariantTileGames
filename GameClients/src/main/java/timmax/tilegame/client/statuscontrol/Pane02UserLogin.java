@@ -16,6 +16,8 @@ public class Pane02UserLogin extends AbstractConnectStatePane implements
 
 
     public Pane02UserLogin(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
+        super(multiGameWebSocketClientManyTimesUse.getClientState());
+
         Label labelUser = new Label("User");
         TextField textFieldUser = new TextField();
         Label labelPassword = new Label("Password");

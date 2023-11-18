@@ -5,10 +5,16 @@ import java.util.List;
 import javafx.scene.control.Control;
 import javafx.scene.layout.HBox;
 
+import timmax.tilegame.basemodel.protocol.ClientState;
+
 public abstract class AbstractConnectStatePane extends HBox {
     private List<Control> listOfControlsNextState;
     private List<Control> listOfControlsPrevState;
+    protected ClientState clientState;
 
+    public AbstractConnectStatePane(ClientState clientState) {
+        this.clientState = clientState;
+    }
 
     public void setListsOfControlsAndAllDisable(List<Control> listOfControlsNextState, List<Control> listOfControlsPrevState) {
         this.listOfControlsNextState = listOfControlsNextState;
