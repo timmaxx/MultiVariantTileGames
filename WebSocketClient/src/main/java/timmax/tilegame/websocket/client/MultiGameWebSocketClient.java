@@ -22,15 +22,7 @@ import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 public class MultiGameWebSocketClient extends WebSocketClient {
     private final ObjectMapper mapper = new ObjectMapper();
     private final ClientState clientState;
-
-    // ToDo: Переделать Map на Set.
-    private final Map<Observer010OnClose, String> mapOfObserver_String__OnClose = new HashMap<>();
-    private final Map<Observer011OnOpen, String> mapOfObserver_String__OnOpen = new HashMap<>();
-    private final Map<Observer020OnLogout, String> mapOfObserver_String__OnLogout = new HashMap<>();
-    private final Map<Observer021OnLogin, String> mapOfObserver_String__OnLogin = new HashMap<>();
-    private final Map<Observer030OnForgetGameTypeSet, String> mapOfObserver_String__OnForgetGameTypeSet = new HashMap<>();
-    private final Map<Observer031OnGetGameTypeSet, String> mapOfObserver_String__OnGetGameTypeSet = new HashMap<>();
-    private final Map<Observer041OnSelectGameType, String> mapOfObserver_String__OnSelectGameType = new HashMap<>();
+    private final SetOfObserverOnAbstractEvent setOfObserverOnAbstractEvent;
 
 
     public MainGameClientStatus getMainGameClientStatus() {
@@ -43,37 +35,10 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         throw new RuntimeException("Unknown state.");
     }
 
-    public void addViewOnClose(Observer010OnClose observer010OnClose) {
-        mapOfObserver_String__OnClose.put(observer010OnClose, "");
-    }
-
-    public void addViewOnOpen(Observer011OnOpen observer011OnOpen) {
-        mapOfObserver_String__OnOpen.put(observer011OnOpen, "");
-    }
-
-    public void addViewOnLogout(Observer020OnLogout observerOnLogout) {
-        mapOfObserver_String__OnLogout.put(observerOnLogout, "");
-    }
-
-    public void addViewOnLogin(Observer021OnLogin observer021OnLogin) {
-        mapOfObserver_String__OnLogin.put(observer021OnLogin, "");
-    }
-
-    public void addViewOnForgetGameTypeSet(Observer030OnForgetGameTypeSet observer030OnForgetGameTypeSet) {
-        mapOfObserver_String__OnForgetGameTypeSet.put(observer030OnForgetGameTypeSet, "");
-    }
-
-    public void addViewOnGetGameTypeSet(Observer031OnGetGameTypeSet ObserverOnGetGameTypeSet) {
-        mapOfObserver_String__OnGetGameTypeSet.put(ObserverOnGetGameTypeSet, "");
-    }
-
-    public void addViewOnSelectGameType(Observer041OnSelectGameType observer041OnSelectGameType) {
-        mapOfObserver_String__OnSelectGameType.put(observer041OnSelectGameType, "");
-    }
-
-    public MultiGameWebSocketClient(URI serverUri, ClientState clientState) {
+    public MultiGameWebSocketClient(URI serverUri, ClientState clientState, SetOfObserverOnAbstractEvent setOfObserverOnAbstractEvent) {
         super(serverUri);
         this.clientState = clientState;
+        this.setOfObserverOnAbstractEvent = setOfObserverOnAbstractEvent;
         System.out.println(serverUri);
     }
 
@@ -167,10 +132,9 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         System.out.println("onClose");
 
         clientState.setUserName("");
-        for (Observer010OnClose observer010OnClose : mapOfObserver_String__OnClose.keySet()) {
-            observer010OnClose.updateOnClose();
-        }
         System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
+        setOfObserverOnAbstractEvent.updateConnectStatePane(CLOSE);
+
         System.out.println("----------");
     }
 
@@ -180,9 +144,8 @@ public class MultiGameWebSocketClient extends WebSocketClient {
 
         clientState.setUserName("");
         System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
-        for (Observer011OnOpen observer011OnOpen : mapOfObserver_String__OnOpen.keySet()) {
-            observer011OnOpen.updateOnOpen();
-        }
+        setOfObserverOnAbstractEvent.updateConnectStatePane(OPEN);
+
         System.out.println("----------");
     }
 
@@ -191,6 +154,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         System.err.println("onError");
 
         ex.printStackTrace();
+
         System.err.println("----------");
     }
 
@@ -244,27 +208,21 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         System.out.println("onLogout");
 
         clientState.setUserName("");
-        for (Observer020OnLogout observer021OnLogout : mapOfObserver_String__OnLogout.keySet()) {
-            observer021OnLogout.updateOnLogout();
-        }
+        setOfObserverOnAbstractEvent.updateConnectStatePane(LOGOUT);
     }
 
     protected void onLogin(TransportPackageOfServer transportPackageOfServer) {
         System.out.println("onLogin");
 
         clientState.setUserName((String) transportPackageOfServer.get("userName"));
-        for (Observer021OnLogin observer021OnLogin : mapOfObserver_String__OnLogin.keySet()) {
-            observer021OnLogin.updateOnLogin();
-        }
+        setOfObserverOnAbstractEvent.updateConnectStatePane(LOGIN);
     }
 
     protected void onForgetGameTypeSet(TransportPackageOfServer transportPackageOfServer) {
         System.out.println("onForgetGameTypeSet");
 
         clientState.setArrayListOfServerBaseModelClass(new ArrayList<>());
-        for (Observer030OnForgetGameTypeSet observer030OnForgetGameTypeSet : mapOfObserver_String__OnForgetGameTypeSet.keySet()) {
-            observer030OnForgetGameTypeSet.updateOnForgetGameTypeSet();
-        }
+        setOfObserverOnAbstractEvent.updateConnectStatePane(FORGET_GAME_TYPE_SET);
     }
 
     protected void onGetGameTypeSet(TransportPackageOfServer transportPackageOfServer) {
@@ -281,13 +239,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
                 throw new RuntimeException(e);
             }
         }
-
-        // ToDo: Поскольку список типов иг уже записан в clientState, то не нужно его передавать через update...()
-        //       (здесь это updateOnGetGameTypeSet()).
-        //       Тогда все интерфейсы с подобными update...() станут проще и унифицированее.
-        for (Observer031OnGetGameTypeSet observer031OnGetGameTypeSet : mapOfObserver_String__OnGetGameTypeSet.keySet()) {
-            observer031OnGetGameTypeSet.updateOnGetGameTypeSet();
-        }
+        setOfObserverOnAbstractEvent.updateConnectStatePane(GET_GAME_TYPE_SET);
     }
 
     protected void onSelectGameType(TransportPackageOfServer transportPackageOfServer) {
@@ -299,9 +251,6 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-
-        for (Observer041OnSelectGameType observer041OnSelectGameType : mapOfObserver_String__OnSelectGameType.keySet()) {
-            observer041OnSelectGameType.updateOnSelectGameType();
-        }
+        setOfObserverOnAbstractEvent.updateConnectStatePane(SELECT_GAME_TYPE);
     }
 }

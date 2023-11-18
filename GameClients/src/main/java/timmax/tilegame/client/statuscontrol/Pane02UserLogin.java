@@ -4,14 +4,12 @@ import java.util.List;
 
 import javafx.scene.control.*;
 
+import timmax.tilegame.basemodel.protocol.TypeOfTransportPackage;
 import timmax.tilegame.websocket.client.*;
 
-public class Pane02UserLogin extends AbstractConnectStatePane implements
-        Observer010OnClose,
-        Observer011OnOpen,
-        Observer020OnLogout,
-        Observer021OnLogin {
+import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
+public class Pane02UserLogin extends AbstractConnectStatePane implements ObserverOnAbstractEvent {
     private final PasswordField passwordField;
 
 
@@ -30,10 +28,7 @@ public class Pane02UserLogin extends AbstractConnectStatePane implements
             passwordField.setText("1");
         }
 
-        multiGameWebSocketClientManyTimesUse.addViewOnClose(this);
-        multiGameWebSocketClientManyTimesUse.addViewOnOpen(this);
-        multiGameWebSocketClientManyTimesUse.addViewOnLogout(this);
-        multiGameWebSocketClientManyTimesUse.addViewOnLogin(this);
+        multiGameWebSocketClientManyTimesUse.addViewOnAnyEvent(this);
 
         buttonLogin.setOnAction(event -> {
             disableAllControls();
@@ -50,23 +45,32 @@ public class Pane02UserLogin extends AbstractConnectStatePane implements
                 List.of(buttonLogout));
     }
 
-    @Override
     public void updateOnClose() {
         disableAllControls();
     }
 
-    @Override
     public void updateOnOpen() {
         setDisableControlsNextState(false);
     }
 
-    @Override
     public void updateOnLogout() {
         setDisableControlsNextState(false);
     }
 
-    @Override
     public void updateOnLogin() {
         setDisableControlsNextState(true);
+    }
+
+    @Override
+    public void update(TypeOfTransportPackage typeOfTransportPackage) {
+        if (typeOfTransportPackage == CLOSE) {
+            updateOnClose();
+        } else if (typeOfTransportPackage == OPEN) {
+            updateOnOpen();
+        } else if (typeOfTransportPackage == LOGOUT) {
+            updateOnLogout();
+        } else if (typeOfTransportPackage == LOGIN) {
+            updateOnLogin();
+        }
     }
 }

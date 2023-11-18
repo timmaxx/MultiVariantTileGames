@@ -4,29 +4,19 @@ import java.util.List;
 
 import javafx.scene.control.Button;
 
+import timmax.tilegame.basemodel.protocol.TypeOfTransportPackage;
 import timmax.tilegame.websocket.client.*;
 
-public class Pane03GetGameTypeSet extends AbstractConnectStatePane implements
-        Observer010OnClose,
-        Observer011OnOpen,
-        Observer020OnLogout,
-        Observer021OnLogin,
-        Observer030OnForgetGameTypeSet,
-        Observer031OnGetGameTypeSet {
+import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
-
+public class Pane03GetGameTypeSet extends AbstractConnectStatePane implements ObserverOnAbstractEvent {
     public Pane03GetGameTypeSet(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
         super(multiGameWebSocketClientManyTimesUse.getClientState());
 
         Button buttonGetGameTypeSet = new Button("Get the game type set");
         Button buttonForgetGameTypeSet = new Button("Forget the game type set");
 
-        multiGameWebSocketClientManyTimesUse.addViewOnClose(this);
-        multiGameWebSocketClientManyTimesUse.addViewOnOpen(this);
-        multiGameWebSocketClientManyTimesUse.addViewOnLogout(this);
-        multiGameWebSocketClientManyTimesUse.addViewOnLogin(this);
-        multiGameWebSocketClientManyTimesUse.addViewOnForgetGameTypeSet(this);
-        multiGameWebSocketClientManyTimesUse.addViewOnGetGameTypeSet(this);
+        multiGameWebSocketClientManyTimesUse.addViewOnAnyEvent(this);
 
         buttonGetGameTypeSet.setOnAction(event -> {
             disableAllControls();
@@ -43,33 +33,44 @@ public class Pane03GetGameTypeSet extends AbstractConnectStatePane implements
                 List.of(buttonForgetGameTypeSet));
     }
 
-    @Override
     public void updateOnClose() {
         disableAllControls();
     }
 
-    @Override
     public void updateOnOpen() {
         disableAllControls();
     }
 
-    @Override
     public void updateOnLogout() {
         disableAllControls();
     }
 
-    @Override
     public void updateOnLogin() {
         setDisableControlsNextState(false);
     }
 
-    @Override
     public void updateOnForgetGameTypeSet() {
         setDisableControlsNextState(false);
     }
 
-    @Override
     public void updateOnGetGameTypeSet() {
         setDisableControlsNextState(true);
+    }
+
+    @Override
+    public void update(TypeOfTransportPackage typeOfTransportPackage) {
+        if (typeOfTransportPackage == CLOSE) {
+            updateOnClose();
+        } else if (typeOfTransportPackage == OPEN) {
+            updateOnOpen();
+        } else if (typeOfTransportPackage == LOGOUT) {
+            updateOnLogout();
+        } else if (typeOfTransportPackage == LOGIN) {
+            updateOnLogin();
+        } else if (typeOfTransportPackage == FORGET_GAME_TYPE_SET) {
+            updateOnForgetGameTypeSet();
+        } else if (typeOfTransportPackage == GET_GAME_TYPE_SET) {
+            updateOnGetGameTypeSet();
+        }
     }
 }

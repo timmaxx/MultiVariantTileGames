@@ -1,6 +1,8 @@
 package timmax.tilegame.basemodel.protocol;
 
 public enum TypeOfTransportPackage {
+    CLOSE,
+    OPEN,
     LOGOUT,
     LOGIN,
     FORGET_GAME_TYPE_SET,

@@ -8,12 +8,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import timmax.tilegame.basemodel.protocol.TypeOfTransportPackage;
 import timmax.tilegame.websocket.client.*;
 
-public class Pane01ServerConnect extends AbstractConnectStatePane implements
-        Observer010OnClose,
-        Observer011OnOpen {
+import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.CLOSE;
+import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.OPEN;
 
+public class Pane01ServerConnect extends AbstractConnectStatePane implements ObserverOnAbstractEvent {
     private final TextField textFieldServerAddress;
     private final TextField textFieldServerPort;
     private final Label labelConnectString;
@@ -35,8 +36,7 @@ public class Pane01ServerConnect extends AbstractConnectStatePane implements
             textFieldServerPort.setText("8887");
         }
 
-        multiGameWebSocketClientManyTimesUse.addViewOnClose(this);
-        multiGameWebSocketClientManyTimesUse.addViewOnOpen(this);
+        multiGameWebSocketClientManyTimesUse.addViewOnAnyEvent(this);
 
         buttonConnect.setOnAction(event -> {
             disableAllControls();
@@ -65,13 +65,20 @@ public class Pane01ServerConnect extends AbstractConnectStatePane implements
         }
     }
 
-    @Override
     public void updateOnClose() {
         setDisableControlsNextState(false);
     }
 
-    @Override
     public void updateOnOpen() {
         setDisableControlsNextState(true);
+    }
+
+    @Override
+    public void update(TypeOfTransportPackage typeOfTransportPackage) {
+        if (typeOfTransportPackage == CLOSE) {
+            updateOnClose();
+        } else if (typeOfTransportPackage == OPEN) {
+            updateOnOpen();
+        }
     }
 }
