@@ -4,10 +4,7 @@ import java.util.List;
 
 import javafx.scene.control.*;
 
-import timmax.tilegame.basemodel.protocol.TypeOfTransportPackage;
 import timmax.tilegame.websocket.client.*;
-
-import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
 public class Pane02UserLogin extends AbstractConnectStatePane implements ObserverOnAbstractEvent {
     private final PasswordField passwordField;
@@ -45,32 +42,23 @@ public class Pane02UserLogin extends AbstractConnectStatePane implements Observe
                 List.of(buttonLogout));
     }
 
+    @Override
     public void updateOnClose() {
         disableAllControls();
     }
 
+    @Override
     public void updateOnOpen() {
         setDisableControlsNextState(false);
     }
 
+    @Override
     public void updateOnLogout() {
         setDisableControlsNextState(false);
     }
 
+    @Override
     public void updateOnLogin() {
         setDisableControlsNextState(true);
-    }
-
-    @Override
-    public void update(TypeOfTransportPackage typeOfTransportPackage) {
-        if (typeOfTransportPackage == CLOSE) {
-            updateOnClose();
-        } else if (typeOfTransportPackage == OPEN) {
-            updateOnOpen();
-        } else if (typeOfTransportPackage == LOGOUT) {
-            updateOnLogout();
-        } else if (typeOfTransportPackage == LOGIN) {
-            updateOnLogin();
-        }
     }
 }

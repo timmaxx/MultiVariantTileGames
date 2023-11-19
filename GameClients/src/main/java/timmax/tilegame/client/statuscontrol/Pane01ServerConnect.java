@@ -8,11 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import timmax.tilegame.basemodel.protocol.TypeOfTransportPackage;
 import timmax.tilegame.websocket.client.*;
-
-import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.CLOSE;
-import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.OPEN;
 
 public class Pane01ServerConnect extends AbstractConnectStatePane implements ObserverOnAbstractEvent {
     private final TextField textFieldServerAddress;
@@ -65,20 +61,13 @@ public class Pane01ServerConnect extends AbstractConnectStatePane implements Obs
         }
     }
 
+    @Override
     public void updateOnClose() {
         setDisableControlsNextState(false);
     }
 
+    @Override
     public void updateOnOpen() {
         setDisableControlsNextState(true);
-    }
-
-    @Override
-    public void update(TypeOfTransportPackage typeOfTransportPackage) {
-        if (typeOfTransportPackage == CLOSE) {
-            updateOnClose();
-        } else if (typeOfTransportPackage == OPEN) {
-            updateOnOpen();
-        }
     }
 }
