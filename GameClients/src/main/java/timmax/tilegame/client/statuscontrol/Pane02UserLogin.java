@@ -25,7 +25,7 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
             passwordField.setText("1");
         }
 
-        multiGameWebSocketClientManyTimesUse.addViewOnAnyEvent(this);
+        multiGameWebSocketClientManyTimesUse.addCallBackOnIncomingTransportPackageEvent(this);
 
         buttonLogin.setOnAction(event -> {
             disableAllControls();

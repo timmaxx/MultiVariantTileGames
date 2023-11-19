@@ -13,7 +13,7 @@ public class Pane03GetGameTypeSet extends AbstractConnectStatePane {
         Button buttonGetGameTypeSet = new Button("Get the game type set");
         Button buttonForgetGameTypeSet = new Button("Forget the game type set");
 
-        multiGameWebSocketClientManyTimesUse.addViewOnAnyEvent(this);
+        multiGameWebSocketClientManyTimesUse.addCallBackOnIncomingTransportPackageEvent(this);
 
         buttonGetGameTypeSet.setOnAction(event -> {
             disableAllControls();

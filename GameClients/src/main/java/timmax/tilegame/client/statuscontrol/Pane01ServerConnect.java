@@ -32,7 +32,7 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
             textFieldServerPort.setText("8887");
         }
 
-        multiGameWebSocketClientManyTimesUse.addViewOnAnyEvent(this);
+        multiGameWebSocketClientManyTimesUse.addCallBackOnIncomingTransportPackageEvent(this);
 
         buttonConnect.setOnAction(event -> {
             disableAllControls();

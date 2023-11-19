@@ -16,7 +16,7 @@ public class MultiGameWebSocketClientManyTimesUse {
     private URI uri;
 
 
-    public void addViewOnAnyEvent(ObserverOnAbstractEvent observerOnAbstractEvent) {
+    public void addCallBackOnIncomingTransportPackageEvent(ObserverOnAbstractEvent observerOnAbstractEvent) {
         hashSetOfObserverOnAbstractEvent.add(observerOnAbstractEvent);
     }
 
