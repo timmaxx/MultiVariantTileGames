@@ -6,11 +6,12 @@ import javafx.scene.control.Control;
 import javafx.scene.layout.HBox;
 
 import timmax.tilegame.basemodel.protocol.ClientState;
+import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.TypeOfTransportPackage;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
-public abstract class AbstractConnectStatePane extends HBox {
+public abstract class AbstractConnectStatePane extends HBox implements ObserverOnAbstractEvent {
     private List<Control> listOfControlsNextState;
     private List<Control> listOfControlsPrevState;
     protected ClientState clientState;

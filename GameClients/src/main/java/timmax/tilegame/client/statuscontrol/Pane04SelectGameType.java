@@ -9,10 +9,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 import timmax.tilegame.basemodel.ServerBaseModel;
-import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.websocket.client.*;
 
-public class Pane04SelectGameType extends AbstractConnectStatePane implements ObserverOnAbstractEvent {
+public class Pane04SelectGameType extends AbstractConnectStatePane {
     private final ComboBox<Class<? extends ServerBaseModel>> comboBoxGameTypeSet;
     private final TextField textFieldSelectGameType;
 

@@ -8,10 +8,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.websocket.client.*;
 
-public class Pane01ServerConnect extends AbstractConnectStatePane implements ObserverOnAbstractEvent {
+public class Pane01ServerConnect extends AbstractConnectStatePane {
     private final TextField textFieldServerAddress;
     private final TextField textFieldServerPort;
     private final Label labelConnectString;

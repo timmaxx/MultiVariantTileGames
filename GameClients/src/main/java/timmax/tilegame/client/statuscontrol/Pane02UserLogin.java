@@ -4,10 +4,9 @@ import java.util.List;
 
 import javafx.scene.control.*;
 
-import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.websocket.client.*;
 
-public class Pane02UserLogin extends AbstractConnectStatePane implements ObserverOnAbstractEvent {
+public class Pane02UserLogin extends AbstractConnectStatePane {
     private final PasswordField passwordField;
 
 

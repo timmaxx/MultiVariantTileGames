@@ -4,10 +4,9 @@ import java.util.List;
 
 import javafx.scene.control.Button;
 
-import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.websocket.client.*;
 
-public class Pane03GetGameTypeSet extends AbstractConnectStatePane implements ObserverOnAbstractEvent {
+public class Pane03GetGameTypeSet extends AbstractConnectStatePane {
     public Pane03GetGameTypeSet(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
         super(multiGameWebSocketClientManyTimesUse.getClientState());
 
