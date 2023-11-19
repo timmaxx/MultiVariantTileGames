@@ -1,10 +1,8 @@
-package timmax.tilegame.websocket.client;
-
-import timmax.tilegame.basemodel.protocol.TypeOfTransportPackage;
+package timmax.tilegame.basemodel.protocol;
 
 import java.util.HashSet;
 
-public class SetOfObserverOnAbstractEvent extends HashSet<ObserverOnAbstractEvent> {
+public class HashSetOfObserverOnAbstractEvent extends HashSet<ObserverOnAbstractEvent> {
     public void updateConnectStatePane(TypeOfTransportPackage typeOfTransportPackage) {
         for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
             observerOnAbstractEvent.update(typeOfTransportPackage);

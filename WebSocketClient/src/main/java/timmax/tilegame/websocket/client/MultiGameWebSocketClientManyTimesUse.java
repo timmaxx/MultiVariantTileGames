@@ -5,17 +5,19 @@ import java.net.URI;
 import timmax.tilegame.basemodel.ServerBaseModel;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.protocol.ClientState;
+import timmax.tilegame.basemodel.protocol.HashSetOfObserverOnAbstractEvent;
+import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 
 public class MultiGameWebSocketClientManyTimesUse {
     private final ClientState clientState = new ClientState();
-    private final SetOfObserverOnAbstractEvent setOfObserverOnAbstractEvent = new SetOfObserverOnAbstractEvent();
+    private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent = new HashSetOfObserverOnAbstractEvent();
 
     private MultiGameWebSocketClient multiGameWebSocketClient;
     private URI uri;
 
 
     public void addViewOnAnyEvent(ObserverOnAbstractEvent observerOnAbstractEvent) {
-        setOfObserverOnAbstractEvent.add(observerOnAbstractEvent);
+        hashSetOfObserverOnAbstractEvent.add(observerOnAbstractEvent);
     }
 
     public ClientState getClientState() {
@@ -50,7 +52,7 @@ public class MultiGameWebSocketClientManyTimesUse {
     }
 
     public void connect() {
-        multiGameWebSocketClient = new MultiGameWebSocketClient(uri, clientState, setOfObserverOnAbstractEvent);
+        multiGameWebSocketClient = new MultiGameWebSocketClient(uri, clientState, hashSetOfObserverOnAbstractEvent);
 
         multiGameWebSocketClient.connect();
     }

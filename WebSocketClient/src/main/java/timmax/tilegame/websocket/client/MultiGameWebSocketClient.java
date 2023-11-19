@@ -12,17 +12,14 @@ import org.java_websocket.handshake.ServerHandshake;
 
 import timmax.tilegame.basemodel.ServerBaseModel;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
-import timmax.tilegame.basemodel.protocol.ClientState;
-import timmax.tilegame.basemodel.protocol.TransportPackageOfClient;
-import timmax.tilegame.basemodel.protocol.TransportPackageOfServer;
-import timmax.tilegame.basemodel.protocol.TypeOfTransportPackage;
+import timmax.tilegame.basemodel.protocol.*;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
 public class MultiGameWebSocketClient extends WebSocketClient {
     private final ObjectMapper mapper = new ObjectMapper();
     private final ClientState clientState;
-    private final SetOfObserverOnAbstractEvent setOfObserverOnAbstractEvent;
+    private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
 
 
     public MainGameClientStatus getMainGameClientStatus() {
@@ -35,10 +32,10 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         throw new RuntimeException("Unknown state.");
     }
 
-    public MultiGameWebSocketClient(URI serverUri, ClientState clientState, SetOfObserverOnAbstractEvent setOfObserverOnAbstractEvent) {
+    public MultiGameWebSocketClient(URI serverUri, ClientState clientState, HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent) {
         super(serverUri);
         this.clientState = clientState;
-        this.setOfObserverOnAbstractEvent = setOfObserverOnAbstractEvent;
+        this.hashSetOfObserverOnAbstractEvent = hashSetOfObserverOnAbstractEvent;
         System.out.println(serverUri);
     }
 
@@ -133,7 +130,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
 
         clientState.setUserName("");
         System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
-        setOfObserverOnAbstractEvent.updateConnectStatePane(CLOSE);
+        hashSetOfObserverOnAbstractEvent.updateConnectStatePane(CLOSE);
 
         System.out.println("----------");
     }
@@ -144,7 +141,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
 
         clientState.setUserName("");
         System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
-        setOfObserverOnAbstractEvent.updateConnectStatePane(OPEN);
+        hashSetOfObserverOnAbstractEvent.updateConnectStatePane(OPEN);
 
         System.out.println("----------");
     }
@@ -208,21 +205,21 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         System.out.println("onLogout");
 
         clientState.setUserName("");
-        setOfObserverOnAbstractEvent.updateConnectStatePane(LOGOUT);
+        hashSetOfObserverOnAbstractEvent.updateConnectStatePane(LOGOUT);
     }
 
     protected void onLogin(TransportPackageOfServer transportPackageOfServer) {
         System.out.println("onLogin");
 
         clientState.setUserName((String) transportPackageOfServer.get("userName"));
-        setOfObserverOnAbstractEvent.updateConnectStatePane(LOGIN);
+        hashSetOfObserverOnAbstractEvent.updateConnectStatePane(LOGIN);
     }
 
     protected void onForgetGameTypeSet(TransportPackageOfServer transportPackageOfServer) {
         System.out.println("onForgetGameTypeSet");
 
         clientState.setArrayListOfServerBaseModelClass(new ArrayList<>());
-        setOfObserverOnAbstractEvent.updateConnectStatePane(FORGET_GAME_TYPE_SET);
+        hashSetOfObserverOnAbstractEvent.updateConnectStatePane(FORGET_GAME_TYPE_SET);
     }
 
     protected void onGetGameTypeSet(TransportPackageOfServer transportPackageOfServer) {
@@ -239,7 +236,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
                 throw new RuntimeException(e);
             }
         }
-        setOfObserverOnAbstractEvent.updateConnectStatePane(GET_GAME_TYPE_SET);
+        hashSetOfObserverOnAbstractEvent.updateConnectStatePane(GET_GAME_TYPE_SET);
     }
 
     protected void onSelectGameType(TransportPackageOfServer transportPackageOfServer) {
@@ -251,6 +248,6 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        setOfObserverOnAbstractEvent.updateConnectStatePane(SELECT_GAME_TYPE);
+        hashSetOfObserverOnAbstractEvent.updateConnectStatePane(SELECT_GAME_TYPE);
     }
 }

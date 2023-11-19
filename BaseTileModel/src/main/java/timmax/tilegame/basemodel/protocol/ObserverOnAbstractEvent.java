@@ -1,6 +1,4 @@
-package timmax.tilegame.websocket.client;
-
-import timmax.tilegame.basemodel.protocol.TypeOfTransportPackage;
+package timmax.tilegame.basemodel.protocol;
 
 public interface ObserverOnAbstractEvent {
     void update(TypeOfTransportPackage typeOfTransportPackage);
