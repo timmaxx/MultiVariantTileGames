@@ -2,6 +2,7 @@ package timmax.tilegame.client.statuscontrol;
 
 import java.util.List;
 
+import javafx.application.Platform;
 import javafx.scene.control.Control;
 import javafx.scene.layout.HBox;
 
@@ -30,19 +31,19 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     }
 
     protected void disableAllControls() {
-        for (Control control: listOfControlsNextState) {
+        for (Control control : listOfControlsNextState) {
             control.setDisable(true);
         }
-        for (Control control: listOfControlsPrevState) {
+        for (Control control : listOfControlsPrevState) {
             control.setDisable(true);
         }
     }
 
     protected void setDisableControlsNextState(boolean disableControlsNextState) {
-        for (Control control: listOfControlsNextState) {
+        for (Control control : listOfControlsNextState) {
             control.setDisable(disableControlsNextState);
         }
-        for (Control control: listOfControlsPrevState) {
+        for (Control control : listOfControlsPrevState) {
             control.setDisable(!disableControlsNextState);
         }
     }
@@ -65,26 +66,36 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     public void updateOnGetGameTypeSet() {
     }
 
+    public void updateOnForgetGameType() {
+    }
+
     public void updateOnSelectGameType() {
     }
 
+    //  Если ранее comboBoxGameTypeSet уже было заполнено (т.е. вызывался updateOnGetGameTypeSet)
+    //  и не использовать здесь Platform.runLater(), то возникнет исключение:
+    //  Not on FX application thread
+    //  Например:
+    //  Exception in thread "WebSocketConnectReadThread-25" java.lang.IllegalStateException: Not on FX application thread; currentThread = WebSocketConnectReadThread-25
     public void update(TypeOfTransportPackage typeOfTransportPackage) {
-        if (typeOfTransportPackage == CLOSE) {
-            updateOnClose();
-        } else if (typeOfTransportPackage == OPEN) {
-            updateOnOpen();
-        } else if (typeOfTransportPackage == LOGOUT) {
-            updateOnLogout();
-        } else if (typeOfTransportPackage == LOGIN) {
-            updateOnLogin();
-        } else if (typeOfTransportPackage == FORGET_GAME_TYPE_SET) {
-            updateOnForgetGameTypeSet();
-        } else if (typeOfTransportPackage == GET_GAME_TYPE_SET) {
-            updateOnGetGameTypeSet();
-        }/*else if (typeOfTransportPackage == ...) {
-            updateOn...();
-        }*/else if (typeOfTransportPackage == SELECT_GAME_TYPE) {
-            updateOnSelectGameType();
-        }
+        Platform.runLater(() -> {
+            if (typeOfTransportPackage == CLOSE) {
+                updateOnClose();
+            } else if (typeOfTransportPackage == OPEN) {
+                updateOnOpen();
+            } else if (typeOfTransportPackage == LOGOUT) {
+                updateOnLogout();
+            } else if (typeOfTransportPackage == LOGIN) {
+                updateOnLogin();
+            } else if (typeOfTransportPackage == FORGET_GAME_TYPE_SET) {
+                updateOnForgetGameTypeSet();
+            } else if (typeOfTransportPackage == GET_GAME_TYPE_SET) {
+                updateOnGetGameTypeSet();
+            } else if (typeOfTransportPackage == FORGET_GAME_TYPE) {
+                updateOnForgetGameType();
+            } else if (typeOfTransportPackage == SELECT_GAME_TYPE) {
+                updateOnSelectGameType();
+            }
+        });
     }
 }

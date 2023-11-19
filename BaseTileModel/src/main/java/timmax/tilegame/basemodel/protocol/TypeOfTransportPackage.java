@@ -7,6 +7,7 @@ public enum TypeOfTransportPackage {
     LOGIN,
     FORGET_GAME_TYPE_SET,
     GET_GAME_TYPE_SET,
+    FORGET_GAME_TYPE,
     SELECT_GAME_TYPE/*,
     CREATE_GAME_SERIES,
     GAME_SERIES_MAP,

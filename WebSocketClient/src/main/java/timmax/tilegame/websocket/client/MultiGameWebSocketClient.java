@@ -89,6 +89,15 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     }
 
     // 4
+    public void forgetGameType() {
+        try {
+            sendRequest(new TransportPackageOfClient(FORGET_GAME_TYPE));
+        } catch (RuntimeException rte) {
+            rte.printStackTrace();
+            System.exit(1);
+        }
+    }
+
     public void gameTypeSelect(Class<? extends ServerBaseModel> serverBaseModelClass) {
         try {
             sendRequest(new TransportPackageOfClient(
@@ -167,17 +176,23 @@ public class MultiGameWebSocketClient extends WebSocketClient {
 */
         try {
             TransportPackageOfServer transportPackageOfServer = mapper.readValue(message, TransportPackageOfServer.class);
-            TypeOfTransportPackage typeOfTransportPackageOfServer = transportPackageOfServer.getTypeOfTransportPackage();
-            if (typeOfTransportPackageOfServer == LOGOUT) {
+            TypeOfTransportPackage typeOfTransportPackage = transportPackageOfServer.getTypeOfTransportPackage();
+            if (typeOfTransportPackage == LOGOUT) {
                 onLogout(transportPackageOfServer);
-            } else if (typeOfTransportPackageOfServer == LOGIN) {
+            } else if (typeOfTransportPackage == LOGIN) {
                 onLogin(transportPackageOfServer);
-            } else if (typeOfTransportPackageOfServer == FORGET_GAME_TYPE_SET) {
+            } else if (typeOfTransportPackage == FORGET_GAME_TYPE_SET) {
                 onForgetGameTypeSet(transportPackageOfServer);
-            } else if (typeOfTransportPackageOfServer == GET_GAME_TYPE_SET) {
+            } else if (typeOfTransportPackage == GET_GAME_TYPE_SET) {
                 onGetGameTypeSet(transportPackageOfServer);
-            } else if (typeOfTransportPackageOfServer == SELECT_GAME_TYPE) {
+            } else if (typeOfTransportPackage == FORGET_GAME_TYPE) {
+                onForgetGameType(transportPackageOfServer);
+            } else if (typeOfTransportPackage == SELECT_GAME_TYPE) {
                 onSelectGameType(transportPackageOfServer);
+            } else {
+                System.err.println("Client doesn't know received typeOfTransportPackage.");
+                System.err.println("typeOfTransportPackage = " + typeOfTransportPackage);
+                System.exit(1);
             }
         } catch (JsonProcessingException jpe) {
             // От сервера поступило что-то, что не понятно клиенту.
@@ -237,6 +252,13 @@ public class MultiGameWebSocketClient extends WebSocketClient {
             }
         }
         hashSetOfObserverOnAbstractEvent.updateConnectStatePane(GET_GAME_TYPE_SET);
+    }
+
+    protected void onForgetGameType(TransportPackageOfServer transportPackageOfServer) {
+        System.out.println("onForgetGameType");
+
+        clientState.setServerBaseModelClass(null);
+        hashSetOfObserverOnAbstractEvent.updateConnectStatePane(FORGET_GAME_TYPE);
     }
 
     protected void onSelectGameType(TransportPackageOfServer transportPackageOfServer) {

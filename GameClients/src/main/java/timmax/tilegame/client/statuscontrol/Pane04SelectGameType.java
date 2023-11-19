@@ -2,7 +2,6 @@ package timmax.tilegame.client.statuscontrol;
 
 import java.util.List;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -37,7 +36,8 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
         });
 
         buttonForgetGameType.setOnAction(event -> {
-            // netModel.forgetGameTypeSelect();
+            disableAllControls();
+            multiGameWebSocketClientManyTimesUse.forgetGameType();
         });
 
         setListsOfControlsAndAllDisable(
@@ -48,56 +48,47 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
     @Override
     public void updateOnClose() {
         disableAllControls();
-        Platform.runLater(() -> {
-            comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
-            textFieldSelectGameType.setText("");
-        });
+        comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
+        textFieldSelectGameType.setText("");
     }
 
     @Override
     public void updateOnOpen() {
         disableAllControls();
-        Platform.runLater(() -> {
-            comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
-            textFieldSelectGameType.setText("");
-        });
+        comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
+        textFieldSelectGameType.setText("");
     }
 
     @Override
     public void updateOnLogout() {
         disableAllControls();
-        Platform.runLater(() -> {
-            comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
-            textFieldSelectGameType.setText("");
-        });
+        comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
+        textFieldSelectGameType.setText("");
     }
 
     @Override
     public void updateOnLogin() {
         disableAllControls();
-        Platform.runLater(() -> {
-            comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
-            textFieldSelectGameType.setText("");
-        });
+        comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
+        textFieldSelectGameType.setText("");
     }
 
     @Override
     public void updateOnForgetGameTypeSet() {
         disableAllControls();
-        //  Если ранее comboBoxGameTypeSet уже было заполнено (т.е. вызывался updateOnGetGameTypeSet)
-        //  и не использовать здесь Platform.runLater(), то возникнет исключение:
-        //  Not on FX application thread
-        //  Например:
-        //  Exception in thread "WebSocketConnectReadThread-25" java.lang.IllegalStateException: Not on FX application thread; currentThread = WebSocketConnectReadThread-25
-        Platform.runLater(() -> {
-            comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
-            textFieldSelectGameType.setText("");
-        });
+        comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
+        textFieldSelectGameType.setText("");
     }
 
     @Override
     public void updateOnGetGameTypeSet() {
         comboBoxGameTypeSet.setItems(FXCollections.observableArrayList(clientState.getArrayListOfServerBaseModelClass()));
+        textFieldSelectGameType.setText("");
+        setDisableControlsNextState(false);
+    }
+
+    @Override
+    public void updateOnForgetGameType() {
         textFieldSelectGameType.setText("");
         setDisableControlsNextState(false);
     }

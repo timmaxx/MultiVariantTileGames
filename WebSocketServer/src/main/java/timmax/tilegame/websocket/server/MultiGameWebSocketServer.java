@@ -105,6 +105,8 @@ public class MultiGameWebSocketServer extends WebSocketServer {
                 onForgetGameTypeSet(webSocket);
             } else if (typeOfTransportPackage == GET_GAME_TYPE_SET) {
                 onGetGameTypeSet(webSocket);
+            } else if (typeOfTransportPackage == FORGET_GAME_TYPE) {
+                onForgetGameType(webSocket);
             } else if ( typeOfTransportPackage == SELECT_GAME_TYPE) {
                 onSelectGameType(webSocket, transportPackageOfClient);
             } else {
@@ -119,7 +121,7 @@ public class MultiGameWebSocketServer extends WebSocketServer {
             // 2. Совсем упасть серверу.
 
             // throw Должно было привести к полному падению. Но так не получается, из-за того, что onMessage (да и
-            // другие методы) вызывается не в основном потоке-нити, а в дочернем.
+            // другие методы onXxx) вызывается не в основном потоке-нити, а в дочернем.
             // throw new RuntimeException(jpe);
 
             // Тогда будем падать так:
@@ -214,6 +216,19 @@ public class MultiGameWebSocketServer extends WebSocketServer {
                             ).collect(toList())
                     )
             );
+        } catch (RuntimeException rte) {
+            rte.printStackTrace();
+            System.exit(1);
+        }
+        sendRequest(webSocket, transportPackageOfServer);
+    }
+
+    protected void onForgetGameType(WebSocket webSocket) {
+        System.out.println("onForgetGameType");
+
+        TransportPackageOfServer transportPackageOfServer = null;
+        try {
+            transportPackageOfServer = new TransportPackageOfServer(FORGET_GAME_TYPE);
         } catch (RuntimeException rte) {
             rte.printStackTrace();
             System.exit(1);

@@ -73,6 +73,10 @@ public class MultiGameWebSocketClientManyTimesUse {
         multiGameWebSocketClient.getGameTypeSet();
     }
 
+    public void forgetGameType() {
+        multiGameWebSocketClient.forgetGameType();
+    }
+
     public void gameTypeSelect(Class<? extends ServerBaseModel> serverBaseModelClass) {
         multiGameWebSocketClient.gameTypeSelect(serverBaseModelClass);
     }

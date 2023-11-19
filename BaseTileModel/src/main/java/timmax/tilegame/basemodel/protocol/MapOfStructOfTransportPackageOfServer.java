@@ -17,6 +17,7 @@ public class MapOfStructOfTransportPackageOfServer extends MapOfStructOfTranspor
                 GET_GAME_TYPE_SET, Map.of(
                         "gameTypeSet", ArrayList.class
                 ),
+                FORGET_GAME_TYPE, Collections.emptyMap(),
                 SELECT_GAME_TYPE, Map.of(
                         "gameType", String.class
                 )
