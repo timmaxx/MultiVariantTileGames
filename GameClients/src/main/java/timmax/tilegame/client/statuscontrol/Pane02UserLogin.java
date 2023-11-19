@@ -11,7 +11,7 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
 
 
     public Pane02UserLogin(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
-        super(multiGameWebSocketClientManyTimesUse.getClientState());
+        super(multiGameWebSocketClientManyTimesUse);
 
         Label labelUser = new Label("User");
         TextField textFieldUser = new TextField();
@@ -25,8 +25,6 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
             passwordField.setText("1");
         }
 
-        multiGameWebSocketClientManyTimesUse.addCallBackOnIncomingTransportPackageEvent(this);
-
         buttonLogin.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.login(textFieldUser.getText(), passwordField.getText());
@@ -39,7 +37,8 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
 
         setListsOfControlsAndAllDisable(
                 List.of(labelUser, textFieldUser, labelPassword, passwordField, buttonLogin),
-                List.of(buttonLogout));
+                List.of(buttonLogout)
+        );
     }
 
     @Override

@@ -12,23 +12,17 @@ import timmax.tilegame.websocket.client.*;
 
 public class Pane04SelectGameType extends AbstractConnectStatePane {
     private final ComboBox<Class<? extends ServerBaseModel>> comboBoxGameTypeSet;
-    private final TextField textFieldSelectGameType;
+    private final TextField textFieldSelectedGameType;
 
 
     public Pane04SelectGameType(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
-        super(multiGameWebSocketClientManyTimesUse.getClientState());
+        super(multiGameWebSocketClientManyTimesUse);
 
         comboBoxGameTypeSet = new ComboBox<>();
         Button buttonSelectGameType = new Button("Select the game type");
-        textFieldSelectGameType = new TextField();
-        textFieldSelectGameType.setEditable(false);
+        textFieldSelectedGameType = new TextField();
+        textFieldSelectedGameType.setEditable(false);
         Button buttonForgetGameType = new Button("Forget the game type");
-
-        multiGameWebSocketClientManyTimesUse.addCallBackOnIncomingTransportPackageEvent(this);
-
-        comboBoxGameTypeSet.setOnAction(event -> {
-            // System.out.println("event = " + event);
-        });
 
         buttonSelectGameType.setOnAction(event -> {
             disableAllControls();
@@ -41,61 +35,62 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
         });
 
         setListsOfControlsAndAllDisable(
-                List.of(comboBoxGameTypeSet, buttonSelectGameType, textFieldSelectGameType),
-                List.of(buttonForgetGameType));
+                List.of(comboBoxGameTypeSet, buttonSelectGameType, textFieldSelectedGameType),
+                List.of(buttonForgetGameType)
+        );
     }
 
     @Override
     public void updateOnClose() {
         disableAllControls();
         comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
-        textFieldSelectGameType.setText("");
+        textFieldSelectedGameType.setText("");
     }
 
     @Override
     public void updateOnOpen() {
         disableAllControls();
         comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
-        textFieldSelectGameType.setText("");
+        textFieldSelectedGameType.setText("");
     }
 
     @Override
     public void updateOnLogout() {
         disableAllControls();
         comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
-        textFieldSelectGameType.setText("");
+        textFieldSelectedGameType.setText("");
     }
 
     @Override
     public void updateOnLogin() {
         disableAllControls();
         comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
-        textFieldSelectGameType.setText("");
+        textFieldSelectedGameType.setText("");
     }
 
     @Override
     public void updateOnForgetGameTypeSet() {
         disableAllControls();
         comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
-        textFieldSelectGameType.setText("");
+        textFieldSelectedGameType.setText("");
     }
 
     @Override
     public void updateOnGetGameTypeSet() {
         comboBoxGameTypeSet.setItems(FXCollections.observableArrayList(clientState.getArrayListOfServerBaseModelClass()));
-        textFieldSelectGameType.setText("");
+        textFieldSelectedGameType.setText("");
         setDisableControlsNextState(false);
     }
 
     @Override
     public void updateOnForgetGameType() {
-        textFieldSelectGameType.setText("");
+        textFieldSelectedGameType.setText("");
         setDisableControlsNextState(false);
     }
 
     @Override
     public void updateOnSelectGameType() {
-        textFieldSelectGameType.setText(clientState.getServerBaseModelClass().getName());
+        textFieldSelectedGameType.setText(clientState.getServerBaseModelClass().getName());
         setDisableControlsNextState(true);
     }
 }

@@ -8,12 +8,10 @@ import timmax.tilegame.websocket.client.*;
 
 public class Pane03GetGameTypeSet extends AbstractConnectStatePane {
     public Pane03GetGameTypeSet(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
-        super(multiGameWebSocketClientManyTimesUse.getClientState());
+        super(multiGameWebSocketClientManyTimesUse);
 
         Button buttonGetGameTypeSet = new Button("Get the game type set");
         Button buttonForgetGameTypeSet = new Button("Forget the game type set");
-
-        multiGameWebSocketClientManyTimesUse.addCallBackOnIncomingTransportPackageEvent(this);
 
         buttonGetGameTypeSet.setOnAction(event -> {
             disableAllControls();
@@ -27,7 +25,8 @@ public class Pane03GetGameTypeSet extends AbstractConnectStatePane {
 
         setListsOfControlsAndAllDisable(
                 List.of(buttonGetGameTypeSet),
-                List.of(buttonForgetGameTypeSet));
+                List.of(buttonForgetGameTypeSet)
+        );
     }
 
     @Override

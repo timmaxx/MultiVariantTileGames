@@ -17,7 +17,7 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
 
 
     public Pane01ServerConnect(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
-        super(multiGameWebSocketClientManyTimesUse.getClientState());
+        super(multiGameWebSocketClientManyTimesUse);
 
         Label labelServerAddress = new Label("Address");
         textFieldServerAddress = new TextField();
@@ -31,8 +31,6 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
             textFieldServerAddress.setText("localhost");
             textFieldServerPort.setText("8887");
         }
-
-        multiGameWebSocketClientManyTimesUse.addCallBackOnIncomingTransportPackageEvent(this);
 
         buttonConnect.setOnAction(event -> {
             disableAllControls();

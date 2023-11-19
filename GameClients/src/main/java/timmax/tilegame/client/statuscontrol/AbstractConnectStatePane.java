@@ -9,25 +9,33 @@ import javafx.scene.layout.HBox;
 import timmax.tilegame.basemodel.protocol.ClientState;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.TypeOfTransportPackage;
+import timmax.tilegame.websocket.client.MultiGameWebSocketClientManyTimesUse;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
 public abstract class AbstractConnectStatePane extends HBox implements ObserverOnAbstractEvent {
+    MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse;
     private List<Control> listOfControlsNextState;
     private List<Control> listOfControlsPrevState;
     protected ClientState clientState;
 
-    public AbstractConnectStatePane(ClientState clientState) {
-        this.clientState = clientState;
+    public AbstractConnectStatePane(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
+        this.multiGameWebSocketClientManyTimesUse = multiGameWebSocketClientManyTimesUse;
+        this.clientState = multiGameWebSocketClientManyTimesUse.getClientState();
     }
 
-    public void setListsOfControlsAndAllDisable(List<Control> listOfControlsNextState, List<Control> listOfControlsPrevState) {
+    public void setListsOfControlsAndAllDisable(
+            List<Control> listOfControlsNextState,
+            List<Control> listOfControlsPrevState
+    ) {
         this.listOfControlsNextState = listOfControlsNextState;
         this.listOfControlsPrevState = listOfControlsPrevState;
         getChildren().clear();
         getChildren().addAll(listOfControlsNextState);
         getChildren().addAll(listOfControlsPrevState);
         disableAllControls();
+
+        multiGameWebSocketClientManyTimesUse.addCallBackOnIncomingTransportPackageEvent(this);
     }
 
     protected void disableAllControls() {
@@ -72,6 +80,7 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     public void updateOnSelectGameType() {
     }
 
+    //  Описанное было обнаружено при работе с Pane04SelectGameType
     //  Если ранее comboBoxGameTypeSet уже было заполнено (т.е. вызывался updateOnGetGameTypeSet)
     //  и не использовать здесь Platform.runLater(), то возникнет исключение:
     //  Not on FX application thread
