@@ -5,11 +5,11 @@ module timmax.tilegame.client {
     requires WebSocketClient;
 
     requires timmax.tilegame.basetilemodel;
+    requires timmax.tilegame.guiengine.jfx;
 
-    //  It needs this dependency at real-time for creating list of game classes
     requires timmax.tilegame.game.minesweeper.model;
-    //  It needs this dependency at real-time for creating list of game classes
-    requires timmax.tilegame.game.sokoban.model;
+    requires timmax.tilegame.game.minesweeper.jfx;
+    requires timmax.tilegame.game.sokoban.jfx;
 
     exports timmax.tilegame.client;
 }

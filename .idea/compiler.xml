@@ -12,6 +12,7 @@
         <module name="MinesweeperViewControlJFX" />
         <module name="MinesweeperModel" />
         <module name="GameClients" />
+        <module name="GameClientsOld" />
         <module name="TileGameEngineJFX" />
         <module name="SokobanModel" />
         <module name="WebSocketClient" />
