@@ -42,22 +42,22 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
     }
 
     @Override
-    public void updateOnClose() {
+    protected void updateOnClose() {
         disableAllControls();
     }
 
     @Override
-    public void updateOnOpen() {
+    protected void updateOnOpen() {
         setDisableControlsNextState(false);
     }
 
     @Override
-    public void updateOnLogout() {
+    protected void updateOnLogout() {
         setDisableControlsNextState(false);
     }
 
     @Override
-    public void updateOnLogin() {
+    protected void updateOnLogin() {
         setDisableControlsNextState(true);
     }
 }

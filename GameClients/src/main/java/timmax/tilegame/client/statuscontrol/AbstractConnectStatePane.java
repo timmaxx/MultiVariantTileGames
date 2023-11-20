@@ -56,28 +56,28 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
         }
     }
 
-    public void updateOnClose() {
+    protected void updateOnClose() {
     }
 
-    public void updateOnOpen() {
+    protected void updateOnOpen() {
     }
 
-    public void updateOnLogout() {
+    protected void updateOnLogout() {
     }
 
-    public void updateOnLogin() {
+    protected void updateOnLogin() {
     }
 
-    public void updateOnForgetGameTypeSet() {
+    protected void updateOnForgetGameTypeSet() {
     }
 
-    public void updateOnGetGameTypeSet() {
+    protected void updateOnGetGameTypeSet() {
     }
 
-    public void updateOnForgetGameType() {
+    protected void updateOnForgetGameType() {
     }
 
-    public void updateOnSelectGameType() {
+    protected void updateOnSelectGameType() {
     }
 
     //  Описанное было обнаружено при работе с Pane04SelectGameType
@@ -86,7 +86,7 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     //  Not on FX application thread
     //  Например:
     //  Exception in thread "WebSocketConnectReadThread-25" java.lang.IllegalStateException: Not on FX application thread; currentThread = WebSocketConnectReadThread-25
-    public void update(TypeOfTransportPackage typeOfTransportPackage) {
+    public final void update(TypeOfTransportPackage typeOfTransportPackage) {
         Platform.runLater(() -> {
             if (typeOfTransportPackage == CLOSE) {
                 updateOnClose();

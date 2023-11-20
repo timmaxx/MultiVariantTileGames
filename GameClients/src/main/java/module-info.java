@@ -2,8 +2,8 @@ module timmax.tilegame.client {
     requires org.slf4j;
     requires javafx.graphics;
     requires javafx.controls;
-    requires WebSocketClient;
 
+    requires timmax.tilegame.websocket.client;
     requires timmax.tilegame.basetilemodel;
 
     //  It needs this dependency at real-time for creating list of game classes

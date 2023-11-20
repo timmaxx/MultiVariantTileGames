@@ -30,32 +30,32 @@ public class Pane03GetGameTypeSet extends AbstractConnectStatePane {
     }
 
     @Override
-    public void updateOnClose() {
+    protected void updateOnClose() {
         disableAllControls();
     }
 
     @Override
-    public void updateOnOpen() {
+    protected void updateOnOpen() {
         disableAllControls();
     }
 
     @Override
-    public void updateOnLogout() {
+    protected void updateOnLogout() {
         disableAllControls();
     }
 
     @Override
-    public void updateOnLogin() {
+    protected void updateOnLogin() {
         setDisableControlsNextState(false);
     }
 
     @Override
-    public void updateOnForgetGameTypeSet() {
+    protected void updateOnForgetGameTypeSet() {
         setDisableControlsNextState(false);
     }
 
     @Override
-    public void updateOnGetGameTypeSet() {
+    protected void updateOnGetGameTypeSet() {
         setDisableControlsNextState(true);
     }
 }
