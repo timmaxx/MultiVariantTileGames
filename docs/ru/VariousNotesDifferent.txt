@@ -234,3 +234,24 @@ https://habr.com/ru/articles/267389/
 
 Double brace инициализация (это антипаттерн)
 https://javarush.com/groups/posts/1457-double-brace-inicializacija
+
+
+23.11.2023 ------------------------------------------------------------------------------------------------------------
+
+How to write a good README for your GitHub project?
+https://bulldogjob.com/readme/how-to-write-a-good-readme-for-your-github-project
+
+README генератор
+https://readme.so/ru
+
+Генератор .gitignore
+.gitignore - https://www.toptal.com/developers/gitignore/
+
+Git Command - генератор синтаксиса
+https://gitexplorer.com/
+
+Git comments
+https://www.git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project#_commit_guidelines
+https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
+https://who-t.blogspot.com/2009/12/on-commit-messages.html
+https://github.com/erlang/otp/wiki/writing-good-commit-messages
