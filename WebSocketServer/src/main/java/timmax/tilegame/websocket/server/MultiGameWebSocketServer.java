@@ -29,23 +29,6 @@ public class MultiGameWebSocketServer extends WebSocketServer /*implements Trans
         super(new InetSocketAddress(port));
     }
 
-    /*
-        @Override
-        public void sendGameEvent(Set<RemoteView> setOfRemoteViews, GameEvent gameEvent) {
-            StringWriter writer = new StringWriter();
-            try {
-                mapper.writeValue(writer, gameEvent);
-
-                for (RemoteView remoteView : setOfRemoteViews) {
-
-                }
-
-                webSocket.send(writer.toString());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    */
     private void sendRequest(WebSocket webSocket, TransportPackageOfServer transportPackageOfServer) {
         try {
             StringWriter writer = new StringWriter();
@@ -154,7 +137,7 @@ public class MultiGameWebSocketServer extends WebSocketServer /*implements Trans
     protected void onLogout(WebSocket webSocket) {
         System.out.println("onLogout");
 
-        logoutAnswer(webSocket);
+        sendLogoutAnswer(webSocket);
     }
 
     protected void onLogin(WebSocket webSocket, TransportPackageOfClient transportPackageOfClient) {
@@ -172,85 +155,47 @@ public class MultiGameWebSocketServer extends WebSocketServer /*implements Trans
 
         if (Credentials.isUserAndPasswordCorrect(userName, password)) {
             // ToDo: Нужно зафиксировать для этого webSocket имя пользователя (и потом другие параметры авторизации).
-            loginAnswer(webSocket, userName);
+            sendLoginAnswer(webSocket, userName);
         } else {
-            logoutAnswer(webSocket);
+            sendLogoutAnswer(webSocket);
         }
     }
 
-    private void logoutAnswer(WebSocket webSocket) {
-        TransportPackageOfServer transportPackageOfServer = null;
-        try {
-            transportPackageOfServer = new TransportPackageOfServer(LOGOUT);
-        } catch (RuntimeException rte) {
-            rte.printStackTrace();
-            System.exit(1);
-        }
-        sendRequest(webSocket, transportPackageOfServer);
+    private void sendLogoutAnswer(WebSocket webSocket) {
+        sendRequest(webSocket, new TransportPackageOfServer(LOGOUT));
     }
 
-    private void loginAnswer(WebSocket webSocket, String userName) {
-        TransportPackageOfServer transportPackageOfServer = null;
-        try {
-            transportPackageOfServer = new TransportPackageOfServer(
-                    LOGIN,
-                    Map.of("userName", userName)
-            );
-        } catch (RuntimeException rte) {
-            rte.printStackTrace();
-            System.exit(1);
-        }
-        sendRequest(webSocket, transportPackageOfServer);
+    private void sendLoginAnswer(WebSocket webSocket, String userName) {
+        sendRequest(webSocket, new TransportPackageOfServer(
+                LOGIN,
+                Map.of("userName", userName)
+        ));
     }
 
     protected void onForgetGameTypeSet(WebSocket webSocket) {
         System.out.println("onForgetGameTypeSet");
-
-        TransportPackageOfServer transportPackageOfServer = null;
-        try {
-            transportPackageOfServer = new TransportPackageOfServer(FORGET_GAME_TYPE_SET);
-        } catch (RuntimeException rte) {
-            rte.printStackTrace();
-            System.exit(1);
-        }
-        sendRequest(webSocket, transportPackageOfServer);
+        sendRequest(webSocket, new TransportPackageOfServer(FORGET_GAME_TYPE_SET));
     }
 
     protected void onGetGameTypeSet(WebSocket webSocket) {
         System.out.println("onGetGameTypeSet");
-
-        TransportPackageOfServer transportPackageOfServer = null;
-        try {
-            transportPackageOfServer = new TransportPackageOfServer(
-                    GET_GAME_TYPE_SET,
-                    Map.of("gameTypeSet",
-                            Stream.of(
-                                    // ToDo: Перечень классов вариантов игр следует делать не в коде. Варианты:
-                                    //       - файл параметров,
-                                    //       - классы, хранящиеся по определённому пути.
-                                    MinesweeperModel.class,
-                                    SokobanModel.class
-                            ).collect(toList())
-                    )
-            );
-        } catch (RuntimeException rte) {
-            rte.printStackTrace();
-            System.exit(1);
-        }
-        sendRequest(webSocket, transportPackageOfServer);
+        sendRequest(webSocket, new TransportPackageOfServer(
+                GET_GAME_TYPE_SET,
+                Map.of("gameTypeSet",
+                        Stream.of(
+                                // ToDo: Перечень классов вариантов игр следует делать не в коде. Варианты:
+                                //       - файл параметров,
+                                //       - классы, хранящиеся по определённому пути.
+                                MinesweeperModel.class,
+                                SokobanModel.class
+                        ).collect(toList())
+                )
+        ));
     }
 
     protected void onForgetGameType(WebSocket webSocket) {
         System.out.println("onForgetGameType");
-
-        TransportPackageOfServer transportPackageOfServer = null;
-        try {
-            transportPackageOfServer = new TransportPackageOfServer(FORGET_GAME_TYPE);
-        } catch (RuntimeException rte) {
-            rte.printStackTrace();
-            System.exit(1);
-        }
-        sendRequest(webSocket, transportPackageOfServer);
+        sendRequest(webSocket, new TransportPackageOfServer(FORGET_GAME_TYPE));
     }
 
     protected void onSelectGameType(WebSocket webSocket, TransportPackageOfClient transportPackageOfClient) {
@@ -260,16 +205,9 @@ public class MultiGameWebSocketServer extends WebSocketServer /*implements Trans
         String model = (String) transportPackageOfClient.get("gameType");
         // ToDo: Проверить, что model одна из списка возможных моделей, которые были отправлены ранее этому клиенту.
 
-        TransportPackageOfServer transportPackageOfServer = null;
-        try {
-            transportPackageOfServer = new TransportPackageOfServer(
-                    SELECT_GAME_TYPE,
-                    Map.of("gameType", model)
-            );
-        } catch (RuntimeException rte) {
-            rte.printStackTrace();
-            System.exit(1);
-        }
-        sendRequest(webSocket, transportPackageOfServer);
+        sendRequest(webSocket, new TransportPackageOfServer(
+                SELECT_GAME_TYPE,
+                Map.of("gameType", model)
+        ));
     }
 }
