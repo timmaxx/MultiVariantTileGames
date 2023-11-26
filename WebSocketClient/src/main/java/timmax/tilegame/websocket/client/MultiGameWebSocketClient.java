@@ -41,80 +41,52 @@ public class MultiGameWebSocketClient extends WebSocketClient {
 
     // 2
     public void logout() {
-        try {
-            send(new TransportPackageOfClient(LOGOUT));
-        } catch (RuntimeException rte) {
-            rte.printStackTrace();
-            System.exit(1);
-        }
+        send(new TransportPackageOfClient(LOGOUT));
     }
 
     public void login(String userName, String password) {
-        // Здесь и в других методах "оборачиваем" 'new TransportPackageOfClient()' try-ем, т.к. если исключения будут
-        // возникать в глубине вызовов, но учитывая, что работа метода идёт не в основном потоке, а в дочернем,
-        // JVM просто ничего не сделает с исключениями.
-        // Ещё можно было-бы попробовать поработать с setUncaughtExceptionHandler(), если-бы WebSocketClient
-        // (да и WebSocketServer) били-бы наследниками Thread. Но это не так.
-        try {
-            send(new TransportPackageOfClient(
-                    LOGIN,
-                    Map.of(
-                            "userName", userName,
-                            "password", password
-                    ))
-            );
-        } catch (RuntimeException rte) {
-            rte.printStackTrace();
-            System.exit(1);
-        }
+        send(new TransportPackageOfClient(
+                LOGIN,
+                Map.of(
+                        "userName", userName,
+                        "password", password
+                ))
+        );
     }
 
     // 3
     public void forgetGameTypeSet() {
-        try {
-            send(new TransportPackageOfClient(FORGET_GAME_TYPE_SET));
-        } catch (RuntimeException rte) {
-            rte.printStackTrace();
-            System.exit(1);
-        }
+        send(new TransportPackageOfClient(FORGET_GAME_TYPE_SET));
     }
 
     public void getGameTypeSet() {
-        try {
-            send(new TransportPackageOfClient(GET_GAME_TYPE_SET));
-        } catch (RuntimeException rte) {
-            rte.printStackTrace();
-            System.exit(1);
-        }
+        send(new TransportPackageOfClient(GET_GAME_TYPE_SET));
     }
 
     // 4
     public void forgetGameType() {
-        try {
-            send(new TransportPackageOfClient(FORGET_GAME_TYPE));
-        } catch (RuntimeException rte) {
-            rte.printStackTrace();
-            System.exit(1);
-        }
+        send(new TransportPackageOfClient(FORGET_GAME_TYPE));
     }
 
     public void gameTypeSelect(Class<? extends ServerBaseModel> serverBaseModelClass) {
-        try {
-            send(new TransportPackageOfClient(
-                    SELECT_GAME_TYPE,
-                    Map.of(
-                            "gameType",
-                            serverBaseModelClass.getName()
-                    ))
-            );
-        } catch (RuntimeException rte) {
-            rte.printStackTrace();
-            System.exit(1);
-        }
+        send(new TransportPackageOfClient(
+                SELECT_GAME_TYPE,
+                Map.of(
+                        "gameType",
+                        serverBaseModelClass.getName()
+                ))
+        );
     }
 
     private void send(TransportPackageOfClient transportPackageOfClient) {
         // System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
+
+        // Здесь "оборачиваем" 'new TransportPackageOfClient()' try-ем, т.к. если исключения будут
+        // возникать в глубине вызовов, JVM просто ничего не сделает с исключениями.
+        // Это из-за того, что работа метода идёт не в основном потоке, а в дочернем.
+        // Ещё можно было-бы попробовать поработать с setUncaughtExceptionHandler(), если-бы WebSocketClient
+        // (да и WebSocketServer) были-бы наследниками Thread. Но это не так.
+
         try {
             StringWriter writer = new StringWriter();
             mapper.writeValue(writer, transportPackageOfClient);
