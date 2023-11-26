@@ -21,7 +21,7 @@ import timmax.tilegame.game.sokoban.model.SokobanModel;
 import static java.util.stream.Collectors.toList;
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
-public class MultiGameWebSocketServer extends WebSocketServer {
+public class MultiGameWebSocketServer extends WebSocketServer /*implements TransportOfModel*/ {
     private final ObjectMapper mapper = new ObjectMapper();
 
 
@@ -29,6 +29,23 @@ public class MultiGameWebSocketServer extends WebSocketServer {
         super(new InetSocketAddress(port));
     }
 
+    /*
+        @Override
+        public void sendGameEvent(Set<RemoteView> setOfRemoteViews, GameEvent gameEvent) {
+            StringWriter writer = new StringWriter();
+            try {
+                mapper.writeValue(writer, gameEvent);
+
+                for (RemoteView remoteView : setOfRemoteViews) {
+
+                }
+
+                webSocket.send(writer.toString());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    */
     private void sendRequest(WebSocket webSocket, TransportPackageOfServer transportPackageOfServer) {
         try {
             StringWriter writer = new StringWriter();
@@ -107,7 +124,7 @@ public class MultiGameWebSocketServer extends WebSocketServer {
                 onGetGameTypeSet(webSocket);
             } else if (typeOfTransportPackage == FORGET_GAME_TYPE) {
                 onForgetGameType(webSocket);
-            } else if ( typeOfTransportPackage == SELECT_GAME_TYPE) {
+            } else if (typeOfTransportPackage == SELECT_GAME_TYPE) {
                 onSelectGameType(webSocket, transportPackageOfClient);
             } else {
                 System.err.println("Server doesn't know received typeOfTransportPackage.");
@@ -240,7 +257,7 @@ public class MultiGameWebSocketServer extends WebSocketServer {
         System.out.println("onSelectGameType");
 
         // System.out.println("transportPackageOfClient = " + transportPackageOfClient);
-        String model = (String)transportPackageOfClient.get("gameType");
+        String model = (String) transportPackageOfClient.get("gameType");
         // ToDo: Проверить, что model одна из списка возможных моделей, которые были отправлены ранее этому клиенту.
 
         TransportPackageOfServer transportPackageOfServer = null;
