@@ -29,7 +29,7 @@ public class MultiGameWebSocketServer extends WebSocketServer /*implements Trans
         super(new InetSocketAddress(port));
     }
 
-    private void sendRequest(WebSocket webSocket, TransportPackageOfServer transportPackageOfServer) {
+    private void send(WebSocket webSocket, TransportPackageOfServer transportPackageOfServer) {
         try {
             StringWriter writer = new StringWriter();
             mapper.writeValue(writer, transportPackageOfServer);
@@ -162,11 +162,11 @@ public class MultiGameWebSocketServer extends WebSocketServer /*implements Trans
     }
 
     private void sendLogoutAnswer(WebSocket webSocket) {
-        sendRequest(webSocket, new TransportPackageOfServer(LOGOUT));
+        send(webSocket, new TransportPackageOfServer(LOGOUT));
     }
 
     private void sendLoginAnswer(WebSocket webSocket, String userName) {
-        sendRequest(webSocket, new TransportPackageOfServer(
+        send(webSocket, new TransportPackageOfServer(
                 LOGIN,
                 Map.of("userName", userName)
         ));
@@ -174,12 +174,12 @@ public class MultiGameWebSocketServer extends WebSocketServer /*implements Trans
 
     protected void onForgetGameTypeSet(WebSocket webSocket) {
         System.out.println("onForgetGameTypeSet");
-        sendRequest(webSocket, new TransportPackageOfServer(FORGET_GAME_TYPE_SET));
+        send(webSocket, new TransportPackageOfServer(FORGET_GAME_TYPE_SET));
     }
 
     protected void onGetGameTypeSet(WebSocket webSocket) {
         System.out.println("onGetGameTypeSet");
-        sendRequest(webSocket, new TransportPackageOfServer(
+        send(webSocket, new TransportPackageOfServer(
                 GET_GAME_TYPE_SET,
                 Map.of("gameTypeSet",
                         Stream.of(
@@ -195,7 +195,7 @@ public class MultiGameWebSocketServer extends WebSocketServer /*implements Trans
 
     protected void onForgetGameType(WebSocket webSocket) {
         System.out.println("onForgetGameType");
-        sendRequest(webSocket, new TransportPackageOfServer(FORGET_GAME_TYPE));
+        send(webSocket, new TransportPackageOfServer(FORGET_GAME_TYPE));
     }
 
     protected void onSelectGameType(WebSocket webSocket, TransportPackageOfClient transportPackageOfClient) {
@@ -205,7 +205,7 @@ public class MultiGameWebSocketServer extends WebSocketServer /*implements Trans
         String model = (String) transportPackageOfClient.get("gameType");
         // ToDo: Проверить, что model одна из списка возможных моделей, которые были отправлены ранее этому клиенту.
 
-        sendRequest(webSocket, new TransportPackageOfServer(
+        send(webSocket, new TransportPackageOfServer(
                 SELECT_GAME_TYPE,
                 Map.of("gameType", model)
         ));
