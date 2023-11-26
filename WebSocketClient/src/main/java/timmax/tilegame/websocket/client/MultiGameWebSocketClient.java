@@ -42,7 +42,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     // 2
     public void logout() {
         try {
-            sendRequest(new TransportPackageOfClient(LOGOUT));
+            send(new TransportPackageOfClient(LOGOUT));
         } catch (RuntimeException rte) {
             rte.printStackTrace();
             System.exit(1);
@@ -56,7 +56,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         // Ещё можно было-бы попробовать поработать с setUncaughtExceptionHandler(), если-бы WebSocketClient
         // (да и WebSocketServer) били-бы наследниками Thread. Но это не так.
         try {
-            sendRequest(new TransportPackageOfClient(
+            send(new TransportPackageOfClient(
                     LOGIN,
                     Map.of(
                             "userName", userName,
@@ -72,7 +72,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     // 3
     public void forgetGameTypeSet() {
         try {
-            sendRequest(new TransportPackageOfClient(FORGET_GAME_TYPE_SET));
+            send(new TransportPackageOfClient(FORGET_GAME_TYPE_SET));
         } catch (RuntimeException rte) {
             rte.printStackTrace();
             System.exit(1);
@@ -81,7 +81,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
 
     public void getGameTypeSet() {
         try {
-            sendRequest(new TransportPackageOfClient(GET_GAME_TYPE_SET));
+            send(new TransportPackageOfClient(GET_GAME_TYPE_SET));
         } catch (RuntimeException rte) {
             rte.printStackTrace();
             System.exit(1);
@@ -91,7 +91,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     // 4
     public void forgetGameType() {
         try {
-            sendRequest(new TransportPackageOfClient(FORGET_GAME_TYPE));
+            send(new TransportPackageOfClient(FORGET_GAME_TYPE));
         } catch (RuntimeException rte) {
             rte.printStackTrace();
             System.exit(1);
@@ -100,7 +100,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
 
     public void gameTypeSelect(Class<? extends ServerBaseModel> serverBaseModelClass) {
         try {
-            sendRequest(new TransportPackageOfClient(
+            send(new TransportPackageOfClient(
                     SELECT_GAME_TYPE,
                     Map.of(
                             "gameType",
@@ -113,7 +113,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         }
     }
 
-    private void sendRequest(TransportPackageOfClient transportPackageOfClient) {
+    private void send(TransportPackageOfClient transportPackageOfClient) {
         // System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
         try {
             StringWriter writer = new StringWriter();
