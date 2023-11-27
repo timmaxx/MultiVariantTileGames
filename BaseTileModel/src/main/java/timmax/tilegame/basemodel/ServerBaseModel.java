@@ -16,26 +16,26 @@ public abstract class ServerBaseModel implements BaseModel {
     protected TransportOfModel transportOfModel;
 
 
-    public ServerBaseModel( TransportOfModel transportOfModel) {
+    public ServerBaseModel(TransportOfModel transportOfModel) {
         this.transportOfModel = transportOfModel;
     }
 
     @Override
-    public void addView( View view) {
+    public void addView(View view) {
     }
 
-    protected void createNewGame( int width, int height) {
-        validateWidthHeight( width, height);
+    protected void createNewGame(int width, int height) {
+        validateWidthHeight(width, height);
         gameStatus = GameStatus.GAME;
-        addGameEventIntoQueueAndNotifyViews( new GameEventNewGame( width, height));
+        addGameEventIntoQueueAndNotifyViews(new GameEventNewGame(width, height));
     }
 
-    public void addGameEventIntoQueueAndNotifyViews( GameEvent gameEvent) {
-        transportOfModel.sendGameEvent( gameEvent);
+    public void addGameEventIntoQueueAndNotifyViews(GameEvent gameEvent) {
+        transportOfModel.sendGameEvent(gameEvent);
     }
 
-    private static void validateWidthHeight( int width, int height) {
-        if ( width >= MIN_WIDTH && width <= MAX_WIDTH && height >= MIN_HEIGHT && height <= MAX_HEIGHT) {
+    private static void validateWidthHeight(int width, int height) {
+        if (width >= MIN_WIDTH && width <= MAX_WIDTH && height >= MIN_HEIGHT && height <= MAX_HEIGHT) {
             return;
         }
         throw new RuntimeException(
@@ -44,17 +44,17 @@ public abstract class ServerBaseModel implements BaseModel {
                         ". But width = " + width + ", height = " + height + ".");
     }
 
-    protected GameStatus getGameStatus( ) {
+    protected GameStatus getGameStatus() {
         return gameStatus;
     }
 
-    protected void setGameStatus( GameStatus gameStatus) {
+    protected void setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
 
-    protected boolean verifyGameStatusNotGameAndMayBeCreateNewGame( ) {
-        if ( getGameStatus( ) != GameStatus.GAME) {
-            createNewGame( );
+    protected boolean verifyGameStatusNotGameAndMayBeCreateNewGame() {
+        if (getGameStatus() != GameStatus.GAME) {
+            createNewGame();
             return true;
         }
         return false;

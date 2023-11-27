@@ -9,12 +9,12 @@ public abstract class BaseController {
     protected TransportOfController transportOfController;
 
 
-    public BaseController( BaseModel baseModel, TransportOfController transportOfController) {
+    public BaseController(BaseModel baseModel, TransportOfController transportOfController) {
         this.baseModel = baseModel;
         this.transportOfController = transportOfController;
     }
 
-    public void sendCommand( GameCommand gameCommand) {
-        transportOfController.sendCommand( gameCommand);
+    public void sendCommand(GameCommand gameCommand) {
+        transportOfController.sendCommand(gameCommand);
     }
 }

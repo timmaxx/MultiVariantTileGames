@@ -14,13 +14,13 @@ public class GameEventGameOver extends GameEvent {
     private final GameStatus gameStatus;
 
 
-    @JsonCreator( mode = PROPERTIES)
+    @JsonCreator(mode = PROPERTIES)
     public GameEventGameOver(
-            @JsonProperty( "gameStatus") GameStatus gameStatus) {
+            @JsonProperty("gameStatus") GameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
 
-    public GameStatus getGameStatus( ) {
+    public GameStatus getGameStatus() {
         return gameStatus;
     }
 }

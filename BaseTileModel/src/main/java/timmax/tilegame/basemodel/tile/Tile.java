@@ -11,35 +11,35 @@ public class Tile {
         this.y = y;
     }
 
-    public int getX( ) {
+    public int getX() {
         return x;
     }
 
-    public int getY( ) {
+    public int getY() {
         return y;
     }
 
-    public Tile add( Direction direction) {
-        return add( direction.getDxDy( ));
+    public Tile add(Direction direction) {
+        return add(direction.getDxDy());
     }
 
-    public Tile add( DxDy dxDy) {
-        return new Tile( x + dxDy.x, y + dxDy.y);
+    public Tile add(DxDy dxDy) {
+        return new Tile(x + dxDy.x, y + dxDy.y);
     }
 
     @Override
-    public boolean equals( Object o) {
-        if ( this == o) return true;
-        if ( o == null || getClass( ) != o.getClass( )) return false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        Tile tile = ( Tile) o;
+        Tile tile = (Tile) o;
 
-        if ( x != tile.x) return false;
+        if (x != tile.x) return false;
         return y == tile.y;
     }
 
     @Override
-    public int hashCode( ) {
+    public int hashCode() {
         int result = x;
         result = 31 * result + y;
         return result;

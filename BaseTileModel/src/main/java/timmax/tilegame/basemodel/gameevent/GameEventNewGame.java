@@ -15,17 +15,17 @@ public class GameEventNewGame extends GameEvent {
 
     @JsonCreator(mode = PROPERTIES)
     public GameEventNewGame(
-            @JsonProperty( "width") int width,
-            @JsonProperty( "height") int height) {
+            @JsonProperty("width") int width,
+            @JsonProperty("height") int height) {
         this.width = width;
         this.height = height;
     }
 
-    public int getWidth( ) {
+    public int getWidth() {
         return width;
     }
 
-    public int getHeight( ) {
+    public int getHeight() {
         return height;
     }
 }

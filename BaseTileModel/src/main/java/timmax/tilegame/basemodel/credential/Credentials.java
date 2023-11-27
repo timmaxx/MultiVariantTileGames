@@ -3,7 +3,7 @@ package timmax.tilegame.basemodel.credential;
 import java.util.Map;
 
 public class Credentials {
-    private final static Map< String, String> mapOfCredential;
+    private final static Map<String, String> mapOfCredential;
 
     static {
         mapOfCredential = Map.of(
@@ -14,6 +14,6 @@ public class Credentials {
     }
 
     public static boolean isUserAndPasswordCorrect(String userName, String password) {
-        return mapOfCredential.containsKey( userName) && mapOfCredential.get(userName).equals(password);
+        return mapOfCredential.containsKey(userName) && mapOfCredential.get(userName).equals(password);
     }
 }

@@ -13,8 +13,8 @@ public class SetOfRemoteView extends HashSet<RemoteView> {
         this.transportOfModel = transportOfModel;
     }
 
-    public void sendGameEvent( GameEvent gameEvent) {
-        for (RemoteView remoteView: this) {
+    public void sendGameEvent(GameEvent gameEvent) {
+        for (RemoteView remoteView : this) {
             // ToDo: Следует отправлять сообщение не всем выборкам, а только тем, которые подписаны на именно этот тип
             //       сообщения.
             transportOfModel.sendGameEvent(remoteView, gameEvent);

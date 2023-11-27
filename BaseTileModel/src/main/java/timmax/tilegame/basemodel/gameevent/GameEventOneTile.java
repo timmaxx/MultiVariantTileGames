@@ -13,19 +13,19 @@ public abstract class GameEventOneTile extends GameEvent {
     private final int y;
 
 
-    @JsonCreator( mode = PROPERTIES)
+    @JsonCreator(mode = PROPERTIES)
     public GameEventOneTile(
-            @JsonProperty( "x") int x,
-            @JsonProperty( "y") int y) {
+            @JsonProperty("x") int x,
+            @JsonProperty("y") int y) {
         this.x = x;
         this.y = y;
     }
 
-    public int getX( ) {
+    public int getX() {
         return x;
     }
 
-    public int getY( ) {
+    public int getY() {
         return y;
     }
 }

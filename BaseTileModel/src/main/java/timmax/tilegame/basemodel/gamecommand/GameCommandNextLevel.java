@@ -4,6 +4,6 @@ import timmax.tilegame.basemodel.BaseModel;
 
 public class GameCommandNextLevel extends GameCommand {
     @Override
-    public void execute( BaseModel baseModel) {
+    public void execute(BaseModel baseModel) {
     }
 }

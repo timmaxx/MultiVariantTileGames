@@ -7,37 +7,37 @@ import timmax.tilegame.basemodel.BaseModel;
 import timmax.tilegame.basemodel.gamecommand.GameCommand;
 
 public abstract class GameCommandQueue {
-    protected Queue< GameCommand> commandQueue = new LinkedList< >( );
+    protected Queue<GameCommand> commandQueue = new LinkedList<>();
     protected BaseModel baseModel;
 
 
-    public GameCommandQueue( BaseModel baseModel) {
+    public GameCommandQueue(BaseModel baseModel) {
         this.baseModel = baseModel;
     }
 
-    public boolean add( GameCommand gameCommand) {
-        boolean result = commandQueue.add( gameCommand);
-        if ( !result) {
+    public boolean add(GameCommand gameCommand) {
+        boolean result = commandQueue.add(gameCommand);
+        if (!result) {
             return false;
         }
-        transport( );
+        transport();
         return true;
     }
 
-    public GameCommand remove( ) {
-        return commandQueue.remove( );
+    public GameCommand remove() {
+        return commandQueue.remove();
     }
 
-    public int size( ) {
-        return commandQueue.size( );
+    public int size() {
+        return commandQueue.size();
     }
 
-    private void transport( ) {
-        while ( size( ) != 0) {
-            GameCommand gameCommand = remove( );
-            whatToDoWithCommand( gameCommand);
+    private void transport() {
+        while (size() != 0) {
+            GameCommand gameCommand = remove();
+            whatToDoWithCommand(gameCommand);
         }
     }
 
-    protected abstract void whatToDoWithCommand( GameCommand gameCommand);
+    protected abstract void whatToDoWithCommand(GameCommand gameCommand);
 }
