@@ -8,7 +8,7 @@ public enum TypeOfTransportPackage {
     FORGET_GAME_TYPE_SET,
     GET_GAME_TYPE_SET,
     FORGET_GAME_TYPE,
-    SELECT_GAME_TYPE/*,
+    SELECT_GAME_TYPE,/*
     CREATE_GAME_SERIES,
     GAME_SERIES_MAP,
     SELECT_GAME_SERIES,
@@ -17,6 +17,9 @@ public enum TypeOfTransportPackage {
     PLAYER_SIDE_MAP,
     SELECT_PLAYER_SIDE,
     DECLARE_READINESS,
-    READINESS_MAP
+    READINESS_MAP,
+
+    ADD_VIEW,
+    GAME_EVENT
 */
 }

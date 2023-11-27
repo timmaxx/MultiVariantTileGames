@@ -11,19 +11,19 @@ import timmax.tilegame.transport.TransportOfModel;
 // Todo: Дополнить функционалом:
 // - по хранению перечня игровых контроллеров (от которых можно принимать сигналы управления игрой),
 // -- при игре с более чем одним игроком, контроллеры нужно учитывать по отдельному участнику.
-public abstract class ModelOfServer implements IModelOfServer {
+public abstract class ModelOfServer<T> implements IModelOfServer<T> {
     private final static int MIN_WIDTH = 2;
     private final static int MAX_WIDTH = 100;
     private final static int MIN_HEIGHT = 2;
     private final static int MAX_HEIGHT = 100;
 
-    private final SetOfRemoteView setOfRemoteViews;
+    private final SetOfRemoteView<T> setOfRemoteViews;
 
     private GameStatus gameStatus;
 
 
-    public ModelOfServer(TransportOfModel transportOfModel) {
-        setOfRemoteViews = new SetOfRemoteView(transportOfModel);
+    public ModelOfServer(TransportOfModel<T> transportOfModel) {
+        setOfRemoteViews = new SetOfRemoteView<>(transportOfModel);
     }
 
     protected void createNewGame(int width, int height) {
@@ -63,7 +63,7 @@ public abstract class ModelOfServer implements IModelOfServer {
     }
 
     @Override
-    public final void addRemoteView(RemoteView remoteView) {
+    public final void addRemoteView(RemoteView<T> remoteView) {
         setOfRemoteViews.add(remoteView);
     }
 }

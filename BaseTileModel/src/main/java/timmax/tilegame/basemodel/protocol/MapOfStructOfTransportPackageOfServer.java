@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
 
+// import timmax.tilegame.basemodel.gameevent.GameEvent;
+
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
 public class MapOfStructOfTransportPackageOfServer extends MapOfStructOfTransportPackage {
@@ -20,7 +22,11 @@ public class MapOfStructOfTransportPackageOfServer extends MapOfStructOfTranspor
                 FORGET_GAME_TYPE, Collections.emptyMap(),
                 SELECT_GAME_TYPE, Map.of(
                         "gameType", String.class
-                )
+                )/*,
+                GAME_EVENT, Map.of(
+                        "viewId", String.class,
+                        "gameEvent", GameEvent.class
+                )*/
         ));
     }
 }

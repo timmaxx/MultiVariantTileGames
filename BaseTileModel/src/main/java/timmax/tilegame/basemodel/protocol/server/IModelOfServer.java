@@ -1,9 +1,9 @@
 package timmax.tilegame.basemodel.protocol.server;
 
-public interface IModelOfServer {
+public interface IModelOfServer<T> {
     void createNewGame();
 
-    void addRemoteView(RemoteView remoteView);
+    void addRemoteView(RemoteView<T> remoteView);
 
     /*
         void restart();
