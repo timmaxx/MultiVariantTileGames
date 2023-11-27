@@ -13,7 +13,12 @@ import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
 import timmax.tilegame.basemodel.credential.Credentials;
+import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.*;
+import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
+import timmax.tilegame.basemodel.protocol.server.RemoteView;
+import timmax.tilegame.game.sokoban.model.ModelOfServerOfSokoban;
+import timmax.tilegame.transport.TransportOfModel;
 
 import timmax.tilegame.game.minesweeper.model.MinesweeperModel;
 import timmax.tilegame.game.sokoban.model.SokobanModel;
@@ -21,12 +26,28 @@ import timmax.tilegame.game.sokoban.model.SokobanModel;
 import static java.util.stream.Collectors.toList;
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
-public class MultiGameWebSocketServer extends WebSocketServer /*implements TransportOfModel*/ {
+public class MultiGameWebSocketServer extends WebSocketServer implements TransportOfModel<WebSocket> {
     private final ObjectMapper mapper = new ObjectMapper();
+
+    private ModelOfServer<WebSocket> modelOfServer;
 
 
     public MultiGameWebSocketServer(int port) {
         super(new InetSocketAddress(port));
+    }
+
+    @Override
+    public void sendGameEvent(GameEvent gameEvent) {
+        throw new RuntimeException("Не использовать этот метод. Потом удалить его из классов и интерфейсов!");
+    }
+
+    @Override
+    public void sendGameEvent(RemoteView<WebSocket> remoteView, GameEvent gameEvent) {
+        send(remoteView.getClientId(), new TransportPackageOfServer(
+                null, // GAME_EVENT,
+                Map.of( "viewId", remoteView.getViewId(),
+                        "gameEvent", gameEvent)
+        ));
     }
 
     private void send(WebSocket webSocket, TransportPackageOfServer transportPackageOfServer) {
@@ -183,7 +204,7 @@ public class MultiGameWebSocketServer extends WebSocketServer /*implements Trans
                 GET_GAME_TYPE_SET,
                 Map.of("gameTypeSet",
                         Stream.of(
-                                // ToDo: Перечень классов вариантов игр следует делать не в коде. Варианты:
+                                // ToDo: Перечень классов вариантов игр следует делать не константами в коде. Варианты:
                                 //       - файл параметров,
                                 //       - классы, хранящиеся по определённому пути.
                                 MinesweeperModel.class,
@@ -195,6 +216,10 @@ public class MultiGameWebSocketServer extends WebSocketServer /*implements Trans
 
     protected void onForgetGameType(WebSocket webSocket) {
         System.out.println("onForgetGameType");
+
+        System.out.println("modelOfServer = " + modelOfServer);
+        modelOfServer = null;
+        System.out.println("modelOfServer = " + modelOfServer);
         send(webSocket, new TransportPackageOfServer(FORGET_GAME_TYPE));
     }
 
@@ -204,6 +229,14 @@ public class MultiGameWebSocketServer extends WebSocketServer /*implements Trans
         // System.out.println("transportPackageOfClient = " + transportPackageOfClient);
         String model = (String) transportPackageOfClient.get("gameType");
         // ToDo: Проверить, что model одна из списка возможных моделей, которые были отправлены ранее этому клиенту.
+        //       И если это не так, то отправить клиенту FORGET_GAME_TYPE.
+
+        {   // Создать новую модель
+            System.out.println("modelOfServer = " + modelOfServer);
+            // ToDo: Вместо вызова конкретного конструктора, тут нужно создавать экземпляр того типа, который был выбран клиентом.
+            modelOfServer = new ModelOfServerOfSokoban<>(this);
+            System.out.println("modelOfServer = " + modelOfServer);
+        }
 
         send(webSocket, new TransportPackageOfServer(
                 SELECT_GAME_TYPE,
