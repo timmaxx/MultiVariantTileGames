@@ -18,6 +18,9 @@ public class MapOfStructOfTransportPackageOfClient extends MapOfStructOfTranspor
                 FORGET_GAME_TYPE, Collections.emptyMap(),
                 SELECT_GAME_TYPE, Map.of(
                         "gameType", String.class
+                ),
+                ADD_VIEW, Map.of(
+                        "viewId", String.class
                 )
         ));
     }

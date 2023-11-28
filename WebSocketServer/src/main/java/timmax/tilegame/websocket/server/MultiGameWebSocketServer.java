@@ -130,6 +130,8 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
                 onForgetGameType(webSocket);
             } else if (typeOfTransportPackage == SELECT_GAME_TYPE) {
                 onSelectGameType(webSocket, transportPackageOfClient);
+            } else if (typeOfTransportPackage == ADD_VIEW) {
+                onAddView(webSocket, transportPackageOfClient);
             } else {
                 System.err.println("Server doesn't know received typeOfTransportPackage.");
                 System.err.println("typeOfTransportPackage = " + typeOfTransportPackage);
@@ -241,6 +243,19 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         send(webSocket, new TransportPackageOfServer(
                 SELECT_GAME_TYPE,
                 Map.of("gameType", model)
+        ));
+    }
+
+    protected void onAddView(WebSocket webSocket, TransportPackageOfClient transportPackageOfClient) {
+        System.out.println("onAddView");
+
+        String viewId = (String) transportPackageOfClient.get("viewId");
+        // System.out.println("viewId = " + viewId);
+        modelOfServer.addRemoteView(new RemoteView<>(webSocket, viewId));
+
+        send(webSocket, new TransportPackageOfServer(
+                ADD_VIEW,
+                Map.of("viewId", viewId)
         ));
     }
 }

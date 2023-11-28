@@ -2,14 +2,16 @@ package timmax.tilegame.websocket.client;
 
 import java.net.URI;
 
+import timmax.tilegame.basemodel.BaseModel;
 import timmax.tilegame.basemodel.ServerBaseModel;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.protocol.ClientState;
 import timmax.tilegame.basemodel.protocol.HashSetOfObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
+import timmax.tilegame.baseview.View;
 
-public class MultiGameWebSocketClientManyTimesUse {
-    private final ClientState clientState = new ClientState();
+public class MultiGameWebSocketClientManyTimesUse implements BaseModel {
+    private final ClientState<Object> clientState = new ClientState<>(null);
     private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent = new HashSetOfObserverOnAbstractEvent();
 
     private MultiGameWebSocketClient multiGameWebSocketClient;
@@ -20,7 +22,7 @@ public class MultiGameWebSocketClientManyTimesUse {
         hashSetOfObserverOnAbstractEvent.add(observerOnAbstractEvent);
     }
 
-    public ClientState getClientState() {
+    public ClientState<Object> getClientState() {
         return clientState;
     }
 
@@ -79,5 +81,48 @@ public class MultiGameWebSocketClientManyTimesUse {
 
     public void gameTypeSelect(Class<? extends ServerBaseModel> serverBaseModelClass) {
         multiGameWebSocketClient.gameTypeSelect(serverBaseModelClass);
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------
+    @Override
+    public void createNewGame() {
+
+    }
+
+    @Override
+    public void addView(View view) {
+/*
+        while ( !getConnection( ).isOpen( )) {
+            try {
+                Thread.sleep( 50);
+            } catch ( InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        // System.out.println( "addViewListener view = " + view.toString( ));
+        send( "addViewListener view = " + view.toString( ));
+        viewList.add( view);
+*/
+        multiGameWebSocketClient.addView(view);
+    }
+
+    @Override
+    public void restart() {
+
+    }
+
+    @Override
+    public void nextLevel() {
+
+    }
+
+    @Override
+    public void prevLevel() {
+
+    }
+
+    @Override
+    public void win() {
+
     }
 }

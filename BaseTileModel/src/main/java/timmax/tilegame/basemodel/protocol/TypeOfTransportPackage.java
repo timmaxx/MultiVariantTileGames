@@ -18,8 +18,8 @@ public enum TypeOfTransportPackage {
     SELECT_PLAYER_SIDE,
     DECLARE_READINESS,
     READINESS_MAP,
-
-    ADD_VIEW,
+*/
+    ADD_VIEW/*,
     GAME_EVENT
 */
 }

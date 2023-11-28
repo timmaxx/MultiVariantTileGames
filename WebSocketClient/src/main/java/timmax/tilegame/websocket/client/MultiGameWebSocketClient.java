@@ -13,14 +13,22 @@ import org.java_websocket.handshake.ServerHandshake;
 import timmax.tilegame.basemodel.ServerBaseModel;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.protocol.*;
+import timmax.tilegame.baseview.View;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
 public class MultiGameWebSocketClient extends WebSocketClient {
     private final ObjectMapper mapper = new ObjectMapper();
-    private final ClientState clientState;
+    private final ClientState<Object> clientState;
     private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
 
+
+    public MultiGameWebSocketClient(URI serverUri, ClientState<Object> clientState, HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent) {
+        super(serverUri);
+        this.clientState = clientState;
+        this.hashSetOfObserverOnAbstractEvent = hashSetOfObserverOnAbstractEvent;
+        System.out.println(serverUri);
+    }
 
     public MainGameClientStatus getMainGameClientStatus() {
         if (!isOpen() || isClosed()) {
@@ -30,13 +38,6 @@ public class MultiGameWebSocketClient extends WebSocketClient {
             return clientState.getMainGameClientStatus();
         }
         throw new RuntimeException("Unknown state.");
-    }
-
-    public MultiGameWebSocketClient(URI serverUri, ClientState clientState, HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent) {
-        super(serverUri);
-        this.clientState = clientState;
-        this.hashSetOfObserverOnAbstractEvent = hashSetOfObserverOnAbstractEvent;
-        System.out.println(serverUri);
     }
 
     // 2
@@ -74,6 +75,19 @@ public class MultiGameWebSocketClient extends WebSocketClient {
                 Map.of(
                         "gameType",
                         serverBaseModelClass.getName()
+                ))
+        );
+    }
+
+    public void addView(View view) {
+        System.out.println("addView(View view)");
+        System.out.println("viewId = " + view.toString());
+        clientState.addView(view.toString());
+        send(new TransportPackageOfClient(
+                ADD_VIEW,
+                Map.of(
+                        "viewId",
+                        view.toString()
                 ))
         );
     }
@@ -161,6 +175,8 @@ public class MultiGameWebSocketClient extends WebSocketClient {
                 onForgetGameType(transportPackageOfServer);
             } else if (typeOfTransportPackage == SELECT_GAME_TYPE) {
                 onSelectGameType(transportPackageOfServer);
+            } else if (typeOfTransportPackage == ADD_VIEW) {
+                onAddView(transportPackageOfServer);
             } else {
                 System.err.println("Client doesn't know received typeOfTransportPackage.");
                 System.err.println("typeOfTransportPackage = " + typeOfTransportPackage);
@@ -243,5 +259,14 @@ public class MultiGameWebSocketClient extends WebSocketClient {
             throw new RuntimeException(e);
         }
         hashSetOfObserverOnAbstractEvent.updateConnectStatePane(SELECT_GAME_TYPE);
+    }
+
+    protected void onAddView(TransportPackageOfServer transportPackageOfServer) {
+        System.out.println("onAddView");
+
+        String viewId = (String) (transportPackageOfServer.get("viewId"));
+        System.out.println("viewId = " + viewId);
+
+        clientState.confirmView(viewId);
     }
 }

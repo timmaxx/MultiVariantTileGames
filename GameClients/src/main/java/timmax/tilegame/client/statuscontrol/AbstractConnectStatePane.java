@@ -3,7 +3,7 @@ package timmax.tilegame.client.statuscontrol;
 import java.util.List;
 
 import javafx.application.Platform;
-import javafx.scene.control.Control;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.HBox;
 
 import timmax.tilegame.basemodel.protocol.ClientState;
@@ -15,9 +15,9 @@ import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
 public abstract class AbstractConnectStatePane extends HBox implements ObserverOnAbstractEvent {
     MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse;
-    private List<Control> listOfControlsNextState;
-    private List<Control> listOfControlsPrevState;
-    protected ClientState clientState;
+    private List<Region> listOfControlsNextState;
+    private List<Region> listOfControlsPrevState;
+    protected ClientState<Object> clientState;
 
     public AbstractConnectStatePane(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
         this.multiGameWebSocketClientManyTimesUse = multiGameWebSocketClientManyTimesUse;
@@ -25,8 +25,8 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     }
 
     public void setListsOfControlsAndAllDisable(
-            List<Control> listOfControlsNextState,
-            List<Control> listOfControlsPrevState
+            List<Region> listOfControlsNextState,
+            List<Region> listOfControlsPrevState
     ) {
         this.listOfControlsNextState = listOfControlsNextState;
         this.listOfControlsPrevState = listOfControlsPrevState;
@@ -39,19 +39,19 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     }
 
     protected void disableAllControls() {
-        for (Control control : listOfControlsNextState) {
+        for (Region control : listOfControlsNextState) {
             control.setDisable(true);
         }
-        for (Control control : listOfControlsPrevState) {
+        for (Region control : listOfControlsPrevState) {
             control.setDisable(true);
         }
     }
 
     protected void setDisableControlsNextState(boolean disableControlsNextState) {
-        for (Control control : listOfControlsNextState) {
+        for (Region control : listOfControlsNextState) {
             control.setDisable(disableControlsNextState);
         }
-        for (Control control : listOfControlsPrevState) {
+        for (Region control : listOfControlsPrevState) {
             control.setDisable(!disableControlsNextState);
         }
     }
@@ -80,6 +80,9 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     protected void updateOnSelectGameType() {
     }
 
+    protected void updateOnAddView() {
+    }
+
     //  Описанное было обнаружено при работе с Pane04SelectGameType
     //  Если ранее comboBoxGameTypeSet уже было заполнено (т.е. вызывался updateOnGetGameTypeSet)
     //  и не использовать здесь Platform.runLater(), то возникнет исключение:
@@ -104,6 +107,8 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
                 updateOnForgetGameType();
             } else if (typeOfTransportPackage == SELECT_GAME_TYPE) {
                 updateOnSelectGameType();
+            } else if (typeOfTransportPackage == ADD_VIEW) {
+                updateOnAddView();
             }
         });
     }
