@@ -3,7 +3,6 @@ package timmax.tilegame.client.statuscontrol;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import timmax.tilegame.basemodel.BaseModel;
 import timmax.tilegame.game.sokoban.jfx.SokobanClientPaneJfx;
 import timmax.tilegame.websocket.client.MultiGameWebSocketClientManyTimesUse;
 
@@ -85,6 +84,9 @@ public class Pane09Gaming extends AbstractConnectStatePane {
 
     @Override
     protected void updateOnAddView() {
+        System.out.println("updateOnAddView()");
+        // ToDo: createNewGame() нужно вызывать не в этом методе.
+        // multiGameWebSocketClientManyTimesUse.createNewGame();
         setDisableControlsNextState(false);
     }
 }

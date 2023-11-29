@@ -32,11 +32,8 @@ public abstract class GameClientPaneJfx extends VBox {
         GameScene scene = new GameScene(this, gameSceneController);
 */
         primaryStage.setTitle(initAppTitle());
-/*
-        primaryStage.setScene(scene);
 
         netModel.createNewGame();
-*/
     }
 /*
     abstract protected List<Node> initNodeList(BaseModel baseModel, TransportOfController transportOfController);

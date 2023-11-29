@@ -92,6 +92,11 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         );
     }
 
+    public void createNewGame() {
+        System.out.println("createNewGame");
+        send(new TransportPackageOfClient(CREATE_NEW_GAME));
+    }
+
     private void send(TransportPackageOfClient transportPackageOfClient) {
         // System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
 

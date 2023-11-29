@@ -45,10 +45,20 @@ public abstract class TransportPackage {
     public TransportPackage(
             @JsonProperty("typeOfTransportPackage") TypeOfTransportPackage typeOfTransportPackage,
             @JsonProperty("mapOfParamName_Value") Map<String, Object> mapOfParamName_Value) throws MultiGameProtocolException {
-        mapOfStructOfTransportPackage = initMapOfStructOfTransportPackage();
-
-        Map<String, Class<?>> mapOfParamName_Class = mapOfStructOfTransportPackage.getMapParamName_ClassByTypeOfTransportPackage(typeOfTransportPackage);
         StringBuilder stringBuilder = new StringBuilder();
+
+        // ToDo: Возможно проверку на null можно сделать ч/з аннотацию?
+        if (typeOfTransportPackage == null) {
+            stringBuilder.append("\nTransportPackage");
+            stringBuilder.append("\n public TransportPackage(two params)");
+            stringBuilder.append("\n  typeOfTransportPackage is null!");
+            // ToDo: Создание исключения с текстом stringBuilder повторяется в коде, но чтобы сделать уменьшить
+            //       дублирование кода, нужно либо if, либо 'throw new MultiGameProtocolException' в отдельный метод.
+            throw new MultiGameProtocolException(stringBuilder.toString());
+        }
+
+        mapOfStructOfTransportPackage = initMapOfStructOfTransportPackage();
+        Map<String, Class<?>> mapOfParamName_Class = mapOfStructOfTransportPackage.getMapParamName_ClassByTypeOfTransportPackage(typeOfTransportPackage);
 
         if (mapOfParamName_Class.size() != mapOfParamName_Value.size()) {
             stringBuilder.append(String.format(TRANSPORT_PACKAGE_AND_ITS_TYPE,

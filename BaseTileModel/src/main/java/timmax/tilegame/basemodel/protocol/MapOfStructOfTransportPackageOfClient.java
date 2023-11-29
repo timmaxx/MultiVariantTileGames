@@ -21,7 +21,8 @@ public class MapOfStructOfTransportPackageOfClient extends MapOfStructOfTranspor
                 ),
                 ADD_VIEW, Map.of(
                         "viewId", String.class
-                )
+                ),
+                CREATE_NEW_GAME, Collections.emptyMap()
         ));
     }
 }

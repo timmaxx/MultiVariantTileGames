@@ -85,25 +85,13 @@ public class MultiGameWebSocketClientManyTimesUse implements BaseModel {
 
     // ----------------------------------------------------------------------------------------------------------------
     @Override
-    public void createNewGame() {
-
+    public void addView(View view) {
+        multiGameWebSocketClient.addView(view);
     }
 
     @Override
-    public void addView(View view) {
-/*
-        while ( !getConnection( ).isOpen( )) {
-            try {
-                Thread.sleep( 50);
-            } catch ( InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        // System.out.println( "addViewListener view = " + view.toString( ));
-        send( "addViewListener view = " + view.toString( ));
-        viewList.add( view);
-*/
-        multiGameWebSocketClient.addView(view);
+    public void createNewGame() {
+        multiGameWebSocketClient.createNewGame();
     }
 
     @Override

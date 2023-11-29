@@ -43,11 +43,16 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
 
     @Override
     public void sendGameEvent(RemoteView<WebSocket> remoteView, GameEvent gameEvent) {
-        send(remoteView.getClientId(), new TransportPackageOfServer(
+        System.out.println("MultiGameWebSocketServer");
+        System.out.println("public void sendGameEvent(RemoteView<WebSocket> remoteView, GameEvent gameEvent)");
+        System.out.println("remoteView = " + remoteView);
+        TransportPackageOfServer transportPackageOfServer = new TransportPackageOfServer(
                 null, // GAME_EVENT,
                 Map.of( "viewId", remoteView.getViewId(),
                         "gameEvent", gameEvent)
-        ));
+        );
+        System.out.println("After 'new TransportPackageOfServer'");
+        send(remoteView.getClientId(), transportPackageOfServer);
     }
 
     private void send(WebSocket webSocket, TransportPackageOfServer transportPackageOfServer) {
@@ -132,6 +137,8 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
                 onSelectGameType(webSocket, transportPackageOfClient);
             } else if (typeOfTransportPackage == ADD_VIEW) {
                 onAddView(webSocket, transportPackageOfClient);
+            } else if (typeOfTransportPackage == CREATE_NEW_GAME) {
+                onCreateNewGame(webSocket, transportPackageOfClient);
             } else {
                 System.err.println("Server doesn't know received typeOfTransportPackage.");
                 System.err.println("typeOfTransportPackage = " + typeOfTransportPackage);
@@ -257,5 +264,11 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
                 ADD_VIEW,
                 Map.of("viewId", viewId)
         ));
+    }
+
+    protected void onCreateNewGame(WebSocket webSocket, TransportPackageOfClient transportPackageOfClient) {
+        System.out.println("onCreateNewGame");
+
+        // modelOfServer.createNewGame();
     }
 }
