@@ -1,13 +1,11 @@
 package timmax.tilegame.websocket.server;
 
-import java.io.IOException;
+// import java.io.IOException;
 import java.io.StringWriter;
 import java.net.InetSocketAddress;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
@@ -27,7 +25,7 @@ import static java.util.stream.Collectors.toList;
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
 public class MultiGameWebSocketServer extends WebSocketServer implements TransportOfModel<WebSocket> {
-    private final ObjectMapper mapper = new ObjectMapper();
+    // private final ObjectMapper mapper = new ObjectMapper();
 
     private ModelOfServer<WebSocket> modelOfServer;
 
@@ -50,7 +48,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
 */
         TransportPackageOfServer transportPackageOfServer = new TransportPackageOfServer(
                 GAME_EVENT,
-                Map.of( "viewId", remoteView.getViewId(),
+                Map.of("viewId", remoteView.getViewId(),
                         "gameEvent", gameEvent)
         );
 //      System.out.println("After 'new TransportPackageOfServer'");
@@ -60,7 +58,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     private void send(WebSocket webSocket, TransportPackageOfServer transportPackageOfServer) {
         try {
             StringWriter writer = new StringWriter();
-            mapper.writeValue(writer, transportPackageOfServer);
+            // mapper.writeValue(writer, transportPackageOfServer);
 
             System.out.println("private void send(WebSocket webSocket, TransportPackageOfServer transportPackageOfServer)");
             System.out.println("writer. Begin");
@@ -79,11 +77,11 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
             webSocket.send(writer.toString());
             // webSocket.send(tmp);
 
-        } catch (IOException e) {
+        } /*catch (IOException e) {
             System.err.println("catch (IOException e)");
             e.printStackTrace();
             throw new RuntimeException(e);
-        } catch (RuntimeException rte) {
+        }*/ catch (RuntimeException rte) {
             rte.printStackTrace();
             System.exit(1);
         }
@@ -135,7 +133,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         System.out.println("--- end of message ---");
 */
         try {
-            TransportPackageOfClient transportPackageOfClient = mapper.readValue(message, TransportPackageOfClient.class);
+            TransportPackageOfClient transportPackageOfClient = null; // mapper.readValue(message, TransportPackageOfClient.class);
             TypeOfTransportPackage typeOfTransportPackage = transportPackageOfClient.getTypeOfTransportPackage();
             if (typeOfTransportPackage == LOGOUT) {
                 onLogout(webSocket);
@@ -158,7 +156,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
                 System.err.println("typeOfTransportPackage = " + typeOfTransportPackage);
                 System.exit(1);
             }
-        } catch (JsonProcessingException jpe) {
+        } /*catch (JsonProcessingException jpe) {
             // От клиента поступило что-то, что не понятно серверу.
             // Можно:
             // 1. Либо отключить такого клиента.
@@ -171,7 +169,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
             // Тогда будем падать так:
             jpe.printStackTrace();
             System.exit(1);
-        } catch (RuntimeException rte) {
+        }*/ catch (RuntimeException rte) {
             rte.printStackTrace();
             System.exit(1);
         }
