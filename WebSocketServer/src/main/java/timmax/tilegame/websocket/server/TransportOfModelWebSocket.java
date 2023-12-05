@@ -7,31 +7,37 @@ import timmax.tilegame.transport.TransportOfModel;
 
 import java.io.IOException;
 import java.io.StringWriter;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 // Этот класс пока используется в первом варианте конкретных клиентов (Сапёр и Сокобан).
 // ToDo: От класса можно будет вообще отказаться и воспользоваться классом MultiGameWebSocketServer,
 //       который должен будет реализовать интерфейс TransportOfModel (с методом sendGameEvent с двумя параметрами).
-public class TransportOfModelWebSocket implements TransportOfModel {
+public class TransportOfModelWebSocket implements TransportOfModel<WebSocket> {
     private final WebSocket webSocket;
 
-    public TransportOfModelWebSocket( WebSocket webSocket) {
+    public TransportOfModelWebSocket(WebSocket webSocket) {
         this.webSocket = webSocket;
     }
 
     @Override
-    public void sendGameEvent( GameEvent gameEvent) {
-        StringWriter writer = new StringWriter( );
-        ObjectMapper mapper = new ObjectMapper( );
+    public void sendGameEvent(GameEvent gameEvent) {
+        StringWriter writer = new StringWriter();
+        ObjectMapper mapper = new ObjectMapper();
         try {
-            mapper.writeValue( writer, gameEvent);
-            webSocket.send( writer.toString( ));
-        } catch ( IOException e) {
-            throw new RuntimeException( e);
+            mapper.writeValue(writer, gameEvent);
+            System.out.println("TransportOfModelWebSocket");
+            System.out.println("public void sendGameEvent( GameEvent gameEvent)");
+            System.out.println("-----");
+            System.out.println("writer = " + writer);
+            System.out.println("-----");
+            webSocket.send(writer.toString());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void sendGameEvent(RemoteView remoteView, GameEvent gameEvent) {
+    public void sendGameEvent(RemoteView<WebSocket> remoteView, GameEvent gameEvent) {
     }
 }

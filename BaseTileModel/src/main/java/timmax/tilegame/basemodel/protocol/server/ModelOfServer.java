@@ -27,20 +27,22 @@ public abstract class ModelOfServer<T> implements IModelOfServer<T> {
     }
 
     protected void createNewGame(int width, int height) {
-        System.out.println("ModelOfServer<T>");
+//        System.out.println("ModelOfServer<T>");
         validateWidthHeight(width, height);
         gameStatus = GameStatus.GAME;
-        System.out.println("gameStatus = " + gameStatus);
-        System.out.println("After 'gameStatus = GameStatus.GAME;'");
+//        System.out.println("gameStatus = " + gameStatus);
+//        System.out.println("After 'gameStatus = GameStatus.GAME;'");
         GameEventNewGame gameEventNewGame = new GameEventNewGame(width, height);
-        System.out.println("After 'GameEventNewGame gameEventNewGame = new GameEventNewGame(width, height);'");
+//        System.out.println("After 'GameEventNewGame gameEventNewGame = new GameEventNewGame(width, height);'");
         sendGameEvent(gameEventNewGame);
-        System.out.println("After 'sendGameEvent(new GameEventNewGame(width, height));'");
+//        System.out.println("After 'sendGameEvent(new GameEventNewGame(width, height));'");
     }
 
     public void sendGameEvent(GameEvent gameEvent) {
+/*
         System.out.println("ModelOfServer<T>");
         System.out.println("setOfRemoteViews = " + setOfRemoteViews);
+*/
         setOfRemoteViews.sendGameEvent(gameEvent);
     }
 

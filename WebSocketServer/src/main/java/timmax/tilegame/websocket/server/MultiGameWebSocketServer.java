@@ -43,15 +43,17 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
 
     @Override
     public void sendGameEvent(RemoteView<WebSocket> remoteView, GameEvent gameEvent) {
+/*
         System.out.println("MultiGameWebSocketServer");
         System.out.println("public void sendGameEvent(RemoteView<WebSocket> remoteView, GameEvent gameEvent)");
         System.out.println("remoteView = " + remoteView);
+*/
         TransportPackageOfServer transportPackageOfServer = new TransportPackageOfServer(
-                null, // GAME_EVENT,
+                GAME_EVENT,
                 Map.of( "viewId", remoteView.getViewId(),
                         "gameEvent", gameEvent)
         );
-        System.out.println("After 'new TransportPackageOfServer'");
+//      System.out.println("After 'new TransportPackageOfServer'");
         send(remoteView.getClientId(), transportPackageOfServer);
     }
 
@@ -59,12 +61,24 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         try {
             StringWriter writer = new StringWriter();
             mapper.writeValue(writer, transportPackageOfServer);
-/*
+
+            System.out.println("private void send(WebSocket webSocket, TransportPackageOfServer transportPackageOfServer)");
             System.out.println("writer. Begin");
             System.out.println(writer);
             System.out.println("writer. End");
+            System.out.println("----------");
+/*
+            System.out.println("writer. Begin");
+            String tmp = writer.toString().replace(
+                    "\"gameEvent\":{\"width\":5,\"height\":5}",
+                    "\"gameEvent\":{\"type\":\"timmax.tilegame.basemodel.gameevent.GameEventNewGame\",\"width\":5,\"height\":5}"
+            );
+            System.out.println(tmp);
+            System.out.println("writer. End");
 */
             webSocket.send(writer.toString());
+            // webSocket.send(tmp);
+
         } catch (IOException e) {
             System.err.println("catch (IOException e)");
             e.printStackTrace();
@@ -269,6 +283,6 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     protected void onCreateNewGame(WebSocket webSocket, TransportPackageOfClient transportPackageOfClient) {
         System.out.println("onCreateNewGame");
 
-        // modelOfServer.createNewGame();
+        modelOfServer.createNewGame();
     }
 }

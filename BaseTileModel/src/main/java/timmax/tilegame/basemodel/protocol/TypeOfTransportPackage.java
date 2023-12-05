@@ -20,7 +20,6 @@ public enum TypeOfTransportPackage {
     READINESS_MAP,
 */
     ADD_VIEW,
-    CREATE_NEW_GAME/*,
+    CREATE_NEW_GAME,
     GAME_EVENT
-*/
 }
