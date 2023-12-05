@@ -1,10 +1,6 @@
 package timmax.tilegame.game.sokoban.model.gameevent;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
-
-import static com.fasterxml.jackson.annotation.JsonCreator.Mode.PROPERTIES;
 
 public class GameEventSokobanPersistentParams extends GameEvent {
     // ToDo: Разобраться и удалить ведущий '\n'
@@ -14,13 +10,12 @@ public class GameEventSokobanPersistentParams extends GameEvent {
     private final int countOfBoxesAndHomes;
 
 
-    @JsonCreator( mode = PROPERTIES)
     public GameEventSokobanPersistentParams(
-            @JsonProperty( "countOfBoxesAndHomes") int countOfBoxesAndHomes) {
+            int countOfBoxesAndHomes) {
         this.countOfBoxesAndHomes = countOfBoxesAndHomes;
     }
 
-    public int getCountOfBoxesAndHomes( ) {
+    public int getCountOfBoxesAndHomes() {
         return countOfBoxesAndHomes;
     }
 }
