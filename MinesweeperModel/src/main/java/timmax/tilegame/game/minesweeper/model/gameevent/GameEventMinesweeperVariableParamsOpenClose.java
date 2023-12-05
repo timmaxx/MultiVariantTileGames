@@ -1,11 +1,6 @@
 package timmax.tilegame.game.minesweeper.model.gameevent;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import timmax.tilegame.basemodel.gameevent.GameEventROTextFields;
-
-import static com.fasterxml.jackson.annotation.JsonCreator.Mode.PROPERTIES;
 
 public class GameEventMinesweeperVariableParamsOpenClose extends GameEventROTextFields {
     // ToDo: Разобраться и удалить ведущий '\n';
@@ -17,19 +12,18 @@ public class GameEventMinesweeperVariableParamsOpenClose extends GameEventROText
     private final int tilesStillClose;
 
 
-    @JsonCreator(mode = PROPERTIES)
     public GameEventMinesweeperVariableParamsOpenClose(
-            @JsonProperty( "tilesWereOpened") int tilesWereOpened,
-            @JsonProperty( "tilesStillClosed") int tilesStillClose) {
+            int tilesWereOpened,
+            int tilesStillClose) {
         this.tilesWereOpened = tilesWereOpened;
         this.tilesStillClose = tilesStillClose;
     }
 
-    public int getTilesWereOpened( ) {
+    public int getTilesWereOpened() {
         return tilesWereOpened;
     }
 
-    public int getTilesStillClosed( ) {
+    public int getTilesStillClosed() {
         return tilesStillClose;
     }
 }

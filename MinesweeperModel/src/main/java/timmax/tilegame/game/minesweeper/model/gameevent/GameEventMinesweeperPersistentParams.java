@@ -1,11 +1,6 @@
 package timmax.tilegame.game.minesweeper.model.gameevent;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import timmax.tilegame.basemodel.gameevent.GameEventROTextFields;
-
-import static com.fasterxml.jackson.annotation.JsonCreator.Mode.PROPERTIES;
 
 public class GameEventMinesweeperPersistentParams extends GameEventROTextFields {
     // ToDo: Разобраться и удалить ведущий '\n';
@@ -14,13 +9,12 @@ public class GameEventMinesweeperPersistentParams extends GameEventROTextFields 
 
     private final int countOfMines;
 
-    @JsonCreator( mode = PROPERTIES)
-    public GameEventMinesweeperPersistentParams(
-            @JsonProperty( "countOfMines") int countOfMines) {
+
+    public GameEventMinesweeperPersistentParams(int countOfMines) {
         this.countOfMines = countOfMines;
     }
 
-    public int getCountOfMines( ) {
+    public int getCountOfMines() {
         return countOfMines;
     }
 }
