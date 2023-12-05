@@ -1,12 +1,10 @@
 package timmax.tilegame.websocket.client;
 
-import java.io.IOException;
+//import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URI;
 import java.util.*;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
@@ -18,7 +16,7 @@ import timmax.tilegame.baseview.View;
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
 public class MultiGameWebSocketClient extends WebSocketClient {
-    private final ObjectMapper mapper = new ObjectMapper();
+    // private final ObjectMapper mapper = new ObjectMapper();
     private final ClientState<Object> clientState;
     private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
 
@@ -108,7 +106,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
 
         try {
             StringWriter writer = new StringWriter();
-            mapper.writeValue(writer, transportPackageOfClient);
+            // mapper.writeValue(writer, transportPackageOfClient);
 /*
             System.out.println("sendRequest");
             System.out.println("--- begin of message ---");
@@ -116,9 +114,9 @@ public class MultiGameWebSocketClient extends WebSocketClient {
             System.out.println("--- end of message ---");
 */
             send(writer.toString());
-        } catch (IOException e) {
+        } /*catch (IOException e) {
             throw new RuntimeException(e);
-        } catch (RuntimeException rte) {
+        }*/ catch (RuntimeException rte) {
             rte.printStackTrace();
             System.exit(1);
         }
@@ -166,7 +164,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
             System.out.println("--- end of message ---");
 */
         try {
-            TransportPackageOfServer transportPackageOfServer = mapper.readValue(message, TransportPackageOfServer.class);
+            TransportPackageOfServer transportPackageOfServer = null; // mapper.readValue(message, TransportPackageOfServer.class);
             TypeOfTransportPackage typeOfTransportPackage = transportPackageOfServer.getTypeOfTransportPackage();
             if (typeOfTransportPackage == LOGOUT) {
                 onLogout(transportPackageOfServer);
@@ -187,7 +185,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
                 System.err.println("typeOfTransportPackage = " + typeOfTransportPackage);
                 System.exit(1);
             }
-        } catch (JsonProcessingException jpe) {
+        } /*catch (JsonProcessingException jpe) {
             // От сервера поступило что-то, что не понятно клиенту.
             // Можно:
             // 1. Либо отключиться от сервера.
@@ -199,7 +197,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
             // Тогда будем падать так:
             jpe.printStackTrace();
             System.exit(1);
-        } catch (RuntimeException rte) {
+        }*/ catch (RuntimeException rte) {
             System.out.println("onMessage");
             rte.printStackTrace();
             System.exit(1);
