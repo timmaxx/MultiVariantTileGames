@@ -3,15 +3,8 @@ package timmax.tilegame.basemodel.protocol;
 import java.util.Collections;
 import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import timmax.tilegame.basemodel.protocol.exception.MultiGameProtocolException;
 
-import static com.fasterxml.jackson.annotation.JsonCreator.Mode.PROPERTIES;
-
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "class")
 public abstract class TransportPackage {
     private final static String TRANSPORT_PACKAGE_AND_ITS_TYPE =
             "\nTransport package is '%s'. \nType of transport package is '%s'.";
@@ -43,10 +36,9 @@ public abstract class TransportPackage {
         this.mapOfParamName_Value = Collections.emptyMap();
     }
 
-    @JsonCreator(mode = PROPERTIES)
     public TransportPackage(
-            @JsonProperty("typeOfTransportPackage") TypeOfTransportPackage typeOfTransportPackage,
-            @JsonProperty("mapOfParamName_Value") Map<String, Object> mapOfParamName_Value) throws MultiGameProtocolException {
+            TypeOfTransportPackage typeOfTransportPackage,
+            Map<String, Object> mapOfParamName_Value) throws MultiGameProtocolException {
         StringBuilder stringBuilder = new StringBuilder();
 
         // ToDo: Возможно проверку на null можно сделать ч/з аннотацию?
