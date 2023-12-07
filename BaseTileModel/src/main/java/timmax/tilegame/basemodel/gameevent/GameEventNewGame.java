@@ -1,9 +1,18 @@
 package timmax.tilegame.basemodel.gameevent;
 
-public class GameEventNewGame extends GameEvent {
-    private final int width;
-    private final int height;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 
+public class GameEventNewGame extends GameEvent {
+    // final (в этом классе и в любом, который реализует Externalizable) пришлось убрать из-за readExternal.
+    // Было-бы лучше конечно final оставить!
+    private /*final*/ int width;
+    private /*final*/ int height;
+
+
+    public GameEventNewGame() {
+    }
 
     public GameEventNewGame(int width, int height) {
         this.width = width;
@@ -16,5 +25,43 @@ public class GameEventNewGame extends GameEvent {
 
     public int getHeight() {
         return height;
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeInt(width);
+        out.writeInt(height);
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException {
+        width = in.readInt();
+        height = in.readInt();
+    }
+
+    @Override
+    public String toString() {
+        return "GameEventNewGame{" +
+                "width=" + width +
+                ", height=" + height +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GameEventNewGame that = (GameEventNewGame) o;
+
+        if (width != that.width) return false;
+        return height == that.height;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = width;
+        result = 31 * result + height;
+        return result;
     }
 }

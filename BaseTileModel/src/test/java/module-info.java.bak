@@ -1,0 +1,3 @@
+module timmax.tilegame.basetilemodel {
+    requires org.junit.jupiter.api;
+}

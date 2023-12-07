@@ -1,4 +1,6 @@
 package timmax.tilegame.basemodel.gameevent;
 
-public abstract class GameEvent {
+import java.io.Externalizable;
+
+public abstract class GameEvent implements Externalizable {
 }
