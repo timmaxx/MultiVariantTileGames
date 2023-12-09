@@ -6,6 +6,10 @@ public class TransportPackageOfClient extends TransportPackage {
     private static MapOfStructOfTransportPackageOfClient mapOfStructOfTransportPackageOfClient;
 
 
+    public TransportPackageOfClient() {
+        super();
+    }
+
     public TransportPackageOfClient(TypeOfTransportPackage typeOfTransportPackage) {
         super(typeOfTransportPackage);
     }

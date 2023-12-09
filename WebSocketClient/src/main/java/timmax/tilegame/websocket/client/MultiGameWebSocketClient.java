@@ -1,8 +1,8 @@
 package timmax.tilegame.websocket.client;
 
-//import java.io.IOException;
-import java.io.StringWriter;
+import java.io.*;
 import java.net.URI;
+import java.nio.ByteBuffer;
 import java.util.*;
 
 import org.java_websocket.client.WebSocketClient;
@@ -10,15 +10,17 @@ import org.java_websocket.handshake.ServerHandshake;
 
 import timmax.tilegame.basemodel.ServerBaseModel;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
+import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.baseview.View;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
 public class MultiGameWebSocketClient extends WebSocketClient {
-    // private final ObjectMapper mapper = new ObjectMapper();
     private final ClientState<Object> clientState;
     private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
+
+    private ObjectOutput objectOutput;
 
 
     public MultiGameWebSocketClient(URI serverUri, ClientState<Object> clientState, HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent) {
@@ -95,28 +97,48 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         send(new TransportPackageOfClient(CREATE_NEW_GAME));
     }
 
-    private void send(TransportPackageOfClient transportPackageOfClient) {
-        // System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
+    // ToDo: Вынести из этого класса.
+    public void encodeExternalizable(Externalizable externalizable) throws IOException {
+        objectOutput.writeObject(externalizable);
+        System.out.println("----------");
+    }
 
-        // Здесь "оборачиваем" 'new TransportPackageOfClient()' try-ем, т.к. если исключения будут
-        // возникать в глубине вызовов, JVM просто ничего не сделает с исключениями.
-        // Это из-за того, что работа метода идёт не в основном потоке, а в дочернем.
-        // Ещё можно было-бы попробовать поработать с setUncaughtExceptionHandler(), если-бы WebSocketClient
-        // (да и WebSocketServer) были-бы наследниками Thread. Но это не так.
+    private void send(TransportPackageOfClient transportPackageOfClient) {
+        /*
+        //  Ранее (при помощи Jackson перевод в JSON) применялась такая конструкция:
+            // В начале класса:
+            private final ObjectMapper mapper = new ObjectMapper();
+            ...
+
+            // В этом методе:
+            StringWriter writer = new StringWriter();
+            mapper.writeValue(writer, transportPackageOfClient);
+            send(writer.toString());
+
+        //  ToDo: переделать на такую конструкцию:
+            // В начале класса:
+            private final ??? mapper = new ???();
+            ...
+            byte[] writer = new ...;
+            mapper.writeValue(writer, transportPackageOfClient);
+            send(writer);
+
+        //  В т.ч.:
+        //  1. и 'encodeExternalizable(Externalizable externalizable)' из того класса будет удалена.
+        //  2. аналогично для сервера сделать.
+        */
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        try {
+            objectOutput = new ObjectOutputStream(byteArrayOutputStream);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         try {
-            StringWriter writer = new StringWriter();
-            // mapper.writeValue(writer, transportPackageOfClient);
-/*
-            System.out.println("sendRequest");
-            System.out.println("--- begin of message ---");
-            System.out.println(writer);
-            System.out.println("--- end of message ---");
-*/
-            send(writer.toString());
-        } /*catch (IOException e) {
-            throw new RuntimeException(e);
-        }*/ catch (RuntimeException rte) {
+            encodeExternalizable(transportPackageOfClient);
+            send(byteArrayOutputStream.toByteArray());
+        } catch (RuntimeException | IOException rte) {
             rte.printStackTrace();
             System.exit(1);
         }
@@ -154,57 +176,59 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     }
 
     @Override
-    public void onMessage(String message) {
-        System.out.println("onMessage");
+    public void onMessage(ByteBuffer byteBuffer) {
+        System.out.println("onMessage(ByteBuffer byteBuffer)");
 
-        // System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
-/*
-            System.out.println("--- begin of message ---");
-            System.out.println(message);
-            System.out.println("--- end of message ---");
-*/
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteBuffer.array());
+        ObjectInput objectInput;
         try {
-            TransportPackageOfServer transportPackageOfServer = null; // mapper.readValue(message, TransportPackageOfServer.class);
-            TypeOfTransportPackage typeOfTransportPackage = transportPackageOfServer.getTypeOfTransportPackage();
-            if (typeOfTransportPackage == LOGOUT) {
-                onLogout(transportPackageOfServer);
-            } else if (typeOfTransportPackage == LOGIN) {
-                onLogin(transportPackageOfServer);
-            } else if (typeOfTransportPackage == FORGET_GAME_TYPE_SET) {
-                onForgetGameTypeSet(transportPackageOfServer);
-            } else if (typeOfTransportPackage == GET_GAME_TYPE_SET) {
-                onGetGameTypeSet(transportPackageOfServer);
-            } else if (typeOfTransportPackage == FORGET_GAME_TYPE) {
-                onForgetGameType(transportPackageOfServer);
-            } else if (typeOfTransportPackage == SELECT_GAME_TYPE) {
-                onSelectGameType(transportPackageOfServer);
-            } else if (typeOfTransportPackage == ADD_VIEW) {
-                onAddView(transportPackageOfServer);
-            } else {
-                System.err.println("Client doesn't know received typeOfTransportPackage.");
-                System.err.println("typeOfTransportPackage = " + typeOfTransportPackage);
-                System.exit(1);
-            }
-        } /*catch (JsonProcessingException jpe) {
-            // От сервера поступило что-то, что не понятно клиенту.
-            // Можно:
-            // 1. Либо отключиться от сервера.
-            // 2. Совсем упасть клиенту.
-
-            // throw Должно было привести к полному падению. Не получается почему-то.
-            // throw new RuntimeException(jpe);
-
-            // Тогда будем падать так:
-            jpe.printStackTrace();
-            System.exit(1);
-        }*/ catch (RuntimeException rte) {
-            System.out.println("onMessage");
-            rte.printStackTrace();
-            System.exit(1);
-            System.out.println("onMessage. End");
+            objectInput = new ObjectInputStream(byteArrayInputStream);
+        } catch (IOException e) {
+            System.out.println("catch (IOException e)");
+            throw new RuntimeException(e);
         }
+
+        TransportPackageOfServer transportPackageOfServer;
+        try {
+            transportPackageOfServer = (TransportPackageOfServer)objectInput.readObject();
+        } catch (ClassNotFoundException | IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("transportPackageOfServer = " + transportPackageOfServer);
+
+        TypeOfTransportPackage typeOfTransportPackage = transportPackageOfServer.getTypeOfTransportPackage();
+        System.out.println("typeOfTransportPackage = " + typeOfTransportPackage);
+        if (typeOfTransportPackage == LOGOUT) {
+            onLogout(transportPackageOfServer);
+        } else if (typeOfTransportPackage == LOGIN) {
+            onLogin(transportPackageOfServer);
+        } else if (typeOfTransportPackage == FORGET_GAME_TYPE_SET) {
+            onForgetGameTypeSet(transportPackageOfServer);
+        } else if (typeOfTransportPackage == GET_GAME_TYPE_SET) {
+            onGetGameTypeSet(transportPackageOfServer);
+        } else if (typeOfTransportPackage == FORGET_GAME_TYPE) {
+            onForgetGameType(transportPackageOfServer);
+        } else if (typeOfTransportPackage == SELECT_GAME_TYPE) {
+            onSelectGameType(transportPackageOfServer);
+        } else if (typeOfTransportPackage == ADD_VIEW) {
+            onAddView(transportPackageOfServer);
+        } else if (typeOfTransportPackage == GAME_EVENT) {
+            onGameEvent(transportPackageOfServer);
+        } else {
+            System.err.println("Client doesn't know received typeOfTransportPackage.");
+            System.err.println("typeOfTransportPackage = " + typeOfTransportPackage);
+            System.exit(1);
+        }
+
         System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
         System.out.println("----------");
+    }
+
+    @Override
+    public void onMessage(String message) {
+        System.err.println("onMessage(String message)");
+        System.err.println("This type of message (String) should not be!");
+        System.exit(1);
     }
 
     protected void onLogout(TransportPackageOfServer transportPackageOfServer) {
@@ -232,15 +256,9 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         System.out.println("onGetGameTypeSet");
 
         clientState.setArrayListOfServerBaseModelClass(new ArrayList<>());
-        ArrayList<String> arrayList = (ArrayList<String>) transportPackageOfServer.get("gameTypeSet");
-        for (String serverBaseModelClass : arrayList) {
-            Class<? extends ServerBaseModel> clazz;
-            try {
-                clazz = (Class<? extends ServerBaseModel>) Class.forName(serverBaseModelClass);
-                clientState.addServerBaseModelClass(clazz);
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
+        ArrayList<Class<? extends ServerBaseModel>> arrayList = (ArrayList<Class<? extends ServerBaseModel>>) transportPackageOfServer.get("gameTypeSet");
+        for (Class<? extends ServerBaseModel> serverBaseModelClass : arrayList) {
+            clientState.addServerBaseModelClass(serverBaseModelClass);
         }
         hashSetOfObserverOnAbstractEvent.updateConnectStatePane(GET_GAME_TYPE_SET);
     }
@@ -255,6 +273,8 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     protected void onSelectGameType(TransportPackageOfServer transportPackageOfServer) {
         System.out.println("onSelectGameType");
 
+        // ToDo: Если переделать на сервере отправку класса не строкой, а классом,
+        //       то и здесь перевод из строки в класс не понадобится.
         String serverBaseModelString = (String) (transportPackageOfServer.get("gameType"));
         try {
             clientState.setServerBaseModelClass((Class<? extends ServerBaseModel>) Class.forName(serverBaseModelString));
@@ -271,5 +291,15 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         System.out.println("viewId = " + viewId);
 
         clientState.confirmView(viewId);
+    }
+
+    protected void onGameEvent(TransportPackageOfServer transportPackageOfServer) {
+        System.out.println("onGameEvent");
+
+        String viewId = (String) (transportPackageOfServer.get("viewId"));
+        System.out.println("viewId = " + viewId);
+
+        GameEvent gameEvent = (GameEvent) (transportPackageOfServer.get("gameEvent"));
+        System.out.println("gameEvent = " + gameEvent);
     }
 }

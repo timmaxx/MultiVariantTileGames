@@ -1,8 +1,8 @@
 package timmax.tilegame.websocket.server;
 
-// import java.io.IOException;
-import java.io.StringWriter;
+import java.io.*;
 import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -18,16 +18,16 @@ import timmax.tilegame.basemodel.protocol.server.RemoteView;
 import timmax.tilegame.game.sokoban.model.ModelOfServerOfSokoban;
 import timmax.tilegame.transport.TransportOfModel;
 
-import timmax.tilegame.game.minesweeper.model.MinesweeperModel;
+//import timmax.tilegame.game.minesweeper.model.MinesweeperModel;
 import timmax.tilegame.game.sokoban.model.SokobanModel;
 
 import static java.util.stream.Collectors.toList;
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
 public class MultiGameWebSocketServer extends WebSocketServer implements TransportOfModel<WebSocket> {
-    // private final ObjectMapper mapper = new ObjectMapper();
-
     private ModelOfServer<WebSocket> modelOfServer;
+
+    private ObjectOutput objectOutput;
 
 
     public MultiGameWebSocketServer(int port) {
@@ -51,37 +51,33 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
                 Map.of("viewId", remoteView.getViewId(),
                         "gameEvent", gameEvent)
         );
-//      System.out.println("After 'new TransportPackageOfServer'");
         send(remoteView.getClientId(), transportPackageOfServer);
     }
 
+    public void encodeExternalizable(Externalizable externalizable) throws IOException {
+        objectOutput.writeObject(externalizable);
+        System.out.println("----------");
+    }
+
     private void send(WebSocket webSocket, TransportPackageOfServer transportPackageOfServer) {
+        System.out.println("private void send(WebSocket webSocket, TransportPackageOfServer transportPackageOfServer)");
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try {
-            StringWriter writer = new StringWriter();
-            // mapper.writeValue(writer, transportPackageOfServer);
+            objectOutput = new ObjectOutputStream(byteArrayOutputStream); // new ObjectOutputStream(outputStream);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-            System.out.println("private void send(WebSocket webSocket, TransportPackageOfServer transportPackageOfServer)");
-            System.out.println("writer. Begin");
-            System.out.println(writer);
-            System.out.println("writer. End");
-            System.out.println("----------");
-/*
-            System.out.println("writer. Begin");
-            String tmp = writer.toString().replace(
-                    "\"gameEvent\":{\"width\":5,\"height\":5}",
-                    "\"gameEvent\":{\"type\":\"timmax.tilegame.basemodel.gameevent.GameEventNewGame\",\"width\":5,\"height\":5}"
-            );
-            System.out.println(tmp);
-            System.out.println("writer. End");
-*/
-            webSocket.send(writer.toString());
-            // webSocket.send(tmp);
 
-        } /*catch (IOException e) {
+        try {
+            encodeExternalizable(transportPackageOfServer);
+            webSocket.send(byteArrayOutputStream.toByteArray());
+        } catch (IOException e) {
             System.err.println("catch (IOException e)");
             e.printStackTrace();
             throw new RuntimeException(e);
-        }*/ catch (RuntimeException rte) {
+        } catch (RuntimeException rte) {
             rte.printStackTrace();
             System.exit(1);
         }
@@ -118,62 +114,66 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     @Override
     public void onError(WebSocket webSocket, Exception ex) {
         System.err.println("onError");
-        System.out.println(webSocket + ".");
+        System.err.println(webSocket + ".");
         ex.printStackTrace();
         System.err.println("----------");
     }
 
     @Override
-    public void onMessage(WebSocket webSocket, String message) {
-        System.out.println("onMessage");
+    public void onMessage(WebSocket webSocket, ByteBuffer byteBuffer) {
+        System.out.println("onMessage(WebSocket webSocket, ByteBuffer byteBuffer)");
         System.out.println(webSocket);
-/*
-        System.out.println("--- begin of message ---");
-        System.out.println(message);
-        System.out.println("--- end of message ---");
-*/
+
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteBuffer.array());
+        ObjectInput objectInput;
         try {
-            TransportPackageOfClient transportPackageOfClient = null; // mapper.readValue(message, TransportPackageOfClient.class);
-            TypeOfTransportPackage typeOfTransportPackage = transportPackageOfClient.getTypeOfTransportPackage();
-            if (typeOfTransportPackage == LOGOUT) {
-                onLogout(webSocket);
-            } else if (typeOfTransportPackage == LOGIN) {
-                onLogin(webSocket, transportPackageOfClient);
-            } else if (typeOfTransportPackage == FORGET_GAME_TYPE_SET) {
-                onForgetGameTypeSet(webSocket);
-            } else if (typeOfTransportPackage == GET_GAME_TYPE_SET) {
-                onGetGameTypeSet(webSocket);
-            } else if (typeOfTransportPackage == FORGET_GAME_TYPE) {
-                onForgetGameType(webSocket);
-            } else if (typeOfTransportPackage == SELECT_GAME_TYPE) {
-                onSelectGameType(webSocket, transportPackageOfClient);
-            } else if (typeOfTransportPackage == ADD_VIEW) {
-                onAddView(webSocket, transportPackageOfClient);
-            } else if (typeOfTransportPackage == CREATE_NEW_GAME) {
-                onCreateNewGame(webSocket, transportPackageOfClient);
-            } else {
-                System.err.println("Server doesn't know received typeOfTransportPackage.");
-                System.err.println("typeOfTransportPackage = " + typeOfTransportPackage);
-                System.exit(1);
-            }
-        } /*catch (JsonProcessingException jpe) {
-            // От клиента поступило что-то, что не понятно серверу.
-            // Можно:
-            // 1. Либо отключить такого клиента.
-            // 2. Совсем упасть серверу.
+            objectInput = new ObjectInputStream(byteArrayInputStream);
+        } catch (IOException e) {
+            System.out.println("catch (IOException e)");
+            throw new RuntimeException(e);
+        }
+        TransportPackageOfClient transportPackageOfClient;
+        try {
+            transportPackageOfClient = (TransportPackageOfClient)objectInput.readObject();
+        } catch (ClassNotFoundException | IOException e) {
+            throw new RuntimeException(e);
+        }
 
-            // throw Должно было привести к полному падению. Но так не получается, из-за того, что onMessage (да и
-            // другие методы onXxx) вызывается не в основном потоке-нити, а в дочернем.
-            // throw new RuntimeException(jpe);
+        System.out.println("transportPackageOfClient = " + transportPackageOfClient);
 
-            // Тогда будем падать так:
-            jpe.printStackTrace();
-            System.exit(1);
-        }*/ catch (RuntimeException rte) {
-            rte.printStackTrace();
+        TypeOfTransportPackage typeOfTransportPackage = transportPackageOfClient.getTypeOfTransportPackage();
+        if (typeOfTransportPackage == LOGOUT) {
+            // System.out.println("typeOfTransportPackage == LOGOUT");
+            onLogout(webSocket);
+        } else if (typeOfTransportPackage == LOGIN) {
+            // System.out.println("typeOfTransportPackage == LOGIN");
+            onLogin(webSocket, transportPackageOfClient);
+        } else if (typeOfTransportPackage == FORGET_GAME_TYPE_SET) {
+            onForgetGameTypeSet(webSocket);
+        } else if (typeOfTransportPackage == GET_GAME_TYPE_SET) {
+            onGetGameTypeSet(webSocket);
+        } else if (typeOfTransportPackage == FORGET_GAME_TYPE) {
+            onForgetGameType(webSocket);
+        } else if (typeOfTransportPackage == SELECT_GAME_TYPE) {
+            onSelectGameType(webSocket, transportPackageOfClient);
+        } else if (typeOfTransportPackage == ADD_VIEW) {
+            onAddView(webSocket, transportPackageOfClient);
+        } else if (typeOfTransportPackage == CREATE_NEW_GAME) {
+            onCreateNewGame(webSocket, transportPackageOfClient);
+        } else {
+            System.err.println("Server doesn't know received typeOfTransportPackage.");
+            System.err.println("typeOfTransportPackage = " + typeOfTransportPackage);
             System.exit(1);
         }
         System.out.println("----------");
+    }
+
+    @Override
+    public void onMessage(WebSocket webSocket, String message) {
+        System.err.println("onMessage(WebSocket webSocket, String message)");
+        System.err.println(webSocket);
+        System.err.println("This type of message (String) should not be!");
+        System.exit(1);
     }
 
     protected void onLogout(WebSocket webSocket) {
@@ -228,7 +228,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
                                 // ToDo: Перечень классов вариантов игр следует делать не константами в коде. Варианты:
                                 //       - файл параметров,
                                 //       - классы, хранящиеся по определённому пути.
-                                MinesweeperModel.class,
+                                /*MinesweeperModel.class,*/
                                 SokobanModel.class
                         ).collect(toList())
                 )

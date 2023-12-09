@@ -1,11 +1,15 @@
 package timmax.tilegame.basemodel.protocol;
 
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.Collections;
 import java.util.Map;
 
 import timmax.tilegame.basemodel.protocol.exception.MultiGameProtocolException;
 
-public abstract class TransportPackage {
+public abstract class TransportPackage implements Externalizable {
     private final static String TRANSPORT_PACKAGE_AND_ITS_TYPE =
             "\nTransport package is '%s'. \nType of transport package is '%s'.";
     private final static String KEY_IN_MAP_OF_PARAM_VALUE_DOES_NOT_CONTAINS_KEY_IN_MAP_OF_PARAM_CLASS =
@@ -17,10 +21,13 @@ public abstract class TransportPackage {
     private final static String TYPE_OF_PARAMETER_IN_SPECIFICATION_IS_NOT_EQUAL_TYPE_OF_PARAMETERS_IN_THIS_PACKAGE =
             "\nType of parameter '%s' must be type of '%s'. But received value = '%s' is type of '%s'.\n";
 
-    private final MapOfStructOfTransportPackage mapOfStructOfTransportPackage;
-    private final TypeOfTransportPackage typeOfTransportPackage;
-    private final Map<String, Object> mapOfParamName_Value;
+    private /*final*/ MapOfStructOfTransportPackage mapOfStructOfTransportPackage;
+    private /*final*/ TypeOfTransportPackage typeOfTransportPackage;
+    private /*final*/ Map<String, Object> mapOfParamName_Value;
 
+
+    public TransportPackage() {
+    }
 
     public TransportPackage(TypeOfTransportPackage typeOfTransportPackage) {
         mapOfStructOfTransportPackage = initMapOfStructOfTransportPackage();
@@ -115,4 +122,44 @@ public abstract class TransportPackage {
     }
 
     abstract MapOfStructOfTransportPackage initMapOfStructOfTransportPackage();
+
+    @Override
+    public String toString() {
+        return "TransportPackage{" +
+                "typeOfTransportPackage=" + typeOfTransportPackage +
+                ", mapOfParamName_Value=" + mapOfParamName_Value +
+                '}';
+    }
+
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeObject(typeOfTransportPackage);
+        out.writeObject(mapOfParamName_Value);
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        typeOfTransportPackage = (TypeOfTransportPackage)in.readObject();
+
+        mapOfParamName_Value = (Map<String, Object>)in.readObject();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TransportPackage that = (TransportPackage) o;
+
+        if (typeOfTransportPackage != that.typeOfTransportPackage) return false;
+        return mapOfParamName_Value.equals(that.mapOfParamName_Value);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = typeOfTransportPackage.hashCode();
+        result = 31 * result + mapOfParamName_Value.hashCode();
+        return result;
+    }
 }
