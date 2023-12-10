@@ -22,12 +22,11 @@ import timmax.tilegame.game.sokoban.model.SokobanModel;
 
 import static java.util.stream.Collectors.toList;
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
-import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.CREATE_NEW_GAME;
 
 public class ServerIncomingMessageHandler {
-    protected MultiGameWebSocketServer multiGameWebSocketServer;
-    protected WebSocket webSocket;
-    protected TransportPackageOfClient transportPackageOfClient;
+    private final MultiGameWebSocketServer multiGameWebSocketServer;
+    private final WebSocket webSocket;
+    private final TransportPackageOfClient transportPackageOfClient;
 
     public ServerIncomingMessageHandler(MultiGameWebSocketServer multiGameWebSocketServer, WebSocket webSocket, ByteBuffer byteBuffer) {
         this.multiGameWebSocketServer = multiGameWebSocketServer;
