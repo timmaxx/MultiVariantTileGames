@@ -116,7 +116,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         System.out.println(webSocket);
         System.out.println("---------- End of onMessage(WebSocket webSocket, ByteBuffer byteBuffer)");
 
-        new IncomingMessageHandler(this, webSocket, byteBuffer);
+        new ServerIncomingMessageHandler(this, webSocket, byteBuffer);
     }
 
     @Override

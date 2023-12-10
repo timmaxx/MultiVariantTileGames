@@ -24,12 +24,12 @@ import static java.util.stream.Collectors.toList;
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.CREATE_NEW_GAME;
 
-public class IncomingMessageHandler {
+public class ServerIncomingMessageHandler {
     protected MultiGameWebSocketServer multiGameWebSocketServer;
     protected WebSocket webSocket;
     protected TransportPackageOfClient transportPackageOfClient;
 
-    public IncomingMessageHandler(MultiGameWebSocketServer multiGameWebSocketServer, WebSocket webSocket, ByteBuffer byteBuffer) {
+    public ServerIncomingMessageHandler(MultiGameWebSocketServer multiGameWebSocketServer, WebSocket webSocket, ByteBuffer byteBuffer) {
         this.multiGameWebSocketServer = multiGameWebSocketServer;
         this.webSocket = webSocket;
 
