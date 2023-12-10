@@ -1,9 +1,6 @@
 package timmax.tilegame.websocket.server;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
 import java.nio.ByteBuffer;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -33,19 +30,11 @@ public class ServerIncomingMessageHandler {
         this.webSocket = webSocket;
 
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteBuffer.array());
-        ObjectInput objectInput;
-        try {
-            objectInput = new ObjectInputStream(byteArrayInputStream);
-        } catch (IOException e) {
-            System.out.println("catch (IOException e)");
-            throw new RuntimeException(e);
-        }
+        // Todo: улучшить качество кода:
+        //       Вызов метода у объекта объекта - не хорошая практика!
+        //       multiGameWebSocketServer.mapper.readValue
+        transportPackageOfClient = multiGameWebSocketServer.mapper.readValue(byteArrayInputStream, TransportPackageOfClient.class);
 
-        try {
-            transportPackageOfClient = (TransportPackageOfClient) objectInput.readObject();
-        } catch (ClassNotFoundException | IOException e) {
-            throw new RuntimeException(e);
-        }
         System.out.println("transportPackageOfClient = " + transportPackageOfClient);
 
         Thread thread = new Thread(() -> {

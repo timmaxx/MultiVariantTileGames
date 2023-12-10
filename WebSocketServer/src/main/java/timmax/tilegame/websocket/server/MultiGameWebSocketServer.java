@@ -18,9 +18,9 @@ import timmax.tilegame.transport.TransportOfModel;
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
 public class MultiGameWebSocketServer extends WebSocketServer implements TransportOfModel<WebSocket> {
-    ModelOfServer<WebSocket> modelOfServer;
+    final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
 
-    private ObjectOutput objectOutput;
+    ModelOfServer<WebSocket> modelOfServer;
 
 
     public MultiGameWebSocketServer(int port) {
@@ -47,31 +47,12 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         send(remoteView.getClientId(), transportPackageOfServer);
     }
 
-    public void encodeExternalizable(Externalizable externalizable) throws IOException {
-        objectOutput.writeObject(externalizable);
-    }
-
     void send(WebSocket webSocket, TransportPackageOfServer transportPackageOfServer) {
         System.out.println("private void send(WebSocket webSocket, TransportPackageOfServer transportPackageOfServer)");
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        try {
-            objectOutput = new ObjectOutputStream(byteArrayOutputStream); // new ObjectOutputStream(outputStream);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
-            encodeExternalizable(transportPackageOfServer);
-            webSocket.send(byteArrayOutputStream.toByteArray());
-        } catch (IOException e) {
-            System.err.println("catch (IOException e)");
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        } catch (RuntimeException rte) {
-            rte.printStackTrace();
-            System.exit(1);
-        }
+        mapper.writeValue(byteArrayOutputStream, transportPackageOfServer);
+        webSocket.send(byteArrayOutputStream.toByteArray());
     }
 
     @Override

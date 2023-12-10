@@ -1,9 +1,6 @@
 package timmax.tilegame.websocket.client;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
@@ -24,19 +21,11 @@ public class ClientIncomingMessageHandler {
         this.multiGameWebSocketClient = multiGameWebSocketClient;
 
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteBuffer.array());
-        ObjectInput objectInput;
-        try {
-            objectInput = new ObjectInputStream(byteArrayInputStream);
-        } catch (IOException e) {
-            System.out.println("catch (IOException e)");
-            throw new RuntimeException(e);
-        }
+        // Todo: улучшить качество кода:
+        //       Вызов метода у объекта объекта - не хорошая практика!
+        //       multiGameWebSocketClient.mapper.readValue
+        transportPackageOfServer = multiGameWebSocketClient.mapper.readValue(byteArrayInputStream, TransportPackageOfServer.class);
 
-        try {
-            transportPackageOfServer = (TransportPackageOfServer)objectInput.readObject();
-        } catch (ClassNotFoundException | IOException e) {
-            throw new RuntimeException(e);
-        }
         System.out.println("transportPackageOfServer = " + transportPackageOfServer);
 
         Thread thread = new Thread(() -> {
@@ -74,6 +63,10 @@ public class ClientIncomingMessageHandler {
     private void onLogout(TransportPackageOfServer transportPackageOfServer) {
         System.out.println("onLogout");
 
+        // Todo: улучшить качество кода:
+        //       Вызов метода у объекта объекта - не хорошая практика!
+        //       multiGameWebSocketClient.clientState.setUserName
+        //       Ну и далее по аналогии.
         multiGameWebSocketClient.clientState.setUserName("");
         multiGameWebSocketClient.hashSetOfObserverOnAbstractEvent.updateConnectStatePane(LOGOUT);
     }

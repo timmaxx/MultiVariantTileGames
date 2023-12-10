@@ -16,10 +16,9 @@ import timmax.tilegame.baseview.View;
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
 public class MultiGameWebSocketClient extends WebSocketClient {
+    final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
     final ClientState<Object> clientState;
     final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
-
-    private ObjectOutput objectOutput;
 
 
     public MultiGameWebSocketClient(URI serverUri, ClientState<Object> clientState, HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent) {
@@ -96,50 +95,10 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         send(new TransportPackageOfClient(CREATE_NEW_GAME));
     }
 
-    // ToDo: Вынести из этого класса.
-    public void encodeExternalizable(Externalizable externalizable) throws IOException {
-        objectOutput.writeObject(externalizable);
-    }
-
     private void send(TransportPackageOfClient transportPackageOfClient) {
-        /*
-        //  Ранее (при помощи Jackson перевод в JSON) применялась такая конструкция:
-            // В начале класса:
-            private final ObjectMapper mapper = new ObjectMapper();
-            ...
-
-            // В этом методе:
-            StringWriter writer = new StringWriter();
-            mapper.writeValue(writer, transportPackageOfClient);
-            send(writer.toString());
-
-        //  ToDo: переделать на такую конструкцию:
-            // В начале класса:
-            private final ??? mapper = new ???();
-            ...
-            byte[] writer = new ...;
-            mapper.writeValue(writer, transportPackageOfClient);
-            send(writer);
-
-        //  В т.ч.:
-        //  1. и 'encodeExternalizable(Externalizable externalizable)' из того класса будет удалена.
-        //  2. аналогично для сервера сделать.
-        */
-
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        try {
-            objectOutput = new ObjectOutputStream(byteArrayOutputStream);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
-            encodeExternalizable(transportPackageOfClient);
-            send(byteArrayOutputStream.toByteArray());
-        } catch (RuntimeException | IOException rte) {
-            rte.printStackTrace();
-            System.exit(1);
-        }
+        mapper.writeValue(byteArrayOutputStream, transportPackageOfClient);
+        send(byteArrayOutputStream.toByteArray());
     }
 
     @Override
