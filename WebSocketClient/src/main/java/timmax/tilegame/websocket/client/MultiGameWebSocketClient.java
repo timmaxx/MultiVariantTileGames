@@ -10,15 +10,14 @@ import org.java_websocket.handshake.ServerHandshake;
 
 import timmax.tilegame.basemodel.ServerBaseModel;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
-import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.baseview.View;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
 public class MultiGameWebSocketClient extends WebSocketClient {
-    private final ClientState<Object> clientState;
-    private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
+    final ClientState<Object> clientState;
+    final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
 
     private ObjectOutput objectOutput;
 
@@ -100,7 +99,6 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     // ToDo: Вынести из этого класса.
     public void encodeExternalizable(Externalizable externalizable) throws IOException {
         objectOutput.writeObject(externalizable);
-        System.out.println("----------");
     }
 
     private void send(TransportPackageOfClient transportPackageOfClient) {
@@ -152,7 +150,9 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
         hashSetOfObserverOnAbstractEvent.updateConnectStatePane(CLOSE);
 
-        System.out.println("----------");
+        System.out.println("Connect was closed.");
+        System.out.println("Code = " + code + ". Reason = " + reason + ". Remote = " + remote + ".");
+        System.out.println("---------- End of onClose");
     }
 
     @Override
@@ -163,7 +163,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
         hashSetOfObserverOnAbstractEvent.updateConnectStatePane(OPEN);
 
-        System.out.println("----------");
+        System.out.println("---------- End of onOpen");
     }
 
     @Override
@@ -171,57 +171,15 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         System.err.println("onError");
 
         ex.printStackTrace();
-
-        System.err.println("----------");
+        System.err.println("---------- End of onError");
     }
 
     @Override
     public void onMessage(ByteBuffer byteBuffer) {
         System.out.println("onMessage(ByteBuffer byteBuffer)");
+        System.out.println("---------- End of onMessage(ByteBuffer byteBuffer)");
 
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteBuffer.array());
-        ObjectInput objectInput;
-        try {
-            objectInput = new ObjectInputStream(byteArrayInputStream);
-        } catch (IOException e) {
-            System.out.println("catch (IOException e)");
-            throw new RuntimeException(e);
-        }
-
-        TransportPackageOfServer transportPackageOfServer;
-        try {
-            transportPackageOfServer = (TransportPackageOfServer)objectInput.readObject();
-        } catch (ClassNotFoundException | IOException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println("transportPackageOfServer = " + transportPackageOfServer);
-
-        TypeOfTransportPackage typeOfTransportPackage = transportPackageOfServer.getTypeOfTransportPackage();
-        System.out.println("typeOfTransportPackage = " + typeOfTransportPackage);
-        if (typeOfTransportPackage == LOGOUT) {
-            onLogout(transportPackageOfServer);
-        } else if (typeOfTransportPackage == LOGIN) {
-            onLogin(transportPackageOfServer);
-        } else if (typeOfTransportPackage == FORGET_GAME_TYPE_SET) {
-            onForgetGameTypeSet(transportPackageOfServer);
-        } else if (typeOfTransportPackage == GET_GAME_TYPE_SET) {
-            onGetGameTypeSet(transportPackageOfServer);
-        } else if (typeOfTransportPackage == FORGET_GAME_TYPE) {
-            onForgetGameType(transportPackageOfServer);
-        } else if (typeOfTransportPackage == SELECT_GAME_TYPE) {
-            onSelectGameType(transportPackageOfServer);
-        } else if (typeOfTransportPackage == ADD_VIEW) {
-            onAddView(transportPackageOfServer);
-        } else if (typeOfTransportPackage == GAME_EVENT) {
-            onGameEvent(transportPackageOfServer);
-        } else {
-            System.err.println("Client doesn't know received typeOfTransportPackage.");
-            System.err.println("typeOfTransportPackage = " + typeOfTransportPackage);
-            System.exit(1);
-        }
-
-        System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
-        System.out.println("----------");
+        new ClientIncomingMessageHandler(this, byteBuffer);
     }
 
     @Override
@@ -229,77 +187,5 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         System.err.println("onMessage(String message)");
         System.err.println("This type of message (String) should not be!");
         System.exit(1);
-    }
-
-    protected void onLogout(TransportPackageOfServer transportPackageOfServer) {
-        System.out.println("onLogout");
-
-        clientState.setUserName("");
-        hashSetOfObserverOnAbstractEvent.updateConnectStatePane(LOGOUT);
-    }
-
-    protected void onLogin(TransportPackageOfServer transportPackageOfServer) {
-        System.out.println("onLogin");
-
-        clientState.setUserName((String) transportPackageOfServer.get("userName"));
-        hashSetOfObserverOnAbstractEvent.updateConnectStatePane(LOGIN);
-    }
-
-    protected void onForgetGameTypeSet(TransportPackageOfServer transportPackageOfServer) {
-        System.out.println("onForgetGameTypeSet");
-
-        clientState.setArrayListOfServerBaseModelClass(new ArrayList<>());
-        hashSetOfObserverOnAbstractEvent.updateConnectStatePane(FORGET_GAME_TYPE_SET);
-    }
-
-    protected void onGetGameTypeSet(TransportPackageOfServer transportPackageOfServer) {
-        System.out.println("onGetGameTypeSet");
-
-        clientState.setArrayListOfServerBaseModelClass(new ArrayList<>());
-        ArrayList<Class<? extends ServerBaseModel>> arrayList = (ArrayList<Class<? extends ServerBaseModel>>) transportPackageOfServer.get("gameTypeSet");
-        for (Class<? extends ServerBaseModel> serverBaseModelClass : arrayList) {
-            clientState.addServerBaseModelClass(serverBaseModelClass);
-        }
-        hashSetOfObserverOnAbstractEvent.updateConnectStatePane(GET_GAME_TYPE_SET);
-    }
-
-    protected void onForgetGameType(TransportPackageOfServer transportPackageOfServer) {
-        System.out.println("onForgetGameType");
-
-        clientState.setServerBaseModelClass(null);
-        hashSetOfObserverOnAbstractEvent.updateConnectStatePane(FORGET_GAME_TYPE);
-    }
-
-    protected void onSelectGameType(TransportPackageOfServer transportPackageOfServer) {
-        System.out.println("onSelectGameType");
-
-        // ToDo: Если переделать на сервере отправку класса не строкой, а классом,
-        //       то и здесь перевод из строки в класс не понадобится.
-        String serverBaseModelString = (String) (transportPackageOfServer.get("gameType"));
-        try {
-            clientState.setServerBaseModelClass((Class<? extends ServerBaseModel>) Class.forName(serverBaseModelString));
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        hashSetOfObserverOnAbstractEvent.updateConnectStatePane(SELECT_GAME_TYPE);
-    }
-
-    protected void onAddView(TransportPackageOfServer transportPackageOfServer) {
-        System.out.println("onAddView");
-
-        String viewId = (String) (transportPackageOfServer.get("viewId"));
-        System.out.println("viewId = " + viewId);
-
-        clientState.confirmView(viewId);
-    }
-
-    protected void onGameEvent(TransportPackageOfServer transportPackageOfServer) {
-        System.out.println("onGameEvent");
-
-        String viewId = (String) (transportPackageOfServer.get("viewId"));
-        System.out.println("viewId = " + viewId);
-
-        GameEvent gameEvent = (GameEvent) (transportPackageOfServer.get("gameEvent"));
-        System.out.println("gameEvent = " + gameEvent);
     }
 }
