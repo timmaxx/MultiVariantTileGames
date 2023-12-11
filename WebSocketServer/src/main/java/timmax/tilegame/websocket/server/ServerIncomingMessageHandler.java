@@ -2,28 +2,19 @@ package timmax.tilegame.websocket.server;
 
 import java.io.ByteArrayInputStream;
 import java.nio.ByteBuffer;
-import java.util.Map;
-import java.util.stream.Stream;
 
 import org.java_websocket.WebSocket;
 
-import timmax.tilegame.basemodel.credential.Credentials;
 import timmax.tilegame.basemodel.protocol.TransportPackageOfClient;
-import timmax.tilegame.basemodel.protocol.TransportPackageOfServer;
-import timmax.tilegame.basemodel.protocol.TypeOfTransportPackage;
-import timmax.tilegame.basemodel.protocol.server.RemoteView;
 
-//import timmax.tilegame.game.minesweeper.model.MinesweeperModel;
-import timmax.tilegame.game.sokoban.model.ModelOfServerOfSokoban;
-import timmax.tilegame.game.sokoban.model.SokobanModel;
-
-import static java.util.stream.Collectors.toList;
-import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
+// import timmax.tilegame.game.minesweeper.model.MinesweeperModel;
+// import timmax.tilegame.game.sokoban.model.ModelOfServerOfSokoban;
+// import timmax.tilegame.game.sokoban.model.SokobanModel;
 
 public class ServerIncomingMessageHandler {
     private final MultiGameWebSocketServer multiGameWebSocketServer;
     private final WebSocket webSocket;
-    private final TransportPackageOfClient transportPackageOfClient;
+    private final TransportPackageOfClient<WebSocket> transportPackageOfClient;
 
     public ServerIncomingMessageHandler(MultiGameWebSocketServer multiGameWebSocketServer, WebSocket webSocket, ByteBuffer byteBuffer) {
         this.multiGameWebSocketServer = multiGameWebSocketServer;
@@ -38,8 +29,8 @@ public class ServerIncomingMessageHandler {
         System.out.println("transportPackageOfClient = " + transportPackageOfClient);
 
         Thread thread = new Thread(() -> {
-            TypeOfTransportPackage typeOfTransportPackage = transportPackageOfClient.getTypeOfTransportPackage();
-
+            transportPackageOfClient.execute(multiGameWebSocketServer, webSocket);
+            /*
             if (typeOfTransportPackage == LOGOUT) {
                 onLogout();
             } else if (typeOfTransportPackage == LOGIN) {
@@ -61,17 +52,19 @@ public class ServerIncomingMessageHandler {
                 System.err.println("typeOfTransportPackage = " + typeOfTransportPackage);
                 System.exit(1);
             }
+            */
             System.out.println("---------- End of public IncomingMessageHandler(MultiGameWebSocketServer multiGameWebSocketServer, WebSocket webSocket, ByteBuffer byteBuffer)");
         });
         thread.start();
     }
-
+/*
     private void onLogout() {
         System.out.println("onLogout");
 
         sendLogoutAnswer();
     }
-
+*/
+/*
     private void onLogin() {
         System.out.println("onLogin");
 
@@ -87,7 +80,8 @@ public class ServerIncomingMessageHandler {
             sendLogoutAnswer();
         }
     }
-
+*/
+/*
     private void sendLogoutAnswer() {
         multiGameWebSocketServer.send(webSocket, new TransportPackageOfServer(LOGOUT));
     }
@@ -98,7 +92,8 @@ public class ServerIncomingMessageHandler {
                 Map.of("userName", userName)
         ));
     }
-
+*/
+/*
     private void onForgetGameTypeSet() {
         System.out.println("onForgetGameTypeSet");
         multiGameWebSocketServer.send(webSocket, new TransportPackageOfServer(FORGET_GAME_TYPE_SET));
@@ -113,7 +108,7 @@ public class ServerIncomingMessageHandler {
                                 // ToDo: Перечень классов вариантов игр следует делать не константами в коде. Варианты:
                                 //       - файл параметров,
                                 //       - классы, хранящиеся по определённому пути.
-                                /*MinesweeperModel.class,*/
+                                /-*MinesweeperModel.class,*-/
                                 SokobanModel.class
                         ).collect(toList())
                 )
@@ -168,4 +163,5 @@ public class ServerIncomingMessageHandler {
 
         multiGameWebSocketServer.modelOfServer.createNewGame();
     }
+*/
 }

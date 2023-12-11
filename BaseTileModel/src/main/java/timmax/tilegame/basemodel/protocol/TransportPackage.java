@@ -4,12 +4,9 @@ import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-import java.util.Collections;
-import java.util.Map;
-
-import timmax.tilegame.basemodel.protocol.exception.MultiGameProtocolException;
 
 public abstract class TransportPackage implements Externalizable {
+/*
     private final static String TRANSPORT_PACKAGE_AND_ITS_TYPE =
             "\nTransport package is '%s'. \nType of transport package is '%s'.";
     private final static String KEY_IN_MAP_OF_PARAM_VALUE_DOES_NOT_CONTAINS_KEY_IN_MAP_OF_PARAM_CLASS =
@@ -20,15 +17,13 @@ public abstract class TransportPackage implements Externalizable {
             "\nCount of parameters in specification of protocol is %d and it is not equal count of parameters in package %d.";
     private final static String TYPE_OF_PARAMETER_IN_SPECIFICATION_IS_NOT_EQUAL_TYPE_OF_PARAMETERS_IN_THIS_PACKAGE =
             "\nType of parameter '%s' must be type of '%s'. But received value = '%s' is type of '%s'.\n";
-
-    private /*final*/ MapOfStructOfTransportPackage mapOfStructOfTransportPackage;
-    private /*final*/ TypeOfTransportPackage typeOfTransportPackage;
-    private /*final*/ Map<String, Object> mapOfParamName_Value;
+*/
+    // private /*final*/ MapOfStructOfTransportPackage mapOfStructOfTransportPackage;
 
 
     public TransportPackage() {
     }
-
+/*
     public TransportPackage(TypeOfTransportPackage typeOfTransportPackage) {
         mapOfStructOfTransportPackage = initMapOfStructOfTransportPackage();
         Map<String, Class<?>> mapOfParamName_Class = mapOfStructOfTransportPackage.getMapParamName_ClassByTypeOfTransportPackage(typeOfTransportPackage);
@@ -38,11 +33,10 @@ public abstract class TransportPackage implements Externalizable {
             String part2 = String.format(PARAMETERS_LIST_IS_EMPTY_BUT_IT_IS_WRONG, mapOfParamName_Class.size());
             throw new RuntimeException(head + part2);
         }
-
-        this.typeOfTransportPackage = typeOfTransportPackage;
-        this.mapOfParamName_Value = Collections.emptyMap();
     }
+*/
 
+/*
     public TransportPackage(
             TypeOfTransportPackage typeOfTransportPackage,
             Map<String, Object> mapOfParamName_Value) throws MultiGameProtocolException {
@@ -53,7 +47,7 @@ public abstract class TransportPackage implements Externalizable {
             stringBuilder.append("\nTransportPackage");
             stringBuilder.append("\n public TransportPackage(two params)");
             stringBuilder.append("\n  typeOfTransportPackage is null!");
-            // ToDo: Создание исключения с текстом stringBuilder повторяется в коде, но чтобы сделать уменьшить
+            // ToDo: Создание исключения с текстом stringBuilder повторяется в коде, но чтобы уменьшить
             //       дублирование кода, нужно либо if, либо 'throw new MultiGameProtocolException' в отдельный метод.
             throw new MultiGameProtocolException(stringBuilder.toString());
         }
@@ -67,10 +61,6 @@ public abstract class TransportPackage implements Externalizable {
             stringBuilder.append(String.format(COUNT_OF_PARAMETERS_IN_SPECIFICATION_IS_NOT_EQUAL_COUNT_OF_PARAMETERS_IN_THIS_PACKAGE,
                     mapOfParamName_Class.size(), mapOfParamName_Value.size()));
         } else {
-/*
-            System.out.println("mapOfParamName_Class = " + mapOfParamName_Class);
-            System.out.println("mapOfParamName_Value = " + mapOfParamName_Value);
-*/
             for (Map.Entry<String, Class<?>> nameParam : mapOfParamName_Class.entrySet()) {
                 String paramName = nameParam.getKey();
                 Class<?> clazz = nameParam.getValue();
@@ -83,10 +73,6 @@ public abstract class TransportPackage implements Externalizable {
                 }
 
                 Object value = mapOfParamName_Value.get(paramName);
-/*
-                System.out.println("value = " + value);
-                System.out.println("value.getClass() = " + value.getClass());
-*/
                 if ((value.getClass() != String.class || !clazz.isEnum())
                         && (!Classes.isInstanceOf(value, clazz))) {
                     stringBuilder.append(String.format(TRANSPORT_PACKAGE_AND_ITS_TYPE,
@@ -100,66 +86,16 @@ public abstract class TransportPackage implements Externalizable {
         if (stringBuilder.toString().length() > 0) {
             throw new MultiGameProtocolException(stringBuilder.toString());
         }
-
-        this.typeOfTransportPackage = typeOfTransportPackage;
-        this.mapOfParamName_Value = mapOfParamName_Value;
     }
-
-    public TypeOfTransportPackage getTypeOfTransportPackage() {
-        return typeOfTransportPackage;
-    }
-
-    // На неиспользование этого метода указывает компилятор.
-    // И явно этот метод не нужно использовать, т.к. всё равно потом будет вызван get (для чистоты кода).
-    // Но если удалить его, то не будет работать JSON десериализация:
-    //   Caused by: java.lang.NullPointerException: Cannot invoke "java.util.Map.size()" because "mapOfParamName_Value" is null
-    public Map<String, Object> getMapOfParamName_Value() {
-        return mapOfParamName_Value;
-    }
-
-    public Object get(String paramName) {
-        return mapOfParamName_Value.get(paramName);
-    }
-
-    abstract MapOfStructOfTransportPackage initMapOfStructOfTransportPackage();
-
-    @Override
-    public String toString() {
-        return "TransportPackage{" +
-                "typeOfTransportPackage=" + typeOfTransportPackage +
-                ", mapOfParamName_Value=" + mapOfParamName_Value +
-                '}';
-    }
+*/
+    // abstract MapOfStructOfTransportPackage initMapOfStructOfTransportPackage();
 
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(typeOfTransportPackage);
-        out.writeObject(mapOfParamName_Value);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        typeOfTransportPackage = (TypeOfTransportPackage)in.readObject();
-
-        mapOfParamName_Value = (Map<String, Object>)in.readObject();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        TransportPackage that = (TransportPackage) o;
-
-        if (typeOfTransportPackage != that.typeOfTransportPackage) return false;
-        return mapOfParamName_Value.equals(that.mapOfParamName_Value);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = typeOfTransportPackage.hashCode();
-        result = 31 * result + mapOfParamName_Value.hashCode();
-        return result;
     }
 }

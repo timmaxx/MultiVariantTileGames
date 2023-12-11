@@ -3,6 +3,7 @@ package timmax.tilegame.basemodel.protocol;
 import java.util.Collections;
 import java.util.Map;
 
+// ToDo: Удалить класс.
 public abstract class MapOfStructOfTransportPackage {
     private final Map<TypeOfTransportPackage, Map<String, Class<?>>> mapOfUniversalType;
 
@@ -11,6 +12,8 @@ public abstract class MapOfStructOfTransportPackage {
         this.mapOfUniversalType = Collections.unmodifiableMap(mapOfUniversalType);
     }
 
+
+/*
     public Map<String, Class<?>> getMapParamName_ClassByTypeOfTransportPackage(TypeOfTransportPackage typeOfTransportPackage) {
         if (!mapOfUniversalType.containsKey(typeOfTransportPackage)) {
             throw new RuntimeException("There aren't key = '" + typeOfTransportPackage + "' in mapOfUniversalType.");
@@ -18,4 +21,5 @@ public abstract class MapOfStructOfTransportPackage {
 
         return mapOfUniversalType.get(typeOfTransportPackage);
     }
+*/
 }

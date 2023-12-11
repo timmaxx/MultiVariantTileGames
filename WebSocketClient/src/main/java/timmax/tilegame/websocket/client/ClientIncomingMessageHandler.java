@@ -2,15 +2,8 @@ package timmax.tilegame.websocket.client;
 
 import java.io.ByteArrayInputStream;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
 
-import timmax.tilegame.basemodel.ServerBaseModel;
-import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.TransportPackageOfServer;
-import timmax.tilegame.basemodel.protocol.TypeOfTransportPackage;
-
-import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
-
 
 public class ClientIncomingMessageHandler {
     private final MultiGameWebSocketClient multiGameWebSocketClient;
@@ -29,8 +22,10 @@ public class ClientIncomingMessageHandler {
         System.out.println("transportPackageOfServer = " + transportPackageOfServer);
 
         Thread thread = new Thread(() -> {
-            TypeOfTransportPackage typeOfTransportPackage = transportPackageOfServer.getTypeOfTransportPackage();
+            // TypeOfTransportPackage typeOfTransportPackage = transportPackageOfServer.getTypeOfTransportPackage();
 
+            transportPackageOfServer.execute(multiGameWebSocketClient);
+/*
             if (typeOfTransportPackage == LOGOUT) {
                 onLogout(transportPackageOfServer);
             } else if (typeOfTransportPackage == LOGIN) {
@@ -52,14 +47,14 @@ public class ClientIncomingMessageHandler {
                 System.err.println("typeOfTransportPackage = " + typeOfTransportPackage);
                 System.exit(1);
             }
-
+*/
             System.out.println("getMainGameClientStatus() = " + multiGameWebSocketClient.getMainGameClientStatus());
             System.out.println("---------- End of public ClientIncomingMessageHandler(MultiGameWebSocketClient multiGameWebSocketClient, ByteBuffer byteBuffer)");
         });
         thread.start();
     }
 
-
+/*
     private void onLogout(TransportPackageOfServer transportPackageOfServer) {
         System.out.println("onLogout");
 
@@ -135,4 +130,5 @@ public class ClientIncomingMessageHandler {
         GameEvent gameEvent = (GameEvent) (transportPackageOfServer.get("gameEvent"));
         System.out.println("gameEvent = " + gameEvent);
     }
+*/
 }

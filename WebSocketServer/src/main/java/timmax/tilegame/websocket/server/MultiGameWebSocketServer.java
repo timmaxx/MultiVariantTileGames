@@ -3,7 +3,6 @@ package timmax.tilegame.websocket.server;
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
-import java.util.Map;
 
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
@@ -14,8 +13,6 @@ import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
 import timmax.tilegame.basemodel.protocol.server.RemoteView;
 import timmax.tilegame.transport.TransportOfModel;
-
-import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
 public class MultiGameWebSocketServer extends WebSocketServer implements TransportOfModel<WebSocket> {
     final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
@@ -39,20 +36,26 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         System.out.println("public void sendGameEvent(RemoteView<WebSocket> remoteView, GameEvent gameEvent)");
         System.out.println("remoteView = " + remoteView);
 */
+
+/*
         TransportPackageOfServer transportPackageOfServer = new TransportPackageOfServer(
                 GAME_EVENT,
                 Map.of("viewId", remoteView.getViewId(),
                         "gameEvent", gameEvent)
         );
         send(remoteView.getClientId(), transportPackageOfServer);
+*/
     }
 
-    void send(WebSocket webSocket, TransportPackageOfServer transportPackageOfServer) {
-        System.out.println("private void send(WebSocket webSocket, TransportPackageOfServer transportPackageOfServer)");
+    @Override
+    public void send(WebSocket clientId, TransportPackageOfServer<WebSocket> transportPackageOfServer) {
+        System.out.println("class MultiGameWebSocketServer");
+        System.out.println("public void send(WebSocket clientId, TransportPackageOfServer transportPackageOfServer)");
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         mapper.writeValue(byteArrayOutputStream, transportPackageOfServer);
-        webSocket.send(byteArrayOutputStream.toByteArray());
+        System.out.println("transportPackageOfServer = " + transportPackageOfServer);
+        clientId.send(byteArrayOutputStream.toByteArray());
     }
 
     @Override

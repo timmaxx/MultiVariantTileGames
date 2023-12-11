@@ -1,12 +1,16 @@
 package timmax.tilegame.websocket.client;
 
 import org.java_websocket.client.WebSocketClient;
+
 import timmax.tilegame.basemodel.gamecommand.GameCommand;
+import timmax.tilegame.basemodel.protocol.ClientState;
+import timmax.tilegame.basemodel.protocol.HashSetOfObserverOnAbstractEvent;
+import timmax.tilegame.basemodel.protocol.TransportPackageOfClient;
 import timmax.tilegame.transport.TransportOfController;
 
-//import java.io.IOException;
 import java.io.StringWriter;
 
+// ToDo: удалить класс.
 public class TransportOfControllerWebSocket implements TransportOfController {
     private final WebSocketClient webSocketClient;
 
@@ -26,5 +30,19 @@ public class TransportOfControllerWebSocket implements TransportOfController {
         }*/ catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void send(TransportPackageOfClient transportPackageOfClient) {
+    }
+
+    @Override
+    public ClientState<Object> getClientState() {
+        return null;
+    }
+
+    @Override
+    public HashSetOfObserverOnAbstractEvent getHashSetOfObserverOnAbstractEvent() {
+        return null;
     }
 }

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
+// ToDo: Удалить класс.
 public class MapOfStructOfTransportPackageOfClient extends MapOfStructOfTransportPackage {
     public MapOfStructOfTransportPackageOfClient() {
         super(Map.of(

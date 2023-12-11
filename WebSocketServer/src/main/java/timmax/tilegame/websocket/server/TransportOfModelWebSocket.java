@@ -2,11 +2,14 @@ package timmax.tilegame.websocket.server;
 
 import org.java_websocket.WebSocket;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
+import timmax.tilegame.basemodel.protocol.TransportPackageOfServer;
 import timmax.tilegame.basemodel.protocol.server.RemoteView;
 import timmax.tilegame.transport.TransportOfModel;
 
 // import java.io.IOException;
 import java.io.StringWriter;
+
+// ToDo: удалить класс.
 
 // Этот класс пока используется в первом варианте конкретных клиентов (Сапёр и Сокобан).
 // ToDo: От класса можно будет вообще отказаться и воспользоваться классом MultiGameWebSocketServer,
@@ -39,5 +42,10 @@ public class TransportOfModelWebSocket implements TransportOfModel<WebSocket> {
 
     @Override
     public void sendGameEvent(RemoteView<WebSocket> remoteView, GameEvent gameEvent) {
+    }
+
+    @Override
+    public void send(WebSocket clientId, TransportPackageOfServer transportPackageOfServer) {
+
     }
 }

@@ -1,6 +1,7 @@
 package timmax.tilegame.transport;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
+import timmax.tilegame.basemodel.protocol.TransportPackageOfServer;
 import timmax.tilegame.basemodel.protocol.server.RemoteView;
 
 public interface TransportOfModel<T> {
@@ -12,4 +13,6 @@ public interface TransportOfModel<T> {
 
     // 2. М: передача по какому-то транспорту сообщений от модели на выборки
     void sendGameEvent(RemoteView<T> remoteView, GameEvent gameEvent);
+
+    void send(T clientId, TransportPackageOfServer<T> transportPackageOfServer);
 }

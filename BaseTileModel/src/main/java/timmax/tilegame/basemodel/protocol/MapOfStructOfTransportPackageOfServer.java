@@ -8,6 +8,7 @@ import timmax.tilegame.basemodel.gameevent.GameEvent;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
+// ToDo: Удалить класс.
 public class MapOfStructOfTransportPackageOfServer extends MapOfStructOfTransportPackage {
     public MapOfStructOfTransportPackageOfServer() {
         super(Map.of(

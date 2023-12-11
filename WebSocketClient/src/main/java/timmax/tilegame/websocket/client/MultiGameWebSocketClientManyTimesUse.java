@@ -68,49 +68,45 @@ public class MultiGameWebSocketClientManyTimesUse implements BaseModel {
     }
 
     public void forgetGameTypeSet() {
-        multiGameWebSocketClient.forgetGameTypeSet();
+        // multiGameWebSocketClient.forgetGameTypeSet();
     }
 
     public void getGameTypeSet() {
-        multiGameWebSocketClient.getGameTypeSet();
+        // multiGameWebSocketClient.getGameTypeSet();
     }
 
     public void forgetGameType() {
-        multiGameWebSocketClient.forgetGameType();
+        // multiGameWebSocketClient.forgetGameType();
     }
 
     public void gameTypeSelect(Class<? extends ServerBaseModel> serverBaseModelClass) {
-        multiGameWebSocketClient.gameTypeSelect(serverBaseModelClass);
+        // multiGameWebSocketClient.gameTypeSelect(serverBaseModelClass);
     }
 
     // ----------------------------------------------------------------------------------------------------------------
     @Override
     public void addView(View view) {
-        multiGameWebSocketClient.addView(view);
+        // multiGameWebSocketClient.addView(view);
     }
 
     @Override
     public void createNewGame() {
-        multiGameWebSocketClient.createNewGame();
+        // multiGameWebSocketClient.createNewGame();
     }
 
     @Override
     public void restart() {
-
     }
 
     @Override
     public void nextLevel() {
-
     }
 
     @Override
     public void prevLevel() {
-
     }
 
     @Override
     public void win() {
-
     }
 }

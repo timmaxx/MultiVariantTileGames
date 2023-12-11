@@ -3,19 +3,19 @@ package timmax.tilegame.websocket.client;
 import java.io.*;
 import java.net.URI;
 import java.nio.ByteBuffer;
-import java.util.*;
 
+import org.java_websocket.WebSocket;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
-import timmax.tilegame.basemodel.ServerBaseModel;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
+import timmax.tilegame.basemodel.gamecommand.GameCommand;
 import timmax.tilegame.basemodel.protocol.*;
-import timmax.tilegame.baseview.View;
+import timmax.tilegame.transport.TransportOfController;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
-public class MultiGameWebSocketClient extends WebSocketClient {
+public class MultiGameWebSocketClient extends WebSocketClient implements TransportOfController<WebSocket> {
     final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
     final ClientState<Object> clientState;
     final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
@@ -39,20 +39,14 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     }
 
     // 2
-    public void logout() {
-        send(new TransportPackageOfClient(LOGOUT));
+    public void logout() { // send2(new TransportPackageOfClientLogout());
+        send(new TransportPackageOfClient010Logout<WebSocket>());
     }
 
     public void login(String userName, String password) {
-        send(new TransportPackageOfClient(
-                LOGIN,
-                Map.of(
-                        "userName", userName,
-                        "password", password
-                ))
-        );
+        send(new TransportPackageOfClient011Login<WebSocket>(userName, password));
     }
-
+/*
     // 3
     public void forgetGameTypeSet() {
         send(new TransportPackageOfClient(FORGET_GAME_TYPE_SET));
@@ -94,11 +88,19 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         System.out.println("createNewGame");
         send(new TransportPackageOfClient(CREATE_NEW_GAME));
     }
-
-    private void send(TransportPackageOfClient transportPackageOfClient) {
+*/
+    @Override
+    public void send(TransportPackageOfClient<WebSocket> transportPackageOfClient) {
+        System.out.println("class MultiGameWebSocketClient");
+        System.out.println("public void send(TransportPackageOfClient transportPackageOfClient)");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         mapper.writeValue(byteArrayOutputStream, transportPackageOfClient);
+        System.out.println("transportPackageOfClient = " + transportPackageOfClient);
         send(byteArrayOutputStream.toByteArray());
+    }
+
+    @Override
+    public void sendCommand(GameCommand gameCommand) {
     }
 
     @Override
@@ -146,5 +148,15 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         System.err.println("onMessage(String message)");
         System.err.println("This type of message (String) should not be!");
         System.exit(1);
+    }
+
+    @Override
+    public ClientState<Object> getClientState() {
+        return clientState;
+    }
+
+    @Override
+    public HashSetOfObserverOnAbstractEvent getHashSetOfObserverOnAbstractEvent() {
+        return hashSetOfObserverOnAbstractEvent;
     }
 }
