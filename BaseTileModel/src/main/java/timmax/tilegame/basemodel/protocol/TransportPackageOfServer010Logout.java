@@ -23,7 +23,7 @@ public class TransportPackageOfServer010Logout<T> extends TransportPackageOfServ
 
     @Override
     public String toString() {
-        return "TransportPackageOfServerLogout{}";
+        return "TransportPackageOfServer010Logout{}";
     }
 
     @Override

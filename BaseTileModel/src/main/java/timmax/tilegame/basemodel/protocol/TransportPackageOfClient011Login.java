@@ -53,7 +53,7 @@ public class TransportPackageOfClient011Login<T> extends TransportPackageOfClien
 
     @Override
     public String toString() {
-        return "TransportPackageOfClientLogin{" +
+        return "TransportPackageOfClient011Login{" +
                 "userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 '}';

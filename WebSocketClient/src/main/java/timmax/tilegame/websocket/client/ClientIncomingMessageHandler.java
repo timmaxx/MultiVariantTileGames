@@ -26,11 +26,7 @@ public class ClientIncomingMessageHandler {
 
             transportPackageOfServer.execute(multiGameWebSocketClient);
 /*
-            if (typeOfTransportPackage == LOGOUT) {
-                onLogout(transportPackageOfServer);
-            } else if (typeOfTransportPackage == LOGIN) {
-                onLogin(transportPackageOfServer);
-            } else if (typeOfTransportPackage == FORGET_GAME_TYPE_SET) {
+            if (typeOfTransportPackage == FORGET_GAME_TYPE_SET) {
                 onForgetGameTypeSet(transportPackageOfServer);
             } else if (typeOfTransportPackage == GET_GAME_TYPE_SET) {
                 onGetGameTypeSet(transportPackageOfServer);
@@ -55,24 +51,6 @@ public class ClientIncomingMessageHandler {
     }
 
 /*
-    private void onLogout(TransportPackageOfServer transportPackageOfServer) {
-        System.out.println("onLogout");
-
-        // Todo: улучшить качество кода:
-        //       Вызов метода у объекта объекта - не хорошая практика!
-        //       multiGameWebSocketClient.clientState.setUserName
-        //       Ну и далее по аналогии.
-        multiGameWebSocketClient.clientState.setUserName("");
-        multiGameWebSocketClient.hashSetOfObserverOnAbstractEvent.updateConnectStatePane(LOGOUT);
-    }
-
-    private void onLogin(TransportPackageOfServer transportPackageOfServer) {
-        System.out.println("onLogin");
-
-        multiGameWebSocketClient.clientState.setUserName((String) transportPackageOfServer.get("userName"));
-        multiGameWebSocketClient.hashSetOfObserverOnAbstractEvent.updateConnectStatePane(LOGIN);
-    }
-
     private void onForgetGameTypeSet(TransportPackageOfServer transportPackageOfServer) {
         System.out.println("onForgetGameTypeSet");
 

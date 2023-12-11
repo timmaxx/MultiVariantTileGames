@@ -31,6 +31,6 @@ public class TransportPackageOfClient010Logout<T> extends TransportPackageOfClie
 
     @Override
     public String toString() {
-        return "TransportPackageOfClientLogout{}";
+        return "TransportPackageOfClient010Logout{}";
     }
 }

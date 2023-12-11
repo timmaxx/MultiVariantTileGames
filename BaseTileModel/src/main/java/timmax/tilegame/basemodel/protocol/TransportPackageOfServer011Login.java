@@ -29,7 +29,7 @@ public class TransportPackageOfServer011Login<T> extends TransportPackageOfServe
 
     @Override
     public String toString() {
-        return "TransportPackageOfServerLogin{" +
+        return "TransportPackageOfServer011Login{" +
                 "userName='" + userName + '\'' +
                 '}';
     }

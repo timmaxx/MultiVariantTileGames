@@ -31,11 +31,7 @@ public class ServerIncomingMessageHandler {
         Thread thread = new Thread(() -> {
             transportPackageOfClient.execute(multiGameWebSocketServer, webSocket);
             /*
-            if (typeOfTransportPackage == LOGOUT) {
-                onLogout();
-            } else if (typeOfTransportPackage == LOGIN) {
-                onLogin();
-            } else if (typeOfTransportPackage == FORGET_GAME_TYPE_SET) {
+            if (typeOfTransportPackage == FORGET_GAME_TYPE_SET) {
                 onForgetGameTypeSet();
             } else if (typeOfTransportPackage == GET_GAME_TYPE_SET) {
                 onGetGameTypeSet();
@@ -57,42 +53,7 @@ public class ServerIncomingMessageHandler {
         });
         thread.start();
     }
-/*
-    private void onLogout() {
-        System.out.println("onLogout");
 
-        sendLogoutAnswer();
-    }
-*/
-/*
-    private void onLogin() {
-        System.out.println("onLogin");
-
-        String userName = ((String) transportPackageOfClient.get("userName"));
-        String password = ((String) transportPackageOfClient.get("password"));
-
-        System.out.println("userName = " + userName + " | " + "password = *"); // Пароль не выводим:
-
-        if (Credentials.isUserAndPasswordCorrect(userName, password)) {
-            // ToDo: Нужно зафиксировать для этого webSocket имя пользователя (и потом другие параметры авторизации).
-            sendLoginAnswer(userName);
-        } else {
-            sendLogoutAnswer();
-        }
-    }
-*/
-/*
-    private void sendLogoutAnswer() {
-        multiGameWebSocketServer.send(webSocket, new TransportPackageOfServer(LOGOUT));
-    }
-
-    private void sendLoginAnswer(String userName) {
-        multiGameWebSocketServer.send(webSocket, new TransportPackageOfServer(
-                LOGIN,
-                Map.of("userName", userName)
-        ));
-    }
-*/
 /*
     private void onForgetGameTypeSet() {
         System.out.println("onForgetGameTypeSet");
