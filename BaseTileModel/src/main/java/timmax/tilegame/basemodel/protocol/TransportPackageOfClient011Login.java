@@ -1,11 +1,11 @@
 package timmax.tilegame.basemodel.protocol;
 
-import timmax.tilegame.basemodel.credential.Credentials;
-import timmax.tilegame.transport.TransportOfModel;
-
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+
+import timmax.tilegame.basemodel.credential.Credentials;
+import timmax.tilegame.transport.TransportOfModel;
 
 public class TransportPackageOfClient011Login<T> extends TransportPackageOfClient {
     private String userName;
@@ -19,20 +19,6 @@ public class TransportPackageOfClient011Login<T> extends TransportPackageOfClien
     public TransportPackageOfClient011Login(String userName, String password) {
         this.userName = userName;
         this.password = password;
-    }
-
-    @Override
-    public void writeExternal(ObjectOutput out) throws IOException {
-        super.writeExternal(out);
-        out.writeObject(userName);
-        out.writeObject(password);
-    }
-
-    @Override
-    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        super.readExternal(in);
-        userName = (String) in.readObject();
-        password = (String) in.readObject();
     }
 
     @Override
@@ -57,5 +43,17 @@ public class TransportPackageOfClient011Login<T> extends TransportPackageOfClien
                 "userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 '}';
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeObject(userName);
+        out.writeObject(password);
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        userName = (String) in.readObject();
+        password = (String) in.readObject();
     }
 }

@@ -1,10 +1,10 @@
 package timmax.tilegame.basemodel.protocol;
 
-import timmax.tilegame.transport.TransportOfController;
-
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+
+import timmax.tilegame.transport.TransportOfController;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.LOGIN;
 
@@ -36,13 +36,11 @@ public class TransportPackageOfServer011Login<T> extends TransportPackageOfServe
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        super.writeExternal(out);
         out.writeObject(userName);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        super.readExternal(in);
         userName = (String) in.readObject();
     }
 }

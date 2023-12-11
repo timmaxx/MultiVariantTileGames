@@ -1,9 +1,5 @@
 package timmax.tilegame.basemodel.protocol;
 
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
-
 import timmax.tilegame.transport.TransportOfModel;
 
 public abstract class TransportPackageOfClient<T> extends TransportPackage {
@@ -46,15 +42,5 @@ public abstract class TransportPackageOfClient<T> extends TransportPackage {
     @Override
     public String toString() {
         return "TransportPackageOfClient{}";
-    }
-
-    @Override
-    public void writeExternal(ObjectOutput out) throws IOException {
-        super.writeExternal(out);
-    }
-
-    @Override
-    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        super.readExternal(in);
     }
 }
