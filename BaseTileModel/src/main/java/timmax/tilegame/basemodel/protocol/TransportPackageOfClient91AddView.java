@@ -4,33 +4,34 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import timmax.tilegame.transport.TransportOfController;
+import timmax.tilegame.basemodel.protocol.server.RemoteView;
+import timmax.tilegame.transport.TransportOfModel;
 
-public class TransportPackageOfServer41AddView<T> extends TransportPackageOfServer<T> {
+public class TransportPackageOfClient91AddView<T> extends TransportPackageOfClient<T> {
     private String viewId;
 
 
-    public TransportPackageOfServer41AddView() {
+    public TransportPackageOfClient91AddView() {
         super();
     }
 
-    public TransportPackageOfServer41AddView(String viewId) {
+    public TransportPackageOfClient91AddView(String viewId) {
         this();
         this.viewId = viewId;
     }
 
     @Override
-    public void execute(TransportOfController<T> transportOfModel) {
+    public void execute(TransportOfModel<T> transportOfModel, T clientId) {
         System.out.println("onAddView");
 
-        System.out.println("viewId = " + viewId);
-
-        transportOfModel.getClientState().confirmView(viewId);
+        // System.out.println("viewId = " + viewId);
+        transportOfModel.getModelOfServer().addRemoteView(new RemoteView<>(clientId, viewId));
+        transportOfModel.send(clientId, new TransportPackageOfServer91AddView<>(viewId));
     }
 
     @Override
     public String toString() {
-        return "TransportPackageOfServer41AddView{" +
+        return "TransportPackageOfClient41AddView{" +
                 "viewId='" + viewId + '\'' +
                 '}';
     }
