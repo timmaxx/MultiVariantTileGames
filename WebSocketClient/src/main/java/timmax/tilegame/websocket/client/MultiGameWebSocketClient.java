@@ -129,8 +129,39 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         // System.out.println("onMessage(ByteBuffer byteBuffer)");
         // System.out.println("---------- End of onMessage(ByteBuffer byteBuffer)");
 
-        new ClientIncomingMessageHandler(this, byteBuffer);
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteBuffer.array());
+
+        TransportPackageOfServer<WebSocket> transportPackageOfServer = mapper.readValue(byteArrayInputStream, TransportPackageOfServer.class);
+
+        System.out.println("transportPackageOfServer = " + transportPackageOfServer);
+
+        Thread thread = new Thread(() -> {
+            transportPackageOfServer.execute(this);
+/*
+            if (typeOfTransportPackage == GAME_EVENT) {
+                onGameEvent(transportPackageOfServer);
+            } else {
+                System.err.println("Client doesn't know received typeOfTransportPackage.");
+                System.err.println("typeOfTransportPackage = " + typeOfTransportPackage);
+                System.exit(1);
+            }
+*/
+            System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
+            System.out.println("---------- End of public ClientIncomingMessageHandler(MultiGameWebSocketClient multiGameWebSocketClient, ByteBuffer byteBuffer)");
+        });
+        thread.start();
     }
+/*
+    private void onGameEvent(TransportPackageOfServer transportPackageOfServer) {
+        System.out.println("onGameEvent");
+
+        String viewId = (String) (transportPackageOfServer.get("viewId"));
+        System.out.println("viewId = " + viewId);
+
+        GameEvent gameEvent = (GameEvent) (transportPackageOfServer.get("gameEvent"));
+        System.out.println("gameEvent = " + gameEvent);
+    }
+*/
 
     @Override
     public void onMessage(String message) {
