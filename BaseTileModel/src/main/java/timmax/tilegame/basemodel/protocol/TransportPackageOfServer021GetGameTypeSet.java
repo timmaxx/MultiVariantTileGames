@@ -15,9 +15,11 @@ public class TransportPackageOfServer021GetGameTypeSet<T> extends TransportPacka
 
 
     public TransportPackageOfServer021GetGameTypeSet() {
+        super();
     }
 
     public TransportPackageOfServer021GetGameTypeSet(List<String> arrayListOfServerBaseModelClass) {
+        this();
         this.arrayListOfServerBaseModelClass = arrayListOfServerBaseModelClass;
     }
 

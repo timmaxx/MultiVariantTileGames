@@ -5,9 +5,9 @@ import timmax.tilegame.transport.TransportOfModel;
 public class TransportPackageOfClient020ForgetGameTypeSet<T> extends TransportPackageOfClient<T> {
 
     @Override
-    public void execute(TransportOfModel transportOfModel, Object clientId) {
+    public void execute(TransportOfModel<T> transportOfModel, T clientId) {
         System.out.println("onForgetGameTypeSet");
-        transportOfModel.send(clientId, new TransportPackageOfServer020ForgetGameTypeSet());
+        transportOfModel.send(clientId, new TransportPackageOfServer020ForgetGameTypeSet<>());
     }
 
     @Override
