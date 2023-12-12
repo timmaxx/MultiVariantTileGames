@@ -12,6 +12,7 @@ import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
 import timmax.tilegame.basemodel.protocol.server.RemoteView;
+import timmax.tilegame.game.sokoban.model.ModelOfServerOfSokoban;
 import timmax.tilegame.transport.TransportOfModel;
 
 public class MultiGameWebSocketServer extends WebSocketServer implements TransportOfModel<WebSocket> {
@@ -49,13 +50,28 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
 
     @Override
     public void send(WebSocket clientId, TransportPackageOfServer<WebSocket> transportPackageOfServer) {
-        System.out.println("class MultiGameWebSocketServer");
-        System.out.println("public void send(WebSocket clientId, TransportPackageOfServer transportPackageOfServer)");
+        // System.out.println("class MultiGameWebSocketServer");
+        // System.out.println("public void send(WebSocket clientId, TransportPackageOfServer transportPackageOfServer)");
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         mapper.writeValue(byteArrayOutputStream, transportPackageOfServer);
         System.out.println("transportPackageOfServer = " + transportPackageOfServer);
         clientId.send(byteArrayOutputStream.toByteArray());
+    }
+
+    @Override
+    public ModelOfServer<WebSocket> getModelOfServer() {
+        return modelOfServer;
+    }
+
+    @Override
+    public void setModelOfServer(ModelOfServer<WebSocket> modelOfServer) {
+        this.modelOfServer = modelOfServer;
+    }
+
+    @Override
+    public void setModelOfServerTmp() {
+        this.modelOfServer = new ModelOfServerOfSokoban<>(this);
     }
 
     @Override

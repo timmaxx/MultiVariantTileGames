@@ -55,22 +55,16 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     public void getGameTypeSet() {
         send(new TransportPackageOfClient021GetGameTypeSet<WebSocket>());
     }
-/*
+
     // 4
     public void forgetGameType() {
-        send(new TransportPackageOfClient(FORGET_GAME_TYPE));
+        send(new TransportPackageOfClient30ForgetGameType<>());
     }
 
-    public void gameTypeSelect(Class<? extends ServerBaseModel> serverBaseModelClass) {
-        send(new TransportPackageOfClient(
-                SELECT_GAME_TYPE,
-                Map.of(
-                        "gameType",
-                        serverBaseModelClass.getName()
-                ))
-        );
+    public void gameTypeSelect(String serverBaseModelClass) {
+        send(new TransportPackageOfClient31GameTypeSelect<>(serverBaseModelClass));
     }
-
+/*
     public void addView(View view) {
         System.out.println("addView(View view)");
         System.out.println("viewId = " + view.toString());
@@ -137,8 +131,8 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
 
     @Override
     public void onMessage(ByteBuffer byteBuffer) {
-        System.out.println("onMessage(ByteBuffer byteBuffer)");
-        System.out.println("---------- End of onMessage(ByteBuffer byteBuffer)");
+        // System.out.println("onMessage(ByteBuffer byteBuffer)");
+        // System.out.println("---------- End of onMessage(ByteBuffer byteBuffer)");
 
         new ClientIncomingMessageHandler(this, byteBuffer);
     }

@@ -75,11 +75,11 @@ public class MultiGameWebSocketClientManyTimesUse implements BaseModel {
     }
 
     public void forgetGameType() {
-        // multiGameWebSocketClient.forgetGameType();
+        multiGameWebSocketClient.forgetGameType();
     }
 
     public void gameTypeSelect(String serverBaseModelClass) {
-        // multiGameWebSocketClient.gameTypeSelect(serverBaseModelClass);
+        multiGameWebSocketClient.gameTypeSelect(serverBaseModelClass);
     }
 
     // ----------------------------------------------------------------------------------------------------------------

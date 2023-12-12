@@ -3,11 +3,13 @@ package timmax.tilegame.websocket.client;
 import java.io.ByteArrayInputStream;
 import java.nio.ByteBuffer;
 
+import org.java_websocket.WebSocket;
+
 import timmax.tilegame.basemodel.protocol.TransportPackageOfServer;
 
 public class ClientIncomingMessageHandler {
     private final MultiGameWebSocketClient multiGameWebSocketClient;
-    private final TransportPackageOfServer transportPackageOfServer;
+    private final TransportPackageOfServer<WebSocket> transportPackageOfServer;
 
 
     public ClientIncomingMessageHandler(MultiGameWebSocketClient multiGameWebSocketClient, ByteBuffer byteBuffer) {
@@ -22,15 +24,9 @@ public class ClientIncomingMessageHandler {
         System.out.println("transportPackageOfServer = " + transportPackageOfServer);
 
         Thread thread = new Thread(() -> {
-            // TypeOfTransportPackage typeOfTransportPackage = transportPackageOfServer.getTypeOfTransportPackage();
-
             transportPackageOfServer.execute(multiGameWebSocketClient);
 /*
-            if (typeOfTransportPackage == FORGET_GAME_TYPE) {
-                onForgetGameType(transportPackageOfServer);
-            } else if (typeOfTransportPackage == SELECT_GAME_TYPE) {
-                onSelectGameType(transportPackageOfServer);
-            } else if (typeOfTransportPackage == ADD_VIEW) {
+            if (typeOfTransportPackage == ADD_VIEW) {
                 onAddView(transportPackageOfServer);
             } else if (typeOfTransportPackage == GAME_EVENT) {
                 onGameEvent(transportPackageOfServer);
@@ -47,27 +43,6 @@ public class ClientIncomingMessageHandler {
     }
 
 /*
-    private void onForgetGameType(TransportPackageOfServer transportPackageOfServer) {
-        System.out.println("onForgetGameType");
-
-        multiGameWebSocketClient.clientState.setServerBaseModelClass(null);
-        multiGameWebSocketClient.hashSetOfObserverOnAbstractEvent.updateConnectStatePane(FORGET_GAME_TYPE);
-    }
-
-    private void onSelectGameType(TransportPackageOfServer transportPackageOfServer) {
-        System.out.println("onSelectGameType");
-
-        // ToDo: Если переделать на сервере отправку класса не строкой, а классом,
-        //       то и здесь перевод из строки в класс не понадобится.
-        String serverBaseModelString = (String) (transportPackageOfServer.get("gameType"));
-        try {
-            multiGameWebSocketClient.clientState.setServerBaseModelClass((Class<? extends ServerBaseModel>) Class.forName(serverBaseModelString));
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        multiGameWebSocketClient.hashSetOfObserverOnAbstractEvent.updateConnectStatePane(SELECT_GAME_TYPE);
-    }
-
     private void onAddView(TransportPackageOfServer transportPackageOfServer) {
         System.out.println("onAddView");
 

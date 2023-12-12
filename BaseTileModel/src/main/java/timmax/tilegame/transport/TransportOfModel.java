@@ -2,6 +2,7 @@ package timmax.tilegame.transport;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.TransportPackageOfServer;
+import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
 import timmax.tilegame.basemodel.protocol.server.RemoteView;
 
 public interface TransportOfModel<T> {
@@ -15,4 +16,9 @@ public interface TransportOfModel<T> {
     void sendGameEvent(RemoteView<T> remoteView, GameEvent gameEvent);
 
     void send(T clientId, TransportPackageOfServer<T> transportPackageOfServer);
+
+    ModelOfServer<T> getModelOfServer();
+    void setModelOfServer(ModelOfServer<T> modelOfServer);
+
+    void setModelOfServerTmp();
 }

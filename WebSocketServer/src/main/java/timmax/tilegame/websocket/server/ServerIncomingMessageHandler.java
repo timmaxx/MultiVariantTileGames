@@ -31,11 +31,7 @@ public class ServerIncomingMessageHandler {
         Thread thread = new Thread(() -> {
             transportPackageOfClient.execute(multiGameWebSocketServer, webSocket);
             /*
-            if (typeOfTransportPackage == FORGET_GAME_TYPE) {
-                onForgetGameType();
-            } else if (typeOfTransportPackage == SELECT_GAME_TYPE) {
-                onSelectGameType();
-            } else if (typeOfTransportPackage == ADD_VIEW) {
+            if (typeOfTransportPackage == ADD_VIEW) {
                 onAddView();
             } else if (typeOfTransportPackage == CREATE_NEW_GAME) {
                 onCreateNewGame();
@@ -51,27 +47,6 @@ public class ServerIncomingMessageHandler {
     }
 
 /*
-    private void onSelectGameType() {
-        System.out.println("onSelectGameType");
-
-        // System.out.println("transportPackageOfClient = " + transportPackageOfClient);
-        String model = (String) transportPackageOfClient.get("gameType");
-        // ToDo: Проверить, что model одна из списка возможных моделей, которые были отправлены ранее этому клиенту.
-        //       И если это не так, то отправить клиенту FORGET_GAME_TYPE.
-
-        {   // Создать новую модель
-            System.out.println("modelOfServer = " + multiGameWebSocketServer.modelOfServer);
-            // ToDo: Вместо вызова конкретного конструктора, тут нужно создавать экземпляр того типа, который был выбран клиентом.
-            multiGameWebSocketServer.modelOfServer = new ModelOfServerOfSokoban<>(multiGameWebSocketServer);
-            System.out.println("modelOfServer = " + multiGameWebSocketServer.modelOfServer);
-        }
-
-        multiGameWebSocketServer.send(webSocket, new TransportPackageOfServer(
-                SELECT_GAME_TYPE,
-                Map.of("gameType", model)
-        ));
-    }
-
     private void onAddView() {
         System.out.println("onAddView");
 

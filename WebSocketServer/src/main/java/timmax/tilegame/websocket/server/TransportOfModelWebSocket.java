@@ -3,6 +3,7 @@ package timmax.tilegame.websocket.server;
 import org.java_websocket.WebSocket;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.TransportPackageOfServer;
+import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
 import timmax.tilegame.basemodel.protocol.server.RemoteView;
 import timmax.tilegame.transport.TransportOfModel;
 
@@ -45,7 +46,22 @@ public class TransportOfModelWebSocket implements TransportOfModel<WebSocket> {
     }
 
     @Override
-    public void send(WebSocket clientId, TransportPackageOfServer transportPackageOfServer) {
+    public ModelOfServer<WebSocket> getModelOfServer() {
+        return null;
+    }
+
+    @Override
+    public void setModelOfServer(ModelOfServer<WebSocket> modelOfServer) {
+        // this.modelOfServer = modelOfServer;
+    }
+
+    @Override
+    public void setModelOfServerTmp() {
+
+    }
+
+    @Override
+    public void send(WebSocket clientId, TransportPackageOfServer<WebSocket> transportPackageOfServer) {
 
     }
 }
