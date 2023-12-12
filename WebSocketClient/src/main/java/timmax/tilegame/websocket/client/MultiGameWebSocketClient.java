@@ -11,6 +11,7 @@ import org.java_websocket.handshake.ServerHandshake;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.gamecommand.GameCommand;
 import timmax.tilegame.basemodel.protocol.*;
+import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfController;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
@@ -40,20 +41,20 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
 
     // 2
     public void logout() {
-        send(new TransportPackageOfClient010Logout<WebSocket>());
+        send(new TransportPackageOfClient010Logout<>());
     }
 
     public void login(String userName, String password) {
-        send(new TransportPackageOfClient011Login<WebSocket>(userName, password));
+        send(new TransportPackageOfClient011Login<>(userName, password));
     }
 
     // 3
     public void forgetGameTypeSet() {
-        send(new TransportPackageOfClient020ForgetGameTypeSet<WebSocket>());
+        send(new TransportPackageOfClient020ForgetGameTypeSet<>());
     }
 
     public void getGameTypeSet() {
-        send(new TransportPackageOfClient021GetGameTypeSet<WebSocket>());
+        send(new TransportPackageOfClient021GetGameTypeSet<>());
     }
 
     // 4
@@ -64,20 +65,14 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     public void gameTypeSelect(String serverBaseModelClass) {
         send(new TransportPackageOfClient31GameTypeSelect<>(serverBaseModelClass));
     }
-/*
+
     public void addView(View view) {
         System.out.println("addView(View view)");
         System.out.println("viewId = " + view.toString());
         clientState.addView(view.toString());
-        send(new TransportPackageOfClient(
-                ADD_VIEW,
-                Map.of(
-                        "viewId",
-                        view.toString()
-                ))
-        );
+        send(new TransportPackageOfClient41AddView<>(view.toString()));
     }
-
+/*
     public void createNewGame() {
         System.out.println("createNewGame");
         send(new TransportPackageOfClient(CREATE_NEW_GAME));
@@ -85,12 +80,12 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
 */
     @Override
     public void send(TransportPackageOfClient<WebSocket> transportPackageOfClient) {
-        System.out.println("class MultiGameWebSocketClient");
         System.out.println("public void send(TransportPackageOfClient transportPackageOfClient)");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         mapper.writeValue(byteArrayOutputStream, transportPackageOfClient);
-        System.out.println("transportPackageOfClient = " + transportPackageOfClient);
+        System.out.println("  transportPackageOfClient = " + transportPackageOfClient);
         send(byteArrayOutputStream.toByteArray());
+        System.out.println("---------- End of public void send(TransportPackageOfClient<WebSocket> transportPackageOfClient)");
     }
 
     @Override
@@ -102,11 +97,11 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         System.out.println("onClose");
 
         clientState.setUserName("");
-        System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
+        System.out.println("  getMainGameClientStatus() = " + getMainGameClientStatus());
         hashSetOfObserverOnAbstractEvent.updateConnectStatePane(CLOSE);
 
-        System.out.println("Connect was closed.");
-        System.out.println("Code = " + code + ". Reason = " + reason + ". Remote = " + remote + ".");
+        System.out.println("  Connect was closed.");
+        System.out.println("  Code = " + code + ". Reason = " + reason + ". Remote = " + remote + ".");
         System.out.println("---------- End of onClose");
     }
 
@@ -115,7 +110,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         System.out.println("onOpen");
 
         clientState.setUserName("");
-        System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
+        System.out.println("  getMainGameClientStatus() = " + getMainGameClientStatus());
         hashSetOfObserverOnAbstractEvent.updateConnectStatePane(OPEN);
 
         System.out.println("---------- End of onOpen");

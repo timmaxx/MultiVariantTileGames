@@ -31,9 +31,7 @@ public class ServerIncomingMessageHandler {
         Thread thread = new Thread(() -> {
             transportPackageOfClient.execute(multiGameWebSocketServer, webSocket);
             /*
-            if (typeOfTransportPackage == ADD_VIEW) {
-                onAddView();
-            } else if (typeOfTransportPackage == CREATE_NEW_GAME) {
+            if (typeOfTransportPackage == CREATE_NEW_GAME) {
                 onCreateNewGame();
             } else {
                 System.err.println("Server doesn't know received typeOfTransportPackage.");
@@ -47,19 +45,6 @@ public class ServerIncomingMessageHandler {
     }
 
 /*
-    private void onAddView() {
-        System.out.println("onAddView");
-
-        String viewId = (String) transportPackageOfClient.get("viewId");
-        // System.out.println("viewId = " + viewId);
-        multiGameWebSocketServer.modelOfServer.addRemoteView(new RemoteView<>(webSocket, viewId));
-
-        multiGameWebSocketServer.send(webSocket, new TransportPackageOfServer(
-                ADD_VIEW,
-                Map.of("viewId", viewId)
-        ));
-    }
-
     private void onCreateNewGame() {
         System.out.println("onCreateNewGame");
 

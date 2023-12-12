@@ -26,9 +26,7 @@ public class ClientIncomingMessageHandler {
         Thread thread = new Thread(() -> {
             transportPackageOfServer.execute(multiGameWebSocketClient);
 /*
-            if (typeOfTransportPackage == ADD_VIEW) {
-                onAddView(transportPackageOfServer);
-            } else if (typeOfTransportPackage == GAME_EVENT) {
+            if (typeOfTransportPackage == GAME_EVENT) {
                 onGameEvent(transportPackageOfServer);
             } else {
                 System.err.println("Client doesn't know received typeOfTransportPackage.");
@@ -43,15 +41,6 @@ public class ClientIncomingMessageHandler {
     }
 
 /*
-    private void onAddView(TransportPackageOfServer transportPackageOfServer) {
-        System.out.println("onAddView");
-
-        String viewId = (String) (transportPackageOfServer.get("viewId"));
-        System.out.println("viewId = " + viewId);
-
-        multiGameWebSocketClient.clientState.confirmView(viewId);
-    }
-
     private void onGameEvent(TransportPackageOfServer transportPackageOfServer) {
         System.out.println("onGameEvent");
 

@@ -57,6 +57,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         mapper.writeValue(byteArrayOutputStream, transportPackageOfServer);
         System.out.println("transportPackageOfServer = " + transportPackageOfServer);
         clientId.send(byteArrayOutputStream.toByteArray());
+        System.out.println("---------- End of public void send(WebSocket clientId, TransportPackageOfServer<WebSocket> transportPackageOfServer)");
     }
 
     @Override

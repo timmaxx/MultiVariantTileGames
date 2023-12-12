@@ -85,7 +85,7 @@ public class MultiGameWebSocketClientManyTimesUse implements BaseModel {
     // ----------------------------------------------------------------------------------------------------------------
     @Override
     public void addView(View view) {
-        // multiGameWebSocketClient.addView(view);
+        multiGameWebSocketClient.addView(view);
     }
 
     @Override
