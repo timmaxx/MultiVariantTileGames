@@ -3,17 +3,17 @@ package timmax.tilegame.basemodel.protocol;
 import java.util.ArrayList;
 import java.util.List;
 
-import timmax.tilegame.basemodel.ServerBaseModel;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.protocol.server.RemoteView;
 import timmax.tilegame.basemodel.protocol.server.SetOfRemoteView;
 import timmax.tilegame.transport.TransportOfModel;
 
 public class ClientState<T> {
-    private String userName = "";
-    private List<Class<? extends ServerBaseModel>> arrayListOfServerBaseModelClass = new ArrayList<>();
-    private Class<? extends ServerBaseModel> serverBaseModelClass = null;
     private final SetOfRemoteView<T> setOfRemoteView;
+
+    private String userName = "";
+    private List<String> arrayListOfServerBaseModelClass = new ArrayList<>();
+    private String serverBaseModelClass = "";
 
 
     public ClientState(TransportOfModel<T> transportOfModel) {
@@ -26,20 +26,20 @@ public class ClientState<T> {
         this.userName = userName;
     }
 
-    public List<Class<? extends ServerBaseModel>> getArrayListOfServerBaseModelClass() {
+    public List<String> getArrayListOfServerBaseModelClass() {
         return arrayListOfServerBaseModelClass;
     }
 
-    public void setArrayListOfServerBaseModelClass(List<Class<? extends ServerBaseModel>> arrayListOfServerBaseModelClass) {
+    public void setArrayListOfServerBaseModelClass(List<String> arrayListOfServerBaseModelClass) {
         serverBaseModelClass = null;
         this.arrayListOfServerBaseModelClass = arrayListOfServerBaseModelClass;
     }
 
-    public Class<? extends ServerBaseModel> getServerBaseModelClass() {
+    public String getServerBaseModelClass() {
         return serverBaseModelClass;
     }
 
-    public void setServerBaseModelClass(Class<? extends ServerBaseModel> serverBaseModelClass) {
+    public void setServerBaseModelClass(String serverBaseModelClass) {
         this.serverBaseModelClass = serverBaseModelClass;
     }
 
@@ -58,7 +58,7 @@ public class ClientState<T> {
         // throw new RuntimeException("Unknown state.");
     }
 
-    public boolean addServerBaseModelClass(Class<? extends ServerBaseModel> serverBaseModelClass) {
+    public boolean addServerBaseModelClass(String serverBaseModelClass) {
         return arrayListOfServerBaseModelClass.add(serverBaseModelClass);
     }
 

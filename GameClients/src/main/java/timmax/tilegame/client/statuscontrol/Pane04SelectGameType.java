@@ -7,11 +7,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
-import timmax.tilegame.basemodel.ServerBaseModel;
 import timmax.tilegame.websocket.client.*;
 
 public class Pane04SelectGameType extends AbstractConnectStatePane {
-    private final ComboBox<Class<? extends ServerBaseModel>> comboBoxGameTypeSet;
+    private final ComboBox<String> comboBoxGameTypeSet;
     private final TextField textFieldSelectedGameType;
 
 
@@ -90,7 +89,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
 
     @Override
     protected void updateOnSelectGameType() {
-        textFieldSelectedGameType.setText(clientState.getServerBaseModelClass().getName());
+        textFieldSelectedGameType.setText(clientState.getServerBaseModelClass());
         setDisableControlsNextState(true);
     }
 }

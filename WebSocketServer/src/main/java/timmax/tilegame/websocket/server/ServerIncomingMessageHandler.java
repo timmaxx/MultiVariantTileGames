@@ -31,11 +31,7 @@ public class ServerIncomingMessageHandler {
         Thread thread = new Thread(() -> {
             transportPackageOfClient.execute(multiGameWebSocketServer, webSocket);
             /*
-            if (typeOfTransportPackage == FORGET_GAME_TYPE_SET) {
-                onForgetGameTypeSet();
-            } else if (typeOfTransportPackage == GET_GAME_TYPE_SET) {
-                onGetGameTypeSet();
-            } else if (typeOfTransportPackage == FORGET_GAME_TYPE) {
+            if (typeOfTransportPackage == FORGET_GAME_TYPE) {
                 onForgetGameType();
             } else if (typeOfTransportPackage == SELECT_GAME_TYPE) {
                 onSelectGameType();
@@ -55,36 +51,6 @@ public class ServerIncomingMessageHandler {
     }
 
 /*
-    private void onForgetGameTypeSet() {
-        System.out.println("onForgetGameTypeSet");
-        multiGameWebSocketServer.send(webSocket, new TransportPackageOfServer(FORGET_GAME_TYPE_SET));
-    }
-
-    private void onGetGameTypeSet() {
-        System.out.println("onGetGameTypeSet");
-        multiGameWebSocketServer.send(webSocket, new TransportPackageOfServer(
-                GET_GAME_TYPE_SET,
-                Map.of("gameTypeSet",
-                        Stream.of(
-                                // ToDo: Перечень классов вариантов игр следует делать не константами в коде. Варианты:
-                                //       - файл параметров,
-                                //       - классы, хранящиеся по определённому пути.
-                                /-*MinesweeperModel.class,*-/
-                                SokobanModel.class
-                        ).collect(toList())
-                )
-        ));
-    }
-
-    private void onForgetGameType() {
-        System.out.println("onForgetGameType");
-
-        System.out.println("modelOfServer = " + multiGameWebSocketServer.modelOfServer);
-        multiGameWebSocketServer.modelOfServer = null;
-        System.out.println("modelOfServer = " + multiGameWebSocketServer.modelOfServer);
-        multiGameWebSocketServer.send(webSocket, new TransportPackageOfServer(FORGET_GAME_TYPE));
-    }
-
     private void onSelectGameType() {
         System.out.println("onSelectGameType");
 

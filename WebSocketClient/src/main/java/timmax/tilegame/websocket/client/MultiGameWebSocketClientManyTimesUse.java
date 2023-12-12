@@ -3,7 +3,6 @@ package timmax.tilegame.websocket.client;
 import java.net.URI;
 
 import timmax.tilegame.basemodel.BaseModel;
-import timmax.tilegame.basemodel.ServerBaseModel;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.protocol.ClientState;
 import timmax.tilegame.basemodel.protocol.HashSetOfObserverOnAbstractEvent;
@@ -68,18 +67,18 @@ public class MultiGameWebSocketClientManyTimesUse implements BaseModel {
     }
 
     public void forgetGameTypeSet() {
-        // multiGameWebSocketClient.forgetGameTypeSet();
+        multiGameWebSocketClient.forgetGameTypeSet();
     }
 
     public void getGameTypeSet() {
-        // multiGameWebSocketClient.getGameTypeSet();
+        multiGameWebSocketClient.getGameTypeSet();
     }
 
     public void forgetGameType() {
         // multiGameWebSocketClient.forgetGameType();
     }
 
-    public void gameTypeSelect(Class<? extends ServerBaseModel> serverBaseModelClass) {
+    public void gameTypeSelect(String serverBaseModelClass) {
         // multiGameWebSocketClient.gameTypeSelect(serverBaseModelClass);
     }
 

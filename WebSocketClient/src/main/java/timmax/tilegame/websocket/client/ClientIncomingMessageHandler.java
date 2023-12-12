@@ -26,11 +26,7 @@ public class ClientIncomingMessageHandler {
 
             transportPackageOfServer.execute(multiGameWebSocketClient);
 /*
-            if (typeOfTransportPackage == FORGET_GAME_TYPE_SET) {
-                onForgetGameTypeSet(transportPackageOfServer);
-            } else if (typeOfTransportPackage == GET_GAME_TYPE_SET) {
-                onGetGameTypeSet(transportPackageOfServer);
-            } else if (typeOfTransportPackage == FORGET_GAME_TYPE) {
+            if (typeOfTransportPackage == FORGET_GAME_TYPE) {
                 onForgetGameType(transportPackageOfServer);
             } else if (typeOfTransportPackage == SELECT_GAME_TYPE) {
                 onSelectGameType(transportPackageOfServer);
@@ -51,24 +47,6 @@ public class ClientIncomingMessageHandler {
     }
 
 /*
-    private void onForgetGameTypeSet(TransportPackageOfServer transportPackageOfServer) {
-        System.out.println("onForgetGameTypeSet");
-
-        multiGameWebSocketClient.clientState.setArrayListOfServerBaseModelClass(new ArrayList<>());
-        multiGameWebSocketClient.hashSetOfObserverOnAbstractEvent.updateConnectStatePane(FORGET_GAME_TYPE_SET);
-    }
-
-    private void onGetGameTypeSet(TransportPackageOfServer transportPackageOfServer) {
-        System.out.println("onGetGameTypeSet");
-
-        multiGameWebSocketClient.clientState.setArrayListOfServerBaseModelClass(new ArrayList<>());
-        ArrayList<Class<? extends ServerBaseModel>> arrayList = (ArrayList<Class<? extends ServerBaseModel>>) transportPackageOfServer.get("gameTypeSet");
-        for (Class<? extends ServerBaseModel> serverBaseModelClass : arrayList) {
-            multiGameWebSocketClient.clientState.addServerBaseModelClass(serverBaseModelClass);
-        }
-        multiGameWebSocketClient.hashSetOfObserverOnAbstractEvent.updateConnectStatePane(GET_GAME_TYPE_SET);
-    }
-
     private void onForgetGameType(TransportPackageOfServer transportPackageOfServer) {
         System.out.println("onForgetGameType");
 
