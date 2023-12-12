@@ -2,14 +2,10 @@ package timmax.tilegame.basemodel.protocol;
 
 import timmax.tilegame.transport.TransportOfModel;
 
-public class TransportPackageOfClient010Logout<T> extends TransportPackageOfClient {
-
-    public TransportPackageOfClient010Logout() {
-        super();
-    }
+public class TransportPackageOfClient010Logout<T> extends TransportPackageOfClient<T> {
 
     @Override
-    public void execute(TransportOfModel transportOfModel, Object clientId) {
+    public void execute(TransportOfModel<T> transportOfModel, T clientId) {
         System.out.println("onLogout");
 
         sendLogoutAnswer(transportOfModel, clientId);

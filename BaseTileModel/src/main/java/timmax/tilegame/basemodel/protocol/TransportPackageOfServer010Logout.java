@@ -5,6 +5,7 @@ import timmax.tilegame.transport.TransportOfController;
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.LOGOUT;
 
 public class TransportPackageOfServer010Logout<T> extends TransportPackageOfServer<T> {
+
     @Override
     public void execute(TransportOfController<T> transportOfModel) {
         System.out.println("onLogout");
