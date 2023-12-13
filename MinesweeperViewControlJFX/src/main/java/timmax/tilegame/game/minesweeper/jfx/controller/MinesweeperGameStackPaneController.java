@@ -1,6 +1,6 @@
 package timmax.tilegame.game.minesweeper.jfx.controller;
 
-import timmax.tilegame.transport.TransportOfController;
+import timmax.tilegame.transport.TransportOfClient;
 
 import timmax.tilegame.guiengine.jfx.controller.GameStackPaneController;
 
@@ -8,8 +8,8 @@ import timmax.tilegame.game.minesweeper.model.gamecommand.GameCommandMinesweeper
 import timmax.tilegame.game.minesweeper.model.gamecommand.GameCommandMinesweeperOpen;
 
 public class MinesweeperGameStackPaneController extends GameStackPaneController {
-    public MinesweeperGameStackPaneController(TransportOfController transportOfController) {
-        super(transportOfController);
+    public MinesweeperGameStackPaneController(TransportOfClient transportOfClient) {
+        super(transportOfClient);
     }
 
     @Override

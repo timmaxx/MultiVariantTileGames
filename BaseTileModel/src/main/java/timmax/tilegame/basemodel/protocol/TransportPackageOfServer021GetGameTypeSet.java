@@ -6,7 +6,7 @@ import java.io.ObjectOutput;
 import java.util.ArrayList;
 import java.util.List;
 
-import timmax.tilegame.transport.TransportOfController;
+import timmax.tilegame.transport.TransportOfClient;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.GET_GAME_TYPE_SET;
 
@@ -24,15 +24,15 @@ public class TransportPackageOfServer021GetGameTypeSet<T> extends TransportPacka
     }
 
     @Override
-    public void execute(TransportOfController<T> transportOfModel) {
+    public void execute(TransportOfClient<T> transportOfClient) {
         System.out.println("  onGetGameTypeSet");
 
-        transportOfModel.getClientState().setArrayListOfServerBaseModelClass(new ArrayList<>());
+        transportOfClient.getClientState().setArrayListOfServerBaseModelClass(new ArrayList<>());
 
         for (String serverBaseModelClass : arrayListOfServerBaseModelClass) {
-            transportOfModel.getClientState().addServerBaseModelClass(serverBaseModelClass);
+            transportOfClient.getClientState().addServerBaseModelClass(serverBaseModelClass);
         }
-        transportOfModel.getHashSetOfObserverOnAbstractEvent().updateConnectStatePane(GET_GAME_TYPE_SET);
+        transportOfClient.getHashSetOfObserverOnAbstractEvent().updateConnectStatePane(GET_GAME_TYPE_SET);
     }
 
     @Override

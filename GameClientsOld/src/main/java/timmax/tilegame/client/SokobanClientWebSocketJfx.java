@@ -6,7 +6,7 @@ import java.util.List;
 import javafx.scene.Node;
 
 import timmax.tilegame.basemodel.BaseModel;
-import timmax.tilegame.transport.TransportOfController;
+import timmax.tilegame.transport.TransportOfClient;
 
 import timmax.tilegame.guiengine.jfx.GameClientWebSocketJfx;
 import timmax.tilegame.guiengine.jfx.controller.GameSceneController;
@@ -32,17 +32,17 @@ public class SokobanClientWebSocketJfx extends GameClientWebSocketJfx {
     }
 
     @Override
-    public GameSceneController initGameSceneController(TransportOfController transportOfController) {
-        return new SokobanGameSceneController(transportOfController);
+    public GameSceneController initGameSceneController(TransportOfClient transportOfClient) {
+        return new SokobanGameSceneController(transportOfClient);
     }
 
     @Override
-    public GameStackPaneController initGameStackPaneController(TransportOfController transportOfController) {
+    public GameStackPaneController initGameStackPaneController(TransportOfClient transportOfClient) {
         return null;
     }
 
     @Override
-    protected List<Node> initNodeList(BaseModel baseModel, TransportOfController transportOfController) {
+    protected List<Node> initNodeList(BaseModel baseModel, TransportOfClient transportOfClient) {
         List<Node> nodeList = new ArrayList<>();
 
         nodeList.add(new ViewTextFieldsPersistentSettingsJfx(baseModel));

@@ -3,7 +3,7 @@ package timmax.tilegame.game.sokoban.jfx.controller;
 import javafx.scene.input.KeyCode;
 
 import timmax.tilegame.basemodel.gamecommand.GameCommand;
-import timmax.tilegame.transport.TransportOfController;
+import timmax.tilegame.transport.TransportOfClient;
 
 import timmax.tilegame.guiengine.jfx.controller.GameSceneController;
 
@@ -12,8 +12,8 @@ import timmax.tilegame.game.sokoban.model.gamecommand.*;
 import static timmax.tilegame.basemodel.tile.Direction.*;
 
 public class SokobanGameSceneController extends GameSceneController {
-    public SokobanGameSceneController(TransportOfController transportOfController) {
-        super(transportOfController);
+    public SokobanGameSceneController(TransportOfClient transportOfClient) {
+        super(transportOfClient);
     }
 
     @Override

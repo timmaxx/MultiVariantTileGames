@@ -1,12 +1,12 @@
 package timmax.tilegame.guiengine.jfx.controller;
 
 import timmax.tilegame.basecontroller.BaseController;
-import timmax.tilegame.transport.TransportOfController;
+import timmax.tilegame.transport.TransportOfClient;
 
 // Содержит контролеры по принятию событий от мыши над GameStackPane
 public abstract class GameStackPaneController extends BaseController {
-    public GameStackPaneController(TransportOfController transportOfController) {
-        super(transportOfController);
+    public GameStackPaneController(TransportOfClient transportOfClient) {
+        super(transportOfClient);
     }
 
     public abstract void onMousePrimaryClick(int x, int y);

@@ -1,22 +1,18 @@
 package timmax.tilegame.game.sokoban.jfx;
 
-import javafx.scene.Node;
 import javafx.stage.Stage;
+
 import timmax.tilegame.basemodel.BaseModel;
-import timmax.tilegame.game.sokoban.jfx.controller.SokobanGameSceneController;
-import timmax.tilegame.game.sokoban.jfx.view.SokobanMainFieldViewJfx;
 import timmax.tilegame.guiengine.jfx.GameClientPaneJfx;
-import timmax.tilegame.guiengine.jfx.controller.GameSceneController;
 import timmax.tilegame.guiengine.jfx.controller.GameStackPaneController;
 import timmax.tilegame.guiengine.jfx.view.ViewJfx;
-import timmax.tilegame.transport.TransportOfController;
+import timmax.tilegame.transport.TransportOfClient;
 
-import java.util.ArrayList;
-import java.util.List;
+import timmax.tilegame.game.sokoban.jfx.view.SokobanMainFieldViewJfx;
 
 public class SokobanClientPaneJfx extends GameClientPaneJfx {
-    public SokobanClientPaneJfx(Stage primaryStage, BaseModel baseModel, TransportOfController transportOfController) {
-        super(primaryStage, baseModel, transportOfController);
+    public SokobanClientPaneJfx(Stage primaryStage, BaseModel baseModel, TransportOfClient transportOfClient) {
+        super(primaryStage, baseModel, transportOfClient);
     }
 
     @Override

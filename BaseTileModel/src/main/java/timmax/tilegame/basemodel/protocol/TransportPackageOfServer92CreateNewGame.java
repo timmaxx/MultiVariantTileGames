@@ -1,7 +1,7 @@
 package timmax.tilegame.basemodel.protocol;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
-import timmax.tilegame.transport.TransportOfController;
+import timmax.tilegame.transport.TransportOfClient;
 
 import java.io.IOException;
 import java.io.ObjectInput;
@@ -23,7 +23,7 @@ public class TransportPackageOfServer92CreateNewGame<T> extends TransportPackage
     }
 
     @Override
-    public void execute(TransportOfController<T> transportOfModel) {
+    public void execute(TransportOfClient<T> transportOfClient) {
         System.out.println("  onGameEvent");
 
         System.out.println("    viewId = " + viewId);

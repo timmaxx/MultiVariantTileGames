@@ -6,7 +6,7 @@ import java.util.List;
 import javafx.scene.Node;
 
 import timmax.tilegame.basemodel.BaseModel;
-import timmax.tilegame.transport.TransportOfController;
+import timmax.tilegame.transport.TransportOfClient;
 
 import timmax.tilegame.guiengine.jfx.view.ViewJfx;
 import timmax.tilegame.guiengine.jfx.view.ViewTextFieldsPersistentSettingsJfx;
@@ -32,17 +32,17 @@ public class MinesweeperClientWebSocketJfx extends GameClientWebSocketJfx {
     }
 
     @Override
-    public GameSceneController initGameSceneController(TransportOfController transportOfController) {
+    public GameSceneController initGameSceneController(TransportOfClient transportOfClient) {
         return null;
     }
 
     @Override
-    public GameStackPaneController initGameStackPaneController(TransportOfController transportOfController) {
-        return new MinesweeperGameStackPaneController(transportOfController);
+    public GameStackPaneController initGameStackPaneController(TransportOfClient transportOfClient) {
+        return new MinesweeperGameStackPaneController(transportOfClient);
     }
 
     @Override
-    protected List<Node> initNodeList(BaseModel baseModel, TransportOfController transportOfController) {
+    protected List<Node> initNodeList(BaseModel baseModel, TransportOfClient transportOfClient) {
         List<Node> nodeList = new ArrayList<>();
 
         nodeList.add(new ViewTextFieldsPersistentSettingsJfx(baseModel));

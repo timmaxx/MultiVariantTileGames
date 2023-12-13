@@ -1,5 +1,9 @@
 package timmax.tilegame.guiengine.jfx;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
@@ -7,18 +11,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import timmax.tilegame.basemodel.BaseModel;
-import timmax.tilegame.transport.TransportOfController;
+import timmax.tilegame.transport.TransportOfClient;
 
 import timmax.tilegame.guiengine.jfx.controller.GameSceneController;
 import timmax.tilegame.guiengine.jfx.controller.GameStackPaneController;
 import timmax.tilegame.guiengine.jfx.view.ViewJfx;
 
 import timmax.tilegame.websocket.client.NetModel;
-import timmax.tilegame.websocket.client.TransportOfControllerWebSocket;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
+import timmax.tilegame.websocket.client.TransportOfClientWebSocket;
 
 public abstract class GameClientWebSocketJfx extends Application {
     @Override
@@ -34,17 +34,17 @@ public abstract class GameClientWebSocketJfx extends Application {
 
         Pane root = new VBox();
 
-        TransportOfController transportOfController = new TransportOfControllerWebSocket(netModel);
+        TransportOfClient transportOfClient = new TransportOfClientWebSocket(netModel);
 
-        GameStackPaneController gameStackPaneController = initGameStackPaneController(transportOfController);
+        GameStackPaneController gameStackPaneController = initGameStackPaneController(transportOfClient);
 
         ViewJfx viewMainFieldJfx = initViewOfMainField(netModel, gameStackPaneController);
         root.getChildren().add(viewMainFieldJfx);
 
-        List<Node> nodeList = initNodeList(netModel, transportOfController);
+        List<Node> nodeList = initNodeList(netModel, transportOfClient);
         root.getChildren().addAll(nodeList);
 
-        GameSceneController gameSceneController = initGameSceneController(transportOfController);
+        GameSceneController gameSceneController = initGameSceneController(transportOfClient);
         GameScene scene = new GameScene(root, gameSceneController);
 
         primaryStage.setTitle(initAppTitle());
@@ -56,13 +56,13 @@ public abstract class GameClientWebSocketJfx extends Application {
         primaryStage.show();
     }
 
-    abstract protected List<Node> initNodeList(BaseModel baseModel, TransportOfController transportOfController);
+    abstract protected List<Node> initNodeList(BaseModel baseModel, TransportOfClient transportOfClient);
 
     abstract protected ViewJfx initViewOfMainField(BaseModel baseModel, GameStackPaneController gameStackPaneController);
 
     abstract protected String initAppTitle();
 
-    abstract protected GameSceneController initGameSceneController(TransportOfController transportOfController);
+    abstract protected GameSceneController initGameSceneController(TransportOfClient transportOfClient);
 
-    abstract protected GameStackPaneController initGameStackPaneController(TransportOfController transportOfController);
+    abstract protected GameStackPaneController initGameStackPaneController(TransportOfClient transportOfClient);
 }

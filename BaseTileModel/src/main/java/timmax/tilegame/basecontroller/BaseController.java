@@ -1,17 +1,17 @@
 package timmax.tilegame.basecontroller;
 
 import timmax.tilegame.basemodel.gamecommand.GameCommand;
-import timmax.tilegame.transport.TransportOfController;
+import timmax.tilegame.transport.TransportOfClient;
 
 public abstract class BaseController {
-    protected TransportOfController transportOfController;
+    protected TransportOfClient transportOfClient;
 
 
-    public BaseController(TransportOfController transportOfController) {
-        this.transportOfController = transportOfController;
+    public BaseController(TransportOfClient transportOfClient) {
+        this.transportOfClient = transportOfClient;
     }
 
     public void sendCommand(GameCommand gameCommand) {
-        transportOfController.sendCommand(gameCommand);
+        transportOfClient.sendCommand(gameCommand);
     }
 }

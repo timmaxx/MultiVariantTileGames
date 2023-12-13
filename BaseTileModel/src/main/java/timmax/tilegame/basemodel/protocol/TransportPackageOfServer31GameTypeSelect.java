@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import timmax.tilegame.transport.TransportOfController;
+import timmax.tilegame.transport.TransportOfClient;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.SELECT_GAME_TYPE;
 
@@ -21,7 +21,7 @@ public class TransportPackageOfServer31GameTypeSelect<T> extends TransportPackag
     }
 
     @Override
-    public void execute(TransportOfController<T> transportOfModel) {
+    public void execute(TransportOfClient<T> transportOfClient) {
         System.out.println("  onSelectGameType");
 
         // ToDo: Если переделать на сервере отправку класса не строкой, а классом,
@@ -33,9 +33,9 @@ public class TransportPackageOfServer31GameTypeSelect<T> extends TransportPackag
             // transportOfModel.getClientState().setServerBaseModelClass((Class<? extends ServerBaseModel>) Class.forName(serverBaseModelClass));
         }
 */
-        transportOfModel.getClientState().setServerBaseModelClass(serverBaseModelClass);
+        transportOfClient.getClientState().setServerBaseModelClass(serverBaseModelClass);
 
-        transportOfModel.getHashSetOfObserverOnAbstractEvent().updateConnectStatePane(SELECT_GAME_TYPE);
+        transportOfClient.getHashSetOfObserverOnAbstractEvent().updateConnectStatePane(SELECT_GAME_TYPE);
     }
 
     @Override

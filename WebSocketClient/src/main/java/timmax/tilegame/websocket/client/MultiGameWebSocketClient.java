@@ -12,11 +12,11 @@ import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.gamecommand.GameCommand;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.baseview.View;
-import timmax.tilegame.transport.TransportOfController;
+import timmax.tilegame.transport.TransportOfClient;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
-public class MultiGameWebSocketClient extends WebSocketClient implements TransportOfController<WebSocket> {
+public class MultiGameWebSocketClient extends WebSocketClient implements TransportOfClient<WebSocket> {
     final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
     final ClientState<Object> clientState;
     final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
@@ -149,17 +149,6 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         });
         thread.start();
     }
-/*
-    private void onGameEvent(TransportPackageOfServer transportPackageOfServer) {
-        System.out.println("onGameEvent");
-
-        String viewId = (String) (transportPackageOfServer.get("viewId"));
-        System.out.println("viewId = " + viewId);
-
-        GameEvent gameEvent = (GameEvent) (transportPackageOfServer.get("gameEvent"));
-        System.out.println("gameEvent = " + gameEvent);
-    }
-*/
 
     @Override
     public void onMessage(String message) {

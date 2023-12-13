@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import timmax.tilegame.transport.TransportOfController;
+import timmax.tilegame.transport.TransportOfClient;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.LOGIN;
 
@@ -20,11 +20,11 @@ public class TransportPackageOfServer011Login<T> extends TransportPackageOfServe
     }
 
     @Override
-    public void execute(TransportOfController<T> transportOfModel) {
+    public void execute(TransportOfClient<T> transportOfClient) {
         System.out.println("  onLogin");
 
-        transportOfModel.getClientState().setUserName(userName);
-        transportOfModel.getHashSetOfObserverOnAbstractEvent().updateConnectStatePane(LOGIN);
+        transportOfClient.getClientState().setUserName(userName);
+        transportOfClient.getHashSetOfObserverOnAbstractEvent().updateConnectStatePane(LOGIN);
     }
 
     @Override

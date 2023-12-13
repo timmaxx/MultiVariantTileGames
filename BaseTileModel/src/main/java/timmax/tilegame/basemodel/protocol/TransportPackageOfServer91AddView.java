@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import timmax.tilegame.transport.TransportOfController;
+import timmax.tilegame.transport.TransportOfClient;
 
 public class TransportPackageOfServer91AddView<T> extends TransportPackageOfServer<T> {
     private String viewId;
@@ -20,12 +20,12 @@ public class TransportPackageOfServer91AddView<T> extends TransportPackageOfServ
     }
 
     @Override
-    public void execute(TransportOfController<T> transportOfModel) {
+    public void execute(TransportOfClient<T> transportOfClient) {
         System.out.println("  onAddView");
 
         System.out.println("    viewId = " + viewId);
 
-        transportOfModel.getClientState().confirmView(viewId);
+        transportOfClient.getClientState().confirmView(viewId);
     }
 
     @Override

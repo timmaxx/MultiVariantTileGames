@@ -6,15 +6,15 @@ import timmax.tilegame.basemodel.gamecommand.GameCommand;
 import timmax.tilegame.basemodel.protocol.ClientState;
 import timmax.tilegame.basemodel.protocol.HashSetOfObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.TransportPackageOfClient;
-import timmax.tilegame.transport.TransportOfController;
+import timmax.tilegame.transport.TransportOfClient;
 
 import java.io.StringWriter;
 
 // ToDo: удалить класс.
-public class TransportOfControllerWebSocket implements TransportOfController {
+public class TransportOfClientWebSocket implements TransportOfClient {
     private final WebSocketClient webSocketClient;
 
-    public TransportOfControllerWebSocket(WebSocketClient webSocketClient) {
+    public TransportOfClientWebSocket(WebSocketClient webSocketClient) {
         this.webSocketClient = webSocketClient;
     }
 

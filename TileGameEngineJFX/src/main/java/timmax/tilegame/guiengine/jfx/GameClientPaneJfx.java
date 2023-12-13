@@ -1,20 +1,16 @@
 package timmax.tilegame.guiengine.jfx;
 
-import java.util.List;
-
-import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import timmax.tilegame.basemodel.BaseModel;
-import timmax.tilegame.transport.TransportOfController;
+import timmax.tilegame.transport.TransportOfClient;
 
-import timmax.tilegame.guiengine.jfx.controller.GameSceneController;
 import timmax.tilegame.guiengine.jfx.controller.GameStackPaneController;
 import timmax.tilegame.guiengine.jfx.view.ViewJfx;
 
 public abstract class GameClientPaneJfx extends VBox {
-    public GameClientPaneJfx(Stage primaryStage, BaseModel netModel, TransportOfController transportOfController) {
+    public GameClientPaneJfx(Stage primaryStage, BaseModel netModel, TransportOfClient transportOfClient) {
         // Pane root = new VBox();
 /*
         GameStackPaneController gameStackPaneController = initGameStackPaneController(transportOfController);

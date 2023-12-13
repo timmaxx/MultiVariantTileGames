@@ -1,10 +1,10 @@
 package timmax.tilegame.basemodel.protocol;
 
-import timmax.tilegame.transport.TransportOfController;
+import timmax.tilegame.transport.TransportOfClient;
 
 public abstract class TransportPackageOfServer<T> extends TransportPackage {
 
-    public abstract void execute(TransportOfController<T> transportOfModel);
+    public abstract void execute(TransportOfClient<T> transportOfClient);
 
     @Override
     public String toString() {
