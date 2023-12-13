@@ -32,11 +32,9 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
 
     @Override
     public void sendGameEvent(RemoteView<WebSocket> remoteView, GameEvent gameEvent) {
-/*
-        System.out.println("MultiGameWebSocketServer");
-        System.out.println("public void sendGameEvent(RemoteView<WebSocket> remoteView, GameEvent gameEvent)");
-        System.out.println("remoteView = " + remoteView);
-*/
+        // System.out.println("  sendGameEvent(RemoteView<WebSocket>, GameEvent)");
+        // System.out.println("    remoteView = " + remoteView);
+        System.out.println("    gameEvent = " + gameEvent);
 
 /*
         TransportPackageOfServer transportPackageOfServer = new TransportPackageOfServer(

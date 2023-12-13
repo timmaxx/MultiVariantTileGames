@@ -79,12 +79,12 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         clientState.addView(view.toString());
         send(new TransportPackageOfClient91AddView<>(view.toString()));
     }
-/*
+
     public void createNewGame() {
-        System.out.println("createNewGame");
-        send(new TransportPackageOfClient(CREATE_NEW_GAME));
+        System.out.println("createNewGame()");
+        send(new TransportPackageOfClient92CreateNewGame<>());
     }
-*/
+
     @Override
     public void send(TransportPackageOfClient<WebSocket> transportPackageOfClient) {
         System.out.println("  send(TransportPackageOfClient<WebSocket>)");
@@ -97,6 +97,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
 
     @Override
     public void sendCommand(GameCommand gameCommand) {
+        System.out.println("  sendCommand(GameCommand)");
     }
 
     @Override

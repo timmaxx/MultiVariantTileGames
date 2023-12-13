@@ -90,7 +90,7 @@ public class MultiGameWebSocketClientManyTimesUse implements BaseModel {
 
     @Override
     public void createNewGame() {
-        // multiGameWebSocketClient.createNewGame();
+        multiGameWebSocketClient.createNewGame();
     }
 
     @Override
