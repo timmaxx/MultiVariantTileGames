@@ -30,6 +30,13 @@ public class GameEventSokobanVariableParamsCountOfSteps extends GameEvent {
     }
 
     @Override
+    public String toString() {
+        return "GameEventSokobanVariableParamsCountOfSteps{" +
+                "countOfSteps=" + countOfSteps +
+                '}';
+    }
+
+    @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeInt(countOfSteps);
     }

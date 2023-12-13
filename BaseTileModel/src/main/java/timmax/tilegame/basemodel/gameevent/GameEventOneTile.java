@@ -30,6 +30,14 @@ public abstract class GameEventOneTile extends GameEvent {
     }
 
     @Override
+    public String toString() {
+        return "GameEventOneTile{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
+
+    @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeInt(x);
         out.writeInt(y);

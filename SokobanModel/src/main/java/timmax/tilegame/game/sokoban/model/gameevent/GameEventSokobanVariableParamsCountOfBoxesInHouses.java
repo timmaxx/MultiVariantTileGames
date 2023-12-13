@@ -30,6 +30,13 @@ public class GameEventSokobanVariableParamsCountOfBoxesInHouses extends GameEven
     }
 
     @Override
+    public String toString() {
+        return "GameEventSokobanVariableParamsCountOfBoxesInHouses{" +
+                "countOfBoxesInHouses=" + countOfBoxesInHouses +
+                '}';
+    }
+
+    @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeInt(countOfBoxesInHouses);
     }

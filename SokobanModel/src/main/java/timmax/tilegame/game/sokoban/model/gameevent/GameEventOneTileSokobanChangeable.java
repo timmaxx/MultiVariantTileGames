@@ -41,6 +41,15 @@ public class GameEventOneTileSokobanChangeable extends GameEventOneTile {
     }
 
     @Override
+    public String toString() {
+        return "GameEventOneTileSokobanChangeable{" +
+                "{" + super.toString() + "}" +
+                "whoPersistentInTile=" + whoPersistentInTile +
+                ", whoMovableInTile=" + whoMovableInTile +
+                '}';
+    }
+
+    @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         super.writeExternal(out);
         out.writeObject(whoPersistentInTile);

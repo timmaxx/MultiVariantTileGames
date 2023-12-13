@@ -31,6 +31,13 @@ public class GameEventSokobanPersistentParams extends GameEvent {
     }
 
     @Override
+    public String toString() {
+        return "GameEventSokobanPersistentParams{" +
+                "countOfBoxesAndHomes=" + countOfBoxesAndHomes +
+                '}';
+    }
+
+    @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeInt(countOfBoxesAndHomes);
     }
