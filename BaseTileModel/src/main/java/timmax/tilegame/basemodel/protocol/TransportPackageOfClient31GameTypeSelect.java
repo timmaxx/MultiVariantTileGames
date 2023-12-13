@@ -20,7 +20,7 @@ public class TransportPackageOfClient31GameTypeSelect<T> extends TransportPackag
 
     @Override
     public void execute(TransportOfModel<T> transportOfModel, T clientId) {
-        System.out.println("onSelectGameType");
+        System.out.println("  onSelectGameType");
 
         // ToDo: Проверить, что model одна из списка возможных моделей, которые были отправлены ранее этому клиенту.
         //       И если это не так, то отправить клиенту FORGET_GAME_TYPE.
@@ -29,7 +29,7 @@ public class TransportPackageOfClient31GameTypeSelect<T> extends TransportPackag
             // ToDo: Вместо вызова конкретного конструктора, тут нужно создавать экземпляр того типа, который был выбран клиентом.
             // transportOfModel.setModelOfServer(new ModelOfServerOfSokoban<T>(transportOfModel));
             transportOfModel.setModelOfServerTmp();
-            System.out.println("modelOfServer = " + transportOfModel.getModelOfServer());
+            System.out.println("    modelOfServer = " + transportOfModel.getModelOfServer());
         }
 
         transportOfModel.send(clientId, new TransportPackageOfServer31GameTypeSelect<>(serverBaseModelClass));

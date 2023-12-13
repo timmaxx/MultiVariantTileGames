@@ -63,10 +63,12 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
 
     // 4
     public void forgetGameType() {
+        System.out.println("forgetGameType()");
         send(new TransportPackageOfClient30ForgetGameType<>());
     }
 
     public void gameTypeSelect(String serverBaseModelClass) {
+        System.out.println("gameTypeSelect(String)");
         send(new TransportPackageOfClient31GameTypeSelect<>(serverBaseModelClass));
     }
 

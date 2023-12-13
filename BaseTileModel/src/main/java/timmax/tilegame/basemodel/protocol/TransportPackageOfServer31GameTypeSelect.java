@@ -22,7 +22,7 @@ public class TransportPackageOfServer31GameTypeSelect<T> extends TransportPackag
 
     @Override
     public void execute(TransportOfController<T> transportOfModel) {
-        System.out.println("onSelectGameType");
+        System.out.println("  onSelectGameType");
 
         // ToDo: Если переделать на сервере отправку класса не строкой, а классом,
         //       то и здесь перевод из строки в класс не понадобится.

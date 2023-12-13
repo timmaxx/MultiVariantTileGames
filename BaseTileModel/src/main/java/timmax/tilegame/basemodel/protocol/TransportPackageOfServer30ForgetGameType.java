@@ -8,7 +8,7 @@ public class TransportPackageOfServer30ForgetGameType<T> extends TransportPackag
 
     @Override
     public void execute(TransportOfController<T> transportOfModel) {
-        System.out.println("onForgetGameType");
+        System.out.println("  onForgetGameType");
 
         transportOfModel.getClientState().setServerBaseModelClass(null);
         transportOfModel.getHashSetOfObserverOnAbstractEvent().updateConnectStatePane(FORGET_GAME_TYPE);
