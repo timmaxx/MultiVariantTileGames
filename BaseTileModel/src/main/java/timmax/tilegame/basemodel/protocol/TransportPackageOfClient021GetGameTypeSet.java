@@ -2,17 +2,17 @@ package timmax.tilegame.basemodel.protocol;
 
 import java.util.stream.Stream;
 
-import timmax.tilegame.transport.TransportOfModel;
+import timmax.tilegame.transport.TransportOfServer;
 
 import static java.util.stream.Collectors.toList;
 
 public class TransportPackageOfClient021GetGameTypeSet<T> extends TransportPackageOfClient<T> {
 
     @Override
-    public void execute(TransportOfModel<T> transportOfModel, T clientId) {
+    public void execute(TransportOfServer<T> transportOfServer, T clientId) {
         System.out.println("  onGetGameTypeSet");
 
-        transportOfModel.send(clientId, new TransportPackageOfServer021GetGameTypeSet<>(
+        transportOfServer.send(clientId, new TransportPackageOfServer021GetGameTypeSet<>(
                 Stream.of(
                         // ToDo: Перечень классов вариантов игр следует делать не константами в коде. Варианты:
                         //       - файл параметров,

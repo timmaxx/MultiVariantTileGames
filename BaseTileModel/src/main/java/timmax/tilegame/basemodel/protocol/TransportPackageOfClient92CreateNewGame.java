@@ -1,12 +1,12 @@
 package timmax.tilegame.basemodel.protocol;
 
-import timmax.tilegame.transport.TransportOfModel;
+import timmax.tilegame.transport.TransportOfServer;
 
 public class TransportPackageOfClient92CreateNewGame<T> extends TransportPackageOfClient <T> {
     @Override
-    public void execute(TransportOfModel<T> transportOfModel, T clientId) {
+    public void execute(TransportOfServer<T> transportOfServer, T clientId) {
         System.out.println("  onCreateNewGame");
 
-        transportOfModel.getModelOfServer().createNewGame();
+        transportOfServer.getModelOfServer().createNewGame();
     }
 }

@@ -8,7 +8,7 @@ import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.tile.Direction;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 
-import timmax.tilegame.transport.TransportOfModel;
+import timmax.tilegame.transport.TransportOfServer;
 
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventOneTileSokobanChangeable;
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanPersistentParams;
@@ -39,8 +39,8 @@ public class SokobanModel extends ServerBaseModel {
         }
     }
 
-    public SokobanModel( TransportOfModel transportOfModel) {
-        super( transportOfModel);
+    public SokobanModel( TransportOfServer transportOfServer) {
+        super(transportOfServer);
     }
 
     @Override

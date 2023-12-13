@@ -5,7 +5,7 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.credential.Credentials;
-import timmax.tilegame.transport.TransportOfModel;
+import timmax.tilegame.transport.TransportOfServer;
 
 public class TransportPackageOfClient011Login<T> extends TransportPackageOfClient<T> {
     private String userName;
@@ -23,7 +23,7 @@ public class TransportPackageOfClient011Login<T> extends TransportPackageOfClien
     }
 
     @Override
-    public void execute(TransportOfModel<T> transportOfModel, T clientId) {
+    public void execute(TransportOfServer<T> transportOfServer, T clientId) {
         System.out.println("  onLogin");
 
         System.out.println("    userName = " + userName + " | " + "password = *"); // Пароль не выводим:
@@ -31,10 +31,10 @@ public class TransportPackageOfClient011Login<T> extends TransportPackageOfClien
         if (Credentials.isUserAndPasswordCorrect(userName, password)) {
             // ToDo: Нужно зафиксировать для этого webSocket имя пользователя (и потом другие параметры авторизации).
             System.out.println("    sendLoginAnswer(TransportOfModel, clientId, userName)");
-            sendLoginAnswer(transportOfModel, clientId, userName);
+            sendLoginAnswer(transportOfServer, clientId, userName);
         } else {
             System.out.println("    sendLogoutAnswer(TransportOfModel, clientId)");
-            sendLogoutAnswer(transportOfModel, clientId);
+            sendLogoutAnswer(transportOfServer, clientId);
         }
     }
 

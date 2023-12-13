@@ -1,21 +1,21 @@
 package timmax.tilegame.basemodel.protocol.server;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
-import timmax.tilegame.transport.TransportOfModel;
+import timmax.tilegame.transport.TransportOfServer;
 
 import java.util.HashSet;
 
 public class SetOfRemoteView<T> extends HashSet<RemoteView<T>> {
-    protected TransportOfModel<T> transportOfModel;
+    protected TransportOfServer<T> transportOfServer;
 
-    public SetOfRemoteView(TransportOfModel<T> transportOfModel) {
+    public SetOfRemoteView(TransportOfServer<T> transportOfServer) {
         super();
 /*
         System.out.println("SetOfRemoteView<T>");
         System.out.println("public SetOfRemoteView(TransportOfModel<T> transportOfModel)");
         System.out.println("transportOfModel = " + transportOfModel);
 */
-        this.transportOfModel = transportOfModel;
+        this.transportOfServer = transportOfServer;
     }
 
     public void sendGameEvent(GameEvent gameEvent) {
@@ -27,7 +27,7 @@ public class SetOfRemoteView<T> extends HashSet<RemoteView<T>> {
         for (RemoteView<T> remoteView : this) {
             // ToDo: Следует отправлять сообщение не всем выборкам, а только тем, которые подписаны на именно этот тип
             //       сообщения.
-            transportOfModel.sendGameEvent(remoteView, gameEvent);
+            transportOfServer.sendGameEvent(remoteView, gameEvent);
         }
     }
 }

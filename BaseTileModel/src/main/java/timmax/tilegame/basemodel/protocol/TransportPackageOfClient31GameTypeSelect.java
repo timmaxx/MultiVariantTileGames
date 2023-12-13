@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import timmax.tilegame.transport.TransportOfModel;
+import timmax.tilegame.transport.TransportOfServer;
 
 public class TransportPackageOfClient31GameTypeSelect<T> extends TransportPackageOfClient<T> {
     private String serverBaseModelClass;
@@ -19,7 +19,7 @@ public class TransportPackageOfClient31GameTypeSelect<T> extends TransportPackag
     }
 
     @Override
-    public void execute(TransportOfModel<T> transportOfModel, T clientId) {
+    public void execute(TransportOfServer<T> transportOfServer, T clientId) {
         System.out.println("  onSelectGameType");
 
         // ToDo: Проверить, что model одна из списка возможных моделей, которые были отправлены ранее этому клиенту.
@@ -28,11 +28,11 @@ public class TransportPackageOfClient31GameTypeSelect<T> extends TransportPackag
         {   // Создать новую модель
             // ToDo: Вместо вызова конкретного конструктора, тут нужно создавать экземпляр того типа, который был выбран клиентом.
             // transportOfModel.setModelOfServer(new ModelOfServerOfSokoban<T>(transportOfModel));
-            transportOfModel.setModelOfServerTmp();
-            System.out.println("    modelOfServer = " + transportOfModel.getModelOfServer());
+            transportOfServer.setModelOfServerTmp();
+            System.out.println("    modelOfServer = " + transportOfServer.getModelOfServer());
         }
 
-        transportOfModel.send(clientId, new TransportPackageOfServer31GameTypeSelect<>(serverBaseModelClass));
+        transportOfServer.send(clientId, new TransportPackageOfServer31GameTypeSelect<>(serverBaseModelClass));
     }
 
     @Override

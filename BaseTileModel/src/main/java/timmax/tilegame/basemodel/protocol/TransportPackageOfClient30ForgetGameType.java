@@ -1,13 +1,13 @@
 package timmax.tilegame.basemodel.protocol;
 
-import timmax.tilegame.transport.TransportOfModel;
+import timmax.tilegame.transport.TransportOfServer;
 
 public class TransportPackageOfClient30ForgetGameType<T> extends TransportPackageOfClient<T> {
 
     @Override
-    public void execute(TransportOfModel<T> transportOfModel, T clientId) {
+    public void execute(TransportOfServer<T> transportOfServer, T clientId) {
         System.out.println("  onForgetGameTypeSet");
-        transportOfModel.send(clientId, new TransportPackageOfServer30ForgetGameType<>());
+        transportOfServer.send(clientId, new TransportPackageOfServer30ForgetGameType<>());
     }
 
     @Override

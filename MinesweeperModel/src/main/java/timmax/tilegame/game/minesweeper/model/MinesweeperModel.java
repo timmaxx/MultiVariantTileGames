@@ -8,7 +8,7 @@ import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVari
 import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsOpenClose;
 import timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects;
 import timmax.tilegame.game.minesweeper.model.gameobject.LevelGenerator;
-import timmax.tilegame.transport.TransportOfModel;
+import timmax.tilegame.transport.TransportOfServer;
 
 // Модель игры Сапёр
 public class MinesweeperModel extends ServerBaseModel {
@@ -20,8 +20,8 @@ public class MinesweeperModel extends ServerBaseModel {
 
     private AllMinesweeperObjects allMinesweeperObjects;
 
-    public MinesweeperModel( TransportOfModel transportOfModel) {
-        super( transportOfModel);
+    public MinesweeperModel( TransportOfServer transportOfServer) {
+        super(transportOfServer);
     }
 
     @Override

@@ -3,7 +3,7 @@ package timmax.tilegame.basemodel.protocol.server;
 import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
-import timmax.tilegame.transport.TransportOfModel;
+import timmax.tilegame.transport.TransportOfServer;
 
 // Абстрактная модель. Она уже может:
 // - хранить перечень удалённых выборок (которым нужно отправлять сообщения об игровых событиях),
@@ -22,8 +22,8 @@ public abstract class ModelOfServer<T> implements IModelOfServer<T> {
     private GameStatus gameStatus;
 
 
-    public ModelOfServer(TransportOfModel<T> transportOfModel) {
-        setOfRemoteViews = new SetOfRemoteView<>(transportOfModel);
+    public ModelOfServer(TransportOfServer<T> transportOfServer) {
+        setOfRemoteViews = new SetOfRemoteView<>(transportOfServer);
     }
 
     protected void createNewGame(int width, int height) {

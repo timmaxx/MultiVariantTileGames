@@ -14,7 +14,7 @@ import org.java_websocket.server.WebSocketServer;
 import timmax.tilegame.basemodel.ServerBaseModel;
 import timmax.tilegame.basemodel.gamecommand.GameCommand;
 
-import timmax.tilegame.transport.TransportOfModel;
+import timmax.tilegame.transport.TransportOfServer;
 
 import timmax.tilegame.game.sokoban.model.SokobanModel;
 
@@ -44,11 +44,11 @@ public class GameServerWebSocket extends WebSocketServer {
                         .getHostAddress()
                         + " entered the room!");
 
-        TransportOfModel<WebSocket> transportOfModel = new TransportOfModelWebSocket(webSocket);
+        TransportOfServer<WebSocket> transportOfServer = new TransportOfServerWebSocket(webSocket);
         // Создать модель для клиента
 
         // ServerBaseModel baseModel = new MinesweeperModel( transportOfModel);
-        ServerBaseModel baseModel = new SokobanModel(transportOfModel);
+        ServerBaseModel baseModel = new SokobanModel(transportOfServer);
 
         // И добавить её в карту
         webSocketBaseModelBidiMap.put(webSocket, baseModel);

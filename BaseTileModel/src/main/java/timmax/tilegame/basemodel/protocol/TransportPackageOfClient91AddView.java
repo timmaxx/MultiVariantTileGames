@@ -5,7 +5,7 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.protocol.server.RemoteView;
-import timmax.tilegame.transport.TransportOfModel;
+import timmax.tilegame.transport.TransportOfServer;
 
 public class TransportPackageOfClient91AddView<T> extends TransportPackageOfClient<T> {
     private String viewId;
@@ -21,12 +21,12 @@ public class TransportPackageOfClient91AddView<T> extends TransportPackageOfClie
     }
 
     @Override
-    public void execute(TransportOfModel<T> transportOfModel, T clientId) {
+    public void execute(TransportOfServer<T> transportOfServer, T clientId) {
         System.out.println("  onAddView");
 
         // System.out.println("    viewId = " + viewId);
-        transportOfModel.getModelOfServer().addRemoteView(new RemoteView<>(clientId, viewId));
-        transportOfModel.send(clientId, new TransportPackageOfServer91AddView<>(viewId));
+        transportOfServer.getModelOfServer().addRemoteView(new RemoteView<>(clientId, viewId));
+        transportOfServer.send(clientId, new TransportPackageOfServer91AddView<>(viewId));
     }
 
     @Override

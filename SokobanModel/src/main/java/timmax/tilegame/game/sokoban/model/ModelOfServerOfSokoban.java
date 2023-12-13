@@ -14,7 +14,7 @@ import timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanVariablePara
 import timmax.tilegame.game.sokoban.model.gameobject.*;
 import timmax.tilegame.game.sokoban.model.route.Route;
 import timmax.tilegame.game.sokoban.model.route.Step;
-import timmax.tilegame.transport.TransportOfModel;
+import timmax.tilegame.transport.TransportOfServer;
 
 // import static timmax.tilegame.basemodel.GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
 import static timmax.tilegame.basemodel.GameStatus.VICTORY;
@@ -38,8 +38,8 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
         }
     }
 
-    public ModelOfServerOfSokoban(TransportOfModel<T> transportOfModel) {
-        super(transportOfModel);
+    public ModelOfServerOfSokoban(TransportOfServer<T> transportOfServer) {
+        super(transportOfServer);
     }
 
     @Override

@@ -3,7 +3,7 @@ package timmax.tilegame.basemodel;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
 import timmax.tilegame.baseview.View;
-import timmax.tilegame.transport.TransportOfModel;
+import timmax.tilegame.transport.TransportOfServer;
 
 // Базовая модель
 public abstract class ServerBaseModel implements BaseModel {
@@ -13,11 +13,11 @@ public abstract class ServerBaseModel implements BaseModel {
     private final static int MAX_HEIGHT = 100;
 
     private GameStatus gameStatus;
-    protected TransportOfModel transportOfModel;
+    protected TransportOfServer transportOfServer;
 
 
-    public ServerBaseModel(TransportOfModel transportOfModel) {
-        this.transportOfModel = transportOfModel;
+    public ServerBaseModel(TransportOfServer transportOfServer) {
+        this.transportOfServer = transportOfServer;
     }
 
     @Override
@@ -31,7 +31,7 @@ public abstract class ServerBaseModel implements BaseModel {
     }
 
     public void addGameEventIntoQueueAndNotifyViews(GameEvent gameEvent) {
-        transportOfModel.sendGameEvent(gameEvent);
+        transportOfServer.sendGameEvent(gameEvent);
     }
 
     private static void validateWidthHeight(int width, int height) {

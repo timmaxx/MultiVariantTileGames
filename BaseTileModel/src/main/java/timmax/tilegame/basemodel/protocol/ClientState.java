@@ -6,7 +6,7 @@ import java.util.List;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.protocol.server.RemoteView;
 import timmax.tilegame.basemodel.protocol.server.SetOfRemoteView;
-import timmax.tilegame.transport.TransportOfModel;
+import timmax.tilegame.transport.TransportOfServer;
 
 public class ClientState<T> {
     private final SetOfRemoteView<T> setOfRemoteView;
@@ -16,8 +16,8 @@ public class ClientState<T> {
     private String serverBaseModelClass = "";
 
 
-    public ClientState(TransportOfModel<T> transportOfModel) {
-        setOfRemoteView = new SetOfRemoteView<>(transportOfModel);
+    public ClientState(TransportOfServer<T> transportOfServer) {
+        setOfRemoteView = new SetOfRemoteView<>(transportOfServer);
     }
 
     public void setUserName(String userName) {

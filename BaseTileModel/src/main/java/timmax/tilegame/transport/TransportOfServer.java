@@ -5,7 +5,7 @@ import timmax.tilegame.basemodel.protocol.TransportPackageOfServer;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
 import timmax.tilegame.basemodel.protocol.server.RemoteView;
 
-public interface TransportOfModel<T> {
+public interface TransportOfServer<T> {
     // Вариант с одним параметром сейчас используется только потому, что и сервер работает только с одним клиентом.
     // ToDo: перевести сервер на режим работы с более чем одним клиентом.
     //       Потом удалить вариант с одним параметром.
