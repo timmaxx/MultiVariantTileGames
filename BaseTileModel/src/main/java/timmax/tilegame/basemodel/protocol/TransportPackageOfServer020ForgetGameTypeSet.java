@@ -10,7 +10,7 @@ public class TransportPackageOfServer020ForgetGameTypeSet<T> extends TransportPa
 
     @Override
     public void execute(TransportOfController<T> transportOfModel) {
-        System.out.println("onForgetGameTypeSet");
+        System.out.println("  onForgetGameTypeSet");
 
         // Todo: улучшить качество кода:
         //       Вызов метода у объекта объекта - не хорошая практика!

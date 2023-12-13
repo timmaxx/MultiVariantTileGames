@@ -6,7 +6,7 @@ public class TransportPackageOfClient020ForgetGameTypeSet<T> extends TransportPa
 
     @Override
     public void execute(TransportOfModel<T> transportOfModel, T clientId) {
-        System.out.println("onForgetGameTypeSet");
+        System.out.println("  onForgetGameTypeSet");
         transportOfModel.send(clientId, new TransportPackageOfServer020ForgetGameTypeSet<>());
     }
 

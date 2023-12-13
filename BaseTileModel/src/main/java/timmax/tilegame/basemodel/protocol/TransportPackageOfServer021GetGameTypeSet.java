@@ -25,7 +25,7 @@ public class TransportPackageOfServer021GetGameTypeSet<T> extends TransportPacka
 
     @Override
     public void execute(TransportOfController<T> transportOfModel) {
-        System.out.println("onGetGameTypeSet");
+        System.out.println("  onGetGameTypeSet");
 
         transportOfModel.getClientState().setArrayListOfServerBaseModelClass(new ArrayList<>());
 

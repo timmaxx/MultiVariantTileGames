@@ -52,10 +52,12 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
 
     // 3
     public void forgetGameTypeSet() {
+        System.out.println("forgetGameTypeSet()");
         send(new TransportPackageOfClient020ForgetGameTypeSet<>());
     }
 
     public void getGameTypeSet() {
+        System.out.println("getGameTypeSet()");
         send(new TransportPackageOfClient021GetGameTypeSet<>());
     }
 
@@ -83,10 +85,10 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
 */
     @Override
     public void send(TransportPackageOfClient<WebSocket> transportPackageOfClient) {
-        System.out.println("public void send(TransportPackageOfClient transportPackageOfClient)");
+        System.out.println("  send(TransportPackageOfClient<WebSocket>)");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         mapper.writeValue(byteArrayOutputStream, transportPackageOfClient);
-        System.out.println("  transportPackageOfClient = " + transportPackageOfClient);
+        System.out.println("    transportPackageOfClient = " + transportPackageOfClient);
         send(byteArrayOutputStream.toByteArray());
         System.out.println("---------- End of public void send(TransportPackageOfClient<WebSocket> transportPackageOfClient)");
     }

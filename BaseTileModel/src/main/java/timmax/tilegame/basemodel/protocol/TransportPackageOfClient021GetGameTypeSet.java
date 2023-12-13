@@ -10,7 +10,7 @@ public class TransportPackageOfClient021GetGameTypeSet<T> extends TransportPacka
 
     @Override
     public void execute(TransportOfModel<T> transportOfModel, T clientId) {
-        System.out.println("onGetGameTypeSet");
+        System.out.println("  onGetGameTypeSet");
 
         transportOfModel.send(clientId, new TransportPackageOfServer021GetGameTypeSet<>(
                 Stream.of(
