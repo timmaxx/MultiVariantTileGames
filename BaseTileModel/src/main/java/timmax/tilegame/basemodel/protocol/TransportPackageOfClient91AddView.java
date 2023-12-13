@@ -22,9 +22,9 @@ public class TransportPackageOfClient91AddView<T> extends TransportPackageOfClie
 
     @Override
     public void execute(TransportOfModel<T> transportOfModel, T clientId) {
-        System.out.println("onAddView");
+        System.out.println("  onAddView");
 
-        // System.out.println("viewId = " + viewId);
+        // System.out.println("    viewId = " + viewId);
         transportOfModel.getModelOfServer().addRemoteView(new RemoteView<>(clientId, viewId));
         transportOfModel.send(clientId, new TransportPackageOfServer91AddView<>(viewId));
     }

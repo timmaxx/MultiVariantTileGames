@@ -21,9 +21,9 @@ public class TransportPackageOfServer91AddView<T> extends TransportPackageOfServ
 
     @Override
     public void execute(TransportOfController<T> transportOfModel) {
-        System.out.println("onAddView");
+        System.out.println("  onAddView");
 
-        System.out.println("viewId = " + viewId);
+        System.out.println("    viewId = " + viewId);
 
         transportOfModel.getClientState().confirmView(viewId);
     }

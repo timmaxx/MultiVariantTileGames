@@ -74,8 +74,8 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
 
     // 9
     public void addView(View view) {
-        System.out.println("addView(View view)");
-        System.out.println("viewId = " + view.toString());
+        System.out.println("addView(View)");
+        // System.out.println("viewId = " + view.toString());
         clientState.addView(view.toString());
         send(new TransportPackageOfClient91AddView<>(view.toString()));
     }
