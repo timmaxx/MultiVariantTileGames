@@ -8,7 +8,7 @@ public class TransportPackageOfServer010Logout<T> extends TransportPackageOfServ
 
     @Override
     public void execute(TransportOfController<T> transportOfModel) {
-        System.out.println("onLogout");
+        System.out.println("  onLogout");
 
         // Todo: улучшить качество кода:
         //       Вызов метода у объекта объекта - не хорошая практика!

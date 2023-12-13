@@ -24,16 +24,16 @@ public class TransportPackageOfClient011Login<T> extends TransportPackageOfClien
 
     @Override
     public void execute(TransportOfModel<T> transportOfModel, T clientId) {
-        System.out.println("onLogin");
+        System.out.println("  onLogin");
 
-        System.out.println("userName = " + userName + " | " + "password = *"); // Пароль не выводим:
+        System.out.println("    userName = " + userName + " | " + "password = *"); // Пароль не выводим:
 
         if (Credentials.isUserAndPasswordCorrect(userName, password)) {
             // ToDo: Нужно зафиксировать для этого webSocket имя пользователя (и потом другие параметры авторизации).
-            System.out.println("sendLoginAnswer(TransportOfModel, clientId, userName)");
+            System.out.println("    sendLoginAnswer(TransportOfModel, clientId, userName)");
             sendLoginAnswer(transportOfModel, clientId, userName);
         } else {
-            System.out.println("sendLogoutAnswer(TransportOfModel, clientId)");
+            System.out.println("    sendLogoutAnswer(TransportOfModel, clientId)");
             sendLogoutAnswer(transportOfModel, clientId);
         }
     }

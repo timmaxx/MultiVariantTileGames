@@ -6,7 +6,7 @@ public class TransportPackageOfClient010Logout<T> extends TransportPackageOfClie
 
     @Override
     public void execute(TransportOfModel<T> transportOfModel, T clientId) {
-        System.out.println("onLogout");
+        System.out.println("  onLogout");
 
         sendLogoutAnswer(transportOfModel, clientId);
     }

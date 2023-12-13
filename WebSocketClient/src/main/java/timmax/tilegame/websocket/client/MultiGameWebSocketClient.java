@@ -41,10 +41,12 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
 
     // 2
     public void logout() {
+        System.out.println("logout()");
         send(new TransportPackageOfClient010Logout<>());
     }
 
     public void login(String userName, String password) {
+        System.out.println("login(String, String)");
         send(new TransportPackageOfClient011Login<>(userName, password));
     }
 
@@ -108,7 +110,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
 
     @Override
     public void onOpen(ServerHandshake handshakedata) {
-        System.out.println("onOpen");
+        System.out.println("onOpen(ServerHandshake)");
 
         clientState.setUserName("");
         System.out.println("  getMainGameClientStatus() = " + getMainGameClientStatus());
@@ -119,7 +121,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
 
     @Override
     public void onError(Exception ex) {
-        System.err.println("onError");
+        System.err.println("onError(Exception)");
 
         ex.printStackTrace();
         System.err.println("---------- End of onError");
@@ -127,28 +129,18 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
 
     @Override
     public void onMessage(ByteBuffer byteBuffer) {
-        // System.out.println("onMessage(ByteBuffer byteBuffer)");
-        // System.out.println("---------- End of onMessage(ByteBuffer byteBuffer)");
+        System.out.println("onMessage(ByteBuffer)");
 
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteBuffer.array());
 
         TransportPackageOfServer<WebSocket> transportPackageOfServer = mapper.readValue(byteArrayInputStream, TransportPackageOfServer.class);
 
-        System.out.println("transportPackageOfServer = " + transportPackageOfServer);
+        System.out.println("  transportPackageOfServer = " + transportPackageOfServer);
 
         Thread thread = new Thread(() -> {
             transportPackageOfServer.execute(this);
-/*
-            if (typeOfTransportPackage == GAME_EVENT) {
-                onGameEvent(transportPackageOfServer);
-            } else {
-                System.err.println("Client doesn't know received typeOfTransportPackage.");
-                System.err.println("typeOfTransportPackage = " + typeOfTransportPackage);
-                System.exit(1);
-            }
-*/
-            System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
-            System.out.println("---------- End of public ClientIncomingMessageHandler(MultiGameWebSocketClient multiGameWebSocketClient, ByteBuffer byteBuffer)");
+            System.out.println("  getMainGameClientStatus() = " + getMainGameClientStatus());
+            System.out.println("---------- End of onMessage(ByteBuffer)");
         });
         thread.start();
     }
@@ -166,7 +158,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
 
     @Override
     public void onMessage(String message) {
-        System.err.println("onMessage(String message)");
+        System.err.println("onMessage(String)");
         System.err.println("This type of message (String) should not be!");
         System.exit(1);
     }

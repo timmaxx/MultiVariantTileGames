@@ -51,13 +51,13 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     @Override
     public void send(WebSocket clientId, TransportPackageOfServer<WebSocket> transportPackageOfServer) {
         // System.out.println("class MultiGameWebSocketServer");
-        System.out.println("public void send(WebSocket clientId, TransportPackageOfServer transportPackageOfServer)");
+        System.out.println("  send(WebSocket, TransportPackageOfServer<WebSocket>)");
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         mapper.writeValue(byteArrayOutputStream, transportPackageOfServer);
-        System.out.println("  transportPackageOfServer = " + transportPackageOfServer);
+        System.out.println("    transportPackageOfServer = " + transportPackageOfServer);
         clientId.send(byteArrayOutputStream.toByteArray());
-        System.out.println("---------- End of public void send(WebSocket clientId, TransportPackageOfServer<WebSocket> transportPackageOfServer)");
+        System.out.println("---------- End of send(WebSocket, TransportPackageOfServer<WebSocket>)");
     }
 
     @Override
@@ -77,14 +77,15 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
 
     @Override
     public void onStart() {
-        System.out.println("MultiGameWebSocketServer started on port: " + getPort() + ".");
+        System.out.println("onStart()");
+        System.out.println("  MultiGameWebSocketServer started on port: " + getPort() + ".");
         System.out.println("---------- End of onStart");
     }
 
     @Override
     public void onClose(WebSocket webSocket, int code, String reason, boolean remote) {
-        System.out.println("onClose");
-        System.out.println(webSocket + ".");
+        System.out.println("onClose(WebSocket, int, String, boolean)");
+        System.out.println("  " + webSocket);
         System.out.println("  Connect was closed.");
         System.out.println("  Code = " + code + ". Reason = " + reason + ". Remote = " + remote + ".");
         System.out.println("---------- End of onClose");
@@ -92,10 +93,8 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
 
     @Override
     public void onOpen(WebSocket webSocket, ClientHandshake clientHandshake) {
-        System.out.println("onOpen");
-        // System.out.println("Connect from '" + webSocket + "' are opened.");
-        System.out.println("  " + webSocket + ".");
-        // System.out.println(webSocket + ". Connect are opened.");
+        System.out.println("onOpen(WebSocket, ClientHandshake)");
+        System.out.println("  " + webSocket);
         // ToDo: Для каждого соединения можно создавать отдельный поток-нить.
         //       Соответственно, нужна карта, в которой будет храниться:
         //       webSocket, нить, модель игры.
@@ -105,50 +104,35 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
 
     @Override
     public void onError(WebSocket webSocket, Exception ex) {
-        System.err.println("onError");
-        System.err.println(webSocket + ".");
+        System.err.println("onError(WebSocket, Exception)");
+        System.err.println("  " + webSocket);
         ex.printStackTrace();
         System.err.println("---------- End of onError");
     }
 
     @Override
     public void onMessage(WebSocket webSocket, ByteBuffer byteBuffer) {
-        System.out.println("onMessage(WebSocket webSocket, ByteBuffer byteBuffer)");
+        System.out.println("onMessage(WebSocket, ByteBuffer)");
         System.out.println("  " + webSocket);
         System.out.println("---------- End of onMessage(WebSocket webSocket, ByteBuffer byteBuffer)");
 
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteBuffer.array());
         TransportPackageOfClient<WebSocket> transportPackageOfClient = mapper.readValue(byteArrayInputStream, TransportPackageOfClient.class);
 
-        System.out.println("transportPackageOfClient = " + transportPackageOfClient);
+        System.out.println("  transportPackageOfClient = " + transportPackageOfClient);
 
         Thread thread = new Thread(() -> {
             transportPackageOfClient.execute(this, webSocket);
-            /*
-            if (typeOfTransportPackage == CREATE_NEW_GAME) {
-                onCreateNewGame();
-            } else {
-                System.err.println("Server doesn't know received typeOfTransportPackage.");
-                System.err.println("typeOfTransportPackage = " + typeOfTransportPackage);
-                System.exit(1);
-            }
-            */
-            System.out.println("---------- End of public IncomingMessageHandler(MultiGameWebSocketServer multiGameWebSocketServer, WebSocket webSocket, ByteBuffer byteBuffer)");
+            System.out.println("---------- End of onMessage(WebSocket, ByteBuffer)");
         });
         thread.start();
     }
-/*
-    private void onCreateNewGame() {
-        System.out.println("onCreateNewGame");
 
-        multiGameWebSocketServer.modelOfServer.createNewGame();
-    }
-*/
     @Override
     public void onMessage(WebSocket webSocket, String message) {
-        System.err.println("onMessage(WebSocket webSocket, String message)");
-        System.err.println(webSocket);
-        System.err.println("This type of message (String) should not be!");
+        System.err.println("onMessage(WebSocket, String)");
+        System.err.println("  " + webSocket);
+        System.err.println("  This type of message (String) should not be!");
         System.exit(1);
     }
 }
