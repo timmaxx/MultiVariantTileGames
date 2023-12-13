@@ -18,10 +18,12 @@ public class GameEventSokobanVariableParamsCountOfSteps extends GameEvent {
 
 
     public GameEventSokobanVariableParamsCountOfSteps() {
+        super();
     }
 
     public GameEventSokobanVariableParamsCountOfSteps(
             int countOfSteps) {
+        this();
         this.countOfSteps = countOfSteps;
     }
 

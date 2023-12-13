@@ -18,6 +18,10 @@ public class GameEventOneTileSokobanChangeable extends GameEventOneTile {
     private /*final*/ WhoMovableInTile whoMovableInTile;
 
 
+    public GameEventOneTileSokobanChangeable() {
+        super();
+    }
+
     public GameEventOneTileSokobanChangeable(
             int x,
             int y,
@@ -26,10 +30,6 @@ public class GameEventOneTileSokobanChangeable extends GameEventOneTile {
         super(x, y);
         this.whoPersistentInTile = whoPersistentInTile;
         this.whoMovableInTile = whoMovableInTile;
-    }
-
-    public GameEventOneTileSokobanChangeable() {
-        super();
     }
 
     public WhoPersistentInTile getWhoPersistentInTile() {

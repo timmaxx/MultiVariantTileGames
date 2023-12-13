@@ -18,10 +18,12 @@ public class GameEventSokobanVariableParamsCountOfBoxesInHouses extends GameEven
 
 
     public GameEventSokobanVariableParamsCountOfBoxesInHouses() {
+        super();
     }
 
     public GameEventSokobanVariableParamsCountOfBoxesInHouses(
             int countOfBoxesInHouses) {
+        this();
         this.countOfBoxesInHouses = countOfBoxesInHouses;
     }
 

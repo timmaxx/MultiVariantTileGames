@@ -19,10 +19,12 @@ public class GameEventSokobanPersistentParams extends GameEvent {
 
 
     public GameEventSokobanPersistentParams() {
+        super();
     }
 
     public GameEventSokobanPersistentParams(
             int countOfBoxesAndHomes) {
+        this();
         this.countOfBoxesAndHomes = countOfBoxesAndHomes;
     }
 
