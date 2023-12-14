@@ -33,19 +33,19 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     public void sendGameEvent(RemoteView<WebSocket> remoteView, GameEvent gameEvent) {
         System.out.println("    gameEvent = " + gameEvent);
 
-        EventOfServer<WebSocket> transportPackageOfServer = new EventOfServer92GameEvent<>(remoteView.getClientId().toString(), gameEvent);
-        send(remoteView.getClientId(), transportPackageOfServer);
+        EventOfServer<WebSocket> eventOfServer = new EventOfServer92GameEvent<>(remoteView.getClientId().toString(), gameEvent);
+        send(remoteView.getClientId(), eventOfServer);
     }
 
     @Override
-    public void send(WebSocket clientId, EventOfServer<WebSocket> transportPackageOfServer) {
-        System.out.println("  send(WebSocket, TransportPackageOfServer<WebSocket>)");
+    public void send(WebSocket clientId, EventOfServer<WebSocket> eventOfServer) {
+        System.out.println("  send(WebSocket, EventOfServer<WebSocket>)");
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        mapper.writeValue(byteArrayOutputStream, transportPackageOfServer);
-        System.out.println("    transportPackageOfServer = " + transportPackageOfServer);
+        mapper.writeValue(byteArrayOutputStream, eventOfServer);
+        System.out.println("    eventOfServer = " + eventOfServer);
         clientId.send(byteArrayOutputStream.toByteArray());
-        System.out.println("---------- End of send(WebSocket, TransportPackageOfServer<WebSocket>)");
+        System.out.println("---------- End of send(WebSocket, EventOfServer<WebSocket>)");
     }
 
     @Override
@@ -104,13 +104,13 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         System.out.println("  " + webSocket);
 
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteBuffer.array());
-        EventOfClient<WebSocket> transportPackageOfClient = mapper.readValue(byteArrayInputStream, EventOfClient.class);
+        EventOfClient<WebSocket> eventOfClient = mapper.readValue(byteArrayInputStream, EventOfClient.class);
 
-        System.out.println("  transportPackageOfClient = " + transportPackageOfClient);
+        System.out.println("  eventOfClient = " + eventOfClient);
         System.out.println("---------- End of onMessage(WebSocket, ByteBuffer)");
 
         Thread thread = new Thread(() -> {
-            transportPackageOfClient.execute(this, webSocket);
+            eventOfClient.execute(this, webSocket);
         });
         thread.start();
     }

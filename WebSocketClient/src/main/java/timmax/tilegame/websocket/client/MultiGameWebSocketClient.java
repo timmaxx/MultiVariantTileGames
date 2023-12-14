@@ -84,13 +84,13 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     }
 
     @Override
-    public void send(EventOfClient<Object> transportPackageOfClient) {
-        System.out.println("  send(TransportPackageOfClient<WebSocket>)");
+    public void send(EventOfClient<Object> eventOfClient) {
+        System.out.println("  send(EventOfClient<WebSocket>)");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        mapper.writeValue(byteArrayOutputStream, transportPackageOfClient);
-        System.out.println("    transportPackageOfClient = " + transportPackageOfClient);
+        mapper.writeValue(byteArrayOutputStream, eventOfClient);
+        System.out.println("    eventOfClient = " + eventOfClient);
         send(byteArrayOutputStream.toByteArray());
-        System.out.println("---------- End of public void send(TransportPackageOfClient<WebSocket> transportPackageOfClient)");
+        System.out.println("---------- End of public void send(EventOfClient<WebSocket> eventOfClient)");
     }
 
     @Override
@@ -135,13 +135,13 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         System.out.println("onMessage(ByteBuffer)");
 
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteBuffer.array());
-        EventOfServer<Object> transportPackageOfServer = mapper.readValue(byteArrayInputStream, EventOfServer.class);
+        EventOfServer<Object> eventOfServer = mapper.readValue(byteArrayInputStream, EventOfServer.class);
 
-        System.out.println("  transportPackageOfServer = " + transportPackageOfServer);
+        System.out.println("  eventOfServer = " + eventOfServer);
         System.out.println("---------- End of onMessage(ByteBuffer)");
 
         Thread thread = new Thread(() -> {
-            transportPackageOfServer.execute(this);
+            eventOfServer.execute(this);
             System.out.println("  getMainGameClientStatus() = " + getMainGameClientStatus());
         });
         thread.start();
