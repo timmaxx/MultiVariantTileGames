@@ -4,23 +4,22 @@ import java.io.*;
 import java.net.URI;
 import java.nio.ByteBuffer;
 
-import org.java_websocket.WebSocket;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.gamecommand.GameCommand;
+import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfClient;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
 
-public class MultiGameWebSocketClient extends WebSocketClient implements TransportOfClient<WebSocket> {
+public class MultiGameWebSocketClient extends WebSocketClient implements TransportOfClient<Object> {
     final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
     final ClientState<Object> clientState;
     final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
-
 
     public MultiGameWebSocketClient(URI serverUri, ClientState<Object> clientState, HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent) {
         super(serverUri);
@@ -82,11 +81,11 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
 
     public void createNewGame() {
         System.out.println("createNewGame()");
-        send(new TransportPackageOfClient92CreateNewGame<>());
+        send(new TransportPackageOfClient92GameEvent<>(new GameEventNewGame()));
     }
 
     @Override
-    public void send(TransportPackageOfClient<WebSocket> transportPackageOfClient) {
+    public void send(TransportPackageOfClient<Object> transportPackageOfClient) {
         System.out.println("  send(TransportPackageOfClient<WebSocket>)");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         mapper.writeValue(byteArrayOutputStream, transportPackageOfClient);
@@ -137,15 +136,14 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         System.out.println("onMessage(ByteBuffer)");
 
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteBuffer.array());
-
-        TransportPackageOfServer<WebSocket> transportPackageOfServer = mapper.readValue(byteArrayInputStream, TransportPackageOfServer.class);
+        TransportPackageOfServer<Object> transportPackageOfServer = mapper.readValue(byteArrayInputStream, TransportPackageOfServer.class);
 
         System.out.println("  transportPackageOfServer = " + transportPackageOfServer);
+        System.out.println("---------- End of onMessage(ByteBuffer)");
 
         Thread thread = new Thread(() -> {
             transportPackageOfServer.execute(this);
             System.out.println("  getMainGameClientStatus() = " + getMainGameClientStatus());
-            System.out.println("---------- End of onMessage(ByteBuffer)");
         });
         thread.start();
     }

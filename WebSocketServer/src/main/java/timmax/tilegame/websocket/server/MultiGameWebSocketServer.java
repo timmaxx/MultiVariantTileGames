@@ -15,11 +15,10 @@ import timmax.tilegame.basemodel.protocol.server.RemoteView;
 import timmax.tilegame.game.sokoban.model.ModelOfServerOfSokoban;
 import timmax.tilegame.transport.TransportOfServer;
 
-public class MultiGameWebSocketServer extends WebSocketServer implements TransportOfModel<WebSocket> {
-    final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
+public class MultiGameWebSocketServer extends WebSocketServer implements TransportOfServer<WebSocket> {
+    private final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
 
-    ModelOfServer<WebSocket> modelOfServer;
-
+    private ModelOfServer<WebSocket> modelOfServer;
 
     public MultiGameWebSocketServer(int port) {
         super(new InetSocketAddress(port));
@@ -32,23 +31,14 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
 
     @Override
     public void sendGameEvent(RemoteView<WebSocket> remoteView, GameEvent gameEvent) {
-        // System.out.println("  sendGameEvent(RemoteView<WebSocket>, GameEvent)");
-        // System.out.println("    remoteView = " + remoteView);
         System.out.println("    gameEvent = " + gameEvent);
 
-/*
-        TransportPackageOfServer transportPackageOfServer = new TransportPackageOfServer(
-                GAME_EVENT,
-                Map.of("viewId", remoteView.getViewId(),
-                        "gameEvent", gameEvent)
-        );
+        TransportPackageOfServer<WebSocket> transportPackageOfServer = new TransportPackageOfServer92GameEvent<>(remoteView.getClientId().toString(), gameEvent);
         send(remoteView.getClientId(), transportPackageOfServer);
-*/
     }
 
     @Override
     public void send(WebSocket clientId, TransportPackageOfServer<WebSocket> transportPackageOfServer) {
-        // System.out.println("class MultiGameWebSocketServer");
         System.out.println("  send(WebSocket, TransportPackageOfServer<WebSocket>)");
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -62,12 +52,12 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     public ModelOfServer<WebSocket> getModelOfServer() {
         return modelOfServer;
     }
-
+/*
     @Override
     public void setModelOfServer(ModelOfServer<WebSocket> modelOfServer) {
         this.modelOfServer = modelOfServer;
     }
-
+*/
     @Override
     public void setModelOfServerTmp() {
         this.modelOfServer = new ModelOfServerOfSokoban<>(this);
@@ -112,16 +102,15 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     public void onMessage(WebSocket webSocket, ByteBuffer byteBuffer) {
         System.out.println("onMessage(WebSocket, ByteBuffer)");
         System.out.println("  " + webSocket);
-        System.out.println("---------- End of onMessage(WebSocket webSocket, ByteBuffer byteBuffer)");
 
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteBuffer.array());
         TransportPackageOfClient<WebSocket> transportPackageOfClient = mapper.readValue(byteArrayInputStream, TransportPackageOfClient.class);
 
         System.out.println("  transportPackageOfClient = " + transportPackageOfClient);
+        System.out.println("---------- End of onMessage(WebSocket, ByteBuffer)");
 
         Thread thread = new Thread(() -> {
             transportPackageOfClient.execute(this, webSocket);
-            System.out.println("---------- End of onMessage(WebSocket, ByteBuffer)");
         });
         thread.start();
     }

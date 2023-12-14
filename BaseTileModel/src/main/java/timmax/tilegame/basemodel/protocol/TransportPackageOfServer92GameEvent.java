@@ -1,22 +1,21 @@
 package timmax.tilegame.basemodel.protocol;
 
-import timmax.tilegame.basemodel.gameevent.GameEvent;
-import timmax.tilegame.transport.TransportOfClient;
-
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-public class TransportPackageOfServer92CreateNewGame<T> extends TransportPackageOfServer<T> {
+import timmax.tilegame.basemodel.gameevent.GameEvent;
+import timmax.tilegame.transport.TransportOfClient;
+
+public class TransportPackageOfServer92GameEvent<T> extends TransportPackageOfServer<T> {
     private String viewId;
     private GameEvent gameEvent;
 
-
-    public TransportPackageOfServer92CreateNewGame() {
+    public TransportPackageOfServer92GameEvent() {
         super();
     }
 
-    public TransportPackageOfServer92CreateNewGame(String viewId, GameEvent gameEvent) {
+    public TransportPackageOfServer92GameEvent(String viewId, GameEvent gameEvent) {
         this();
         this.viewId = viewId;
         this.gameEvent = gameEvent;
@@ -32,7 +31,7 @@ public class TransportPackageOfServer92CreateNewGame<T> extends TransportPackage
 
     @Override
     public String toString() {
-        return "TransportPackageOfServer92CreateNewGame{" +
+        return "TransportPackageOfServer93GameEvent{" +
                 "viewId='" + viewId + '\'' +
                 ", gameEvent=" + gameEvent +
                 '}';

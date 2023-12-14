@@ -1,14 +1,13 @@
 package timmax.tilegame.websocket.server;
 
+import java.io.StringWriter;
+
 import org.java_websocket.WebSocket;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.TransportPackageOfServer;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
 import timmax.tilegame.basemodel.protocol.server.RemoteView;
 import timmax.tilegame.transport.TransportOfServer;
-
-// import java.io.IOException;
-import java.io.StringWriter;
 
 // ToDo: удалить класс.
 
@@ -49,12 +48,12 @@ public class TransportOfServerWebSocket implements TransportOfServer<WebSocket> 
     public ModelOfServer<WebSocket> getModelOfServer() {
         return null;
     }
-
+/*
     @Override
     public void setModelOfServer(ModelOfServer<WebSocket> modelOfServer) {
         // this.modelOfServer = modelOfServer;
     }
-
+*/
     @Override
     public void setModelOfServerTmp() {
 

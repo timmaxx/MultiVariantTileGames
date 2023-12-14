@@ -8,7 +8,7 @@ import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.tile.Direction;
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventOneTileSokobanChangeable;
-import timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanPersistentParams;
+// import timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanPersistentParams;
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanVariableParamsCountOfBoxesInHouses;
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanVariableParamsCountOfSteps;
 import timmax.tilegame.game.sokoban.model.gameobject.*;
@@ -44,16 +44,8 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
 
     @Override
     public void createNewGame() {
-//      System.out.println("ModelOfServerOfSokoban<T>");
         allSokobanObjects = levelLoader.getLevel(currentLevel.getValue());
-/*
-        System.out.println("After 'allSokobanObjects = levelLoader.getLevel(currentLevel.getValue());'");
-        System.out.println("allSokobanObjects = " + allSokobanObjects);
-        System.out.println("allSokobanObjects.getWidth() = " + allSokobanObjects.getWidth());
-        System.out.println("allSokobanObjects.getHeight() = " + allSokobanObjects.getHeight());
-*/
         super.createNewGame(allSokobanObjects.getWidth(), allSokobanObjects.getHeight());
-//      System.out.println("After 'super.createNewGame(allSokobanObjects.getWidth(), allSokobanObjects.getHeight());'");
         for (int y = 0; y < allSokobanObjects.getHeight(); y++) {
             for (int x = 0; x < allSokobanObjects.getWidth(); x++) {
                 WhoPersistentInTile whoPersistentInTile = allSokobanObjects.getWhoPersistentInTile(x, y);
@@ -61,14 +53,13 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
                 sendGameEvent(new GameEventOneTileSokobanChangeable(x, y, whoPersistentInTile, whoMovableInTile));
             }
         }
-//      System.out.println("After 'for in for'");
         route = new Route();
         routeRedo = new Route();
-
-        sendGameEvent(new GameEventSokobanPersistentParams(allSokobanObjects.getCountOfHomesBoxes()));
-        sendGameEvent(new GameEventSokobanVariableParamsCountOfSteps(0));
+        // Инициализация информационных выборок.
+        // sendGameEvent(new GameEventSokobanPersistentParams(allSokobanObjects.getCountOfHomesBoxes()));
+        // sendGameEvent(new GameEventSokobanVariableParamsCountOfSteps(0));
         calcCountOfBoxesInHomes();
-        sendGameEvent(new GameEventSokobanVariableParamsCountOfBoxesInHouses(countOfBoxesInHomes));
+        // sendGameEvent(new GameEventSokobanVariableParamsCountOfBoxesInHouses(countOfBoxesInHomes));
     }
 
     public void moveUndo() {

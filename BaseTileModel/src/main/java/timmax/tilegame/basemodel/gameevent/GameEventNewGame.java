@@ -4,12 +4,11 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-public class GameEventNewGame extends GameEvent {
-    // final (в этом классе и в любом, который реализует Externalizable) пришлось убрать из-за readExternal.
-    // Было-бы лучше конечно final оставить!
-    private /*final*/ int width;
-    private /*final*/ int height;
+import timmax.tilegame.transport.TransportOfServer;
 
+public class GameEventNewGame extends GameEvent {
+    private int width;
+    private int height;
 
     public GameEventNewGame() {
     }
@@ -28,6 +27,20 @@ public class GameEventNewGame extends GameEvent {
     }
 
     @Override
+    public <T> void execute(TransportOfServer<T> transportOfServer, T clientId) {
+        System.out.println("    onCreateNewGame");
+        transportOfServer.getModelOfServer().createNewGame();
+    }
+
+    @Override
+    public String toString() {
+        return "GameEventNewGame{" +
+                "width=" + width +
+                ", height=" + height +
+                '}';
+    }
+
+    @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeInt(width);
         out.writeInt(height);
@@ -37,14 +50,6 @@ public class GameEventNewGame extends GameEvent {
     public void readExternal(ObjectInput in) throws IOException {
         width = in.readInt();
         height = in.readInt();
-    }
-
-    @Override
-    public String toString() {
-        return "GameEventNewGame{" +
-                "width=" + width +
-                ", height=" + height +
-                '}';
     }
 
     @Override

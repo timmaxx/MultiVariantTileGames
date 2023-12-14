@@ -15,7 +15,6 @@ public class ClientState<T> {
     private List<String> arrayListOfServerBaseModelClass = new ArrayList<>();
     private String serverBaseModelClass = "";
 
-
     public ClientState(TransportOfServer<T> transportOfServer) {
         setOfRemoteView = new SetOfRemoteView<>(transportOfServer);
     }
@@ -63,34 +62,18 @@ public class ClientState<T> {
     }
 
     public void addView(String viewId) {
-/*
-        System.out.println("ClientState. addView(String viewId)");
-        System.out.println("setOfRemoteView = " + setOfRemoteView);
-        for (RemoteView remoteView: setOfRemoteView) {
-            System.out.println("remoteView = " + remoteView);
-        }
-*/
         setOfRemoteView.add(new RemoteView<>(null, viewId));
-/*
-        System.out.println("setOfRemoteView = " + setOfRemoteView);
-        for (RemoteView remoteView: setOfRemoteView) {
-            System.out.println("remoteView = " + remoteView);
-        }
-*/
     }
 
     public void confirmView(String viewId) {
-/*
-        System.out.println("ClientState. confirmView(String viewId)");
-        System.out.println("setOfRemoteView = " + setOfRemoteView);
-        for (RemoteView remoteView: setOfRemoteView) {
-            System.out.println("remoteView = " + remoteView);
-        }
-*/
         if (setOfRemoteView.contains(new RemoteView<>(null, viewId))) {
             System.out.println("if (setOfRemoteView.contains( new RemoteView<>(null, viewId)))");
         } else {
             System.out.println("else (setOfRemoteView.contains( new RemoteView<>(null, viewId)))");
         }
+    }
+
+    public SetOfRemoteView<T> getSetOfRemoteView() {
+        return setOfRemoteView;
     }
 }

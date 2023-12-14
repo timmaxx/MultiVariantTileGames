@@ -18,7 +18,7 @@ public interface TransportOfServer<T> {
     void send(T clientId, TransportPackageOfServer<T> transportPackageOfServer);
 
     ModelOfServer<T> getModelOfServer();
-    void setModelOfServer(ModelOfServer<T> modelOfServer);
 
+    // void setModelOfServer(ModelOfServer<T> modelOfServer);
     void setModelOfServerTmp();
 }
