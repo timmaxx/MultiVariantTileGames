@@ -7,15 +7,15 @@ import java.io.ObjectOutput;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.transport.TransportOfClient;
 
-public class TransportPackageOfServer92GameEvent<T> extends TransportPackageOfServer<T> {
+public class EventOfServer92GameEvent<T> extends EventOfServer<T> {
     private String viewId;
     private GameEvent gameEvent;
 
-    public TransportPackageOfServer92GameEvent() {
+    public EventOfServer92GameEvent() {
         super();
     }
 
-    public TransportPackageOfServer92GameEvent(String viewId, GameEvent gameEvent) {
+    public EventOfServer92GameEvent(String viewId, GameEvent gameEvent) {
         this();
         this.viewId = viewId;
         this.gameEvent = gameEvent;
@@ -24,7 +24,6 @@ public class TransportPackageOfServer92GameEvent<T> extends TransportPackageOfSe
     @Override
     public void execute(TransportOfClient<T> transportOfClient) {
         System.out.println("  onGameEvent");
-
         System.out.println("    viewId = " + viewId);
         System.out.println("    gameEvent = " + gameEvent);
     }

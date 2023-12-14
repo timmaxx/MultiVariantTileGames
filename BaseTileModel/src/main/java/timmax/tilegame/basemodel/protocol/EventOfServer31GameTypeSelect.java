@@ -8,14 +8,14 @@ import timmax.tilegame.transport.TransportOfClient;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.SELECT_GAME_TYPE;
 
-public class TransportPackageOfServer31GameTypeSelect<T> extends TransportPackageOfServer<T> {
+public class EventOfServer31GameTypeSelect<T> extends EventOfServer<T> {
     private String serverBaseModelClass;
 
-    public TransportPackageOfServer31GameTypeSelect() {
+    public EventOfServer31GameTypeSelect() {
         super();
     }
 
-    public TransportPackageOfServer31GameTypeSelect(String serverBaseModelClass) {
+    public EventOfServer31GameTypeSelect(String serverBaseModelClass) {
         this();
         this.serverBaseModelClass = serverBaseModelClass;
     }
@@ -24,17 +24,7 @@ public class TransportPackageOfServer31GameTypeSelect<T> extends TransportPackag
     public void execute(TransportOfClient<T> transportOfClient) {
         System.out.println("  onSelectGameType");
 
-        // ToDo: Если переделать на сервере отправку класса не строкой, а классом,
-        //       то и здесь перевод из строки в класс не понадобится.
-        // String serverBaseModelString = (String) (transportPackageOfServer.get("gameType"));
-/*
-        try {
-            // transportOfModel.getClientState().setServerBaseModelClass((Class<? extends ServerBaseModel>) Class.forName(serverBaseModelString));
-            // transportOfModel.getClientState().setServerBaseModelClass((Class<? extends ServerBaseModel>) Class.forName(serverBaseModelClass));
-        }
-*/
         transportOfClient.getClientState().setServerBaseModelClass(serverBaseModelClass);
-
         transportOfClient.getHashSetOfObserverOnAbstractEvent().updateConnectStatePane(SELECT_GAME_TYPE);
     }
 

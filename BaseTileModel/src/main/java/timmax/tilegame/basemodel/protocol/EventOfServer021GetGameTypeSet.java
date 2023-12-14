@@ -10,15 +10,15 @@ import timmax.tilegame.transport.TransportOfClient;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.GET_GAME_TYPE_SET;
 
-public class TransportPackageOfServer021GetGameTypeSet<T> extends TransportPackageOfServer<T> {
+public class EventOfServer021GetGameTypeSet<T> extends EventOfServer<T> {
     List<String> arrayListOfServerBaseModelClass = new ArrayList<>();
 
 
-    public TransportPackageOfServer021GetGameTypeSet() {
+    public EventOfServer021GetGameTypeSet() {
         super();
     }
 
-    public TransportPackageOfServer021GetGameTypeSet(List<String> arrayListOfServerBaseModelClass) {
+    public EventOfServer021GetGameTypeSet(List<String> arrayListOfServerBaseModelClass) {
         this();
         this.arrayListOfServerBaseModelClass = arrayListOfServerBaseModelClass;
     }

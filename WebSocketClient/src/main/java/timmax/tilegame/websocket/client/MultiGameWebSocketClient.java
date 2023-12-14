@@ -41,51 +41,50 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     // 2
     public void logout() {
         System.out.println("logout()");
-        send(new TransportPackageOfClient010Logout<>());
+        send(new EventOfClient010Logout<>());
     }
 
     public void login(String userName, String password) {
         System.out.println("login(String, String)");
-        send(new TransportPackageOfClient011Login<>(userName, password));
+        send(new EventOfClient011Login<>(userName, password));
     }
 
     // 3
     public void forgetGameTypeSet() {
         System.out.println("forgetGameTypeSet()");
-        send(new TransportPackageOfClient020ForgetGameTypeSet<>());
+        send(new EventOfClient020ForgetGameTypeSet<>());
     }
 
     public void getGameTypeSet() {
         System.out.println("getGameTypeSet()");
-        send(new TransportPackageOfClient021GetGameTypeSet<>());
+        send(new EventOfClient021GetGameTypeSet<>());
     }
 
     // 4
     public void forgetGameType() {
         System.out.println("forgetGameType()");
-        send(new TransportPackageOfClient30ForgetGameType<>());
+        send(new EventOfClient30ForgetGameType<>());
     }
 
     public void gameTypeSelect(String serverBaseModelClass) {
         System.out.println("gameTypeSelect(String)");
-        send(new TransportPackageOfClient31GameTypeSelect<>(serverBaseModelClass));
+        send(new EventOfClient31GameTypeSelect<>(serverBaseModelClass));
     }
 
     // 9
     public void addView(View view) {
         System.out.println("addView(View)");
-        // System.out.println("viewId = " + view.toString());
         clientState.addView(view.toString());
-        send(new TransportPackageOfClient91AddView<>(view.toString()));
+        send(new EventOfClient91AddView<>(view.toString()));
     }
 
     public void createNewGame() {
         System.out.println("createNewGame()");
-        send(new TransportPackageOfClient92GameEvent<>(new GameEventNewGame()));
+        send(new EventOfClient92GameEvent<>(new GameEventNewGame()));
     }
 
     @Override
-    public void send(TransportPackageOfClient<Object> transportPackageOfClient) {
+    public void send(EventOfClient<Object> transportPackageOfClient) {
         System.out.println("  send(TransportPackageOfClient<WebSocket>)");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         mapper.writeValue(byteArrayOutputStream, transportPackageOfClient);
@@ -136,7 +135,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         System.out.println("onMessage(ByteBuffer)");
 
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteBuffer.array());
-        TransportPackageOfServer<Object> transportPackageOfServer = mapper.readValue(byteArrayInputStream, TransportPackageOfServer.class);
+        EventOfServer<Object> transportPackageOfServer = mapper.readValue(byteArrayInputStream, EventOfServer.class);
 
         System.out.println("  transportPackageOfServer = " + transportPackageOfServer);
         System.out.println("---------- End of onMessage(ByteBuffer)");

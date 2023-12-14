@@ -2,7 +2,7 @@ package timmax.tilegame.basemodel.protocol;
 
 import timmax.tilegame.transport.TransportOfServer;
 
-public class TransportPackageOfClient010Logout<T> extends TransportPackageOfClient<T> {
+public class EventOfClient010Logout<T> extends EventOfClient<T> {
 
     @Override
     public void execute(TransportOfServer<T> transportOfServer, T clientId) {

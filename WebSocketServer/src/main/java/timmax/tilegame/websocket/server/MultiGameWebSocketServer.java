@@ -33,12 +33,12 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     public void sendGameEvent(RemoteView<WebSocket> remoteView, GameEvent gameEvent) {
         System.out.println("    gameEvent = " + gameEvent);
 
-        TransportPackageOfServer<WebSocket> transportPackageOfServer = new TransportPackageOfServer92GameEvent<>(remoteView.getClientId().toString(), gameEvent);
+        EventOfServer<WebSocket> transportPackageOfServer = new EventOfServer92GameEvent<>(remoteView.getClientId().toString(), gameEvent);
         send(remoteView.getClientId(), transportPackageOfServer);
     }
 
     @Override
-    public void send(WebSocket clientId, TransportPackageOfServer<WebSocket> transportPackageOfServer) {
+    public void send(WebSocket clientId, EventOfServer<WebSocket> transportPackageOfServer) {
         System.out.println("  send(WebSocket, TransportPackageOfServer<WebSocket>)");
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -104,7 +104,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         System.out.println("  " + webSocket);
 
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteBuffer.array());
-        TransportPackageOfClient<WebSocket> transportPackageOfClient = mapper.readValue(byteArrayInputStream, TransportPackageOfClient.class);
+        EventOfClient<WebSocket> transportPackageOfClient = mapper.readValue(byteArrayInputStream, EventOfClient.class);
 
         System.out.println("  transportPackageOfClient = " + transportPackageOfClient);
         System.out.println("---------- End of onMessage(WebSocket, ByteBuffer)");

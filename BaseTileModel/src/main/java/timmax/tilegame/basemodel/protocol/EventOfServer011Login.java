@@ -8,14 +8,15 @@ import timmax.tilegame.transport.TransportOfClient;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.LOGIN;
 
-public class TransportPackageOfServer011Login<T> extends TransportPackageOfServer<T> {
+public class EventOfServer011Login<T> extends EventOfServer<T> {
     private /*final*/ String userName;
 
-
-    public TransportPackageOfServer011Login() {
+    public EventOfServer011Login() {
+        super();
     }
 
-    public TransportPackageOfServer011Login(String userName) {
+    public EventOfServer011Login(String userName) {
+        this();
         this.userName = userName;
     }
 

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-public abstract class TransportPackage implements Externalizable {
+public abstract class Event implements Externalizable {
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {

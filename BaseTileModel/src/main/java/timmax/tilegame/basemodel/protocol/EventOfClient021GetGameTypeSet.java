@@ -6,13 +6,13 @@ import timmax.tilegame.transport.TransportOfServer;
 
 import static java.util.stream.Collectors.toList;
 
-public class TransportPackageOfClient021GetGameTypeSet<T> extends TransportPackageOfClient<T> {
+public class EventOfClient021GetGameTypeSet<T> extends EventOfClient<T> {
 
     @Override
     public void execute(TransportOfServer<T> transportOfServer, T clientId) {
         System.out.println("  onGetGameTypeSet");
 
-        transportOfServer.send(clientId, new TransportPackageOfServer021GetGameTypeSet<>(
+        transportOfServer.send(clientId, new EventOfServer021GetGameTypeSet<>(
                 Stream.of(
                         // ToDo: Перечень классов вариантов игр следует делать не константами в коде. Варианты:
                         //       - файл параметров,

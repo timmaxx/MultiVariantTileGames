@@ -6,14 +6,14 @@ import java.io.ObjectOutput;
 
 import timmax.tilegame.transport.TransportOfServer;
 
-public class TransportPackageOfClient31GameTypeSelect<T> extends TransportPackageOfClient<T> {
+public class EventOfClient31GameTypeSelect<T> extends EventOfClient<T> {
     private String serverBaseModelClass;
 
-    public TransportPackageOfClient31GameTypeSelect() {
+    public EventOfClient31GameTypeSelect() {
         super();
     }
 
-    public TransportPackageOfClient31GameTypeSelect(String serverBaseModelClass) {
+    public EventOfClient31GameTypeSelect(String serverBaseModelClass) {
         this();
         this.serverBaseModelClass = serverBaseModelClass;
     }
@@ -32,7 +32,7 @@ public class TransportPackageOfClient31GameTypeSelect<T> extends TransportPackag
             System.out.println("    modelOfServer = " + transportOfServer.getModelOfServer());
         }
 
-        transportOfServer.send(clientId, new TransportPackageOfServer31GameTypeSelect<>(serverBaseModelClass));
+        transportOfServer.send(clientId, new EventOfServer31GameTypeSelect<>(serverBaseModelClass));
     }
 
     @Override

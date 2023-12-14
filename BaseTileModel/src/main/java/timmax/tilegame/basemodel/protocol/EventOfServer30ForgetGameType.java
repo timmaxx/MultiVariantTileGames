@@ -4,7 +4,7 @@ import timmax.tilegame.transport.TransportOfClient;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.FORGET_GAME_TYPE;
 
-public class TransportPackageOfServer30ForgetGameType<T> extends TransportPackageOfServer<T> {
+public class EventOfServer30ForgetGameType<T> extends EventOfServer<T> {
 
     @Override
     public void execute(TransportOfClient<T> transportOfClient) {

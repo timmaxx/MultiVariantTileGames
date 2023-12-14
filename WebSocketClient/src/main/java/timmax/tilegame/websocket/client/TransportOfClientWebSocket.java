@@ -5,7 +5,7 @@ import org.java_websocket.client.WebSocketClient;
 import timmax.tilegame.basemodel.gamecommand.GameCommand;
 import timmax.tilegame.basemodel.protocol.ClientState;
 import timmax.tilegame.basemodel.protocol.HashSetOfObserverOnAbstractEvent;
-import timmax.tilegame.basemodel.protocol.TransportPackageOfClient;
+import timmax.tilegame.basemodel.protocol.EventOfClient;
 import timmax.tilegame.transport.TransportOfClient;
 
 import java.io.StringWriter;
@@ -21,19 +21,15 @@ public class TransportOfClientWebSocket implements TransportOfClient {
     @Override
     public void sendCommand(GameCommand gameCommand) {
         StringWriter writer = new StringWriter();
-        // ObjectMapper mapper = new ObjectMapper( );
         try {
-            // mapper.writeValue( writer, gameCommand);
             webSocketClient.send(writer.toString());
-        } /*catch ( IOException e) {
-            throw new RuntimeException( e);
-        }*/ catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void send(TransportPackageOfClient transportPackageOfClient) {
+    public void send(EventOfClient transportPackageOfClient) {
     }
 
     @Override

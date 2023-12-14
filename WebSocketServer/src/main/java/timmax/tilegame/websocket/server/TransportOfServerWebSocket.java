@@ -3,8 +3,9 @@ package timmax.tilegame.websocket.server;
 import java.io.StringWriter;
 
 import org.java_websocket.WebSocket;
+
 import timmax.tilegame.basemodel.gameevent.GameEvent;
-import timmax.tilegame.basemodel.protocol.TransportPackageOfServer;
+import timmax.tilegame.basemodel.protocol.EventOfServer;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
 import timmax.tilegame.basemodel.protocol.server.RemoteView;
 import timmax.tilegame.transport.TransportOfServer;
@@ -24,18 +25,14 @@ public class TransportOfServerWebSocket implements TransportOfServer<WebSocket> 
     @Override
     public void sendGameEvent(GameEvent gameEvent) {
         StringWriter writer = new StringWriter();
-        // ObjectMapper mapper = new ObjectMapper();
         try {
-            // mapper.writeValue(writer, gameEvent);
             System.out.println("TransportOfModelWebSocket");
             System.out.println("public void sendGameEvent( GameEvent gameEvent)");
             System.out.println("-----");
             System.out.println("writer = " + writer);
             System.out.println("-----");
             webSocket.send(writer.toString());
-        } /*catch (IOException e) {
-            throw new RuntimeException(e);
-        }*/ catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -60,7 +57,7 @@ public class TransportOfServerWebSocket implements TransportOfServer<WebSocket> 
     }
 
     @Override
-    public void send(WebSocket clientId, TransportPackageOfServer<WebSocket> transportPackageOfServer) {
+    public void send(WebSocket clientId, EventOfServer<WebSocket> transportPackageOfServer) {
 
     }
 }

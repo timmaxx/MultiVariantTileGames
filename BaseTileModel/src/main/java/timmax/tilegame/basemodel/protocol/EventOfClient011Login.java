@@ -7,16 +7,15 @@ import java.io.ObjectOutput;
 import timmax.tilegame.basemodel.credential.Credentials;
 import timmax.tilegame.transport.TransportOfServer;
 
-public class TransportPackageOfClient011Login<T> extends TransportPackageOfClient<T> {
+public class EventOfClient011Login<T> extends EventOfClient<T> {
     private String userName;
     private String password;
 
-
-    public TransportPackageOfClient011Login() {
+    public EventOfClient011Login() {
         super();
     }
 
-    public TransportPackageOfClient011Login(String userName, String password) {
+    public EventOfClient011Login(String userName, String password) {
         this();
         this.userName = userName;
         this.password = password;
