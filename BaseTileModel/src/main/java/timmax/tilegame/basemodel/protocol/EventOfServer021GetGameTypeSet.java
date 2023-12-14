@@ -8,7 +8,7 @@ import java.util.List;
 
 import timmax.tilegame.transport.TransportOfClient;
 
-import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.GET_GAME_TYPE_SET;
+import static timmax.tilegame.basemodel.protocol.TypeOfEvent.GET_GAME_TYPE_SET;
 
 public class EventOfServer021GetGameTypeSet<T> extends EventOfServer<T> {
     List<String> arrayListOfServerBaseModelClass = new ArrayList<>();
@@ -37,7 +37,7 @@ public class EventOfServer021GetGameTypeSet<T> extends EventOfServer<T> {
 
     @Override
     public String toString() {
-        return "TransportPackageOfServer021GetGameTypeSet{" +
+        return "EventOfServer021GetGameTypeSet{" +
                 "arrayListOfServerBaseModelClass=" + arrayListOfServerBaseModelClass +
                 '}';
     }

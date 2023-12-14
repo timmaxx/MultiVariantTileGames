@@ -1,7 +1,7 @@
 package timmax.tilegame.basemodel.protocol;
 
 // ToDo: Удалить перечисление.
-public enum TypeOfTransportPackage {
+public enum TypeOfEvent {
     CLOSE,
     OPEN,
     LOGOUT,

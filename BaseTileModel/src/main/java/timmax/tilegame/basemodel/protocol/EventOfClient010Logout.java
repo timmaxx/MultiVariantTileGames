@@ -13,6 +13,6 @@ public class EventOfClient010Logout<T> extends EventOfClient<T> {
 
     @Override
     public String toString() {
-        return "TransportPackageOfClient010Logout{}";
+        return "EventOfClient010Logout{}";
     }
 }

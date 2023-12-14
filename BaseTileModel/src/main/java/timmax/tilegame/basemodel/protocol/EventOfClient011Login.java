@@ -39,7 +39,7 @@ public class EventOfClient011Login<T> extends EventOfClient<T> {
 
     @Override
     public String toString() {
-        return "TransportPackageOfClient011Login{" +
+        return "EventOfClient011Login{" +
                 "userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 '}';

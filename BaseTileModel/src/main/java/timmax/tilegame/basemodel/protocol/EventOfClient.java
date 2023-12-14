@@ -8,15 +8,15 @@ public abstract class EventOfClient<T> extends Event {
 
     @Override
     public String toString() {
-        return "TransportPackageOfClient{}";
+        return "EventOfClient{}";
     }
 
-    // sendLogoutAnswer используется только в классе TransportPackageOfClient011Login
+    // sendLogoutAnswer используется только в классе EventOfClient011Login
     protected void sendLogoutAnswer(TransportOfServer<T> transportOfServer, T clientId) {
         transportOfServer.send(clientId, new EventOfServer010Logout<>());
     }
 
-    // sendLoginAnswer используется только в классе TransportPackageOfClient010Logout и TransportPackageOfClient010Logout
+    // sendLoginAnswer используется только в классе EventOfClient010Logout и EventOfClient010Logout
     protected void sendLoginAnswer(TransportOfServer<T> transportOfServer, T clientId, String userName) {
         transportOfServer.send(clientId, new EventOfServer011Login<>(userName));
     }

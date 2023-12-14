@@ -2,7 +2,7 @@ package timmax.tilegame.basemodel.protocol;
 
 import timmax.tilegame.transport.TransportOfClient;
 
-import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.FORGET_GAME_TYPE;
+import static timmax.tilegame.basemodel.protocol.TypeOfEvent.FORGET_GAME_TYPE;
 
 public class EventOfServer30ForgetGameType<T> extends EventOfServer<T> {
 
@@ -16,6 +16,6 @@ public class EventOfServer30ForgetGameType<T> extends EventOfServer<T> {
 
     @Override
     public String toString() {
-        return "TransportPackageOfServer30ForgetGameType{}";
+        return "EventOfServer30ForgetGameType{}";
     }
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import timmax.tilegame.transport.TransportOfClient;
 
-import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.FORGET_GAME_TYPE_SET;
+import static timmax.tilegame.basemodel.protocol.TypeOfEvent.FORGET_GAME_TYPE_SET;
 
 public class EventOfServer020ForgetGameTypeSet<T> extends EventOfServer<T> {
 
@@ -22,6 +22,6 @@ public class EventOfServer020ForgetGameTypeSet<T> extends EventOfServer<T> {
 
     @Override
     public String toString() {
-        return "TransportPackageOfServerLogout{}";
+        return "EventOfServerLogout{}";
     }
 }

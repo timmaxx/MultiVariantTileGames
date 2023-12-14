@@ -12,6 +12,6 @@ public class EventOfClient020ForgetGameTypeSet<T> extends EventOfClient<T> {
 
     @Override
     public String toString() {
-        return "TransportPackageOfClient020ForgetGameTypeSet{}";
+        return "EventOfClient020ForgetGameTypeSet{}";
     }
 }

@@ -6,7 +6,7 @@ import java.io.ObjectOutput;
 
 import timmax.tilegame.transport.TransportOfClient;
 
-import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.LOGIN;
+import static timmax.tilegame.basemodel.protocol.TypeOfEvent.LOGIN;
 
 public class EventOfServer011Login<T> extends EventOfServer<T> {
     private /*final*/ String userName;
@@ -30,7 +30,7 @@ public class EventOfServer011Login<T> extends EventOfServer<T> {
 
     @Override
     public String toString() {
-        return "TransportPackageOfServer011Login{" +
+        return "EventOfServer011Login{" +
                 "userName='" + userName + '\'' +
                 '}';
     }

@@ -8,6 +8,6 @@ public abstract class EventOfServer<T> extends Event {
 
     @Override
     public String toString() {
-        return "TransportPackageOfServer{}";
+        return "EventOfServer{}";
     }
 }

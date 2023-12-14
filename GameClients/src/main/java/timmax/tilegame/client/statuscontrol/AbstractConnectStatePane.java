@@ -8,10 +8,10 @@ import javafx.scene.layout.HBox;
 
 import timmax.tilegame.basemodel.protocol.ClientState;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
-import timmax.tilegame.basemodel.protocol.TypeOfTransportPackage;
+import timmax.tilegame.basemodel.protocol.TypeOfEvent;
 import timmax.tilegame.websocket.client.MultiGameWebSocketClientManyTimesUse;
 
-import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
+import static timmax.tilegame.basemodel.protocol.TypeOfEvent.*;
 
 public abstract class AbstractConnectStatePane extends HBox implements ObserverOnAbstractEvent {
     MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse;
@@ -89,25 +89,25 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     //  Not on FX application thread
     //  Например:
     //  Exception in thread "WebSocketConnectReadThread-25" java.lang.IllegalStateException: Not on FX application thread; currentThread = WebSocketConnectReadThread-25
-    public final void update(TypeOfTransportPackage typeOfTransportPackage) {
+    public final void update(TypeOfEvent typeOfEvent) {
         Platform.runLater(() -> {
-            if (typeOfTransportPackage == CLOSE) {
+            if (typeOfEvent == CLOSE) {
                 updateOnClose();
-            } else if (typeOfTransportPackage == OPEN) {
+            } else if (typeOfEvent == OPEN) {
                 updateOnOpen();
-            } else if (typeOfTransportPackage == LOGOUT) {
+            } else if (typeOfEvent == LOGOUT) {
                 updateOnLogout();
-            } else if (typeOfTransportPackage == LOGIN) {
+            } else if (typeOfEvent == LOGIN) {
                 updateOnLogin();
-            } else if (typeOfTransportPackage == FORGET_GAME_TYPE_SET) {
+            } else if (typeOfEvent == FORGET_GAME_TYPE_SET) {
                 updateOnForgetGameTypeSet();
-            } else if (typeOfTransportPackage == GET_GAME_TYPE_SET) {
+            } else if (typeOfEvent == GET_GAME_TYPE_SET) {
                 updateOnGetGameTypeSet();
-            } else if (typeOfTransportPackage == FORGET_GAME_TYPE) {
+            } else if (typeOfEvent == FORGET_GAME_TYPE) {
                 updateOnForgetGameType();
-            } else if (typeOfTransportPackage == SELECT_GAME_TYPE) {
+            } else if (typeOfEvent == SELECT_GAME_TYPE) {
                 updateOnSelectGameType();
-            } else if (typeOfTransportPackage == ADD_VIEW) {
+            } else if (typeOfEvent == ADD_VIEW) {
                 updateOnAddView();
             }
         });

@@ -28,7 +28,7 @@ public class EventOfClient92GameEvent<T> extends EventOfClient<T> {
 
     @Override
     public String toString() {
-        return "TransportPackageOfClient92GameEvent{" +
+        return "EventOfClient92GameEvent{" +
                 "gameEvent=" + gameEvent +
                 '}';
     }

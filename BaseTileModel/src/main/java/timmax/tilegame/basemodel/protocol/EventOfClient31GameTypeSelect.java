@@ -37,7 +37,7 @@ public class EventOfClient31GameTypeSelect<T> extends EventOfClient<T> {
 
     @Override
     public String toString() {
-        return "TransportPackageOfClient31GameTypeSelect{" +
+        return "EventOfClient31GameTypeSelect{" +
                 "serverBaseModelClass='" + serverBaseModelClass + '\'' +
                 '}';
     }

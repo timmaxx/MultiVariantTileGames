@@ -14,7 +14,7 @@ import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfClient;
 
-import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.*;
+import static timmax.tilegame.basemodel.protocol.TypeOfEvent.*;
 
 public class MultiGameWebSocketClient extends WebSocketClient implements TransportOfClient<Object> {
     final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();

@@ -6,7 +6,7 @@ import java.io.ObjectOutput;
 
 import timmax.tilegame.transport.TransportOfClient;
 
-import static timmax.tilegame.basemodel.protocol.TypeOfTransportPackage.SELECT_GAME_TYPE;
+import static timmax.tilegame.basemodel.protocol.TypeOfEvent.SELECT_GAME_TYPE;
 
 public class EventOfServer31GameTypeSelect<T> extends EventOfServer<T> {
     private String serverBaseModelClass;
@@ -30,7 +30,7 @@ public class EventOfServer31GameTypeSelect<T> extends EventOfServer<T> {
 
     @Override
     public String toString() {
-        return "TransportPackageOfServer31GameTypeSelect{" +
+        return "EventOfServer31GameTypeSelect{" +
                 "serverBaseModelClass='" + serverBaseModelClass + '\'' +
                 '}';
     }
