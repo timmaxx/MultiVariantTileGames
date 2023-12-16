@@ -80,6 +80,12 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     protected void updateOnSelectGameType() {
     }
 
+    protected void updateOnCreateNewGame() {
+    }
+
+    protected void updateOnCloseGame() {
+    }
+
     protected void updateOnAddView() {
     }
 
@@ -107,6 +113,10 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
                 updateOnForgetGameType();
             } else if (typeOfEvent == SELECT_GAME_TYPE) {
                 updateOnSelectGameType();
+            } else if (typeOfEvent == CREATE_NEW_GAME) {
+                updateOnCreateNewGame();
+            } else if (typeOfEvent == CLOSE_GAME) {
+                updateOnCloseGame();
             } else if (typeOfEvent == ADD_VIEW) {
                 updateOnAddView();
             }

@@ -22,5 +22,6 @@ public enum TypeOfEvent {
 */
     ADD_VIEW,
     CREATE_NEW_GAME,
-    GAME_EVENT
+    GAME_EVENT,
+    CLOSE_GAME
 }

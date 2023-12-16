@@ -10,7 +10,7 @@ import timmax.tilegame.guiengine.jfx.controller.GameStackPaneController;
 import timmax.tilegame.guiengine.jfx.view.ViewJfx;
 
 public abstract class GameClientPaneJfx extends VBox {
-    public GameClientPaneJfx(Stage primaryStage, BaseModel netModel, TransportOfClient transportOfClient) {
+    public GameClientPaneJfx(Stage primaryStage, BaseModel netModel, TransportOfClient<Object> transportOfClient) {
         // Pane root = new VBox();
 /*
         GameStackPaneController gameStackPaneController = initGameStackPaneController(transportOfController);
@@ -29,7 +29,7 @@ public abstract class GameClientPaneJfx extends VBox {
 */
         primaryStage.setTitle(initAppTitle());
 
-        netModel.createNewGame();
+        // netModel.createNewGame();
     }
 /*
     abstract protected List<Node> initNodeList(BaseModel baseModel, TransportOfController transportOfController);

@@ -11,14 +11,20 @@ import java.util.List;
 public class Pane09Gaming extends AbstractConnectStatePane {
     private final Pane pane;
 
-
     public Pane09Gaming(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
         super(multiGameWebSocketClientManyTimesUse);
+
+        Button buttonNewGame = new Button("Start new game");
 
         pane = new Pane();
         pane.setPrefWidth(200);
         pane.setPrefHeight(300);
         Button buttonQuitGame = new Button("Quit the game");
+
+        buttonNewGame.setOnAction( event -> {
+            disableAllControls();
+            multiGameWebSocketClientManyTimesUse.createNewGame();
+        });
 
         buttonQuitGame.setOnAction(event -> {
             disableAllControls();
@@ -27,7 +33,7 @@ public class Pane09Gaming extends AbstractConnectStatePane {
         });
 
         setListsOfControlsAndAllDisable(
-                List.of(),
+                List.of(buttonNewGame),
                 List.of(pane, buttonQuitGame)
         );
     }
@@ -59,34 +65,35 @@ public class Pane09Gaming extends AbstractConnectStatePane {
 
     @Override
     protected void updateOnGetGameTypeSet() {
-        // setDisableControlsNextState(false);
         disableAllControls();
     }
 
     @Override
     protected void updateOnForgetGameType() {
-        // setDisableControlsNextState(false);
         disableAllControls();
     }
 
     @Override
     protected void updateOnSelectGameType() {
-        //setDisableControlsNextState(false);
-        disableAllControls();
+        // disableAllControls();
         pane.getChildren().clear();
-
-        // BaseModel baseModel;
-
         pane.getChildren().addAll(new SokobanClientPaneJfx((Stage) getScene().getWindow(), multiGameWebSocketClientManyTimesUse, null));
-        // pane.getChildren().addAll(new SokobanClientPaneJfx((Stage) getScene().getWindow(), multiGameWebSocketClientManyTimesUse, multiGameWebSocketClientManyTimesUse));
-        // public SokobanClientPaneJfx(Stage primaryStage, BaseModel baseModel, TransportOfController transportOfController)
+        setDisableControlsNextState(false);
     }
 
     @Override
     protected void updateOnAddView() {
         System.out.println("updateOnAddView()");
-        // ToDo: createNewGame() нужно вызывать не в этом методе.
-        // multiGameWebSocketClientManyTimesUse.createNewGame();
-        setDisableControlsNextState(false);
+        // setDisableControlsNextState(false);
+    }
+
+    @Override
+    protected void updateOnCreateNewGame() {
+        setDisableControlsNextState(true);
+    }
+
+    @Override
+    protected void updateOnCloseGame() {
+        // setDisableControlsNextState(true);
     }
 }
