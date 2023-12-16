@@ -1,0 +1,62 @@
+package java.io;
+
+public interface Serializable {
+// No
+
+// No
+}
+// ----------
+
+package com.fasterxml.jackson.databind;
+
+public class ObjectMapper
+    extends ObjectCodec
+    implements Versioned,
+        java.io.Serializable // as of 2.1
+{
+    private static final long serialVersionUID = 2L;
+...
+
+    public void writeValue(Writer w, Object value)
+        throws IOException, StreamWriteException, DatabindException
+    {
+        _writeValueAndClose(createGenerator(w), value);
+    }
+...
+}
+// ----------
+
+package java.io;
+
+
+
+public abstract class Writer implements Appendable, Closeable, Flushable {
+    private char[] writeBuffer;
+...
+}
+// ----------
+
+package java.io;
+
+public class StringWriter extends Writer {
+    private StringBuffer buf;
+...
+    // Return the buffer's current value as a string.
+    public String toString() {
+        return buf.toString();
+    }
+...
+}
+// ----------
+
+public class MultiGameWebSocketClient extends WebSocketClient {
+  private final ObjectMapper mapper = new ObjectMapper();
+
+  private void send(TransportPackageOfClient transportPackageOfClient) {
+    ...
+    StringWriter writer = new StringWriter();
+    mapper.writeValue(writer, transportPackageOfClient);
+    send(writer.toString());
+    ...
+  }
+}

@@ -1,0 +1,71 @@
+package java.io;
+
+public interface Externalizable extends java.io.Serializable {
+    void writeExternal(ObjectOutput out) throws IOException;
+
+    void readExternal(ObjectInput in) throws IOException, ClassNotFoundException;
+}
+// ----------
+
+package java.io;
+
+public interface ObjectOutput extends DataOutput, AutoCloseable {
+    public void writeObject(Object obj) throws IOException;
+
+    public void write(int b) throws IOException;
+}
+// ----------
+
+package timmax.tilegame.basemodel.protocol;
+// Мой класс.
+public class ObjectMapperOfMvtg implements Externalizable {
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+    }
+
+    public void writeValue(OutputStream w, Object value) {
+    }
+}
+
+
+
+// ----------
+
+package java.io;
+
+import java.util.Objects;
+
+public abstract class OutputStream implements Closeable, Flushable {
+
+...
+}
+// ----------
+
+package java.io;
+
+public class ByteArrayOutputStream extends OutputStream {
+    // The buffer where data is stored.
+    protected byte buf[];
+...
+    public synchronized byte[] toByteArray() {
+        return Arrays.copyOf(buf, count);
+    }
+...
+}
+// ----------
+
+public class MultiGameWebSocketClient extends WebSocketClient {
+  private final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
+
+  private void send(TransportPackageOfClient transportPackageOfClient) {
+    ...
+    ByteArrayOutputStream writer = new ByteArrayOutputStream();
+    mapper.writeValue(writer, transportPackageOfClient);
+    send(writer.toByteArray());
+    ...
+  }
+}
