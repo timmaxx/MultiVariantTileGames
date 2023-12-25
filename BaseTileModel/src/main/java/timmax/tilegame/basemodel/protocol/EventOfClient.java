@@ -4,7 +4,7 @@ import timmax.tilegame.transport.TransportOfServer;
 
 public abstract class EventOfClient<T> extends Event {
 
-    public abstract void execute(TransportOfServer<T> transportOfServer, T clientId);
+    public abstract void executeOnServer(TransportOfServer<T> transportOfServer, T clientId);
 
     @Override
     public String toString() {

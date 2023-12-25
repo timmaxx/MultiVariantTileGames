@@ -22,7 +22,7 @@ public class EventOfClient011Login<T> extends EventOfClient<T> {
     }
 
     @Override
-    public void execute(TransportOfServer<T> transportOfServer, T clientId) {
+    public void executeOnServer(TransportOfServer<T> transportOfServer, T clientId) {
         System.out.println("  onLogin");
 
         System.out.println("    userName = " + userName + " | " + "password = *"); // Пароль не выводим:

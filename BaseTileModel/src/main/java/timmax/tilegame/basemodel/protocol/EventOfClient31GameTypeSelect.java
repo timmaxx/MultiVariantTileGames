@@ -19,7 +19,7 @@ public class EventOfClient31GameTypeSelect<T> extends EventOfClient<T> {
     }
 
     @Override
-    public void execute(TransportOfServer<T> transportOfServer, T clientId) {
+    public void executeOnServer(TransportOfServer<T> transportOfServer, T clientId) {
         System.out.println("  onSelectGameType");
 
         // ToDo: Проверить, что model одна из списка возможных моделей, которые были отправлены ранее этому клиенту.
