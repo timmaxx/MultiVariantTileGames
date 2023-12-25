@@ -7,7 +7,7 @@ import static timmax.tilegame.basemodel.protocol.TypeOfEvent.LOGOUT;
 public class EventOfServer010Logout<T> extends EventOfServer<T> {
 
     @Override
-    public void execute(TransportOfClient<T> transportOfClient) {
+    public void executeOnClient(TransportOfClient<T> transportOfClient) {
         System.out.println("  onLogout");
 
         // Todo: улучшить качество кода:

@@ -19,7 +19,7 @@ public class EventOfServer91AddView<T> extends EventOfServer<T> {
     }
 
     @Override
-    public void execute(TransportOfClient<T> transportOfClient) {
+    public void executeOnClient(TransportOfClient<T> transportOfClient) {
         System.out.println("  onAddView");
 
         System.out.println("    viewId = " + viewId);

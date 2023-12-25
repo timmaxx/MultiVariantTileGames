@@ -21,7 +21,7 @@ public class EventOfServer31GameTypeSelect<T> extends EventOfServer<T> {
     }
 
     @Override
-    public void execute(TransportOfClient<T> transportOfClient) {
+    public void executeOnClient(TransportOfClient<T> transportOfClient) {
         System.out.println("  onSelectGameType");
 
         transportOfClient.getClientState().setServerBaseModelClass(serverBaseModelClass);

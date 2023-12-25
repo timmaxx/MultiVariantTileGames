@@ -9,7 +9,7 @@ import static timmax.tilegame.basemodel.protocol.TypeOfEvent.FORGET_GAME_TYPE_SE
 public class EventOfServer020ForgetGameTypeSet<T> extends EventOfServer<T> {
 
     @Override
-    public void execute(TransportOfClient<T> transportOfClient) {
+    public void executeOnClient(TransportOfClient<T> transportOfClient) {
         System.out.println("  onForgetGameTypeSet");
 
         // Todo: улучшить качество кода:

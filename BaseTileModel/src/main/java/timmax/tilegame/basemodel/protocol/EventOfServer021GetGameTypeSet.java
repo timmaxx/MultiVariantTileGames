@@ -24,7 +24,7 @@ public class EventOfServer021GetGameTypeSet<T> extends EventOfServer<T> {
     }
 
     @Override
-    public void execute(TransportOfClient<T> transportOfClient) {
+    public void executeOnClient(TransportOfClient<T> transportOfClient) {
         System.out.println("  onGetGameTypeSet");
 
         transportOfClient.getClientState().setArrayListOfServerBaseModelClass(new ArrayList<>());
@@ -49,6 +49,20 @@ public class EventOfServer021GetGameTypeSet<T> extends EventOfServer<T> {
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        arrayListOfServerBaseModelClass = (List<String>) in.readObject();
+        Object obj = in.readObject();
+        if (obj instanceof List<?> listOfObj) {
+            for (Object objOfList : listOfObj) {
+                if (!(objOfList instanceof String)) {
+                    System.err.println("class EventOfServer021GetGameTypeSet\n method void readExternal(ObjectInput in)\n  element of collections is not String");
+                    System.exit(1);
+                }
+            }
+            @SuppressWarnings("unchecked")
+            List<String> arrayListOfServerBaseModelClassTmp = (List<String>) listOfObj;
+            arrayListOfServerBaseModelClass = arrayListOfServerBaseModelClassTmp;
+        } else {
+            System.err.println("class EventOfServer021GetGameTypeSet\n method void readExternal(ObjectInput in)\n  in.readObject() is not instance of List");
+            System.exit(1);
+        }
     }
 }
