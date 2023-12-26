@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
+import timmax.tilegame.transport.TransportOfClient;
 import timmax.tilegame.transport.TransportOfServer;
 
 public class GameEventNewGame extends GameEvent {
@@ -28,8 +29,15 @@ public class GameEventNewGame extends GameEvent {
 
     @Override
     public <T> void executeOnServer(TransportOfServer<T> transportOfServer, T clientId) {
-        System.out.println("    onCreateNewGame");
+        System.out.println("    onNewGame");
         transportOfServer.getModelOfServer().createNewGame();
+    }
+
+    @Override
+    public <T> void executeOnClient(TransportOfClient<T> transportOfClient) {
+        System.out.println("    onNewGame");
+        System.out.println("      (width = " + width + ", height = " + height + ")");
+        // ToDo: Построить поле шириной width и высотой height
     }
 
     @Override
