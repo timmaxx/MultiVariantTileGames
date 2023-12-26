@@ -30,7 +30,7 @@ public class EventOfServer92GameEvent<T> extends EventOfServer<T> {
 
     @Override
     public String toString() {
-        return "EventOfServer93GameEvent{" +
+        return "EventOfServer92GameEvent{" +
                 "viewId='" + viewId + '\'' +
                 ", gameEvent=" + gameEvent +
                 '}';
