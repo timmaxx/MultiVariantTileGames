@@ -17,9 +17,9 @@ import timmax.tilegame.transport.TransportOfClient;
 import static timmax.tilegame.basemodel.protocol.TypeOfEvent.*;
 
 public class MultiGameWebSocketClient extends WebSocketClient implements TransportOfClient<Object> {
-    final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
-    final ClientState<Object> clientState;
-    final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
+    private final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
+    private final ClientState<Object> clientState;
+    private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
 
     public MultiGameWebSocketClient(URI serverUri, ClientState<Object> clientState, HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent) {
         super(serverUri);
