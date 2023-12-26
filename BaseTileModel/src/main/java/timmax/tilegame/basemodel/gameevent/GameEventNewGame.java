@@ -27,7 +27,7 @@ public class GameEventNewGame extends GameEvent {
     }
 
     @Override
-    public <T> void execute(TransportOfServer<T> transportOfServer, T clientId) {
+    public <T> void executeOnServer(TransportOfServer<T> transportOfServer, T clientId) {
         System.out.println("    onCreateNewGame");
         transportOfServer.getModelOfServer().createNewGame();
     }
