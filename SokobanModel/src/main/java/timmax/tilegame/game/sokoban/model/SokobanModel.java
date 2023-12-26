@@ -22,7 +22,7 @@ import timmax.tilegame.game.sokoban.model.route.Step;
 import static timmax.tilegame.basemodel.GameStatus.*;
 import static timmax.tilegame.game.sokoban.model.gameobject.WhoMovableInTile.*;
 
-public class SokobanModel extends ServerBaseModel {
+public class SokobanModel<T> extends ServerBaseModel<T> {
     private static LevelLoader levelLoader;
 
     private final CurrentLevel currentLevel = new CurrentLevel();
@@ -32,17 +32,16 @@ public class SokobanModel extends ServerBaseModel {
     private Route route;
     private Route routeRedo = new Route();
 
-
     static {
         try {
             levelLoader = new LevelLoader(Paths.get(Objects.requireNonNull(SokobanModel.class.getResource("levels.txt")).toURI()));
         } catch (URISyntaxException | NullPointerException exception) {
-            System.err.println(exception);
+            exception.printStackTrace();
             System.exit(1);
         }
     }
 
-    public <T> SokobanModel(TransportOfServer<T> transportOfServer) {
+    public SokobanModel(TransportOfServer<T> transportOfServer) {
         super(transportOfServer);
     }
 
@@ -54,16 +53,16 @@ public class SokobanModel extends ServerBaseModel {
             for (int x = 0; x < allSokobanObjects.getWidth(); x++) {
                 WhoPersistentInTile whoPersistentInTile = allSokobanObjects.getWhoPersistentInTile(x, y);
                 WhoMovableInTile whoMovableInTile = allSokobanObjects.getWhoMovableInTile(x, y);
-                addGameEventIntoQueueAndNotifyViews(new GameEventOneTileSokobanChangeable(x, y, whoPersistentInTile, whoMovableInTile));
+                sendGameEvent(new GameEventOneTileSokobanChangeable(x, y, whoPersistentInTile, whoMovableInTile));
             }
         }
         route = new Route();
         routeRedo = new Route();
 
-        addGameEventIntoQueueAndNotifyViews(new GameEventSokobanPersistentParams(allSokobanObjects.getCountOfHomesBoxes()));
-        addGameEventIntoQueueAndNotifyViews(new GameEventSokobanVariableParamsCountOfSteps(0));
+        sendGameEvent(new GameEventSokobanPersistentParams(allSokobanObjects.getCountOfHomesBoxes()));
+        sendGameEvent(new GameEventSokobanVariableParamsCountOfSteps(0));
         calcCountOfBoxesInHomes();
-        addGameEventIntoQueueAndNotifyViews(new GameEventSokobanVariableParamsCountOfBoxesInHouses(countOfBoxesInHomes));
+        sendGameEvent(new GameEventSokobanVariableParamsCountOfBoxesInHouses(countOfBoxesInHomes));
     }
 
     public void moveUndo() {
@@ -88,7 +87,7 @@ public class SokobanModel extends ServerBaseModel {
                     box.move(step.oppositeStepDirection());
 
                     WhoPersistentInTile oldWhoPersistentInTile = allSokobanObjects.getWhoPersistentInTile(oldBoxX, oldBoxY);
-                    addGameEventIntoQueueAndNotifyViews(new GameEventOneTileSokobanChangeable(oldBoxX, oldBoxY, oldWhoPersistentInTile, IS_NOBODY));
+                    sendGameEvent(new GameEventOneTileSokobanChangeable(oldBoxX, oldBoxY, oldWhoPersistentInTile, IS_NOBODY));
 
                     break;
                 }
@@ -103,10 +102,10 @@ public class SokobanModel extends ServerBaseModel {
         addGameEventAboutPlayer(direction, player, oldWhoMovableInTile);
         routeRedo.push(step);
 
-        addGameEventIntoQueueAndNotifyViews(new GameEventSokobanVariableParamsCountOfSteps(route.size()));
+        sendGameEvent(new GameEventSokobanVariableParamsCountOfSteps(route.size()));
         if (step.isBoxMoved()) {
             calcCountOfBoxesInHomes();
-            addGameEventIntoQueueAndNotifyViews(new GameEventSokobanVariableParamsCountOfBoxesInHouses(countOfBoxesInHomes));
+            sendGameEvent(new GameEventSokobanVariableParamsCountOfBoxesInHouses(countOfBoxesInHomes));
         }
     }
 
@@ -174,7 +173,7 @@ public class SokobanModel extends ServerBaseModel {
                 newBoxY = box.getY();
 
                 WhoPersistentInTile newWhoPersistentInTile = allSokobanObjects.getWhoPersistentInTile(newBoxX, newBoxY);
-                addGameEventIntoQueueAndNotifyViews(new GameEventOneTileSokobanChangeable(newBoxX, newBoxY, newWhoPersistentInTile, IS_BOX));
+                sendGameEvent(new GameEventOneTileSokobanChangeable(newBoxX, newBoxY, newWhoPersistentInTile, IS_BOX));
 
                 isBoxMoved = true;
                 break;
@@ -184,10 +183,10 @@ public class SokobanModel extends ServerBaseModel {
         addGameEventAboutPlayer(direction, player, IS_NOBODY);
         route.push(new Step(direction, isBoxMoved));
 
-        addGameEventIntoQueueAndNotifyViews(new GameEventSokobanVariableParamsCountOfSteps(route.size()));
+        sendGameEvent(new GameEventSokobanVariableParamsCountOfSteps(route.size()));
         if (isBoxMoved) {
             calcCountOfBoxesInHomes();
-            addGameEventIntoQueueAndNotifyViews(new GameEventSokobanVariableParamsCountOfBoxesInHouses(countOfBoxesInHomes));
+            sendGameEvent(new GameEventSokobanVariableParamsCountOfBoxesInHouses(countOfBoxesInHomes));
         }
 
         checkCompletion();
@@ -201,14 +200,14 @@ public class SokobanModel extends ServerBaseModel {
         x = player.getX();
         y = player.getY();
         whoPersistentInTile = allSokobanObjects.getWhoPersistentInTile(x, y);
-        addGameEventIntoQueueAndNotifyViews(new GameEventOneTileSokobanChangeable(x, y, whoPersistentInTile, whoMovableInTile));
+        sendGameEvent(new GameEventOneTileSokobanChangeable(x, y, whoPersistentInTile, whoMovableInTile));
 
         player.move(direction);
 
         x = player.getX();
         y = player.getY();
         whoPersistentInTile = allSokobanObjects.getWhoPersistentInTile(x, y);
-        addGameEventIntoQueueAndNotifyViews(new GameEventOneTileSokobanChangeable(x, y, whoPersistentInTile, IS_PLAYER));
+        sendGameEvent(new GameEventOneTileSokobanChangeable(x, y, whoPersistentInTile, IS_PLAYER));
     }
 
     private void calcCountOfBoxesInHomes() {
@@ -236,7 +235,7 @@ public class SokobanModel extends ServerBaseModel {
     public void win() {
         setGameStatus(GameStatus.VICTORY);
         currentLevel.incValue();
-        addGameEventIntoQueueAndNotifyViews(new GameEventGameOver(VICTORY));
+        sendGameEvent(new GameEventGameOver(VICTORY));
     }
 
     @Override
@@ -246,7 +245,7 @@ public class SokobanModel extends ServerBaseModel {
         }
         setGameStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
         currentLevel.incValue();
-        addGameEventIntoQueueAndNotifyViews(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
+        sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
     }
 
     @Override
@@ -256,7 +255,7 @@ public class SokobanModel extends ServerBaseModel {
         }
         setGameStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
         currentLevel.decValue();
-        addGameEventIntoQueueAndNotifyViews(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
+        sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
     }
 
     @Override
@@ -265,6 +264,6 @@ public class SokobanModel extends ServerBaseModel {
             return;
         }
         setGameStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
-        addGameEventIntoQueueAndNotifyViews(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
+        sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
     }
 }

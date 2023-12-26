@@ -23,7 +23,7 @@ public class EventOfServer92GameEvent<T> extends EventOfServer<T> {
 
     @Override
     public void executeOnClient(TransportOfClient<T> transportOfClient) {
-        System.out.println("  onGameEvent !!!");
+        System.out.println("  onGameEvent");
         gameEvent.executeOnClient(transportOfClient);
     }
 

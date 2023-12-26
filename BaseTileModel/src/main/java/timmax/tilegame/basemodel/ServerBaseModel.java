@@ -6,17 +6,17 @@ import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfServer;
 
 // Базовая модель
-public abstract class ServerBaseModel implements BaseModel {
+public abstract class ServerBaseModel<T> implements BaseModel {
     private final static int MIN_WIDTH = 2;
     private final static int MAX_WIDTH = 100;
     private final static int MIN_HEIGHT = 2;
     private final static int MAX_HEIGHT = 100;
 
     private GameStatus gameStatus;
-    protected TransportOfServer transportOfServer;
+    protected TransportOfServer<T> transportOfServer;
 
 
-    public ServerBaseModel(TransportOfServer transportOfServer) {
+    public ServerBaseModel(TransportOfServer<T> transportOfServer) {
         this.transportOfServer = transportOfServer;
     }
 
@@ -27,10 +27,10 @@ public abstract class ServerBaseModel implements BaseModel {
     protected void createNewGame(int width, int height) {
         validateWidthHeight(width, height);
         gameStatus = GameStatus.GAME;
-        addGameEventIntoQueueAndNotifyViews(new GameEventNewGame(width, height));
+        sendGameEvent(new GameEventNewGame(width, height));
     }
 
-    public void addGameEventIntoQueueAndNotifyViews(GameEvent gameEvent) {
+    public void sendGameEvent(GameEvent gameEvent) {
         transportOfServer.sendGameEvent(gameEvent);
     }
 
