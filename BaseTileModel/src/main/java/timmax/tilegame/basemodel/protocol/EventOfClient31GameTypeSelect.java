@@ -32,7 +32,7 @@ public class EventOfClient31GameTypeSelect<T> extends EventOfClient<T> {
             System.out.println("    modelOfServer = " + transportOfServer.getModelOfServer());
         }
 
-        transportOfServer.send(clientId, new EventOfServer31GameTypeSelect<>(serverBaseModelClass));
+        transportOfServer.send(clientId, new EventOfServer31GameTypeSelect(serverBaseModelClass));
     }
 
     @Override

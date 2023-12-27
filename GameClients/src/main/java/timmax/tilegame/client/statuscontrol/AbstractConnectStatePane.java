@@ -6,7 +6,7 @@ import javafx.application.Platform;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.HBox;
 
-import timmax.tilegame.basemodel.protocol.ClientState;
+import timmax.tilegame.basemodel.protocol.client.LocalClientState;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.TypeOfEvent;
 import timmax.tilegame.websocket.client.MultiGameWebSocketClientManyTimesUse;
@@ -17,11 +17,11 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse;
     private List<Region> listOfControlsNextState;
     private List<Region> listOfControlsPrevState;
-    protected ClientState<Object> clientState;
+    protected LocalClientState localClientState;
 
     public AbstractConnectStatePane(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
         this.multiGameWebSocketClientManyTimesUse = multiGameWebSocketClientManyTimesUse;
-        this.clientState = multiGameWebSocketClientManyTimesUse.getClientState();
+        this.localClientState = multiGameWebSocketClientManyTimesUse.getLocalClientState();
     }
 
     public void setListsOfControlsAndAllDisable(

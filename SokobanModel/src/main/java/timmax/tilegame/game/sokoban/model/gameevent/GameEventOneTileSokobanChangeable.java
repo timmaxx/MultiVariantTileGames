@@ -5,10 +5,10 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
+import timmax.tilegame.transport.TransportOfClient;
 
 import timmax.tilegame.game.sokoban.model.gameobject.WhoMovableInTile;
 import timmax.tilegame.game.sokoban.model.gameobject.WhoPersistentInTile;
-import timmax.tilegame.transport.TransportOfClient;
 
 public class GameEventOneTileSokobanChangeable extends GameEventOneTile {
     // final (в этом классе и в любом, который реализует Externalizable) пришлось убрать из-за readExternal.
@@ -43,7 +43,7 @@ public class GameEventOneTileSokobanChangeable extends GameEventOneTile {
     }
 
     @Override
-    public <T> void executeOnClient(TransportOfClient<T> transportOfClient) {
+    public void executeOnClient(TransportOfClient transportOfClient) {
         System.out.println("    onOneTileSokobanChangeable");
         System.out.println("      (" + getX() + " , " + getY() + ")");
         // ToDo: Перерисовать плитку (x, y)

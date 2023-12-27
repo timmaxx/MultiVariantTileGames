@@ -7,7 +7,7 @@ public class EventOfClient020ForgetGameTypeSet<T> extends EventOfClient<T> {
     @Override
     public void executeOnServer(TransportOfServer<T> transportOfServer, T clientId) {
         System.out.println("  onForgetGameTypeSet");
-        transportOfServer.send(clientId, new EventOfServer020ForgetGameTypeSet<>());
+        transportOfServer.send(clientId, new EventOfServer020ForgetGameTypeSet());
     }
 
     @Override

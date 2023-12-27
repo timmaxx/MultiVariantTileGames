@@ -1,14 +1,14 @@
 package timmax.tilegame.basemodel.protocol.server;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.transport.TransportOfServer;
 
-public class SetOfRemoteView<T> extends HashSet<RemoteView<T>> {
-    protected TransportOfServer<T> transportOfServer;
+public class ListOfRemoteView<T> extends ArrayList<RemoteView<T>> {
+    private final TransportOfServer<T> transportOfServer;
 
-    public SetOfRemoteView(TransportOfServer<T> transportOfServer) {
+    public ListOfRemoteView(TransportOfServer<T> transportOfServer) {
         super();
         this.transportOfServer = transportOfServer;
     }

@@ -31,12 +31,12 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
 
     @Override
     public void sendGameEvent(RemoteView<WebSocket> remoteView, GameEvent gameEvent) {
-        EventOfServer<WebSocket> eventOfServer = new EventOfServer92GameEvent<>(remoteView.getClientId().toString(), gameEvent);
+        EventOfServer eventOfServer = new EventOfServer92GameEvent(remoteView.getClientId().toString(), gameEvent);
         send(remoteView.getClientId(), eventOfServer);
     }
 
     @Override
-    public void send(WebSocket clientId, EventOfServer<WebSocket> eventOfServer) {
+    public void send(WebSocket clientId, EventOfServer eventOfServer) {
         System.out.println("  send(WebSocket, EventOfServer<WebSocket>)");
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -50,12 +50,14 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     public ModelOfServer<WebSocket> getModelOfServer() {
         return modelOfServer;
     }
-/*
-    @Override
-    public void setModelOfServer(ModelOfServer<WebSocket> modelOfServer) {
-        this.modelOfServer = modelOfServer;
-    }
-*/
+
+    /*
+        @Override
+        public void setModelOfServer(ModelOfServer<WebSocket> modelOfServer) {
+            this.modelOfServer = modelOfServer;
+        }
+    */
+
     @Override
     public void setModelOfServerTmp() {
         this.modelOfServer = new ModelOfServerOfSokoban<>(this);

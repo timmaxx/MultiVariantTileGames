@@ -11,19 +11,20 @@ import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.gamecommand.GameCommand;
 import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
 import timmax.tilegame.basemodel.protocol.*;
+import timmax.tilegame.basemodel.protocol.client.LocalClientState;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfClient;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfEvent.*;
 
-public class MultiGameWebSocketClient extends WebSocketClient implements TransportOfClient<Object> {
+public class MultiGameWebSocketClient extends WebSocketClient implements TransportOfClient {
     private final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
-    private final ClientState<Object> clientState;
+    private final LocalClientState localClientState;
     private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
 
-    public MultiGameWebSocketClient(URI serverUri, ClientState<Object> clientState, HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent) {
+    public MultiGameWebSocketClient(URI serverUri, LocalClientState localClientState, HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent) {
         super(serverUri);
-        this.clientState = clientState;
+        this.localClientState = localClientState;
         this.hashSetOfObserverOnAbstractEvent = hashSetOfObserverOnAbstractEvent;
         System.out.println(serverUri);
     }
@@ -33,7 +34,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
             return MainGameClientStatus.NO_CONNECT;
         }
         if (isOpen()) {
-            return clientState.getMainGameClientStatus();
+            return localClientState.getMainGameClientStatus();
         }
         throw new RuntimeException("Unknown state.");
     }
@@ -74,7 +75,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     // 9
     public void addView(View view) {
         System.out.println("addView(View)");
-        clientState.addView(view.toString());
+        localClientState.addView(view);
         send(new EventOfClient91AddView<>(view.toString()));
     }
 
@@ -84,7 +85,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     }
 
     @Override
-    public void send(EventOfClient<Object> eventOfClient) {
+    public void send(EventOfClient eventOfClient) {
         System.out.println("  send(EventOfClient<WebSocket>)");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         mapper.writeValue(byteArrayOutputStream, eventOfClient);
@@ -102,7 +103,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     public void onClose(int code, String reason, boolean remote) {
         System.out.println("onClose");
 
-        clientState.setUserName("");
+        localClientState.setUserName("");
         System.out.println("  getMainGameClientStatus() = " + getMainGameClientStatus());
         hashSetOfObserverOnAbstractEvent.updateConnectStatePane(CLOSE);
 
@@ -115,7 +116,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     public void onOpen(ServerHandshake handshakedata) {
         System.out.println("onOpen(ServerHandshake)");
 
-        clientState.setUserName("");
+        localClientState.setUserName("");
         System.out.println("  getMainGameClientStatus() = " + getMainGameClientStatus());
         hashSetOfObserverOnAbstractEvent.updateConnectStatePane(OPEN);
 
@@ -135,11 +136,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         System.out.println("onMessage(ByteBuffer)");
 
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteBuffer.array());
-        // ToDo: Если нет аннотации @SuppressWarnings("unchecked"), то компилятор выдаёт:
-        //       Unchecked assignment: 'timmax.tilegame.basemodel.protocol.EventOfServer' to 'timmax.tilegame.basemodel.protocol.EventOfServer<java.lang.Object>'
-        //       Переделать без аннотации @SuppressWarnings("unchecked")
-        @SuppressWarnings("unchecked")
-        EventOfServer<Object> eventOfServer = mapper.readValue(byteArrayInputStream, EventOfServer.class);
+        EventOfServer eventOfServer = mapper.readValue(byteArrayInputStream, EventOfServer.class);
         System.out.println("  eventOfServer = " + eventOfServer);
         System.out.println("---------- End of onMessage(ByteBuffer)");
 
@@ -158,8 +155,8 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     }
 
     @Override
-    public ClientState<Object> getClientState() {
-        return clientState;
+    public LocalClientState getLocalClientState() {
+        return localClientState;
     }
 
     @Override

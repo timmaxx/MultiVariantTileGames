@@ -3,7 +3,7 @@ package timmax.tilegame.websocket.client;
 import org.java_websocket.client.WebSocketClient;
 
 import timmax.tilegame.basemodel.gamecommand.GameCommand;
-import timmax.tilegame.basemodel.protocol.ClientState;
+import timmax.tilegame.basemodel.protocol.client.LocalClientState;
 import timmax.tilegame.basemodel.protocol.HashSetOfObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.EventOfClient;
 import timmax.tilegame.transport.TransportOfClient;
@@ -33,7 +33,7 @@ public class TransportOfClientWebSocket implements TransportOfClient {
     }
 
     @Override
-    public ClientState<Object> getClientState() {
+    public LocalClientState getLocalClientState() {
         return null;
     }
 

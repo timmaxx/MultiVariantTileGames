@@ -15,7 +15,7 @@ public interface TransportOfServer<T> {
     // 2. М: передача по какому-то транспорту сообщений от модели на выборки
     void sendGameEvent(RemoteView<T> remoteView, GameEvent gameEvent);
 
-    void send(T clientId, EventOfServer<T> transportPackageOfServer);
+    void send(T clientId, EventOfServer transportPackageOfServer);
 
     ModelOfServer<T> getModelOfServer();
 

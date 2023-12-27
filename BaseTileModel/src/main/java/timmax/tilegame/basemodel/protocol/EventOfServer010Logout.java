@@ -4,17 +4,16 @@ import timmax.tilegame.transport.TransportOfClient;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfEvent.LOGOUT;
 
-public class EventOfServer010Logout<T> extends EventOfServer<T> {
-
+public class EventOfServer010Logout extends EventOfServer {
     @Override
-    public void executeOnClient(TransportOfClient<T> transportOfClient) {
+    public void executeOnClient(TransportOfClient transportOfClient) {
         System.out.println("  onLogout");
 
         // Todo: улучшить качество кода:
         //       Вызов метода у объекта объекта - не хорошая практика!
         //       multiGameWebSocketClient.clientState.setUserName
         //       Ну и далее по аналогии.
-        transportOfClient.getClientState().setUserName("");
+        transportOfClient.getLocalClientState().setUserName("");
         transportOfClient.getHashSetOfObserverOnAbstractEvent().updateConnectStatePane(LOGOUT);
     }
 

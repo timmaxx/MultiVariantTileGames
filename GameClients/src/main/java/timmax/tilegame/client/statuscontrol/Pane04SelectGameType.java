@@ -13,7 +13,6 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
     private final ComboBox<String> comboBoxGameTypeSet;
     private final TextField textFieldSelectedGameType;
 
-
     public Pane04SelectGameType(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
         super(multiGameWebSocketClientManyTimesUse);
 
@@ -76,7 +75,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
 
     @Override
     protected void updateOnGetGameTypeSet() {
-        comboBoxGameTypeSet.setItems(FXCollections.observableArrayList(clientState.getArrayListOfServerBaseModelClass()));
+        comboBoxGameTypeSet.setItems(FXCollections.observableArrayList(localClientState.getArrayListOfServerBaseModelClass()));
         textFieldSelectedGameType.setText("");
         setDisableControlsNextState(false);
     }
@@ -89,7 +88,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
 
     @Override
     protected void updateOnSelectGameType() {
-        textFieldSelectedGameType.setText(clientState.getServerBaseModelClass());
+        textFieldSelectedGameType.setText(localClientState.getServerBaseModelClass());
         setDisableControlsNextState(true);
     }
 }

@@ -8,7 +8,7 @@ import timmax.tilegame.transport.TransportOfClient;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfEvent.SELECT_GAME_TYPE;
 
-public class EventOfServer31GameTypeSelect<T> extends EventOfServer<T> {
+public class EventOfServer31GameTypeSelect extends EventOfServer {
     private String serverBaseModelClass;
 
     public EventOfServer31GameTypeSelect() {
@@ -21,10 +21,10 @@ public class EventOfServer31GameTypeSelect<T> extends EventOfServer<T> {
     }
 
     @Override
-    public void executeOnClient(TransportOfClient<T> transportOfClient) {
+    public void executeOnClient(TransportOfClient transportOfClient) {
         System.out.println("  onSelectGameType");
 
-        transportOfClient.getClientState().setServerBaseModelClass(serverBaseModelClass);
+        transportOfClient.getLocalClientState().setServerBaseModelClass(serverBaseModelClass);
         transportOfClient.getHashSetOfObserverOnAbstractEvent().updateConnectStatePane(SELECT_GAME_TYPE);
     }
 

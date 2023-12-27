@@ -4,13 +4,12 @@ import timmax.tilegame.transport.TransportOfClient;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfEvent.FORGET_GAME_TYPE;
 
-public class EventOfServer30ForgetGameType<T> extends EventOfServer<T> {
-
+public class EventOfServer30ForgetGameType extends EventOfServer {
     @Override
-    public void executeOnClient(TransportOfClient<T> transportOfClient) {
+    public void executeOnClient(TransportOfClient transportOfClient) {
         System.out.println("  onForgetGameType");
 
-        transportOfClient.getClientState().setServerBaseModelClass(null);
+        transportOfClient.getLocalClientState().setServerBaseModelClass(null);
         transportOfClient.getHashSetOfObserverOnAbstractEvent().updateConnectStatePane(FORGET_GAME_TYPE);
     }
 

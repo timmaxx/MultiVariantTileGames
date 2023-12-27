@@ -17,12 +17,12 @@ public abstract class ModelOfServer<T> implements IModelOfServer<T> {
     private final static int MIN_HEIGHT = 1; // 2;
     private final static int MAX_HEIGHT = 100;
 
-    private final SetOfRemoteView<T> setOfRemoteViews;
+    private final ListOfRemoteView<T> listOfRemoteViews;
 
     private GameStatus gameStatus;
 
     public ModelOfServer(TransportOfServer<T> transportOfServer) {
-        setOfRemoteViews = new SetOfRemoteView<>(transportOfServer);
+        listOfRemoteViews = new ListOfRemoteView<>(transportOfServer);
     }
 
     protected void createNewGame(int width, int height) {
@@ -33,7 +33,7 @@ public abstract class ModelOfServer<T> implements IModelOfServer<T> {
     }
 
     public void sendGameEvent(GameEvent gameEvent) {
-        setOfRemoteViews.sendGameEvent(gameEvent);
+        listOfRemoteViews.sendGameEvent(gameEvent);
     }
 
     private static void validateWidthHeight(int width, int height) {
@@ -64,6 +64,6 @@ public abstract class ModelOfServer<T> implements IModelOfServer<T> {
 
     @Override
     public final void addRemoteView(RemoteView<T> remoteView) {
-        setOfRemoteViews.add(remoteView);
+        listOfRemoteViews.add(remoteView);
     }
 }

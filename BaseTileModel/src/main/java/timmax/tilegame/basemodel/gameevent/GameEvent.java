@@ -9,6 +9,6 @@ public abstract class GameEvent implements Externalizable {
     public <T> void executeOnServer(TransportOfServer<T> transportOfServer, T clientId) {
     }
 
-    public <T> void executeOnClient(TransportOfClient<T> transportOfClient) {
+    public void executeOnClient(TransportOfClient transportOfClient) {
     }
 }

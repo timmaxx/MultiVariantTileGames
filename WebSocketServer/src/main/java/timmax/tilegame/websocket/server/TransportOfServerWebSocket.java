@@ -45,19 +45,21 @@ public class TransportOfServerWebSocket implements TransportOfServer<WebSocket> 
     public ModelOfServer<WebSocket> getModelOfServer() {
         return null;
     }
-/*
-    @Override
-    public void setModelOfServer(ModelOfServer<WebSocket> modelOfServer) {
-        // this.modelOfServer = modelOfServer;
-    }
-*/
+
+    /*
+        @Override
+        public void setModelOfServer(ModelOfServer<WebSocket> modelOfServer) {
+            // this.modelOfServer = modelOfServer;
+        }
+    */
+
     @Override
     public void setModelOfServerTmp() {
 
     }
 
     @Override
-    public void send(WebSocket clientId, EventOfServer<WebSocket> transportPackageOfServer) {
+    public void send(WebSocket clientId, EventOfServer transportPackageOfServer) {
 
     }
 }

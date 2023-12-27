@@ -6,7 +6,7 @@ import java.io.ObjectOutput;
 
 import timmax.tilegame.transport.TransportOfClient;
 
-public class EventOfServer91AddView<T> extends EventOfServer<T> {
+public class EventOfServer91AddView extends EventOfServer {
     private String viewId;
 
     public EventOfServer91AddView() {
@@ -19,12 +19,12 @@ public class EventOfServer91AddView<T> extends EventOfServer<T> {
     }
 
     @Override
-    public void executeOnClient(TransportOfClient<T> transportOfClient) {
+    public void executeOnClient(TransportOfClient transportOfClient) {
         System.out.println("  onAddView");
 
         System.out.println("    viewId = " + viewId);
 
-        transportOfClient.getClientState().confirmView(viewId);
+        transportOfClient.getLocalClientState().confirmView(viewId);
     }
 
     @Override

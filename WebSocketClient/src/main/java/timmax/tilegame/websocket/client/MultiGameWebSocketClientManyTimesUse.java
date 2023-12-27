@@ -4,13 +4,14 @@ import java.net.URI;
 
 import timmax.tilegame.basemodel.BaseModel;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
-import timmax.tilegame.basemodel.protocol.ClientState;
+import timmax.tilegame.basemodel.protocol.client.LocalClientState;
 import timmax.tilegame.basemodel.protocol.HashSetOfObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.baseview.View;
 
 public class MultiGameWebSocketClientManyTimesUse implements BaseModel {
-    private final ClientState<Object> clientState = new ClientState<>(null);
+    // ToDo: Параметр не должен быть null!
+    private final LocalClientState localClientState = new LocalClientState(null);
     private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent = new HashSetOfObserverOnAbstractEvent();
 
     private MultiGameWebSocketClient multiGameWebSocketClient;
@@ -21,8 +22,8 @@ public class MultiGameWebSocketClientManyTimesUse implements BaseModel {
         hashSetOfObserverOnAbstractEvent.add(observerOnAbstractEvent);
     }
 
-    public ClientState<Object> getClientState() {
-        return clientState;
+    public LocalClientState getLocalClientState() {
+        return localClientState;
     }
 
     public MultiGameWebSocketClientManyTimesUse() {
@@ -53,7 +54,7 @@ public class MultiGameWebSocketClientManyTimesUse implements BaseModel {
     }
 
     public void connect() {
-        multiGameWebSocketClient = new MultiGameWebSocketClient(uri, clientState, hashSetOfObserverOnAbstractEvent);
+        multiGameWebSocketClient = new MultiGameWebSocketClient(uri, localClientState, hashSetOfObserverOnAbstractEvent);
 
         multiGameWebSocketClient.connect();
     }

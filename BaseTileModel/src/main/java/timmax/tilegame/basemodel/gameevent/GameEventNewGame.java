@@ -34,7 +34,7 @@ public class GameEventNewGame extends GameEvent {
     }
 
     @Override
-    public <T> void executeOnClient(TransportOfClient<T> transportOfClient) {
+    public void executeOnClient(TransportOfClient transportOfClient) {
         System.out.println("    onNewGame");
         System.out.println("      (width = " + width + ", height = " + height + ")");
         // ToDo: Построить поле шириной width и высотой height
