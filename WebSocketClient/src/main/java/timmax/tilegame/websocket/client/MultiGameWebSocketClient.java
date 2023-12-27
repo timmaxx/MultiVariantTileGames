@@ -138,13 +138,10 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteBuffer.array());
         EventOfServer eventOfServer = mapper.readValue(byteArrayInputStream, EventOfServer.class);
         System.out.println("  eventOfServer = " + eventOfServer);
-        System.out.println("---------- End of onMessage(ByteBuffer)");
 
-        Thread thread = new Thread(() -> {
-            eventOfServer.executeOnClient(this);
-            System.out.println("  getMainGameClientStatus() = " + getMainGameClientStatus());
-        });
-        thread.start();
+        eventOfServer.executeOnClient(this);
+        System.out.println("  getMainGameClientStatus() = " + getMainGameClientStatus());
+        System.out.println("---------- End of onMessage(ByteBuffer)");
     }
 
     @Override
