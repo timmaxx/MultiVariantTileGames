@@ -2,6 +2,7 @@ package timmax.tilegame.guiengine.jfx.view;
 
 import javafx.application.Platform;
 import javafx.stage.Stage;
+
 import timmax.tilegame.basemodel.BaseModel;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
@@ -12,48 +13,42 @@ import timmax.tilegame.guiengine.jfx.GameStackPane;
 import timmax.tilegame.guiengine.jfx.controller.GameStackPaneController;
 
 abstract public class ViewMainFieldJfx extends ViewJfx {
-    private final boolean showGrid = true;
-    private final boolean showCoordinates = false;
-
-    protected GameStackPane[ ][ ] cells;
+    protected GameStackPane[][] cells;
     protected int cellSize;
 
-
-    public ViewMainFieldJfx( BaseModel baseModel, GameStackPaneController gameStackPaneController) {
-        super( baseModel, gameStackPaneController);
+    public ViewMainFieldJfx(BaseModel baseModel, GameStackPaneController gameStackPaneController) {
+        super(baseModel, gameStackPaneController);
     }
 
     @Override
-    public void update( GameEvent gameEvent) {
-        Platform.runLater( new Runnable( ) {
-            @Override
-            public void run( ) {
-                // do your GUI stuff here
-                if ( gameEvent instanceof GameEventNewGame) {
-                    initMainField( ( GameEventNewGame) gameEvent);
-                } else if ( gameEvent instanceof GameEventOneTile) {
-                    drawCellDuringGame( ( ( GameEventOneTile) gameEvent));
-                }
+    public void update(GameEvent gameEvent) {
+        Platform.runLater(() -> {
+            if (gameEvent instanceof GameEventNewGame gameEventNewGame) {
+                initMainField(gameEventNewGame);
+            } else if (gameEvent instanceof GameEventOneTile gameEventOneTile) {
+                drawCellDuringGame(gameEventOneTile);
             }
         });
     }
 
-    private void initMainField( GameEventNewGame gameEventNewGame) {
-        getChildren( ).removeAll( getChildren( ));
-        ( ( Stage)( getParent( ).getScene( ).getWindow( ))).setResizable( true);
+    private void initMainField(GameEventNewGame gameEventNewGame) {
+        getChildren().removeAll(getChildren());
+        ((Stage) (getParent().getScene().getWindow())).setResizable(true);
 
-        int width = gameEventNewGame.getWidth( );
-        int height = gameEventNewGame.getHeight( );
-        cellSize = Math.min( Game.APP_WIDTH / width, Game.APP_HEIGHT / height);
+        int width = gameEventNewGame.getWidth();
+        int height = gameEventNewGame.getHeight();
+        cellSize = Math.min(Game.APP_WIDTH / width, Game.APP_HEIGHT / height);
 
-        cells = new GameStackPane[ height][ width];
-        for ( int y = 0; y < height; y++) {
-            for ( int x = 0; x < width; x++) {
-                GameStackPane cell = new GameStackPane( x, y, cellSize, showGrid, showCoordinates);
-                cells[ y][ x] = cell;
-                initOnMouseClickEventHandlerOnCell( cell);
-                drawCellDuringInitMainField( cell);
-                getChildren( ).add( cell);
+        cells = new GameStackPane[height][width];
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                boolean showGrid = true;
+                boolean showCoordinates = false;
+                GameStackPane cell = new GameStackPane(x, y, cellSize, showGrid, showCoordinates);
+                cells[y][x] = cell;
+                initOnMouseClickEventHandlerOnCell(cell);
+                drawCellDuringInitMainField(cell);
+                getChildren().add(cell);
             }
         }
         // Не сильно красивое решение, нужное для того, чтобы установить ширину окна приложения
@@ -67,36 +62,36 @@ abstract public class ViewMainFieldJfx extends ViewJfx {
         // this.setWidth( cellSize * width);
         // this.setHeight( cellSize * height);
         //  17 - количество пикселей слева и справа, что-бы главное поле влезло во внутреннее окно - PrimaryStage
-        getParent( ).getScene( ).getWindow( ).setWidth( cellSize * width + 17);
+        getParent().getScene().getWindow().setWidth(cellSize * width + 17);
         //  40 - количество пикселей сверху и снизу (высота заголовка окна приложения), что-бы главное поле влезло во внутреннее окно - PrimaryStage
         // 180 - количество пикселей в высоту, нужное для достаточного отображения четырёх текстовых выборок
-        getParent( ).getScene( ).getWindow( ).setHeight( cellSize * height + 40 + 180);
+        getParent().getScene().getWindow().setHeight(cellSize * height + 40 + 180);
 
         //( ( Stage)( getParent( ).getScene( ).getWindow( ))).setResizable( false);
     }
 
-    protected void drawCellDuringInitMainField( GameStackPane cell) {
+    protected void drawCellDuringInitMainField(GameStackPane cell) {
     }
 
-    protected void drawCellDuringGame( GameEventOneTile gameEventOneTile) {
+    protected void drawCellDuringGame(GameEventOneTile gameEventOneTile) {
     }
 
-    protected GameStackPane getCellByGameEventOneTile( GameEventOneTile gameEventOneTile) {
-        int x = gameEventOneTile.getX( );
-        int y = gameEventOneTile.getY( );
-        return cells[ y][ x];
+    protected GameStackPane getCellByGameEventOneTile(GameEventOneTile gameEventOneTile) {
+        int x = gameEventOneTile.getX();
+        int y = gameEventOneTile.getY();
+        return cells[y][x];
     }
 
-    public void initOnMouseClickEventHandlerOnCell( GameStackPane cell) {
-        if ( gameStackPaneController == null) {
+    public void initOnMouseClickEventHandlerOnCell(GameStackPane cell) {
+        if (gameStackPaneController == null) {
             return;
         }
-        cell.setOnMouseClicked( event -> {
-            int x = ( ( GameStackPane)event.getSource( )).getX( );
-            int y = ( ( GameStackPane)event.getSource( )).getY( );
-            switch ( event.getButton( )) {
-                case PRIMARY -> gameStackPaneController.onMousePrimaryClick( x, y);
-                case SECONDARY -> gameStackPaneController.onMouseSecondaryClick( x, y);
+        cell.setOnMouseClicked(event -> {
+            int x = ((GameStackPane) event.getSource()).getX();
+            int y = ((GameStackPane) event.getSource()).getY();
+            switch (event.getButton()) {
+                case PRIMARY -> gameStackPaneController.onMousePrimaryClick(x, y);
+                case SECONDARY -> gameStackPaneController.onMouseSecondaryClick(x, y);
             }
         });
     }

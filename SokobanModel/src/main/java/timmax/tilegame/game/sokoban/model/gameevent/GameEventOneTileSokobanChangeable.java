@@ -5,7 +5,6 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
-import timmax.tilegame.transport.TransportOfClient;
 
 import timmax.tilegame.game.sokoban.model.gameobject.WhoMovableInTile;
 import timmax.tilegame.game.sokoban.model.gameobject.WhoPersistentInTile;
@@ -40,13 +39,6 @@ public class GameEventOneTileSokobanChangeable extends GameEventOneTile {
 
     public WhoMovableInTile getWhoMovableInTile() {
         return whoMovableInTile;
-    }
-
-    @Override
-    public void executeOnClient(TransportOfClient transportOfClient) {
-        System.out.println("    onOneTileSokobanChangeable");
-        System.out.println("      (" + getX() + " , " + getY() + ")");
-        // ToDo: Перерисовать плитку (x, y)
     }
 
     @Override

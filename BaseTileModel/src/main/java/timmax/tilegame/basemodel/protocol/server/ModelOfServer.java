@@ -66,4 +66,9 @@ public abstract class ModelOfServer<T> implements IModelOfServer<T> {
     public final void addRemoteView(RemoteView<T> remoteView) {
         listOfRemoteViews.add(remoteView);
     }
+/*
+    public ListOfRemoteView<T> getListOfRemoteViews() {
+        return listOfRemoteViews;
+    }
+*/
 }

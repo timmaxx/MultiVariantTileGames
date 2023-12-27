@@ -5,6 +5,7 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
+import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfClient;
 
 public class EventOfServer92GameEvent extends EventOfServer {
@@ -25,15 +26,8 @@ public class EventOfServer92GameEvent extends EventOfServer {
     public void executeOnClient(TransportOfClient transportOfClient) {
         System.out.println("  onGameEvent");
 
-        // ToDo: метод executeOnClient вероятно и не нужен...
-        // gameEvent.executeOnClient(transportOfClient);
-
-        // 1. Найти в модели viewId.
-        // RemoteView<T> remoteView = transportOfClient.getClientState().getSetOfRemoteView().getRemoteViewByViewId(viewId);
-        // transportOfClient.
-
-        // 2. Передать в выборку gameEvent.
-        // remoteView.
+        View view = transportOfClient.getLocalClientState().getListOfLocalView().getViewByViewId(viewId);
+        view.update(gameEvent);
     }
 
     @Override
