@@ -15,9 +15,12 @@ import timmax.tilegame.guiengine.jfx.controller.GameStackPaneController;
 abstract public class ViewMainFieldJfx extends ViewJfx {
     protected GameStackPane[][] cells;
     protected int cellSize;
+    // private LocalEventHandler localEventHandler;
 
     public ViewMainFieldJfx(BaseModel baseModel, GameStackPaneController gameStackPaneController) {
         super(baseModel, gameStackPaneController);
+
+        // localEventHandler = new LocalEventHandler();
     }
 
     @Override
@@ -62,7 +65,7 @@ abstract public class ViewMainFieldJfx extends ViewJfx {
         // this.setWidth( cellSize * width);
         // this.setHeight( cellSize * height);
         //  17 - количество пикселей слева и справа, что-бы главное поле влезло во внутреннее окно - PrimaryStage
-        getParent().getScene().getWindow().setWidth(cellSize * width + 17);
+        getParent().getScene().getWindow().setWidth(cellSize * width + 17 + 300);
         //  40 - количество пикселей сверху и снизу (высота заголовка окна приложения), что-бы главное поле влезло во внутреннее окно - PrimaryStage
         // 180 - количество пикселей в высоту, нужное для достаточного отображения четырёх текстовых выборок
         getParent().getScene().getWindow().setHeight(cellSize * height + 40 + 180);
@@ -86,7 +89,15 @@ abstract public class ViewMainFieldJfx extends ViewJfx {
         if (gameStackPaneController == null) {
             return;
         }
+
+        System.out.println("gameStackPaneController = " + gameStackPaneController);
+        System.out.println("cell.getOnMouseClicked() = " + cell.getOnMouseClicked());
+
+        // Для каждого cell устанавливается новый, но одинаковый обработчик. В результате выделяется больше памяти,
+        // что не хорошо.
+        // ToDo: Обработчик вынести в именованный класс и метод и только подавать его в setOnMouseClicked.
         cell.setOnMouseClicked(event -> {
+            System.out.println("event = " + event);
             int x = ((GameStackPane) event.getSource()).getX();
             int y = ((GameStackPane) event.getSource()).getY();
             switch (event.getButton()) {
@@ -94,5 +105,23 @@ abstract public class ViewMainFieldJfx extends ViewJfx {
                 case SECONDARY -> gameStackPaneController.onMouseSecondaryClick(x, y);
             }
         });
+
+//      cell.setOnMouseClicked(localEventHandler);
+
+        System.out.println("cell.getOnMouseClicked() = " + cell.getOnMouseClicked());
     }
+/*
+    private class LocalEventHandler implements EventHandler<MouseEvent> {
+        @Override
+        public void handle(MouseEvent event) {
+            System.out.println("event = " + event);
+            int x = ((GameStackPane) event.getSource()).getX();
+            int y = ((GameStackPane) event.getSource()).getY();
+            switch (event.getButton()) {
+                case PRIMARY -> gameStackPaneController.onMousePrimaryClick(x, y);
+                case SECONDARY -> gameStackPaneController.onMouseSecondaryClick(x, y);
+            }
+        }
+    }
+*/
 }

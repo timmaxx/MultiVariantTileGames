@@ -9,6 +9,7 @@ import timmax.tilegame.guiengine.jfx.view.ViewJfx;
 import timmax.tilegame.transport.TransportOfClient;
 
 import timmax.tilegame.game.sokoban.jfx.view.SokobanMainFieldViewJfx;
+import timmax.tilegame.game.sokoban.jfx.controller.SokobanGameStackPaneController;
 
 public class SokobanClientPaneJfx extends GameClientPaneJfx {
     public SokobanClientPaneJfx(Stage primaryStage, BaseModel baseModel, TransportOfClient transportOfClient) {
@@ -26,15 +27,15 @@ public class SokobanClientPaneJfx extends GameClientPaneJfx {
     }
 /*
     @Override
-    public GameSceneController initGameSceneController(TransportOfController transportOfController) {
-        return new SokobanGameSceneController(transportOfController);
+    public GameSceneController initGameSceneController(TransportOfClient transportOfClient) {
+        return new SokobanGameSceneController(transportOfClient);
     }
-
+*/
     @Override
-    public GameStackPaneController initGameStackPaneController(TransportOfController transportOfController) {
-        return null;
+    public GameStackPaneController initGameStackPaneController(TransportOfClient transportOfClient) {
+        return new SokobanGameStackPaneController(transportOfClient);
     }
-
+/*
     @Override
     protected List<Node> initNodeList(BaseModel baseModel, TransportOfController transportOfController) {
         List<Node> nodeList = new ArrayList<>();

@@ -47,6 +47,16 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
         }
     }
 
+    // ToDo: Это временный метод. Потом удалить.
+    protected void enableAllControls() {
+        for (Region control : listOfControlsNextState) {
+            control.setDisable(false);
+        }
+        for (Region control : listOfControlsPrevState) {
+            control.setDisable(false);
+        }
+    }
+
     protected void setDisableControlsNextState(boolean disableControlsNextState) {
         for (Region control : listOfControlsNextState) {
             control.setDisable(disableControlsNextState);
@@ -89,6 +99,9 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     protected void updateOnAddView() {
     }
 
+    protected void updateOnGameEvent() {
+    }
+
     //  Описанное было обнаружено при работе с Pane04SelectGameType
     //  Если ранее comboBoxGameTypeSet уже было заполнено (т.е. вызывался updateOnGetGameTypeSet)
     //  и не использовать здесь Platform.runLater(), то возникнет исключение:
@@ -112,13 +125,21 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
             } else if (typeOfEvent == FORGET_GAME_TYPE) {
                 updateOnForgetGameType();
             } else if (typeOfEvent == SELECT_GAME_TYPE) {
+                // Сюда есть вход.
+                System.out.println("before updateOnSelectGameType() in void update(TypeOfEvent typeOfEvent) in class AbstractConnectStatePane");
                 updateOnSelectGameType();
             } else if (typeOfEvent == CREATE_NEW_GAME) {
+                // Сюда входа нет, т.к. сервер не генерирует "общего" события - только игровое генерирует...
+                System.out.println("before updateOnCreateNewGame() in void update(TypeOfEvent typeOfEvent) in class AbstractConnectStatePane");
                 updateOnCreateNewGame();
             } else if (typeOfEvent == CLOSE_GAME) {
                 updateOnCloseGame();
             } else if (typeOfEvent == ADD_VIEW) {
                 updateOnAddView();
+            } else if (typeOfEvent == GAME_EVENT) {
+                // Сюда входа нет...
+                System.out.println("before updateOnGameEvent() in void update(TypeOfEvent typeOfEvent) in class AbstractConnectStatePane");
+                updateOnGameEvent();
             }
         });
     }

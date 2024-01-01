@@ -6,30 +6,27 @@ import javafx.stage.Stage;
 import timmax.tilegame.basemodel.BaseModel;
 import timmax.tilegame.transport.TransportOfClient;
 
-import timmax.tilegame.guiengine.jfx.controller.GameStackPaneController;
 import timmax.tilegame.guiengine.jfx.view.ViewJfx;
+import timmax.tilegame.guiengine.jfx.controller.GameStackPaneController;
 
 public abstract class GameClientPaneJfx extends VBox {
     public GameClientPaneJfx(Stage primaryStage, BaseModel netModel, TransportOfClient transportOfClient) {
-        // Pane root = new VBox();
-/*
-        GameStackPaneController gameStackPaneController = initGameStackPaneController(transportOfController);
-*/
+        // Инициализация контроллера управления мышью (работает только над главной выборкой):
+        GameStackPaneController gameStackPaneController = initGameStackPaneController(transportOfClient);
 
-        // ViewJfx viewMainFieldJfx = initViewOfMainField(netModel, gameStackPaneController);
-        ViewJfx viewMainFieldJfx = initViewOfMainField(netModel, null);
+        ViewJfx viewMainFieldJfx = initViewOfMainField(netModel, gameStackPaneController);
         getChildren().add(viewMainFieldJfx);
 
 /*
         List<Node> nodeList = initNodeList(netModel, transportOfController);
         getChildren().addAll(nodeList);
-
-        GameSceneController gameSceneController = initGameSceneController(transportOfController);
-        GameScene scene = new GameScene(this, gameSceneController);
 */
-        primaryStage.setTitle(initAppTitle());
+        // Инициализация контроллера управления клавиатурой (работает над всей сценой):
+        // GameSceneController gameSceneController = initGameSceneController(transportOfClient);
 
-        // netModel.createNewGame();
+        // GameScene scene = new GameScene(this, gameSceneController);
+
+        primaryStage.setTitle(initAppTitle());
     }
 
     /*
@@ -38,9 +35,8 @@ public abstract class GameClientPaneJfx extends VBox {
     abstract protected ViewJfx initViewOfMainField(BaseModel baseModel, GameStackPaneController gameStackPaneController);
 
     abstract protected String initAppTitle();
-/*
-    abstract protected GameSceneController initGameSceneController(TransportOfController transportOfController);
 
-    abstract protected GameStackPaneController initGameStackPaneController(TransportOfController transportOfController);
-*/
+    // abstract protected GameSceneController initGameSceneController(TransportOfClient transportOfClient);
+
+    abstract protected GameStackPaneController initGameStackPaneController(TransportOfClient transportOfClient);
 }

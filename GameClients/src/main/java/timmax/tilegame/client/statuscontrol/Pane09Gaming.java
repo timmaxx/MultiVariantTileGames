@@ -17,17 +17,18 @@ public class Pane09Gaming extends AbstractConnectStatePane {
         Button buttonNewGame = new Button("Start new game");
 
         pane = new Pane();
-        pane.setPrefWidth(200);
+        pane.setPrefWidth(1000);
         pane.setPrefHeight(300);
+
         Button buttonQuitGame = new Button("Quit the game");
 
         buttonNewGame.setOnAction( event -> {
-            disableAllControls();
+            //disableAllControls();
             multiGameWebSocketClientManyTimesUse.createNewGame();
         });
 
         buttonQuitGame.setOnAction(event -> {
-            disableAllControls();
+            //disableAllControls();
             // multiGameWebSocketClientManyTimesUse.quitGame();
             System.out.println("Quit the game");
         });
@@ -36,6 +37,11 @@ public class Pane09Gaming extends AbstractConnectStatePane {
                 List.of(buttonNewGame),
                 List.of(pane, buttonQuitGame)
         );
+
+        enableAllControls();
+        pane.setDisable(false);
+        buttonQuitGame.setDisable(false);
+
     }
 
     @Override
@@ -75,25 +81,42 @@ public class Pane09Gaming extends AbstractConnectStatePane {
 
     @Override
     protected void updateOnSelectGameType() {
-        // disableAllControls();
+        disableAllControls();
         pane.getChildren().clear();
         pane.getChildren().addAll(new SokobanClientPaneJfx((Stage) getScene().getWindow(), multiGameWebSocketClientManyTimesUse, null));
+
         setDisableControlsNextState(false);
+
+        {   // Эти вызовы пока нужны, т.к. нет вызова updateOnCreateNewGame().
+            enableAllControls();
+            pane.setDisable(false);
+            enableAllControls();
+        }
+
     }
 
     @Override
     protected void updateOnAddView() {
+        // Этот метод не вызывается...
         System.out.println("updateOnAddView()");
-        // setDisableControlsNextState(false);
+        setDisableControlsNextState(false);
     }
 
     @Override
     protected void updateOnCreateNewGame() {
+        // Этот метод не вызывается...
+        System.out.println("updateOnCreateNewGame()");
         setDisableControlsNextState(true);
     }
 
     @Override
     protected void updateOnCloseGame() {
         // setDisableControlsNextState(true);
+    }
+
+    @Override
+    protected void updateOnGameEvent() {
+        System.out.println("updateOnGameEvent()");
+        //setDisableControlsNextState(true);
     }
 }
