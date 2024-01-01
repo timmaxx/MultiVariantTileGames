@@ -7,7 +7,7 @@ import java.io.ObjectOutput;
 import timmax.tilegame.basemodel.protocol.server.RemoteView;
 import timmax.tilegame.transport.TransportOfServer;
 
-public class EventOfClient91AddView<T> extends EventOfClient<T> {
+public class EventOfClient91AddView extends EventOfClient {
     private String viewId;
 
     public EventOfClient91AddView() {
@@ -20,7 +20,7 @@ public class EventOfClient91AddView<T> extends EventOfClient<T> {
     }
 
     @Override
-    public void executeOnServer(TransportOfServer<T> transportOfServer, T clientId) {
+    public <T> void executeOnServer(TransportOfServer<T> transportOfServer, T clientId) {
         System.out.println("  onAddView");
 
         // System.out.println("    viewId = " + viewId);

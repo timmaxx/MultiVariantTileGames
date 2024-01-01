@@ -6,9 +6,9 @@ import timmax.tilegame.transport.TransportOfServer;
 
 import static java.util.stream.Collectors.toList;
 
-public class EventOfClient021GetGameTypeSet<T> extends EventOfClient<T> {
+public class EventOfClient021GetGameTypeSet extends EventOfClient {
     @Override
-    public void executeOnServer(TransportOfServer<T> transportOfServer, T clientId) {
+    public <T> void executeOnServer(TransportOfServer<T> transportOfServer, T clientId) {
         System.out.println("  onGetGameTypeSet");
 
         transportOfServer.send(clientId, new EventOfServer021GetGameTypeSet(

@@ -97,11 +97,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         System.out.println("  " + webSocket);
 
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteBuffer.array());
-        // ToDo: Если нет аннотации @SuppressWarnings("unchecked"), то компилятор выдаёт:
-        //       Unchecked assignment: 'timmax.tilegame.basemodel.protocol.EventOfClient' to 'timmax.tilegame.basemodel.protocol.EventOfClient<org.java_websocket.WebSocket>'
-        //       Переделать без аннотации @SuppressWarnings("unchecked")
-        @SuppressWarnings("unchecked")
-        EventOfClient<WebSocket> eventOfClient = mapper.readValue(byteArrayInputStream, EventOfClient.class);
+        EventOfClient eventOfClient = mapper.readValue(byteArrayInputStream, EventOfClient.class);
 
         System.out.println("  eventOfClient = " + eventOfClient);
         System.out.println("---------- End of onMessage(WebSocket, ByteBuffer)");

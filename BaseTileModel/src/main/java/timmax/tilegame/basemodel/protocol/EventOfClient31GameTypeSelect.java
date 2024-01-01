@@ -6,7 +6,7 @@ import java.io.ObjectOutput;
 
 import timmax.tilegame.transport.TransportOfServer;
 
-public class EventOfClient31GameTypeSelect<T> extends EventOfClient<T> {
+public class EventOfClient31GameTypeSelect extends EventOfClient {
     private String serverBaseModelClass;
 
     public EventOfClient31GameTypeSelect() {
@@ -19,7 +19,7 @@ public class EventOfClient31GameTypeSelect<T> extends EventOfClient<T> {
     }
 
     @Override
-    public void executeOnServer(TransportOfServer<T> transportOfServer, T clientId) {
+    public <T> void executeOnServer(TransportOfServer<T> transportOfServer, T clientId) {
         System.out.println("  onSelectGameType");
 
         // ToDo: Проверить, что model одна из списка возможных моделей, которые были отправлены ранее этому клиенту.

@@ -42,12 +42,12 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     // 2
     public void logout() {
         System.out.println("logout()");
-        send(new EventOfClient010Logout<>());
+        send(new EventOfClient010Logout());
     }
 
     public void login(String userName, String password) {
         System.out.println("login(String, String)");
-        send(new EventOfClient011Login<>(userName, password));
+        send(new EventOfClient011Login(userName, password));
     }
 
     // 3
@@ -58,25 +58,25 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
 
     public void getGameTypeSet() {
         System.out.println("getGameTypeSet()");
-        send(new EventOfClient021GetGameTypeSet<>());
+        send(new EventOfClient021GetGameTypeSet());
     }
 
     // 4
     public void forgetGameType() {
         System.out.println("forgetGameType()");
-        send(new EventOfClient30ForgetGameType<>());
+        send(new EventOfClient30ForgetGameType());
     }
 
     public void gameTypeSelect(String serverBaseModelClass) {
         System.out.println("gameTypeSelect(String)");
-        send(new EventOfClient31GameTypeSelect<>(serverBaseModelClass));
+        send(new EventOfClient31GameTypeSelect(serverBaseModelClass));
     }
 
     // 9
     public void addView(View view) {
         System.out.println("addView(View)");
         localClientState.addView(view);
-        send(new EventOfClient91AddView<>(view.toString()));
+        send(new EventOfClient91AddView(view.toString()));
     }
 
     public void createNewGame() {

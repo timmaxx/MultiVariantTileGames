@@ -7,7 +7,7 @@ import java.io.ObjectOutput;
 import timmax.tilegame.basemodel.credential.Credentials;
 import timmax.tilegame.transport.TransportOfServer;
 
-public class EventOfClient011Login<T> extends EventOfClient<T> {
+public class EventOfClient011Login extends EventOfClient {
     private String userName;
     private String password;
 
@@ -22,7 +22,7 @@ public class EventOfClient011Login<T> extends EventOfClient<T> {
     }
 
     @Override
-    public void executeOnServer(TransportOfServer<T> transportOfServer, T clientId) {
+    public <T> void executeOnServer(TransportOfServer<T> transportOfServer, T clientId) {
         System.out.println("  onLogin");
 
         System.out.println("    userName = " + userName + " | " + "password = *"); // Пароль не выводим:
