@@ -9,7 +9,7 @@ import org.java_websocket.handshake.ServerHandshake;
 
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.gamecommand.GameCommand;
-import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
+import timmax.tilegame.basemodel.gamecommand.GameCommandNewGame;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.client.LocalClientState;
 import timmax.tilegame.baseview.View;
@@ -53,7 +53,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     // 3
     public void forgetGameTypeSet() {
         System.out.println("forgetGameTypeSet()");
-        send(new EventOfClient020ForgetGameTypeSet<>());
+        send(new EventOfClient020ForgetGameTypeSet());
     }
 
     public void getGameTypeSet() {
@@ -81,7 +81,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
 
     public void createNewGame() {
         System.out.println("createNewGame()");
-        send(new EventOfClient92GameEvent<>(new GameEventNewGame()));
+        send(new EventOfClient92GameEvent(new GameCommandNewGame()));
     }
 
     @Override

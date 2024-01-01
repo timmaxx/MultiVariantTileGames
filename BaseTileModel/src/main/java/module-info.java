@@ -1,4 +1,6 @@
 module timmax.tilegame.basetilemodel {
+    requires javafx.graphics;
+
     exports timmax.tilegame.basemodel;
     exports timmax.tilegame.baseview;
     exports timmax.tilegame.basecontroller;

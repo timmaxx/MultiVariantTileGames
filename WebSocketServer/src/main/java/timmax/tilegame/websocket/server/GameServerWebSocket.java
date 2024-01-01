@@ -19,7 +19,7 @@ import timmax.tilegame.transport.TransportOfServer;
 import timmax.tilegame.game.sokoban.model.SokobanModel;
 
 public class GameServerWebSocket extends WebSocketServer {
-    BidiMap<WebSocket, ServerBaseModel> webSocketBaseModelBidiMap;
+    BidiMap<WebSocket, ServerBaseModel<WebSocket>> webSocketBaseModelBidiMap;
     Map<WebSocket, String> webSocketViewNameMap;
 
     public GameServerWebSocket(int port) {
@@ -48,7 +48,7 @@ public class GameServerWebSocket extends WebSocketServer {
         // Создать модель для клиента
 
         // ServerBaseModel baseModel = new MinesweeperModel( transportOfModel);
-        ServerBaseModel baseModel = new SokobanModel(transportOfServer);
+        ServerBaseModel<WebSocket> baseModel = new SokobanModel<>(transportOfServer);
 
         // И добавить её в карту
         webSocketBaseModelBidiMap.put(webSocket, baseModel);
@@ -84,7 +84,8 @@ public class GameServerWebSocket extends WebSocketServer {
                 // System.out.println( gameCommand.getClass().getName());
                 {   // Возможно это нужно выполнить в отложенном потоке.
                     // Т.е. после завершения работы onMessage (по аналогии с JFX)
-                    gameCommand.execute(webSocketBaseModelBidiMap.get(webSocket));
+                    // // gameCommand.execute(webSocketBaseModelBidiMap.get(webSocket));
+                    // !!! gameCommand.executeOnServer(webSocketBaseModelBidiMap.get(webSocket), webSocket);
                 }
             } /*catch ( JsonProcessingException jpe) {
                 throw new RuntimeException( jpe);

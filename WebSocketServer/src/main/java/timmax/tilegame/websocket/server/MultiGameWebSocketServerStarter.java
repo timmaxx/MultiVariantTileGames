@@ -51,7 +51,6 @@ public class MultiGameWebSocketServerStarter {
         BufferedReader sysInBufferedReader = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
             String readLine = sysInBufferedReader.readLine();
-            multiGameWebSocketServer.broadcast(readLine);
             if (readLine.equals("exit")) {
                 multiGameWebSocketServer.stop(1000);
                 break;

@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import timmax.tilegame.transport.TransportOfServer;
-
 public class GameEventNewGame extends GameEvent {
     private int width;
     private int height;
@@ -24,12 +22,6 @@ public class GameEventNewGame extends GameEvent {
 
     public int getHeight() {
         return height;
-    }
-
-    @Override
-    public <T> void executeOnServer(TransportOfServer<T> transportOfServer, T clientId) {
-        System.out.println("    onNewGame");
-        transportOfServer.getModelOfServer().createNewGame();
     }
 
     @Override

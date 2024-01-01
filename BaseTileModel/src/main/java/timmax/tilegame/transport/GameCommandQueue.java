@@ -3,24 +3,22 @@ package timmax.tilegame.transport;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import timmax.tilegame.basemodel.BaseModel;
 import timmax.tilegame.basemodel.gamecommand.GameCommand;
 
-public abstract class GameCommandQueue {
+public abstract class GameCommandQueue<T> {
     protected Queue<GameCommand> commandQueue = new LinkedList<>();
-    protected BaseModel baseModel;
+    protected TransportOfServer<T> transportOfServer;
 
-
-    public GameCommandQueue(BaseModel baseModel) {
-        this.baseModel = baseModel;
+    public GameCommandQueue(TransportOfServer<T> transportOfServer) {
+        this.transportOfServer = transportOfServer;
     }
 
-    public boolean add(GameCommand gameCommand) {
+    public boolean add(GameCommand gameCommand, T clientId) {
         boolean result = commandQueue.add(gameCommand);
         if (!result) {
             return false;
         }
-        transport();
+        transport(clientId);
         return true;
     }
 
@@ -32,12 +30,12 @@ public abstract class GameCommandQueue {
         return commandQueue.size();
     }
 
-    private void transport() {
+    private void transport(T clientId) {
         while (size() != 0) {
             GameCommand gameCommand = remove();
-            whatToDoWithCommand(gameCommand);
+            whatToDoWithCommand(gameCommand, clientId);
         }
     }
 
-    protected abstract void whatToDoWithCommand(GameCommand gameCommand);
+    protected abstract void whatToDoWithCommand(GameCommand gameCommand, T clientId);
 }

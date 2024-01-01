@@ -4,42 +4,42 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import timmax.tilegame.basemodel.gameevent.GameEvent;
+import timmax.tilegame.basemodel.gamecommand.GameCommand;
 import timmax.tilegame.transport.TransportOfServer;
 
-public class EventOfClient92GameEvent<T> extends EventOfClient<T> {
-    private GameEvent gameEvent;
+public class EventOfClient92GameEvent extends EventOfClient {
+    private GameCommand gameCommand;
 
     public EventOfClient92GameEvent() {
         super();
     }
 
-    public EventOfClient92GameEvent(GameEvent gameEvent) {
+    public EventOfClient92GameEvent(GameCommand gameCommand) {
         this();
-        this.gameEvent = gameEvent;
+        this.gameCommand = gameCommand;
     }
 
     @Override
-    public void executeOnServer(TransportOfServer<T> transportOfServer, T clientId) {
+    public <T> void executeOnServer(TransportOfServer<T> transportOfServer, T clientId) {
         System.out.println("  onGameEvent");
 
-        gameEvent.executeOnServer(transportOfServer, clientId);
+        gameCommand.executeOnServer(transportOfServer, clientId);
     }
 
     @Override
     public String toString() {
         return "EventOfClient92GameEvent{" +
-                "gameEvent=" + gameEvent +
+                "gameCommand=" + gameCommand +
                 '}';
     }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(gameEvent);
+        out.writeObject(gameCommand);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        gameEvent = (GameEvent) in.readObject();
+        gameCommand = (GameCommand) in.readObject();
     }
 }
