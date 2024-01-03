@@ -9,7 +9,6 @@ import timmax.tilegame.guiengine.jfx.view.ViewJfx;
 import timmax.tilegame.transport.TransportOfClient;
 
 import timmax.tilegame.game.sokoban.jfx.view.SokobanMainFieldViewJfx;
-import timmax.tilegame.game.sokoban.jfx.controller.SokobanGameStackPaneController;
 
 // ToDo: Похоже этот класс становится не нужным, т.к. клиент будет полностью универсальным.
 //       А следовательно будем использовать базовый класс GameClientPaneJfx там, где использовались его наследники.
@@ -35,7 +34,7 @@ public class SokobanClientPaneJfx extends GameClientPaneJfx {
 */
     @Override
     public GameStackPaneController initGameStackPaneController(TransportOfClient transportOfClient) {
-        return new SokobanGameStackPaneController(transportOfClient);
+        return new GameStackPaneController(transportOfClient);
     }
 /*
     @Override
