@@ -8,6 +8,7 @@ import timmax.tilegame.basemodel.protocol.client.LocalClientState;
 import timmax.tilegame.basemodel.protocol.HashSetOfObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.baseview.View;
+import timmax.tilegame.transport.TransportOfClient;
 
 public class MultiGameWebSocketClientManyTimesUse implements BaseModel {
     // ToDo: Параметр не должен быть null!
@@ -16,7 +17,6 @@ public class MultiGameWebSocketClientManyTimesUse implements BaseModel {
 
     private MultiGameWebSocketClient multiGameWebSocketClient;
     private URI uri;
-
 
     public void addCallBackOnIncomingTransportPackageEvent(ObserverOnAbstractEvent observerOnAbstractEvent) {
         hashSetOfObserverOnAbstractEvent.add(observerOnAbstractEvent);
@@ -108,5 +108,10 @@ public class MultiGameWebSocketClientManyTimesUse implements BaseModel {
 
     @Override
     public void win() {
+    }
+
+    // ToDo: Это временное решение. Потом удалить.
+    public TransportOfClient getMultiGameWebSocketClient() {
+        return multiGameWebSocketClient;
     }
 }

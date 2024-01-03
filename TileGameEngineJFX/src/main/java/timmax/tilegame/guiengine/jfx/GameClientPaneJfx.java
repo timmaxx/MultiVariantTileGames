@@ -9,6 +9,8 @@ import timmax.tilegame.transport.TransportOfClient;
 import timmax.tilegame.guiengine.jfx.view.ViewJfx;
 import timmax.tilegame.guiengine.jfx.controller.GameStackPaneController;
 
+// ToDo: Похоже наследники этого класса становятся не нужными, т.к. клиент будет полностью универсальным.
+//       А следовательно будем использовать этот класс там, где использовались его наследники.
 public abstract class GameClientPaneJfx extends VBox {
     public GameClientPaneJfx(Stage primaryStage, BaseModel netModel, TransportOfClient transportOfClient) {
         // Инициализация контроллера управления мышью (работает только над главной выборкой):

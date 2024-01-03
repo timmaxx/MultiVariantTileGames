@@ -83,7 +83,9 @@ public class Pane09Gaming extends AbstractConnectStatePane {
     protected void updateOnSelectGameType() {
         disableAllControls();
         pane.getChildren().clear();
-        pane.getChildren().addAll(new SokobanClientPaneJfx((Stage) getScene().getWindow(), multiGameWebSocketClientManyTimesUse, null));
+        // ToDo: Похоже, что в универсальном клиенте можно будет не делать объекты типа SokobanClientPaneJfx (или
+        //       других наследников GameClientPaneJfx), а сразу лепить их из GameClientPaneJfx.
+        pane.getChildren().addAll(new SokobanClientPaneJfx((Stage) getScene().getWindow(), multiGameWebSocketClientManyTimesUse, multiGameWebSocketClientManyTimesUse.getMultiGameWebSocketClient()));
 
         setDisableControlsNextState(false);
 
