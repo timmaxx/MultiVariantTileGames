@@ -5,6 +5,7 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import javafx.scene.input.MouseButton;
+import timmax.tilegame.transport.TransportOfServer;
 
 public class GameCommandMouseClick extends GameCommandOneTile {
     private MouseButton mouseButton;
@@ -19,6 +20,11 @@ public class GameCommandMouseClick extends GameCommandOneTile {
 
     public MouseButton getMouseButton() {
         return mouseButton;
+    }
+
+    @Override
+    public <T> void executeOnServer(TransportOfServer<T> transportOfServer, T clientId) {
+        // !!!
     }
 
     @Override
