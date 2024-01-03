@@ -15,16 +15,10 @@ public class SokobanGameStackPaneController extends GameStackPaneController {
     }
 
     @Override
-    public void onMousePrimaryClick(int x, int y) {
-        System.out.println("onMousePrimaryClick. x = " + x + ", y = " + y);
-        // ToDo: отправить серверу команду
-        GameCommand gameCommand = new GameCommandMouseClick(x, y, MouseButton.PRIMARY);
+    public void onMouseClick(MouseButton mouseButton, int x, int y) {
+        System.out.println("onMouseClick. mouseButton = " + mouseButton + ", x = " + x + ", y = " + y);
+        GameCommand gameCommand = new GameCommandMouseClick(x, y, mouseButton);
         EventOfClient eventOfClient = new EventOfClient92GameEvent(gameCommand);
         transportOfClient.send(eventOfClient);
-    }
-
-    @Override
-    public void onMouseSecondaryClick(int x, int y) {
-        System.out.println("onMouseSecondaryClick. x = " + x + ", y = " + y);
     }
 }

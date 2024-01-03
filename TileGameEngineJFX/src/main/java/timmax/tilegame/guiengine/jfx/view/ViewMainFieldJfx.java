@@ -98,10 +98,7 @@ abstract public class ViewMainFieldJfx extends ViewJfx {
         public void handle(MouseEvent event) {
             int x = ((GameStackPane) event.getSource()).getX();
             int y = ((GameStackPane) event.getSource()).getY();
-            switch (event.getButton()) {
-                case PRIMARY -> gameStackPaneController.onMousePrimaryClick(x, y);
-                case SECONDARY -> gameStackPaneController.onMouseSecondaryClick(x, y);
-            }
+            gameStackPaneController.onMouseClick(event.getButton(), x, y);
         }
     }
 }

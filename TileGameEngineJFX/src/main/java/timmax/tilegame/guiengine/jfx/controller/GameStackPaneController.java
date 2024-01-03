@@ -1,5 +1,6 @@
 package timmax.tilegame.guiengine.jfx.controller;
 
+import javafx.scene.input.MouseButton;
 import timmax.tilegame.basecontroller.BaseController;
 import timmax.tilegame.transport.TransportOfClient;
 
@@ -9,7 +10,5 @@ public abstract class GameStackPaneController extends BaseController {
         super(transportOfClient);
     }
 
-    public abstract void onMousePrimaryClick(int x, int y);
-
-    public abstract void onMouseSecondaryClick(int x, int y);
+    public abstract void onMouseClick(MouseButton mouseButton, int x, int y);
 }
