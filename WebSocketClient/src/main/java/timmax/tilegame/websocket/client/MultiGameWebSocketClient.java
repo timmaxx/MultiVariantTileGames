@@ -81,7 +81,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
 
     public void createNewGame() {
         System.out.println("createNewGame()");
-        send(new EventOfClient92GameEvent(new GameCommandNewGame()));
+        send(new EventOfClient92GameCommand(new GameCommandNewGame()));
     }
 
     @Override

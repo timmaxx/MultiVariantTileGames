@@ -7,14 +7,14 @@ import java.io.ObjectOutput;
 import timmax.tilegame.basemodel.gamecommand.GameCommand;
 import timmax.tilegame.transport.TransportOfServer;
 
-public class EventOfClient92GameEvent extends EventOfClient {
+public class EventOfClient92GameCommand extends EventOfClient {
     private GameCommand gameCommand;
 
-    public EventOfClient92GameEvent() {
+    public EventOfClient92GameCommand() {
         super();
     }
 
-    public EventOfClient92GameEvent(GameCommand gameCommand) {
+    public EventOfClient92GameCommand(GameCommand gameCommand) {
         this();
         this.gameCommand = gameCommand;
     }

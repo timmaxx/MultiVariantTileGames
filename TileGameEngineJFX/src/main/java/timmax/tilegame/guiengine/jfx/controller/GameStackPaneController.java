@@ -6,7 +6,7 @@ import timmax.tilegame.basecontroller.BaseController;
 import timmax.tilegame.basemodel.gamecommand.GameCommand;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.protocol.EventOfClient;
-import timmax.tilegame.basemodel.protocol.EventOfClient92GameEvent;
+import timmax.tilegame.basemodel.protocol.EventOfClient92GameCommand;
 import timmax.tilegame.transport.TransportOfClient;
 
 // Содержит контролер по принятию событий от мыши над GameStackPane
@@ -18,7 +18,7 @@ public class GameStackPaneController extends BaseController {
     public final void onMouseClick(MouseButton mouseButton, int x, int y) {
         System.out.println("onMouseClick. mouseButton = " + mouseButton + ", x = " + x + ", y = " + y);
         GameCommand gameCommand = new GameCommandMouseClick(x, y, mouseButton);
-        EventOfClient eventOfClient = new EventOfClient92GameEvent(gameCommand);
+        EventOfClient eventOfClient = new EventOfClient92GameCommand(gameCommand);
         transportOfClient.send(eventOfClient);
     }
 
