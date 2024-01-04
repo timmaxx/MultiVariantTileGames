@@ -64,7 +64,8 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
         // sendGameEvent(new GameEventSokobanVariableParamsCountOfBoxesInHouses(countOfBoxesInHomes));
     }
 
-    public void moveUndo() {
+    // ToDo: Реализовать вызов этого метода из методов, отвечающих за обработку команд, поступивших от клиента.
+    private void moveUndo() {
         if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
             return;
         }
@@ -116,7 +117,8 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
         routeRedo = new Route();
     }
 
-    public void moveRedo() {
+    // ToDo: Реализовать вызов этого метода из методов, отвечающих за обработку команд, поступивших от клиента.
+    private void moveRedo() {
         if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
             return;
         }
