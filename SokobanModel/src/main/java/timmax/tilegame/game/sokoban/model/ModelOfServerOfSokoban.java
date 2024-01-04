@@ -64,7 +64,6 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
         // sendGameEvent(new GameEventSokobanVariableParamsCountOfBoxesInHouses(countOfBoxesInHomes));
     }
 
-    // ToDo: Реализовать вызов этого метода из методов, отвечающих за обработку команд, поступивших от клиента.
     private void moveUndo() {
         if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
             return;
@@ -117,7 +116,6 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
         routeRedo = new Route();
     }
 
-    // ToDo: Реализовать вызов этого метода из методов, отвечающих за обработку команд, поступивших от клиента.
     private void moveRedo() {
         if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
             return;
@@ -272,22 +270,24 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
 
     @Override
     public void executeMouseCommand(GameCommandMouseClick gameCommandMouseClick) {
-        if (gameCommandMouseClick.getMouseButton() != MouseButton.PRIMARY) {
-            return;
-        }
-
-        if (gameCommandMouseClick.getY() == allSokobanObjects.getPlayer().getY()) {
-            if (gameCommandMouseClick.getX() < allSokobanObjects.getPlayer().getX()) {
-                move(Direction.LEFT);
-            } else if (gameCommandMouseClick.getX() > allSokobanObjects.getPlayer().getX()) {
-                move(Direction.RIGHT);
+        if (gameCommandMouseClick.getMouseButton() == MouseButton.PRIMARY) {
+            if (gameCommandMouseClick.getY() == allSokobanObjects.getPlayer().getY()) {
+                if (gameCommandMouseClick.getX() < allSokobanObjects.getPlayer().getX()) {
+                    move(Direction.LEFT);
+                } else if (gameCommandMouseClick.getX() > allSokobanObjects.getPlayer().getX()) {
+                    move(Direction.RIGHT);
+                }
+            } else if ((gameCommandMouseClick.getX() == allSokobanObjects.getPlayer().getX())) {
+                if (gameCommandMouseClick.getY() < allSokobanObjects.getPlayer().getY()) {
+                    move(Direction.UP);
+                } else if (gameCommandMouseClick.getY() > allSokobanObjects.getPlayer().getY()) {
+                    move(Direction.DOWN);
+                }
             }
-        } else if ((gameCommandMouseClick.getX() == allSokobanObjects.getPlayer().getX())) {
-            if (gameCommandMouseClick.getY() < allSokobanObjects.getPlayer().getY()) {
-                move(Direction.UP);
-            } else if (gameCommandMouseClick.getY() > allSokobanObjects.getPlayer().getY()) {
-                move(Direction.DOWN);
-            }
+        } else if (gameCommandMouseClick.getMouseButton() == MouseButton.SECONDARY) {
+            moveUndo();
+        } else if (gameCommandMouseClick.getMouseButton() == MouseButton.MIDDLE) {
+            moveRedo();
         }
     }
 }
