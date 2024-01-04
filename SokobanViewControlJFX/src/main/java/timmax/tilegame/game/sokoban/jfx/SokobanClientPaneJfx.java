@@ -10,6 +10,7 @@ import timmax.tilegame.transport.TransportOfClient;
 
 import timmax.tilegame.game.sokoban.jfx.view.SokobanMainFieldViewJfx;
 
+// ToDo: Удалить класс. Использовать только GameClientPaneJfx.
 // ToDo: Похоже этот класс становится не нужным, т.к. клиент будет полностью универсальным.
 //       А следовательно будем использовать базовый класс GameClientPaneJfx там, где использовались его наследники.
 public class SokobanClientPaneJfx extends GameClientPaneJfx {

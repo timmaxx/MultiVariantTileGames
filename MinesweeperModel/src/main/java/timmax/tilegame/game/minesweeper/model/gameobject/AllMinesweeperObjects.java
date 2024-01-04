@@ -5,8 +5,8 @@ import java.util.Set;
 
 import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
+import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
 
-import timmax.tilegame.game.minesweeper.model.MinesweeperModel;
 import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsFlag;
 import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsOpenClose;
 import timmax.tilegame.game.minesweeper.model.gameevent.GameEventOneTileOpenMine;
@@ -21,7 +21,7 @@ public class AllMinesweeperObjects<T> {
 
     private int countOfFlags; // Количество оставшихся флагов, допустимых к использованию
     private int countOfClosedTiles; // Количество оставшихся закрытых плиток
-    MinesweeperModel<T> minesweeperModel;
+    ModelOfServer<T> modelOfServer;
 
     AllMinesweeperObjects(MinesweeperTile[][] minesweeperTiles, int countOfMines) {
         this.minesweeperTiles = minesweeperTiles;
@@ -31,8 +31,8 @@ public class AllMinesweeperObjects<T> {
         countOfFlags = countOfMines;
     }
 
-    public void setModel(MinesweeperModel<T> minesweeperModel) {
-        this.minesweeperModel = minesweeperModel;
+    public void setModel(ModelOfServer<T> modelOfServer) {
+        this.modelOfServer = modelOfServer;
     }
 
     public int getCountOfMines() {
@@ -53,7 +53,7 @@ public class AllMinesweeperObjects<T> {
         } else {
             countOfFlags++;
         }
-        minesweeperModel.sendGameEvent(new GameEventMinesweeperVariableParamsFlag(
+        modelOfServer.sendGameEvent(new GameEventMinesweeperVariableParamsFlag(
                 countOfMines - countOfFlags,
                 countOfFlags
         ));
@@ -66,7 +66,7 @@ public class AllMinesweeperObjects<T> {
             return GAME;
         }
         GameStatus gameStatus = openRecursive(minesweeperTile);
-        minesweeperModel.sendGameEvent(new GameEventMinesweeperVariableParamsOpenClose(
+        modelOfServer.sendGameEvent(new GameEventMinesweeperVariableParamsOpenClose(
                 getWidth() * getHeight() - countOfClosedTiles,
                 countOfClosedTiles
         ));
@@ -90,12 +90,12 @@ public class AllMinesweeperObjects<T> {
         // Если в открытой плитке мина
         if (minesweeperTile.isMine()) {
             // Завершение игры поражением
-            minesweeperModel.sendGameEvent(new GameEventOneTileOpenMine(minesweeperTile.getX(), minesweeperTile.getY()));
-            minesweeperModel.sendGameEvent(new GameEventGameOver(DEFEAT));
+            modelOfServer.sendGameEvent(new GameEventOneTileOpenMine(minesweeperTile.getX(), minesweeperTile.getY()));
+            modelOfServer.sendGameEvent(new GameEventGameOver(DEFEAT));
             return DEFEAT;
         } else {
             defineNeighbors(minesweeperTile);
-            minesweeperModel.sendGameEvent(new GameEventOneTileOpenNoMine(minesweeperTile.getX(), minesweeperTile.getY(), minesweeperTile.getCountOfMineNeighbors()));
+            modelOfServer.sendGameEvent(new GameEventOneTileOpenNoMine(minesweeperTile.getX(), minesweeperTile.getY(), minesweeperTile.getCountOfMineNeighbors()));
             // Если в соседних плитках нет мин
             if (minesweeperTile.getCountOfMineNeighbors() == 0) {
                 // Пройдёмся по соседним плиткам
@@ -112,7 +112,7 @@ public class AllMinesweeperObjects<T> {
         // Если количество не открытых плиток равно количеству мин
         if (countOfClosedTiles == countOfMines && !minesweeperTile.isMine()) {
             // Игра окончена победой
-            minesweeperModel.sendGameEvent(new GameEventGameOver(VICTORY));
+            modelOfServer.sendGameEvent(new GameEventGameOver(VICTORY));
             return VICTORY;
         }
         // Продолжаем игру

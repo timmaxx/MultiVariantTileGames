@@ -30,7 +30,7 @@ public class EventOfClient91AddView extends EventOfClient {
 
     @Override
     public String toString() {
-        return "EventOfClient41AddView{" +
+        return "EventOfClient91AddView{" +
                 "viewId='" + viewId + '\'' +
                 '}';
     }

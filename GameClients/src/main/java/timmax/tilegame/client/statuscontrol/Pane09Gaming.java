@@ -1,12 +1,13 @@
 package timmax.tilegame.client.statuscontrol;
 
+import java.util.List;
+
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import timmax.tilegame.game.sokoban.jfx.SokobanClientPaneJfx;
-import timmax.tilegame.websocket.client.MultiGameWebSocketClientManyTimesUse;
 
-import java.util.List;
+import timmax.tilegame.game.minesweeper.jfx.MinesweeperClientPaneJfx;
+import timmax.tilegame.websocket.client.MultiGameWebSocketClientManyTimesUse;
 
 public class Pane09Gaming extends AbstractConnectStatePane {
     private final Pane pane;
@@ -22,7 +23,7 @@ public class Pane09Gaming extends AbstractConnectStatePane {
 
         Button buttonQuitGame = new Button("Quit the game");
 
-        buttonNewGame.setOnAction( event -> {
+        buttonNewGame.setOnAction(event -> {
             //disableAllControls();
             multiGameWebSocketClientManyTimesUse.createNewGame();
         });
@@ -85,7 +86,9 @@ public class Pane09Gaming extends AbstractConnectStatePane {
         pane.getChildren().clear();
         // ToDo: Похоже, что в универсальном клиенте можно будет не делать объекты типа SokobanClientPaneJfx (или
         //       других наследников GameClientPaneJfx), а сразу лепить их из GameClientPaneJfx.
-        pane.getChildren().addAll(new SokobanClientPaneJfx((Stage) getScene().getWindow(), multiGameWebSocketClientManyTimesUse, multiGameWebSocketClientManyTimesUse.getMultiGameWebSocketClient()));
+        // pane.getChildren().addAll(new SokobanClientPaneJfx((Stage) getScene().getWindow(), multiGameWebSocketClientManyTimesUse, multiGameWebSocketClientManyTimesUse.getMultiGameWebSocketClient()));
+        pane.getChildren().addAll(new MinesweeperClientPaneJfx((Stage) getScene().getWindow(), multiGameWebSocketClientManyTimesUse, multiGameWebSocketClientManyTimesUse.getMultiGameWebSocketClient()));
+        // pane.getChildren().addAll(new GameClientPaneJfx((Stage) getScene().getWindow(), multiGameWebSocketClientManyTimesUse, multiGameWebSocketClientManyTimesUse.getMultiGameWebSocketClient()));
 
         setDisableControlsNextState(false);
 

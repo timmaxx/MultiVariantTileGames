@@ -9,11 +9,15 @@ import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
-import timmax.tilegame.basemodel.protocol.*;
+import timmax.tilegame.basemodel.protocol.EventOfClient;
+import timmax.tilegame.basemodel.protocol.EventOfServer;
+import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent;
+import timmax.tilegame.basemodel.protocol.ObjectMapperOfMvtg;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
 import timmax.tilegame.basemodel.protocol.server.RemoteView;
-import timmax.tilegame.game.sokoban.model.ModelOfServerOfSokoban;
 import timmax.tilegame.transport.TransportOfServer;
+
+import timmax.tilegame.game.minesweeper.model.ModelOfServerOfMinesweeper;
 
 public class MultiGameWebSocketServer extends WebSocketServer implements TransportOfServer<WebSocket> {
     private final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
@@ -53,7 +57,9 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
 
     @Override
     public void setModelOfServerTmp() {
-        this.modelOfServer = new ModelOfServerOfSokoban<>(this);
+        // Здесь нужно динамически выбирать модель.
+        // this.modelOfServer = new ModelOfServerOfSokoban<>(this);
+        this.modelOfServer = new ModelOfServerOfMinesweeper<>(this);
     }
 
     @Override
