@@ -3,12 +3,14 @@ package timmax.tilegame.game.sokoban.model;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 
+import javafx.scene.input.MouseButton;
+
 import timmax.tilegame.basemodel.GameStatus;
+import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.tile.Direction;
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventOneTileSokobanChangeable;
-// import timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanPersistentParams;
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanVariableParamsCountOfBoxesInHouses;
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanVariableParamsCountOfSteps;
 import timmax.tilegame.game.sokoban.model.gameobject.*;
@@ -234,34 +236,56 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
         currentLevel.incValue();
         sendGameEvent(new GameEventGameOver(VICTORY));
     }
-/*
-    @Override
-    public void nextLevel() {
-        if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
-            return;
+
+    /*
+        @Override
+        public void nextLevel() {
+            if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
+                return;
+            }
+            setGameStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
+            currentLevel.incValue();
+            sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
         }
-        setGameStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
-        currentLevel.incValue();
-        sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
-    }
+
+        @Override
+        public void prevLevel() {
+            if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
+                return;
+            }
+            setGameStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
+            currentLevel.decValue();
+            sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
+        }
+
+        @Override
+        public void restart() {
+            if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
+                return;
+            }
+            setGameStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
+            sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
+        }
+    */
 
     @Override
-    public void prevLevel() {
-        if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
+    public void executeMouseCommand(GameCommandMouseClick gameCommandMouseClick) {
+        if (gameCommandMouseClick.getMouseButton() != MouseButton.PRIMARY) {
             return;
         }
-        setGameStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
-        currentLevel.decValue();
-        sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
-    }
 
-    @Override
-    public void restart() {
-        if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
-            return;
+        if (gameCommandMouseClick.getY() == allSokobanObjects.getPlayer().getY()) {
+            if (gameCommandMouseClick.getX() < allSokobanObjects.getPlayer().getX()) {
+                move(Direction.LEFT);
+            } else if (gameCommandMouseClick.getX() > allSokobanObjects.getPlayer().getX()) {
+                move(Direction.RIGHT);
+            }
+        } else if ((gameCommandMouseClick.getX() == allSokobanObjects.getPlayer().getX())) {
+            if (gameCommandMouseClick.getY() < allSokobanObjects.getPlayer().getY()) {
+                move(Direction.UP);
+            } else if (gameCommandMouseClick.getY() > allSokobanObjects.getPlayer().getY()) {
+                move(Direction.DOWN);
+            }
         }
-        setGameStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
-        sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
     }
-*/
 }

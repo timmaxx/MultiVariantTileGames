@@ -1,4 +1,5 @@
 module timmax.tilegame.game.sokoban.model {
+    requires javafx.graphics;
     requires timmax.tilegame.basetilemodel;
 
     exports timmax.tilegame.game.sokoban.model;
