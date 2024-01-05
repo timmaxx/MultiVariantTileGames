@@ -1,7 +1,5 @@
 package timmax.tilegame.transport;
 
-import java.lang.reflect.InvocationTargetException;
-
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.EventOfServer;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
@@ -21,6 +19,5 @@ public interface TransportOfServer<T> {
 
     ModelOfServer<T> getModelOfServer();
 
-    // void setModelOfServer(ModelOfServer<T> modelOfServer);
-    void setModelOfServer(String modelOfServer) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException;
+    void setModelOfServer(ModelOfServer<T> modelOfServer);
 }

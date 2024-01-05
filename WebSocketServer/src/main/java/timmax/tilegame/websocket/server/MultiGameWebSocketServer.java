@@ -1,8 +1,6 @@
 package timmax.tilegame.websocket.server;
 
 import java.io.*;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 
@@ -53,29 +51,10 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     }
 
     @Override
-    public void setModelOfServer(String modelOfServerString) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void setModelOfServer(ModelOfServer<WebSocket> modelOfServer) {
         System.out.println("class MultiGameWebSocketServer. method setModelOfServer");
-        System.out.println("  modelOfServer = " + modelOfServerString);
-
-        // Здесь нужно динамически выбирается модель.
-        Class<?> modelOfServerClass = null;
-        if (modelOfServerString.equals("MinesweeperModel.class")) {
-            modelOfServerClass = Class.forName("timmax.tilegame.game.minesweeper.model.ModelOfServerOfMinesweeper");
-        } else if (modelOfServerString.equals("SokobanModel.class")) {
-            modelOfServerClass = Class.forName("timmax.tilegame.game.sokoban.model.ModelOfServerOfSokoban");
-        }
-
-        if (modelOfServerClass == null || !Classes.isInstanceOf(modelOfServerClass, ModelOfServer.class)) {
-            this.modelOfServer = null;
-            return;
-        }
-        Constructor<?> constructor = modelOfServerClass.getConstructor(TransportOfServer.class);
-        Object obj = constructor.newInstance(this);
-        if (obj instanceof ModelOfServer modelOfServer) {
-            this.modelOfServer = modelOfServer;
-        } else {
-            this.modelOfServer = null;
-        }
+        System.out.println("  modelOfServer = " + modelOfServer);
+        this.modelOfServer = modelOfServer;
     }
 
     @Override

@@ -3,7 +3,10 @@ package timmax.tilegame.basemodel.protocol;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
+import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
 import timmax.tilegame.transport.TransportOfServer;
 
 public class EventOfClient31GameTypeSelect extends EventOfClient {
@@ -25,20 +28,53 @@ public class EventOfClient31GameTypeSelect extends EventOfClient {
         // ToDo: Проверить, что model одна из списка возможных моделей, которые были отправлены ранее этому клиенту.
         //       И если это не так, то отправить клиенту FORGET_GAME_TYPE.
 
-        {   // Создать новую модель
-            // ToDo: Вместо вызова конкретного конструктора, тут нужно создавать экземпляр того типа, который был выбран клиентом.
+        {
             System.out.println("  serverBaseModelClass = " + serverBaseModelClass);
             if (serverBaseModelClass == null) {
                 return;
             }
 
-            try {
-                // ToDo: Перенести логику по созданию модели из setModelOfServer() сюда.
-                transportOfServer.setModelOfServer(serverBaseModelClass);
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.exit(1);
+            {
+                // Здесь динамически выбирается класс модели и создаётся её экземпляр.
+                Class<?> modelOfServerClass = null;
+                try {
+                    if (serverBaseModelClass.equals("MinesweeperModel.class")) {
+                        modelOfServerClass = Class.forName("timmax.tilegame.game.minesweeper.model.ModelOfServerOfMinesweeper");
+                    } else if (serverBaseModelClass.equals("SokobanModel.class")) {
+                        modelOfServerClass = Class.forName("timmax.tilegame.game.sokoban.model.ModelOfServerOfSokoban");
+                    }
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                    System.exit(1);
+                }
+
+                if (modelOfServerClass == null || !Classes.isInstanceOf(modelOfServerClass, ModelOfServer.class)) {
+                    return;
+                }
+
+                Constructor<?> constructor = null;
+                try {
+                    constructor = modelOfServerClass.getConstructor(TransportOfServer.class);
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                    System.exit(1);
+                }
+
+                Object obj = null;
+                try {
+                    obj = constructor.newInstance(transportOfServer);
+                } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
+                    e.printStackTrace();
+                    System.exit(1);
+                }
+
+                if (obj instanceof ModelOfServer modelOfServer) {
+                    transportOfServer.setModelOfServer(modelOfServer);
+                } else {
+                    return;
+                }
             }
+
             System.out.println("    modelOfServer = " + transportOfServer.getModelOfServer());
             if (transportOfServer.getModelOfServer() == null) {
                 return;
