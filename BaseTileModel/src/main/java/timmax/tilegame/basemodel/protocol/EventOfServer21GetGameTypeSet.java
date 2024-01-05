@@ -10,14 +10,14 @@ import timmax.tilegame.transport.TransportOfClient;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfEvent.GET_GAME_TYPE_SET;
 
-public class EventOfServer021GetGameTypeSet extends EventOfServer {
+public class EventOfServer21GetGameTypeSet extends EventOfServer {
     List<String> arrayListOfServerBaseModelClass = new ArrayList<>();
 
-    public EventOfServer021GetGameTypeSet() {
+    public EventOfServer21GetGameTypeSet() {
         super();
     }
 
-    public EventOfServer021GetGameTypeSet(List<String> arrayListOfServerBaseModelClass) {
+    public EventOfServer21GetGameTypeSet(List<String> arrayListOfServerBaseModelClass) {
         this();
         this.arrayListOfServerBaseModelClass = arrayListOfServerBaseModelClass;
     }
@@ -36,7 +36,7 @@ public class EventOfServer021GetGameTypeSet extends EventOfServer {
 
     @Override
     public String toString() {
-        return "EventOfServer021GetGameTypeSet{" +
+        return "EventOfServer21GetGameTypeSet{" +
                 "arrayListOfServerBaseModelClass=" + arrayListOfServerBaseModelClass +
                 '}';
     }

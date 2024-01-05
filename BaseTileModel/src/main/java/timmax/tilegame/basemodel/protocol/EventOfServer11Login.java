@@ -8,14 +8,14 @@ import timmax.tilegame.transport.TransportOfClient;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfEvent.LOGIN;
 
-public class EventOfServer011Login extends EventOfServer {
+public class EventOfServer11Login extends EventOfServer {
     private /*final*/ String userName;
 
-    public EventOfServer011Login() {
+    public EventOfServer11Login() {
         super();
     }
 
-    public EventOfServer011Login(String userName) {
+    public EventOfServer11Login(String userName) {
         this();
         this.userName = userName;
     }
@@ -30,7 +30,7 @@ public class EventOfServer011Login extends EventOfServer {
 
     @Override
     public String toString() {
-        return "EventOfServer011Login{" +
+        return "EventOfServer11Login{" +
                 "userName='" + userName + '\'' +
                 '}';
     }

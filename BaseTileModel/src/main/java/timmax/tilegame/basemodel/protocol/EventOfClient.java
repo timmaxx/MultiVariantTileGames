@@ -10,13 +10,13 @@ public abstract class EventOfClient extends Event {
         return "EventOfClient{}";
     }
 
-    // sendLogoutAnswer используется только в классе EventOfClient011Login
+    // ToDo: sendLogoutAnswer используется только в классе EventOfClient11Login. Что-то сделать с этим.
     protected <T> void sendLogoutAnswer(TransportOfServer<T> transportOfServer, T clientId) {
-        transportOfServer.send(clientId, new EventOfServer010Logout());
+        transportOfServer.send(clientId, new EventOfServer10Logout());
     }
 
-    // sendLoginAnswer используется только в классе EventOfClient010Logout и EventOfClient010Logout
+    // ToDo: sendLoginAnswer используется только в классе EventOfClient10Logout и EventOfClient10Logout. Что-то сделать с этим.
     protected <T> void sendLoginAnswer(TransportOfServer<T> transportOfServer, T clientId, String userName) {
-        transportOfServer.send(clientId, new EventOfServer011Login(userName));
+        transportOfServer.send(clientId, new EventOfServer11Login(userName));
     }
 }
