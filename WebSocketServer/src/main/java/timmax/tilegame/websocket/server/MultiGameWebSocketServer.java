@@ -58,8 +58,8 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     @Override
     public void setModelOfServerTmp() {
         // Здесь нужно динамически выбирать модель.
-        // this.modelOfServer = new ModelOfServerOfSokoban<>(this);
-        this.modelOfServer = new ModelOfServerOfMinesweeper<>(this);
+        this.modelOfServer = new ModelOfServerOfSokoban<>(this);
+        // this.modelOfServer = new ModelOfServerOfMinesweeper<>(this);
     }
 
     @Override

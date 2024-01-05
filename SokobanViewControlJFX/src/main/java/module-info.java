@@ -8,5 +8,4 @@ module timmax.tilegame.game.sokoban.jfx {
 
     exports timmax.tilegame.game.sokoban.jfx.view;
     exports timmax.tilegame.game.sokoban.jfx.controller;
-    exports timmax.tilegame.game.sokoban.jfx;
 }
