@@ -42,23 +42,23 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     // 2
     public void logout() {
         System.out.println("logout()");
-        send(new EventOfClient010Logout());
+        send(new EventOfClient10Logout());
     }
 
     public void login(String userName, String password) {
         System.out.println("login(String, String)");
-        send(new EventOfClient011Login(userName, password));
+        send(new EventOfClient11Login(userName, password));
     }
 
     // 3
     public void forgetGameTypeSet() {
         System.out.println("forgetGameTypeSet()");
-        send(new EventOfClient020ForgetGameTypeSet());
+        send(new EventOfClient20ForgetGameTypeSet());
     }
 
     public void getGameTypeSet() {
         System.out.println("getGameTypeSet()");
-        send(new EventOfClient021GetGameTypeSet());
+        send(new EventOfClient21GetGameTypeSet());
     }
 
     // 4

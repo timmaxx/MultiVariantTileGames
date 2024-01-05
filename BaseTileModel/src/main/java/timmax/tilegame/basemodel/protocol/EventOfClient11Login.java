@@ -7,15 +7,15 @@ import java.io.ObjectOutput;
 import timmax.tilegame.basemodel.credential.Credentials;
 import timmax.tilegame.transport.TransportOfServer;
 
-public class EventOfClient011Login extends EventOfClient {
+public class EventOfClient11Login extends EventOfClient {
     private String userName;
     private String password;
 
-    public EventOfClient011Login() {
+    public EventOfClient11Login() {
         super();
     }
 
-    public EventOfClient011Login(String userName, String password) {
+    public EventOfClient11Login(String userName, String password) {
         this();
         this.userName = userName;
         this.password = password;
@@ -39,7 +39,7 @@ public class EventOfClient011Login extends EventOfClient {
 
     @Override
     public String toString() {
-        return "EventOfClient011Login{" +
+        return "EventOfClient11Login{" +
                 "userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 '}';
