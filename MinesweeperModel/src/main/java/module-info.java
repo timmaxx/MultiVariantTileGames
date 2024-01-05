@@ -8,5 +8,4 @@ module timmax.tilegame.game.minesweeper.model {
 
     exports timmax.tilegame.game.minesweeper.model;
     exports timmax.tilegame.game.minesweeper.model.gameevent;
-    exports timmax.tilegame.game.minesweeper.model.gamecommand;
 }

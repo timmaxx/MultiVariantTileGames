@@ -12,11 +12,13 @@
         <module name="MinesweeperViewControlJFX" />
         <module name="MinesweeperModel" />
         <module name="GameClients" />
-        <module name="GameClientsOld" />
         <module name="TileGameEngineJFX" />
         <module name="SokobanModel" />
         <module name="WebSocketClient" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="GameClientsOld" target="18" />
+    </bytecodeTargetLevel>
   </component>
 </project>
