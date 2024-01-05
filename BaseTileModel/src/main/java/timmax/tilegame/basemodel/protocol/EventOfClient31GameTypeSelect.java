@@ -27,9 +27,22 @@ public class EventOfClient31GameTypeSelect extends EventOfClient {
 
         {   // Создать новую модель
             // ToDo: Вместо вызова конкретного конструктора, тут нужно создавать экземпляр того типа, который был выбран клиентом.
-            // transportOfModel.setModelOfServer(new ModelOfServerOfSokoban<T>(transportOfModel));
-            transportOfServer.setModelOfServerTmp();
+            System.out.println("  serverBaseModelClass = " + serverBaseModelClass);
+            if (serverBaseModelClass == null) {
+                return;
+            }
+
+            try {
+                // ToDo: Перенести логику по созданию модели из setModelOfServer() сюда.
+                transportOfServer.setModelOfServer(serverBaseModelClass);
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.exit(1);
+            }
             System.out.println("    modelOfServer = " + transportOfServer.getModelOfServer());
+            if (transportOfServer.getModelOfServer() == null) {
+                return;
+            }
         }
 
         transportOfServer.send(clientId, new EventOfServer31GameTypeSelect(serverBaseModelClass));

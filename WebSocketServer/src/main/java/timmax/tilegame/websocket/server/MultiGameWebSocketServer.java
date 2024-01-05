@@ -1,6 +1,8 @@
 package timmax.tilegame.websocket.server;
 
 import java.io.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 
@@ -9,15 +11,10 @@ import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
-import timmax.tilegame.basemodel.protocol.EventOfClient;
-import timmax.tilegame.basemodel.protocol.EventOfServer;
-import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent;
-import timmax.tilegame.basemodel.protocol.ObjectMapperOfMvtg;
+import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
 import timmax.tilegame.basemodel.protocol.server.RemoteView;
 import timmax.tilegame.transport.TransportOfServer;
-
-import timmax.tilegame.game.minesweeper.model.ModelOfServerOfMinesweeper;
 
 public class MultiGameWebSocketServer extends WebSocketServer implements TransportOfServer<WebSocket> {
     private final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
@@ -56,10 +53,29 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     }
 
     @Override
-    public void setModelOfServerTmp() {
-        // Здесь нужно динамически выбирать модель.
-        this.modelOfServer = new ModelOfServerOfSokoban<>(this);
-        // this.modelOfServer = new ModelOfServerOfMinesweeper<>(this);
+    public void setModelOfServer(String modelOfServerString) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        System.out.println("class MultiGameWebSocketServer. method setModelOfServer");
+        System.out.println("  modelOfServer = " + modelOfServerString);
+
+        // Здесь нужно динамически выбирается модель.
+        Class<?> modelOfServerClass = null;
+        if (modelOfServerString.equals("MinesweeperModel.class")) {
+            modelOfServerClass = Class.forName("timmax.tilegame.game.minesweeper.model.ModelOfServerOfMinesweeper");
+        } else if (modelOfServerString.equals("SokobanModel.class")) {
+            modelOfServerClass = Class.forName("timmax.tilegame.game.sokoban.model.ModelOfServerOfSokoban");
+        }
+
+        if (modelOfServerClass == null || !Classes.isInstanceOf(modelOfServerClass, ModelOfServer.class)) {
+            this.modelOfServer = null;
+            return;
+        }
+        Constructor<?> constructor = modelOfServerClass.getConstructor(TransportOfServer.class);
+        Object obj = constructor.newInstance(this);
+        if (obj instanceof ModelOfServer modelOfServer) {
+            this.modelOfServer = modelOfServer;
+        } else {
+            this.modelOfServer = null;
+        }
     }
 
     @Override
