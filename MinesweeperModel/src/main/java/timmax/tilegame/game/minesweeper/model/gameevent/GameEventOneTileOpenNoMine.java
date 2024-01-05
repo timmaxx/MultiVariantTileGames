@@ -4,7 +4,11 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
+import javafx.scene.paint.Color;
+
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
+
+import static timmax.tilegame.game.minesweeper.model.ModelOfServerOfMinesweeper.OPENED_CELL_COLOR;
 
 public class GameEventOneTileOpenNoMine extends GameEventOneTile {
     // final (в этом классе и в любом, который реализует Externalizable) пришлось убрать из-за readExternal.
@@ -13,13 +17,15 @@ public class GameEventOneTileOpenNoMine extends GameEventOneTile {
     // А так можно было-бы свой интерфейс сделать с конструктором, у которого был-бы параметром массив объектов!
     private /*final*/ int countOfMineNeighbors;
 
-
     public GameEventOneTileOpenNoMine() {
     }
 
     public GameEventOneTileOpenNoMine(int x, int y, int countOfMineNeighbors) {
         super(x, y);
         this.countOfMineNeighbors = countOfMineNeighbors;
+        cellBackgroundColor = OPENED_CELL_COLOR;
+        cellTextColor = Color.BLACK;
+        cellText = String.valueOf(countOfMineNeighbors);
     }
 
     public int getCountOfMineNeighbors() {

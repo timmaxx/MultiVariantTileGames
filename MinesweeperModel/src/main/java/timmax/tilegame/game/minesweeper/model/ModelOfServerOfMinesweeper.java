@@ -1,6 +1,7 @@
 package timmax.tilegame.game.minesweeper.model;
 
 import javafx.scene.input.MouseButton;
+import javafx.scene.paint.Color;
 
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
@@ -13,10 +14,23 @@ import timmax.tilegame.game.minesweeper.model.gameevent.GameEventOneTileChangeFl
 import timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects;
 import timmax.tilegame.game.minesweeper.model.gameobject.LevelGenerator;
 
+import static javafx.scene.paint.Color.*;
+
 public class ModelOfServerOfMinesweeper<T> extends ModelOfServer<T> {
-    private static final int REST_OF_MINE_INSTALLATION_IN_PERCENTS = 10;
+    private final static int REST_OF_MINE_INSTALLATION_IN_PERCENTS = 10;
     private final static int SIDE_OF_WIDTH = 15;
     private final static int SIDE_OF_HEIGHT = 10;
+
+    // Константы, описанные ниже относятся к визуализации.
+    // ToDo: Вынести логику визуализации из класса.
+    public final static Color UNOPENED_CELL_COLOR = ORANGE;
+    public final static Color OPENED_CELL_COLOR = GREEN;
+
+    public final static String FLAG = "🚩"; // "\uD83D\uDEA9";
+    public final static Color FLAG_CELL_COLOR = YELLOW;
+
+    public final static String MINE = "💣"; // "\uD83D\uDCA3";
+    public final static Color MINE_CELL_COLOR = RED;
 
     private final LevelGenerator levelGenerator = new LevelGenerator();
 
@@ -39,7 +53,7 @@ public class ModelOfServerOfMinesweeper<T> extends ModelOfServer<T> {
 
         sendGameEvent(new GameEventMinesweeperVariableParamsOpenClose(0, width * height));
         sendGameEvent(new GameEventMinesweeperVariableParamsFlag(0, allMinesweeperObjects.getCountOfMines()));
-        super.createNewGame(width, height);
+        super.createNewGame(width, height, UNOPENED_CELL_COLOR, BLACK, "");
     }
 
     private void inverseFlag(int x, int y) {
