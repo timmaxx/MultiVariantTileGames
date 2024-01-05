@@ -1,5 +1,7 @@
 package timmax.tilegame.basemodel.protocol.server;
 
+import javafx.scene.paint.Color;
+
 import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
@@ -29,6 +31,13 @@ public abstract class ModelOfServer<T> implements IModelOfServer<T> {
         validateWidthHeight(width, height);
         gameStatus = GameStatus.GAME;
         GameEventNewGame gameEventNewGame = new GameEventNewGame(width, height);
+        sendGameEvent(gameEventNewGame);
+    }
+
+    protected void createNewGame(int width, int height, Color defaultCellColor, Color defaultTextColor, String defaultCellValue) {
+        validateWidthHeight(width, height);
+        gameStatus = GameStatus.GAME;
+        GameEventNewGame gameEventNewGame = new GameEventNewGame(width, height, defaultCellColor, defaultTextColor, defaultCellValue);
         sendGameEvent(gameEventNewGame);
     }
 
@@ -66,9 +75,4 @@ public abstract class ModelOfServer<T> implements IModelOfServer<T> {
     public final void addRemoteView(RemoteView<T> remoteView) {
         listOfRemoteViews.add(remoteView);
     }
-/*
-    public ListOfRemoteView<T> getListOfRemoteViews() {
-        return listOfRemoteViews;
-    }
-*/
 }

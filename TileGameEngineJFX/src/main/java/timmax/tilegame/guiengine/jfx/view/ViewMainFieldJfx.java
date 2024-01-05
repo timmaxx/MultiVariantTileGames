@@ -3,6 +3,7 @@ package timmax.tilegame.guiengine.jfx.view;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import timmax.tilegame.basemodel.BaseModel;
@@ -14,7 +15,7 @@ import timmax.tilegame.guiengine.jfx.Game;
 import timmax.tilegame.guiengine.jfx.GameStackPane;
 import timmax.tilegame.guiengine.jfx.controller.GameStackPaneController;
 
-abstract public class ViewMainFieldJfx extends ViewJfx {
+public class ViewMainFieldJfx extends ViewJfx {
     private final LocalEventHandler localEventHandler;
     protected GameStackPane[][] cells;
     protected int cellSize;
@@ -43,6 +44,10 @@ abstract public class ViewMainFieldJfx extends ViewJfx {
         int height = gameEventNewGame.getHeight();
         cellSize = Math.min(Game.APP_WIDTH / width, Game.APP_HEIGHT / height);
 
+        Color defaultCellBackgroundColor = gameEventNewGame.getDefaultCellBackgroundColor();
+        Color defaultCellTextColor = gameEventNewGame.getDefaultCellTextColor();
+        String defaultCellText = gameEventNewGame.getDefaultCellText();
+
         cells = new GameStackPane[height][width];
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
@@ -51,7 +56,9 @@ abstract public class ViewMainFieldJfx extends ViewJfx {
                 GameStackPane cell = new GameStackPane(x, y, cellSize, showGrid, showCoordinates);
                 cells[y][x] = cell;
                 initOnMouseClickEventHandlerOnCell(cell);
-                drawCellDuringInitMainField(cell);
+                if (gameEventNewGame.isThereCellSettingDefault()) {
+                    drawCellDuringInitMainField(cell, defaultCellBackgroundColor, defaultCellTextColor, defaultCellText);
+                }
                 getChildren().add(cell);
             }
         }
@@ -74,10 +81,18 @@ abstract public class ViewMainFieldJfx extends ViewJfx {
         //( ( Stage)( getParent( ).getScene( ).getWindow( ))).setResizable( false);
     }
 
-    protected void drawCellDuringInitMainField(GameStackPane cell) {
+    protected void drawCellDuringInitMainField(GameStackPane cell, Color defaultCellBackgroundColor, Color defaultCellTextColor, String defaultCellText) {
+        cell.setBackgroundColor(defaultCellBackgroundColor);
+        cell.setTextColor(defaultCellTextColor);
+        cell.setText(defaultCellText, cellSize);
     }
 
     protected void drawCellDuringGame(GameEventOneTile gameEventOneTile) {
+        GameStackPane cell = getCellByGameEventOneTile(gameEventOneTile);
+
+        cell.setBackgroundColor(gameEventOneTile.getCellBackgroundColor());
+        cell.setTextColor(gameEventOneTile.getCellTextColor());
+        cell.setText(gameEventOneTile.getCellText(), cellSize);
     }
 
     protected GameStackPane getCellByGameEventOneTile(GameEventOneTile gameEventOneTile) {

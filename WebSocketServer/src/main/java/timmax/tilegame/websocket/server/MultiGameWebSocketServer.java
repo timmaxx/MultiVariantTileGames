@@ -44,8 +44,8 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         System.out.println("  send(WebSocket, EventOfServer<WebSocket>)");
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        mapper.writeValue(byteArrayOutputStream, eventOfServer);
         System.out.println("    eventOfServer = " + eventOfServer);
+        mapper.writeValue(byteArrayOutputStream, eventOfServer);
         clientId.send(byteArrayOutputStream.toByteArray());
         System.out.println("---------- End of send(WebSocket, EventOfServer<WebSocket>)");
     }

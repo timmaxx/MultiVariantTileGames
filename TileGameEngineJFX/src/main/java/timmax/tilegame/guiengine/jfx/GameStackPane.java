@@ -14,83 +14,83 @@ public class GameStackPane extends StackPane {
     private final int x;
     private final int y;
 
-
-    public GameStackPane( int x, int y, int cellSize, boolean showGrid, boolean showCoordinates) {
-        super( new Rectangle( ), new Text( ), new Text( ));
+    public GameStackPane(int x, int y, int cellSize, boolean showGrid, boolean showCoordinates) {
+        super(new Rectangle(), new Text(), new Text());
         this.x = x;
         this.y = y;
 
-        if ( showGrid) {
-            getRectangle( ).setWidth( cellSize - 1);
-            getRectangle( ).setHeight( cellSize - 1);
-            getRectangle( ).setStroke( Color.BLACK);
+        if (showGrid) {
+            getRectangle().setWidth(cellSize - 1);
+            getRectangle().setHeight(cellSize - 1);
+            getRectangle().setStroke(Color.BLACK);
         }
-        if ( showCoordinates) {
-            getCoordinateText( ).setFont( Font.font( cellSize * COORDINATE_TEXT_FONT_SIZE_COEFFICIENT));
-            StackPane.setAlignment( getCoordinateText( ), Pos.TOP_LEFT);
-            getCoordinateText( ).setText( x + " - " + y);
+        if (showCoordinates) {
+            getCoordinateText().setFont(Font.font(cellSize * COORDINATE_TEXT_FONT_SIZE_COEFFICIENT));
+            StackPane.setAlignment(getCoordinateText(), Pos.TOP_LEFT);
+            getCoordinateText().setText(x + " - " + y);
         }
-        getRectangle( ).setWidth( cellSize);
-        getRectangle( ).setHeight( cellSize);
-        setLayoutX( x * cellSize);
-        setLayoutY( y * cellSize);
+        getRectangle().setWidth(cellSize);
+        getRectangle().setHeight(cellSize);
+        setLayoutX(x * cellSize);
+        setLayoutY(y * cellSize);
     }
 
-    public int getX( ) {
+    public int getX() {
         return x;
     }
 
-    public int getY( ) {
+    public int getY() {
         return y;
     }
 
-    private Rectangle getRectangle( ) {
-        return ( ( Rectangle)getChildren( ).get( 0));
+    private Rectangle getRectangle() {
+        return ((Rectangle) getChildren().get(0));
     }
 
-    private Text getGeneralText( ) {
-        return ( ( Text)getChildren( ).get( 1));
+    private Text getGeneralText() {
+        return ((Text) getChildren().get(1));
     }
 
-    private Text getCoordinateText( ) {
-        return ( ( Text)getChildren( ).get( 2));
+    private Text getCoordinateText() {
+        return ((Text) getChildren().get(2));
     }
 
-    public void setCellValue( String textValue, int cellSize) {
-        if ( getGeneralText( ).getText( ).equals( textValue)) {
+    public void setText(String textValue, int cellSize) {
+        if (getGeneralText().getText().equals(textValue)) {
             return;
         }
-        if ( textValue.length( ) <= MAX_GENERAL_TEXT_LENGTH_FOR_GENERAL_TEXT_FONT_SIZE_COEFFICIENT) {
+        if (textValue.length() <= MAX_GENERAL_TEXT_LENGTH_FOR_GENERAL_TEXT_FONT_SIZE_COEFFICIENT) {
             double fontSize = cellSize * GENERAL_TEXT_FONT_SIZE_COEFFICIENT;
-            getGeneralText( ).setFont( Font.font( fontSize));
+            getGeneralText().setFont(Font.font(fontSize));
         } else {
-            int fontSize = cellSize / textValue.length( );
-            getGeneralText( ).setFont( Font.font( fontSize));
+            int fontSize = cellSize / textValue.length();
+            getGeneralText().setFont(Font.font(fontSize));
         }
-        getGeneralText( ).setText( textValue);
+        getGeneralText().setText(textValue);
     }
 
-    public void setCellColor( Color cellColor) {
-        if (    cellColor != null &&
+    public void setBackgroundColor(Color cellColor) {
+        if (cellColor != null &&
                 cellColor != Color.TRANSPARENT &&
-                !cellColor.equals( getRectangle( ).getFill( ))
+                !cellColor.equals(getRectangle().getFill())
         ) {
-            getRectangle( ).setFill( cellColor);
+            getRectangle().setFill(cellColor);
         }
     }
 
-    public void setCellTextColor( Color textColor) {
-        if ( !textColor.equals( getGeneralText( ).getFill( ))) {
-            getGeneralText( ).setFill( textColor);
+    public void setTextColor(Color textColor) {
+        if (!textColor.equals(getGeneralText().getFill())) {
+            getGeneralText().setFill(textColor);
         }
     }
-
-    public void setCellValueEx( Color cellColor, String textValue, int cellSize) {
-        setCellValue( textValue, cellSize);
-        setCellColor( cellColor);
+/*
+    public void setCellValueEx(Color cellColor, String textValue, int cellSize) {
+        setCellText(textValue, cellSize);
+        setCellBackgroundColor(cellColor);
     }
 
-    public void setCellNumber( int numberValue, int cellSize) {
-        setCellValue( String.valueOf( numberValue), cellSize);
+    public void setCellNumber(int numberValue, int cellSize) {
+        setCellText(String.valueOf(numberValue), cellSize);
     }
+*/
 }

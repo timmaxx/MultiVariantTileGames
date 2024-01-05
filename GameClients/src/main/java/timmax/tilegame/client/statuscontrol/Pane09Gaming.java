@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import timmax.tilegame.game.minesweeper.jfx.MinesweeperClientPaneJfx;
+import timmax.tilegame.guiengine.jfx.GameClientPaneJfx;
 import timmax.tilegame.websocket.client.MultiGameWebSocketClientManyTimesUse;
 
 public class Pane09Gaming extends AbstractConnectStatePane {
@@ -84,11 +84,8 @@ public class Pane09Gaming extends AbstractConnectStatePane {
     protected void updateOnSelectGameType() {
         disableAllControls();
         pane.getChildren().clear();
-        // ToDo: Похоже, что в универсальном клиенте можно будет не делать объекты типа SokobanClientPaneJfx (или
-        //       других наследников GameClientPaneJfx), а сразу лепить их из GameClientPaneJfx.
-        // pane.getChildren().addAll(new SokobanClientPaneJfx((Stage) getScene().getWindow(), multiGameWebSocketClientManyTimesUse, multiGameWebSocketClientManyTimesUse.getMultiGameWebSocketClient()));
-        pane.getChildren().addAll(new MinesweeperClientPaneJfx((Stage) getScene().getWindow(), multiGameWebSocketClientManyTimesUse, multiGameWebSocketClientManyTimesUse.getMultiGameWebSocketClient()));
-        // pane.getChildren().addAll(new GameClientPaneJfx((Stage) getScene().getWindow(), multiGameWebSocketClientManyTimesUse, multiGameWebSocketClientManyTimesUse.getMultiGameWebSocketClient()));
+        // ToDo: В этой реализации нет заголовка игры (и в будущем других её свойств).
+        pane.getChildren().addAll(new GameClientPaneJfx((Stage) getScene().getWindow(), multiGameWebSocketClientManyTimesUse, multiGameWebSocketClientManyTimesUse.getMultiGameWebSocketClient()));
 
         setDisableControlsNextState(false);
 
