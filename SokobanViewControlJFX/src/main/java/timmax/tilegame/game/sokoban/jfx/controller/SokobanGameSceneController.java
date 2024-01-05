@@ -7,9 +7,9 @@ import timmax.tilegame.transport.TransportOfClient;
 
 import timmax.tilegame.guiengine.jfx.controller.GameSceneController;
 
-import timmax.tilegame.game.sokoban.model.gamecommand.*;
+// import timmax.tilegame.game.sokoban.model.gamecommand.*;
 
-import static timmax.tilegame.basemodel.tile.Direction.*;
+// import static timmax.tilegame.basemodel.tile.Direction.*;
 
 public class SokobanGameSceneController extends GameSceneController {
     public SokobanGameSceneController(TransportOfClient transportOfClient) {
@@ -17,8 +17,9 @@ public class SokobanGameSceneController extends GameSceneController {
     }
 
     @Override
-    public void onKeyPressed( KeyCode keyCode) {
+    public void onKeyPressed(KeyCode keyCode) {
         GameCommand gameCommand = null;
+        /*
         if        ( keyCode.equals( KeyCode.Q))          { gameCommand = new GameCommandSokobanUndo( );
         } else if ( keyCode.equals( KeyCode.P))          { gameCommand = new GameCommandSokobanRedo( );
         } else if ( keyCode.equals( KeyCode.LEFT))       { gameCommand = new GameCommandSokobanMove( LEFT);
@@ -29,9 +30,10 @@ public class SokobanGameSceneController extends GameSceneController {
         } else if ( keyCode.equals( KeyCode.SPACE))      { gameCommand = new GameCommandSokobanNextLevel( );
         } else if ( keyCode.equals( KeyCode.ESCAPE))     { gameCommand = new GameCommandSokobanRestart( );
         }
-        if ( gameCommand == null) {
+        */
+        if (gameCommand == null) {
             return;
         }
-        sendCommand( gameCommand);
+        sendCommand(gameCommand);
     }
 }
