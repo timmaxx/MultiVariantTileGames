@@ -17,20 +17,20 @@ import timmax.tilegame.game.minesweeper.model.gameobject.LevelGenerator;
 import static javafx.scene.paint.Color.*;
 
 public class ModelOfServerOfMinesweeper<T> extends ModelOfServer<T> {
-    private final static int REST_OF_MINE_INSTALLATION_IN_PERCENTS = 10;
-    private final static int SIDE_OF_WIDTH = 15;
-    private final static int SIDE_OF_HEIGHT = 10;
+    private static final int REST_OF_MINE_INSTALLATION_IN_PERCENTS = 10;
+    private static final int SIDE_OF_WIDTH = 15;
+    private static final int SIDE_OF_HEIGHT = 10;
 
     // Константы, описанные ниже относятся к визуализации.
     // ToDo: Вынести логику визуализации из класса.
-    public final static Color UNOPENED_CELL_COLOR = ORANGE;
-    public final static Color OPENED_CELL_COLOR = GREEN;
+    public static final Color UNOPENED_CELL_COLOR = ORANGE;
+    public static final Color OPENED_CELL_COLOR = GREEN;
 
-    public final static String FLAG = "🚩"; // "\uD83D\uDEA9";
-    public final static Color FLAG_CELL_COLOR = YELLOW;
+    public static final String FLAG = "🚩"; // "\uD83D\uDEA9";
+    public static final Color FLAG_CELL_COLOR = YELLOW;
 
-    public final static String MINE = "💣"; // "\uD83D\uDCA3";
-    public final static Color MINE_CELL_COLOR = RED;
+    public static final String MINE = "💣"; // "\uD83D\uDCA3";
+    public static final Color MINE_CELL_COLOR = RED;
 
     private final LevelGenerator levelGenerator = new LevelGenerator();
 
