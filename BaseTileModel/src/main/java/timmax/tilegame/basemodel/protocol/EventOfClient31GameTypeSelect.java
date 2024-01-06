@@ -7,26 +7,27 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
+import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.transport.TransportOfServer;
 
 public class EventOfClient31GameTypeSelect extends EventOfClient {
-    private String serverBaseModelString;
+    private String gameName;
 
     public EventOfClient31GameTypeSelect() {
         super();
     }
 
-    public EventOfClient31GameTypeSelect(String serverBaseModelString) {
+    public EventOfClient31GameTypeSelect(String gameName) {
         this();
-        this.serverBaseModelString = serverBaseModelString;
+        this.gameName = gameName;
     }
 
     @Override
     public <T> void executeOnServer(TransportOfServer<T> transportOfServer, T clientId) {
         System.out.println("  onSelectGameType");
 
-        System.out.println("  serverBaseModelClass = " + serverBaseModelString);
-        if (serverBaseModelString == null) {
+        System.out.println("  serverBaseModelClass = " + gameName);
+        if (gameName == null) {
             System.err.println("Client sent empty name of model classes.");
             transportOfServer.send(clientId, new EventOfServer30ForgetGameType());
             return;
@@ -34,14 +35,14 @@ public class EventOfClient31GameTypeSelect extends EventOfClient {
 
         Constructor<?> constructor = transportOfServer.getCollectionOfModelOfServerDescriptor()
                 .stream()
-                .filter(x -> x.getModelOfServerClass().toString().equals(serverBaseModelString))
+                .filter(x -> x.getGameName().equals(gameName))
                 .findAny()
                 // .map(x -> x.getConstructorOfModelOfServerClass()).orElse(null)
                 .map(ModelOfServerDescriptor::getConstructorOfModelOfServerClass).orElse(null)
         ;
 
         if (constructor == null) {
-            System.err.println(serverBaseModelString + "' was not found in list model classes.");
+            System.err.println(gameName + "' was not found in list model classes.");
             transportOfServer.send(clientId, new EventOfServer30ForgetGameType());
             return;
         }
@@ -50,7 +51,7 @@ public class EventOfClient31GameTypeSelect extends EventOfClient {
         try {
             obj = constructor.newInstance(transportOfServer);
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
-            System.err.println("Server cannot make object of model for " + serverBaseModelString + " with concrete constructor.");
+            System.err.println("Server cannot make object of model for " + gameName + " with concrete constructor.");
             e.printStackTrace();
             System.exit(1);
         }
@@ -69,23 +70,23 @@ public class EventOfClient31GameTypeSelect extends EventOfClient {
             return;
         }
 
-        transportOfServer.send(clientId, new EventOfServer31GameTypeSelect(serverBaseModelString));
+        transportOfServer.send(clientId, new EventOfServer31GameTypeSelect(gameName));
     }
 
     @Override
     public String toString() {
         return "EventOfClient31GameTypeSelect{" +
-                "serverBaseModelClass='" + serverBaseModelString + '\'' +
+                "gameName='" + gameName + '\'' +
                 '}';
     }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(serverBaseModelString);
+        out.writeObject(gameName);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        serverBaseModelString = (String) in.readObject();
+        gameName = (String) in.readObject();
     }
 }

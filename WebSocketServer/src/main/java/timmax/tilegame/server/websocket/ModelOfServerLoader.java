@@ -18,7 +18,11 @@ public class ModelOfServerLoader {
     }
 
     public Collection<ModelOfServerDescriptor> getCollectionOfModelOfServerDescriptor() {
+        // ToDo: Здесь для result выбран ArrayList.
+        //       Но нужна коллекция, которая будет поддерживать уникальность при идентификации модели.
+        //       Причём как при символическом именовании типа игры, так и класса.
         Collection<ModelOfServerDescriptor> result = new ArrayList<>();
+
         try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
             String line;
             ModelOfServerDescriptor modelOfServerDescriptor;
