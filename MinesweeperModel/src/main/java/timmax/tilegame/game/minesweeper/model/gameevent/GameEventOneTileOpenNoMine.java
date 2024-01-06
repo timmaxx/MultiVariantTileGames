@@ -23,15 +23,17 @@ public class GameEventOneTileOpenNoMine extends GameEventOneTile {
     public GameEventOneTileOpenNoMine(int x, int y, int countOfMineNeighbors) {
         super(x, y);
         this.countOfMineNeighbors = countOfMineNeighbors;
+
+        // ToDo: Ниже относится к визуализации. Удалить это отсюда.
         cellBackgroundColor = OPENED_CELL_COLOR;
         cellTextColor = Color.BLACK;
         cellText = String.valueOf(countOfMineNeighbors);
     }
-
+/*
     public int getCountOfMineNeighbors() {
         return countOfMineNeighbors;
     }
-
+*/
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         super.writeExternal(out);

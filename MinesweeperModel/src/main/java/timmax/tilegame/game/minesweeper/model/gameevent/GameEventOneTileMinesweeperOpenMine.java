@@ -11,12 +11,14 @@ import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import static timmax.tilegame.game.minesweeper.model.ModelOfServerOfMinesweeper.MINE;
 import static timmax.tilegame.game.minesweeper.model.ModelOfServerOfMinesweeper.MINE_CELL_COLOR;
 
-public class GameEventOneTileOpenMine extends GameEventOneTile {
-    public GameEventOneTileOpenMine() {
+public class GameEventOneTileMinesweeperOpenMine extends GameEventOneTile {
+    public GameEventOneTileMinesweeperOpenMine() {
     }
 
-    public GameEventOneTileOpenMine(int x, int y) {
+    public GameEventOneTileMinesweeperOpenMine(int x, int y) {
         super(x, y);
+
+        // ToDo: Ниже относится к визуализации. Удалить это отсюда.
         cellBackgroundColor = MINE_CELL_COLOR;
         cellTextColor = Color.BLACK;
         cellText = MINE;

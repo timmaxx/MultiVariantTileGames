@@ -10,7 +10,7 @@ import timmax.tilegame.transport.TransportOfServer;
 import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperPersistentParams;
 import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsFlag;
 import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsOpenClose;
-import timmax.tilegame.game.minesweeper.model.gameevent.GameEventOneTileChangeFlag;
+import timmax.tilegame.game.minesweeper.model.gameevent.GameEventOneTileMinesweeperChangeFlag;
 import timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects;
 import timmax.tilegame.game.minesweeper.model.gameobject.LevelGenerator;
 
@@ -67,7 +67,7 @@ public class ModelOfServerOfMinesweeper<T> extends ModelOfServer<T> {
 
         try {
             boolean isFlag = allMinesweeperObjects.inverseFlag(allMinesweeperObjects.getTileByXY(x, y));
-            sendGameEvent(new GameEventOneTileChangeFlag(x, y, isFlag));
+            sendGameEvent(new GameEventOneTileMinesweeperChangeFlag(x, y, isFlag));
         } catch (RuntimeException rte) {
             rte.printStackTrace();
             System.exit(1);
