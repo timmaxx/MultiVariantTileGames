@@ -38,6 +38,7 @@ public class GameEventOneTileSokobanChangeable extends GameEventOneTile {
         this.whoPersistentInTile = whoPersistentInTile;
         this.whoMovableInTile = whoMovableInTile;
 
+        // ToDo: Ниже относится к визуализации. Удалить это отсюда.
         if (whoPersistentInTile == IS_WALL) {
             cellBackgroundColor = WALL_CELL_COLOR;
         } else if (whoPersistentInTile == IS_HOME) {
