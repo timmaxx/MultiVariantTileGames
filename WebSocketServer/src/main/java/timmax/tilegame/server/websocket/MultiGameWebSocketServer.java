@@ -2,7 +2,11 @@ package timmax.tilegame.server.websocket;
 
 import java.io.*;
 import java.net.InetSocketAddress;
+import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
+import java.nio.file.Paths;
+import java.util.Collection;
+import java.util.Objects;
 
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
@@ -11,11 +15,14 @@ import org.java_websocket.server.WebSocketServer;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
+import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.protocol.server.RemoteView;
 import timmax.tilegame.transport.TransportOfServer;
 
 public class MultiGameWebSocketServer extends WebSocketServer implements TransportOfServer<WebSocket> {
     private final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
+    private ModelOfServerLoader modelLoader;
+    private Collection<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor;
 
     private ModelOfServer<WebSocket> modelOfServer;
 
@@ -58,9 +65,34 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     }
 
     @Override
+    public Collection<ModelOfServerDescriptor> getCollectionOfModelOfServerDescriptor() {
+        return collectionOfModelOfServerDescriptor;
+    }
+
+    @Override
     public void onStart() {
         System.out.println("onStart()");
         System.out.println("  MultiGameWebSocketServer started on port: " + getPort() + ".");
+
+        // ToDo: Загрузить перечень классов-моделей. Они должны быть:
+        //      +1. наследниками ModelOfServer.
+        //      +2. иметь конструктор с параметром типа TransportOfServer.
+        //      +3. попробовать создать экземпляр каждого из класса и вытащить из него некоторые свойства-описания,
+        //          необходимые для информирования клиента (в т.ч. классифицирующая информация), например:
+        //       3.1. Наименование игры (для UI).
+        //       3.2. Количество игроков.
+        //      +4. удалить экземляры.
+        //  + Часть логики при этом вынести из EventOfClient31GameTypeSelect
+
+        try {
+            // modelLoader = new ModelOfServerLoader(Paths.get(MultiGameWebSocketServer.class.getResource("models.txt").toURI()));
+            modelLoader = new ModelOfServerLoader(Paths.get(Objects.requireNonNull(MultiGameWebSocketServer.class.getResource("models.txt")).toURI()));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        collectionOfModelOfServerDescriptor = modelLoader.getCollectionOfModelOfServerDescriptor();
+
         System.out.println("---------- End of onStart");
     }
 

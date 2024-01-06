@@ -1,25 +1,25 @@
 package timmax.tilegame.basemodel.protocol;
 
-import java.util.stream.Stream;
-
 import timmax.tilegame.transport.TransportOfServer;
-
-import static java.util.stream.Collectors.toList;
 
 public class EventOfClient21GetGameTypeSet extends EventOfClient {
     @Override
     public <T> void executeOnServer(TransportOfServer<T> transportOfServer, T clientId) {
         System.out.println("  onGetGameTypeSet");
 
-        transportOfServer.send(clientId, new EventOfServer021GetGameTypeSet(
-                Stream.of(
-                        // ToDo: Перечень классов вариантов игр следует делать не константами в коде. Варианты:
-                        //       - файл параметров,
-                        //       - классы, хранящиеся по определённому пути.
-                        "MinesweeperModel.class",
-                        "SokobanModel.class"
-                ).collect(toList())
-        ));
+        transportOfServer.send(
+                clientId,
+                new EventOfServer21GetGameTypeSet(
+                        transportOfServer.getCollectionOfModelOfServerDescriptor()
+                                .stream()
+                                // ToDo: x.getModelOfServerClass().toString() - это полное имя класса,
+                                //       но нужно сделать map(x -> x.getName()),
+                                //       но для этого name должно быть правильно заполнено.
+                                //       Да ещё что-то нужно будет делать c name для разных языков...
+                                .map(x -> x.getModelOfServerClass().toString())
+                                .toList()
+                )
+        );
     }
 
     @Override

@@ -27,6 +27,8 @@ public abstract class ModelOfServer<T> implements IModelOfServer<T> {
         listOfRemoteViews = new ListOfRemoteView<>(transportOfServer);
     }
 
+    public abstract String getGameName();
+
     protected void createNewGame(int width, int height) {
         validateWidthHeight(width, height);
         gameStatus = GameStatus.GAME;

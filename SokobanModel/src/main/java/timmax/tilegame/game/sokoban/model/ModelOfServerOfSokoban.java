@@ -2,6 +2,7 @@ package timmax.tilegame.game.sokoban.model;
 
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
@@ -46,16 +47,24 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
     private Route route;
     private Route routeRedo = new Route();
 
-
     static {
         try {
-            levelLoader = new LevelLoader(Paths.get(ModelOfServerOfSokoban.class.getResource("levels.txt").toURI()));
+            // levelLoader = new LevelLoader(Paths.get(ModelOfServerOfSokoban.class.getResource("levels.txt").toURI()));
+            levelLoader = new LevelLoader(Paths.get(Objects.requireNonNull(ModelOfServerOfSokoban.class.getResource("levels.txt")).toURI()));
         } catch (URISyntaxException e) {
+            System.err.println("There is a problem with file with game levels.");
+            e.printStackTrace();
+            // throw new URISyntaxException();
+            System.exit(1);
         }
     }
 
     public ModelOfServerOfSokoban(TransportOfServer<T> transportOfServer) {
         super(transportOfServer);
+    }
+
+    public String getGameName() {
+        return "Sokoban";
     }
 
     @Override

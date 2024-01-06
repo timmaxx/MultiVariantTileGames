@@ -40,6 +40,10 @@ public class ModelOfServerOfMinesweeper<T> extends ModelOfServer<T> {
         super(transportOfServer);
     }
 
+    public String getGameName() {
+        return "Minesweeper";
+    }
+
     @Override
     public void createNewGame() {
         createNewGame(SIDE_OF_WIDTH, SIDE_OF_HEIGHT);
