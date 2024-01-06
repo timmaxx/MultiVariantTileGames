@@ -4,7 +4,7 @@ import java.util.List;
 
 import javafx.scene.control.Button;
 
-import timmax.tilegame.websocket.client.*;
+import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
 
 public class Pane03GetGameTypeSet extends AbstractConnectStatePane {
     public Pane03GetGameTypeSet(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {

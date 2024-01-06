@@ -4,11 +4,10 @@ import java.util.List;
 
 import javafx.scene.control.*;
 
-import timmax.tilegame.websocket.client.*;
+import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
 
 public class Pane02UserLogin extends AbstractConnectStatePane {
     private final PasswordField passwordField;
-
 
     public Pane02UserLogin(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
         super(multiGameWebSocketClientManyTimesUse);

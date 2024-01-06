@@ -9,7 +9,7 @@ import javafx.scene.layout.HBox;
 import timmax.tilegame.basemodel.protocol.client.LocalClientState;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.TypeOfEvent;
-import timmax.tilegame.websocket.client.MultiGameWebSocketClientManyTimesUse;
+import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfEvent.*;
 
@@ -108,6 +108,8 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     //  Not on FX application thread
     //  Например:
     //  Exception in thread "WebSocketConnectReadThread-25" java.lang.IllegalStateException: Not on FX application thread; currentThread = WebSocketConnectReadThread-25
+
+    //  ToDo: TypeOfEvent это перечисление. Нужно через ООП сделать и избавиться от перечисление.
     public final void update(TypeOfEvent typeOfEvent) {
         Platform.runLater(() -> {
             if (typeOfEvent == CLOSE) {

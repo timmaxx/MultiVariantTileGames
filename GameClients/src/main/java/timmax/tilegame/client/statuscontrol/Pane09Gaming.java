@@ -7,7 +7,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import timmax.tilegame.guiengine.jfx.GameClientPaneJfx;
-import timmax.tilegame.websocket.client.MultiGameWebSocketClientManyTimesUse;
+import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
 
 public class Pane09Gaming extends AbstractConnectStatePane {
     private final Pane pane;

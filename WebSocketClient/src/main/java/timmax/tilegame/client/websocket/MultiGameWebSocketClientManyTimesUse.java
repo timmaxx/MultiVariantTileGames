@@ -1,4 +1,4 @@
-package timmax.tilegame.websocket.client;
+package timmax.tilegame.client.websocket;
 
 import java.net.URI;
 

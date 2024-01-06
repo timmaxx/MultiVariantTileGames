@@ -6,7 +6,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import timmax.tilegame.websocket.client.MultiGameWebSocketClientManyTimesUse;
+import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
 import timmax.tilegame.client.statuscontrol.Pane01ServerConnect;
 import timmax.tilegame.client.statuscontrol.Pane02UserLogin;
 import timmax.tilegame.client.statuscontrol.Pane03GetGameTypeSet;

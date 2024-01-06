@@ -1,4 +1,4 @@
-package timmax.tilegame.websocket.server;
+package timmax.tilegame.server.websocket;
 
 import java.io.*;
 import java.net.InetSocketAddress;
