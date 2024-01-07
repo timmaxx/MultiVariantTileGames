@@ -23,6 +23,12 @@ public class Pane09Gaming extends AbstractConnectStatePane {
 
         Button buttonQuitGame = new Button("Quit the game");
 
+        // ToDo: по общему правилу 'buttonNewGame.setFocusTraversable(false);' следует закомметировать,
+        //       но т.к. кнопка 'buttonNewGame' пока не делается не активной после нажатия
+        //       (т.к. от сервера не приходит сообщение о начале новой игры), то пусть пока так:
+        buttonNewGame.setFocusTraversable(false);
+        buttonQuitGame.setFocusTraversable(false); // Это в любом случае д.б.
+
         buttonNewGame.setOnAction(event -> {
             //disableAllControls();
             multiGameWebSocketClientManyTimesUse.createNewGame();

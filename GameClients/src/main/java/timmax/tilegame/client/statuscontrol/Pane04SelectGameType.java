@@ -22,6 +22,8 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
         textFieldSelectedGameType.setEditable(false);
         Button buttonForgetGameType = new Button("Forget the game type");
 
+        buttonForgetGameType.setFocusTraversable(false);
+
         buttonSelectGameType.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.gameTypeSelect(comboBoxGameTypeSet.getValue());

@@ -16,13 +16,18 @@ import timmax.tilegame.guiengine.jfx.GameStackPane;
 import timmax.tilegame.guiengine.jfx.controller.GameStackPaneController;
 
 public class ViewMainFieldJfx extends ViewJfx {
-    private final LocalEventHandler localEventHandler;
+    private final LocalMouseEventHandler localMouseEventHandler;
+//    private final LocalKeyEventHandler localKeyEventHandler;
     protected GameStackPane[][] cells;
     protected int cellSize;
 
     public ViewMainFieldJfx(BaseModel baseModel, GameStackPaneController gameStackPaneController) {
         super(baseModel, gameStackPaneController);
-        localEventHandler = new LocalEventHandler();
+        localMouseEventHandler = new LocalMouseEventHandler();
+/*
+        localKeyEventHandler = new LocalKeyEventHandler();
+        setOnKeyPressed(localKeyEventHandler);
+*/
     }
 
     @Override
@@ -105,15 +110,25 @@ public class ViewMainFieldJfx extends ViewJfx {
         if (gameStackPaneController == null) {
             return;
         }
-        cell.setOnMouseClicked(localEventHandler);
+        cell.setOnMouseClicked(localMouseEventHandler);
     }
 
-    private class LocalEventHandler implements EventHandler<MouseEvent> {
+    private class LocalMouseEventHandler implements EventHandler<MouseEvent> {
         @Override
         public void handle(MouseEvent event) {
+            System.out.println("class LocalMouseEventHandler. method handle");
             int x = ((GameStackPane) event.getSource()).getX();
             int y = ((GameStackPane) event.getSource()).getY();
             gameStackPaneController.onMouseClick(event.getButton(), x, y);
         }
     }
+/*
+    private class LocalKeyEventHandler implements EventHandler<KeyEvent> {
+        @Override
+        public void handle(KeyEvent event) {
+            System.out.println("ViewMainFieldJfx. class LocalKeyEventHandler. method handle");
+            System.out.println("  event.getCode() = " + event.getCode());
+        }
+    }
+*/
 }

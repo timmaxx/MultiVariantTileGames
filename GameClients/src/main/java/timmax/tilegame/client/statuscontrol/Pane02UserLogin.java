@@ -19,6 +19,8 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
         Button buttonLogin = new Button("Login");
         Button buttonLogout = new Button("Logout");
 
+        buttonLogout.setFocusTraversable(false);
+
         {   // Инициализация для отладки. Потом убрать совсем, либо через конфигурационный файл, но только имя (не пароль)!
             textFieldUser.setText("u1");
             passwordField.setText("1");

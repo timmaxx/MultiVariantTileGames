@@ -27,6 +27,8 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
         labelConnectString = new Label();
         Button buttonDisconnect = new Button("Disconnect");
 
+        buttonDisconnect.setFocusTraversable(false);
+
         {   // Инициализация для отладки. Потом либо убрать, либо через конфигурационный файл!
             textFieldServerAddress.setText("localhost");
             textFieldServerPort.setText("8887");

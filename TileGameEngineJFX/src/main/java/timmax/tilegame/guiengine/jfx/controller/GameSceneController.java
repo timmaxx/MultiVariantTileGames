@@ -11,5 +11,8 @@ public abstract class GameSceneController extends BaseController {
         super(transportOfClient);
     }
 
-    public abstract void onKeyPressed(KeyCode keyCode);
+    public void onKeyPressed(KeyCode keyCode) {
+        System.out.println("class GameSceneController. method onKeyPressed");
+        System.out.println("  kecode = " + keyCode);
+    }
 }
