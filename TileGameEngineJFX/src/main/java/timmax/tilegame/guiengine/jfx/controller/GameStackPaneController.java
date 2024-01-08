@@ -20,6 +20,6 @@ public class GameStackPaneController extends BaseController {
         System.out.println("  mouseButton = " + mouseButton + ", x = " + x + ", y = " + y);
         GameCommand gameCommand = new GameCommandMouseClick(x, y, mouseButton);
         EventOfClient eventOfClient = new EventOfClient92GameCommand(gameCommand);
-        transportOfClient.send(eventOfClient);
+        sendEventOfClient(eventOfClient);
     }
 }

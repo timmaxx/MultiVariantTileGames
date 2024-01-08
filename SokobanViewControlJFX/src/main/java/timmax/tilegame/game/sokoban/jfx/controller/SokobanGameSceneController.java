@@ -34,6 +34,6 @@ public class SokobanGameSceneController extends GameSceneController {
         if (gameCommand == null) {
             return;
         }
-        sendCommand(gameCommand);
+        sendGameCommand(gameCommand);
     }
 }
