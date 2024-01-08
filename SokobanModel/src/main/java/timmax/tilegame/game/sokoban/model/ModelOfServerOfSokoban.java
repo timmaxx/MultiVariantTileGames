@@ -4,10 +4,12 @@ import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.Objects;
 
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 
 import timmax.tilegame.basemodel.GameStatus;
+import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
@@ -168,6 +170,10 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
         return false;
     }
 
+    // ToDo: Если будет задан уровень, у которого не будет стены с краю и туда будет движение,
+    //       то игрок или ящик может уйти за пределы поля. Варианты решения:
+    //       1. При загрузке уровня как-то анализировать и не загружать такой уровень (алгоритмически сложно).
+    //       2. В этом методе воспринимать попытку выхода, как упирание в стену. Остановимся на этой реализации.
     private void movePlayerIfPossible(Direction direction, boolean isRedo) {
         Player player = allSokobanObjects.getPlayer();
         if (!isRedo) {
@@ -311,6 +317,29 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
             moveUndo();
         } else if (gameCommandMouseClick.getMouseButton() == MouseButton.MIDDLE) {
             moveRedo();
+        }
+    }
+
+    @Override
+    public void executeKeyboardCommand(GameCommandKeyPressed gameCommandKeyPressed) {
+        if (gameCommandKeyPressed.getKeyCode() == KeyCode.LEFT) {
+            move(Direction.LEFT);
+        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.RIGHT) {
+            move(Direction.RIGHT);
+        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.UP) {
+            move(Direction.UP);
+        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.DOWN) {
+            move(Direction.DOWN);
+        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.Q) {
+            moveUndo();
+        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.P) {
+            moveRedo();
+        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.BACK_SPACE) {
+            System.out.println("Changing to previvously level does not work.");
+        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.SPACE) {
+            System.out.println("Changing to next level does not work.");
+        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.ESCAPE) {
+            System.out.println("Restasting level does not work.");
         }
     }
 }

@@ -4,31 +4,29 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import javafx.scene.input.MouseButton;
+import javafx.scene.input.KeyCode;
 
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
 import timmax.tilegame.transport.TransportOfServer;
 
-public class GameCommandMouseClick extends GameCommandOneTile {
-    private MouseButton mouseButton;
+public class GameCommandKeyPressed extends GameCommand {
+    private KeyCode keyCode;
 
-    public GameCommandMouseClick() {
-        super();
+    public GameCommandKeyPressed() {
     }
 
-    public GameCommandMouseClick(int x, int y, MouseButton mouseButton) {
-        super(x, y);
-        this.mouseButton = mouseButton;
+    public GameCommandKeyPressed(KeyCode keyCode) {
+        this.keyCode = keyCode;
     }
 
-    public MouseButton getMouseButton() {
-        return mouseButton;
+    public KeyCode getKeyCode() {
+        return keyCode;
     }
 
     @Override
     public <T> void executeOnServer(TransportOfServer<T> transportOfServer, T clientId) {
-        System.out.println("class GameCommandMouseClick. method executeOnServer.");
-        System.out.println("  mouseButton = " + mouseButton + ", x = " + getX() + ", y = " + getY());
+        System.out.println("class GameCommandKeyPressed. method executeOnServer.");
+        System.out.println("  keyCode = " + keyCode);
 
         // 1. По clientId определить модель, для которой пришла команда.
         ModelOfServer<T> modelOfServer = transportOfServer.getModelOfServer();
@@ -39,18 +37,18 @@ public class GameCommandMouseClick extends GameCommandOneTile {
         //      (или же он является только наблюдателем).
 
         // 3. В найденную модель отправить команду.
-        modelOfServer.executeMouseCommand(this);
+        modelOfServer.executeKeyboardCommand(this);
     }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         super.writeExternal(out);
-        out.writeObject(mouseButton);
+        out.writeObject(keyCode);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         super.readExternal(in);
-        mouseButton = (MouseButton) in.readObject();
+        keyCode = (KeyCode) in.readObject();
     }
 }

@@ -127,18 +127,16 @@ public class ViewMainFieldJfx extends ViewJfx {
     private class LocalMouseEventHandler implements EventHandler<MouseEvent> {
         @Override
         public void handle(MouseEvent event) {
-            System.out.println("class LocalMouseEventHandler. method handle");
             int x = ((GameStackPane) event.getSource()).getX();
             int y = ((GameStackPane) event.getSource()).getY();
             gameStackPaneController.onMouseClick(event.getButton(), x, y);
         }
     }
 
-    private static class LocalKeyEventHandler implements EventHandler<KeyEvent> {
+    private class LocalKeyEventHandler implements EventHandler<KeyEvent> {
         @Override
         public void handle(KeyEvent event) {
-            System.out.println("ViewMainFieldJfx. class LocalKeyEventHandler. method handle");
-            System.out.println("  event.getCode() = " + event.getCode());
+            gameSceneController.onKeyPressed(event.getCode());
         }
     }
 
