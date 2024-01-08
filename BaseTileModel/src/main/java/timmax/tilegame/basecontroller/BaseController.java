@@ -2,6 +2,7 @@ package timmax.tilegame.basecontroller;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
+
 import timmax.tilegame.basemodel.gamecommand.GameCommand;
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
