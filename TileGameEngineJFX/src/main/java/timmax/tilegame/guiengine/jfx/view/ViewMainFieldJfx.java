@@ -1,9 +1,6 @@
 package timmax.tilegame.guiengine.jfx.view;
 
 import javafx.application.Platform;
-import javafx.event.EventHandler;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -16,18 +13,20 @@ import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.guiengine.jfx.Game;
 import timmax.tilegame.guiengine.jfx.GameStackPane;
 
-// Место следующей правки.
 public class ViewMainFieldJfx extends ViewJfx {
-    private final LocalMouseEventHandler localMouseEventHandler;
-    private final LocalKeyEventHandler localKeyEventHandler;
-
     protected GameStackPane[][] cells;
     protected int cellSize;
 
     public ViewMainFieldJfx(BaseModel baseModel, BaseController baseController) {
         super(baseModel, baseController);
-        localMouseEventHandler = new LocalMouseEventHandler();
-        localKeyEventHandler = new LocalKeyEventHandler();
+
+        setOnMouseClicked(event ->
+                baseController.onMouseClick(event.getButton(), (int) (event.getX() / cellSize), (int) (event.getY() / cellSize))
+        );
+
+        setOnKeyPressed(event ->
+                baseController.onKeyPressed(event.getCode())
+        );
     }
 
     @Override
@@ -60,16 +59,12 @@ public class ViewMainFieldJfx extends ViewJfx {
                 boolean showCoordinates = false;
                 GameStackPane cell = new GameStackPane(x, y, cellSize, showGrid, showCoordinates);
                 cells[y][x] = cell;
-                // ToDo: проверить и возможно вынести из цикла эту логику.
-                initOnMouseClickEventHandlerOnCell(cell);
                 if (gameEventNewGame.isThereCellSettingDefault()) {
                     drawCellDuringInitMainField(cell, defaultCellBackgroundColor, defaultCellTextColor, defaultCellText);
                 }
                 getChildren().add(cell);
             }
         }
-        // setOnMouseClicked(localMouseEventHandler);
-        setOnKeyPressed(localKeyEventHandler);
 
         setFocusTraversable(true);
 
@@ -88,8 +83,6 @@ public class ViewMainFieldJfx extends ViewJfx {
         //  40 - количество пикселей сверху и снизу (высота заголовка окна приложения), что-бы главное поле влезло во внутреннее окно - PrimaryStage
         // 180 - количество пикселей в высоту, нужное для достаточного отображения четырёх текстовых выборок
         getParent().getScene().getWindow().setHeight(cellSize * height + 40 + 180);
-
-        //( ( Stage)( getParent( ).getScene( ).getWindow( ))).setResizable( false);
     }
 
     protected void drawCellDuringInitMainField(GameStackPane cell, Color defaultCellBackgroundColor, Color defaultCellTextColor, String defaultCellText) {
@@ -110,28 +103,5 @@ public class ViewMainFieldJfx extends ViewJfx {
         int x = gameEventOneTile.getX();
         int y = gameEventOneTile.getY();
         return cells[y][x];
-    }
-
-    public void initOnMouseClickEventHandlerOnCell(GameStackPane cell) {
-        if (baseController == null) {
-            return;
-        }
-        cell.setOnMouseClicked(localMouseEventHandler);
-    }
-
-    private class LocalMouseEventHandler implements EventHandler<MouseEvent> {
-        @Override
-        public void handle(MouseEvent event) {
-            int x = ((GameStackPane) event.getSource()).getX();
-            int y = ((GameStackPane) event.getSource()).getY();
-            baseController.onMouseClick(event.getButton(), x, y);
-        }
-    }
-
-    private class LocalKeyEventHandler implements EventHandler<KeyEvent> {
-        @Override
-        public void handle(KeyEvent event) {
-            baseController.onKeyPressed(event.getCode());
-        }
     }
 }

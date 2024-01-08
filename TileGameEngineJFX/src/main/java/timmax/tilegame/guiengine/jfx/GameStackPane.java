@@ -11,13 +11,8 @@ public class GameStackPane extends StackPane {
     private static final int MAX_GENERAL_TEXT_LENGTH_FOR_GENERAL_TEXT_FONT_SIZE_COEFFICIENT = 4;
     private static final double GENERAL_TEXT_FONT_SIZE_COEFFICIENT = 0.4;
 
-    private final int x;
-    private final int y;
-
     public GameStackPane(int x, int y, int cellSize, boolean showGrid, boolean showCoordinates) {
         super(new Rectangle(), new Text(), new Text());
-        this.x = x;
-        this.y = y;
 
         if (showGrid) {
             getRectangle().setWidth(cellSize - 1);
@@ -33,14 +28,6 @@ public class GameStackPane extends StackPane {
         getRectangle().setHeight(cellSize);
         setLayoutX(x * cellSize);
         setLayoutY(y * cellSize);
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
     }
 
     private Rectangle getRectangle() {
