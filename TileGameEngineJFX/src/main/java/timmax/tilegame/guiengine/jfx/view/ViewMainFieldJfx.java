@@ -2,6 +2,7 @@ package timmax.tilegame.guiengine.jfx.view;
 
 import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -13,21 +14,26 @@ import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 
 import timmax.tilegame.guiengine.jfx.Game;
 import timmax.tilegame.guiengine.jfx.GameStackPane;
+import timmax.tilegame.guiengine.jfx.controller.GameSceneController;
 import timmax.tilegame.guiengine.jfx.controller.GameStackPaneController;
 
+// Место следующей правки.
 public class ViewMainFieldJfx extends ViewJfx {
     private final LocalMouseEventHandler localMouseEventHandler;
-//    private final LocalKeyEventHandler localKeyEventHandler;
+    private final LocalKeyEventHandler localKeyEventHandler;
+
     protected GameStackPane[][] cells;
     protected int cellSize;
-
+/*
     public ViewMainFieldJfx(BaseModel baseModel, GameStackPaneController gameStackPaneController) {
         super(baseModel, gameStackPaneController);
         localMouseEventHandler = new LocalMouseEventHandler();
-/*
-        localKeyEventHandler = new LocalKeyEventHandler();
-        setOnKeyPressed(localKeyEventHandler);
+    }
 */
+    public ViewMainFieldJfx(BaseModel baseModel, GameStackPaneController gameStackPaneController, GameSceneController gameSceneController) {
+        super(baseModel, gameStackPaneController, gameSceneController);
+        localMouseEventHandler = new LocalMouseEventHandler();
+        localKeyEventHandler = new LocalKeyEventHandler();
     }
 
     @Override
@@ -60,6 +66,7 @@ public class ViewMainFieldJfx extends ViewJfx {
                 boolean showCoordinates = false;
                 GameStackPane cell = new GameStackPane(x, y, cellSize, showGrid, showCoordinates);
                 cells[y][x] = cell;
+                // ToDo: проверить и возможно вынести из цикла эту логику.
                 initOnMouseClickEventHandlerOnCell(cell);
                 if (gameEventNewGame.isThereCellSettingDefault()) {
                     drawCellDuringInitMainField(cell, defaultCellBackgroundColor, defaultCellTextColor, defaultCellText);
@@ -67,6 +74,10 @@ public class ViewMainFieldJfx extends ViewJfx {
                 getChildren().add(cell);
             }
         }
+        setOnKeyPressed(localKeyEventHandler);
+
+        setFocusTraversable(true);
+
         // Не сильно красивое решение, нужное для того, чтобы установить ширину окна приложения
         // исходя из ширины главного игрового поля.
         // ToDo: Правильным было-бы:
@@ -122,13 +133,13 @@ public class ViewMainFieldJfx extends ViewJfx {
             gameStackPaneController.onMouseClick(event.getButton(), x, y);
         }
     }
-/*
-    private class LocalKeyEventHandler implements EventHandler<KeyEvent> {
+
+    private static class LocalKeyEventHandler implements EventHandler<KeyEvent> {
         @Override
         public void handle(KeyEvent event) {
             System.out.println("ViewMainFieldJfx. class LocalKeyEventHandler. method handle");
             System.out.println("  event.getCode() = " + event.getCode());
         }
     }
-*/
+
 }
