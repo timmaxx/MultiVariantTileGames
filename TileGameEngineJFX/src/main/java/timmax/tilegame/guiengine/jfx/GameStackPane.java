@@ -83,14 +83,4 @@ public class GameStackPane extends StackPane {
             getGeneralText().setFill(textColor);
         }
     }
-/*
-    public void setCellValueEx(Color cellColor, String textValue, int cellSize) {
-        setCellText(textValue, cellSize);
-        setCellBackgroundColor(cellColor);
-    }
-
-    public void setCellNumber(int numberValue, int cellSize) {
-        setCellText(String.valueOf(numberValue), cellSize);
-    }
-*/
 }
