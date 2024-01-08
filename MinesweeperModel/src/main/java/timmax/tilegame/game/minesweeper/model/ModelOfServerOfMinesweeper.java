@@ -3,6 +3,7 @@ package timmax.tilegame.game.minesweeper.model;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 
+import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
 import timmax.tilegame.transport.TransportOfServer;
@@ -98,5 +99,11 @@ public class ModelOfServerOfMinesweeper<T> extends ModelOfServer<T> {
         } else if (gameCommandMouseClick.getMouseButton() == MouseButton.SECONDARY) {
             inverseFlag(x, y);
         }
+    }
+
+    @Override
+    public void executeKeyboardCommand(GameCommandKeyPressed gameCommandKeyPressed) {
+        System.out.println("class ModelOfServerOfMinesweeper. method executeKeyboardCommand");
+        System.out.println("  do nothing.");
     }
 }
