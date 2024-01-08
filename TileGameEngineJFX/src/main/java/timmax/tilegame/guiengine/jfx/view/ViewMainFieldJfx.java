@@ -7,6 +7,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import timmax.tilegame.basecontroller.BaseController;
 import timmax.tilegame.basemodel.BaseModel;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
@@ -14,8 +15,6 @@ import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 
 import timmax.tilegame.guiengine.jfx.Game;
 import timmax.tilegame.guiengine.jfx.GameStackPane;
-import timmax.tilegame.guiengine.jfx.controller.GameSceneController;
-import timmax.tilegame.guiengine.jfx.controller.GameStackPaneController;
 
 // Место следующей правки.
 public class ViewMainFieldJfx extends ViewJfx {
@@ -24,14 +23,9 @@ public class ViewMainFieldJfx extends ViewJfx {
 
     protected GameStackPane[][] cells;
     protected int cellSize;
-/*
-    public ViewMainFieldJfx(BaseModel baseModel, GameStackPaneController gameStackPaneController) {
-        super(baseModel, gameStackPaneController);
-        localMouseEventHandler = new LocalMouseEventHandler();
-    }
-*/
-    public ViewMainFieldJfx(BaseModel baseModel, GameStackPaneController gameStackPaneController, GameSceneController gameSceneController) {
-        super(baseModel, gameStackPaneController, gameSceneController);
+
+    public ViewMainFieldJfx(BaseModel baseModel, BaseController baseController) {
+        super(baseModel, baseController);
         localMouseEventHandler = new LocalMouseEventHandler();
         localKeyEventHandler = new LocalKeyEventHandler();
     }
@@ -74,6 +68,7 @@ public class ViewMainFieldJfx extends ViewJfx {
                 getChildren().add(cell);
             }
         }
+        // setOnMouseClicked(localMouseEventHandler);
         setOnKeyPressed(localKeyEventHandler);
 
         setFocusTraversable(true);
@@ -118,7 +113,7 @@ public class ViewMainFieldJfx extends ViewJfx {
     }
 
     public void initOnMouseClickEventHandlerOnCell(GameStackPane cell) {
-        if (gameStackPaneController == null) {
+        if (baseController == null) {
             return;
         }
         cell.setOnMouseClicked(localMouseEventHandler);
@@ -129,15 +124,14 @@ public class ViewMainFieldJfx extends ViewJfx {
         public void handle(MouseEvent event) {
             int x = ((GameStackPane) event.getSource()).getX();
             int y = ((GameStackPane) event.getSource()).getY();
-            gameStackPaneController.onMouseClick(event.getButton(), x, y);
+            baseController.onMouseClick(event.getButton(), x, y);
         }
     }
 
     private class LocalKeyEventHandler implements EventHandler<KeyEvent> {
         @Override
         public void handle(KeyEvent event) {
-            gameSceneController.onKeyPressed(event.getCode());
+            baseController.onKeyPressed(event.getCode());
         }
     }
-
 }
