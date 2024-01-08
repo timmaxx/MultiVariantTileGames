@@ -1,6 +1,5 @@
 package timmax.tilegame.guiengine.jfx.view;
 
-import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 import timmax.tilegame.basecontroller.BaseController;
@@ -15,9 +14,9 @@ public abstract class ViewJfx extends Pane implements View {
         this.baseController = baseController;
         baseModel.addView(this);
     }
-
+/*
     @Override
     public Node getStyleableNode() {
         return super.getStyleableNode();
-    }
+    }*/
 }
