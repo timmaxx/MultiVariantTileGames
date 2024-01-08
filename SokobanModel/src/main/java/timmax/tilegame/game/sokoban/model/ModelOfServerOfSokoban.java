@@ -177,6 +177,9 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
     private void movePlayerIfPossible(Direction direction, boolean isRedo) {
         Player player = allSokobanObjects.getPlayer();
         if (!isRedo) {
+            if (player.isOutOfBoard(direction, allSokobanObjects.getWidth(), allSokobanObjects.getHeight())) {
+                return;
+            }
             if (isCollisionWithWall(player, direction)) {
                 return;
             }
@@ -188,6 +191,9 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
         for (Box box : allSokobanObjects.getBoxes()) {
             if (player.isCollision(box, direction)) {
                 if (!isRedo) {
+                    if (box.isOutOfBoard(direction, allSokobanObjects.getWidth(), allSokobanObjects.getHeight())) {
+                        return;
+                    }
                     if (isCollisionWithWall(box, direction)) {
                         return;
                     }
