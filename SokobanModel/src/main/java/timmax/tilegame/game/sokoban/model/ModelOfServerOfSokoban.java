@@ -170,10 +170,6 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
         return false;
     }
 
-    // ToDo: Если будет задан уровень, у которого не будет стены с краю и туда будет движение,
-    //       то игрок или ящик может уйти за пределы поля. Варианты решения:
-    //       1. При загрузке уровня как-то анализировать и не загружать такой уровень (алгоритмически сложно).
-    //       2. В этом методе воспринимать попытку выхода, как упирание в стену. Остановимся на этой реализации.
     private void movePlayerIfPossible(Direction direction, boolean isRedo) {
         Player player = allSokobanObjects.getPlayer();
         if (!isRedo) {
