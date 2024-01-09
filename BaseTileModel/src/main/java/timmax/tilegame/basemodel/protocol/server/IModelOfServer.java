@@ -13,4 +13,5 @@ public interface IModelOfServer<T> {
     void executeKeyboardCommand(GameCommandKeyPressed gameCommandKeyPressed);
 
     void win();
+    void restart();
 }

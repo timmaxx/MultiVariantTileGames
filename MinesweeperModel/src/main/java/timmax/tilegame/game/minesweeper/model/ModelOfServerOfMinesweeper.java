@@ -1,5 +1,6 @@
 package timmax.tilegame.game.minesweeper.model;
 
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 
@@ -65,8 +66,9 @@ public class ModelOfServerOfMinesweeper<T> extends ModelOfServer<T> {
 
     @Override
     public void executeKeyboardCommand(GameCommandKeyPressed gameCommandKeyPressed) {
-        System.out.println("class ModelOfServerOfMinesweeper. method executeKeyboardCommand");
-        System.out.println("  do nothing.");
+        if (gameCommandKeyPressed.getKeyCode() == KeyCode.ESCAPE) {
+            restart();
+        }
     }
 
     // Overiden methods from class ModelOfServer:

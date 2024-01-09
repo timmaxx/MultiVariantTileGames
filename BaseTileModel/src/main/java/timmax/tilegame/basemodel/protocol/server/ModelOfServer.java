@@ -8,6 +8,7 @@ import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
 import timmax.tilegame.transport.TransportOfServer;
 
+import static timmax.tilegame.basemodel.GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
 import static timmax.tilegame.basemodel.GameStatus.VICTORY;
 
 // Абстрактная модель. Она уже может:
@@ -49,6 +50,16 @@ public abstract class ModelOfServer<T> implements IModelOfServer<T> {
         setGameStatus(GameStatus.VICTORY);
         sendGameEvent(new GameEventGameOver(VICTORY));
     }
+
+    @Override
+    public void restart() {
+        if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
+            return;
+        }
+        setGameStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
+        sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
+    }
+
 
     // Own methods of the class:
     protected void createNewGame(int width, int height) {

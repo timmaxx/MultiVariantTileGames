@@ -131,7 +131,7 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
         } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.SPACE) {
             System.out.println("Changing to next level does not work.");
         } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.ESCAPE) {
-            System.out.println("Restasting level does not work.");
+            restart();
         }
     }
 
@@ -334,14 +334,5 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
             currentLevel.decValue();
             sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
         }
-
-        @Override
-        public void restart() {
-            if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
-                return;
-            }
-            setGameStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
-            sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
-        }
-    */
+*/
 }
