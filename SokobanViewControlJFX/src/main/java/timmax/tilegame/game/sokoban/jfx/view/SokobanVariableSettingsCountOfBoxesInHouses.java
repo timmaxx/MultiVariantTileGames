@@ -1,8 +1,7 @@
 package timmax.tilegame.game.sokoban.jfx.view;
 
-import timmax.tilegame.basemodel.BaseModel;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
-
+import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.guiengine.jfx.view.ViewTextFieldsJfx;
 
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanVariableParamsCountOfBoxesInHouses;
@@ -10,15 +9,15 @@ import timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanVariablePara
 import static timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanVariableParamsCountOfBoxesInHouses.COMMON_LABEL_OF_VARIABLE_PARAMS_COUNT_OF_BOXES_IN_HOMES;
 
 public class SokobanVariableSettingsCountOfBoxesInHouses extends ViewTextFieldsJfx {
-    public SokobanVariableSettingsCountOfBoxesInHouses( BaseModel baseModel) {
-        super( baseModel
+    public SokobanVariableSettingsCountOfBoxesInHouses(IModelOfClient iModelOfClient) {
+        super(iModelOfClient
                 , GameEventSokobanVariableParamsCountOfBoxesInHouses.class
                 , COMMON_LABEL_OF_VARIABLE_PARAMS_COUNT_OF_BOXES_IN_HOMES);
     }
 
     @Override
-    protected String createStringFromGameEvent( GameEvent gameEvent) {
-        GameEventSokobanVariableParamsCountOfBoxesInHouses ge = ( ( GameEventSokobanVariableParamsCountOfBoxesInHouses) gameEvent);
-        return ge.getCountOfBoxesInHouses( ) + ". ";
+    protected String createStringFromGameEvent(GameEvent gameEvent) {
+        GameEventSokobanVariableParamsCountOfBoxesInHouses ge = ((GameEventSokobanVariableParamsCountOfBoxesInHouses) gameEvent);
+        return ge.getCountOfBoxesInHouses() + ". ";
     }
 }

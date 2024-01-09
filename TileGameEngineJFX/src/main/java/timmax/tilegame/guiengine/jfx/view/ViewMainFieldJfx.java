@@ -5,10 +5,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import timmax.tilegame.basecontroller.BaseController;
-import timmax.tilegame.basemodel.BaseModel;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
+import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 
 import timmax.tilegame.guiengine.jfx.Game;
 import timmax.tilegame.guiengine.jfx.GameStackPane;
@@ -17,8 +17,8 @@ public class ViewMainFieldJfx extends ViewJfx {
     protected GameStackPane[][] cells;
     protected int cellSize;
 
-    public ViewMainFieldJfx(BaseModel baseModel, BaseController baseController) {
-        super(baseModel, baseController);
+    public ViewMainFieldJfx(IModelOfClient iModelOfClient, BaseController baseController) {
+        super(iModelOfClient, baseController);
 
         setOnMouseClicked(event ->
                 baseController.onMouseClick(event.getButton(), (int) (event.getX() / cellSize), (int) (event.getY() / cellSize))

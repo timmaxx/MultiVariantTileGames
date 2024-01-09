@@ -2,7 +2,6 @@ package timmax.tilegame.client.websocket;
 
 import java.net.URI;
 
-import timmax.tilegame.basemodel.BaseModel;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.basemodel.protocol.client.LocalClientState;
@@ -12,7 +11,7 @@ import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfClient;
 
 // WebSocket клиент многоразовый
-public class MultiGameWebSocketClientManyTimesUse implements BaseModel, IModelOfClient {
+public class MultiGameWebSocketClientManyTimesUse implements IModelOfClient {
     // ToDo: Параметр не должен быть null!
     private final LocalClientState localClientState = new LocalClientState(null);
     private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent = new HashSetOfObserverOnAbstractEvent();
@@ -43,7 +42,37 @@ public class MultiGameWebSocketClientManyTimesUse implements BaseModel, IModelOf
         multiGameWebSocketClient.close();
     }
 
-    // Overiden methods from interface BaseModel:
+    // Overiden methods from interface IModelOfClient:
+    @Override
+    public void logout() {
+        multiGameWebSocketClient.logout();
+    }
+
+    @Override
+    public void login(String userName, String password) {
+        multiGameWebSocketClient.login(userName, password);
+    }
+
+    @Override
+    public void forgetGameTypeSet() {
+        multiGameWebSocketClient.forgetGameTypeSet();
+    }
+
+    @Override
+    public void getGameTypeSet() {
+        multiGameWebSocketClient.getGameTypeSet();
+    }
+
+    @Override
+    public void forgetGameType() {
+        multiGameWebSocketClient.forgetGameType();
+    }
+
+    @Override
+    public void gameTypeSelect(String serverBaseModelClass) {
+        multiGameWebSocketClient.gameTypeSelect(serverBaseModelClass);
+    }
+
     @Override
     public void createNewGame() {
         multiGameWebSocketClient.createNewGame();
@@ -52,22 +81,6 @@ public class MultiGameWebSocketClientManyTimesUse implements BaseModel, IModelOf
     @Override
     public void addView(View view) {
         multiGameWebSocketClient.addView(view);
-    }
-
-    @Override
-    public void restart() {
-    }
-
-    @Override
-    public void nextLevel() {
-    }
-
-    @Override
-    public void prevLevel() {
-    }
-
-    @Override
-    public void win() {
     }
 
     // Own methods of the class:
@@ -85,32 +98,7 @@ public class MultiGameWebSocketClientManyTimesUse implements BaseModel, IModelOf
 
     public void connect() {
         multiGameWebSocketClient = new MultiGameWebSocketClient(uri, localClientState, hashSetOfObserverOnAbstractEvent);
-
         multiGameWebSocketClient.connect();
-    }
-
-    public void logout() {
-        multiGameWebSocketClient.logout();
-    }
-
-    public void login(String userName, String password) {
-        multiGameWebSocketClient.login(userName, password);
-    }
-
-    public void forgetGameTypeSet() {
-        multiGameWebSocketClient.forgetGameTypeSet();
-    }
-
-    public void getGameTypeSet() {
-        multiGameWebSocketClient.getGameTypeSet();
-    }
-
-    public void forgetGameType() {
-        multiGameWebSocketClient.forgetGameType();
-    }
-
-    public void gameTypeSelect(String serverBaseModelClass) {
-        multiGameWebSocketClient.gameTypeSelect(serverBaseModelClass);
     }
 
     // ToDo: Это временное решение. Потом удалить.
