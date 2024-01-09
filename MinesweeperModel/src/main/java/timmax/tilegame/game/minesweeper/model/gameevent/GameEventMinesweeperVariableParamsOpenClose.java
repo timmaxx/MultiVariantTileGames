@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import timmax.tilegame.basemodel.gameevent.GameEventROTextFields;
+import timmax.tilegame.basemodel.gameevent.GameEvent;
 
-public class GameEventMinesweeperVariableParamsOpenClose extends GameEventROTextFields {
+public class GameEventMinesweeperVariableParamsOpenClose extends GameEvent {
     // ToDo: Разобраться и удалить ведущий '\n';
     public final static String COMMON_LABEL_OF_VARIABLE_PARAMS_OPEN_CLOSE = "\nVariable settings - open and close tiles:\n";
     public final static String TILES_WERE_OPENED = " Tiles were opened = ";
@@ -18,7 +18,6 @@ public class GameEventMinesweeperVariableParamsOpenClose extends GameEventROText
     // А так можно было-бы свой интерфейс сделать с конструктором, у которого был-бы параметром массив объектов!
     private /*final*/ int tilesWereOpened;
     private /*final*/ int tilesStillClose;
-
 
     public GameEventMinesweeperVariableParamsOpenClose() {
     }

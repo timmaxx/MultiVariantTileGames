@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import timmax.tilegame.basemodel.gameevent.GameEventROTextFields;
+import timmax.tilegame.basemodel.gameevent.GameEvent;
 
-public class GameEventMinesweeperVariableParamsFlag extends GameEventROTextFields {
+public class GameEventMinesweeperVariableParamsFlag extends GameEvent {
     // ToDo: Разобраться и удалить ведущий '\n';
     public final static String COMMON_LABEL_OF_VARIABLE_PARAMS_FLAG = "\nVariable settings - flags:\n";
     public final static String FLAGS_WERE_USED = " Flags were used = ";
@@ -18,7 +18,6 @@ public class GameEventMinesweeperVariableParamsFlag extends GameEventROTextField
     // А так можно было-бы свой интерфейс сделать с конструктором, у которого был-бы параметром массив объектов!
     private /*final*/ int flagsWereUsed;
     private /*final*/ int flagsAreStillAvailableForUsing;
-
 
     public GameEventMinesweeperVariableParamsFlag() {
     }
