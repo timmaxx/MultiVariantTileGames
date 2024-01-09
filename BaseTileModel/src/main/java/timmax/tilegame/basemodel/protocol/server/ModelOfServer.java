@@ -4,8 +4,11 @@ import javafx.scene.paint.Color;
 
 import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
+import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
 import timmax.tilegame.transport.TransportOfServer;
+
+import static timmax.tilegame.basemodel.GameStatus.VICTORY;
 
 // Абстрактная модель. Она уже может:
 // - хранить перечень удалённых выборок (которым нужно отправлять сообщения об игровых событиях),
@@ -27,8 +30,27 @@ public abstract class ModelOfServer<T> implements IModelOfServer<T> {
         listOfRemoteViews = new ListOfRemoteView<>(transportOfServer);
     }
 
-    public abstract String getGameName();
+    protected final GameStatus getGameStatus() {
+        return gameStatus;
+    }
 
+    protected final void setGameStatus(GameStatus gameStatus) {
+        this.gameStatus = gameStatus;
+    }
+
+    // Overiden methods from interface IModelOfServer:
+    @Override
+    public final void addRemoteView(RemoteView<T> remoteView) {
+        listOfRemoteViews.add(remoteView);
+    }
+
+    @Override
+    public void win() {
+        setGameStatus(GameStatus.VICTORY);
+        sendGameEvent(new GameEventGameOver(VICTORY));
+    }
+
+    // Own methods of the class:
     protected void createNewGame(int width, int height) {
         validateWidthHeight(width, height);
         gameStatus = GameStatus.GAME;
@@ -57,24 +79,11 @@ public abstract class ModelOfServer<T> implements IModelOfServer<T> {
                         ". But width = " + width + ", height = " + height + ".");
     }
 
-    protected final GameStatus getGameStatus() {
-        return gameStatus;
-    }
-
-    protected final void setGameStatus(GameStatus gameStatus) {
-        this.gameStatus = gameStatus;
-    }
-
     protected final boolean verifyGameStatusNotGameAndMayBeCreateNewGame() {
         if (getGameStatus() != GameStatus.GAME) {
             createNewGame();
             return true;
         }
         return false;
-    }
-
-    @Override
-    public final void addRemoteView(RemoteView<T> remoteView) {
-        listOfRemoteViews.add(remoteView);
     }
 }

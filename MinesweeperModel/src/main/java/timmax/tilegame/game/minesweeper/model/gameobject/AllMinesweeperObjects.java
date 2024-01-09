@@ -7,10 +7,7 @@ import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
 
-import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsFlag;
-import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsOpenClose;
-import timmax.tilegame.game.minesweeper.model.gameevent.GameEventOneTileMinesweeperOpenMine;
-import timmax.tilegame.game.minesweeper.model.gameevent.GameEventOneTileOpenNoMine;
+import timmax.tilegame.game.minesweeper.model.gameevent.*;
 
 import static timmax.tilegame.basemodel.GameStatus.*;
 
@@ -39,15 +36,16 @@ public class AllMinesweeperObjects<T> {
         return countOfMines;
     }
 
-    // Инвертировать флаг
-    public boolean inverseFlag(TileOfMinesweeper tileOfMinesweeper) {
-        // Если плитка уже открыта или (флагов больше нет и нет флага)
+    // Попробовать инвертировать флаг
+    public void tryInverseFlag(TileOfMinesweeper tileOfMinesweeper) {
+        // Если плитка уже открыта или (флагов больше нет и на плитке нет флага)
         if (tileOfMinesweeper.isOpen()
                 || (countOfFlags == 0 && !tileOfMinesweeper.isFlag())) {
             // Не будет инверсии
-            return tileOfMinesweeper.isFlag();
+            return;
         }
         tileOfMinesweeper.inverseFlag(); // Инвертируем флаг
+        modelOfServer.sendGameEvent(new GameEventOneTileMinesweeperChangeFlag(tileOfMinesweeper.getX(), tileOfMinesweeper.getY(), tileOfMinesweeper.isFlag()));
         if (tileOfMinesweeper.isFlag()) {
             countOfFlags--;
         } else {
@@ -57,7 +55,6 @@ public class AllMinesweeperObjects<T> {
                 countOfMines - countOfFlags,
                 countOfFlags
         ));
-        return tileOfMinesweeper.isFlag();
     }
 
     // Открыть плитку и узнать, продолжена-ли будет игра или закончена (выигрышем или проигрышем).
@@ -112,7 +109,7 @@ public class AllMinesweeperObjects<T> {
         // Если количество не открытых плиток равно количеству мин
         if (countOfClosedTiles == countOfMines && !tileOfMinesweeper.isMine()) {
             // Игра окончена победой
-            modelOfServer.sendGameEvent(new GameEventGameOver(VICTORY));
+            modelOfServer.win();
             return VICTORY;
         }
         // Продолжаем игру

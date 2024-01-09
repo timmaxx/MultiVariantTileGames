@@ -4,21 +4,13 @@ import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 
 public interface IModelOfServer<T> {
-    void createNewGame();
+    String getGameName();
 
+    void createNewGame();
     void addRemoteView(RemoteView<T> remoteView);
 
-    /*
-        void restart();
-
-        void nextLevel();
-
-        void prevLevel();
-    */
+    void executeMouseCommand(GameCommandMouseClick gameCommandMouseClick);
+    void executeKeyboardCommand(GameCommandKeyPressed gameCommandKeyPressed);
 
     void win();
-
-    void executeMouseCommand(GameCommandMouseClick gameCommandMouseClick);
-
-    void executeKeyboardCommand(GameCommandKeyPressed gameCommandKeyPressed);
 }

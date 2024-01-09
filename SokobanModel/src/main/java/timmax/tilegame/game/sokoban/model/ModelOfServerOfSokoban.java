@@ -8,11 +8,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 
-import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
-import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.tile.Direction;
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventOneTileSokobanChangeable;
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanVariableParamsCountOfBoxesInHouses;
@@ -24,7 +22,6 @@ import timmax.tilegame.transport.TransportOfServer;
 
 // import static timmax.tilegame.basemodel.GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
 import static javafx.scene.paint.Color.*;
-import static timmax.tilegame.basemodel.GameStatus.VICTORY;
 import static timmax.tilegame.game.sokoban.model.gameobject.WhoMovableInTile.*;
 
 public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
@@ -51,12 +48,13 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
 
     static {
         try {
-            // levelLoader = new LevelLoader(Paths.get(ModelOfServerOfSokoban.class.getResource("levels.txt").toURI()));
             levelLoader = new LevelLoader(Paths.get(Objects.requireNonNull(ModelOfServerOfSokoban.class.getResource("levels.txt")).toURI()));
         } catch (URISyntaxException e) {
             System.err.println("There is a problem with file with game levels.");
             e.printStackTrace();
-            // throw new URISyntaxException();
+            // ToDo: При 'System.exit(1);' сервер закроется. Но ошибка произошла при загрузке только модели одной игры.
+            //       Поэтому нужно чтобы только эта модель не загрузилась и клиенту должен быть отправлен перечень игр
+            //       без этой игры.
             System.exit(1);
         }
     }
@@ -65,6 +63,8 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
         super(transportOfServer);
     }
 
+    // Overiden methods from interface IModelOfServer:
+    @Override
     public String getGameName() {
         return "Sokoban";
     }
@@ -89,6 +89,59 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
         // sendGameEvent(new GameEventSokobanVariableParamsCountOfBoxesInHouses(countOfBoxesInHomes));
     }
 
+    @Override
+    public void executeMouseCommand(GameCommandMouseClick gameCommandMouseClick) {
+        if (gameCommandMouseClick.getMouseButton() == MouseButton.PRIMARY) {
+            if (gameCommandMouseClick.getY() == allSokobanObjects.getPlayer().getY()) {
+                if (gameCommandMouseClick.getX() < allSokobanObjects.getPlayer().getX()) {
+                    move(Direction.LEFT);
+                } else if (gameCommandMouseClick.getX() > allSokobanObjects.getPlayer().getX()) {
+                    move(Direction.RIGHT);
+                }
+            } else if ((gameCommandMouseClick.getX() == allSokobanObjects.getPlayer().getX())) {
+                if (gameCommandMouseClick.getY() < allSokobanObjects.getPlayer().getY()) {
+                    move(Direction.UP);
+                } else if (gameCommandMouseClick.getY() > allSokobanObjects.getPlayer().getY()) {
+                    move(Direction.DOWN);
+                }
+            }
+        } else if (gameCommandMouseClick.getMouseButton() == MouseButton.SECONDARY) {
+            moveUndo();
+        } else if (gameCommandMouseClick.getMouseButton() == MouseButton.MIDDLE) {
+            moveRedo();
+        }
+    }
+
+    @Override
+    public void executeKeyboardCommand(GameCommandKeyPressed gameCommandKeyPressed) {
+        if (gameCommandKeyPressed.getKeyCode() == KeyCode.LEFT) {
+            move(Direction.LEFT);
+        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.RIGHT) {
+            move(Direction.RIGHT);
+        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.UP) {
+            move(Direction.UP);
+        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.DOWN) {
+            move(Direction.DOWN);
+        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.Q) {
+            moveUndo();
+        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.P) {
+            moveRedo();
+        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.BACK_SPACE) {
+            System.out.println("Changing to previvously level does not work.");
+        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.SPACE) {
+            System.out.println("Changing to next level does not work.");
+        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.ESCAPE) {
+            System.out.println("Restasting level does not work.");
+        }
+    }
+
+    @Override
+    public void win() {
+        currentLevel.incValue();
+        super.win();
+    }
+
+    // Own methods of the class:
     private void moveUndo() {
         if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
             return;
@@ -133,7 +186,7 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
         }
     }
 
-    public void move(Direction direction) {
+    private void move(Direction direction) {
         if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
             return;
         }
@@ -261,13 +314,6 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
         }
     }
 
-    @Override
-    public void win() {
-        setGameStatus(GameStatus.VICTORY);
-        currentLevel.incValue();
-        sendGameEvent(new GameEventGameOver(VICTORY));
-    }
-
     /*
         @Override
         public void nextLevel() {
@@ -298,50 +344,4 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
             sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
         }
     */
-
-    @Override
-    public void executeMouseCommand(GameCommandMouseClick gameCommandMouseClick) {
-        if (gameCommandMouseClick.getMouseButton() == MouseButton.PRIMARY) {
-            if (gameCommandMouseClick.getY() == allSokobanObjects.getPlayer().getY()) {
-                if (gameCommandMouseClick.getX() < allSokobanObjects.getPlayer().getX()) {
-                    move(Direction.LEFT);
-                } else if (gameCommandMouseClick.getX() > allSokobanObjects.getPlayer().getX()) {
-                    move(Direction.RIGHT);
-                }
-            } else if ((gameCommandMouseClick.getX() == allSokobanObjects.getPlayer().getX())) {
-                if (gameCommandMouseClick.getY() < allSokobanObjects.getPlayer().getY()) {
-                    move(Direction.UP);
-                } else if (gameCommandMouseClick.getY() > allSokobanObjects.getPlayer().getY()) {
-                    move(Direction.DOWN);
-                }
-            }
-        } else if (gameCommandMouseClick.getMouseButton() == MouseButton.SECONDARY) {
-            moveUndo();
-        } else if (gameCommandMouseClick.getMouseButton() == MouseButton.MIDDLE) {
-            moveRedo();
-        }
-    }
-
-    @Override
-    public void executeKeyboardCommand(GameCommandKeyPressed gameCommandKeyPressed) {
-        if (gameCommandKeyPressed.getKeyCode() == KeyCode.LEFT) {
-            move(Direction.LEFT);
-        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.RIGHT) {
-            move(Direction.RIGHT);
-        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.UP) {
-            move(Direction.UP);
-        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.DOWN) {
-            move(Direction.DOWN);
-        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.Q) {
-            moveUndo();
-        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.P) {
-            moveRedo();
-        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.BACK_SPACE) {
-            System.out.println("Changing to previvously level does not work.");
-        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.SPACE) {
-            System.out.println("Changing to next level does not work.");
-        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.ESCAPE) {
-            System.out.println("Restasting level does not work.");
-        }
-    }
 }

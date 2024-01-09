@@ -11,7 +11,6 @@ import timmax.tilegame.transport.TransportOfServer;
 import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperPersistentParams;
 import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsFlag;
 import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsOpenClose;
-import timmax.tilegame.game.minesweeper.model.gameevent.GameEventOneTileMinesweeperChangeFlag;
 import timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects;
 import timmax.tilegame.game.minesweeper.model.gameobject.LevelGenerator;
 
@@ -41,6 +40,8 @@ public class ModelOfServerOfMinesweeper<T> extends ModelOfServer<T> {
         super(transportOfServer);
     }
 
+    // Overiden methods from interface IModelOfServer:
+    @Override
     public String getGameName() {
         return "Minesweeper";
     }
@@ -52,6 +53,24 @@ public class ModelOfServerOfMinesweeper<T> extends ModelOfServer<T> {
     }
 
     @Override
+    public void executeMouseCommand(GameCommandMouseClick gameCommandMouseClick) {
+        int x = gameCommandMouseClick.getX();
+        int y = gameCommandMouseClick.getY();
+        if (gameCommandMouseClick.getMouseButton() == MouseButton.PRIMARY) {
+            open(x, y);
+        } else if (gameCommandMouseClick.getMouseButton() == MouseButton.SECONDARY) {
+            tryInverseFlag(x, y);
+        }
+    }
+
+    @Override
+    public void executeKeyboardCommand(GameCommandKeyPressed gameCommandKeyPressed) {
+        System.out.println("class ModelOfServerOfMinesweeper. method executeKeyboardCommand");
+        System.out.println("  do nothing.");
+    }
+
+    // Overiden methods from class ModelOfServer:
+    @Override
     public void createNewGame(int width, int height) {
         allMinesweeperObjects = levelGenerator.getLevel(width, height, REST_OF_MINE_INSTALLATION_IN_PERCENTS);
         allMinesweeperObjects.setModel(this);
@@ -61,7 +80,8 @@ public class ModelOfServerOfMinesweeper<T> extends ModelOfServer<T> {
         super.createNewGame(width, height, UNOPENED_CELL_COLOR, BLACK, "");
     }
 
-    private void inverseFlag(int x, int y) {
+    // Own methods of the class:
+    private void tryInverseFlag(int x, int y) {
         if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
             return;
         }
@@ -70,13 +90,7 @@ public class ModelOfServerOfMinesweeper<T> extends ModelOfServer<T> {
             return;
         }
 
-        try {
-            boolean isFlag = allMinesweeperObjects.inverseFlag(allMinesweeperObjects.getTileByXY(x, y));
-            sendGameEvent(new GameEventOneTileMinesweeperChangeFlag(x, y, isFlag));
-        } catch (RuntimeException rte) {
-            rte.printStackTrace();
-            System.exit(1);
-        }
+        allMinesweeperObjects.tryInverseFlag(allMinesweeperObjects.getTileByXY(x, y));
     }
 
     private void open(int x, int y) {
@@ -84,26 +98,5 @@ public class ModelOfServerOfMinesweeper<T> extends ModelOfServer<T> {
             return;
         }
         setGameStatus(allMinesweeperObjects.open(allMinesweeperObjects.getTileByXY(x, y)));
-    }
-
-    @Override
-    public void win() {
-    }
-
-    @Override
-    public void executeMouseCommand(GameCommandMouseClick gameCommandMouseClick) {
-        int x = gameCommandMouseClick.getX();
-        int y = gameCommandMouseClick.getY();
-        if (gameCommandMouseClick.getMouseButton() == MouseButton.PRIMARY) {
-            open(x, y);
-        } else if (gameCommandMouseClick.getMouseButton() == MouseButton.SECONDARY) {
-            inverseFlag(x, y);
-        }
-    }
-
-    @Override
-    public void executeKeyboardCommand(GameCommandKeyPressed gameCommandKeyPressed) {
-        System.out.println("class ModelOfServerOfMinesweeper. method executeKeyboardCommand");
-        System.out.println("  do nothing.");
     }
 }
