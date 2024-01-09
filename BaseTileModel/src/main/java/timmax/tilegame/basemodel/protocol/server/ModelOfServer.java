@@ -60,7 +60,6 @@ public abstract class ModelOfServer<T> implements IModelOfServer<T> {
         sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
     }
 
-
     // Own methods of the class:
     protected void createNewGame(int width, int height) {
         validateWidthHeight(width, height);
@@ -91,6 +90,17 @@ public abstract class ModelOfServer<T> implements IModelOfServer<T> {
     }
 
     protected final boolean verifyGameStatusNotGameAndMayBeCreateNewGame() {
+        /*
+        // Для Сапёра:
+        //   newGame - генерация поля с тем-же количеством мин, но вновь применяя ГПСЧ.
+        //   restart - все ячейки закрываются и играть с тем-же полем
+        //             (вот только нужно-ли это именно для Самёра, ведь одна мина уже станет известна игроку?).
+        if (getGameStatus() == FORCE_RESTART_OR_CHANGE_LEVEL) {
+            restart(); // Если так, то будет зацикливание.
+            return true;
+        }
+        */
+        // Для Сокобан restart и newGame - видимо работает одинаково.
         if (getGameStatus() != GameStatus.GAME) {
             createNewGame();
             return true;
