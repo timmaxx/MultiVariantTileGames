@@ -8,7 +8,6 @@ import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
-import timmax.tilegame.basemodel.gamecommand.GameCommand;
 import timmax.tilegame.basemodel.gamecommand.GameCommandNewGame;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.client.LocalClientState;
@@ -39,66 +38,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         throw new RuntimeException("Unknown state.");
     }
 
-    // 2
-    public void logout() {
-        System.out.println("logout()");
-        send(new EventOfClient10Logout());
-    }
-
-    public void login(String userName, String password) {
-        System.out.println("login(String, String)");
-        send(new EventOfClient11Login(userName, password));
-    }
-
-    // 3
-    public void forgetGameTypeSet() {
-        System.out.println("forgetGameTypeSet()");
-        send(new EventOfClient20ForgetGameTypeSet());
-    }
-
-    public void getGameTypeSet() {
-        System.out.println("getGameTypeSet()");
-        send(new EventOfClient21GetGameTypeSet());
-    }
-
-    // 4
-    public void forgetGameType() {
-        System.out.println("forgetGameType()");
-        send(new EventOfClient30ForgetGameType());
-    }
-
-    public void gameTypeSelect(String serverBaseModelClass) {
-        System.out.println("gameTypeSelect(String)");
-        send(new EventOfClient31GameTypeSelect(serverBaseModelClass));
-    }
-
-    // 9
-    public void addView(View view) {
-        System.out.println("addView(View)");
-        localClientState.addView(view);
-        send(new EventOfClient91AddView(view.toString()));
-    }
-
-    public void createNewGame() {
-        System.out.println("createNewGame()");
-        send(new EventOfClient92GameCommand(new GameCommandNewGame()));
-    }
-
-    @Override
-    public void send(EventOfClient eventOfClient) {
-        System.out.println("  send(EventOfClient<WebSocket>)");
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        mapper.writeValue(byteArrayOutputStream, eventOfClient);
-        System.out.println("    eventOfClient = " + eventOfClient);
-        send(byteArrayOutputStream.toByteArray());
-        System.out.println("---------- End of public void send(EventOfClient<WebSocket> eventOfClient)");
-    }
-
-    @Override
-    public void sendCommand(GameCommand gameCommand) {
-        System.out.println("  sendCommand(GameCommand)");
-    }
-
+    // Overiden methods from class WebSocketClient:
     @Override
     public void onClose(int code, String reason, boolean remote) {
         System.out.println("onClose");
@@ -151,6 +91,17 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         System.exit(1);
     }
 
+    // Overiden methods from interface TransportOfClient:
+    @Override
+    public void sendEventOfClient(EventOfClient eventOfClient) {
+        System.out.println("  send(EventOfClient<WebSocket>)");
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        mapper.writeValue(byteArrayOutputStream, eventOfClient);
+        System.out.println("    eventOfClient = " + eventOfClient);
+        send(byteArrayOutputStream.toByteArray());
+        System.out.println("---------- End of public void send(EventOfClient<WebSocket> eventOfClient)");
+    }
+
     @Override
     public LocalClientState getLocalClientState() {
         return localClientState;
@@ -159,5 +110,51 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     @Override
     public HashSetOfObserverOnAbstractEvent getHashSetOfObserverOnAbstractEvent() {
         return hashSetOfObserverOnAbstractEvent;
+    }
+
+    // Own methods of the class:
+    // 2
+    public void logout() {
+        System.out.println("logout()");
+        sendEventOfClient(new EventOfClient10Logout());
+    }
+
+    public void login(String userName, String password) {
+        System.out.println("login(String, String)");
+        sendEventOfClient(new EventOfClient11Login(userName, password));
+    }
+
+    // 3
+    public void forgetGameTypeSet() {
+        System.out.println("forgetGameTypeSet()");
+        sendEventOfClient(new EventOfClient20ForgetGameTypeSet());
+    }
+
+    public void getGameTypeSet() {
+        System.out.println("getGameTypeSet()");
+        sendEventOfClient(new EventOfClient21GetGameTypeSet());
+    }
+
+    // 4
+    public void forgetGameType() {
+        System.out.println("forgetGameType()");
+        sendEventOfClient(new EventOfClient30ForgetGameType());
+    }
+
+    public void gameTypeSelect(String serverBaseModelClass) {
+        System.out.println("gameTypeSelect(String)");
+        sendEventOfClient(new EventOfClient31GameTypeSelect(serverBaseModelClass));
+    }
+
+    // 9
+    public void addView(View view) {
+        System.out.println("addView(View)");
+        localClientState.addView(view);
+        sendEventOfClient(new EventOfClient91AddView(view.toString()));
+    }
+
+    public void createNewGame() {
+        System.out.println("createNewGame()");
+        sendEventOfClient(new EventOfClient92GameCommand(new GameCommandNewGame()));
     }
 }

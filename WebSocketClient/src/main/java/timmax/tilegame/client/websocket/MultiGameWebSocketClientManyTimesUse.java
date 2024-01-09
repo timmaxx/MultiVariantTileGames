@@ -10,6 +10,7 @@ import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfClient;
 
+// WebSocket клиент многоразовый
 public class MultiGameWebSocketClientManyTimesUse implements BaseModel {
     // ToDo: Параметр не должен быть null!
     private final LocalClientState localClientState = new LocalClientState(null);
@@ -18,16 +19,12 @@ public class MultiGameWebSocketClientManyTimesUse implements BaseModel {
     private MultiGameWebSocketClient multiGameWebSocketClient;
     private URI uri;
 
-    public void addCallBackOnIncomingTransportPackageEvent(ObserverOnAbstractEvent observerOnAbstractEvent) {
-        hashSetOfObserverOnAbstractEvent.add(observerOnAbstractEvent);
+    public MultiGameWebSocketClientManyTimesUse() {
+        System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
     }
 
     public LocalClientState getLocalClientState() {
         return localClientState;
-    }
-
-    public MultiGameWebSocketClientManyTimesUse() {
-        System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
     }
 
     public MainGameClientStatus getMainGameClientStatus() {
@@ -43,6 +40,38 @@ public class MultiGameWebSocketClientManyTimesUse implements BaseModel {
             return;
         }
         multiGameWebSocketClient.close();
+    }
+
+    // Overiden methods from interface BaseModel:
+    @Override
+    public void createNewGame() {
+        multiGameWebSocketClient.createNewGame();
+    }
+
+    @Override
+    public void addView(View view) {
+        multiGameWebSocketClient.addView(view);
+    }
+
+    @Override
+    public void restart() {
+    }
+
+    @Override
+    public void nextLevel() {
+    }
+
+    @Override
+    public void prevLevel() {
+    }
+
+    @Override
+    public void win() {
+    }
+
+    // Own methods of the class:
+    public void addCallBackOnIncomingTransportPackageEvent(ObserverOnAbstractEvent observerOnAbstractEvent) {
+        hashSetOfObserverOnAbstractEvent.add(observerOnAbstractEvent);
     }
 
     public void close() {
@@ -81,33 +110,6 @@ public class MultiGameWebSocketClientManyTimesUse implements BaseModel {
 
     public void gameTypeSelect(String serverBaseModelClass) {
         multiGameWebSocketClient.gameTypeSelect(serverBaseModelClass);
-    }
-
-    // ----------------------------------------------------------------------------------------------------------------
-    @Override
-    public void addView(View view) {
-        multiGameWebSocketClient.addView(view);
-    }
-
-    @Override
-    public void createNewGame() {
-        multiGameWebSocketClient.createNewGame();
-    }
-
-    @Override
-    public void restart() {
-    }
-
-    @Override
-    public void nextLevel() {
-    }
-
-    @Override
-    public void prevLevel() {
-    }
-
-    @Override
-    public void win() {
     }
 
     // ToDo: Это временное решение. Потом удалить.

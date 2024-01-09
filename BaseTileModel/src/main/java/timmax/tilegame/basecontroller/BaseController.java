@@ -17,12 +17,8 @@ public class BaseController {
         this.transportOfClient = transportOfClient;
     }
 
-    public void sendGameCommand(GameCommand gameCommand) {
-        transportOfClient.sendCommand(gameCommand);
-    }
-
     public void sendEventOfClient(EventOfClient eventOfClient) {
-        transportOfClient.send(eventOfClient);
+        transportOfClient.sendEventOfClient(eventOfClient);
     }
 
     public void onKeyPressed(KeyCode keyCode) {

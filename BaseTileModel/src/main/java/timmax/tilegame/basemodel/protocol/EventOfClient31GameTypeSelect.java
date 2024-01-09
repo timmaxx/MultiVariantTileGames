@@ -29,7 +29,7 @@ public class EventOfClient31GameTypeSelect extends EventOfClient {
         System.out.println("  serverBaseModelClass = " + gameName);
         if (gameName == null) {
             System.err.println("Client sent empty name of model classes.");
-            transportOfServer.send(clientId, new EventOfServer30ForgetGameType());
+            transportOfServer.sendEventOfServerToClient(clientId, new EventOfServer30ForgetGameType());
             return;
         }
 
@@ -43,7 +43,7 @@ public class EventOfClient31GameTypeSelect extends EventOfClient {
 
         if (constructor == null) {
             System.err.println(gameName + "' was not found in list model classes.");
-            transportOfServer.send(clientId, new EventOfServer30ForgetGameType());
+            transportOfServer.sendEventOfServerToClient(clientId, new EventOfServer30ForgetGameType());
             return;
         }
 
@@ -60,17 +60,17 @@ public class EventOfClient31GameTypeSelect extends EventOfClient {
             transportOfServer.setModelOfServer(modelOfServer);
         } else {
             System.err.println("Created object is not ModelOfServer.");
-            transportOfServer.send(clientId, new EventOfServer30ForgetGameType());
+            transportOfServer.sendEventOfServerToClient(clientId, new EventOfServer30ForgetGameType());
             return;
         }
 
         System.out.println("    modelOfServer = " + transportOfServer.getModelOfServer());
         if (transportOfServer.getModelOfServer() == null) {
-            transportOfServer.send(clientId, new EventOfServer30ForgetGameType());
+            transportOfServer.sendEventOfServerToClient(clientId, new EventOfServer30ForgetGameType());
             return;
         }
 
-        transportOfServer.send(clientId, new EventOfServer31GameTypeSelect(gameName));
+        transportOfServer.sendEventOfServerToClient(clientId, new EventOfServer31GameTypeSelect(gameName));
     }
 
     @Override

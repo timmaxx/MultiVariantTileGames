@@ -23,15 +23,11 @@ public class ModelOfServerDescriptor {
             // Пришлось передать ему TransportOfServer - заглушку.
             obj = constructorOfModelOfServerClass.newInstance(new TransportOfServer<>() {
                 @Override
-                public void sendGameEvent(GameEvent gameEvent) {
+                public void sendGameEventToRemoteView(RemoteView<Object> remoteView, GameEvent gameEvent) {
                 }
 
                 @Override
-                public void sendGameEvent(RemoteView<Object> remoteView, GameEvent gameEvent) {
-                }
-
-                @Override
-                public void send(Object clientId, EventOfServer transportPackageOfServer) {
+                public void sendEventOfServerToClient(Object clientId, EventOfServer transportPackageOfServer) {
                 }
 
                 @Override
@@ -57,13 +53,9 @@ public class ModelOfServerDescriptor {
         // Читается у созданного экземпляра имя типа игры (но возможно и другие характеристики класса...)
         // Как-то нужно учесть, что имя игры может быть передано разным клиентам на разных языках.
         // Т.к. obj ничему не присваивается, то он уйдёт в небытие по окончанию работы конструктора.
-        this.gameName = ((ModelOfServer)(obj)).getGameName();
+        this.gameName = ((ModelOfServer) (obj)).getGameName();
     }
-/*
-    public Class<? extends ModelOfServer> getModelOfServerClass() {
-        return modelOfServerClass;
-    }
-*/
+
     public Constructor<? extends ModelOfServer> getConstructorOfModelOfServerClass() {
         return constructorOfModelOfServerClass;
     }

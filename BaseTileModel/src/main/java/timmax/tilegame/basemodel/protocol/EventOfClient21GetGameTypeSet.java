@@ -8,12 +8,11 @@ public class EventOfClient21GetGameTypeSet extends EventOfClient {
     public <T> void executeOnServer(TransportOfServer<T> transportOfServer, T clientId) {
         System.out.println("  onGetGameTypeSet");
 
-        transportOfServer.send(
+        transportOfServer.sendEventOfServerToClient(
                 clientId,
                 new EventOfServer21GetGameTypeSet(
                         transportOfServer.getCollectionOfModelOfServerDescriptor()
                                 .stream()
-                                // .map(x -> x.getGameName())
                                 .map(ModelOfServerDescriptor::getGameName)
                                 .toList()
                 )
