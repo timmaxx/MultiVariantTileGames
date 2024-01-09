@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
+import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
 import timmax.tilegame.basemodel.tile.Direction;
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventOneTileSokobanChangeable;
@@ -22,6 +23,7 @@ import timmax.tilegame.transport.TransportOfServer;
 
 // import static timmax.tilegame.basemodel.GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
 import static javafx.scene.paint.Color.*;
+import static timmax.tilegame.basemodel.GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
 import static timmax.tilegame.game.sokoban.model.gameobject.WhoMovableInTile.*;
 
 public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
@@ -127,9 +129,9 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
         } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.P) {
             moveRedo();
         } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.BACK_SPACE) {
-            System.out.println("Changing to previvously level does not work.");
+            prevLevel();
         } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.SPACE) {
-            System.out.println("Changing to next level does not work.");
+            nextLevel();
         } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.ESCAPE) {
             restart();
         }
@@ -314,25 +316,21 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
         }
     }
 
-    /*
-        @Override
-        public void nextLevel() {
-            if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
-                return;
-            }
-            setGameStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
-            currentLevel.incValue();
-            sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
+    public void nextLevel() {
+        if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
+            return;
         }
+        setGameStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
+        currentLevel.incValue();
+        sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
+    }
 
-        @Override
-        public void prevLevel() {
-            if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
-                return;
-            }
-            setGameStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
-            currentLevel.decValue();
-            sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
+    public void prevLevel() {
+        if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
+            return;
         }
-*/
+        setGameStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
+        currentLevel.decValue();
+        sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
+    }
 }
