@@ -2,11 +2,12 @@ package timmax.tilegame.basemodel;
 
 import timmax.tilegame.baseview.View;
 
+// ToDo: Удалить интерфейс.
 public interface BaseModel {
     void createNewGame();
 
     void addView(View view);
-
+/*
     void restart();
 
     void nextLevel();
@@ -14,4 +15,5 @@ public interface BaseModel {
     void prevLevel();
 
     void win();
+*/
 }

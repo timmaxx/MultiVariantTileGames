@@ -10,13 +10,14 @@ import org.java_websocket.handshake.ServerHandshake;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.gamecommand.GameCommandNewGame;
 import timmax.tilegame.basemodel.protocol.*;
+import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.basemodel.protocol.client.LocalClientState;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfClient;
 
 import static timmax.tilegame.basemodel.protocol.TypeOfEvent.*;
 
-public class MultiGameWebSocketClient extends WebSocketClient implements TransportOfClient {
+public class MultiGameWebSocketClient extends WebSocketClient implements TransportOfClient, IModelOfClient {
     private final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
     private final LocalClientState localClientState;
     private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
@@ -112,47 +113,55 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         return hashSetOfObserverOnAbstractEvent;
     }
 
-    // Own methods of the class:
+    // Overiden methods from interface IModelOfClient:
     // 2
+    @Override
     public void logout() {
         System.out.println("logout()");
         sendEventOfClient(new EventOfClient10Logout());
     }
 
+    @Override
     public void login(String userName, String password) {
         System.out.println("login(String, String)");
         sendEventOfClient(new EventOfClient11Login(userName, password));
     }
 
     // 3
+    @Override
     public void forgetGameTypeSet() {
         System.out.println("forgetGameTypeSet()");
         sendEventOfClient(new EventOfClient20ForgetGameTypeSet());
     }
 
+    @Override
     public void getGameTypeSet() {
         System.out.println("getGameTypeSet()");
         sendEventOfClient(new EventOfClient21GetGameTypeSet());
     }
 
     // 4
+    @Override
     public void forgetGameType() {
         System.out.println("forgetGameType()");
         sendEventOfClient(new EventOfClient30ForgetGameType());
     }
 
+    @Override
     public void gameTypeSelect(String serverBaseModelClass) {
         System.out.println("gameTypeSelect(String)");
         sendEventOfClient(new EventOfClient31GameTypeSelect(serverBaseModelClass));
     }
 
     // 9
+    @Override
     public void addView(View view) {
         System.out.println("addView(View)");
         localClientState.addView(view);
         sendEventOfClient(new EventOfClient91AddView(view.toString()));
     }
 
+    @Override
     public void createNewGame() {
         System.out.println("createNewGame()");
         sendEventOfClient(new EventOfClient92GameCommand(new GameCommandNewGame()));

@@ -4,6 +4,7 @@ import java.net.URI;
 
 import timmax.tilegame.basemodel.BaseModel;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
+import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.basemodel.protocol.client.LocalClientState;
 import timmax.tilegame.basemodel.protocol.HashSetOfObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
@@ -11,7 +12,7 @@ import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfClient;
 
 // WebSocket клиент многоразовый
-public class MultiGameWebSocketClientManyTimesUse implements BaseModel {
+public class MultiGameWebSocketClientManyTimesUse implements BaseModel, IModelOfClient {
     // ToDo: Параметр не должен быть null!
     private final LocalClientState localClientState = new LocalClientState(null);
     private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent = new HashSetOfObserverOnAbstractEvent();
