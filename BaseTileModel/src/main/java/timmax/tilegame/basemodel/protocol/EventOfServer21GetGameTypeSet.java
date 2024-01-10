@@ -26,7 +26,7 @@ public class EventOfServer21GetGameTypeSet extends EventOfServer {
     public void executeOnClient(TransportOfClient transportOfClient) {
         System.out.println("  onGetGameTypeSet");
 
-        transportOfClient.getLocalClientState().setArrayListOfServerBaseModelClass(new ArrayList<>());
+        transportOfClient.getLocalClientState().newArrayListOfServerBaseModelClass();
 
         for (String serverBaseModelClass : arrayListOfServerBaseModelClass) {
             transportOfClient.getLocalClientState().addServerBaseModelClass(serverBaseModelClass);

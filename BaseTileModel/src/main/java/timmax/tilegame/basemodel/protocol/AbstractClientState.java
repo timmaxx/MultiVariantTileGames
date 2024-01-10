@@ -35,9 +35,9 @@ public abstract class AbstractClientState {
         return arrayListOfServerBaseModelClass;
     }
 
-    public void setArrayListOfServerBaseModelClass(List<String> arrayListOfServerBaseModelClass) {
+    public void newArrayListOfServerBaseModelClass() {
         serverBaseModelClass = null;
-        this.arrayListOfServerBaseModelClass = arrayListOfServerBaseModelClass;
+        this.arrayListOfServerBaseModelClass = new ArrayList<>();
     }
 
     public String getServerBaseModelClass() {

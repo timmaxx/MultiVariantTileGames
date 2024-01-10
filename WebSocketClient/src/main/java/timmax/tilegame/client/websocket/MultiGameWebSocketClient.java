@@ -29,7 +29,6 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         System.out.println(serverUri);
     }
 
-    // Удалить
     @Override
     public LocalClientState getLocalClientState() {
         return localClientState;

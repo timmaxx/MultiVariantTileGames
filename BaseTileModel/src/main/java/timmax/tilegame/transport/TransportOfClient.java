@@ -7,6 +7,6 @@ import timmax.tilegame.basemodel.protocol.client.LocalClientState;
 public interface TransportOfClient {
     void sendEventOfClient(EventOfClient eventOfClient);
 
-    LocalClientState getLocalClientState(); // Удалить
+    LocalClientState getLocalClientState();
     void updateConnectStatePane(TypeOfEvent getGameTypeSet);
 }
