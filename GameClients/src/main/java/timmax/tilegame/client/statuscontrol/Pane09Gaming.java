@@ -51,42 +51,42 @@ public class Pane09Gaming extends AbstractConnectStatePane {
     }
 
     @Override
-    protected void updateOnClose() {
+    public void updateOnClose() {
         disableAllControls();
     }
 
     @Override
-    protected void updateOnOpen() {
+    public void updateOnOpen() {
         disableAllControls();
     }
 
     @Override
-    protected void updateOnLogout() {
+    public void updateOnLogout() {
         disableAllControls();
     }
 
     @Override
-    protected void updateOnLogin() {
+    public void updateOnLogin() {
         disableAllControls();
     }
 
     @Override
-    protected void updateOnForgetGameTypeSet() {
+    public void updateOnForgetGameTypeSet() {
         disableAllControls();
     }
 
     @Override
-    protected void updateOnGetGameTypeSet() {
+    public void updateOnGetGameTypeSet() {
         disableAllControls();
     }
 
     @Override
-    protected void updateOnForgetGameType() {
+    public void updateOnForgetGameType() {
         disableAllControls();
     }
 
     @Override
-    protected void updateOnSelectGameType() {
+    public void updateOnSelectGameType() {
         disableAllControls();
         pane.getChildren().clear();
         // ToDo: В этой реализации нет заголовка игры (и в будущем других её свойств).
@@ -103,26 +103,26 @@ public class Pane09Gaming extends AbstractConnectStatePane {
     }
 
     @Override
-    protected void updateOnAddView() {
+    public void updateOnAddView() {
         // Этот метод не вызывается...
         System.out.println("updateOnAddView()");
         setDisableControlsNextState(false);
     }
 
     @Override
-    protected void updateOnCreateNewGame() {
+    public void updateOnCreateNewGame() {
         // Этот метод не вызывается...
         System.out.println("updateOnCreateNewGame()");
         setDisableControlsNextState(true);
     }
 
     @Override
-    protected void updateOnCloseGame() {
+    public void updateOnCloseGame() {
         // setDisableControlsNextState(true);
     }
 
     @Override
-    protected void updateOnGameEvent() {
+    public void updateOnGameEvent() {
         System.out.println("updateOnGameEvent()");
         //setDisableControlsNextState(true);
     }

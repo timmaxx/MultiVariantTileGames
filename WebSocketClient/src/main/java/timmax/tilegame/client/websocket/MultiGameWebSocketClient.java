@@ -15,8 +15,6 @@ import timmax.tilegame.basemodel.protocol.client.LocalClientState;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfClient;
 
-import static timmax.tilegame.basemodel.protocol.TypeOfEvent.*;
-
 public class MultiGameWebSocketClient extends WebSocketClient implements TransportOfClient, IModelOfClient {
     private final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
     private final LocalClientState localClientState;
@@ -27,11 +25,6 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         this.localClientState = localClientState;
         this.hashSetOfObserverOnAbstractEvent = hashSetOfObserverOnAbstractEvent;
         System.out.println(serverUri);
-    }
-
-    @Override
-    public LocalClientState getLocalClientState() {
-        return localClientState;
     }
 
     public MainGameClientStatus getMainGameClientStatus() {
@@ -51,7 +44,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
 
         localClientState.forgetUserName();
         System.out.println("  getMainGameClientStatus() = " + getMainGameClientStatus());
-        hashSetOfObserverOnAbstractEvent.updateConnectStatePane(CLOSE);
+        hashSetOfObserverOnAbstractEvent.updateOnClose();
 
         System.out.println("  Connect was closed.");
         System.out.println("  Code = " + code + ". Reason = " + reason + ". Remote = " + remote + ".");
@@ -64,7 +57,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
 
         localClientState.forgetUserName();
         System.out.println("  getMainGameClientStatus() = " + getMainGameClientStatus());
-        hashSetOfObserverOnAbstractEvent.updateConnectStatePane(OPEN);
+        hashSetOfObserverOnAbstractEvent.updateOnOpen();
 
         System.out.println("---------- End of onOpen");
     }
@@ -109,8 +102,13 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     }
 
     @Override
-    public void updateConnectStatePane(TypeOfEvent getGameTypeSet) {
-        hashSetOfObserverOnAbstractEvent.updateConnectStatePane(getGameTypeSet);
+    public LocalClientState getLocalClientState() {
+        return localClientState;
+    }
+
+    @Override
+    public HashSetOfObserverOnAbstractEvent getHashSetOfObserverOnAbstractEvent() {
+        return hashSetOfObserverOnAbstractEvent;
     }
 
     // Overiden methods from interface IModelOfClient:

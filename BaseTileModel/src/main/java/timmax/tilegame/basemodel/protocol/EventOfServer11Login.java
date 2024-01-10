@@ -6,8 +6,6 @@ import java.io.ObjectOutput;
 
 import timmax.tilegame.transport.TransportOfClient;
 
-import static timmax.tilegame.basemodel.protocol.TypeOfEvent.LOGIN;
-
 public class EventOfServer11Login extends EventOfServer {
     private /*final*/ String userName;
 
@@ -25,7 +23,7 @@ public class EventOfServer11Login extends EventOfServer {
         System.out.println("  onLogin");
 
         transportOfClient.getLocalClientState().setUserName(userName);
-        transportOfClient.updateConnectStatePane(LOGIN);
+        transportOfClient.getHashSetOfObserverOnAbstractEvent().updateOnLogin();
     }
 
     @Override

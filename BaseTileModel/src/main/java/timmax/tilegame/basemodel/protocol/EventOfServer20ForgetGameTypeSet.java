@@ -2,8 +2,6 @@ package timmax.tilegame.basemodel.protocol;
 
 import timmax.tilegame.transport.TransportOfClient;
 
-import static timmax.tilegame.basemodel.protocol.TypeOfEvent.FORGET_GAME_TYPE_SET;
-
 public class EventOfServer20ForgetGameTypeSet extends EventOfServer {
     @Override
     public void executeOnClient(TransportOfClient transportOfClient) {
@@ -14,7 +12,7 @@ public class EventOfServer20ForgetGameTypeSet extends EventOfServer {
         //       multiGameWebSocketClient.clientState.setUserName
         //       Ну и далее по аналогии.
         transportOfClient.getLocalClientState().newArrayListOfServerBaseModelClass();
-        transportOfClient.updateConnectStatePane(FORGET_GAME_TYPE_SET);
+        transportOfClient.getHashSetOfObserverOnAbstractEvent().updateOnForgetGameTypeSet();
     }
 
     @Override

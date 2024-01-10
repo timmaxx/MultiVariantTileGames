@@ -62,12 +62,12 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
     }
 
     @Override
-    protected void updateOnClose() {
+    public void updateOnClose() {
         setDisableControlsNextState(false);
     }
 
     @Override
-    protected void updateOnOpen() {
+    public void updateOnOpen() {
         setDisableControlsNextState(true);
     }
 }

@@ -41,55 +41,55 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
     }
 
     @Override
-    protected void updateOnClose() {
+    public void updateOnClose() {
         disableAllControls();
         comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
         textFieldSelectedGameType.setText("");
     }
 
     @Override
-    protected void updateOnOpen() {
+    public void updateOnOpen() {
         disableAllControls();
         comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
         textFieldSelectedGameType.setText("");
     }
 
     @Override
-    protected void updateOnLogout() {
+    public void updateOnLogout() {
         disableAllControls();
         comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
         textFieldSelectedGameType.setText("");
     }
 
     @Override
-    protected void updateOnLogin() {
+    public void updateOnLogin() {
         disableAllControls();
         comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
         textFieldSelectedGameType.setText("");
     }
 
     @Override
-    protected void updateOnForgetGameTypeSet() {
+    public void updateOnForgetGameTypeSet() {
         disableAllControls();
         comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
         textFieldSelectedGameType.setText("");
     }
 
     @Override
-    protected void updateOnGetGameTypeSet() {
+    public void updateOnGetGameTypeSet() {
         comboBoxGameTypeSet.setItems(FXCollections.observableArrayList(localClientState.getArrayListOfServerBaseModelString()));
         textFieldSelectedGameType.setText("");
         setDisableControlsNextState(false);
     }
 
     @Override
-    protected void updateOnForgetGameType() {
+    public void updateOnForgetGameType() {
         textFieldSelectedGameType.setText("");
         setDisableControlsNextState(false);
     }
 
     @Override
-    protected void updateOnSelectGameType() {
+    public void updateOnSelectGameType() {
         textFieldSelectedGameType.setText(localClientState.getServerBaseModelString());
         setDisableControlsNextState(true);
     }

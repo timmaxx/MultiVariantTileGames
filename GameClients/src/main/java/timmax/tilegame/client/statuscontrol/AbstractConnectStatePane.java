@@ -2,16 +2,12 @@ package timmax.tilegame.client.statuscontrol;
 
 import java.util.List;
 
-import javafx.application.Platform;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.HBox;
 
 import timmax.tilegame.basemodel.protocol.client.LocalClientState;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
-import timmax.tilegame.basemodel.protocol.TypeOfEvent;
 import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
-
-import static timmax.tilegame.basemodel.protocol.TypeOfEvent.*;
 
 public abstract class AbstractConnectStatePane extends HBox implements ObserverOnAbstractEvent {
     MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse;
@@ -66,41 +62,47 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
         }
     }
 
-    protected void updateOnClose() {
+    public void updateOnClose() {
     }
 
-    protected void updateOnOpen() {
+    public void updateOnOpen() {
     }
 
-    protected void updateOnLogout() {
+    public void updateOnLogout() {
     }
 
-    protected void updateOnLogin() {
+    public void updateOnLogin() {
     }
 
-    protected void updateOnForgetGameTypeSet() {
+    public void updateOnForgetGameTypeSet() {
     }
 
-    protected void updateOnGetGameTypeSet() {
+    public void updateOnGetGameTypeSet() {
     }
 
-    protected void updateOnForgetGameType() {
+    public void updateOnForgetGameType() {
     }
 
-    protected void updateOnSelectGameType() {
+    public void updateOnSelectGameType() {
     }
 
-    protected void updateOnCreateNewGame() {
+    public void updateOnCreateNewGame() {
     }
 
-    protected void updateOnCloseGame() {
+    public void updateOnCloseGame() {
     }
 
-    protected void updateOnAddView() {
+    public void updateOnAddView() {
     }
 
-    protected void updateOnGameEvent() {
+    public void updateOnGameEvent() {
     }
+
+
+/*
+    //  Комментарии пока оставил, т.к.:
+    //  1. Пока не сильно красиво сделано с большим перечнем разнообразных updateXXX().
+    //  2. См. комментарии "Сюда есть вход." и "Сюда входа нет".
 
     //  Описанное было обнаружено при работе с Pane04SelectGameType
     //  Если ранее comboBoxGameTypeSet уже было заполнено (т.е. вызывался updateOnGetGameTypeSet)
@@ -109,7 +111,7 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     //  Например:
     //  Exception in thread "WebSocketConnectReadThread-25" java.lang.IllegalStateException: Not on FX application thread; currentThread = WebSocketConnectReadThread-25
 
-    //  ToDo: TypeOfEvent это перечисление. Нужно через ООП сделать и избавиться от перечисление.
+    @Override
     public final void update(TypeOfEvent typeOfEvent) {
         Platform.runLater(() -> {
             if (typeOfEvent == CLOSE) {
@@ -145,4 +147,5 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
             }
         });
     }
+    */
 }

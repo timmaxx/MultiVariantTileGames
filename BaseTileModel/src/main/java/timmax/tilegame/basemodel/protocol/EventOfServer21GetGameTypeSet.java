@@ -8,8 +8,6 @@ import java.util.List;
 
 import timmax.tilegame.transport.TransportOfClient;
 
-import static timmax.tilegame.basemodel.protocol.TypeOfEvent.GET_GAME_TYPE_SET;
-
 public class EventOfServer21GetGameTypeSet extends EventOfServer {
     List<String> arrayListOfServerBaseModelClass = new ArrayList<>();
 
@@ -31,7 +29,7 @@ public class EventOfServer21GetGameTypeSet extends EventOfServer {
         for (String serverBaseModelClass : arrayListOfServerBaseModelClass) {
             transportOfClient.getLocalClientState().addServerBaseModelClass(serverBaseModelClass);
         }
-        transportOfClient.updateConnectStatePane(GET_GAME_TYPE_SET);
+        transportOfClient.getHashSetOfObserverOnAbstractEvent().updateOnGetGameTypeSet();
     }
 
     @Override
