@@ -77,7 +77,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
 
     @Override
     protected void updateOnGetGameTypeSet() {
-        comboBoxGameTypeSet.setItems(FXCollections.observableArrayList(localClientState.getArrayListOfServerBaseModelClass()));
+        comboBoxGameTypeSet.setItems(FXCollections.observableArrayList(localClientState.getArrayListOfServerBaseModelString()));
         textFieldSelectedGameType.setText("");
         setDisableControlsNextState(false);
     }
@@ -90,7 +90,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
 
     @Override
     protected void updateOnSelectGameType() {
-        textFieldSelectedGameType.setText(localClientState.getServerBaseModelClass());
+        textFieldSelectedGameType.setText(localClientState.getServerBaseModelString());
         setDisableControlsNextState(true);
     }
 }

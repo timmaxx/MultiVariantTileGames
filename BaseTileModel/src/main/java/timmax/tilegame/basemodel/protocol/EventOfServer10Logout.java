@@ -13,7 +13,7 @@ public class EventOfServer10Logout extends EventOfServer {
         //       Вызов метода у объекта объекта - не хорошая практика!
         //       multiGameWebSocketClient.clientState.setUserName
         //       Ну и далее по аналогии.
-        transportOfClient.getLocalClientState().setUserName("");
+        transportOfClient.getLocalClientState().forgetUserName();
         transportOfClient.updateConnectStatePane(LOGOUT);
     }
 

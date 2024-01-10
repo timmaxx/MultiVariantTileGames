@@ -9,39 +9,39 @@ import timmax.tilegame.transport.TransportOfClient;
 import static timmax.tilegame.basemodel.protocol.TypeOfEvent.SELECT_GAME_TYPE;
 
 public class EventOfServer31GameTypeSelect extends EventOfServer {
-    private String serverBaseModelClass;
+    private String serverBaseModelString;
 
     public EventOfServer31GameTypeSelect() {
         super();
     }
 
-    public EventOfServer31GameTypeSelect(String serverBaseModelClass) {
+    public EventOfServer31GameTypeSelect(String serverBaseModelString) {
         this();
-        this.serverBaseModelClass = serverBaseModelClass;
+        this.serverBaseModelString = serverBaseModelString;
     }
 
     @Override
     public void executeOnClient(TransportOfClient transportOfClient) {
         System.out.println("  onSelectGameType");
 
-        transportOfClient.getLocalClientState().setServerBaseModelClass(serverBaseModelClass);
+        transportOfClient.getLocalClientState().setServerBaseModelString(serverBaseModelString);
         transportOfClient.updateConnectStatePane(SELECT_GAME_TYPE);
     }
 
     @Override
     public String toString() {
         return "EventOfServer31GameTypeSelect{" +
-                "serverBaseModelClass='" + serverBaseModelClass + '\'' +
+                "serverBaseModelString='" + serverBaseModelString + '\'' +
                 '}';
     }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(serverBaseModelClass);
+        out.writeObject(serverBaseModelString);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        serverBaseModelClass = (String) in.readObject();
+        serverBaseModelString = (String) in.readObject();
     }
 }

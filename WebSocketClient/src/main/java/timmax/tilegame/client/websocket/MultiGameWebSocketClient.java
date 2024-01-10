@@ -49,7 +49,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     public void onClose(int code, String reason, boolean remote) {
         System.out.println("onClose");
 
-        localClientState.setUserName("");
+        localClientState.forgetUserName();
         System.out.println("  getMainGameClientStatus() = " + getMainGameClientStatus());
         hashSetOfObserverOnAbstractEvent.updateConnectStatePane(CLOSE);
 
@@ -62,7 +62,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     public void onOpen(ServerHandshake handshakedata) {
         System.out.println("onOpen(ServerHandshake)");
 
-        localClientState.setUserName("");
+        localClientState.forgetUserName();
         System.out.println("  getMainGameClientStatus() = " + getMainGameClientStatus());
         hashSetOfObserverOnAbstractEvent.updateConnectStatePane(OPEN);
 
