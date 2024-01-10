@@ -25,7 +25,7 @@ public class EventOfServer11Login extends EventOfServer {
         System.out.println("  onLogin");
 
         transportOfClient.getLocalClientState().setUserName(userName);
-        transportOfClient.getHashSetOfObserverOnAbstractEvent().updateConnectStatePane(LOGIN);
+        transportOfClient.updateConnectStatePane(LOGIN);
     }
 
     @Override

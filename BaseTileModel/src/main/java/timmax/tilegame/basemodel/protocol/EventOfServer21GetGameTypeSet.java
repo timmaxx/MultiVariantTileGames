@@ -31,7 +31,7 @@ public class EventOfServer21GetGameTypeSet extends EventOfServer {
         for (String serverBaseModelClass : arrayListOfServerBaseModelClass) {
             transportOfClient.getLocalClientState().addServerBaseModelClass(serverBaseModelClass);
         }
-        transportOfClient.getHashSetOfObserverOnAbstractEvent().updateConnectStatePane(GET_GAME_TYPE_SET);
+        transportOfClient.updateConnectStatePane(GET_GAME_TYPE_SET);
     }
 
     @Override

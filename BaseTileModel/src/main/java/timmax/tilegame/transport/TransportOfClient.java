@@ -1,12 +1,12 @@
 package timmax.tilegame.transport;
 
-import timmax.tilegame.basemodel.protocol.client.LocalClientState;
-import timmax.tilegame.basemodel.protocol.HashSetOfObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.EventOfClient;
+import timmax.tilegame.basemodel.protocol.TypeOfEvent;
+import timmax.tilegame.basemodel.protocol.client.LocalClientState;
 
 public interface TransportOfClient {
     void sendEventOfClient(EventOfClient eventOfClient);
 
-    LocalClientState getLocalClientState();
-    HashSetOfObserverOnAbstractEvent getHashSetOfObserverOnAbstractEvent();
+    LocalClientState getLocalClientState(); // Удалить
+    void updateConnectStatePane(TypeOfEvent getGameTypeSet);
 }

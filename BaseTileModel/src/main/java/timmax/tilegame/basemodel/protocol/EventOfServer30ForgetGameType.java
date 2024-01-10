@@ -10,7 +10,7 @@ public class EventOfServer30ForgetGameType extends EventOfServer {
         System.out.println("  onForgetGameType");
 
         transportOfClient.getLocalClientState().setServerBaseModelClass(null);
-        transportOfClient.getHashSetOfObserverOnAbstractEvent().updateConnectStatePane(FORGET_GAME_TYPE);
+        transportOfClient.updateConnectStatePane(FORGET_GAME_TYPE);
     }
 
     @Override

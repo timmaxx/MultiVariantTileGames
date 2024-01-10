@@ -25,7 +25,7 @@ public class EventOfServer31GameTypeSelect extends EventOfServer {
         System.out.println("  onSelectGameType");
 
         transportOfClient.getLocalClientState().setServerBaseModelClass(serverBaseModelClass);
-        transportOfClient.getHashSetOfObserverOnAbstractEvent().updateConnectStatePane(SELECT_GAME_TYPE);
+        transportOfClient.updateConnectStatePane(SELECT_GAME_TYPE);
     }
 
     @Override

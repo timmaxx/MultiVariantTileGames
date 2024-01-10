@@ -14,7 +14,7 @@ public class EventOfServer10Logout extends EventOfServer {
         //       multiGameWebSocketClient.clientState.setUserName
         //       Ну и далее по аналогии.
         transportOfClient.getLocalClientState().setUserName("");
-        transportOfClient.getHashSetOfObserverOnAbstractEvent().updateConnectStatePane(LOGOUT);
+        transportOfClient.updateConnectStatePane(LOGOUT);
     }
 
     @Override

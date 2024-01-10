@@ -16,7 +16,7 @@ public class EventOfServer20ForgetGameTypeSet extends EventOfServer {
         //       multiGameWebSocketClient.clientState.setUserName
         //       Ну и далее по аналогии.
         transportOfClient.getLocalClientState().setArrayListOfServerBaseModelClass(new ArrayList<>());
-        transportOfClient.getHashSetOfObserverOnAbstractEvent().updateConnectStatePane(FORGET_GAME_TYPE_SET);
+        transportOfClient.updateConnectStatePane(FORGET_GAME_TYPE_SET);
     }
 
     @Override

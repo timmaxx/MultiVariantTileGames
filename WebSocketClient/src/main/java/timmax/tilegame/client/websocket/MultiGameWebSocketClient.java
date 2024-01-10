@@ -29,6 +29,12 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         System.out.println(serverUri);
     }
 
+    // Удалить
+    @Override
+    public LocalClientState getLocalClientState() {
+        return localClientState;
+    }
+
     public MainGameClientStatus getMainGameClientStatus() {
         if (!isOpen() || isClosed()) {
             return MainGameClientStatus.NO_CONNECT;
@@ -104,13 +110,8 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     }
 
     @Override
-    public LocalClientState getLocalClientState() {
-        return localClientState;
-    }
-
-    @Override
-    public HashSetOfObserverOnAbstractEvent getHashSetOfObserverOnAbstractEvent() {
-        return hashSetOfObserverOnAbstractEvent;
+    public void updateConnectStatePane(TypeOfEvent getGameTypeSet) {
+        hashSetOfObserverOnAbstractEvent.updateConnectStatePane(getGameTypeSet);
     }
 
     // Overiden methods from interface IModelOfClient:
