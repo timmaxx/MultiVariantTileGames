@@ -64,7 +64,6 @@ public class EventOfClient31GameTypeSelect extends EventOfClient {
             return;
         }
 
-        System.out.println("    modelOfServer = " + transportOfServer.getModelOfServer());
         transportOfServer.sendEventOfServer(clientId, new EventOfServer31GameTypeSelect(gameName));
     }
 
