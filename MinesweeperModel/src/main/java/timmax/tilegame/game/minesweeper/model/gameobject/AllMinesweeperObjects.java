@@ -92,7 +92,7 @@ public class AllMinesweeperObjects<T> {
             return DEFEAT;
         } else {
             defineNeighbors(tileOfMinesweeper);
-            modelOfServer.sendGameEvent(new GameEventOneTileOpenNoMine(tileOfMinesweeper.getX(), tileOfMinesweeper.getY(), tileOfMinesweeper.getCountOfMineNeighbors()));
+            modelOfServer.sendGameEvent(new GameEventOneTileMinesweeperOpenNoMine(tileOfMinesweeper.getX(), tileOfMinesweeper.getY(), tileOfMinesweeper.getCountOfMineNeighbors()));
             // Если в соседних плитках нет мин
             if (tileOfMinesweeper.getCountOfMineNeighbors() == 0) {
                 // Пройдёмся по соседним плиткам
