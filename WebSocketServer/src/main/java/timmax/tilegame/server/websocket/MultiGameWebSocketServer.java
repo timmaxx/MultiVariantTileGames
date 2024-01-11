@@ -17,6 +17,7 @@ import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.protocol.server.RemoteView;
+import timmax.tilegame.basemodel.protocol.server.ModelOfServerLoader;
 import timmax.tilegame.transport.TransportOfServer;
 
 public class MultiGameWebSocketServer extends WebSocketServer implements TransportOfServer<WebSocket> {
@@ -39,7 +40,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         try {
             modelLoader = new ModelOfServerLoader(
                     Paths.get(
-                            Objects.requireNonNull(MultiGameWebSocketServer.class.getResource("models.txt")).toURI()
+                            Objects.requireNonNull(ModelOfServerLoader.class.getResource("models.txt")).toURI()
                     )
             );
         } catch (URISyntaxException e) {

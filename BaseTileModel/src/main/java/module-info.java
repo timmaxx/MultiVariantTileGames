@@ -14,4 +14,6 @@ module timmax.tilegame.basetilemodel {
     exports timmax.tilegame.transport;
     exports timmax.tilegame.basemodel.protocol.server;
     exports timmax.tilegame.basemodel.protocol.client;
+
+    opens timmax.tilegame.basemodel.protocol.server;
 }

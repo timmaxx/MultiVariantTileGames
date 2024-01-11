@@ -1,4 +1,4 @@
-package timmax.tilegame.server.websocket;
+package timmax.tilegame.basemodel.protocol.server;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
-
-import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 
 public class ModelOfServerLoader {
     private final Path path;
