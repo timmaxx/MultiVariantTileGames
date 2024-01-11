@@ -20,7 +20,7 @@ public class LocalClientState extends AbstractClientState<String> {
     }
 
     public void confirmView(String viewId) {
-        if (listOfLocalView.contains(viewId)) {
+        if (listOfLocalView.getViewByViewId(viewId) != null) {
             System.out.println("confirmView ok.");
         } else {
             System.err.println("confirmView is not ok!");
