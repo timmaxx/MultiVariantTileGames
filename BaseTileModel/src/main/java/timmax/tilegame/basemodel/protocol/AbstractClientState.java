@@ -5,17 +5,34 @@ import java.util.List;
 
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 
-public abstract class AbstractClientState {
+public abstract class AbstractClientState<T> {
     protected String userName = "";
-    protected List<String> arrayListOfServerBaseModelString = new ArrayList<>();
-    protected String serverBaseModelString = "";
+    protected List<T> listOfServerBaseModel = new ArrayList<>();
+    protected T serverBaseModel = null;
+
+    public void setUserName(String userName) {
+        newListOfServerBaseModel();
+        this.userName = userName;
+    }
+
+    public List<T> getListOfServerBaseModel() {
+        return listOfServerBaseModel;
+    }
+
+    public T getServerBaseModel() {
+        return serverBaseModel;
+    }
+
+    public void setServerBaseModel(T serverBaseModel) {
+        this.serverBaseModel = serverBaseModel;
+    }
 
     public MainGameClientStatus getMainGameClientStatus() {
         if (userName.equals("")) {
             return MainGameClientStatus.CONNECT_NON_IDENT;
         } else {
-            if (arrayListOfServerBaseModelString.size() > 0) {
-                if (serverBaseModelString != null) {
+            if (listOfServerBaseModel.size() > 0) {
+                if (serverBaseModel != null) {
                     return MainGameClientStatus.GAME_TYPE_SELECT;
                 }
                 return MainGameClientStatus.GET_GAME_TYPE_SET;
@@ -29,33 +46,16 @@ public abstract class AbstractClientState {
         setUserName("");
     }
 
-    public void setUserName(String userName) {
-        newArrayListOfServerBaseModelClass();
-        this.userName = userName;
-    }
-
-    public List<String> getArrayListOfServerBaseModelString() {
-        return arrayListOfServerBaseModelString;
-    }
-
-    public void newArrayListOfServerBaseModelClass() {
+    public void newListOfServerBaseModel() {
         forgetServerBaseModelString();
-        this.arrayListOfServerBaseModelString = new ArrayList<>();
-    }
-
-    public String getServerBaseModelString() {
-        return serverBaseModelString;
+        this.listOfServerBaseModel = new ArrayList<>();
     }
 
     public void forgetServerBaseModelString() {
-        this.serverBaseModelString = null;
+        this.serverBaseModel = null;
     }
 
-    public void setServerBaseModelString(String serverBaseModelString) {
-        this.serverBaseModelString = serverBaseModelString;
-    }
-
-    public boolean addServerBaseModelClass(String serverBaseModelString) {
-        return arrayListOfServerBaseModelString.add(serverBaseModelString);
+    public boolean addServerBaseModelClass(T serverBaseModelString) {
+        return listOfServerBaseModel.add(serverBaseModelString);
     }
 }

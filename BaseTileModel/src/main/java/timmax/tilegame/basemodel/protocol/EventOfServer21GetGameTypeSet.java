@@ -9,25 +9,25 @@ import java.util.List;
 import timmax.tilegame.transport.TransportOfClient;
 
 public class EventOfServer21GetGameTypeSet extends EventOfServer {
-    List<String> arrayListOfServerBaseModelClass = new ArrayList<>();
+    List<String> listOfServerBaseModelString = new ArrayList<>();
 
     public EventOfServer21GetGameTypeSet() {
         super();
     }
 
-    public EventOfServer21GetGameTypeSet(List<String> arrayListOfServerBaseModelClass) {
+    public EventOfServer21GetGameTypeSet(List<String> listOfServerBaseModelString) {
         this();
-        this.arrayListOfServerBaseModelClass = arrayListOfServerBaseModelClass;
+        this.listOfServerBaseModelString = listOfServerBaseModelString;
     }
 
     @Override
     public void executeOnClient(TransportOfClient transportOfClient) {
         System.out.println("  onGetGameTypeSet");
 
-        transportOfClient.getLocalClientState().newArrayListOfServerBaseModelClass();
+        transportOfClient.getLocalClientState().newListOfServerBaseModel();
 
-        for (String serverBaseModelClass : arrayListOfServerBaseModelClass) {
-            transportOfClient.getLocalClientState().addServerBaseModelClass(serverBaseModelClass);
+        for (String serverBaseModelString : listOfServerBaseModelString) {
+            transportOfClient.getLocalClientState().addServerBaseModelClass(serverBaseModelString);
         }
         transportOfClient.getHashSetOfObserverOnAbstractEvent().updateOnGetGameTypeSet();
     }
@@ -35,13 +35,13 @@ public class EventOfServer21GetGameTypeSet extends EventOfServer {
     @Override
     public String toString() {
         return "EventOfServer21GetGameTypeSet{" +
-                "arrayListOfServerBaseModelClass=" + arrayListOfServerBaseModelClass +
+                "listOfServerBaseModelString=" + listOfServerBaseModelString +
                 '}';
     }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(arrayListOfServerBaseModelClass);
+        out.writeObject(listOfServerBaseModelString);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class EventOfServer21GetGameTypeSet extends EventOfServer {
             }
             @SuppressWarnings("unchecked")
             List<String> arrayListOfServerBaseModelClassTmp = (List<String>) listOfObj;
-            arrayListOfServerBaseModelClass = arrayListOfServerBaseModelClassTmp;
+            listOfServerBaseModelString = arrayListOfServerBaseModelClassTmp;
         } else {
             System.err.println("class EventOfServer021GetGameTypeSet\n method void readExternal(ObjectInput in)\n  in.readObject() is not instance of List");
             System.exit(1);
