@@ -51,7 +51,7 @@ public class EventOfClient31GameTypeSelect extends EventOfClient {
         try {
             obj = constructor.newInstance(transportOfServer);
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
-            System.err.println("Server cannot make object of model for " + gameName + " with concrete constructor.");
+            System.err.println("Server cannot create object of model for " + gameName + " with constructor with specific parameters.");
             e.printStackTrace();
             System.exit(1);
         }
@@ -65,11 +65,6 @@ public class EventOfClient31GameTypeSelect extends EventOfClient {
         }
 
         System.out.println("    modelOfServer = " + transportOfServer.getModelOfServer());
-        if (transportOfServer.getModelOfServer() == null) {
-            transportOfServer.sendEventOfServer(clientId, new EventOfServer30ForgetGameType());
-            return;
-        }
-
         transportOfServer.sendEventOfServer(clientId, new EventOfServer31GameTypeSelect(gameName));
     }
 
