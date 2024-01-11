@@ -29,6 +29,19 @@
             <artifactId>commons-collections4</artifactId>
             <version>4.4</version>
         </dependency>
+
+        <!-- В этом pom зависимости от MinesweeperModel и от SokobanModel прописаны явно.
+            Было-бы лучше не писать их здесь, тогда достаточно было-бы указать зависимость только от BaseTileModel.
+            Да и файл models.txt, находящийся в ресурсах BaseTileModel "как-бы дублирует" информацию о моделях.
+        -->
+        <!--
+                <dependency>
+                    <groupId>timmax</groupId>
+                    <artifactId>BaseTileModel</artifactId>
+                    <version>1.0-SNAPSHOT</version>
+                    <scope>compile</scope>
+                </dependency>
+        -->
         <dependency>
             <groupId>timmax</groupId>
             <artifactId>MinesweeperModel</artifactId>
@@ -41,5 +54,6 @@
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+
     </dependencies>
 </project>
