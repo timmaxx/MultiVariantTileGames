@@ -27,7 +27,7 @@ public class ModelOfServerDescriptor {
                 }
 
                 @Override
-                public void sendEventOfServerToClient(Object clientId, EventOfServer transportPackageOfServer) {
+                public void sendEventOfServer(Object clientId, EventOfServer transportPackageOfServer) {
                 }
 
                 @Override

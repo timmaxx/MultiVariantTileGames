@@ -24,7 +24,7 @@ public class EventOfClient91AddView extends EventOfClient {
         System.out.println("  onAddView");
 
         transportOfServer.getModelOfServer().addRemoteView(new RemoteView<>(clientId, viewId));
-        transportOfServer.sendEventOfServerToClient(clientId, new EventOfServer91AddView(viewId));
+        transportOfServer.sendEventOfServer(clientId, new EventOfServer91AddView(viewId));
     }
 
     @Override

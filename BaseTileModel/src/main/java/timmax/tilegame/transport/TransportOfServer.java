@@ -11,7 +11,7 @@ import timmax.tilegame.basemodel.protocol.server.RemoteView;
 public interface TransportOfServer<T> {
     void sendGameEventToRemoteView(RemoteView<T> remoteView, GameEvent gameEvent);
 
-    void sendEventOfServerToClient(T clientId, EventOfServer transportPackageOfServer);
+    void sendEventOfServer(T clientId, EventOfServer transportPackageOfServer);
 
     ModelOfServer<T> getModelOfServer();
 
