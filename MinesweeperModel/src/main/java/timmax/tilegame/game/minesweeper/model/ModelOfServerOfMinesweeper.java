@@ -48,6 +48,11 @@ public class ModelOfServerOfMinesweeper<T> extends ModelOfServer<T> {
     }
 
     @Override
+    public int getCountOfGamers() {
+        return 1;
+    }
+
+    @Override
     public void createNewGame() {
         createNewGame(SIDE_OF_WIDTH, SIDE_OF_HEIGHT);
         sendGameEvent(new GameEventMinesweeperPersistentParams(allMinesweeperObjects.getCountOfMines()));

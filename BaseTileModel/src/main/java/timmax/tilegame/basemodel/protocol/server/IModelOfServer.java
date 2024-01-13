@@ -5,6 +5,7 @@ import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 
 public interface IModelOfServer<T> {
     String getGameName();
+    int getCountOfGamers();
 
     void createNewGame();
     void addRemoteView(RemoteView<T> remoteView);

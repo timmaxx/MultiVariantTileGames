@@ -72,6 +72,11 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
     }
 
     @Override
+    public int getCountOfGamers() {
+        return 1;
+    }
+
+    @Override
     public void createNewGame() {
         allSokobanObjects = levelLoader.getLevel(currentLevel.getValue());
         super.createNewGame(allSokobanObjects.getWidth(), allSokobanObjects.getHeight());
