@@ -4,18 +4,18 @@ import java.util.Collection;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.EventOfServer;
-import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
+import timmax.tilegame.basemodel.protocol.server.IModelOfServer;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.protocol.server.RemoteView;
 
-public interface TransportOfServer<T> {
-    void sendGameEventToRemoteView(RemoteView<T> remoteView, GameEvent gameEvent);
+public interface TransportOfServer<ClienId> {
+    void sendGameEventToRemoteView(RemoteView<ClienId> remoteView, GameEvent gameEvent);
 
-    void sendEventOfServer(T clientId, EventOfServer transportPackageOfServer);
+    void sendEventOfServer(ClienId clientId, EventOfServer transportPackageOfServer);
 
-    ModelOfServer<T> getModelOfServer();
+    IModelOfServer<ClienId> getModelByClientId(ClienId clientId);
 
-    void setModelOfServer(ModelOfServer<T> modelOfServer);
+    void addClienId_IModelOfServer(ClienId clientId, IModelOfServer<ClienId> iModelOfServer);
 
     Collection<ModelOfServerDescriptor> getCollectionOfModelOfServerDescriptor();
 }

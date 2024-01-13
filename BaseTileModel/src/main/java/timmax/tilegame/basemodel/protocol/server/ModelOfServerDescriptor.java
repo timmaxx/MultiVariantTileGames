@@ -9,14 +9,14 @@ import timmax.tilegame.basemodel.protocol.EventOfServer;
 import timmax.tilegame.transport.TransportOfServer;
 
 public class ModelOfServerDescriptor {
-    private final Constructor<? extends ModelOfServer> constructorOfModelOfServerClass;
+    private final Constructor<? extends ModelOfServer<?>> constructorOfModelOfServerClass;
     private final String gameName;
 
     public ModelOfServerDescriptor(String modelOfServerString) throws ClassNotFoundException, NoSuchMethodException {
-        Class<? extends ModelOfServer> modelOfServerClass = (Class<? extends ModelOfServer>) Class.forName(modelOfServerString);
+        Class<? extends ModelOfServer<?>> modelOfServerClass = (Class<? extends ModelOfServer<?>>) Class.forName(modelOfServerString);
         this.constructorOfModelOfServerClass = modelOfServerClass.getConstructor(TransportOfServer.class);
 
-        Object obj;
+        ModelOfServer<?> obj;
         try {
             // Создаётся экземпляр. После работы в этом конструкторе он будет не нужен.
             // obj = constructorOfModelOfServerClass.newInstance(null); // Не получилось передать null.
@@ -31,12 +31,12 @@ public class ModelOfServerDescriptor {
                 }
 
                 @Override
-                public ModelOfServer<Object> getModelOfServer() {
+                public IModelOfServer<Object> getModelByClientId(Object clientId) {
                     return null;
                 }
 
                 @Override
-                public void setModelOfServer(ModelOfServer<Object> modelOfServer) {
+                public void addClienId_IModelOfServer(Object clientId, IModelOfServer<Object> iModelOfServer) {
                 }
 
                 @Override
@@ -53,10 +53,10 @@ public class ModelOfServerDescriptor {
         // Читается у созданного экземпляра имя типа игры (но возможно и другие характеристики класса...)
         // Как-то нужно учесть, что имя игры может быть передано разным клиентам на разных языках.
         // Т.к. obj ничему не присваивается, то он уйдёт в небытие по окончанию работы конструктора.
-        this.gameName = ((ModelOfServer) (obj)).getGameName();
+        this.gameName = obj.getGameName();
     }
 
-    public Constructor<? extends ModelOfServer> getConstructorOfModelOfServerClass() {
+    public Constructor<? extends ModelOfServer<?>> getConstructorOfModelOfServerClass() {
         return constructorOfModelOfServerClass;
     }
 

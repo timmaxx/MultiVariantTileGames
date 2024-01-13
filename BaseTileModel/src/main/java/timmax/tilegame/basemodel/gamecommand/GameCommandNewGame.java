@@ -6,6 +6,6 @@ public class GameCommandNewGame extends GameCommand {
     @Override
     public <T> void executeOnServer(TransportOfServer<T> transportOfServer, T clientId) {
         System.out.println("    onNewGame");
-        transportOfServer.getModelOfServer().createNewGame();
+        transportOfServer.getModelByClientId(clientId).createNewGame();
     }
 }

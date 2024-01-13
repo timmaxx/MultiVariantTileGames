@@ -6,6 +6,8 @@ import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
 import java.nio.file.Paths;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import org.java_websocket.WebSocket;
@@ -14,29 +16,20 @@ import org.java_websocket.server.WebSocketServer;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.*;
-import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
-import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
-import timmax.tilegame.basemodel.protocol.server.RemoteView;
-import timmax.tilegame.basemodel.protocol.server.ModelOfServerLoader;
+import timmax.tilegame.basemodel.protocol.server.*;
 import timmax.tilegame.transport.TransportOfServer;
 
 public class MultiGameWebSocketServer extends WebSocketServer implements TransportOfServer<WebSocket> {
-    private final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
-    private ModelOfServerLoader modelLoader;
-    private Collection<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor;
-
-    private ModelOfServer<WebSocket> modelOfServer;
+    private final ObjectMapperOfMvtg mapper;
+    private final Collection<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor;
+    private final Map<WebSocket, IModelOfServer<WebSocket>> mapOfWebSocket_IModelOfServer;
 
     public MultiGameWebSocketServer(int port) {
         super(new InetSocketAddress(port));
-    }
+        mapper = new ObjectMapperOfMvtg();
+        mapOfWebSocket_IModelOfServer = new HashMap<>();
 
-    // Overiden methods from class WebSocketServer:
-    @Override
-    public void onStart() {
-        System.out.println("onStart()");
-        System.out.println("  MultiGameWebSocketServer started on port: " + getPort() + ".");
-
+        ModelOfServerLoader modelLoader = null;
         try {
             modelLoader = new ModelOfServerLoader(
                     Paths.get(
@@ -48,7 +41,13 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
             System.exit(1);
         }
         collectionOfModelOfServerDescriptor = modelLoader.getCollectionOfModelOfServerDescriptor();
+    }
 
+    // Overiden methods from class WebSocketServer:
+    @Override
+    public void onStart() {
+        System.out.println("onStart()");
+        System.out.println("  MultiGameWebSocketServer started on port: " + getPort() + ".");
         System.out.println("---------- End of onStart");
     }
 
@@ -122,15 +121,18 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     }
 
     @Override
-    public ModelOfServer<WebSocket> getModelOfServer() {
-        return modelOfServer;
+    public IModelOfServer<WebSocket> getModelByClientId(WebSocket clientId) {
+        // Найти одну партию среди ранее выбранного типа игры, к которой можно подключиться данному clientId.
+        // Для игр с одним игроком - всё просто.
+        // Для игр с двумя (и более) игроками - должна быть хотя-бы одна не занятая роль.
+        return mapOfWebSocket_IModelOfServer.get(clientId);
     }
 
     @Override
-    public void setModelOfServer(ModelOfServer<WebSocket> modelOfServer) {
-        System.out.println("class MultiGameWebSocketServer. method setModelOfServer");
-        System.out.println("  modelOfServer = " + modelOfServer);
-        this.modelOfServer = modelOfServer;
+    public void addClienId_IModelOfServer(WebSocket webSocket, IModelOfServer<WebSocket> iModelOfServer) {
+        System.out.println("class MultiGameWebSocketServer. method addWebSocket_IModelOfServer");
+        System.out.println("  iModelOfServer = " + iModelOfServer);
+        mapOfWebSocket_IModelOfServer.put(webSocket, iModelOfServer);
     }
 
     @Override

@@ -6,7 +6,7 @@ import java.io.ObjectOutput;
 
 import javafx.scene.input.KeyCode;
 
-import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
+import timmax.tilegame.basemodel.protocol.server.IModelOfServer;
 import timmax.tilegame.transport.TransportOfServer;
 
 public class GameCommandKeyPressed extends GameCommand {
@@ -29,7 +29,7 @@ public class GameCommandKeyPressed extends GameCommand {
         System.out.println("  keyCode = " + keyCode);
 
         // 1. По clientId определить модель, для которой пришла команда.
-        ModelOfServer<T> modelOfServer = transportOfServer.getModelOfServer();
+        IModelOfServer<T> modelOfServer = transportOfServer.getModelByClientId(clientId);
 
         // 2. Есть-ли допуски у клиента, откуда пришла команда:
         // 2.1. к модели?

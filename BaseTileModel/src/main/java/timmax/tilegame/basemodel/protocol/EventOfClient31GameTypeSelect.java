@@ -57,7 +57,7 @@ public class EventOfClient31GameTypeSelect extends EventOfClient {
         }
 
         if (obj instanceof ModelOfServer modelOfServer) {
-            transportOfServer.setModelOfServer(modelOfServer);
+            transportOfServer.addClienId_IModelOfServer(clientId, modelOfServer);
         } else {
             System.err.println("Created object is not ModelOfServer.");
             transportOfServer.sendEventOfServer(clientId, new EventOfServer30ForgetGameType());
