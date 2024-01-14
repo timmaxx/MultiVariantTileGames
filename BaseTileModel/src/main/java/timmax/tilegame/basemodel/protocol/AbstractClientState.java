@@ -82,25 +82,3 @@ public abstract class AbstractClientState<ClienId> {
         // throw new RuntimeException("Unknown state.");
     }
 }
-
-/*
--public abstract class AbstractClientState<ClienId> {
-    protected String userName; // 1
-    protected Collection<ModelOfServerDescriptor> collectionOfGameTypeSet; // 2
-    // protected List<ClienId> listOfServerBaseModel; // 3
-    // protected ClienId serverBaseModel; // 4
-
-    // ---- 1
-
-/-*
-    // ---- 2
-    public void forgetGameTypeSet() {
-        forgetGameTypeSet_();
-    }
-*-/
-    private void forgetGameTypeSet_() {
-        // forgetServerBaseModel();
-        this.listOfServerBaseModel = new ArrayList<>();
-    }
-
-*/

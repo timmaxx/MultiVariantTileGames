@@ -17,12 +17,12 @@ public class RemoteClientState<ClienId> extends AbstractClientState<IModelOfServ
     @Override
     public void setUserName(String userName) {
         super.setUserName(userName);
-        if (userName != null && !userName.isEmpty()) {
-            transportOfServer.sendEventOfServer(clientId, new EventOfServer11Login(userName));
-            System.out.println("after transportOfServer.sendEventOfServer(clientId, new EventOfServer11Login(userName));");
-        } else {
-            transportOfServer.sendEventOfServer(clientId, new EventOfServer10Logout());
-            System.out.println("after transportOfServer.sendEventOfServer(clientId, new EventOfServer10Logout());");
-        }
+        transportOfServer.sendEventOfServer(clientId, new EventOfServer11Login(userName));
+    }
+
+    @Override
+    public void forgetUserName() {
+        super.forgetUserName();
+        transportOfServer.sendEventOfServer(clientId, new EventOfServer10Logout());
     }
 }
