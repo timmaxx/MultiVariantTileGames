@@ -11,7 +11,7 @@ public class EventOfServer20ForgetGameTypeSet extends EventOfServer {
         //       Вызов метода у объекта объекта - не хорошая практика!
         //       multiGameWebSocketClient.clientState.setUserName
         //       Ну и далее по аналогии.
-        transportOfClient.getLocalClientState().newListOfServerBaseModel();
+        transportOfClient.getLocalClientState().forgetListOfServerBaseModel();
         transportOfClient.getHashSetOfObserverOnAbstractEvent().updateOnForgetGameTypeSet();
     }
 

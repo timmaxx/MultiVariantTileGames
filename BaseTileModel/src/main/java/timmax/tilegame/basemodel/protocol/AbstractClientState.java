@@ -12,7 +12,7 @@ public abstract class AbstractClientState<ClienId> {
 
     // ---- 1
     public void setUserName(String userName) {
-        newListOfServerBaseModel();
+        forgetListOfServerBaseModel();
         this.userName = userName;
     }
 
@@ -25,7 +25,7 @@ public abstract class AbstractClientState<ClienId> {
         return listOfServerBaseModel;
     }
 
-    public void newListOfServerBaseModel() {
+    public void forgetListOfServerBaseModel() {
         forgetServerBaseModel();
         this.listOfServerBaseModel = new ArrayList<>();
     }
