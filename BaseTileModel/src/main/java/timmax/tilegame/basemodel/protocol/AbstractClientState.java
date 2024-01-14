@@ -47,12 +47,12 @@ public abstract class AbstractClientState<T> {
     }
 
     public void newListOfServerBaseModel() {
-        forgetServerBaseModelString();
+        forgetServerBaseModel();
         this.listOfServerBaseModel = new ArrayList<>();
     }
 
-    public void forgetServerBaseModelString() {
-        this.serverBaseModel = null;
+    public void forgetServerBaseModel() {
+        setServerBaseModel(null);
     }
 
     public boolean addServerBaseModelClass(T serverBaseModelString) {
