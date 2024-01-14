@@ -5,16 +5,17 @@ import java.util.List;
 
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 
-public abstract class AbstractClientState<ClienId> {
+public abstract class AbstractClientState<Model> {
     protected String userName = "";
-    protected List<ClienId> listOfServerBaseModel = new ArrayList<>();
-    protected ClienId serverBaseModel = null;
+    protected List<Model> listOfServerBaseModel = new ArrayList<>();
+    protected Model serverBaseModel = null;
 
     // ---- 1
+/*
     public String getUserName() {
         return userName;
     }
-
+*/
     public void setUserName(String userName) {
         if (userName == null || userName.isEmpty()) {
             throw new NullPointerException("UserName is null. It must be not null for this method.");
@@ -32,7 +33,7 @@ public abstract class AbstractClientState<ClienId> {
     }
 
     // ---- 2
-    public List<ClienId> getListOfServerBaseModel() {
+    public List<Model> getListOfServerBaseModel() {
         return listOfServerBaseModel;
     }
 
@@ -46,15 +47,15 @@ public abstract class AbstractClientState<ClienId> {
     }
 
     // ---- 3
-    public ClienId getServerBaseModel() {
+    public Model getServerBaseModel() {
         return serverBaseModel;
     }
 
-    public void setServerBaseModel(ClienId serverBaseModel) {
+    public void setServerBaseModel(Model serverBaseModel) {
         setServerBaseModel_(serverBaseModel);
     }
 
-    private void setServerBaseModel_(ClienId serverBaseModel) {
+    private void setServerBaseModel_(Model serverBaseModel) {
         this.serverBaseModel = serverBaseModel;
     }
 
