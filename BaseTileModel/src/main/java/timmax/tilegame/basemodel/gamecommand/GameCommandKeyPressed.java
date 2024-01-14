@@ -24,12 +24,12 @@ public class GameCommandKeyPressed extends GameCommand {
     }
 
     @Override
-    public <T> void executeOnServer(TransportOfServer<T> transportOfServer, T clientId) {
+    public <ClienId> void executeOnServer(TransportOfServer<ClienId> transportOfServer, ClienId clientId) {
         System.out.println("class GameCommandKeyPressed. method executeOnServer.");
         System.out.println("  keyCode = " + keyCode);
 
         // 1. По clientId определить модель, для которой пришла команда.
-        IModelOfServer<T> modelOfServer = transportOfServer
+        IModelOfServer<ClienId> modelOfServer = transportOfServer
                 .getRemoteClientStateByClientId(clientId)
                 .getServerBaseModel();
 

@@ -5,25 +5,25 @@ import java.util.List;
 
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 
-public abstract class AbstractClientState<T> {
+public abstract class AbstractClientState<ClienId> {
     protected String userName = "";
-    protected List<T> listOfServerBaseModel = new ArrayList<>();
-    protected T serverBaseModel = null;
+    protected List<ClienId> listOfServerBaseModel = new ArrayList<>();
+    protected ClienId serverBaseModel = null;
 
     public void setUserName(String userName) {
         newListOfServerBaseModel();
         this.userName = userName;
     }
 
-    public List<T> getListOfServerBaseModel() {
+    public List<ClienId> getListOfServerBaseModel() {
         return listOfServerBaseModel;
     }
 
-    public T getServerBaseModel() {
+    public ClienId getServerBaseModel() {
         return serverBaseModel;
     }
 
-    public void setServerBaseModel(T serverBaseModel) {
+    public void setServerBaseModel(ClienId serverBaseModel) {
         this.serverBaseModel = serverBaseModel;
     }
 
@@ -55,7 +55,7 @@ public abstract class AbstractClientState<T> {
         setServerBaseModel(null);
     }
 
-    public boolean addServerBaseModelClass(T serverBaseModelString) {
+    public boolean addServerBaseModelClass(ClienId serverBaseModelString) {
         return listOfServerBaseModel.add(serverBaseModelString);
     }
 }

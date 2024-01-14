@@ -3,10 +3,10 @@ package timmax.tilegame.basemodel.protocol.server;
 import timmax.tilegame.basemodel.protocol.AbstractClientState;
 import timmax.tilegame.transport.TransportOfServer;
 
-public class RemoteClientState<T> extends AbstractClientState<IModelOfServer<T>> {
-    private final ListOfRemoteView<T> listOfRemoteView;
+public class RemoteClientState<ClienId> extends AbstractClientState<IModelOfServer<ClienId>> {
+    private final ListOfRemoteView<ClienId> listOfRemoteView;
 
-    public RemoteClientState(TransportOfServer<T> transportOfServer) {
+    public RemoteClientState(TransportOfServer<ClienId> transportOfServer) {
         listOfRemoteView = new ListOfRemoteView<>(transportOfServer);
     }
 }

@@ -26,12 +26,12 @@ public class GameCommandMouseClick extends GameCommandOneTile {
     }
 
     @Override
-    public <T> void executeOnServer(TransportOfServer<T> transportOfServer, T clientId) {
+    public <ClienId> void executeOnServer(TransportOfServer<ClienId> transportOfServer, ClienId clientId) {
         System.out.println("class GameCommandMouseClick. method executeOnServer.");
         System.out.println("  mouseButton = " + mouseButton + ", x = " + getX() + ", y = " + getY());
 
         // 1. По clientId определить модель, для которой пришла команда.
-        IModelOfServer<T> modelOfServer = transportOfServer
+        IModelOfServer<ClienId> modelOfServer = transportOfServer
                 .getRemoteClientStateByClientId(clientId)
                 .getServerBaseModel();
 

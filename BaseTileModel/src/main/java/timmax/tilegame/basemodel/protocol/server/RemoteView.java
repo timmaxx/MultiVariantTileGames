@@ -4,17 +4,17 @@ import java.util.Objects;
 
 // В экземпляре этого класса будет сохранятся идентификатор клиента и строковый идентификатор выборки,
 // которой нужно отправить то или иное сообщение об игровом событии.
-public class RemoteView<T> {
-    private final T clientId;
+public class RemoteView<ClienId> {
+    private final ClienId clientId;
     private final String viewId;
 
 
-    public RemoteView(T clientId, String viewId) {
+    public RemoteView(ClienId clientId, String viewId) {
         this.clientId = clientId;
         this.viewId = viewId;
     }
 
-    public T getClientId() {
+    public ClienId getClientId() {
         return clientId;
     }
 
