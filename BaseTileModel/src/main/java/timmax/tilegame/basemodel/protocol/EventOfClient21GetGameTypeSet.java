@@ -1,22 +1,12 @@
 package timmax.tilegame.basemodel.protocol;
 
-import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.transport.TransportOfServer;
 
 public class EventOfClient21GetGameTypeSet extends EventOfClient {
     @Override
     public <ClienId> void executeOnServer(TransportOfServer<ClienId> transportOfServer, ClienId clientId) {
         System.out.println("  onGetGameTypeSet");
-
-        transportOfServer.sendEventOfServer(
-                clientId,
-                new EventOfServer21GetGameTypeSet(
-                        transportOfServer.getCollectionOfModelOfServerDescriptor()
-                                .stream()
-                                .map(ModelOfServerDescriptor::getGameName)
-                                .toList()
-                )
-        );
+        transportOfServer.getRemoteClientStateByClientId(clientId).getGameTypeSet();
     }
 
     @Override

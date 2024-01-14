@@ -41,6 +41,10 @@ public abstract class AbstractClientState<Model> {
         // ToDo: Нет переменной, которую нужно очищать. Создать. Очистить.
     }
 
+    protected void getGameTypeSet() {
+        // ToDo: Нет переменной, которую нужно вернуть. Создать.
+    }
+
     // ---- 3
     public List<Model> getListOfServerBaseModel() {
         return listOfServerBaseModel;
