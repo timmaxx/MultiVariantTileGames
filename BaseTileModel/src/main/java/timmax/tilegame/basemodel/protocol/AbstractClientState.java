@@ -12,12 +12,19 @@ public abstract class AbstractClientState<ClienId> {
 
     // ---- 1
     public void setUserName(String userName) {
-        forgetListOfServerBaseModel();
-        this.userName = userName;
+        if (userName == null && userName.isEmpty()) {
+            throw new NullPointerException("!!!!!");
+        }
+        setUserName_(userName);
     }
 
     public void forgetUserName() {
-        setUserName("");
+        setUserName_("");
+    }
+
+    private void setUserName_(String userName) {
+        //forgetGameTypeSet_();
+        this.userName = userName;
     }
 
     // ---- 2
@@ -74,21 +81,6 @@ public abstract class AbstractClientState<ClienId> {
         return userName;
     }
 
--    public void setUserName(String userName) {
-        if (userName == null && userName.isEmpty()) {
-            throw new NullPointerException("!!!!!"); // !!!!!
-        }
-        setUserName_(userName);
-    }
-
-    public void forgetUserName() {
-        setUserName_("");
-    }
-
-    private void setUserName_(String userName) {
-        forgetGameTypeSet_();
-        t-his.userName = userName;
-    -}
 /-*
     // ---- 2
     public void forgetGameTypeSet() {
