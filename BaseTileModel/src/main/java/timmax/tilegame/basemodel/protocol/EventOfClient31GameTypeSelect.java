@@ -38,8 +38,7 @@ public class EventOfClient31GameTypeSelect extends EventOfClient {
                 .filter(x -> x.getGameName().equals(gameName))
                 .findAny()
                 // .map(x -> x.getConstructorOfModelOfServerClass()).orElse(null)
-                .map(ModelOfServerDescriptor::getConstructorOfModelOfServerClass).orElse(null)
-        ;
+                .map(ModelOfServerDescriptor::getConstructorOfModelOfServerClass).orElse(null);
 
         if (constructor == null) {
             System.err.println(gameName + "' was not found in list model classes.");
@@ -57,7 +56,10 @@ public class EventOfClient31GameTypeSelect extends EventOfClient {
         }
 
         if (obj instanceof ModelOfServer modelOfServer) {
-            transportOfServer.addClienId_IModelOfServer(clientId, modelOfServer);
+            transportOfServer
+                    .getRemoteClientStateByClientId(clientId)
+                    .setServerBaseModel(modelOfServer)
+            ;
         } else {
             System.err.println("Created object is not ModelOfServer.");
             transportOfServer.sendEventOfServer(clientId, new EventOfServer30ForgetGameType());

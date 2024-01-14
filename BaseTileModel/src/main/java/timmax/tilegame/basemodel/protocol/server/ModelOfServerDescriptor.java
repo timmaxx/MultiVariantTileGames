@@ -31,12 +31,8 @@ public class ModelOfServerDescriptor {
                 }
 
                 @Override
-                public IModelOfServer<Object> getModelByClientId(Object clientId) {
+                public RemoteClientState<Object> getRemoteClientStateByClientId(Object clientId) {
                     return null;
-                }
-
-                @Override
-                public void addClienId_IModelOfServer(Object clientId, IModelOfServer<Object> iModelOfServer) {
                 }
 
                 @Override

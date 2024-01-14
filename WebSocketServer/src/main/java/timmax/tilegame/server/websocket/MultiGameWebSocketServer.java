@@ -22,12 +22,12 @@ import timmax.tilegame.transport.TransportOfServer;
 public class MultiGameWebSocketServer extends WebSocketServer implements TransportOfServer<WebSocket> {
     private final ObjectMapperOfMvtg mapper;
     private final Collection<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor;
-    private final Map<WebSocket, IModelOfServer<WebSocket>> mapOfWebSocket_IModelOfServer;
+    private final Map<WebSocket, RemoteClientState<WebSocket>> mapOfRemoteClientState;
 
     public MultiGameWebSocketServer(int port) {
         super(new InetSocketAddress(port));
         mapper = new ObjectMapperOfMvtg();
-        mapOfWebSocket_IModelOfServer = new HashMap<>();
+        mapOfRemoteClientState = new HashMap<>();
 
         ModelOfServerLoader modelLoader = null;
         try {
@@ -57,6 +57,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         System.out.println("  " + webSocket);
         System.out.println("  Connect was closed.");
         System.out.println("  Code = " + code + ". Reason = " + reason + ". Remote = " + remote + ".");
+        mapOfRemoteClientState.remove(webSocket);
         System.out.println("---------- End of onClose");
     }
 
@@ -64,10 +65,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     public void onOpen(WebSocket webSocket, ClientHandshake clientHandshake) {
         System.out.println("onOpen(WebSocket, ClientHandshake)");
         System.out.println("  " + webSocket);
-        // ToDo: Для каждого соединения можно создавать отдельный поток-нить.
-        //       Соответственно, нужна карта, в которой будет храниться:
-        //       webSocket, нить, модель игры.
-        //       Но, вполне возможно, что это и так уже делается ядром WinSocket...
+        mapOfRemoteClientState.put(webSocket, new RemoteClientState<>(this));
         System.out.println("---------- End of onOpen");
     }
 
@@ -121,18 +119,8 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     }
 
     @Override
-    public IModelOfServer<WebSocket> getModelByClientId(WebSocket clientId) {
-        // Найти одну партию среди ранее выбранного типа игры, к которой можно подключиться данному clientId.
-        // Для игр с одним игроком - всё просто.
-        // Для игр с двумя (и более) игроками - должна быть хотя-бы одна не занятая роль.
-        return mapOfWebSocket_IModelOfServer.get(clientId);
-    }
-
-    @Override
-    public void addClienId_IModelOfServer(WebSocket webSocket, IModelOfServer<WebSocket> iModelOfServer) {
-        System.out.println("class MultiGameWebSocketServer. method addWebSocket_IModelOfServer");
-        System.out.println("  iModelOfServer = " + iModelOfServer);
-        mapOfWebSocket_IModelOfServer.put(webSocket, iModelOfServer);
+    public RemoteClientState<WebSocket> getRemoteClientStateByClientId(WebSocket clientId) {
+        return mapOfRemoteClientState.get(clientId);
     }
 
     @Override
