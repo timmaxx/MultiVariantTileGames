@@ -3,6 +3,7 @@ package timmax.tilegame.basemodel.protocol.server;
 import timmax.tilegame.basemodel.protocol.AbstractClientState;
 import timmax.tilegame.basemodel.protocol.EventOfServer10Logout;
 import timmax.tilegame.basemodel.protocol.EventOfServer11Login;
+import timmax.tilegame.basemodel.protocol.EventOfServer20ForgetGameTypeSet;
 import timmax.tilegame.transport.TransportOfServer;
 
 public class RemoteClientState<ClienId> extends AbstractClientState<IModelOfServer<ClienId>> {
@@ -24,5 +25,11 @@ public class RemoteClientState<ClienId> extends AbstractClientState<IModelOfServ
     public void forgetUserName() {
         super.forgetUserName();
         transportOfServer.sendEventOfServer(clientId, new EventOfServer10Logout());
+    }
+
+    @Override
+    public void forgetGameTypeSet() {
+        super.forgetGameTypeSet();
+        transportOfServer.sendEventOfServer(clientId, new EventOfServer20ForgetGameTypeSet());
     }
 }

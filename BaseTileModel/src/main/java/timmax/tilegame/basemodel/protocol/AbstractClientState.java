@@ -28,11 +28,20 @@ public abstract class AbstractClientState<Model> {
     }
 
     private void setUserName_(String userName) {
-        //forgetGameTypeSet_();
+        forgetGameTypeSet_();
         this.userName = userName;
     }
 
     // ---- 2
+    public void forgetGameTypeSet() {
+        forgetGameTypeSet_();
+    }
+
+    private void forgetGameTypeSet_() {
+        // ToDo: Нет переменной, которую нужно очищать. Создать. Очистить.
+    }
+
+    // ---- 3
     public List<Model> getListOfServerBaseModel() {
         return listOfServerBaseModel;
     }
@@ -46,7 +55,7 @@ public abstract class AbstractClientState<Model> {
         this.listOfServerBaseModel = new ArrayList<>();
     }
 
-    // ---- 3
+    // ---- 4
     public Model getServerBaseModel() {
         return serverBaseModel;
     }
