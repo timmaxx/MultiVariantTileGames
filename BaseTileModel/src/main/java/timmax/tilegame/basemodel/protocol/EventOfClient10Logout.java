@@ -7,7 +7,6 @@ public class EventOfClient10Logout extends EventOfClient {
     public <ClienId> void executeOnServer(TransportOfServer<ClienId> transportOfServer, ClienId clientId) {
         System.out.println("  onLogout");
         transportOfServer.getRemoteClientStateByClientId(clientId).forgetUserName();
-        transportOfServer.sendEventOfServer(clientId, new EventOfServer10Logout());
     }
 
     @Override

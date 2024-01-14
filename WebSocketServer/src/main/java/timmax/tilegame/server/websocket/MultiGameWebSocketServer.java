@@ -65,7 +65,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     public void onOpen(WebSocket webSocket, ClientHandshake clientHandshake) {
         System.out.println("onOpen(WebSocket, ClientHandshake)");
         System.out.println("  " + webSocket);
-        mapOfRemoteClientState.put(webSocket, new RemoteClientState<>(this));
+        mapOfRemoteClientState.put(webSocket, new RemoteClientState<>(this, webSocket));
         System.out.println("---------- End of onOpen");
     }
 
