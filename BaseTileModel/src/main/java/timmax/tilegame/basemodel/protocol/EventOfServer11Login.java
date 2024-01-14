@@ -15,6 +15,9 @@ public class EventOfServer11Login extends EventOfServer {
 
     public EventOfServer11Login(String userName) {
         this();
+        if (userName == null || userName.equals("")) {
+            throw new NullPointerException("UserName is null. UserName must not be null.");
+        }
         this.userName = userName;
     }
 
