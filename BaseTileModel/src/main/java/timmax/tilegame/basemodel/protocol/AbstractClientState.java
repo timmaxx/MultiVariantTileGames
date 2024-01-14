@@ -11,9 +11,13 @@ public abstract class AbstractClientState<ClienId> {
     protected ClienId serverBaseModel = null;
 
     // ---- 1
+    public String getUserName() {
+        return userName;
+    }
+
     public void setUserName(String userName) {
-        if (userName == null && userName.isEmpty()) {
-            throw new NullPointerException("!!!!!");
+        if (userName == null || userName.isEmpty()) {
+            throw new NullPointerException("UserName is null. It must be not null for this method.");
         }
         setUserName_(userName);
     }
@@ -47,10 +51,18 @@ public abstract class AbstractClientState<ClienId> {
     }
 
     public void setServerBaseModel(ClienId serverBaseModel) {
+        setServerBaseModel_(serverBaseModel);
+    }
+
+    private void setServerBaseModel_(ClienId serverBaseModel) {
         this.serverBaseModel = serverBaseModel;
     }
 
     public void forgetServerBaseModel() {
+        forgetServerBaseModel_();
+    }
+
+    private void forgetServerBaseModel_() {
         setServerBaseModel(null);
     }
 
@@ -79,9 +91,6 @@ public abstract class AbstractClientState<ClienId> {
     // protected ClienId serverBaseModel; // 4
 
     // ---- 1
-    public String getUserName() {
-        return userName;
-    }
 
 /-*
     // ---- 2
@@ -93,23 +102,5 @@ public abstract class AbstractClientState<ClienId> {
         // forgetServerBaseModel();
         this.listOfServerBaseModel = new ArrayList<>();
     }
-
-
-/-*
-    // ---- 4
-
-    -public void setServerBaseModel(ClienId serverBaseModel) {
-        setServerBaseModel_(serverBaseModel);
-    -}
-
-    private void setServerBaseModel_(ClienId serverBaseModel) {
-        this.serverBaseModel = serverBaseModel;
-    }
-
-    public void forgetServerBaseModel() {
-        setServerBaseModel_(null);
-    }
-*-/
-
 
 */
