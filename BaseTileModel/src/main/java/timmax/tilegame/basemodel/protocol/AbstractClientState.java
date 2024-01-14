@@ -33,6 +33,10 @@ public abstract class AbstractClientState<ClienId> {
     }
 
     public void forgetListOfServerBaseModel() {
+        forgetListOfServerBaseModel_();
+    }
+
+    private void forgetListOfServerBaseModel_() {
         forgetServerBaseModel();
         this.listOfServerBaseModel = new ArrayList<>();
     }
@@ -68,8 +72,6 @@ public abstract class AbstractClientState<ClienId> {
 }
 
 /*
-
-
 -public abstract class AbstractClientState<ClienId> {
     protected String userName; // 1
     protected Collection<ModelOfServerDescriptor> collectionOfGameTypeSet; // 2
@@ -92,16 +94,9 @@ public abstract class AbstractClientState<ClienId> {
         this.listOfServerBaseModel = new ArrayList<>();
     }
 
-    // ---- 3
--    public List<ClienId> getListOfServerBaseModel() {
-        r-eturn listOfServerBaseModel;
-    -}
 
 /-*
     // ---- 4
-    -public ClienId getServerBaseModel() {
-    -    return serverBaseModel;
-    -}
 
     -public void setServerBaseModel(ClienId serverBaseModel) {
         setServerBaseModel_(serverBaseModel);
@@ -116,27 +111,5 @@ public abstract class AbstractClientState<ClienId> {
     }
 *-/
 
-    /-*
-        public boolean addServerBaseModelClass(ClienId serverBaseModel) {
-            return listOfServerBaseModel.add(serverBaseModel);
-        }
-    *-/
-    // ---- 8
-    -public MainGameClientStatus getMainGameClientStatus() {
-    -    if (userName.equals("")) {
-    -        return MainGameClientStatus.CONNECT_NON_IDENT;
-    -    } else {
-    -        if (listOfServerBaseModel.size() > 0) {
-/-*
-    -            if (serverBaseModel != null) {
-    -                return MainGameClientStatus.GAME_TYPE_SELECT;
-    -            }
-*-/
-    -            return MainGameClientStatus.GET_GAME_TYPE_SET;
-    -        }
-    -        return MainGameClientStatus.CONNECT_AUTHORIZED;
-    -    }
-    -    // throw new RuntimeException("Unknown state.");
-    -}
--}
+
 */
