@@ -8,12 +8,10 @@ import timmax.tilegame.transport.TransportOfServer;
 public class RemoteClientState<ClienId> extends AbstractClientState<IModelOfServer<ClienId>> {
     private final ClienId clientId;
     private final TransportOfServer<ClienId> transportOfServer;
-    //private final ListOfRemoteView<ClienId> listOfRemoteView;
 
     public RemoteClientState(TransportOfServer<ClienId> transportOfServer, ClienId clientId) {
         this.clientId = clientId;
         this.transportOfServer = transportOfServer;
-        // listOfRemoteView = new ListOfRemoteView<>(transportOfServer);
     }
 
     @Override
