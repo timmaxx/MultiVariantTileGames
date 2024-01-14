@@ -43,6 +43,7 @@ public abstract class AbstractClientState<ClienId> {
         setServerBaseModel(null);
     }
 
+    // ---- X
     public MainGameClientStatus getMainGameClientStatus() {
         if (userName.equals("")) {
             return MainGameClientStatus.CONNECT_NON_IDENT;
@@ -56,10 +57,6 @@ public abstract class AbstractClientState<ClienId> {
             return MainGameClientStatus.CONNECT_AUTHORIZED;
         }
         // throw new RuntimeException("Unknown state.");
-    }
-
-    public boolean addServerBaseModelClass(ClienId serverBaseModelString) {
-        return listOfServerBaseModel.add(serverBaseModelString);
     }
 }
 
