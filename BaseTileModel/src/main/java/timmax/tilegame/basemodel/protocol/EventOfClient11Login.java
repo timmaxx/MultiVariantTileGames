@@ -29,11 +29,13 @@ public class EventOfClient11Login extends EventOfClient {
 
         if (Credentials.isUserAndPasswordCorrect(userName, password)) {
             // ToDo: Нужно зафиксировать для этого webSocket имя пользователя (и потом другие параметры авторизации).
-            System.out.println("    sendLoginAnswer(TransportOfModel, clientId, userName)");
-            sendLoginAnswer(transportOfServer, clientId, userName);
+            transportOfServer.getRemoteClientStateByClientId(clientId).setUserName(userName);
+            System.out.println("    send EventOfServer11Login");
+            transportOfServer.sendEventOfServer(clientId, new EventOfServer11Login(userName));
         } else {
-            System.out.println("    sendLogoutAnswer(TransportOfModel, clientId)");
-            sendLogoutAnswer(transportOfServer, clientId);
+            transportOfServer.getRemoteClientStateByClientId(clientId).forgetUserName();
+            System.out.println("    send EventOfServer10Logout");
+            transportOfServer.sendEventOfServer(clientId, new EventOfServer10Logout());
         }
     }
 
