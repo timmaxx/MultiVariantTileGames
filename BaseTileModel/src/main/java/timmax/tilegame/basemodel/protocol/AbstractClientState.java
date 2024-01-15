@@ -6,16 +6,17 @@ import java.util.List;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 
 public abstract class AbstractClientState<Model> {
-    protected String userName = "";
-    protected List<Model> listOfServerBaseModel = new ArrayList<>();
-    protected Model serverBaseModel = null;
+    protected String userName = ""; // ---- 1 (Пользователь)
+    // ---- 2 (Список типов игр)
+    // ---- 3 (Конкретный тип игры)
+    protected List<Model> listOfServerBaseModel = new ArrayList<>(); // ---- 4 (Список моделей игр)
+    protected Model serverBaseModel = null; // ---- 5 (Конкретная модель игры)
 
-    // ---- 1
-/*
+    // ---- 1 (Пользователь)
     public String getUserName() {
         return userName;
     }
-*/
+
     public void setUserName(String userName) {
         if (userName == null || userName.isEmpty()) {
             throw new NullPointerException("UserName is null. It must be not null for this method.");
@@ -28,47 +29,65 @@ public abstract class AbstractClientState<Model> {
     }
 
     private void setUserName_(String userName) {
-        forgetGameTypeSet_();
+        // setGameTypeSet_(null);
         this.userName = userName;
     }
 
-    // ---- 2
-    public void forgetGameTypeSet() {
-        forgetGameTypeSet_();
-    }
-
-    private void forgetGameTypeSet_() {
-        // ToDo: Нет переменной, которую нужно очищать. Создать. Очистить.
-    }
-
-    protected void getGameTypeSet() {
+    // ---- 2 (Список типов игр)
+    public void getGameTypeSet() {
         // ToDo: Нет переменной, которую нужно вернуть. Создать.
     }
-
-    // 3
-    public void forgetGameType() {
+/*
+    public void setGameTypeSet(??? ) {
+        setGameTypeSet_(???);
+    }
+*/
+    public void forgetGameTypeSet() {
         // ToDo: Нет переменной, которую нужно очищать. Создать. Очистить.
+        // setGameTypeSet_(null);
+    }
+/*
+    private void setGameTypeSet_(???) {
+        // ToDo: Нет переменной, которую нужно установить. Создать. Инициализировать.
+    }
+*/
+    // ---- 3 (Конкретный тип игры)
+    // Наверное не Model должен быть типом. Вероятнее это ModelOfServerDescriptor
+    public Model getGameType() {
+        return serverBaseModel;
     }
 
-    public void gameTypeSelect(Model modelOfServer) {
+    public void setGameType(Model modelOfServer) {
+        setGameType_(modelOfServer);
+    }
+
+    public void forgetGameType() {
+        setGameType_(null);
+    }
+
+    private void setGameType_(Model modelOfServer) {
         this.serverBaseModel = modelOfServer;
     }
 
-    // ---- 4
+    // ---- 4 (Список моделей игр)
     public List<Model> getListOfServerBaseModel() {
         return listOfServerBaseModel;
     }
 
+    public void setListOfServerBaseModel(List<Model> listOfServerBaseModel) {
+        setListOfServerBaseModel_(listOfServerBaseModel);
+    }
+
     public void forgetListOfServerBaseModel() {
-        forgetListOfServerBaseModel_();
+        setListOfServerBaseModel_(new ArrayList<>());
     }
 
-    private void forgetListOfServerBaseModel_() {
+    private void setListOfServerBaseModel_(List<Model> listOfServerBaseModel) {
         forgetServerBaseModel();
-        this.listOfServerBaseModel = new ArrayList<>();
+        this.listOfServerBaseModel = listOfServerBaseModel;
     }
 
-    // ---- 5
+    // ---- 5 (Конкретная модель игры)
     public Model getServerBaseModel() {
         return serverBaseModel;
     }
@@ -77,16 +96,12 @@ public abstract class AbstractClientState<Model> {
         setServerBaseModel_(serverBaseModel);
     }
 
+    public void forgetServerBaseModel() {
+        setServerBaseModel_(null);
+    }
+
     private void setServerBaseModel_(Model serverBaseModel) {
         this.serverBaseModel = serverBaseModel;
-    }
-
-    public void forgetServerBaseModel() {
-        forgetServerBaseModel_();
-    }
-
-    private void forgetServerBaseModel_() {
-        setServerBaseModel(null);
     }
 
     // ---- X

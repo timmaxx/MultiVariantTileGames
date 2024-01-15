@@ -56,7 +56,7 @@ public class EventOfClient31GameTypeSelect extends EventOfClient {
         }
 
         if (obj instanceof IModelOfServer modelOfServer) {
-            transportOfServer.getRemoteClientStateByClientId(clientId).gameTypeSelect(modelOfServer);
+            transportOfServer.getRemoteClientStateByClientId(clientId).setGameType(modelOfServer);
         } else {
             System.err.println("Created object is not ModelOfServer.");
             transportOfServer.getRemoteClientStateByClientId(clientId).forgetGameType();
