@@ -50,6 +50,10 @@ public abstract class AbstractClientState<Model> {
         // ToDo: Нет переменной, которую нужно очищать. Создать. Очистить.
     }
 
+    public void gameTypeSelect(Model modelOfServer) {
+        this.serverBaseModel = modelOfServer;
+    }
+
     // ---- 4
     public List<Model> getListOfServerBaseModel() {
         return listOfServerBaseModel;

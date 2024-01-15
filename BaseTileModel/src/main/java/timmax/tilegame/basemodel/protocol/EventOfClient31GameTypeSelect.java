@@ -6,7 +6,7 @@ import java.io.ObjectOutput;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
+import timmax.tilegame.basemodel.protocol.server.IModelOfServer;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.transport.TransportOfServer;
 
@@ -29,7 +29,7 @@ public class EventOfClient31GameTypeSelect extends EventOfClient {
         System.out.println("  serverBaseModelClass = " + gameName);
         if (gameName == null) {
             System.err.println("Client sent empty name of model classes.");
-            transportOfServer.sendEventOfServer(clientId, new EventOfServer30ForgetGameType());
+            transportOfServer.getRemoteClientStateByClientId(clientId).forgetGameType();
             return;
         }
 
@@ -42,7 +42,7 @@ public class EventOfClient31GameTypeSelect extends EventOfClient {
 
         if (constructor == null) {
             System.err.println(gameName + "' was not found in list model classes.");
-            transportOfServer.sendEventOfServer(clientId, new EventOfServer30ForgetGameType());
+            transportOfServer.getRemoteClientStateByClientId(clientId).forgetGameType();
             return;
         }
 
@@ -55,18 +55,12 @@ public class EventOfClient31GameTypeSelect extends EventOfClient {
             System.exit(1);
         }
 
-        if (obj instanceof ModelOfServer modelOfServer) {
-            transportOfServer
-                    .getRemoteClientStateByClientId(clientId)
-                    .setServerBaseModel(modelOfServer)
-            ;
+        if (obj instanceof IModelOfServer modelOfServer) {
+            transportOfServer.getRemoteClientStateByClientId(clientId).gameTypeSelect(modelOfServer);
         } else {
             System.err.println("Created object is not ModelOfServer.");
-            transportOfServer.sendEventOfServer(clientId, new EventOfServer30ForgetGameType());
-            return;
+            transportOfServer.getRemoteClientStateByClientId(clientId).forgetGameType();
         }
-
-        transportOfServer.sendEventOfServer(clientId, new EventOfServer31GameTypeSelect(gameName));
     }
 
     @Override
