@@ -65,7 +65,7 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
         super(transportOfServer);
     }
 
-    // Overiden methods from interface IModelOfServer:
+    // Overiden methods from interface IModelOfServer extends IModelOfServerDescriptor:
     @Override
     public String getGameName() {
         return "Sokoban";
@@ -76,6 +76,7 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
         return 1;
     }
 
+    // Overiden methods from interface IModelOfServer:
     @Override
     public void createNewGame() {
         allSokobanObjects = levelLoader.getLevel(currentLevel.getValue());
