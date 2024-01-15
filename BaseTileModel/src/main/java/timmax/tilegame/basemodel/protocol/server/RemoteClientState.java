@@ -14,7 +14,7 @@ public class RemoteClientState<ClienId> extends AbstractClientState<IModelOfServ
         this.transportOfServer = transportOfServer;
     }
 
-    // 1
+    // ---- 2 (Пользователь)
     @Override
     public void forgetUserName() {
         super.forgetUserName();
@@ -27,7 +27,7 @@ public class RemoteClientState<ClienId> extends AbstractClientState<IModelOfServ
         transportOfServer.sendEventOfServer(clientId, new EventOfServer11Login(userName));
     }
 
-    // 2
+    // ---- 3 (Список типов игр)
     @Override
     public void forgetGameTypeSet() {
         super.forgetGameTypeSet();
@@ -47,7 +47,7 @@ public class RemoteClientState<ClienId> extends AbstractClientState<IModelOfServ
         transportOfServer.sendEventOfServer( clientId, new EventOfServer21GetGameTypeSet(listOfServerBaseModelString));
     }
 
-    // 3
+    // ---- 4 (Конкретный тип игры)
     @Override
     public void forgetGameType() {
         super.forgetGameType();
@@ -62,14 +62,6 @@ public class RemoteClientState<ClienId> extends AbstractClientState<IModelOfServ
 }
 
 /*
-package timmax.tilegame.basemodel.protocol.server;
-
-import java.util.List;
-import java.util.Set;
-
-import timmax.tilegame.basemodel.protocol.*;
-import timmax.tilegame.transport.TransportOfServer;
-
 public class RemoteClientState<ClienId> extends AbstractClientState<IModelOfServer<ClienId>> {
     private final ClienId clientId;
     private final TransportOfServer<ClienId> transportOfServer;

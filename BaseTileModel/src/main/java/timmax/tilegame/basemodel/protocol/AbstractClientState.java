@@ -1,18 +1,22 @@
 package timmax.tilegame.basemodel.protocol;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 
 public abstract class AbstractClientState<Model> {
-    protected String userName = ""; // ---- 1 (Пользователь)
-    // ---- 2 (Список типов игр)
-    // ---- 3 (Конкретный тип игры)
-    protected List<Model> listOfServerBaseModel = new ArrayList<>(); // ---- 4 (Список моделей игр)
-    protected Model serverBaseModel = null; // ---- 5 (Конкретная модель игры)
+    // Нумерация приведена соответствующая классам Pane0Х... пакета timmax.tilegame.client.statuscontrol:
+    protected String userName = ""; // ---- 2 (Пользователь)
+    protected Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor = new HashSet<>(); // ---- 3 (Список типов игр)
+    // protected ModelOfServerDescriptor modelOfServerDescriptor; // ---- 4 (Конкретный тип игры)
+    protected List<Model> listOfServerBaseModel = new ArrayList<>(); // ---- 5 (Список моделей игр)
+    protected Model serverBaseModel = null; // ---- 6 (Конкретная модель игры)
 
-    // ---- 1 (Пользователь)
+    // ---- 2 (Пользователь)
     public String getUserName() {
         return userName;
     }
@@ -33,7 +37,7 @@ public abstract class AbstractClientState<Model> {
         this.userName = userName;
     }
 
-    // ---- 2 (Список типов игр)
+    // ---- 3 (Список типов игр)
     public void getGameTypeSet() {
         // ToDo: Нет переменной, которую нужно вернуть. Создать.
     }
@@ -51,7 +55,7 @@ public abstract class AbstractClientState<Model> {
         // ToDo: Нет переменной, которую нужно установить. Создать. Инициализировать.
     }
 */
-    // ---- 3 (Конкретный тип игры)
+    // ---- 4 (Конкретный тип игры)
     // Наверное не Model должен быть типом. Вероятнее это ModelOfServerDescriptor
     public Model getGameType() {
         return serverBaseModel;
@@ -69,7 +73,7 @@ public abstract class AbstractClientState<Model> {
         this.serverBaseModel = modelOfServer;
     }
 
-    // ---- 4 (Список моделей игр)
+    // ---- 5 (Список моделей игр)
     public List<Model> getListOfServerBaseModel() {
         return listOfServerBaseModel;
     }
@@ -87,7 +91,7 @@ public abstract class AbstractClientState<Model> {
         this.listOfServerBaseModel = listOfServerBaseModel;
     }
 
-    // ---- 5 (Конкретная модель игры)
+    // ---- 6 (Конкретная модель игры)
     public Model getServerBaseModel() {
         return serverBaseModel;
     }
@@ -122,44 +126,8 @@ public abstract class AbstractClientState<Model> {
 }
 
 /*
-package timmax.tilegame.basemodel.protocol;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
-import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 
 public abstract class AbstractClientState<Model> {
-    // Нумерация приведена соответствующая классам Pane0Х... пакета timmax.tilegame.client.statuscontrol:
-    protected String userName = ""; // ---- 2 (Пользователь)
-    protected Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor = new HashSet<>(); // ---- 3 (Список типов игр)
-    protected ModelOfServerDescriptor modelOfServerDescriptor; // ---- 4 (Конкретный тип игры)
-    protected List<Model> listOfServerBaseModel = new ArrayList<>(); // ---- 5 (Список моделей игр)
-    protected Model serverBaseModel = null; // ---- 6 (Конкретная модель игры)
-
-    // ---- 2 (Пользователь)
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        if (userName == null || userName.isEmpty()) {
-            throw new NullPointerException("UserName is null. It must be not null for this method.");
-        }
-        setUserName_(userName);
-    }
-
-    public void forgetUserName() {
-        setUserName_("");
-    }
-
-    private void setUserName_(String userName) {
-        setGameTypeSet_(null);
-        this.userName = userName;
-    }
 
     // ---- 3 (Список типов игр)
     public Set<ModelOfServerDescriptor> getGameTypeSet() {
