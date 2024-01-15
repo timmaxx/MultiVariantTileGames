@@ -10,14 +10,16 @@ import java.util.Collection;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.EventOfServer;
+import timmax.tilegame.basemodel.protocol.IModelOfServerDescriptor;
 import timmax.tilegame.transport.TransportOfServer;
 
-public class ModelOfServerDescriptor implements Externalizable {
+public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Externalizable {
     private Constructor<? extends ModelOfServer<?>> constructorOfModelOfServerClass;
     private String gameName;
+    private int countOfGamers;
     // private String[] ; // тогда в этом массиве строк можно хранить имя роли каждого из игроков
     // (например для шашек: "Белые", "Черные"; для многих игр для двух игроков: "Первый", "Второй"; для одного: "Игрок").
-    // И количество игроков по длине масива будет определено.
+    // И количество игроков по длине массива будет определено.
 
     public ModelOfServerDescriptor() {
     }
@@ -60,6 +62,7 @@ public class ModelOfServerDescriptor implements Externalizable {
         // Как-то нужно учесть, что имя игры может быть передано разным клиентам на разных языках.
         // Т.к. obj ничему не присваивается, то он уйдёт в небытие по окончанию работы конструктора.
         this.gameName = obj.getGameName();
+        this.countOfGamers = obj.getCountOfGamers();
         // this.otherField = obj.getOtherField();
     }
 
@@ -67,17 +70,27 @@ public class ModelOfServerDescriptor implements Externalizable {
         return constructorOfModelOfServerClass;
     }
 
+    // Overiden methods from interface IModelOfServerDescriptor
+    @Override
     public String getGameName() {
         return gameName;
     }
 
     @Override
+    public int getCountOfGamers() {
+        return countOfGamers;
+    }
+
+    // Overiden methods from interface Externalizable
+    @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeObject(gameName);
+        out.writeInt(countOfGamers);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         gameName = (String) in.readObject();
+        countOfGamers = in.readInt();
     }
 }
