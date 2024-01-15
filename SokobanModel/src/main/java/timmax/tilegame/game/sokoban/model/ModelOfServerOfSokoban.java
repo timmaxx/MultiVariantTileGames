@@ -13,20 +13,21 @@ import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
 import timmax.tilegame.basemodel.tile.Direction;
+import timmax.tilegame.transport.TransportOfServer;
+
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventOneTileSokobanChangeable;
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanVariableParamsCountOfBoxesInHouses;
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanVariableParamsCountOfSteps;
 import timmax.tilegame.game.sokoban.model.gameobject.*;
 import timmax.tilegame.game.sokoban.model.route.Route;
 import timmax.tilegame.game.sokoban.model.route.Step;
-import timmax.tilegame.transport.TransportOfServer;
 
 // import static timmax.tilegame.basemodel.GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
 import static javafx.scene.paint.Color.*;
 import static timmax.tilegame.basemodel.GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
 import static timmax.tilegame.game.sokoban.model.gameobject.WhoMovableInTile.*;
 
-public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
+public class ModelOfServerOfSokoban<ClienId> extends ModelOfServer<ClienId> {
     // Константы, описанные ниже относятся к визуализации.
     // ToDo: Вынести логику визуализации из класса.
     public static final Color WALL_CELL_COLOR = RED;
@@ -61,7 +62,7 @@ public class ModelOfServerOfSokoban<T> extends ModelOfServer<T> {
         }
     }
 
-    public ModelOfServerOfSokoban(TransportOfServer<T> transportOfServer) {
+    public ModelOfServerOfSokoban(TransportOfServer<ClienId> transportOfServer) {
         super(transportOfServer);
     }
 
