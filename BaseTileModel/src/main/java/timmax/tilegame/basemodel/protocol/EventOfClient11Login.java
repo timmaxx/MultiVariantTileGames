@@ -28,6 +28,7 @@ public class EventOfClient11Login extends EventOfClient {
         System.out.println("    userName = " + userName + " | " + "password = *"); // Пароль не выводим:
 
         if (Credentials.isUserAndPasswordCorrect(userName, password)) {
+            password = ""; // Не будем даже хранить пароль.
             transportOfServer.getRemoteClientStateByClientId(clientId).setUserName(userName);
         } else {
             transportOfServer.getRemoteClientStateByClientId(clientId).forgetUserName();
@@ -38,7 +39,6 @@ public class EventOfClient11Login extends EventOfClient {
     public String toString() {
         return "EventOfClient11Login{" +
                 "userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
                 '}';
     }
 
