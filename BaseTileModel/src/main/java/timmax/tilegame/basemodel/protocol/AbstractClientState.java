@@ -33,28 +33,28 @@ public abstract class AbstractClientState<Model> {
     }
 
     private void setUserName_(String userName) {
-        // setGameTypeSet_(null);
+        setGameTypeSet_(null);
         this.userName = userName;
     }
 
     // ---- 3 (Список типов игр)
-    public void getGameTypeSet() {
-        // ToDo: Нет переменной, которую нужно вернуть. Создать.
+    public Set<ModelOfServerDescriptor> getGameTypeSet() {
+        return setOfModelOfServerDescriptor;
     }
-/*
-    public void setGameTypeSet(??? ) {
-        setGameTypeSet_(???);
+
+    public void setGameTypeSet(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor) {
+        // ToDo: сделать какую-то проверку на корректностность.
+        setGameTypeSet_(setOfModelOfServerDescriptor);
     }
-*/
+
     public void forgetGameTypeSet() {
-        // ToDo: Нет переменной, которую нужно очищать. Создать. Очистить.
-        // setGameTypeSet_(null);
+        setGameTypeSet_(null);
     }
-/*
-    private void setGameTypeSet_(???) {
-        // ToDo: Нет переменной, которую нужно установить. Создать. Инициализировать.
+
+    private void setGameTypeSet_(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor) {
+        this.setOfModelOfServerDescriptor = setOfModelOfServerDescriptor;
     }
-*/
+
     // ---- 4 (Конкретный тип игры)
     // Наверное не Model должен быть типом. Вероятнее это ModelOfServerDescriptor
     public Model getGameType() {
@@ -128,24 +128,6 @@ public abstract class AbstractClientState<Model> {
 /*
 
 public abstract class AbstractClientState<Model> {
-
-    // ---- 3 (Список типов игр)
-    public Set<ModelOfServerDescriptor> getGameTypeSet() {
-        return setOfModelOfServerDescriptor;
-    }
-
-    public void setGameTypeSet(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor) {
-        // ToDo: сделать какую-то проверку на корректностность.
-        setGameTypeSet_(setOfModelOfServerDescriptor);
-    }
-
-    public void forgetGameTypeSet() {
-        setGameTypeSet_(null);
-    }
-
-    private void setGameTypeSet_(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor) {
-        this.setOfModelOfServerDescriptor = setOfModelOfServerDescriptor;
-    }
 
     // ---- 4 (Конкретный тип игры)
     // Наверное не Model должен быть типом. Вероятнее это ModelOfServerDescriptor
