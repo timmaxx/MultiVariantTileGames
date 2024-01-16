@@ -7,7 +7,6 @@ import java.io.ObjectOutput;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.EventOfServer;
 import timmax.tilegame.basemodel.protocol.IModelOfServerDescriptor;
 import timmax.tilegame.transport.TransportOfServer;
@@ -24,7 +23,7 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
     }
 
     public ModelOfServerDescriptor(String modelOfServerString) throws ClassNotFoundException, NoSuchMethodException {
-        // ToDo: Избавиться от "Warning:(28, 64) Unchecked cast: 'java.lang.Class<capture<?>>' to 'java.lang.Class<? extends timmax.tilegame.basemodel.protocol.server.ModelOfServer<?>>'"
+        // ToDo: Избавиться от "Warning:(27, 64) Unchecked cast: 'java.lang.Class<capture<?>>' to 'java.lang.Class<? extends timmax.tilegame.basemodel.protocol.server.ModelOfServer<?>>'"
         Class<? extends ModelOfServer<?>> modelOfServerClass = (Class<? extends ModelOfServer<?>>) Class.forName(modelOfServerString);
         this.constructorOfModelOfServerClass = modelOfServerClass.getConstructor(TransportOfServer.class);
 
@@ -34,10 +33,6 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
             // obj = constructorOfModelOfServerClass.newInstance(null); // Не получилось передать null.
             // Пришлось передать ему TransportOfServer - заглушку.
             obj = constructorOfModelOfServerClass.newInstance(new TransportOfServer<>() {
-                @Override
-                public void sendGameEventToRemoteView(RemoteView<Object> remoteView, GameEvent gameEvent) {
-                }
-
                 @Override
                 public void sendEventOfServer(Object clientId, EventOfServer transportPackageOfServer) {
                 }

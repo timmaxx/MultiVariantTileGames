@@ -11,12 +11,10 @@ import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
-import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.ObjectMapperOfMvtg;
 import timmax.tilegame.basemodel.protocol.EventOfClient;
 import timmax.tilegame.basemodel.protocol.EventOfServer;
-import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent; // ToDo: слишком конкретный класс...
-import timmax.tilegame.basemodel.protocol.server.*;
+import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
 import timmax.tilegame.transport.TransportOfServer;
 
 public class MultiGameWebSocketServer extends WebSocketServer implements TransportOfServer<WebSocket> {
@@ -87,13 +85,6 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     }
 
     // Overiden methods from interface TransportOfServer:
-    @Override
-    public void sendGameEventToRemoteView(RemoteView<WebSocket> remoteView, GameEvent gameEvent) {
-        // ToDo: слишком конкретный класс EventOfServer92GameEvent...
-        EventOfServer eventOfServer = new EventOfServer92GameEvent(remoteView.getViewId(), gameEvent);
-        sendEventOfServer(remoteView.getClientId(), eventOfServer);
-    }
-
     @Override
     public void sendEventOfServer(WebSocket clientId, EventOfServer eventOfServer) {
         System.out.println("  send(WebSocket, EventOfServer<WebSocket>)");
