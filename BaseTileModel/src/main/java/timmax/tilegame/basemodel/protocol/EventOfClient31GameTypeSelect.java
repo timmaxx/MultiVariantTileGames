@@ -33,11 +33,12 @@ public class EventOfClient31GameTypeSelect extends EventOfClient {
             return;
         }
 
-        Constructor<?> constructor = transportOfServer.getCollectionOfModelOfServerDescriptor()
+        Constructor<?> constructor = transportOfServer
+                .getRemoteClientStateByClientId(clientId)
+                .getGameTypeSet()
                 .stream()
                 .filter(x -> x.getGameName().equals(gameName))
                 .findAny()
-                // .map(x -> x.getConstructorOfModelOfServerClass()).orElse(null)
                 .map(ModelOfServerDescriptor::getConstructorOfModelOfServerClass).orElse(null);
 
         if (constructor == null) {
@@ -55,7 +56,9 @@ public class EventOfClient31GameTypeSelect extends EventOfClient {
             System.exit(1);
         }
 
+        // ToDo: Избавиться от "Raw use of parameterized class 'IModelOfServer'":
         if (obj instanceof IModelOfServer modelOfServer) {
+            // ToDo: Избавиться от "Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IModelOfServer' to 'timmax.tilegame.basemodel.protocol.server.IModelOfServer<ClienId>'"
             transportOfServer.getRemoteClientStateByClientId(clientId).setGameType(modelOfServer);
         } else {
             System.err.println("Created object is not ModelOfServer.");

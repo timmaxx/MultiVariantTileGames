@@ -1,18 +1,30 @@
 package timmax.tilegame.basemodel.protocol;
 
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
+import java.util.Objects;
+import java.util.Set;
+
+import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
+import timmax.tilegame.basemodel.protocol.server.ModelOfServerLoader;
 import timmax.tilegame.transport.TransportOfServer;
 
 public class EventOfClient21GetGameTypeSet extends EventOfClient {
     @Override
     public <ClienId> void executeOnServer(TransportOfServer<ClienId> transportOfServer, ClienId clientId) {
         System.out.println("  onGetGameTypeSet");
-        // transportOfServer.getRemoteClientStateByClientId(clientId).getGameTypeSet();
-        // Можно было-бы:
-        // - прочесть ещё раз файл с перечнем классов с типами игр,
-        // - сохранить этот перечень с помощью .setGameTypeSet(перечень).
-        // - тогда уже вызвать .sendGameTypeSet().
-        // Сейчас-же просто отправим клиенту тот перечень типов игр, который изначально был сфомирован.
-        transportOfServer.getRemoteClientStateByClientId(clientId).sendGameTypeSet();
+
+        ModelOfServerLoader modelLoader;
+        try {
+            modelLoader = new ModelOfServerLoader(
+                    Paths.get(Objects.requireNonNull(ModelOfServerLoader.class.getResource("models.txt")).toURI())
+            );
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            return;
+        }
+        Set<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor = modelLoader.getCollectionOfModelOfServerDescriptor();
+        transportOfServer.getRemoteClientStateByClientId(clientId).setGameTypeSet(collectionOfModelOfServerDescriptor);
     }
 
     @Override

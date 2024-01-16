@@ -1,52 +1,32 @@
 package timmax.tilegame.server.websocket;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.net.InetSocketAddress;
-import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
-import java.nio.file.Paths;
-import java.util.Set;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
-import timmax.tilegame.basemodel.protocol.*;
+import timmax.tilegame.basemodel.protocol.ObjectMapperOfMvtg;
+import timmax.tilegame.basemodel.protocol.EventOfClient;
+import timmax.tilegame.basemodel.protocol.EventOfServer;
+import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent; // ToDo: слишком конкретный класс...
 import timmax.tilegame.basemodel.protocol.server.*;
 import timmax.tilegame.transport.TransportOfServer;
 
 public class MultiGameWebSocketServer extends WebSocketServer implements TransportOfServer<WebSocket> {
     private final ObjectMapperOfMvtg mapper;
-    // ToDo: Здесь содержится и переменная и её инициализация, т.к. предполагается, что при старте сервера нужно
-    //       один раз прочитать файл с перечнем классов с моделями.
-    //       Но будет даже лучше убрать отсюда и переменную и вызов инициализации и перенести её в логику
-    //       EventOfServer21GetGameTypeSet, и пусть там, при запросе от клиента, каждый раз считывается файл.
-    //       Тогда можно будет без остановки сервера внести изменения в файл, и сервер узнает о других моделях (или
-    //       "забудет" неиспользующуеся более).
-    private final Set<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor;
     private final Map<WebSocket, RemoteClientState<WebSocket>> mapOfRemoteClientState;
 
     public MultiGameWebSocketServer(int port) {
         super(new InetSocketAddress(port));
         mapper = new ObjectMapperOfMvtg();
         mapOfRemoteClientState = new HashMap<>();
-
-        ModelOfServerLoader modelLoader = null;
-        try {
-            modelLoader = new ModelOfServerLoader(
-                    Paths.get(
-                            Objects.requireNonNull(ModelOfServerLoader.class.getResource("models.txt")).toURI()
-                    )
-            );
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
-        collectionOfModelOfServerDescriptor = modelLoader.getCollectionOfModelOfServerDescriptor();
     }
 
     // Overiden methods from class WebSocketServer:
@@ -109,6 +89,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     // Overiden methods from interface TransportOfServer:
     @Override
     public void sendGameEventToRemoteView(RemoteView<WebSocket> remoteView, GameEvent gameEvent) {
+        // ToDo: слишком конкретный класс EventOfServer92GameEvent...
         EventOfServer eventOfServer = new EventOfServer92GameEvent(remoteView.getViewId(), gameEvent);
         sendEventOfServer(remoteView.getClientId(), eventOfServer);
     }
@@ -116,7 +97,6 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     @Override
     public void sendEventOfServer(WebSocket clientId, EventOfServer eventOfServer) {
         System.out.println("  send(WebSocket, EventOfServer<WebSocket>)");
-
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         System.out.println("    eventOfServer = " + eventOfServer);
         mapper.writeValue(byteArrayOutputStream, eventOfServer);
@@ -127,10 +107,5 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     @Override
     public RemoteClientState<WebSocket> getRemoteClientStateByClientId(WebSocket clientId) {
         return mapOfRemoteClientState.get(clientId);
-    }
-
-    @Override
-    public Set<ModelOfServerDescriptor> getCollectionOfModelOfServerDescriptor() {
-        return collectionOfModelOfServerDescriptor;
     }
 }
