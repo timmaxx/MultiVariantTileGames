@@ -1,6 +1,6 @@
 package timmax.tilegame.transport;
 
-import java.util.Collection;
+import java.util.Set;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.EventOfServer;
@@ -15,5 +15,5 @@ public interface TransportOfServer<ClienId> {
 
     RemoteClientState<ClienId> getRemoteClientStateByClientId(ClienId clientId);
 
-    Collection<ModelOfServerDescriptor> getCollectionOfModelOfServerDescriptor();
+    Set<ModelOfServerDescriptor> getCollectionOfModelOfServerDescriptor();
 }

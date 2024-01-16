@@ -5,8 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ModelOfServerLoader {
     private final Path path;
@@ -15,11 +15,8 @@ public class ModelOfServerLoader {
         this.path = path;
     }
 
-    public Collection<ModelOfServerDescriptor> getCollectionOfModelOfServerDescriptor() {
-        // ToDo: Здесь для result выбран ArrayList.
-        //       Но нужна коллекция, которая будет поддерживать уникальность при идентификации модели.
-        //       Причём как при символическом именовании типа игры, так и класса.
-        Collection<ModelOfServerDescriptor> result = new ArrayList<>();
+    public Set<ModelOfServerDescriptor> getCollectionOfModelOfServerDescriptor() {
+        Set<ModelOfServerDescriptor> result = new HashSet<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
             String line;

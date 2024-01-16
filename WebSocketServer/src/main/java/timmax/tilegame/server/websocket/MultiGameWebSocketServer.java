@@ -5,7 +5,7 @@ import java.net.InetSocketAddress;
 import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
 import java.nio.file.Paths;
-import java.util.Collection;
+import java.util.Set;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -21,7 +21,13 @@ import timmax.tilegame.transport.TransportOfServer;
 
 public class MultiGameWebSocketServer extends WebSocketServer implements TransportOfServer<WebSocket> {
     private final ObjectMapperOfMvtg mapper;
-    private final Collection<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor;
+    // ToDo: Здесь содержится и переменная и её инициализация, т.к. предполагается, что при старте сервера нужно
+    //       один раз прочитать файл с перечнем классов с моделями.
+    //       Но будет даже лучше убрать отсюда и переменную и вызов инициализации и перенести её в логику
+    //       EventOfServer21GetGameTypeSet и пусть там при запросе от клиента каждый раз считывается файл.
+    //       Тогда можно будет без остановки сервера внести изменения в файл и сервер узнает о других моделях (или
+    //       "забудет" неиспользующуюся более).
+    private final Set<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor;
     private final Map<WebSocket, RemoteClientState<WebSocket>> mapOfRemoteClientState;
 
     public MultiGameWebSocketServer(int port) {
@@ -124,7 +130,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     }
 
     @Override
-    public Collection<ModelOfServerDescriptor> getCollectionOfModelOfServerDescriptor() {
+    public Set<ModelOfServerDescriptor> getCollectionOfModelOfServerDescriptor() {
         return collectionOfModelOfServerDescriptor;
     }
 }

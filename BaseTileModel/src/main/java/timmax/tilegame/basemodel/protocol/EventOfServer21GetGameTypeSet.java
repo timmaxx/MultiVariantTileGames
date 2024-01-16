@@ -3,21 +3,22 @@ package timmax.tilegame.basemodel.protocol;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
+import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.transport.TransportOfClient;
 
 public class EventOfServer21GetGameTypeSet extends EventOfServer {
-    List<String> listOfServerBaseModelString = new ArrayList<>();
+    private Set<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor = new HashSet<>();
 
     public EventOfServer21GetGameTypeSet() {
         super();
     }
 
-    public EventOfServer21GetGameTypeSet(List<String> listOfServerBaseModelString) {
+    public EventOfServer21GetGameTypeSet(Set<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor) {
         this();
-        this.listOfServerBaseModelString = listOfServerBaseModelString;
+        this.collectionOfModelOfServerDescriptor = collectionOfModelOfServerDescriptor;
     }
 
     @Override
@@ -28,11 +29,11 @@ public class EventOfServer21GetGameTypeSet extends EventOfServer {
                 .getLocalClientState()
                 .forgetListOfServerBaseModel();
 
-        for (String serverBaseModelString : listOfServerBaseModelString) {
+        for (ModelOfServerDescriptor modelOfServerDescriptor : collectionOfModelOfServerDescriptor) {
             transportOfClient
                     .getLocalClientState()
                     .getListOfServerBaseModel()
-                    .add(serverBaseModelString);
+                    .add(modelOfServerDescriptor.getGameName());
         }
         transportOfClient
                 .getHashSetOfObserverOnAbstractEvent()
@@ -42,30 +43,30 @@ public class EventOfServer21GetGameTypeSet extends EventOfServer {
     @Override
     public String toString() {
         return "EventOfServer21GetGameTypeSet{" +
-                "listOfServerBaseModelString=" + listOfServerBaseModelString +
+                "collectionOfModelOfServerDescriptor=" + collectionOfModelOfServerDescriptor +
                 '}';
     }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(listOfServerBaseModelString);
+        out.writeObject(collectionOfModelOfServerDescriptor);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         Object obj = in.readObject();
-        if (obj instanceof List<?> listOfObj) {
-            for (Object objOfList : listOfObj) {
-                if (!(objOfList instanceof String)) {
-                    System.err.println("class EventOfServer021GetGameTypeSet\n method void readExternal(ObjectInput in)\n  element of collections is not String");
+        if (obj instanceof Set<?> setOfObj) {
+            for (Object objOfList : setOfObj) {
+                if (!(objOfList instanceof ModelOfServerDescriptor)) {
+                    System.err.println("class EventOfServer021GetGameTypeSet\n method void readExternal(ObjectInput in)\n  element of collections is not ModelOfServerDescriptor.");
                     System.exit(1);
                 }
             }
             @SuppressWarnings("unchecked")
-            List<String> arrayListOfServerBaseModelClassTmp = (List<String>) listOfObj;
-            listOfServerBaseModelString = arrayListOfServerBaseModelClassTmp;
+            Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor = (Set<ModelOfServerDescriptor>) setOfObj;
+            this.collectionOfModelOfServerDescriptor = setOfModelOfServerDescriptor;
         } else {
-            System.err.println("class EventOfServer021GetGameTypeSet\n method void readExternal(ObjectInput in)\n  in.readObject() is not instance of List");
+            System.err.println("class EventOfServer021GetGameTypeSet\n method void readExternal(ObjectInput in)\n  in.readObject() is not instance of Set.");
             System.exit(1);
         }
     }

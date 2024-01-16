@@ -1,6 +1,5 @@
 package timmax.tilegame.basemodel.protocol.server;
 
-import java.util.List;
 import java.util.Set;
 
 import timmax.tilegame.basemodel.protocol.*;
@@ -45,12 +44,9 @@ public class RemoteClientState<ClienId> extends AbstractClientState<IModelOfServ
     public void sendGameTypeSet() {
         // ToDo: Если set, то следующее значение передавать сюда параметром,
         //       вычисление которого как раз и вынести в вызывающую логику.
-        List<String> listOfServerBaseModelString = transportOfServer
-                .getCollectionOfModelOfServerDescriptor()
-                .stream()
-                .map(ModelOfServerDescriptor::getGameName)
-                .toList();
-        transportOfServer.sendEventOfServer(clientId, new EventOfServer21GetGameTypeSet(listOfServerBaseModelString));
+        Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor = transportOfServer
+                .getCollectionOfModelOfServerDescriptor();
+        transportOfServer.sendEventOfServer(clientId, new EventOfServer21GetGameTypeSet(setOfModelOfServerDescriptor));
     }
 
     // ---- 4 (Конкретный тип игры)

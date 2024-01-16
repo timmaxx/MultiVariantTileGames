@@ -6,7 +6,7 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Collection;
+import java.util.Set;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.EventOfServer;
@@ -48,7 +48,7 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
                 }
 
                 @Override
-                public Collection<ModelOfServerDescriptor> getCollectionOfModelOfServerDescriptor() {
+                public Set<ModelOfServerDescriptor> getCollectionOfModelOfServerDescriptor() {
                     return null;
                 }
             });
