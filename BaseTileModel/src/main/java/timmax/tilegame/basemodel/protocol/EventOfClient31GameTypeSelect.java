@@ -60,6 +60,7 @@ public class EventOfClient31GameTypeSelect extends EventOfClient {
         if (obj instanceof IModelOfServer) {
             // ??? // ToDo: Избавиться от "Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IModelOfServer' to 'timmax.tilegame.basemodel.protocol.server.IModelOfServer<ClienId>'"
             transportOfServer.getRemoteClientStateByClientId(clientId).setGameType(modelOfServerDescriptor);
+            // ToDo: obj не был использован в части получения у него полей или вызова методов. Нужен-ли он?
         } else {
             System.err.println("Created object is not ModelOfServer.");
             transportOfServer.getRemoteClientStateByClientId(clientId).forgetGameType();
