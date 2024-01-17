@@ -5,7 +5,6 @@ import java.util.List;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 
-import timmax.tilegame.guiengine.jfx.GameClientPaneJfx;
 import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
 
 public class Pane09Gaming extends AbstractConnectStatePane {
@@ -85,6 +84,7 @@ public class Pane09Gaming extends AbstractConnectStatePane {
         disableAllControls();
     }
 
+/*
     @Override
     public void updateOnSelectGameType() {
         disableAllControls();
@@ -99,7 +99,11 @@ public class Pane09Gaming extends AbstractConnectStatePane {
             pane.setDisable(false);
             enableAllControls();
         }
-
+    }
+*/
+    @Override
+    public void updateOnSelectGameType() {
+        disableAllControls();
     }
 
     @Override

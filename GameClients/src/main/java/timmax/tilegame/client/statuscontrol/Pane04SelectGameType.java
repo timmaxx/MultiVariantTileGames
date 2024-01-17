@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
+import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
 
 public class Pane04SelectGameType extends AbstractConnectStatePane {
@@ -26,7 +27,15 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
 
         buttonSelectGameType.setOnAction(event -> {
             disableAllControls();
-            multiGameWebSocketClientManyTimesUse.gameTypeSelect(comboBoxGameTypeSet.getValue());
+            String gameName = comboBoxGameTypeSet.getValue();
+            ModelOfServerDescriptor modelOfServerDescriptor = multiGameWebSocketClientManyTimesUse
+                    .getLocalClientState()
+                    .getGameTypeSet()
+                    .stream()
+                    .filter(x -> x.getGameName().equals(gameName))
+                    .findAny()
+                    .orElse(null);
+            multiGameWebSocketClientManyTimesUse.gameTypeSelect(modelOfServerDescriptor);
         });
 
         buttonForgetGameType.setOnAction(event -> {
@@ -77,7 +86,13 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
 
     @Override
     public void updateOnGetGameTypeSet() {
-        comboBoxGameTypeSet.setItems(FXCollections.observableArrayList(localClientState.getListOfServerBaseModel()));
+        comboBoxGameTypeSet.setItems(FXCollections.observableArrayList(
+                localClientState.getGameTypeSet()
+                        .stream()
+                        //.map(x -> x.getGameName())
+                        .map(ModelOfServerDescriptor::getGameName)
+                        .toList()
+        ));
         textFieldSelectedGameType.setText("");
         setDisableControlsNextState(false);
     }

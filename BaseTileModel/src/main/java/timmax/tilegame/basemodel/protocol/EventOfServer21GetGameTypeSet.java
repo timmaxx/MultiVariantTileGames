@@ -3,14 +3,13 @@ package timmax.tilegame.basemodel.protocol;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-import java.util.HashSet;
 import java.util.Set;
 
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.transport.TransportOfClient;
 
 public class EventOfServer21GetGameTypeSet extends EventOfServer {
-    private Set<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor = new HashSet<>();
+    private Set<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor;
 
     public EventOfServer21GetGameTypeSet() {
         super();
@@ -27,14 +26,8 @@ public class EventOfServer21GetGameTypeSet extends EventOfServer {
 
         transportOfClient
                 .getLocalClientState()
-                .forgetListOfServerBaseModel();
+                .setGameTypeSet(collectionOfModelOfServerDescriptor);
 
-        for (ModelOfServerDescriptor modelOfServerDescriptor : collectionOfModelOfServerDescriptor) {
-            transportOfClient
-                    .getLocalClientState()
-                    .getListOfServerBaseModel()
-                    .add(modelOfServerDescriptor.getGameName());
-        }
         transportOfClient
                 .getHashSetOfObserverOnAbstractEvent()
                 .updateOnGetGameTypeSet();

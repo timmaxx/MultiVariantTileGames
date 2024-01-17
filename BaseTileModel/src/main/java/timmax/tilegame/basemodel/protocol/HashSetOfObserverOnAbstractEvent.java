@@ -1,8 +1,8 @@
 package timmax.tilegame.basemodel.protocol;
 
-import javafx.application.Platform;
-
 import java.util.HashSet;
+
+import javafx.application.Platform;
 
 public class HashSetOfObserverOnAbstractEvent extends HashSet<ObserverOnAbstractEvent> implements ObserverOnAbstractEvent {
     @Override

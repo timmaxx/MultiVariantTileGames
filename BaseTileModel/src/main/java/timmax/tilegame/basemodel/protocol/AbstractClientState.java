@@ -12,7 +12,7 @@ public abstract class AbstractClientState<Model> {
     // Нумерация приведена соответствующая классам Pane0Х... пакета timmax.tilegame.client.statuscontrol:
     protected String userName = ""; // ---- 2 (Пользователь)
     protected Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor = new HashSet<>(); // ---- 3 (Список типов игр)
-    // protected ModelOfServerDescriptor modelOfServerDescriptor; // ---- 4 (Конкретный тип игры)
+    protected ModelOfServerDescriptor modelOfServerDescriptor; // ---- 4 (Конкретный тип игры)
     protected List<Model> listOfServerBaseModel = new ArrayList<>(); // ---- 5 (Список моделей игр)
     protected Model serverBaseModel = null; // ---- 6 (Конкретная модель игры)
 
@@ -56,21 +56,20 @@ public abstract class AbstractClientState<Model> {
     }
 
     // ---- 4 (Конкретный тип игры)
-    // Наверное не Model должен быть типом. Вероятнее это ModelOfServerDescriptor
-    public Model getGameType() {
-        return serverBaseModel;
+    public ModelOfServerDescriptor getGameType() {
+        return modelOfServerDescriptor;
     }
 
-    public void setGameType(Model modelOfServer) {
-        setGameType_(modelOfServer);
+    public void setGameType(ModelOfServerDescriptor modelOfServerDescriptor) {
+        setGameType_(modelOfServerDescriptor);
     }
 
     public void forgetGameType() {
         setGameType_(null);
     }
 
-    private void setGameType_(Model modelOfServer) {
-        this.serverBaseModel = modelOfServer;
+    private void setGameType_(ModelOfServerDescriptor modelOfServerDescriptor) {
+        this.modelOfServerDescriptor = modelOfServerDescriptor;
     }
 
     // ---- 5 (Список моделей игр)
@@ -113,8 +112,14 @@ public abstract class AbstractClientState<Model> {
         if (userName.equals("")) {
             return MainGameClientStatus.CONNECT_NON_IDENT;
         } else {
-            if (listOfServerBaseModel.size() > 0) {
-                if (serverBaseModel != null) {
+            if (setOfModelOfServerDescriptor != null && setOfModelOfServerDescriptor.size() > 0) {
+                if (modelOfServerDescriptor != null) {
+                    if (listOfServerBaseModel != null && listOfServerBaseModel.size() > 0) {
+                        if (serverBaseModel != null) {
+                            return MainGameClientStatus.GAME_IS_PLAYING;
+                        }
+                        return MainGameClientStatus.GAME_MATCH_SELECTED;
+                    }
                     return MainGameClientStatus.GAME_TYPE_SELECT;
                 }
                 return MainGameClientStatus.GET_GAME_TYPE_SET;
@@ -124,78 +129,3 @@ public abstract class AbstractClientState<Model> {
         // throw new RuntimeException("Unknown state.");
     }
 }
-
-/*
-
-public abstract class AbstractClientState<Model> {
-
-    // ---- 4 (Конкретный тип игры)
-    // Наверное не Model должен быть типом. Вероятнее это ModelOfServerDescriptor
-    public Model getGameType() {
-        return serverBaseModel;
-    }
-
-    public void setGameType(Model modelOfServer) {
-        setGameType_(modelOfServer);
-    }
-
-    public void forgetGameType() {
-        setGameType_(null);
-    }
-
-    private void setGameType_(Model modelOfServer) {
-        this.serverBaseModel = modelOfServer;
-    }
-
-    // ---- 5 (Список моделей игр)
-    public List<Model> getListOfServerBaseModel() {
-        return listOfServerBaseModel;
-    }
-
-    public void setListOfServerBaseModel(List<Model> listOfServerBaseModel) {
-        setListOfServerBaseModel_(listOfServerBaseModel);
-    }
-
-    public void forgetListOfServerBaseModel() {
-        setListOfServerBaseModel_(new ArrayList<>());
-    }
-
-    private void setListOfServerBaseModel_(List<Model> listOfServerBaseModel) {
-        forgetServerBaseModel();
-        this.listOfServerBaseModel = listOfServerBaseModel;
-    }
-
-    // ---- 6 (Конкретная модель игры)
-    public Model getServerBaseModel() {
-        return serverBaseModel;
-    }
-
-    public void setServerBaseModel(Model serverBaseModel) {
-        setServerBaseModel_(serverBaseModel);
-    }
-
-    public void forgetServerBaseModel() {
-        setServerBaseModel_(null);
-    }
-
-    private void setServerBaseModel_(Model serverBaseModel) {
-        this.serverBaseModel = serverBaseModel;
-    }
-
-    // ---- X
-    public MainGameClientStatus getMainGameClientStatus() {
-        if (userName.equals("")) {
-            return MainGameClientStatus.CONNECT_NON_IDENT;
-        } else {
-            if (listOfServerBaseModel.size() > 0) {
-                if (serverBaseModel != null) {
-                    return MainGameClientStatus.GAME_TYPE_SELECT;
-                }
-                return MainGameClientStatus.GET_GAME_TYPE_SET;
-            }
-            return MainGameClientStatus.CONNECT_AUTHORIZED;
-        }
-        // throw new RuntimeException("Unknown state.");
-    }
-}
-*/

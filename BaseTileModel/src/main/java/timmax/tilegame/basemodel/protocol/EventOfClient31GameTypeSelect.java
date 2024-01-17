@@ -11,23 +11,23 @@ import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.transport.TransportOfServer;
 
 public class EventOfClient31GameTypeSelect extends EventOfClient {
-    private String gameName;
+    private ModelOfServerDescriptor modelOfServerDescriptor;
 
     public EventOfClient31GameTypeSelect() {
         super();
     }
 
-    public EventOfClient31GameTypeSelect(String gameName) {
+    public EventOfClient31GameTypeSelect(ModelOfServerDescriptor modelOfServerDescriptor) {
         this();
-        this.gameName = gameName;
+        this.modelOfServerDescriptor = modelOfServerDescriptor;
     }
 
     @Override
     public <ClienId> void executeOnServer(TransportOfServer<ClienId> transportOfServer, ClienId clientId) {
         System.out.println("  onSelectGameType");
 
-        System.out.println("  serverBaseModelClass = " + gameName);
-        if (gameName == null) {
+        System.out.println("  modelOfServerDescriptor = " + modelOfServerDescriptor);
+        if (modelOfServerDescriptor == null) {
             System.err.println("Client sent empty name of model classes.");
             transportOfServer.getRemoteClientStateByClientId(clientId).forgetGameType();
             return;
@@ -37,12 +37,12 @@ public class EventOfClient31GameTypeSelect extends EventOfClient {
                 .getRemoteClientStateByClientId(clientId)
                 .getGameTypeSet()
                 .stream()
-                .filter(x -> x.getGameName().equals(gameName))
+                .filter(x -> x.getGameName().equals(modelOfServerDescriptor.getGameName()))
                 .findAny()
                 .map(ModelOfServerDescriptor::getConstructorOfModelOfServerClass).orElse(null);
 
         if (constructor == null) {
-            System.err.println(gameName + "' was not found in list model classes.");
+            System.err.println(modelOfServerDescriptor + "' was not found in list model classes.");
             transportOfServer.getRemoteClientStateByClientId(clientId).forgetGameType();
             return;
         }
@@ -51,15 +51,15 @@ public class EventOfClient31GameTypeSelect extends EventOfClient {
         try {
             obj = constructor.newInstance(transportOfServer);
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
-            System.err.println("Server cannot create object of model for " + gameName + " with constructor with specific parameters.");
+            System.err.println("Server cannot create object of model for " + modelOfServerDescriptor + " with constructor with specific parameters.");
             e.printStackTrace();
             System.exit(1);
         }
 
-        // ToDo: Избавиться от "Raw use of parameterized class 'IModelOfServer'":
-        if (obj instanceof IModelOfServer modelOfServer) {
-            // ToDo: Избавиться от "Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IModelOfServer' to 'timmax.tilegame.basemodel.protocol.server.IModelOfServer<ClienId>'"
-            transportOfServer.getRemoteClientStateByClientId(clientId).setGameType(modelOfServer);
+        // ToDo: Избавиться от "Warning:(60, 28) Raw use of parameterized class 'IModelOfServer'":
+        if (obj instanceof IModelOfServer) {
+            // ??? // ToDo: Избавиться от "Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IModelOfServer' to 'timmax.tilegame.basemodel.protocol.server.IModelOfServer<ClienId>'"
+            transportOfServer.getRemoteClientStateByClientId(clientId).setGameType(modelOfServerDescriptor);
         } else {
             System.err.println("Created object is not ModelOfServer.");
             transportOfServer.getRemoteClientStateByClientId(clientId).forgetGameType();
@@ -69,17 +69,17 @@ public class EventOfClient31GameTypeSelect extends EventOfClient {
     @Override
     public String toString() {
         return "EventOfClient31GameTypeSelect{" +
-                "gameName='" + gameName + '\'' +
+                "modelOfServerDescriptor='" + modelOfServerDescriptor + '\'' +
                 '}';
     }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(gameName);
+        out.writeObject(modelOfServerDescriptor);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        gameName = (String) in.readObject();
+        modelOfServerDescriptor = (ModelOfServerDescriptor) in.readObject();
     }
 }

@@ -1,6 +1,7 @@
 package timmax.tilegame.client.websocket;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.net.URI;
 import java.nio.ByteBuffer;
 
@@ -10,8 +11,10 @@ import org.java_websocket.handshake.ServerHandshake;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.gamecommand.GameCommandNewGame;
 import timmax.tilegame.basemodel.protocol.*;
+// import timmax.tilegame.basemodel.protocol.EventOfClient41GetGamePlaySet;
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.basemodel.protocol.client.LocalClientState;
+import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfClient;
 
@@ -37,7 +40,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         throw new RuntimeException("Unknown state.");
     }
 
-    // Overiden methods from class WebSocketClient:
+    // Overriden methods from class WebSocketClient:
     @Override
     public void onClose(int code, String reason, boolean remote) {
         System.out.println("onClose");
@@ -90,7 +93,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         System.exit(1);
     }
 
-    // Overiden methods from interface TransportOfClient:
+    // Overriden methods from interface TransportOfClient:
     @Override
     public void sendEventOfClient(EventOfClient eventOfClient) {
         System.out.println("  send(EventOfClient<WebSocket>)");
@@ -111,7 +114,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         return hashSetOfObserverOnAbstractEvent;
     }
 
-    // Overiden methods from interface IModelOfClient:
+    // Overriden methods from interface IModelOfClient:
     // 2
     @Override
     public void logout() {
@@ -146,9 +149,9 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     }
 
     @Override
-    public void gameTypeSelect(String serverBaseModelClass) {
+    public void gameTypeSelect(ModelOfServerDescriptor modelOfServerDescriptor) {
         System.out.println("gameTypeSelect(String)");
-        sendEventOfClient(new EventOfClient31GameTypeSelect(serverBaseModelClass));
+        sendEventOfClient(new EventOfClient31GameTypeSelect(modelOfServerDescriptor));
     }
 
     // 9

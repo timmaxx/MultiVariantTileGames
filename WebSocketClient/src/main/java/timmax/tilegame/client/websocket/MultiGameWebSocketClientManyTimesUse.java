@@ -7,6 +7,7 @@ import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.basemodel.protocol.client.LocalClientState;
 import timmax.tilegame.basemodel.protocol.HashSetOfObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
+import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfClient;
 
@@ -42,7 +43,7 @@ public class MultiGameWebSocketClientManyTimesUse implements IModelOfClient {
         multiGameWebSocketClient.close();
     }
 
-    // Overiden methods from interface IModelOfClient:
+    // Overriden methods from interface IModelOfClient:
     @Override
     public void logout() {
         multiGameWebSocketClient.logout();
@@ -69,8 +70,8 @@ public class MultiGameWebSocketClientManyTimesUse implements IModelOfClient {
     }
 
     @Override
-    public void gameTypeSelect(String serverBaseModelClass) {
-        multiGameWebSocketClient.gameTypeSelect(serverBaseModelClass);
+    public void gameTypeSelect(ModelOfServerDescriptor modelOfServerDescriptor) {
+        multiGameWebSocketClient.gameTypeSelect(modelOfServerDescriptor);
     }
 
     @Override

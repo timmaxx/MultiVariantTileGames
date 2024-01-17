@@ -56,8 +56,30 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
         // this.otherField = obj.getOtherField();
     }
 
-    public Constructor<? extends ModelOfServer<?>> getConstructorOfModelOfServerClass() {
-        return constructorOfModelOfServerClass;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ModelOfServerDescriptor that = (ModelOfServerDescriptor) o;
+
+        if (countOfGamers != that.countOfGamers) return false;
+        return gameName.equals(that.gameName);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = gameName.hashCode();
+        result = 31 * result + countOfGamers;
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "ModelOfServerDescriptor{" +
+                "gameName='" + gameName + '\'' +
+                ", countOfGamers=" + countOfGamers +
+                '}';
     }
 
     // Overiden methods from interface IModelOfServerDescriptor
@@ -82,5 +104,10 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         gameName = (String) in.readObject();
         countOfGamers = in.readInt();
+    }
+
+    // Own methods
+    public Constructor<? extends ModelOfServer<?>> getConstructorOfModelOfServerClass() {
+        return constructorOfModelOfServerClass;
     }
 }
