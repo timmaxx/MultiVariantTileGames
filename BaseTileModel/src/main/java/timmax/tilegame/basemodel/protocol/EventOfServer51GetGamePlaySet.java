@@ -8,14 +8,14 @@ import java.util.List;
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.transport.TransportOfClient;
 
-public class EventOfServer41GetGamePlaySet extends EventOfServer {
+public class EventOfServer51GetGamePlaySet extends EventOfServer {
     private List<IModelOfClient> listOfIModelOfClient;
 
-    public EventOfServer41GetGamePlaySet() {
+    public EventOfServer51GetGamePlaySet() {
         super();
     }
 
-    public EventOfServer41GetGamePlaySet(List<IModelOfClient> listOfIModelOfClient) {
+    public EventOfServer51GetGamePlaySet(List<IModelOfClient> listOfIModelOfClient) {
         this();
         this.listOfIModelOfClient = listOfIModelOfClient;
     }
@@ -35,7 +35,7 @@ public class EventOfServer41GetGamePlaySet extends EventOfServer {
 
     @Override
     public String toString() {
-        return "EventOfServer41GetGamePlaySet{" +
+        return "EventOfServer51GetGamePlaySet{" +
                 "listOfIModelOfServer=" + listOfIModelOfClient +
                 '}';
     }
