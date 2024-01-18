@@ -8,7 +8,6 @@ public class EventOfServer50ForgetGamePlaySet extends EventOfServer {
         System.out.println("  onForgetGamePlaySet");
 
         transportOfClient.getLocalClientState().forgetGamePlaySet();
-        transportOfClient.getHashSetOfObserverOnAbstractEvent().updateOnForgetGamePlaySet();
     }
 
     @Override
