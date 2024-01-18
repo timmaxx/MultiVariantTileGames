@@ -48,11 +48,12 @@ public class LocalClientState extends AbstractClientState<InstanceIdOfModel> {
         super.setGameType(modelOfServerDescriptor);
         iModelOfClient.getHashSetOfObserverOnAbstractEvent().updateOnSelectGameType();
     }
-/*
-    public void forgetGameType() {
 
+    public void forgetGameType() {
+        super.forgetGameType();
+        iModelOfClient.getHashSetOfObserverOnAbstractEvent().updateOnForgetGameType();
     }
-*/
+
     public ListOfLocalView getListOfLocalView() {
         return listOfLocalView;
     }

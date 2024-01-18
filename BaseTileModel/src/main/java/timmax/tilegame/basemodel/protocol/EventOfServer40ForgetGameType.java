@@ -8,7 +8,6 @@ public class EventOfServer40ForgetGameType extends EventOfServer {
         System.out.println("  onForgetGameType");
 
         transportOfClient.getLocalClientState().forgetGameType();
-        transportOfClient.getHashSetOfObserverOnAbstractEvent().updateOnForgetGameType();
     }
 
     @Override
