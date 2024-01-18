@@ -5,19 +5,19 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.List;
 
-import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
+import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import timmax.tilegame.transport.TransportOfClient;
 
 public class EventOfServer51GetGamePlaySet extends EventOfServer {
-    private List<IModelOfClient> listOfIModelOfClient;
+    private List<InstanceIdOfModel> listOfInstanceIdOfModel;
 
     public EventOfServer51GetGamePlaySet() {
         super();
     }
 
-    public EventOfServer51GetGamePlaySet(List<IModelOfClient> listOfIModelOfClient) {
+    public EventOfServer51GetGamePlaySet(List<InstanceIdOfModel> listOfInstanceIdOfModel) {
         this();
-        this.listOfIModelOfClient = listOfIModelOfClient;
+        this.listOfInstanceIdOfModel = listOfInstanceIdOfModel;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class EventOfServer51GetGamePlaySet extends EventOfServer {
 
         transportOfClient
                 .getLocalClientState()
-                .setListOfServerBaseModel(listOfIModelOfClient);
+                .setGamePlaySet(listOfInstanceIdOfModel);
 
         transportOfClient
                 .getHashSetOfObserverOnAbstractEvent()
@@ -36,19 +36,19 @@ public class EventOfServer51GetGamePlaySet extends EventOfServer {
     @Override
     public String toString() {
         return "EventOfServer51GetGamePlaySet{" +
-                "listOfIModelOfServer=" + listOfIModelOfClient +
+                "listOfInstanceIdOfModel=" + listOfInstanceIdOfModel +
                 '}';
     }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(listOfIModelOfClient);
+        out.writeObject(listOfInstanceIdOfModel);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        // ToDo: избавиться от "Warning:(52, 32) Unchecked cast: 'java.lang.Object' to 'java.util.List<timmax.tilegame.basemodel.protocol.client.IModelOfClient>'"
+        // ToDo: избавиться от "Warning:(52, 35) Unchecked cast: 'java.lang.Object' to 'java.util.List<timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel>'"
         //       Например как в readExternal в EventOfServer31GetGameTypeSet
-        listOfIModelOfClient = (List<IModelOfClient>) in.readObject();
+        listOfInstanceIdOfModel = (List<InstanceIdOfModel>) in.readObject();
     }
 }

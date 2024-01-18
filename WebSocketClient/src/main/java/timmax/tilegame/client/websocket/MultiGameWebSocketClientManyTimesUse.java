@@ -78,12 +78,11 @@ public class MultiGameWebSocketClientManyTimesUse implements IModelOfClient {
     }
 
     // 5
-/*
     @Override
     public void forgetGamePlaySet() {
         multiGameWebSocketClient.forgetGamePlaySet();
     }
-*/
+
     @Override
     public void getGamePlaySet() {
         multiGameWebSocketClient.getGamePlaySet();

@@ -1,5 +1,7 @@
 package timmax.tilegame.basemodel.protocol;
 
+// ToDo: Перечень методов для интерфейсов ObserverOnAbstractEvent и IModelOfClient похож.
+//       Может всё свести к одному интерфесу?
 public interface ObserverOnAbstractEvent {
     // 1
     void updateOnClose();
@@ -18,7 +20,7 @@ public interface ObserverOnAbstractEvent {
     void updateOnSelectGameType();
 
     // 5
-    // void updateOnForgetGamePlaySet();
+    void updateOnForgetGamePlaySet();
     void updateOnGetGamePlaySet();
 
     // X

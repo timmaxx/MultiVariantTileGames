@@ -1,8 +1,10 @@
 package timmax.tilegame.basemodel.protocol.server;
 
+import java.util.List;
 import java.util.Set;
 
 import timmax.tilegame.basemodel.protocol.*;
+import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import timmax.tilegame.transport.TransportOfServer;
 
 public class RemoteClientState<ClienId> extends AbstractClientState<IModelOfServer<ClienId>> {
@@ -51,5 +53,22 @@ public class RemoteClientState<ClienId> extends AbstractClientState<IModelOfServ
     public void setGameType(ModelOfServerDescriptor modelOfServerDescriptor) {
         super.setGameType(modelOfServerDescriptor);
         transportOfServer.sendEventOfServer(clientId, new EventOfServer41GameTypeSelect(modelOfServerDescriptor));
+    }
+
+    // ---- 5
+    public void forgetGamePlaySet() {
+        super.setGamePlaySet(null);
+        transportOfServer.sendEventOfServer(clientId, new EventOfServer50ForgetGamePlaySet());
+    }
+
+    public void setGamePlaySet(List<IModelOfServer<ClienId>> listOfServerBaseModel) {
+        super.setGamePlaySet(listOfServerBaseModel);
+        transportOfServer.sendEventOfServer(clientId, new EventOfServer51GetGamePlaySet(
+                listOfServerBaseModel
+                        .stream()
+                        //.map(x -> InstanceIdOfModel.modelOfServerToInstanceIdOfModel(x))
+                        .map(InstanceIdOfModel::modelOfServerToInstanceIdOfModel)
+                        .toList()
+        ));
     }
 }

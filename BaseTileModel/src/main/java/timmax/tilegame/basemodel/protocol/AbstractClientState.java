@@ -1,7 +1,5 @@
 package timmax.tilegame.basemodel.protocol;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -10,11 +8,11 @@ import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 
 public abstract class AbstractClientState<Model> {
     // Нумерация приведена соответствующая классам Pane0Х... пакета timmax.tilegame.client.statuscontrol:
-    protected String userName = ""; // ---- 2 (Пользователь)
-    protected Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor = new HashSet<>(); // ---- 3 (Список типов игр)
+    protected String userName; // ---- 2 (Пользователь)
+    protected Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor; // ---- 3 (Список типов игр)
     protected ModelOfServerDescriptor modelOfServerDescriptor; // ---- 4 (Конкретный тип игры)
-    protected List<Model> listOfServerBaseModel = new ArrayList<>(); // ---- 5 (Список моделей игр)
-    protected Model serverBaseModel = null; // ---- 6 (Конкретная модель игры)
+    protected List<Model> listOfServerBaseModel; // ---- 5 (Список моделей игр)
+    protected Model serverBaseModel; // ---- 6 (Конкретная модель игры)
 
     // ---- 2 (Пользователь)
     public String getUserName() {
@@ -70,24 +68,24 @@ public abstract class AbstractClientState<Model> {
     }
 
     private void setGameType_(ModelOfServerDescriptor modelOfServerDescriptor) {
-        setListOfServerBaseModel_(null);
+        setGamePlaySet_(null);
         this.modelOfServerDescriptor = modelOfServerDescriptor;
     }
 
     // ---- 5 (Список моделей игр)
-    public List<Model> getListOfServerBaseModel() {
+    public List<Model> getGamePlaySet() {
         return listOfServerBaseModel;
     }
 
-    public void setListOfServerBaseModel(List<Model> listOfServerBaseModel) {
-        setListOfServerBaseModel_(listOfServerBaseModel);
+    public void setGamePlaySet(List<Model> listOfServerBaseModel) {
+        setGamePlaySet_(listOfServerBaseModel);
     }
 
-    public void forgetListOfServerBaseModel() {
-        setListOfServerBaseModel_(null);
+    public void forgetGamePlaySet() {
+        setGamePlaySet_(null);
     }
 
-    private void setListOfServerBaseModel_(List<Model> listOfServerBaseModel) {
+    private void setGamePlaySet_(List<Model> listOfServerBaseModel) {
         setServerBaseModel_(null);
         this.listOfServerBaseModel = listOfServerBaseModel;
     }
@@ -96,7 +94,7 @@ public abstract class AbstractClientState<Model> {
     public Model getServerBaseModel() {
         return serverBaseModel;
     }
-
+/*
     public void setServerBaseModel(Model serverBaseModel) {
         setServerBaseModel_(serverBaseModel);
     }
@@ -104,7 +102,7 @@ public abstract class AbstractClientState<Model> {
     public void forgetServerBaseModel() {
         setServerBaseModel_(null);
     }
-
+*/
     private void setServerBaseModel_(Model serverBaseModel) {
         this.serverBaseModel = serverBaseModel;
     }

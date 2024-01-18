@@ -82,7 +82,6 @@ public class HashSetOfObserverOnAbstractEvent extends HashSet<ObserverOnAbstract
     }
 
     // 5
-/*
     @Override
     public void updateOnForgetGamePlaySet() {
         Platform.runLater(() -> {
@@ -91,7 +90,7 @@ public class HashSetOfObserverOnAbstractEvent extends HashSet<ObserverOnAbstract
             }
         });
     }
-*/
+
     @Override
     public void updateOnGetGamePlaySet() {
         Platform.runLater(() -> {
