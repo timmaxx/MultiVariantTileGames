@@ -27,10 +27,6 @@ public class EventOfServer31GetGameTypeSet extends EventOfServer {
         transportOfClient
                 .getLocalClientState()
                 .setGameTypeSet(collectionOfModelOfServerDescriptor);
-
-        transportOfClient
-                .getHashSetOfObserverOnAbstractEvent()
-                .updateOnGetGameTypeSet();
     }
 
     @Override
