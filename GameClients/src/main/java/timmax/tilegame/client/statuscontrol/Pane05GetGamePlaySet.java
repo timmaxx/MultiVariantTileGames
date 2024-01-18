@@ -10,23 +10,23 @@ public class Pane05GetGamePlaySet extends AbstractConnectStatePane {
         super(multiGameWebSocketClientManyTimesUse);
 
         Button buttonGetGameSet = new Button("Get the game set");
-        // Button buttonForgetGameSet = new Button("Forget the game set");
+        Button buttonForgetGameSet = new Button("Forget the game set");
 
-        // buttonForgetGameSet.setFocusTraversable(false);
+        buttonForgetGameSet.setFocusTraversable(false);
 
         buttonGetGameSet.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.getGamePlaySet();
         });
-/*
+
         buttonForgetGameSet.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.forgetGamePlaySet();
         });
-*/
+
         setListsOfControlsAndAllDisable(
                 List.of(buttonGetGameSet),
-                List.of(/*buttonForgetGameSet*/)
+                List.of(buttonForgetGameSet)
         );
     }
 
@@ -75,12 +75,11 @@ public class Pane05GetGamePlaySet extends AbstractConnectStatePane {
     }
 
     // 5
-/*
     @Override
     public void updateOnForgetGamePlaySet() {
         setDisableControlsNextState(false);
     }
-*/
+
     @Override
     public void updateOnGetGamePlaySet() {
         setDisableControlsNextState(true);

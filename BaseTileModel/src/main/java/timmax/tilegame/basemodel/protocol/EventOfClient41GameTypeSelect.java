@@ -24,7 +24,7 @@ public class EventOfClient41GameTypeSelect extends EventOfClient {
 
     @Override
     public <ClienId> void executeOnServer(TransportOfServer<ClienId> transportOfServer, ClienId clientId) {
-        System.out.println("  onSelectGameType");
+        System.out.println("  onGameTypeSelect");
 
         System.out.println("  modelOfServerDescriptor = " + modelOfServerDescriptor);
         if (modelOfServerDescriptor == null) {
