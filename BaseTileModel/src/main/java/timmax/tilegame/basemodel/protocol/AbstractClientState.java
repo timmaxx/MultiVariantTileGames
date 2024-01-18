@@ -111,23 +111,17 @@ public abstract class AbstractClientState<Model> {
 
     // ---- X
     public MainGameClientStatus getMainGameClientStatus() {
-        if (userName.equals("")) {
-            return MainGameClientStatus.CONNECT_NON_IDENT;
-        } else {
-            if (setOfModelOfServerDescriptor != null && setOfModelOfServerDescriptor.size() > 0) {
-                if (modelOfServerDescriptor != null) {
-                    if (listOfServerBaseModel != null && listOfServerBaseModel.size() > 0) {
-                        if (serverBaseModel != null) {
-                            return MainGameClientStatus.GAME_IS_PLAYING;
-                        }
-                        return MainGameClientStatus.GAME_MATCH_SELECTED;
-                    }
-                    return MainGameClientStatus.GAME_TYPE_SELECT;
-                }
-                return MainGameClientStatus.GET_GAME_TYPE_SET;
-            }
+        if (serverBaseModel != null) {
+            return MainGameClientStatus.GAME_IS_PLAYING;
+        } else if (listOfServerBaseModel != null /*&& listOfServerBaseModel.size() > 0*/) {
+            return MainGameClientStatus.GAME_MATCH_SELECTED;
+        } else if (modelOfServerDescriptor != null) {
+            return MainGameClientStatus.GAME_TYPE_SELECT;
+        } else if (setOfModelOfServerDescriptor != null && setOfModelOfServerDescriptor.size() > 0) {
+            return MainGameClientStatus.GET_GAME_TYPE_SET;
+        } else if (userName != null && !userName.isEmpty()) {
             return MainGameClientStatus.CONNECT_AUTHORIZED;
         }
-        // throw new RuntimeException("Unknown state.");
+        return MainGameClientStatus.CONNECT_NON_IDENT;
     }
 }
