@@ -27,10 +27,6 @@ public class EventOfServer51GetGamePlaySet extends EventOfServer {
         transportOfClient
                 .getLocalClientState()
                 .setGamePlaySet(listOfInstanceIdOfModel);
-
-        transportOfClient
-                .getHashSetOfObserverOnAbstractEvent()
-                .updateOnGetGamePlaySet();
     }
 
     @Override
@@ -47,7 +43,7 @@ public class EventOfServer51GetGamePlaySet extends EventOfServer {
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        // ToDo: избавиться от "Warning:(52, 35) Unchecked cast: 'java.lang.Object' to 'java.util.List<timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel>'"
+        // ToDo: избавиться от "Warning:(48, 35) Unchecked cast: 'java.lang.Object' to 'java.util.List<timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel>'"
         //       Например как в readExternal в EventOfServer31GetGameTypeSet
         listOfInstanceIdOfModel = (List<InstanceIdOfModel>) in.readObject();
     }
