@@ -15,11 +15,11 @@ public interface IModelOfClient {
     // ---- 4
     void forgetGameType();
     void gameTypeSelect(ModelOfServerDescriptor modelOfServerDescriptor);
-/*
+
     // ---- 5
-    void forgetGamePlaySet();
+    // void forgetGamePlaySet();
     void getGamePlaySet();
-*/
+
     // ---- X
     void createNewGame();
     void addView(View view);

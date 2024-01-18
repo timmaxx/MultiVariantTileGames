@@ -44,6 +44,7 @@ public class MultiGameWebSocketClientManyTimesUse implements IModelOfClient {
     }
 
     // Overriden methods from interface IModelOfClient:
+    // 2
     @Override
     public void logout() {
         multiGameWebSocketClient.logout();
@@ -54,6 +55,7 @@ public class MultiGameWebSocketClientManyTimesUse implements IModelOfClient {
         multiGameWebSocketClient.login(userName, password);
     }
 
+    // 3
     @Override
     public void forgetGameTypeSet() {
         multiGameWebSocketClient.forgetGameTypeSet();
@@ -64,6 +66,7 @@ public class MultiGameWebSocketClientManyTimesUse implements IModelOfClient {
         multiGameWebSocketClient.getGameTypeSet();
     }
 
+    // 4
     @Override
     public void forgetGameType() {
         multiGameWebSocketClient.forgetGameType();
@@ -74,6 +77,19 @@ public class MultiGameWebSocketClientManyTimesUse implements IModelOfClient {
         multiGameWebSocketClient.gameTypeSelect(modelOfServerDescriptor);
     }
 
+    // 5
+/*
+    @Override
+    public void forgetGamePlaySet() {
+        multiGameWebSocketClient.forgetGamePlaySet();
+    }
+*/
+    @Override
+    public void getGamePlaySet() {
+        multiGameWebSocketClient.getGamePlaySet();
+    }
+
+    // X
     @Override
     public void createNewGame() {
         multiGameWebSocketClient.createNewGame();

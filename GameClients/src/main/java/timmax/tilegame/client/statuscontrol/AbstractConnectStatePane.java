@@ -20,6 +20,71 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
         this.localClientState = multiGameWebSocketClientManyTimesUse.getLocalClientState();
     }
 
+    // Overriden method from interface ObserverOnAbstractEvent
+    // 1
+    @Override
+    public void updateOnClose() {
+    }
+
+    @Override
+    public void updateOnOpen() {
+    }
+
+    // 2
+    @Override
+    public void updateOnLogout() {
+    }
+
+    @Override
+    public void updateOnLogin() {
+    }
+
+    // 3
+    @Override
+    public void updateOnForgetGameTypeSet() {
+    }
+
+    @Override
+    public void updateOnGetGameTypeSet() {
+    }
+
+    // 4
+    @Override
+    public void updateOnForgetGameType() {
+    }
+
+    @Override
+    public void updateOnSelectGameType() {
+    }
+
+    // 5
+/*
+    @Override
+    public void updateOnForgetGamePlaySet() {
+    }
+*/
+    @Override
+    public void updateOnGetGamePlaySet() {
+    }
+
+    // X
+    @Override
+    public void updateOnCreateNewGame() {
+    }
+
+    @Override
+    public void updateOnCloseGame() {
+    }
+
+    @Override
+    public void updateOnAddView() {
+    }
+
+    @Override
+    public void updateOnGameEvent() {
+    }
+
+    // Own methods
     public void setListsOfControlsAndAllDisable(
             List<Region> listOfControlsNextState,
             List<Region> listOfControlsPrevState
@@ -61,43 +126,6 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
             control.setDisable(!disableControlsNextState);
         }
     }
-
-    public void updateOnClose() {
-    }
-
-    public void updateOnOpen() {
-    }
-
-    public void updateOnLogout() {
-    }
-
-    public void updateOnLogin() {
-    }
-
-    public void updateOnForgetGameTypeSet() {
-    }
-
-    public void updateOnGetGameTypeSet() {
-    }
-
-    public void updateOnForgetGameType() {
-    }
-
-    public void updateOnSelectGameType() {
-    }
-
-    public void updateOnCreateNewGame() {
-    }
-
-    public void updateOnCloseGame() {
-    }
-
-    public void updateOnAddView() {
-    }
-
-    public void updateOnGameEvent() {
-    }
-
 
 /*
     //  Комментарии пока оставил, т.к.:

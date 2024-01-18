@@ -4,7 +4,7 @@ import timmax.tilegame.basemodel.protocol.AbstractClientState;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfClient;
 
-public class LocalClientState extends AbstractClientState<String> {
+public class LocalClientState extends AbstractClientState<IModelOfClient> {
     private final ListOfLocalView listOfLocalView;
 
     public LocalClientState(TransportOfClient transportOfClient) {

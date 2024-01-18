@@ -5,6 +5,7 @@ import java.util.HashSet;
 import javafx.application.Platform;
 
 public class HashSetOfObserverOnAbstractEvent extends HashSet<ObserverOnAbstractEvent> implements ObserverOnAbstractEvent {
+    // 1
     @Override
     public void updateOnClose() {
         Platform.runLater(() -> {
@@ -23,6 +24,7 @@ public class HashSetOfObserverOnAbstractEvent extends HashSet<ObserverOnAbstract
         });
     }
 
+    // 2
     @Override
     public void updateOnLogout() {
         Platform.runLater(() -> {
@@ -41,6 +43,7 @@ public class HashSetOfObserverOnAbstractEvent extends HashSet<ObserverOnAbstract
         });
     }
 
+    // 3
     @Override
     public void updateOnForgetGameTypeSet() {
         Platform.runLater(() -> {
@@ -59,6 +62,7 @@ public class HashSetOfObserverOnAbstractEvent extends HashSet<ObserverOnAbstract
         });
     }
 
+    // 4
     @Override
     public void updateOnForgetGameType() {
         Platform.runLater(() -> {
@@ -77,6 +81,27 @@ public class HashSetOfObserverOnAbstractEvent extends HashSet<ObserverOnAbstract
         });
     }
 
+    // 5
+/*
+    @Override
+    public void updateOnForgetGamePlaySet() {
+        Platform.runLater(() -> {
+            for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
+                observerOnAbstractEvent.updateOnForgetGamePlaySet();
+            }
+        });
+    }
+*/
+    @Override
+    public void updateOnGetGamePlaySet() {
+        Platform.runLater(() -> {
+            for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
+                observerOnAbstractEvent.updateOnGetGamePlaySet();
+            }
+        });
+    }
+
+    // X
     @Override
     public void updateOnCreateNewGame() {
         Platform.runLater(() -> {

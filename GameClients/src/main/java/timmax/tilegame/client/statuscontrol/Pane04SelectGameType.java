@@ -49,6 +49,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
         );
     }
 
+    // 1
     @Override
     public void updateOnClose() {
         disableAllControls();
@@ -63,6 +64,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
         textFieldSelectedGameType.setText("");
     }
 
+    // 2
     @Override
     public void updateOnLogout() {
         disableAllControls();
@@ -77,6 +79,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
         textFieldSelectedGameType.setText("");
     }
 
+    // 3
     @Override
     public void updateOnForgetGameTypeSet() {
         disableAllControls();
@@ -89,7 +92,6 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
         comboBoxGameTypeSet.setItems(FXCollections.observableArrayList(
                 localClientState.getGameTypeSet()
                         .stream()
-                        //.map(x -> x.getGameName())
                         .map(ModelOfServerDescriptor::getGameName)
                         .toList()
         ));
@@ -97,6 +99,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
         setDisableControlsNextState(false);
     }
 
+    // 4
     @Override
     public void updateOnForgetGameType() {
         textFieldSelectedGameType.setText("");
@@ -105,7 +108,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
 
     @Override
     public void updateOnSelectGameType() {
-        textFieldSelectedGameType.setText(localClientState.getServerBaseModel());
+        textFieldSelectedGameType.setText(localClientState.getGameType().getGameName());
         setDisableControlsNextState(true);
     }
 }
