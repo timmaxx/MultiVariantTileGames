@@ -18,13 +18,13 @@ public class RemoteClientState<ClienId> extends AbstractClientState<IModelOfServ
     @Override
     public void forgetUserName() {
         super.forgetUserName();
-        transportOfServer.sendEventOfServer(clientId, new EventOfServer10Logout());
+        transportOfServer.sendEventOfServer(clientId, new EventOfServer20Logout());
     }
 
     @Override
     public void setUserName(String userName) {
         super.setUserName(userName);
-        transportOfServer.sendEventOfServer(clientId, new EventOfServer11Login(userName));
+        transportOfServer.sendEventOfServer(clientId, new EventOfServer21Login(userName));
     }
 
     // ---- 3 (Список типов игр)

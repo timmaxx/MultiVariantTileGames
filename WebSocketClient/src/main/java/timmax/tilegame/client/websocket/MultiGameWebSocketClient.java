@@ -119,13 +119,13 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     @Override
     public void logout() {
         System.out.println("logout()");
-        sendEventOfClient(new EventOfClient10Logout());
+        sendEventOfClient(new EventOfClient20Logout());
     }
 
     @Override
     public void login(String userName, String password) {
         System.out.println("login(String, String)");
-        sendEventOfClient(new EventOfClient11Login(userName, password));
+        sendEventOfClient(new EventOfClient21Login(userName, password));
     }
 
     // 3

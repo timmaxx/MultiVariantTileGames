@@ -2,7 +2,7 @@ package timmax.tilegame.basemodel.protocol;
 
 import timmax.tilegame.transport.TransportOfClient;
 
-public class EventOfServer10Logout extends EventOfServer {
+public class EventOfServer20Logout extends EventOfServer {
     @Override
     public void executeOnClient(TransportOfClient transportOfClient) {
         System.out.println("  onLogout");
@@ -17,6 +17,6 @@ public class EventOfServer10Logout extends EventOfServer {
 
     @Override
     public String toString() {
-        return "EventOfServer10Logout{}";
+        return "EventOfServer20Logout{}";
     }
 }

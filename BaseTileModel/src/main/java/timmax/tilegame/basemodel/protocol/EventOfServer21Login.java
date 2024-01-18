@@ -6,14 +6,14 @@ import java.io.ObjectOutput;
 
 import timmax.tilegame.transport.TransportOfClient;
 
-public class EventOfServer11Login extends EventOfServer {
+public class EventOfServer21Login extends EventOfServer {
     private /*final*/ String userName;
 
-    public EventOfServer11Login() {
+    public EventOfServer21Login() {
         super();
     }
 
-    public EventOfServer11Login(String userName) {
+    public EventOfServer21Login(String userName) {
         this();
         if (userName == null || userName.equals("")) {
             throw new NullPointerException("UserName is null. UserName must not be null.");
@@ -31,7 +31,7 @@ public class EventOfServer11Login extends EventOfServer {
 
     @Override
     public String toString() {
-        return "EventOfServer11Login{" +
+        return "EventOfServer21Login{" +
                 "userName='" + userName + '\'' +
                 '}';
     }
