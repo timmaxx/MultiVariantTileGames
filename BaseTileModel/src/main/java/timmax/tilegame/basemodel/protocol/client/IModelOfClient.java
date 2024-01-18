@@ -1,5 +1,6 @@
 package timmax.tilegame.basemodel.protocol.client;
 
+import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.baseview.View;
 
@@ -25,4 +26,6 @@ public interface IModelOfClient {
     // ---- X
     void createNewGame();
     void addView(View view);
+
+    ObserverOnAbstractEvent getHashSetOfObserverOnAbstractEvent();
 }

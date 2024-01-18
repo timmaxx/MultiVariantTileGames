@@ -9,18 +9,19 @@ import timmax.tilegame.basemodel.protocol.HashSetOfObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.baseview.View;
-import timmax.tilegame.transport.TransportOfClient;
 
 // WebSocket клиент многоразовый
 public class MultiGameWebSocketClientManyTimesUse implements IModelOfClient {
     // ToDo: Параметр не должен быть null!
-    private final LocalClientState localClientState = new LocalClientState(null);
-    private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent = new HashSetOfObserverOnAbstractEvent();
+    private final LocalClientState localClientState;
+    private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
 
     private MultiGameWebSocketClient multiGameWebSocketClient;
     private URI uri;
 
     public MultiGameWebSocketClientManyTimesUse() {
+        localClientState = new LocalClientState(this);
+        hashSetOfObserverOnAbstractEvent = new HashSetOfObserverOnAbstractEvent();
         System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
     }
 
@@ -99,6 +100,11 @@ public class MultiGameWebSocketClientManyTimesUse implements IModelOfClient {
         multiGameWebSocketClient.addView(view);
     }
 
+    @Override
+    public ObserverOnAbstractEvent getHashSetOfObserverOnAbstractEvent() {
+        return hashSetOfObserverOnAbstractEvent;
+    }
+
     // Own methods of the class:
     public void addCallBackOnIncomingTransportPackageEvent(ObserverOnAbstractEvent observerOnAbstractEvent) {
         hashSetOfObserverOnAbstractEvent.add(observerOnAbstractEvent);
@@ -115,10 +121,5 @@ public class MultiGameWebSocketClientManyTimesUse implements IModelOfClient {
     public void connect() {
         multiGameWebSocketClient = new MultiGameWebSocketClient(uri, localClientState, hashSetOfObserverOnAbstractEvent);
         multiGameWebSocketClient.connect();
-    }
-
-    // ToDo: Это временное решение. Потом удалить.
-    public TransportOfClient getMultiGameWebSocketClient() {
-        return multiGameWebSocketClient;
     }
 }
