@@ -26,6 +26,12 @@ public class LocalClientState extends AbstractClientState<InstanceIdOfModel> {
         iModelOfClient.getHashSetOfObserverOnAbstractEvent().updateOnLogin();
     }
 
+    // ---- 3 (Список типов игр)
+    public void forgetGameTypeSet() {
+        super.forgetGameTypeSet();
+        iModelOfClient.getHashSetOfObserverOnAbstractEvent().updateOnForgetGameTypeSet();
+    }
+
     public ListOfLocalView getListOfLocalView() {
         return listOfLocalView;
     }
