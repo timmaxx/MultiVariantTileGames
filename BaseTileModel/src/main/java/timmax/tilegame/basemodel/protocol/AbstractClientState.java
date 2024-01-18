@@ -52,6 +52,7 @@ public abstract class AbstractClientState<Model> {
     }
 
     private void setGameTypeSet_(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor) {
+        setGameType_(null);
         this.setOfModelOfServerDescriptor = setOfModelOfServerDescriptor;
     }
 
@@ -69,6 +70,7 @@ public abstract class AbstractClientState<Model> {
     }
 
     private void setGameType_(ModelOfServerDescriptor modelOfServerDescriptor) {
+        setListOfServerBaseModel_(null);
         this.modelOfServerDescriptor = modelOfServerDescriptor;
     }
 
@@ -82,11 +84,11 @@ public abstract class AbstractClientState<Model> {
     }
 
     public void forgetListOfServerBaseModel() {
-        setListOfServerBaseModel_(new ArrayList<>());
+        setListOfServerBaseModel_(null);
     }
 
     private void setListOfServerBaseModel_(List<Model> listOfServerBaseModel) {
-        forgetServerBaseModel();
+        setServerBaseModel_(null);
         this.listOfServerBaseModel = listOfServerBaseModel;
     }
 
