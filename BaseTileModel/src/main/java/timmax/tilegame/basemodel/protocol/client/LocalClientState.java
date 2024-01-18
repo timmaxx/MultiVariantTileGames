@@ -3,13 +3,27 @@ package timmax.tilegame.basemodel.protocol.client;
 import timmax.tilegame.basemodel.protocol.AbstractClientState;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import timmax.tilegame.baseview.View;
-import timmax.tilegame.transport.TransportOfClient;
 
 public class LocalClientState extends AbstractClientState<InstanceIdOfModel> {
+    private final IModelOfClient iModelOfClient;
     private final ListOfLocalView listOfLocalView;
 
-    public LocalClientState(TransportOfClient transportOfClient) {
-        this.listOfLocalView = new ListOfLocalView(transportOfClient);
+    public LocalClientState(IModelOfClient iModelOfClient) {
+        this.iModelOfClient = iModelOfClient;
+        this.listOfLocalView = new ListOfLocalView();
+    }
+
+    // ---- 2 (Пользователь)
+    @Override
+    public void forgetUserName() {
+        super.forgetUserName();
+        iModelOfClient.getHashSetOfObserverOnAbstractEvent().updateOnLogout();
+    }
+
+    @Override
+    public void setUserName(String userName) {
+        super.setUserName(userName);
+        iModelOfClient.getHashSetOfObserverOnAbstractEvent().updateOnLogin();
     }
 
     public ListOfLocalView getListOfLocalView() {
