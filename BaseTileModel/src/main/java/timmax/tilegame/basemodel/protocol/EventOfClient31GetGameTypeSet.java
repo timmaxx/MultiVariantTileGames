@@ -9,7 +9,7 @@ import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerLoader;
 import timmax.tilegame.transport.TransportOfServer;
 
-public class EventOfClient21GetGameTypeSet extends EventOfClient {
+public class EventOfClient31GetGameTypeSet extends EventOfClient {
     @Override
     public <ClienId> void executeOnServer(TransportOfServer<ClienId> transportOfServer, ClienId clientId) {
         System.out.println("  onGetGameTypeSet");
@@ -29,6 +29,6 @@ public class EventOfClient21GetGameTypeSet extends EventOfClient {
 
     @Override
     public String toString() {
-        return "EventOfClient21GetGameTypeSet{}";
+        return "EventOfClient31GetGameTypeSet{}";
     }
 }

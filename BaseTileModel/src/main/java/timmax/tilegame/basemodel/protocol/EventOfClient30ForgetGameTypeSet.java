@@ -2,7 +2,7 @@ package timmax.tilegame.basemodel.protocol;
 
 import timmax.tilegame.transport.TransportOfServer;
 
-public class EventOfClient20ForgetGameTypeSet extends EventOfClient {
+public class EventOfClient30ForgetGameTypeSet extends EventOfClient {
     @Override
     public <ClienId> void executeOnServer(TransportOfServer<ClienId> transportOfServer, ClienId clientId) {
         System.out.println("  onForgetGameTypeSet");
@@ -11,6 +11,6 @@ public class EventOfClient20ForgetGameTypeSet extends EventOfClient {
 
     @Override
     public String toString() {
-        return "EventOfClient20ForgetGameTypeSet{}";
+        return "EventOfClient30ForgetGameTypeSet{}";
     }
 }

@@ -31,13 +31,13 @@ public class RemoteClientState<ClienId> extends AbstractClientState<IModelOfServ
     @Override
     public void forgetGameTypeSet() {
         super.forgetGameTypeSet();
-        transportOfServer.sendEventOfServer(clientId, new EventOfServer20ForgetGameTypeSet());
+        transportOfServer.sendEventOfServer(clientId, new EventOfServer30ForgetGameTypeSet());
     }
 
     @Override
     public void setGameTypeSet(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor) {
         super.setGameTypeSet(setOfModelOfServerDescriptor);
-        transportOfServer.sendEventOfServer(clientId, new EventOfServer21GetGameTypeSet(setOfModelOfServerDescriptor));
+        transportOfServer.sendEventOfServer(clientId, new EventOfServer31GetGameTypeSet(setOfModelOfServerDescriptor));
     }
 
     // ---- 4 (Конкретный тип игры)
