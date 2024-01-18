@@ -18,30 +18,41 @@ public class LocalClientState extends AbstractClientState<InstanceIdOfModel> {
 
     // ---- 2 (Пользователь)
     @Override
-    public void forgetUserName() {
-        super.forgetUserName();
-        iModelOfClient.getHashSetOfObserverOnAbstractEvent().updateOnLogout();
-    }
-
-    @Override
     public void setUserName(String userName) {
         super.setUserName(userName);
         iModelOfClient.getHashSetOfObserverOnAbstractEvent().updateOnLogin();
     }
 
-    // ---- 3 (Список типов игр)
     @Override
-    public void forgetGameTypeSet() {
-        super.forgetGameTypeSet();
-        iModelOfClient.getHashSetOfObserverOnAbstractEvent().updateOnForgetGameTypeSet();
+    public void forgetUserName() {
+        super.forgetUserName();
+        iModelOfClient.getHashSetOfObserverOnAbstractEvent().updateOnLogout();
     }
 
+    // ---- 3 (Список типов игр)
     @Override
     public void setGameTypeSet(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor) {
         super.setGameTypeSet(setOfModelOfServerDescriptor);
         iModelOfClient.getHashSetOfObserverOnAbstractEvent().updateOnGetGameTypeSet();
     }
 
+    @Override
+    public void forgetGameTypeSet() {
+        super.forgetGameTypeSet();
+        iModelOfClient.getHashSetOfObserverOnAbstractEvent().updateOnForgetGameTypeSet();
+    }
+
+    // ---- 4 (Конкретный тип игры)
+    @Override
+    public void setGameType(ModelOfServerDescriptor modelOfServerDescriptor) {
+        super.setGameType(modelOfServerDescriptor);
+        iModelOfClient.getHashSetOfObserverOnAbstractEvent().updateOnSelectGameType();
+    }
+/*
+    public void forgetGameType() {
+
+    }
+*/
     public ListOfLocalView getListOfLocalView() {
         return listOfLocalView;
     }
