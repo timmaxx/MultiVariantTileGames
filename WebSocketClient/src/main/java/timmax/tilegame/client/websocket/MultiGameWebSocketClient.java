@@ -11,7 +11,7 @@ import org.java_websocket.handshake.ServerHandshake;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.gamecommand.GameCommandNewGame;
 import timmax.tilegame.basemodel.protocol.*;
-// import timmax.tilegame.basemodel.protocol.EventOfClient41GetGamePlaySet;
+// import timmax.tilegame.basemodel.protocol.EventOfClient51GetGamePlaySet;
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.basemodel.protocol.client.LocalClientState;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
@@ -145,13 +145,13 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     @Override
     public void forgetGameType() {
         System.out.println("forgetGameType()");
-        sendEventOfClient(new EventOfClient30ForgetGameType());
+        sendEventOfClient(new EventOfClient40ForgetGameType());
     }
 
     @Override
     public void gameTypeSelect(ModelOfServerDescriptor modelOfServerDescriptor) {
         System.out.println("gameTypeSelect(String)");
-        sendEventOfClient(new EventOfClient31GameTypeSelect(modelOfServerDescriptor));
+        sendEventOfClient(new EventOfClient41GameTypeSelect(modelOfServerDescriptor));
     }
 
     // 5
@@ -160,13 +160,13 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     public void forgetGamePlaySet() {
         System.out.println("forgetGamePlaySet()");
         System.out.println("  do nothing.");
-        // sendEventOfClient(new EventOfClient40ForgetGamePlaySet());
+        // sendEventOfClient(new EventOfClient50ForgetGamePlaySet());
     }
 */
     @Override
     public void getGamePlaySet() {
         System.out.println("getGamePlaySet()");
-        sendEventOfClient(new EventOfClient41GetGamePlaySet());
+        sendEventOfClient(new EventOfClient51GetGamePlaySet());
     }
 
     // 9
