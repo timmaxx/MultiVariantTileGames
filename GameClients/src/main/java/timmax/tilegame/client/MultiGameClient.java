@@ -25,6 +25,7 @@ public class MultiGameClient extends Application {
         Pane03GetGameTypeSet pane03GetGameTypeSet = new Pane03GetGameTypeSet(multiGameWebSocketClientManyTimesUse);
         Pane04SelectGameType pane04SelectGameType = new Pane04SelectGameType(multiGameWebSocketClientManyTimesUse);
         Pane05GetGamePlaySet pane05GetGamePlaySet = new Pane05GetGamePlaySet(multiGameWebSocketClientManyTimesUse);
+        Pane06SelectGame pane06SelectGame = new Pane06SelectGame(multiGameWebSocketClientManyTimesUse);
         Pane09Gaming pane09Gaming = new Pane09Gaming(multiGameWebSocketClientManyTimesUse);
 
         root.getChildren().addAll(
@@ -33,6 +34,7 @@ public class MultiGameClient extends Application {
                 pane03GetGameTypeSet,
                 pane04SelectGameType,
                 pane05GetGamePlaySet,
+                pane06SelectGame,
                 pane09Gaming
         );
 
