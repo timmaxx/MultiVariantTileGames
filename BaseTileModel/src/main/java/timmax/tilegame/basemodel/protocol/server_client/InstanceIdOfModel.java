@@ -8,7 +8,7 @@ import java.io.ObjectOutput;
 import timmax.tilegame.basemodel.protocol.server.IModelOfServer;
 
 public class InstanceIdOfModel implements Externalizable {
-    String id;
+    private String id;
 
     public static InstanceIdOfModel modelOfServerToInstanceIdOfModel(IModelOfServer<?> iModelOfServer) {
         return new InstanceIdOfModel(iModelOfServer.toString());
@@ -20,6 +20,17 @@ public class InstanceIdOfModel implements Externalizable {
     public InstanceIdOfModel(String id) {
         this();
         this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "InstanceIdOfModel{" +
+                "id='" + id + '\'' +
+                '}';
     }
 
     @Override

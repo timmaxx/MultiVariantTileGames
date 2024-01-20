@@ -94,7 +94,7 @@ public abstract class AbstractClientState<Model> {
     public Model getServerBaseModel() {
         return serverBaseModel;
     }
-/*
+
     public void setServerBaseModel(Model serverBaseModel) {
         setServerBaseModel_(serverBaseModel);
     }
@@ -102,7 +102,7 @@ public abstract class AbstractClientState<Model> {
     public void forgetServerBaseModel() {
         setServerBaseModel_(null);
     }
-*/
+
     private void setServerBaseModel_(Model serverBaseModel) {
         this.serverBaseModel = serverBaseModel;
     }
@@ -111,11 +111,15 @@ public abstract class AbstractClientState<Model> {
     public MainGameClientStatus getMainGameClientStatus() {
         if (serverBaseModel != null) {
             return MainGameClientStatus.GAME_IS_PLAYING;
-        } else if (listOfServerBaseModel != null /*&& listOfServerBaseModel.size() > 0*/) {
+        } // Проверка на длину списка закоментирована, т.к. предполагается, что пользователь может иметь возможность
+          // создавать партию даже если он не получил списка готовых партий.
+          else if (listOfServerBaseModel != null /*&& listOfServerBaseModel.size() > 0*/) {
             return MainGameClientStatus.GAME_MATCH_SELECTED;
         } else if (modelOfServerDescriptor != null) {
             return MainGameClientStatus.GAME_TYPE_SELECT;
-        } else if (setOfModelOfServerDescriptor != null && setOfModelOfServerDescriptor.size() > 0) {
+        } // Проверка на длину списка не закоментирована, т.к. предполагается, что пользователь не может сам создать
+          // новый тип игры.
+          else if (setOfModelOfServerDescriptor != null && setOfModelOfServerDescriptor.size() > 0) {
             return MainGameClientStatus.GET_GAME_TYPE_SET;
         } else if (userName != null && !userName.isEmpty()) {
             return MainGameClientStatus.CONNECT_AUTHORIZED;

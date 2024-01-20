@@ -1,6 +1,6 @@
 package timmax.tilegame.basemodel.protocol;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import timmax.tilegame.transport.TransportOfServer;
 
@@ -9,17 +9,17 @@ public class EventOfClient51GetGamePlaySet extends EventOfClient {
     public <ClienId> void executeOnServer(TransportOfServer<ClienId> transportOfServer, ClienId clientId) {
         System.out.println("  GetGamePlaySet");
 
-        transportOfServer.sendEventOfServer(
-                clientId,
-                new EventOfServer51GetGamePlaySet(
-                        // Из перечня игр, которые сейчас доступны серверу, составить список из тех игр,
-                        // которые соответствуют выбранному типу игры
-                        // и к которым ещё можно присоединиться. Т.е. удовлетворяющих условиям:
-                        // 1. Игра для 2-х и более игроков.
-                        // 2. Есть хотя-бы одна не занятая роль.
-                        List.of() // Пока будем считать, что нет игр для присоединения.
-                )
-        );
+        // Сначала вместо new ArrayList<>() применял List.of() и здесь это работало.
+        // Но когда на клиенте "вручную" добавляется строка "New game", а на сервере если пришло "New game" и делается
+        // попытка add("New game"), то поскольку List.of() - неизменяемый список, возникнет исключение.
+
+        // Но вообще то, вместо пустого списка, нужно возвращать перечень моделей,
+        // которые соответствуют выбранному типу игр и к которым ещё можно присоединиться.
+        // Т.е. удовлетворяющих условиям:
+        // 1. Игра для 2-х и более игроков.
+        // 2. Есть хотя-бы одна не занятая роль.
+
+        transportOfServer.getRemoteClientStateByClientId(clientId).setGamePlaySet(new ArrayList<>());
     }
 
     @Override

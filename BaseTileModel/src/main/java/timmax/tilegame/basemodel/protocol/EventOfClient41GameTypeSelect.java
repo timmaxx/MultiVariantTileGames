@@ -4,9 +4,8 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
-import timmax.tilegame.basemodel.protocol.server.IModelOfServer;
+import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.transport.TransportOfServer;
 
@@ -33,7 +32,7 @@ public class EventOfClient41GameTypeSelect extends EventOfClient {
             return;
         }
 
-        Constructor<?> constructor = transportOfServer
+        Constructor<? extends ModelOfServer<?>> constructor = transportOfServer
                 .getRemoteClientStateByClientId(clientId)
                 .getGameTypeSet()
                 .stream()
@@ -46,7 +45,7 @@ public class EventOfClient41GameTypeSelect extends EventOfClient {
             transportOfServer.getRemoteClientStateByClientId(clientId).forgetGameType();
             return;
         }
-
+/*
         Object obj = null;
         try {
             obj = constructor.newInstance(transportOfServer);
@@ -55,16 +54,13 @@ public class EventOfClient41GameTypeSelect extends EventOfClient {
             e.printStackTrace();
             System.exit(1);
         }
-
+*/
         // ToDo: Избавиться от "Warning:(60, 28) Raw use of parameterized class 'IModelOfServer'":
-        if (obj instanceof IModelOfServer) {
-            // ??? // ToDo: Избавиться от "Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IModelOfServer' to 'timmax.tilegame.basemodel.protocol.server.IModelOfServer<ClienId>'"
-            transportOfServer.getRemoteClientStateByClientId(clientId).setGameType(modelOfServerDescriptor);
-            // ToDo: obj не был использован в части получения у него полей или вызова методов. Нужен-ли он?
-        } else {
-            System.err.println("Created object is not ModelOfServer.");
-            transportOfServer.getRemoteClientStateByClientId(clientId).forgetGameType();
-        }
+        modelOfServerDescriptor.setConstructor(constructor);
+        // ??? // ToDo: Избавиться от "Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IModelOfServer' to 'timmax.tilegame.basemodel.protocol.server.IModelOfServer<ClienId>'"
+        transportOfServer.getRemoteClientStateByClientId(clientId).setGameType(modelOfServerDescriptor);
+        // ToDo: obj не был использован в части получения у него полей или вызова методов. Нужен-ли он?
+
     }
 
     @Override

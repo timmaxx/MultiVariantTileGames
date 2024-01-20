@@ -55,7 +55,7 @@ public class RemoteClientState<ClienId> extends AbstractClientState<IModelOfServ
         transportOfServer.sendEventOfServer(clientId, new EventOfServer41GameTypeSelect(modelOfServerDescriptor));
     }
 
-    // ---- 5
+    // ---- 5 Перечень партий
     public void forgetGamePlaySet() {
         super.setGamePlaySet(null);
         transportOfServer.sendEventOfServer(clientId, new EventOfServer50ForgetGamePlaySet());
@@ -66,9 +66,26 @@ public class RemoteClientState<ClienId> extends AbstractClientState<IModelOfServ
         transportOfServer.sendEventOfServer(clientId, new EventOfServer51GetGamePlaySet(
                 listOfServerBaseModel
                         .stream()
-                        //.map(x -> InstanceIdOfModel.modelOfServerToInstanceIdOfModel(x))
                         .map(InstanceIdOfModel::modelOfServerToInstanceIdOfModel)
                         .toList()
+        ));
+    }
+
+    // ---- 6 Конкретная партия
+/*
+    @Override
+    public void forgetServerBaseModel() {
+        super.forgetServerBaseModel();
+        transportOfServer.sendEventOfServer(clientId, new EventOfServer60(
+        ));
+    }
+*/
+    @Override
+    // ToDo: в идентификаторе ClienId есть ошибка. Заменить здесь и во всех классах на ClientId.
+    public void setServerBaseModel(IModelOfServer<ClienId> iModelOfServer) {
+        super.setServerBaseModel(serverBaseModel);
+        transportOfServer.sendEventOfServer(clientId, new EventOfServer61GameMatchSelect(
+                new InstanceIdOfModel(iModelOfServer.toString())
         ));
     }
 }

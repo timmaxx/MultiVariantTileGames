@@ -1,6 +1,7 @@
 package timmax.tilegame.client.statuscontrol;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -19,18 +20,17 @@ public class Pane06SelectGame extends AbstractConnectStatePane {
 
         comboBoxGameSet = new ComboBox<>();
         Button buttonSelectGame = new Button("Select the game");
-        // Button buttonNewGame = new Button("Create new game");
         textFieldSelectedGame = new TextField();
         textFieldSelectedGame.setEditable(false);
 
         Button buttonForgetGame = new Button("Forget the game");
         buttonForgetGame.setFocusTraversable(false);
-/*
+
         buttonSelectGame.setOnAction(event -> {
             disableAllControls();
-            String gameMatch = comboBoxGameSet.getValue();
+            multiGameWebSocketClientManyTimesUse.gamePlaySelect(new InstanceIdOfModel(comboBoxGameSet.getValue()));
         });
-*/
+
 /*
         buttonSelectGameType.setOnAction(event -> {
             disableAllControls();
@@ -46,11 +46,6 @@ public class Pane06SelectGame extends AbstractConnectStatePane {
         });
 */
 
-/*
-        buttonNewGame.setOnAction(event -> {
-            disableAllControls();
-        });
-*/
         buttonForgetGame.setOnAction(event -> disableAllControls());
 
         setListsOfControlsAndAllDisable(
@@ -129,10 +124,13 @@ public class Pane06SelectGame extends AbstractConnectStatePane {
 
     @Override
     public void updateOnGetGamePlaySet() {
+        // Также см. комментарии к EventOfClient51GetGamePlaySet
+        ObservableList<InstanceIdOfModel> observableList = FXCollections.observableArrayList(new InstanceIdOfModel("New game"));
+        observableList.addAll(localClientState.getGamePlaySet());
         comboBoxGameSet.setItems(FXCollections.observableArrayList(
-                localClientState.getGamePlaySet()
+                observableList
                         .stream()
-                        .map(InstanceIdOfModel::toString)
+                        .map(InstanceIdOfModel::getId)
                         .toList()
         ));
         textFieldSelectedGame.setText("");

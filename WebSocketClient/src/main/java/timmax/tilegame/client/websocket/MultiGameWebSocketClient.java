@@ -14,6 +14,7 @@ import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.basemodel.protocol.client.LocalClientState;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
+import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfClient;
 
@@ -164,6 +165,16 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     public void getGamePlaySet() {
         System.out.println("getGamePlaySet()");
         sendEventOfClient(new EventOfClient51GetGamePlaySet());
+    }
+
+    // 6
+/*
+*/
+
+    @Override
+    public void gamePlaySelect(InstanceIdOfModel model) {
+        System.out.println("gamePlaySelect(InstanceIdOfModel model)");
+        sendEventOfClient(new EventOfClient61GameMatchSelect(model));
     }
 
     // 9

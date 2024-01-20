@@ -12,7 +12,10 @@ import timmax.tilegame.basemodel.protocol.IModelOfServerDescriptor;
 import timmax.tilegame.transport.TransportOfServer;
 
 public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Externalizable {
+    // ToDo: Это поле нужно вынести в класс-наследник.
     private Constructor<? extends ModelOfServer<?>> constructorOfModelOfServerClass;
+
+    // ToDo: Эти поля можно оставить в базовом (этом) классе:
     private String gameName;
     private int countOfGamers;
     // private String[] ; // тогда в этом массиве строк можно хранить имя роли каждого из игроков
@@ -77,7 +80,8 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
     @Override
     public String toString() {
         return "ModelOfServerDescriptor{" +
-                "gameName='" + gameName + '\'' +
+                "constructorOfModelOfServerClass=" + constructorOfModelOfServerClass +
+                ", gameName='" + gameName + '\'' +
                 ", countOfGamers=" + countOfGamers +
                 '}';
     }
@@ -109,5 +113,11 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
     // Own methods
     public Constructor<? extends ModelOfServer<?>> getConstructorOfModelOfServerClass() {
         return constructorOfModelOfServerClass;
+    }
+
+    // ToDo: Временный метод (потом удалить). После разделения на два класса, этот метод удалить,
+    //       а инициализацию сделать через приватный метод и вызов из конструктора с параметром или readExternal.
+    public void setConstructor(Constructor<? extends ModelOfServer<?>> constructor) {
+        this.constructorOfModelOfServerClass = constructor;
     }
 }
