@@ -20,7 +20,7 @@
         </encoder>
     </appender>
 
-    <logger name="timmax.minesweeper.jfx" level="debug"/>
+    <logger name="timmax.tilegame.client" level="debug"/>
 
     <root level="info">
         <appender-ref ref="file"/>

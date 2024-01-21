@@ -14,7 +14,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <slf4j.version>1.7.36</slf4j.version>
+        <!-- Logging -->
+        <logback.version>1.4.14</logback.version>
+        <slf4j.version>2.0.10</slf4j.version>
     </properties>
 
     <dependencies>

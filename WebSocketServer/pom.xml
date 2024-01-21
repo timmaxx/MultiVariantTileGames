@@ -15,9 +15,27 @@
         <maven.compiler.source>18</maven.compiler.source>
         <maven.compiler.target>18</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Logging -->
+        <logback.version>1.4.14</logback.version>
+        <slf4j.version>2.0.10</slf4j.version>
     </properties>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+            <!--<scope>test</scope>-->
+        </dependency>
+<!--
+        &lt;!&ndash; https://mvnrepository.com/artifact/ch.qos.logback/logback-core &ndash;&gt;
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.4.14</version>
+        </dependency>
+-->
         <!-- https://mvnrepository.com/artifact/org.java-websocket/Java-WebSocket -->
         <dependency>
             <groupId>org.java-websocket</groupId>
