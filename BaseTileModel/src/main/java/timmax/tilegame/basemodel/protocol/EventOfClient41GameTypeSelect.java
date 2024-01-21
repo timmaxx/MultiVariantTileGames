@@ -45,22 +45,11 @@ public class EventOfClient41GameTypeSelect extends EventOfClient {
             transportOfServer.getRemoteClientStateByClientId(clientId).forgetGameType();
             return;
         }
-/*
-        Object obj = null;
-        try {
-            obj = constructor.newInstance(transportOfServer);
-        } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
-            System.err.println("Server cannot create object of model for " + modelOfServerDescriptor + " with constructor with specific parameters.");
-            e.printStackTrace();
-            System.exit(1);
-        }
-*/
+
         // ToDo: Избавиться от "Warning:(60, 28) Raw use of parameterized class 'IModelOfServer'":
         modelOfServerDescriptor.setConstructor(constructor);
         // ??? // ToDo: Избавиться от "Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IModelOfServer' to 'timmax.tilegame.basemodel.protocol.server.IModelOfServer<ClientId>'"
         transportOfServer.getRemoteClientStateByClientId(clientId).setGameType(modelOfServerDescriptor);
-        // ToDo: obj не был использован в части получения у него полей или вызова методов. Нужен-ли он?
-
     }
 
     @Override
