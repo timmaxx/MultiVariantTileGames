@@ -24,7 +24,7 @@ public interface ObserverOnAbstractEvent {
     void updateOnGetGamePlaySet();
 
     // 6
-    // void updateOnForgetGameMatch();
+    void updateOnForgetGameMatch();
     void updateOnSelectGameMatch();
 
     // X

@@ -25,7 +25,7 @@ public interface IModelOfClient {
     void getGamePlaySet();
 
     // ---- 6
-    //void forgetGamePlaySet();
+    void forgetGamePlay();
     void gamePlaySelect(InstanceIdOfModel model);
 
     // ---- X

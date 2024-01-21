@@ -22,10 +22,21 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
 
     // Overriden method from interface ObserverOnAbstractEvent
     // 1
+    // Все методы здесь для единообразия расположены в порядке:
+    // - от 1 к 6,
+    // - внутри этого к предыдущему состоянию (x.0), к следующему (x.1).
+    // ToDo: уменьшить количество методов. Их можно разложить на группы:
+    // 1. Все, кро п. 2 и п. 3.
+    // 2. Два предпоследних
+    //   1. Инициализирует контрол(ы)
+    //   2.
+    // 3. Последний метод.
     @Override
     public void updateOnClose() {
     }
 
+    // ToDo: методы 1.1 и 2.0 (и вообще x.1 и x+1.0) это почти одно и тоже.
+    //       Отличие только в инициализации в методах
     @Override
     public void updateOnOpen() {
     }
@@ -67,11 +78,10 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     }
 
     // 6
-/*
     @Override
     public void updateOnForgetGameMatch() {
     }
-*/
+
     @Override
     public void updateOnSelectGameMatch() {
     }

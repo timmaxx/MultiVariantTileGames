@@ -71,15 +71,13 @@ public class RemoteClientState<ClienId> extends AbstractClientState<IModelOfServ
         ));
     }
 
-    // ---- 6 Конкретная партия
-/*
+    // ---- 6 Конкретная партия игры
     @Override
     public void forgetServerBaseModel() {
         super.forgetServerBaseModel();
-        transportOfServer.sendEventOfServer(clientId, new EventOfServer60(
-        ));
+        transportOfServer.sendEventOfServer(clientId, new EventOfServer60ForgetGameMatch());
     }
-*/
+
     @Override
     // ToDo: в идентификаторе ClienId есть ошибка. Заменить здесь и во всех классах на ClientId.
     public void setServerBaseModel(IModelOfServer<ClienId> iModelOfServer) {

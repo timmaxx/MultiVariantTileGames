@@ -31,25 +31,13 @@ public class Pane06SelectGame extends AbstractConnectStatePane {
             multiGameWebSocketClientManyTimesUse.gamePlaySelect(new InstanceIdOfModel(comboBoxGameSet.getValue()));
         });
 
-/*
-        buttonSelectGameType.setOnAction(event -> {
+        buttonForgetGame.setOnAction(event -> {
             disableAllControls();
-            String gameName = comboBoxGameTypeSet.getValue();
-            ModelOfServerDescriptor modelOfServerDescriptor = multiGameWebSocketClientManyTimesUse
-                    .getLocalClientState()
-                    .getGameTypeSet()
-                    .stream()
-                    .filter(x -> x.getGameName().equals(gameName))
-                    .findAny()
-                    .orElse(null);
-            multiGameWebSocketClientManyTimesUse.gameTypeSelect(modelOfServerDescriptor);
+            multiGameWebSocketClientManyTimesUse.forgetGamePlay();
         });
-*/
-
-        buttonForgetGame.setOnAction(event -> disableAllControls());
 
         setListsOfControlsAndAllDisable(
-                List.of(comboBoxGameSet, buttonSelectGame, /*buttonNewGame, */textFieldSelectedGame),
+                List.of(comboBoxGameSet, buttonSelectGame, textFieldSelectedGame),
                 List.of(buttonForgetGame)
         );
     }
@@ -138,13 +126,14 @@ public class Pane06SelectGame extends AbstractConnectStatePane {
     }
 
     // 6
-/*
     @Override
     public void updateOnForgetGameMatch() {
+        // ToDo: Эти строки всегда совпадают с последними строками предыдущего метода для всех классов Pane0x.
+        //       Ввести дополнительный приватный метод и вызывать его.
         textFieldSelectedGame.setText("");
         setDisableControlsNextState(false);
     }
-*/
+
     @Override
     public void updateOnSelectGameMatch() {
         textFieldSelectedGame.setText(localClientState.getServerBaseModel().toString());

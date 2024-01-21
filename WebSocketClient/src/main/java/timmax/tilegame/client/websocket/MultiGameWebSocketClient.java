@@ -168,8 +168,11 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     }
 
     // 6
-/*
-*/
+    @Override
+    public void forgetGamePlay() {
+        System.out.println("forgetGamePlay()");
+        sendEventOfClient(new EventOfClient60ForgetGameMatch());
+    }
 
     @Override
     public void gamePlaySelect(InstanceIdOfModel model) {
