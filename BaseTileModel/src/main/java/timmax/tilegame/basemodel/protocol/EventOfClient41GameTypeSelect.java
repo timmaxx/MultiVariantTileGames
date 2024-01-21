@@ -22,7 +22,7 @@ public class EventOfClient41GameTypeSelect extends EventOfClient {
     }
 
     @Override
-    public <ClienId> void executeOnServer(TransportOfServer<ClienId> transportOfServer, ClienId clientId) {
+    public <ClientId> void executeOnServer(TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
         System.out.println("  onGameTypeSelect");
 
         System.out.println("  modelOfServerDescriptor = " + modelOfServerDescriptor);
@@ -57,7 +57,7 @@ public class EventOfClient41GameTypeSelect extends EventOfClient {
 */
         // ToDo: Избавиться от "Warning:(60, 28) Raw use of parameterized class 'IModelOfServer'":
         modelOfServerDescriptor.setConstructor(constructor);
-        // ??? // ToDo: Избавиться от "Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IModelOfServer' to 'timmax.tilegame.basemodel.protocol.server.IModelOfServer<ClienId>'"
+        // ??? // ToDo: Избавиться от "Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IModelOfServer' to 'timmax.tilegame.basemodel.protocol.server.IModelOfServer<ClientId>'"
         transportOfServer.getRemoteClientStateByClientId(clientId).setGameType(modelOfServerDescriptor);
         // ToDo: obj не был использован в части получения у него полей или вызова методов. Нужен-ли он?
 

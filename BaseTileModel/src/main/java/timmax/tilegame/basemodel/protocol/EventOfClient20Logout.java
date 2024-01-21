@@ -4,7 +4,7 @@ import timmax.tilegame.transport.TransportOfServer;
 
 public class EventOfClient20Logout extends EventOfClient {
     @Override
-    public <ClienId> void executeOnServer(TransportOfServer<ClienId> transportOfServer, ClienId clientId) {
+    public <ClientId> void executeOnServer(TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
         System.out.println("  onLogout");
         transportOfServer.getRemoteClientStateByClientId(clientId).forgetUserName();
     }

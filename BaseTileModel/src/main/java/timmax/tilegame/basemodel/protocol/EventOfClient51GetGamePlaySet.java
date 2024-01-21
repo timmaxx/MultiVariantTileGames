@@ -6,7 +6,7 @@ import timmax.tilegame.transport.TransportOfServer;
 
 public class EventOfClient51GetGamePlaySet extends EventOfClient {
     @Override
-    public <ClienId> void executeOnServer(TransportOfServer<ClienId> transportOfServer, ClienId clientId) {
+    public <ClientId> void executeOnServer(TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
         System.out.println("  GetGamePlaySet");
 
         // Сначала вместо new ArrayList<>() применял List.of() и здесь это работало.

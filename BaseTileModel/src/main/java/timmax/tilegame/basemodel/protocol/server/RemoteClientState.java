@@ -7,11 +7,11 @@ import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import timmax.tilegame.transport.TransportOfServer;
 
-public class RemoteClientState<ClienId> extends AbstractClientState<IModelOfServer<ClienId>> {
-    private final ClienId clientId;
-    private final TransportOfServer<ClienId> transportOfServer;
+public class RemoteClientState<ClientId> extends AbstractClientState<IModelOfServer<ClientId>> {
+    private final ClientId clientId;
+    private final TransportOfServer<ClientId> transportOfServer;
 
-    public RemoteClientState(TransportOfServer<ClienId> transportOfServer, ClienId clientId) {
+    public RemoteClientState(TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
         this.clientId = clientId;
         this.transportOfServer = transportOfServer;
     }
@@ -61,7 +61,7 @@ public class RemoteClientState<ClienId> extends AbstractClientState<IModelOfServ
         transportOfServer.sendEventOfServer(clientId, new EventOfServer50ForgetGamePlaySet());
     }
 
-    public void setGamePlaySet(List<IModelOfServer<ClienId>> listOfServerBaseModel) {
+    public void setGamePlaySet(List<IModelOfServer<ClientId>> listOfServerBaseModel) {
         super.setGamePlaySet(listOfServerBaseModel);
         transportOfServer.sendEventOfServer(clientId, new EventOfServer51GetGamePlaySet(
                 listOfServerBaseModel
@@ -79,8 +79,8 @@ public class RemoteClientState<ClienId> extends AbstractClientState<IModelOfServ
     }
 
     @Override
-    // ToDo: в идентификаторе ClienId есть ошибка. Заменить здесь и во всех классах на ClientId.
-    public void setServerBaseModel(IModelOfServer<ClienId> iModelOfServer) {
+    // ToDo: в идентификаторе ClientId есть ошибка. Заменить здесь и во всех классах на ClientId.
+    public void setServerBaseModel(IModelOfServer<ClientId> iModelOfServer) {
         super.setServerBaseModel(serverBaseModel);
         transportOfServer.sendEventOfServer(clientId, new EventOfServer61GameMatchSelect(
                 new InstanceIdOfModel(iModelOfServer.toString())

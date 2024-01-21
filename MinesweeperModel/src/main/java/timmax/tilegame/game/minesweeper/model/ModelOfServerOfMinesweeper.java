@@ -17,7 +17,7 @@ import timmax.tilegame.game.minesweeper.model.gameobject.LevelGenerator;
 
 import static javafx.scene.paint.Color.*;
 
-public class ModelOfServerOfMinesweeper<ClienId> extends ModelOfServer<ClienId> {
+public class ModelOfServerOfMinesweeper<ClientId> extends ModelOfServer<ClientId> {
     private static final int REST_OF_MINE_INSTALLATION_IN_PERCENTS = 10;
     private static final int SIDE_OF_WIDTH = 15;
     private static final int SIDE_OF_HEIGHT = 10;
@@ -35,9 +35,9 @@ public class ModelOfServerOfMinesweeper<ClienId> extends ModelOfServer<ClienId> 
 
     private final LevelGenerator levelGenerator = new LevelGenerator();
 
-    private AllMinesweeperObjects<ClienId> allMinesweeperObjects;
+    private AllMinesweeperObjects<ClientId> allMinesweeperObjects;
 
-    public ModelOfServerOfMinesweeper(TransportOfServer<ClienId> transportOfServer) {
+    public ModelOfServerOfMinesweeper(TransportOfServer<ClientId> transportOfServer) {
         super(transportOfServer);
     }
 

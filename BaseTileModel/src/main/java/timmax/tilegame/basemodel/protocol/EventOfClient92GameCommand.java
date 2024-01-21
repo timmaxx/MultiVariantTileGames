@@ -20,7 +20,7 @@ public class EventOfClient92GameCommand extends EventOfClient {
     }
 
     @Override
-    public <ClienId> void executeOnServer(TransportOfServer<ClienId> transportOfServer, ClienId clientId) {
+    public <ClientId> void executeOnServer(TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
         System.out.println("  onGameEvent");
 
         gameCommand.executeOnServer(transportOfServer, clientId);

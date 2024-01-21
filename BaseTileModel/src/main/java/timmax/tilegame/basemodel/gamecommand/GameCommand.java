@@ -8,7 +8,7 @@ import java.io.ObjectOutput;
 import timmax.tilegame.transport.TransportOfServer;
 
 public abstract class GameCommand implements Externalizable {
-    public abstract  <ClienId> void executeOnServer(TransportOfServer<ClienId> transportOfServer, ClienId clientId);
+    public abstract <ClientId> void executeOnServer(TransportOfServer<ClientId> transportOfServer, ClientId clientId);
 
 
     @Override

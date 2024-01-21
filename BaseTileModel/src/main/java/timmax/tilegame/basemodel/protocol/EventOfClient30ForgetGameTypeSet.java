@@ -4,7 +4,7 @@ import timmax.tilegame.transport.TransportOfServer;
 
 public class EventOfClient30ForgetGameTypeSet extends EventOfClient {
     @Override
-    public <ClienId> void executeOnServer(TransportOfServer<ClienId> transportOfServer, ClienId clientId) {
+    public <ClientId> void executeOnServer(TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
         System.out.println("  onForgetGameTypeSet");
         transportOfServer.getRemoteClientStateByClientId(clientId).forgetGameTypeSet();
     }

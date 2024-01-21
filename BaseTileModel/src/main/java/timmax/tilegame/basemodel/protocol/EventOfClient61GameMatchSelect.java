@@ -23,7 +23,7 @@ public class EventOfClient61GameMatchSelect extends EventOfClient {
     }
 
     @Override
-    public <ClienId> void executeOnServer(TransportOfServer<ClienId> transportOfServer, ClienId clientId) {
+    public <ClientId> void executeOnServer(TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
         System.out.println("  onGameMatchSelect");
 
         System.out.println("  InstanceIdOfModel = " + instanceIdOfModel);

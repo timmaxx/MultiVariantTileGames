@@ -3,8 +3,8 @@ package timmax.tilegame.transport;
 import timmax.tilegame.basemodel.protocol.EventOfServer;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
 
-public interface TransportOfServer<ClienId> {
-    void sendEventOfServer(ClienId clientId, EventOfServer transportPackageOfServer);
+public interface TransportOfServer<ClientId> {
+    void sendEventOfServer(ClientId clientId, EventOfServer transportPackageOfServer);
 
-    RemoteClientState<ClienId> getRemoteClientStateByClientId(ClienId clientId);
+    RemoteClientState<ClientId> getRemoteClientStateByClientId(ClientId clientId);
 }

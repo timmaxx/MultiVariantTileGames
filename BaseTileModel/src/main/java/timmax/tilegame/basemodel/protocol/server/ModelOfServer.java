@@ -17,17 +17,17 @@ import static timmax.tilegame.basemodel.GameStatus.VICTORY;
 // Todo: Дополнить функционалом:
 // - по хранению перечня игровых контроллеров (от которых можно принимать сигналы управления игрой),
 // -- при игре с более чем одним игроком, контроллеры нужно учитывать по отдельному участнику.
-public abstract class ModelOfServer<ClienId> implements IModelOfServer<ClienId> {
+public abstract class ModelOfServer<ClientId> implements IModelOfServer<ClientId> {
     private final static int MIN_WIDTH = 1; // 2;
     private final static int MAX_WIDTH = 100;
     private final static int MIN_HEIGHT = 1; // 2;
     private final static int MAX_HEIGHT = 100;
 
-    private final ListOfRemoteView<ClienId> listOfRemoteViews;
+    private final ListOfRemoteView<ClientId> listOfRemoteViews;
 
     private GameStatus gameStatus;
 
-    public ModelOfServer(TransportOfServer<ClienId> transportOfServer) {
+    public ModelOfServer(TransportOfServer<ClientId> transportOfServer) {
         listOfRemoteViews = new ListOfRemoteView<>(transportOfServer);
     }
 
@@ -41,7 +41,7 @@ public abstract class ModelOfServer<ClienId> implements IModelOfServer<ClienId> 
 
     // Overiden methods from interface IModelOfServer:
     @Override
-    public final void addRemoteView(RemoteView<ClienId> remoteView) {
+    public final void addRemoteView(RemoteView<ClientId> remoteView) {
         listOfRemoteViews.add(remoteView);
     }
 
