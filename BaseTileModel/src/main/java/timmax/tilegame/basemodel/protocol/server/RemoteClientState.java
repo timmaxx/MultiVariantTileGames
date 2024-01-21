@@ -79,7 +79,6 @@ public class RemoteClientState<ClientId> extends AbstractClientState<IModelOfSer
     }
 
     @Override
-    // ToDo: в идентификаторе ClientId есть ошибка. Заменить здесь и во всех классах на ClientId.
     public void setServerBaseModel(IModelOfServer<ClientId> iModelOfServer) {
         super.setServerBaseModel(serverBaseModel);
         transportOfServer.sendEventOfServer(clientId, new EventOfServer61GameMatchSelect(
