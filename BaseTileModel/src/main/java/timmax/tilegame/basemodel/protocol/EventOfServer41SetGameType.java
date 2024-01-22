@@ -7,14 +7,14 @@ import java.io.ObjectOutput;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.transport.TransportOfClient;
 
-public class EventOfServer41GameTypeSelect extends EventOfServer {
+public class EventOfServer41SetGameType extends EventOfServer {
     private ModelOfServerDescriptor modelOfServerDescriptor;
 
-    public EventOfServer41GameTypeSelect() {
+    public EventOfServer41SetGameType() {
         super();
     }
 
-    public EventOfServer41GameTypeSelect(ModelOfServerDescriptor modelOfServerDescriptor) {
+    public EventOfServer41SetGameType(ModelOfServerDescriptor modelOfServerDescriptor) {
         this();
         this.modelOfServerDescriptor = modelOfServerDescriptor;
     }
@@ -22,13 +22,12 @@ public class EventOfServer41GameTypeSelect extends EventOfServer {
     @Override
     public void executeOnClient(TransportOfClient transportOfClient) {
         System.out.println("  onGameTypeSelect");
-
         transportOfClient.getLocalClientState().setGameType(modelOfServerDescriptor);
     }
 
     @Override
     public String toString() {
-        return "EventOfServer41GameTypeSelect{" +
+        return "EventOfServer41SetGameType{" +
                 "modelOfServerDescriptor='" + modelOfServerDescriptor + '\'' +
                 '}';
     }

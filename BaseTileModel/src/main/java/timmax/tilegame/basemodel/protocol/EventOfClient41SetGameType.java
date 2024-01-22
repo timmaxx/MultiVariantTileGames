@@ -9,14 +9,14 @@ import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.transport.TransportOfServer;
 
-public class EventOfClient41GameTypeSelect extends EventOfClient {
+public class EventOfClient41SetGameType extends EventOfClient {
     private ModelOfServerDescriptor modelOfServerDescriptor;
 
-    public EventOfClient41GameTypeSelect() {
+    public EventOfClient41SetGameType() {
         super();
     }
 
-    public EventOfClient41GameTypeSelect(ModelOfServerDescriptor modelOfServerDescriptor) {
+    public EventOfClient41SetGameType(ModelOfServerDescriptor modelOfServerDescriptor) {
         this();
         this.modelOfServerDescriptor = modelOfServerDescriptor;
     }
@@ -24,7 +24,6 @@ public class EventOfClient41GameTypeSelect extends EventOfClient {
     @Override
     public <ClientId> void executeOnServer(TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
         System.out.println("  onGameTypeSelect");
-
         System.out.println("  modelOfServerDescriptor = " + modelOfServerDescriptor);
         if (modelOfServerDescriptor == null) {
             System.err.println("Client sent empty name of model classes.");
@@ -54,7 +53,7 @@ public class EventOfClient41GameTypeSelect extends EventOfClient {
 
     @Override
     public String toString() {
-        return "EventOfClient41GameTypeSelect{" +
+        return "EventOfClient41SetGameType{" +
                 "modelOfServerDescriptor='" + modelOfServerDescriptor + '\'' +
                 '}';
     }

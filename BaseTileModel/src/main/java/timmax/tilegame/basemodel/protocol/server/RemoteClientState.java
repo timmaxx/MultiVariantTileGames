@@ -52,7 +52,7 @@ public class RemoteClientState<ClientId> extends AbstractClientState<IModelOfSer
     @Override
     public void setGameType(ModelOfServerDescriptor modelOfServerDescriptor) {
         super.setGameType(modelOfServerDescriptor);
-        transportOfServer.sendEventOfServer(clientId, new EventOfServer41GameTypeSelect(modelOfServerDescriptor));
+        transportOfServer.sendEventOfServer(clientId, new EventOfServer41SetGameType(modelOfServerDescriptor));
     }
 
     // ---- 5 Перечень партий
