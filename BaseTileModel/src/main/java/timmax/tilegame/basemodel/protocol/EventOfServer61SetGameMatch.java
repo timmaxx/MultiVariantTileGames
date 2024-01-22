@@ -7,14 +7,14 @@ import java.io.ObjectOutput;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import timmax.tilegame.transport.TransportOfClient;
 
-public class EventOfServer61GameMatchSelect extends EventOfServer {
+public class EventOfServer61SetGameMatch extends EventOfServer {
     InstanceIdOfModel serverBaseModel;
 
-    public EventOfServer61GameMatchSelect() {
+    public EventOfServer61SetGameMatch() {
         super();
     }
 
-    public EventOfServer61GameMatchSelect(InstanceIdOfModel serverBaseModel) {
+    public EventOfServer61SetGameMatch(InstanceIdOfModel serverBaseModel) {
         this();
         this.serverBaseModel = serverBaseModel;
     }
@@ -30,7 +30,7 @@ public class EventOfServer61GameMatchSelect extends EventOfServer {
 
     @Override
     public String toString() {
-        return "EventOfServer61GameMatchSelect{" +
+        return "EventOfServer61SetGameMatch{" +
                 "serverBaseModel=" + serverBaseModel +
                 '}';
     }

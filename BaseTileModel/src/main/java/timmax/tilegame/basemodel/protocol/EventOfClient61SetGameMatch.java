@@ -11,13 +11,13 @@ import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import timmax.tilegame.transport.TransportOfServer;
 
-public class EventOfClient61GameMatchSelect extends EventOfClient {
+public class EventOfClient61SetGameMatch extends EventOfClient {
     private InstanceIdOfModel instanceIdOfModel;
 
-    public EventOfClient61GameMatchSelect() {
+    public EventOfClient61SetGameMatch() {
         super();
     }
-    public EventOfClient61GameMatchSelect(InstanceIdOfModel instanceIdOfModel) {
+    public EventOfClient61SetGameMatch(InstanceIdOfModel instanceIdOfModel) {
         this();
         this.instanceIdOfModel = instanceIdOfModel;
     }
@@ -76,7 +76,7 @@ public class EventOfClient61GameMatchSelect extends EventOfClient {
 
     @Override
     public String toString() {
-        return "EventOfClient61GameMatchSelect{" +
+        return "EventOfClient61SetGameMatch{" +
                 "instanceIdOfModel=" + instanceIdOfModel +
                 '}';
     }

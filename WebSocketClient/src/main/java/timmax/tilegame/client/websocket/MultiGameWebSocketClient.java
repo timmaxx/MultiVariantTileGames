@@ -177,7 +177,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     @Override
     public void gamePlaySelect(InstanceIdOfModel model) {
         System.out.println("gamePlaySelect(InstanceIdOfModel model)");
-        sendEventOfClient(new EventOfClient61GameMatchSelect(model));
+        sendEventOfClient(new EventOfClient61SetGameMatch(model));
     }
 
     // 9
