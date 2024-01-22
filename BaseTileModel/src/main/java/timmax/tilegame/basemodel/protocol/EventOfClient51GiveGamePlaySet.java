@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import timmax.tilegame.transport.TransportOfServer;
 
-public class EventOfClient51GetGamePlaySet extends EventOfClient {
+public class EventOfClient51GiveGamePlaySet extends EventOfClient {
     @Override
     public <ClientId> void executeOnServer(TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
         System.out.println("  GetGamePlaySet");
@@ -24,6 +24,6 @@ public class EventOfClient51GetGamePlaySet extends EventOfClient {
 
     @Override
     public String toString() {
-        return "EventOfClient51GetGamePlaySet{}";
+        return "EventOfClient51GiveGamePlaySet{}";
     }
 }
