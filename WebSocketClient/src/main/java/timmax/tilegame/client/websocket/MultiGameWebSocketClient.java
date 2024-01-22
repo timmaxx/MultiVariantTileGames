@@ -138,7 +138,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     @Override
     public void getGameTypeSet() {
         System.out.println("getGameTypeSet()");
-        sendEventOfClient(new EventOfClient31GetGameTypeSet());
+        sendEventOfClient(new EventOfClient31GiveGameTypeSet());
     }
 
     // 4
