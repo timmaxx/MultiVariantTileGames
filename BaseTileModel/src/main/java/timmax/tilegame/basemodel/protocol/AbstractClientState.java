@@ -13,6 +13,7 @@ public abstract class AbstractClientState<Model> {
     protected ModelOfServerDescriptor modelOfServerDescriptor; // ---- 4 (Конкретный тип игры)
     protected List<Model> listOfServerBaseModel; // ---- 5 (Список моделей игр)
     protected Model serverBaseModel; // ---- 6 (Конкретная модель игры)
+    protected Boolean gameIsPlaying; // ---- 7 (Партия была начата)
 
     // ---- 2 (Пользователь)
     public String getUserName() {
@@ -104,23 +105,44 @@ public abstract class AbstractClientState<Model> {
     }
 
     private void setServerBaseModel_(Model serverBaseModel) {
+        setGameIsPlaying_(null);
         this.serverBaseModel = serverBaseModel;
+    }
+
+    // ---- 7
+    public Boolean getGameIsPlaying() {
+        return gameIsPlaying;
+    }
+
+    public void setGameIsPlaying(Boolean gameIsPlaying) {
+        setGameIsPlaying_(gameIsPlaying);
+    }
+
+    public void forgetGameIsPlaying() {
+        setGameIsPlaying_(null);
+    }
+
+    private void setGameIsPlaying_(Boolean gameIsPlaying) {
+        this.gameIsPlaying = gameIsPlaying;
     }
 
     // ---- X
     public MainGameClientStatus getMainGameClientStatus() {
-        if (serverBaseModel != null) {
+        if (gameIsPlaying != null && gameIsPlaying) {
             return MainGameClientStatus.GAME_IS_PLAYING;
+        } else if (serverBaseModel != null) {
+            return MainGameClientStatus.GAME_MATCH_SELECTED;
         } // Проверка на длину списка закоментирована, т.к. предполагается, что пользователь может иметь возможность
           // создавать партию даже если он не получил списка готовых партий.
           else if (listOfServerBaseModel != null /*&& listOfServerBaseModel.size() > 0*/) {
-            return MainGameClientStatus.GAME_MATCH_SELECTED;
+            return MainGameClientStatus.GAME_MATCH_SET_SELECTED;
         } else if (modelOfServerDescriptor != null) {
-            return MainGameClientStatus.GAME_TYPE_SELECT;
+            return MainGameClientStatus.GAME_TYPE_SELECTED;
         } // Проверка на длину списка не закоментирована, т.к. предполагается, что пользователь не может сам создать
-          // новый тип игры.
+          // новый тип игры. Что-бы это стало возможным, нужно что-бы сервер смог загрузить ещё один класс наследник
+          // ModelOfServer. При развитии фреймворка возможно, но не сейчас.
           else if (setOfModelOfServerDescriptor != null && setOfModelOfServerDescriptor.size() > 0) {
-            return MainGameClientStatus.GET_GAME_TYPE_SET;
+            return MainGameClientStatus.GAME_TYPE_SET_SELECTED;
         } else if (userName != null && !userName.isEmpty()) {
             return MainGameClientStatus.CONNECT_AUTHORIZED;
         }
