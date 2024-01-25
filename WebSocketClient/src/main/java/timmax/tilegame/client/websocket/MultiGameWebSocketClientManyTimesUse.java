@@ -100,6 +100,17 @@ public class MultiGameWebSocketClientManyTimesUse implements IModelOfClient {
         multiGameWebSocketClient.gamePlaySelect(model);
     }
 
+    // 7
+    @Override
+    public void stopGameMatchPlaying() {
+        multiGameWebSocketClient.stopGameMatchPlaying();
+    }
+
+    @Override
+    public void startGameMatchPlaying() {
+        multiGameWebSocketClient.startGameMatchPlaying();
+    }
+
     // X
     @Override
     public void createNewGame() {

@@ -28,8 +28,8 @@ public interface ObserverOnAbstractEvent {
     void updateOnSelectGameMatch();
 
     // 7
-    void updateOnGameIsPlaying();
-    void updateOnGameIsNotPlaying();
+    void updateOnStartGameMatchPlaying();
+    void updateOnStopGameMatchPlaying();
 
     // X
     void updateOnCreateNewGame();

@@ -86,6 +86,15 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     public void updateOnSelectGameMatch() {
     }
 
+    // 7
+    @Override
+    public void updateOnStopGameMatchPlaying() {
+    }
+
+    @Override
+    public void updateOnStartGameMatchPlaying() {
+    }
+
     // X
     @Override
     public void updateOnCreateNewGame() {

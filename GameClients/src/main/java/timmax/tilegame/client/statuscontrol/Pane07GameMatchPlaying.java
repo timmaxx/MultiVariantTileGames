@@ -7,10 +7,10 @@ import javafx.scene.layout.Pane;
 
 import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
 
-public class Pane09Gaming extends AbstractConnectStatePane {
+public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
     private final Pane pane;
 
-    public Pane09Gaming(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
+    public Pane07GameMatchPlaying(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
         super(multiGameWebSocketClientManyTimesUse);
 
         Button buttonNewGame = new Button("Start new game");
@@ -49,6 +49,7 @@ public class Pane09Gaming extends AbstractConnectStatePane {
 
     }
 
+    // 1
     @Override
     public void updateOnClose() {
         disableAllControls();
@@ -59,6 +60,7 @@ public class Pane09Gaming extends AbstractConnectStatePane {
         disableAllControls();
     }
 
+    // 2
     @Override
     public void updateOnLogout() {
         disableAllControls();
@@ -69,6 +71,7 @@ public class Pane09Gaming extends AbstractConnectStatePane {
         disableAllControls();
     }
 
+    // 3
     @Override
     public void updateOnForgetGameTypeSet() {
         disableAllControls();
@@ -79,6 +82,7 @@ public class Pane09Gaming extends AbstractConnectStatePane {
         disableAllControls();
     }
 
+    // 4
     @Override
     public void updateOnForgetGameType() {
         disableAllControls();
@@ -106,6 +110,18 @@ public class Pane09Gaming extends AbstractConnectStatePane {
         disableAllControls();
     }
 
+    // 7
+    @Override
+    public void updateOnStartGameMatchPlaying() {
+        // ToDo: ???
+    }
+
+    @Override
+    public void updateOnStopGameMatchPlaying() {
+        // ToDo: ???
+    }
+
+    // X
     @Override
     public void updateOnAddView() {
         // Этот метод не вызывается...

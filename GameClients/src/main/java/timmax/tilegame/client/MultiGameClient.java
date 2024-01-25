@@ -26,16 +26,16 @@ public class MultiGameClient extends Application {
         Pane04SelectGameType pane04SelectGameType = new Pane04SelectGameType(multiGameWebSocketClientManyTimesUse);
         Pane05GetGamePlaySet pane05GetGamePlaySet = new Pane05GetGamePlaySet(multiGameWebSocketClientManyTimesUse);
         Pane06SelectGame pane06SelectGame = new Pane06SelectGame(multiGameWebSocketClientManyTimesUse);
-        Pane09Gaming pane09Gaming = new Pane09Gaming(multiGameWebSocketClientManyTimesUse);
+        Pane07GameMatchPlaying pane07GameMatchPlaying = new Pane07GameMatchPlaying(multiGameWebSocketClientManyTimesUse);
 
-        root.getChildren().addAll(
+        root.getChildren().addAll( // ToDo: Идентификаторы унифицировать!
                 pane01ServerConnect,
                 pane02UserLogin,
                 pane03GetGameTypeSet,
                 pane04SelectGameType,
                 pane05GetGamePlaySet,
                 pane06SelectGame,
-                pane09Gaming
+                pane07GameMatchPlaying
         );
 
         Scene scene = new Scene(root);

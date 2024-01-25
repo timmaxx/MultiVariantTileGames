@@ -85,13 +85,13 @@ public class LocalClientState extends AbstractClientState<InstanceIdOfModel> {
     @Override
     public void setGameIsPlaying(Boolean gameIsPlaying) {
         super.setGameIsPlaying(gameIsPlaying);
-        iModelOfClient.getHashSetOfObserverOnAbstractEvent().updateOnGameIsPlaying();
+        iModelOfClient.getHashSetOfObserverOnAbstractEvent().updateOnStartGameMatchPlaying();
     }
 
     @Override
     public void forgetGameIsPlaying() {
         super.forgetGameIsPlaying();
-        iModelOfClient.getHashSetOfObserverOnAbstractEvent().updateOnGameIsNotPlaying();
+        iModelOfClient.getHashSetOfObserverOnAbstractEvent().updateOnStopGameMatchPlaying();
     }
 
     // Own methods

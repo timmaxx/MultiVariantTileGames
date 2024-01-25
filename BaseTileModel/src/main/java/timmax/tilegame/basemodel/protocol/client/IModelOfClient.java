@@ -28,6 +28,10 @@ public interface IModelOfClient {
     void forgetGamePlay();
     void gamePlaySelect(InstanceIdOfModel model);
 
+    // ---- 7
+    void stopGameMatchPlaying();
+    void startGameMatchPlaying();
+
     // ---- X
     void createNewGame();
     void addView(View view);

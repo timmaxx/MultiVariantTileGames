@@ -180,6 +180,19 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         sendEventOfClient(new EventOfClient61SetGameMatch(model));
     }
 
+    // 7
+    @Override
+    public void stopGameMatchPlaying() {
+        System.out.println("stopPlaying()");
+        sendEventOfClient(new EventOfClient70StopGameMatchPlaying());
+    }
+
+    @Override
+    public void startGameMatchPlaying() {
+        System.out.println("startPlaying()");
+        sendEventOfClient(new EventOfClient71StartGameMatchPlaying());
+    }
+
     // 9
     @Override
     public void addView(View view) {
