@@ -83,19 +83,19 @@ public class HashSetOfObserverOnAbstractEvent extends HashSet<ObserverOnAbstract
 
     // 5
     @Override
-    public void updateOnForgetGamePlaySet() {
+    public void updateOnForgetGameMatchSet() {
         Platform.runLater(() -> {
             for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
-                observerOnAbstractEvent.updateOnForgetGamePlaySet();
+                observerOnAbstractEvent.updateOnForgetGameMatchSet();
             }
         });
     }
 
     @Override
-    public void updateOnGetGamePlaySet() {
+    public void updateOnGetGameMatchSet() {
         Platform.runLater(() -> {
             for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
-                observerOnAbstractEvent.updateOnGetGamePlaySet();
+                observerOnAbstractEvent.updateOnGetGameMatchSet();
             }
         });
     }

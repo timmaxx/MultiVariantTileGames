@@ -104,14 +104,14 @@ public class Pane06SelectGame extends AbstractConnectStatePane {
 
     // 5
     @Override
-    public void updateOnForgetGamePlaySet() {
+    public void updateOnForgetGameMatchSet() {
         disableAllControls();
         comboBoxGameSet.setItems(FXCollections.observableArrayList());
         textFieldSelectedGame.setText("");
     }
 
     @Override
-    public void updateOnGetGamePlaySet() {
+    public void updateOnGetGameMatchSet() {
         // Также см. комментарии к EventOfClient51GiveGameMatchSet
         ObservableList<InstanceIdOfModel> observableList = FXCollections.observableArrayList(new InstanceIdOfModel("New game"));
         observableList.addAll(localClientState.getGameMatchSet());
