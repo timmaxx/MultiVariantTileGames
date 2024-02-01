@@ -58,12 +58,12 @@ public class RemoteClientState<ClientId> extends AbstractClientState<IModelOfSer
     // ---- 5 Перечень партий
     public void forgetGameMatchSet() {
         super.setGameMatchSet(null);
-        transportOfServer.sendEventOfServer(clientId, new EventOfServer50ForgetGamePlaySet());
+        transportOfServer.sendEventOfServer(clientId, new EventOfServer50ForgetGameMatchSet());
     }
 
     public void setGameMatchSet(List<IModelOfServer<ClientId>> listOfServerBaseModel) {
         super.setGameMatchSet(listOfServerBaseModel);
-        transportOfServer.sendEventOfServer(clientId, new EventOfServer51GetGamePlaySet(
+        transportOfServer.sendEventOfServer(clientId, new EventOfServer51GetGameMatchSet(
                 listOfServerBaseModel
                         .stream()
                         .map(InstanceIdOfModel::modelOfServerToInstanceIdOfModel)
