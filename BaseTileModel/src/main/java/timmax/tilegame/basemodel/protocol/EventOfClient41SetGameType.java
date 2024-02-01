@@ -5,7 +5,7 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.lang.reflect.Constructor;
 
-import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
+import timmax.tilegame.basemodel.protocol.server.IModelOfServer;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.transport.TransportOfServer;
 
@@ -31,7 +31,7 @@ public class EventOfClient41SetGameType extends EventOfClient {
             return;
         }
 
-        Constructor<? extends ModelOfServer<?>> constructor = transportOfServer
+        Constructor<? extends IModelOfServer<?>> constructor = transportOfServer
                 .getRemoteClientStateByClientId(clientId)
                 .getGameTypeSet()
                 .stream()

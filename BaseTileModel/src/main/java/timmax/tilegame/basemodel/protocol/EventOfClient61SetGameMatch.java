@@ -17,6 +17,7 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
     public EventOfClient61SetGameMatch() {
         super();
     }
+
     public EventOfClient61SetGameMatch(InstanceIdOfModel instanceIdOfModel) {
         this();
         this.instanceIdOfModel = instanceIdOfModel;
@@ -35,22 +36,16 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
                     .getRemoteClientStateByClientId(clientId)
                     .getGameType()
             ;
-            Constructor<?> constructor = modelOfServerDescriptor.getConstructorOfModelOfServerClass();
+            Constructor<? extends IModelOfServer<?>> constructor = modelOfServerDescriptor.getConstructorOfModelOfServerClass();
 
-            Object obj = null;
             try {
                 // Создаём экземпляр модели, ранее выбранного типа.
-                obj = constructor.newInstance(transportOfServer);
+                iModelOfServer = constructor.newInstance(transportOfServer);
             } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
                 System.err.println("Server cannot create object of model for " + modelOfServerDescriptor + " with constructor with specific parameters.");
                 e.printStackTrace();
                 System.exit(1);
             }
-            System.out.println("  after constructor");
-            if (obj instanceof IModelOfServer iModelOfServerTmp) {
-                iModelOfServer = iModelOfServerTmp;
-            }
-
             transportOfServer
                     .getRemoteClientStateByClientId(clientId)
                     .getGamePlaySet()

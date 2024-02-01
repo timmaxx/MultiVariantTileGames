@@ -13,7 +13,7 @@ import timmax.tilegame.transport.TransportOfServer;
 
 public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Externalizable {
     // ToDo: Это поле нужно вынести в класс-наследник.
-    private Constructor<? extends ModelOfServer<?>> constructorOfModelOfServerClass;
+    private Constructor<? extends IModelOfServer<?>> constructorOfModelOfServerClass;
 
     // ToDo: Эти поля можно оставить в базовом (этом) классе:
     private String gameName;
@@ -27,15 +27,15 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
 
     public ModelOfServerDescriptor(String modelOfServerString) throws ClassNotFoundException, NoSuchMethodException {
         // ToDo: Избавиться от "Warning:(27, 64) Unchecked cast: 'java.lang.Class<capture<?>>' to 'java.lang.Class<? extends timmax.tilegame.basemodel.protocol.server.ModelOfServer<?>>'"
-        Class<? extends ModelOfServer<?>> modelOfServerClass = (Class<? extends ModelOfServer<?>>) Class.forName(modelOfServerString);
+        Class<? extends IModelOfServer<?>> modelOfServerClass = (Class<? extends IModelOfServer<?>>) Class.forName(modelOfServerString);
         this.constructorOfModelOfServerClass = modelOfServerClass.getConstructor(TransportOfServer.class);
 
-        ModelOfServer<?> obj;
+        IModelOfServer<?> iModelOfServer;
         try {
             // Создаётся экземпляр. После работы в этом конструкторе он будет не нужен.
             // obj = constructorOfModelOfServerClass.newInstance(null); // Не получилось передать null.
             // Пришлось передать ему TransportOfServer - заглушку.
-            obj = constructorOfModelOfServerClass.newInstance(new TransportOfServer<>() {
+            iModelOfServer = constructorOfModelOfServerClass.newInstance(new TransportOfServer<>() {
                 @Override
                 public void sendEventOfServer(Object clientId, EventOfServer transportPackageOfServer) {
                 }
@@ -53,9 +53,9 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
 
         // Читается у созданного экземпляра имя типа игры (но возможно и другие характеристики класса...)
         // Как-то нужно учесть, что имя игры может быть передано разным клиентам на разных языках.
-        // Т.к. obj ничему не присваивается, то он уйдёт в небытие по окончанию работы конструктора.
-        this.gameName = obj.getGameName();
-        this.countOfGamers = obj.getCountOfGamers();
+        // Т.к. iModelOfServer ничему не присваивается, то он уйдёт в небытие по окончанию работы конструктора.
+        gameName = iModelOfServer.getGameName();
+        countOfGamers = iModelOfServer.getCountOfGamers();
         // this.otherField = obj.getOtherField();
     }
 
@@ -86,7 +86,7 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
                 '}';
     }
 
-    // Overiden methods from interface IModelOfServerDescriptor
+    // Overriden methods from interface IModelOfServerDescriptor
     @Override
     public String getGameName() {
         return gameName;
@@ -97,7 +97,7 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
         return countOfGamers;
     }
 
-    // Overiden methods from interface Externalizable
+    // Overriden methods from interface Externalizable
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeObject(gameName);
@@ -111,13 +111,13 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
     }
 
     // Own methods
-    public Constructor<? extends ModelOfServer<?>> getConstructorOfModelOfServerClass() {
+    public Constructor<? extends IModelOfServer<?>> getConstructorOfModelOfServerClass() {
         return constructorOfModelOfServerClass;
     }
 
     // ToDo: Временный метод (потом удалить). После разделения на два класса, этот метод удалить,
     //       а инициализацию сделать через приватный метод и вызов из конструктора с параметром или readExternal.
-    public void setConstructor(Constructor<? extends ModelOfServer<?>> constructor) {
+    public void setConstructor(Constructor<? extends IModelOfServer<?>> constructor) {
         this.constructorOfModelOfServerClass = constructor;
     }
 }
