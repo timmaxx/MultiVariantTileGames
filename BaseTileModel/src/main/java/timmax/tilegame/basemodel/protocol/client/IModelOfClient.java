@@ -21,8 +21,8 @@ public interface IModelOfClient {
     void gameTypeSelect(ModelOfServerDescriptor modelOfServerDescriptor);
 
     // ---- 5
-    void forgetGamePlaySet();
-    void getGamePlaySet();
+    void forgetGameMatchSet();
+    void getGameMatchSet();
 
     // ---- 6
     void forgetGamePlay();

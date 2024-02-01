@@ -16,12 +16,12 @@ public class Pane05GetGamePlaySet extends AbstractConnectStatePane {
 
         buttonGetGameSet.setOnAction(event -> {
             disableAllControls();
-            multiGameWebSocketClientManyTimesUse.getGamePlaySet();
+            multiGameWebSocketClientManyTimesUse.getGameMatchSet();
         });
 
         buttonForgetGameSet.setOnAction(event -> {
             disableAllControls();
-            multiGameWebSocketClientManyTimesUse.forgetGamePlaySet();
+            multiGameWebSocketClientManyTimesUse.forgetGameMatchSet();
         });
 
         setListsOfControlsAndAllDisable(
