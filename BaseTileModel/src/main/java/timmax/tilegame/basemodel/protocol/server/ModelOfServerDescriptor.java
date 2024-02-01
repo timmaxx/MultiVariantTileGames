@@ -33,7 +33,7 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
         IModelOfServer<?> iModelOfServer;
         try {
             // Создаётся экземпляр. После работы в этом конструкторе он будет не нужен.
-            // obj = constructorOfModelOfServerClass.newInstance(null); // Не получилось передать null.
+            // iModelOfServer = constructorOfModelOfServerClass.newInstance(null); // Не получилось передать null.
             // Пришлось передать ему TransportOfServer - заглушку.
             iModelOfServer = constructorOfModelOfServerClass.newInstance(new TransportOfServer<>() {
                 @Override

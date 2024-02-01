@@ -45,9 +45,7 @@ public class EventOfClient41SetGameType extends EventOfClient {
             return;
         }
 
-        // ToDo: Избавиться от "Warning:(60, 28) Raw use of parameterized class 'IModelOfServer'":
         modelOfServerDescriptor.setConstructor(constructor);
-        // ??? // ToDo: Избавиться от "Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IModelOfServer' to 'timmax.tilegame.basemodel.protocol.server.IModelOfServer<ClientId>'"
         transportOfServer.getRemoteClientStateByClientId(clientId).setGameType(modelOfServerDescriptor);
     }
 
