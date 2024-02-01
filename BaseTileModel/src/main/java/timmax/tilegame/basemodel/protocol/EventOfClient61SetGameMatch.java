@@ -29,6 +29,7 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
 
         System.out.println("  InstanceIdOfModel = " + instanceIdOfModel);
 
+        // ToDo: Исправить Warning:(33, 9) Raw use of parameterized class 'IModelOfServer'
         IModelOfServer iModelOfServer = null;
         if (instanceIdOfModel.getId().equals("New game")) {
             // Определяем ранее выбранный тип
@@ -48,12 +49,13 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
             }
             transportOfServer
                     .getRemoteClientStateByClientId(clientId)
-                    .getGamePlaySet()
+                    .getGameMatchSet()
+                    // ToDo: Исправить Warning:(54, 26) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IModelOfServer' to 'timmax.tilegame.basemodel.protocol.server.IModelOfServer<ClientId>'
                     .add(iModelOfServer);
         } else {
             iModelOfServer = transportOfServer
                     .getRemoteClientStateByClientId(clientId)
-                    .getGamePlaySet()
+                    .getGameMatchSet()
                     .stream()
                     .filter(x -> x.toString().equals(instanceIdOfModel.getId()))
                     .findAny()
@@ -66,6 +68,7 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
                 return;
             }
         }
+        // ToDo: Исправить Warning:(72, 87) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IModelOfServer' to 'timmax.tilegame.basemodel.protocol.server.IModelOfServer<ClientId>'
         transportOfServer.getRemoteClientStateByClientId(clientId).setServerBaseModel(iModelOfServer);
     }
 

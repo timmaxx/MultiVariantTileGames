@@ -114,7 +114,7 @@ public class Pane06SelectGame extends AbstractConnectStatePane {
     public void updateOnGetGamePlaySet() {
         // Также см. комментарии к EventOfClient51GiveGamePlaySet
         ObservableList<InstanceIdOfModel> observableList = FXCollections.observableArrayList(new InstanceIdOfModel("New game"));
-        observableList.addAll(localClientState.getGamePlaySet());
+        observableList.addAll(localClientState.getGameMatchSet());
         comboBoxGameSet.setItems(FXCollections.observableArrayList(
                 observableList
                         .stream()

@@ -7,7 +7,7 @@ public class EventOfServer50ForgetGamePlaySet extends EventOfServer {
     public void executeOnClient(TransportOfClient transportOfClient) {
         System.out.println("  onForgetGamePlaySet");
 
-        transportOfClient.getLocalClientState().forgetGamePlaySet();
+        transportOfClient.getLocalClientState().forgetGameMatchSet();
     }
 
     @Override

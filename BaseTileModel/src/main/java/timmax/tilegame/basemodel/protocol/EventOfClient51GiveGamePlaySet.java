@@ -19,7 +19,7 @@ public class EventOfClient51GiveGamePlaySet extends EventOfClient {
         // 1. Игра для 2-х и более игроков.
         // 2. Есть хотя-бы одна не занятая роль.
 
-        transportOfServer.getRemoteClientStateByClientId(clientId).setGamePlaySet(new ArrayList<>());
+        transportOfServer.getRemoteClientStateByClientId(clientId).setGameMatchSet(new ArrayList<>());
     }
 
     @Override
