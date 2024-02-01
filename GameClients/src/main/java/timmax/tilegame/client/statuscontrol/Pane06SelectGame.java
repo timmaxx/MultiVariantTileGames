@@ -19,21 +19,21 @@ public class Pane06SelectGame extends AbstractConnectStatePane {
         super(multiGameWebSocketClientManyTimesUse);
 
         comboBoxGameSet = new ComboBox<>();
-        Button buttonSelectGame = new Button("Select the game");
+        Button buttonSelectGame = new Button("Select the game match");
         textFieldSelectedGame = new TextField();
         textFieldSelectedGame.setEditable(false);
 
-        Button buttonForgetGame = new Button("Forget the game");
+        Button buttonForgetGame = new Button("Forget the game match");
         buttonForgetGame.setFocusTraversable(false);
 
         buttonSelectGame.setOnAction(event -> {
             disableAllControls();
-            multiGameWebSocketClientManyTimesUse.gamePlaySelect(new InstanceIdOfModel(comboBoxGameSet.getValue()));
+            multiGameWebSocketClientManyTimesUse.gameMatchSelect(new InstanceIdOfModel(comboBoxGameSet.getValue()));
         });
 
         buttonForgetGame.setOnAction(event -> {
             disableAllControls();
-            multiGameWebSocketClientManyTimesUse.forgetGamePlay();
+            multiGameWebSocketClientManyTimesUse.forgetGameMatch();
         });
 
         setListsOfControlsAndAllDisable(
@@ -112,7 +112,7 @@ public class Pane06SelectGame extends AbstractConnectStatePane {
 
     @Override
     public void updateOnGetGamePlaySet() {
-        // Также см. комментарии к EventOfClient51GiveGamePlaySet
+        // Также см. комментарии к EventOfClient51GiveGameMatchSet
         ObservableList<InstanceIdOfModel> observableList = FXCollections.observableArrayList(new InstanceIdOfModel("New game"));
         observableList.addAll(localClientState.getGameMatchSet());
         comboBoxGameSet.setItems(FXCollections.observableArrayList(

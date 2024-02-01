@@ -25,8 +25,8 @@ public interface IModelOfClient {
     void getGameMatchSet();
 
     // ---- 6
-    void forgetGamePlay();
-    void gamePlaySelect(InstanceIdOfModel model);
+    void forgetGameMatch();
+    void gameMatchSelect(InstanceIdOfModel model);
 
     // ---- 7
     void stopGameMatchPlaying();

@@ -91,13 +91,13 @@ public class MultiGameWebSocketClientManyTimesUse implements IModelOfClient {
 
     // 6
     @Override
-    public void forgetGamePlay() {
-        multiGameWebSocketClient.forgetGamePlay();
+    public void forgetGameMatch() {
+        multiGameWebSocketClient.forgetGameMatch();
     }
 
     @Override
-    public void gamePlaySelect(InstanceIdOfModel model) {
-        multiGameWebSocketClient.gamePlaySelect(model);
+    public void gameMatchSelect(InstanceIdOfModel model) {
+        multiGameWebSocketClient.gameMatchSelect(model);
     }
 
     // 7
