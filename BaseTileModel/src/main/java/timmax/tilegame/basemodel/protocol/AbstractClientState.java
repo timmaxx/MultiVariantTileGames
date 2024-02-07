@@ -69,24 +69,24 @@ public abstract class AbstractClientState<Model> {
     }
 
     private void setGameType_(ModelOfServerDescriptor modelOfServerDescriptor) {
-        setGamePlaySet_(null);
+        setGameMatchSet_(null);
         this.modelOfServerDescriptor = modelOfServerDescriptor;
     }
 
     // ---- 5 (Список моделей игр)
-    public List<Model> getGamePlaySet() {
+    public List<Model> getGameMatchSet() {
         return listOfServerBaseModel;
     }
 
-    public void setGamePlaySet(List<Model> listOfServerBaseModel) {
-        setGamePlaySet_(listOfServerBaseModel);
+    public void setGameMatchSet(List<Model> listOfServerBaseModel) {
+        setGameMatchSet_(listOfServerBaseModel);
     }
 
-    public void forgetGamePlaySet() {
-        setGamePlaySet_(null);
+    public void forgetGameMatchSet() {
+        setGameMatchSet_(null);
     }
 
-    private void setGamePlaySet_(List<Model> listOfServerBaseModel) {
+    private void setGameMatchSet_(List<Model> listOfServerBaseModel) {
         setServerBaseModel_(null);
         this.listOfServerBaseModel = listOfServerBaseModel;
     }

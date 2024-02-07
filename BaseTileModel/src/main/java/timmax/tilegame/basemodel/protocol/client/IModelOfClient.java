@@ -21,12 +21,12 @@ public interface IModelOfClient {
     void gameTypeSelect(ModelOfServerDescriptor modelOfServerDescriptor);
 
     // ---- 5
-    void forgetGamePlaySet();
-    void getGamePlaySet();
+    void forgetGameMatchSet();
+    void getGameMatchSet();
 
     // ---- 6
-    void forgetGamePlay();
-    void gamePlaySelect(InstanceIdOfModel model);
+    void forgetGameMatch();
+    void gameMatchSelect(InstanceIdOfModel model);
 
     // ---- 7
     void stopGameMatchPlaying();

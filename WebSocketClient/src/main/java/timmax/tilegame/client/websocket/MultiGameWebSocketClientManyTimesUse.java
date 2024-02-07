@@ -80,24 +80,24 @@ public class MultiGameWebSocketClientManyTimesUse implements IModelOfClient {
 
     // 5
     @Override
-    public void forgetGamePlaySet() {
-        multiGameWebSocketClient.forgetGamePlaySet();
+    public void forgetGameMatchSet() {
+        multiGameWebSocketClient.forgetGameMatchSet();
     }
 
     @Override
-    public void getGamePlaySet() {
-        multiGameWebSocketClient.getGamePlaySet();
+    public void getGameMatchSet() {
+        multiGameWebSocketClient.getGameMatchSet();
     }
 
     // 6
     @Override
-    public void forgetGamePlay() {
-        multiGameWebSocketClient.forgetGamePlay();
+    public void forgetGameMatch() {
+        multiGameWebSocketClient.forgetGameMatch();
     }
 
     @Override
-    public void gamePlaySelect(InstanceIdOfModel model) {
-        multiGameWebSocketClient.gamePlaySelect(model);
+    public void gameMatchSelect(InstanceIdOfModel model) {
+        multiGameWebSocketClient.gameMatchSelect(model);
     }
 
     // 7

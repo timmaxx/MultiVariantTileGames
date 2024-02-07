@@ -17,6 +17,7 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
     public EventOfClient61SetGameMatch() {
         super();
     }
+
     public EventOfClient61SetGameMatch(InstanceIdOfModel instanceIdOfModel) {
         this();
         this.instanceIdOfModel = instanceIdOfModel;
@@ -28,6 +29,7 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
 
         System.out.println("  InstanceIdOfModel = " + instanceIdOfModel);
 
+        // ToDo: Исправить Warning:(33, 9) Raw use of parameterized class 'IModelOfServer'
         IModelOfServer iModelOfServer = null;
         if (instanceIdOfModel.getId().equals("New game")) {
             // Определяем ранее выбранный тип
@@ -35,30 +37,25 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
                     .getRemoteClientStateByClientId(clientId)
                     .getGameType()
             ;
-            Constructor<?> constructor = modelOfServerDescriptor.getConstructorOfModelOfServerClass();
+            Constructor<? extends IModelOfServer<?>> constructor = modelOfServerDescriptor.getConstructorOfModelOfServerClass();
 
-            Object obj = null;
             try {
                 // Создаём экземпляр модели, ранее выбранного типа.
-                obj = constructor.newInstance(transportOfServer);
+                iModelOfServer = constructor.newInstance(transportOfServer);
             } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
                 System.err.println("Server cannot create object of model for " + modelOfServerDescriptor + " with constructor with specific parameters.");
                 e.printStackTrace();
                 System.exit(1);
             }
-            System.out.println("  after constructor");
-            if (obj instanceof IModelOfServer iModelOfServerTmp) {
-                iModelOfServer = iModelOfServerTmp;
-            }
-
             transportOfServer
                     .getRemoteClientStateByClientId(clientId)
-                    .getGamePlaySet()
+                    .getGameMatchSet()
+                    // ToDo: Исправить Warning:(54, 26) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IModelOfServer' to 'timmax.tilegame.basemodel.protocol.server.IModelOfServer<ClientId>'
                     .add(iModelOfServer);
         } else {
             iModelOfServer = transportOfServer
                     .getRemoteClientStateByClientId(clientId)
-                    .getGamePlaySet()
+                    .getGameMatchSet()
                     .stream()
                     .filter(x -> x.toString().equals(instanceIdOfModel.getId()))
                     .findAny()
@@ -71,6 +68,7 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
                 return;
             }
         }
+        // ToDo: Исправить Warning:(72, 87) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IModelOfServer' to 'timmax.tilegame.basemodel.protocol.server.IModelOfServer<ClientId>'
         transportOfServer.getRemoteClientStateByClientId(clientId).setServerBaseModel(iModelOfServer);
     }
 

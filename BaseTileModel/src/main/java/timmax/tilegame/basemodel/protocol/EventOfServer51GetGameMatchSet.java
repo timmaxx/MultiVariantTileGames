@@ -8,30 +8,30 @@ import java.util.List;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import timmax.tilegame.transport.TransportOfClient;
 
-public class EventOfServer51GetGamePlaySet extends EventOfServer {
+public class EventOfServer51GetGameMatchSet extends EventOfServer {
     private List<InstanceIdOfModel> listOfInstanceIdOfModel;
 
-    public EventOfServer51GetGamePlaySet() {
+    public EventOfServer51GetGameMatchSet() {
         super();
     }
 
-    public EventOfServer51GetGamePlaySet(List<InstanceIdOfModel> listOfInstanceIdOfModel) {
+    public EventOfServer51GetGameMatchSet(List<InstanceIdOfModel> listOfInstanceIdOfModel) {
         this();
         this.listOfInstanceIdOfModel = listOfInstanceIdOfModel;
     }
 
     @Override
     public void executeOnClient(TransportOfClient transportOfClient) {
-        System.out.println("  onGetGameTypeSet");
+        System.out.println("  onGetGameMatchSet");
 
         transportOfClient
                 .getLocalClientState()
-                .setGamePlaySet(listOfInstanceIdOfModel);
+                .setGameMatchSet(listOfInstanceIdOfModel);
     }
 
     @Override
     public String toString() {
-        return "EventOfServer51GetGamePlaySet{" +
+        return "EventOfServer51GetGameMatchSet{" +
                 "listOfInstanceIdOfModel=" + listOfInstanceIdOfModel +
                 '}';
     }
@@ -43,7 +43,7 @@ public class EventOfServer51GetGamePlaySet extends EventOfServer {
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        // ToDo: избавиться от "Warning:(48, 35) Unchecked cast: 'java.lang.Object' to 'java.util.List<timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel>'"
+        // ToDo: Исправить Warning:(48, 35) Unchecked cast: 'java.lang.Object' to 'java.util.List<timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel>'
         //       Например как в readExternal в EventOfServer31GetGameTypeSet
         listOfInstanceIdOfModel = (List<InstanceIdOfModel>) in.readObject();
     }

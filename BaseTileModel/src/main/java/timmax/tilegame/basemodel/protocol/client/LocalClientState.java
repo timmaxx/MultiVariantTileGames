@@ -57,15 +57,15 @@ public class LocalClientState extends AbstractClientState<InstanceIdOfModel> {
 
     // ---- 5 (Список моделей игр)
     @Override
-    public void setGamePlaySet(List<InstanceIdOfModel> listOfServerBaseModel) {
-        super.setGamePlaySet(listOfServerBaseModel);
-        iModelOfClient.getHashSetOfObserverOnAbstractEvent().updateOnGetGamePlaySet();
+    public void setGameMatchSet(List<InstanceIdOfModel> listOfServerBaseModel) {
+        super.setGameMatchSet(listOfServerBaseModel);
+        iModelOfClient.getHashSetOfObserverOnAbstractEvent().updateOnGetGameMatchSet();
     }
 
     @Override
-    public void forgetGamePlaySet() {
-        super.forgetGamePlaySet();
-        iModelOfClient.getHashSetOfObserverOnAbstractEvent().updateOnForgetGamePlaySet();
+    public void forgetGameMatchSet() {
+        super.forgetGameMatchSet();
+        iModelOfClient.getHashSetOfObserverOnAbstractEvent().updateOnForgetGameMatchSet();
     }
 
     // ---- 6 (Конкретная модель игры)

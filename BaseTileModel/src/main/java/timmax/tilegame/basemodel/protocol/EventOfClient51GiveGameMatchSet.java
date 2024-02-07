@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import timmax.tilegame.transport.TransportOfServer;
 
-public class EventOfClient51GiveGamePlaySet extends EventOfClient {
+public class EventOfClient51GiveGameMatchSet extends EventOfClient {
     @Override
     public <ClientId> void executeOnServer(TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
-        System.out.println("  GetGamePlaySet");
+        System.out.println("  GetGameMatchSet");
 
         // Сначала вместо new ArrayList<>() применял List.of() и здесь это работало.
         // Но когда на клиенте "вручную" добавляется строка "New game", а на сервере если пришло "New game" и делается
@@ -19,11 +19,11 @@ public class EventOfClient51GiveGamePlaySet extends EventOfClient {
         // 1. Игра для 2-х и более игроков.
         // 2. Есть хотя-бы одна не занятая роль.
 
-        transportOfServer.getRemoteClientStateByClientId(clientId).setGamePlaySet(new ArrayList<>());
+        transportOfServer.getRemoteClientStateByClientId(clientId).setGameMatchSet(new ArrayList<>());
     }
 
     @Override
     public String toString() {
-        return "EventOfClient51GiveGamePlaySet{}";
+        return "EventOfClient51GiveGameMatchSet{}";
     }
 }
