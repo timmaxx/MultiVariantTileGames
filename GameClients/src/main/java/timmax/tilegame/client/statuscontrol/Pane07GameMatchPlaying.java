@@ -28,12 +28,12 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         buttonQuitGame.setFocusTraversable(false); // Это в любом случае д.б.
 
         buttonNewGame.setOnAction(event -> {
-            //disableAllControls();
+            // disableAllControls();
             multiGameWebSocketClientManyTimesUse.createNewGame();
         });
 
         buttonQuitGame.setOnAction(event -> {
-            //disableAllControls();
+            // disableAllControls();
             // multiGameWebSocketClientManyTimesUse.quitGame();
             System.out.println("Quit the game");
         });
@@ -46,7 +46,6 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         enableAllControls();
         pane.setDisable(false);
         buttonQuitGame.setDisable(false);
-
     }
 
     // 1
@@ -88,23 +87,23 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         disableAllControls();
     }
 
-/*
-    @Override
-    public void updateOnSelectGameType() {
-        disableAllControls();
-        pane.getChildren().clear();
-        // ToDo: В этой реализации нет заголовка игры (и в будущем других её свойств).
-        pane.getChildren().addAll(new GameClientPaneJfx(multiGameWebSocketClientManyTimesUse, multiGameWebSocketClientManyTimesUse.getMultiGameWebSocketClient()));
+    /*
+        @Override
+        public void updateOnSelectGameType() {
+            disableAllControls();
+            pane.getChildren().clear();
+            // ToDo: В этой реализации нет заголовка игры (и в будущем других её свойств).
+            pane.getChildren().addAll(new GameClientPaneJfx(multiGameWebSocketClientManyTimesUse, multiGameWebSocketClientManyTimesUse.getMultiGameWebSocketClient()));
 
-        setDisableControlsNextState(false);
+            setDisableControlsNextState(false);
 
-        {   // Эти вызовы пока нужны, т.к. нет вызова updateOnCreateNewGame().
-            enableAllControls();
-            pane.setDisable(false);
-            enableAllControls();
+            {   // Эти вызовы пока нужны, т.к. нет вызова updateOnCreateNewGame().
+                enableAllControls();
+                pane.setDisable(false);
+                enableAllControls();
+            }
         }
-    }
-*/
+    */
     @Override
     public void updateOnSelectGameType() {
         disableAllControls();

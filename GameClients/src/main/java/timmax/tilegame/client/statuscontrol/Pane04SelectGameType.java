@@ -17,12 +17,14 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
     public Pane04SelectGameType(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
         super(multiGameWebSocketClientManyTimesUse);
 
+        // Контролы для продвижения состояния "вперёд":
         comboBoxGameTypeSet = new ComboBox<>();
         Button buttonSelectGameType = new Button("Select the game type");
         textFieldSelectedGameType = new TextField();
         textFieldSelectedGameType.setEditable(false);
-        Button buttonForgetGameType = new Button("Forget the game type");
 
+        // Контролы для продвижения состояния "назад":
+        Button buttonForgetGameType = new Button("Forget the game type");
         buttonForgetGameType.setFocusTraversable(false);
 
         buttonSelectGameType.setOnAction(event -> {

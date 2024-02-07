@@ -18,11 +18,13 @@ public class Pane06SelectGame extends AbstractConnectStatePane {
     public Pane06SelectGame(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
         super(multiGameWebSocketClientManyTimesUse);
 
+        // Контролы для продвижения состояния "вперёд":
         comboBoxGameSet = new ComboBox<>();
         Button buttonSelectGame = new Button("Select the game");
         textFieldSelectedGame = new TextField();
         textFieldSelectedGame.setEditable(false);
 
+        // Контролы для продвижения состояния "назад":
         Button buttonForgetGame = new Button("Forget the game");
         buttonForgetGame.setFocusTraversable(false);
 

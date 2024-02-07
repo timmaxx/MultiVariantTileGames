@@ -21,9 +21,8 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     }
 
     // Overriden method from interface ObserverOnAbstractEvent
-    // 1
     // Все методы здесь для единообразия расположены в порядке:
-    // - от 1 к 6,
+    // - от 1 к 7 (и далее),
     // - внутри этого "к предыдущему состоянию (x.0)", "к следующему (x.1)".
     // ToDo: уменьшить количество методов. Их можно разложить на группы:
     // 1. Все, кроме п. 2 и п. 3. Закрывает все контролы.
@@ -31,6 +30,8 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     //   1. Инициализирует контрол(ы) и открывает контролы перехода к следующему состоянию.
     //   2. Открывает контролы перехода к следующему состоянию.
     // 3. Последний метод. Открывает контролы перехода к предыдующему состоянию.
+
+    // 1
     @Override
     public void updateOnClose() {
     }

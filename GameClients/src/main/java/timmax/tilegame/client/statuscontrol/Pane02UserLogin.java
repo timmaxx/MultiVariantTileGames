@@ -12,13 +12,15 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
     public Pane02UserLogin(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
         super(multiGameWebSocketClientManyTimesUse);
 
+        // Контролы для продвижения состояния "вперёд":
         Label labelUser = new Label("User");
         TextField textFieldUser = new TextField();
         Label labelPassword = new Label("Password");
         passwordField = new PasswordField();
         Button buttonLogin = new Button("Login");
-        Button buttonLogout = new Button("Logout");
 
+        // Контролы для продвижения состояния "назад":
+        Button buttonLogout = new Button("Logout");
         buttonLogout.setFocusTraversable(false);
 
         {   // Инициализация для отладки. Потом убрать совсем, либо через конфигурационный файл, но только имя (не пароль)!

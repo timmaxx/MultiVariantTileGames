@@ -15,18 +15,19 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
     private final TextField textFieldServerPort;
     private final Label labelConnectString;
 
-
     public Pane01ServerConnect(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
         super(multiGameWebSocketClientManyTimesUse);
 
+        // Контролы для продвижения состояния "вперёд":
         Label labelServerAddress = new Label("Address");
         textFieldServerAddress = new TextField();
         Label labelServerPort = new Label("Port");
         textFieldServerPort = new TextField();
         Button buttonConnect = new Button("Connect");
         labelConnectString = new Label();
-        Button buttonDisconnect = new Button("Disconnect");
 
+        // Контролы для продвижения состояния "назад":
+        Button buttonDisconnect = new Button("Disconnect");
         buttonDisconnect.setFocusTraversable(false);
 
         {   // Инициализация для отладки. Потом либо убрать, либо через конфигурационный файл!
