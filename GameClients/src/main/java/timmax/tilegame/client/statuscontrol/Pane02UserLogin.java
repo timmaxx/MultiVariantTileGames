@@ -19,10 +19,6 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
         passwordField = new PasswordField();
         Button buttonLogin = new Button("Login");
 
-        // Контролы для продвижения состояния "назад":
-        Button buttonLogout = new Button("Logout");
-        buttonLogout.setFocusTraversable(false);
-
         {   // Инициализация для отладки. Потом убрать совсем, либо через конфигурационный файл, но только имя (не пароль)!
             textFieldUser.setText("u1");
             passwordField.setText("1");
@@ -33,11 +29,16 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
             multiGameWebSocketClientManyTimesUse.login(textFieldUser.getText(), passwordField.getText());
         });
 
+        // Контролы для продвижения состояния "назад":
+        Button buttonLogout = new Button("Logout");
+        buttonLogout.setFocusTraversable(false);
+
         buttonLogout.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.logout();
         });
 
+        // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
                 List.of(labelUser, textFieldUser, labelPassword, passwordField, buttonLogin),
                 List.of(buttonLogout)

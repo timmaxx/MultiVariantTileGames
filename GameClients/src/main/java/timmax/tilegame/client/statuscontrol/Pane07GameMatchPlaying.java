@@ -8,29 +8,30 @@ import javafx.scene.layout.Pane;
 import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
 
 public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
-    private final Pane pane;
 
     public Pane07GameMatchPlaying(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
         super(multiGameWebSocketClientManyTimesUse);
 
+        // Контролы для продвижения состояния "вперёд":
         Button buttonNewGame = new Button("Start new game");
-
-        pane = new Pane();
-        pane.setPrefWidth(1000);
-        pane.setPrefHeight(300);
-
-        Button buttonQuitGame = new Button("Quit the game");
-
         // ToDo: по общему правилу 'buttonNewGame.setFocusTraversable(false);' следует закомметировать,
         //       но т.к. кнопка 'buttonNewGame' пока не делается не активной после нажатия
         //       (т.к. от сервера не приходит сообщение о начале новой игры), то пусть пока так:
         buttonNewGame.setFocusTraversable(false);
-        buttonQuitGame.setFocusTraversable(false); // Это в любом случае д.б.
 
         buttonNewGame.setOnAction(event -> {
             // disableAllControls();
             multiGameWebSocketClientManyTimesUse.createNewGame();
         });
+
+        // Контролы для продвижения состояния "назад":
+        Pane pane = new Pane();
+        pane.setPrefWidth(1000);
+        pane.setPrefHeight(300);
+
+        Button buttonQuitGame = new Button("Quit the game");
+
+        buttonQuitGame.setFocusTraversable(false); // Это в любом случае д.б.
 
         buttonQuitGame.setOnAction(event -> {
             // disableAllControls();
@@ -38,6 +39,7 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
             System.out.println("Quit the game");
         });
 
+        // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
                 List.of(buttonNewGame),
                 List.of(pane, buttonQuitGame)

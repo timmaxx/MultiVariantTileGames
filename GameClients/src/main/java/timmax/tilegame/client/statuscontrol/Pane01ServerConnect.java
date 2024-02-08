@@ -26,10 +26,6 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
         Button buttonConnect = new Button("Connect");
         labelConnectString = new Label();
 
-        // Контролы для продвижения состояния "назад":
-        Button buttonDisconnect = new Button("Disconnect");
-        buttonDisconnect.setFocusTraversable(false);
-
         {   // Инициализация для отладки. Потом либо убрать, либо через конфигурационный файл!
             textFieldServerAddress.setText("localhost");
             textFieldServerPort.setText("8887");
@@ -41,11 +37,16 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
             multiGameWebSocketClientManyTimesUse.connect();
         });
 
+        // Контролы для продвижения состояния "назад":
+        Button buttonDisconnect = new Button("Disconnect");
+        buttonDisconnect.setFocusTraversable(false);
+
         buttonDisconnect.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.close();
         });
 
+        // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
                 List.of(labelServerAddress, textFieldServerAddress, labelServerPort, textFieldServerPort, buttonConnect, labelConnectString),
                 List.of(buttonDisconnect)

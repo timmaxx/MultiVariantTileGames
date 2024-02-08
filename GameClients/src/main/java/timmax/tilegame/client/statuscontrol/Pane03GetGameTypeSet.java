@@ -13,20 +13,21 @@ public class Pane03GetGameTypeSet extends AbstractConnectStatePane {
         // Контролы для продвижения состояния "вперёд":
         Button buttonGetGameTypeSet = new Button("Get the game type set");
 
-        // Контролы для продвижения состояния "назад":
-        Button buttonForgetGameTypeSet = new Button("Forget the game type set");
-        buttonForgetGameTypeSet.setFocusTraversable(false);
-
         buttonGetGameTypeSet.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.getGameTypeSet();
         });
+
+        // Контролы для продвижения состояния "назад":
+        Button buttonForgetGameTypeSet = new Button("Forget the game type set");
+        buttonForgetGameTypeSet.setFocusTraversable(false);
 
         buttonForgetGameTypeSet.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.forgetGameTypeSet();
         });
 
+        // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
                 List.of(buttonGetGameTypeSet),
                 List.of(buttonForgetGameTypeSet)

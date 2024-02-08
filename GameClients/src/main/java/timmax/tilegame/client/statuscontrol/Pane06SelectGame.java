@@ -24,20 +24,21 @@ public class Pane06SelectGame extends AbstractConnectStatePane {
         textFieldSelectedGame = new TextField();
         textFieldSelectedGame.setEditable(false);
 
-        // Контролы для продвижения состояния "назад":
-        Button buttonForgetGame = new Button("Forget the game match");
-        buttonForgetGame.setFocusTraversable(false);
-
         buttonSelectGame.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.gameMatchSelect(new InstanceIdOfModel(comboBoxGameSet.getValue()));
         });
+
+        // Контролы для продвижения состояния "назад":
+        Button buttonForgetGame = new Button("Forget the game match");
+        buttonForgetGame.setFocusTraversable(false);
 
         buttonForgetGame.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.forgetGameMatch();
         });
 
+        // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
                 List.of(comboBoxGameSet, buttonSelectGame, textFieldSelectedGame),
                 List.of(buttonForgetGame)

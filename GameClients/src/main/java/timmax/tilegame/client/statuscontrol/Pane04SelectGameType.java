@@ -23,10 +23,6 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
         textFieldSelectedGameType = new TextField();
         textFieldSelectedGameType.setEditable(false);
 
-        // Контролы для продвижения состояния "назад":
-        Button buttonForgetGameType = new Button("Forget the game type");
-        buttonForgetGameType.setFocusTraversable(false);
-
         buttonSelectGameType.setOnAction(event -> {
             disableAllControls();
             String gameName = comboBoxGameTypeSet.getValue();
@@ -40,11 +36,16 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
             multiGameWebSocketClientManyTimesUse.gameTypeSelect(modelOfServerDescriptor);
         });
 
+        // Контролы для продвижения состояния "назад":
+        Button buttonForgetGameType = new Button("Forget the game type");
+        buttonForgetGameType.setFocusTraversable(false);
+
         buttonForgetGameType.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.forgetGameType();
         });
 
+        // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
                 List.of(comboBoxGameTypeSet, buttonSelectGameType, textFieldSelectedGameType),
                 List.of(buttonForgetGameType)
