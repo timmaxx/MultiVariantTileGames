@@ -2,7 +2,6 @@ package timmax.tilegame.client.statuscontrol;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
@@ -20,28 +19,28 @@ public class Pane06SelectGame extends AbstractConnectStatePane {
 
         // Контролы для продвижения состояния "вперёд":
         comboBoxGameSet = new ComboBox<>();
-        Button buttonSelectGame = new Button("Select the game match");
+        buttonNextState.setText("Select the game match");
         textFieldSelectedGame = new TextField();
         textFieldSelectedGame.setEditable(false);
 
-        buttonSelectGame.setOnAction(event -> {
+        buttonNextState.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.gameMatchSelect(new InstanceIdOfModel(comboBoxGameSet.getValue()));
         });
 
         // Контролы для продвижения состояния "назад":
-        Button buttonForgetGame = new Button("Forget the game match");
-        buttonForgetGame.setFocusTraversable(false);
+        buttonPrevState.setText("Forget the game match");
+        buttonPrevState.setFocusTraversable(false);
 
-        buttonForgetGame.setOnAction(event -> {
+        buttonPrevState.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.forgetGameMatch();
         });
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
-                List.of(comboBoxGameSet, buttonSelectGame, textFieldSelectedGame),
-                List.of(buttonForgetGame)
+                List.of(comboBoxGameSet, buttonNextState, textFieldSelectedGame),
+                List.of(buttonPrevState)
         );
     }
 
