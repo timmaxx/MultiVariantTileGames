@@ -2,8 +2,6 @@ package timmax.tilegame.client.statuscontrol;
 
 import java.util.List;
 
-import javafx.scene.control.Button;
-
 import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
 
 public class Pane03GetGameTypeSet extends AbstractConnectStatePane {
@@ -11,26 +9,26 @@ public class Pane03GetGameTypeSet extends AbstractConnectStatePane {
         super(multiGameWebSocketClientManyTimesUse);
 
         // Контролы для продвижения состояния "вперёд":
-        Button buttonGetGameTypeSet = new Button("Get the game type set");
+        buttonNextState.setText("Get the game type set");
 
-        buttonGetGameTypeSet.setOnAction(event -> {
+        buttonNextState.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.getGameTypeSet();
         });
 
         // Контролы для продвижения состояния "назад":
-        Button buttonForgetGameTypeSet = new Button("Forget the game type set");
-        buttonForgetGameTypeSet.setFocusTraversable(false);
+        buttonPrevState.setText("Forget the game type set");
+        buttonPrevState.setFocusTraversable(false);
 
-        buttonForgetGameTypeSet.setOnAction(event -> {
+        buttonPrevState.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.forgetGameTypeSet();
         });
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
-                List.of(buttonGetGameTypeSet),
-                List.of(buttonForgetGameTypeSet)
+                List.of(buttonNextState),
+                List.of(buttonPrevState)
         );
     }
 
