@@ -1,5 +1,7 @@
 package timmax.tilegame.client.statuscontrol;
 
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
@@ -7,8 +9,6 @@ import javafx.scene.control.TextField;
 
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
-
-import java.util.List;
 
 public class Pane06SelectGame extends AbstractConnectStatePane {
     private final ComboBox<String> comboBoxGameSet;
