@@ -3,7 +3,6 @@ package timmax.tilegame.client.statuscontrol;
 import java.util.List;
 
 import javafx.collections.FXCollections;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
@@ -19,11 +18,11 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
 
         // Контролы для продвижения состояния "вперёд":
         comboBoxGameTypeSet = new ComboBox<>();
-        Button buttonSelectGameType = new Button("Select the game type");
+        buttonNextState.setText("Select the game type");
         textFieldSelectedGameType = new TextField();
         textFieldSelectedGameType.setEditable(false);
 
-        buttonSelectGameType.setOnAction(event -> {
+        buttonNextState.setOnAction(event -> {
             disableAllControls();
             String gameName = comboBoxGameTypeSet.getValue();
             ModelOfServerDescriptor modelOfServerDescriptor = multiGameWebSocketClientManyTimesUse
@@ -37,18 +36,18 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
         });
 
         // Контролы для продвижения состояния "назад":
-        Button buttonForgetGameType = new Button("Forget the game type");
-        buttonForgetGameType.setFocusTraversable(false);
+        buttonPrevState.setText("Forget the game type");
+        buttonPrevState.setFocusTraversable(false);
 
-        buttonForgetGameType.setOnAction(event -> {
+        buttonPrevState.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.forgetGameType();
         });
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
-                List.of(comboBoxGameTypeSet, buttonSelectGameType, textFieldSelectedGameType),
-                List.of(buttonForgetGameType)
+                List.of(comboBoxGameTypeSet, buttonNextState, textFieldSelectedGameType),
+                List.of(buttonPrevState)
         );
     }
 
