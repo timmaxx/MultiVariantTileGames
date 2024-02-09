@@ -24,7 +24,7 @@ public class MultiGameClient extends Application {
         Pane02UserLogin pane02UserLogin = new Pane02UserLogin(multiGameWebSocketClientManyTimesUse);
         Pane03GetGameTypeSet pane03GetGameTypeSet = new Pane03GetGameTypeSet(multiGameWebSocketClientManyTimesUse);
         Pane04SelectGameType pane04SelectGameType = new Pane04SelectGameType(multiGameWebSocketClientManyTimesUse);
-        Pane05GetGamePlaySet pane05GetGamePlaySet = new Pane05GetGamePlaySet(multiGameWebSocketClientManyTimesUse);
+        Pane05GetGameMatchSet pane05GetGameMatchSet = new Pane05GetGameMatchSet(multiGameWebSocketClientManyTimesUse);
         Pane06SelectGame pane06SelectGame = new Pane06SelectGame(multiGameWebSocketClientManyTimesUse);
         Pane07GameMatchPlaying pane07GameMatchPlaying = new Pane07GameMatchPlaying(multiGameWebSocketClientManyTimesUse);
 
@@ -33,7 +33,7 @@ public class MultiGameClient extends Application {
                 pane02UserLogin,
                 pane03GetGameTypeSet,
                 pane04SelectGameType,
-                pane05GetGamePlaySet,
+                pane05GetGameMatchSet,
                 pane06SelectGame,
                 pane07GameMatchPlaying
         );

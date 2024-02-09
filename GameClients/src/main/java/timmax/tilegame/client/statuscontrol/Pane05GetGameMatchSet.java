@@ -4,8 +4,8 @@ import java.util.List;
 
 import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
 
-public class Pane05GetGamePlaySet extends AbstractConnectStatePane {
-    public Pane05GetGamePlaySet(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
+public class Pane05GetGameMatchSet extends AbstractConnectStatePane {
+    public Pane05GetGameMatchSet(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
         super(multiGameWebSocketClientManyTimesUse);
 
         // Контролы для продвижения состояния "вперёд":
