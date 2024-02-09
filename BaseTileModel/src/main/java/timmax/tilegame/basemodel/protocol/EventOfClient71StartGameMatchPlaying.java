@@ -5,7 +5,7 @@ import timmax.tilegame.transport.TransportOfServer;
 public class EventOfClient71StartGameMatchPlaying extends EventOfClient {
     @Override
     public <ClientId> void executeOnServer(TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
-        System.out.println("  onStartGamePlaying");
+        System.out.println("  onStartGameMatchPlaying");
         transportOfServer.getRemoteClientStateByClientId(clientId).setGameIsPlaying(true);
     }
 
