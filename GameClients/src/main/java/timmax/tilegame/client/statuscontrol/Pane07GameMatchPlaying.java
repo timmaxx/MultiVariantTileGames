@@ -2,7 +2,6 @@ package timmax.tilegame.client.statuscontrol;
 
 import java.util.List;
 
-import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 
 import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
@@ -13,13 +12,13 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         super(multiGameWebSocketClientManyTimesUse);
 
         // Контролы для продвижения состояния "вперёд":
-        Button buttonNewGame = new Button("Start new game");
+        buttonNextState.setText("Start new game");
         // ToDo: по общему правилу 'buttonNewGame.setFocusTraversable(false);' следует закомметировать,
         //       но т.к. кнопка 'buttonNewGame' пока не делается не активной после нажатия
         //       (т.к. от сервера не приходит сообщение о начале новой игры), то пусть пока так:
-        buttonNewGame.setFocusTraversable(false);
+        buttonNextState.setFocusTraversable(false);
 
-        buttonNewGame.setOnAction(event -> {
+        buttonNextState.setOnAction(event -> {
             // disableAllControls();
             multiGameWebSocketClientManyTimesUse.createNewGame();
         });
@@ -29,11 +28,11 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         pane.setPrefWidth(1000);
         pane.setPrefHeight(300);
 
-        Button buttonQuitGame = new Button("Quit the game");
+        buttonPrevState.setText("Quit the game");
 
-        buttonQuitGame.setFocusTraversable(false); // Это в любом случае д.б.
+        buttonPrevState.setFocusTraversable(false); // Это в любом случае д.б.
 
-        buttonQuitGame.setOnAction(event -> {
+        buttonPrevState.setOnAction(event -> {
             // disableAllControls();
             // multiGameWebSocketClientManyTimesUse.quitGame();
             System.out.println("Quit the game");
@@ -41,13 +40,13 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
-                List.of(buttonNewGame),
-                List.of(pane, buttonQuitGame)
+                List.of(buttonNextState),
+                List.of(pane, buttonPrevState)
         );
 
         enableAllControls();
         pane.setDisable(false);
-        buttonQuitGame.setDisable(false);
+        buttonPrevState.setDisable(false);
     }
 
     // 1
