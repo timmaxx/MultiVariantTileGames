@@ -2,6 +2,7 @@ package timmax.tilegame.client.statuscontrol;
 
 import java.util.List;
 
+import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.HBox;
 
@@ -10,7 +11,10 @@ import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
 
 public abstract class AbstractConnectStatePane extends HBox implements ObserverOnAbstractEvent {
-    MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse;
+    private final MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse;
+
+    protected Button buttonNextState;
+    protected Button buttonPrevState;
     private List<Region> listOfControlsNextState;
     private List<Region> listOfControlsPrevState;
     protected LocalClientState localClientState;
@@ -18,6 +22,8 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     public AbstractConnectStatePane(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
         this.multiGameWebSocketClientManyTimesUse = multiGameWebSocketClientManyTimesUse;
         this.localClientState = multiGameWebSocketClientManyTimesUse.getLocalClientState();
+        this.buttonNextState = new Button();
+        this.buttonPrevState = new Button();
     }
 
     // Overriden method from interface ObserverOnAbstractEvent
