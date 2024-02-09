@@ -90,12 +90,12 @@ public class RemoteClientState<ClientId> extends AbstractClientState<IModelOfSer
     @Override
     public void forgetGameIsPlaying() {
         super.forgetGameIsPlaying();
-        transportOfServer.sendEventOfServer(clientId, new EventOfServer70GameIsNotPlaying());
+        transportOfServer.sendEventOfServer(clientId, new EventOfServer70GameMatchIsNotPlaying());
     }
 
     @Override
     public void setGameIsPlaying(Boolean gameIsPlaying) {
         super.setGameIsPlaying(gameIsPlaying);
-        transportOfServer.sendEventOfServer(clientId, new EventOfServer71GameIsPlaying());
+        transportOfServer.sendEventOfServer(clientId, new EventOfServer71GameMatchIsPlaying());
     }
 }
