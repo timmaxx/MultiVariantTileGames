@@ -10,11 +10,11 @@ import javafx.scene.control.TextField;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
 
-public class Pane06SelectGame extends AbstractConnectStatePane {
+public class Pane06SelectGameMatch extends AbstractConnectStatePane {
     private final ComboBox<String> comboBoxGameSet;
     private final TextField textFieldSelectedGame;
 
-    public Pane06SelectGame(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
+    public Pane06SelectGameMatch(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
         super(multiGameWebSocketClientManyTimesUse);
 
         // Контролы для продвижения состояния "вперёд":
