@@ -4,7 +4,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -23,7 +22,7 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
         textFieldServerAddress = new TextField();
         Label labelServerPort = new Label("Port");
         textFieldServerPort = new TextField();
-        Button buttonConnect = new Button("Connect");
+        buttonNextState.setText("Connect");
         labelConnectString = new Label();
 
         {   // Инициализация для отладки. Потом либо убрать, либо через конфигурационный файл!
@@ -31,25 +30,25 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
             textFieldServerPort.setText("8887");
         }
 
-        buttonConnect.setOnAction(event -> {
+        buttonNextState.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.setURI(getURIFromControls());
             multiGameWebSocketClientManyTimesUse.connect();
         });
 
         // Контролы для продвижения состояния "назад":
-        Button buttonDisconnect = new Button("Disconnect");
-        buttonDisconnect.setFocusTraversable(false);
+        buttonPrevState.setText("Disconnect");
+        buttonPrevState.setFocusTraversable(false);
 
-        buttonDisconnect.setOnAction(event -> {
+        buttonPrevState.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.close();
         });
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
-                List.of(labelServerAddress, textFieldServerAddress, labelServerPort, textFieldServerPort, buttonConnect, labelConnectString),
-                List.of(buttonDisconnect)
+                List.of(labelServerAddress, textFieldServerAddress, labelServerPort, textFieldServerPort, buttonNextState, labelConnectString),
+                List.of(buttonPrevState)
         );
         setDisableControlsNextState(false);
     }
