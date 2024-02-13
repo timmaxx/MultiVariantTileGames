@@ -8,6 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import timmax.tilegame.basemodel.protocol.server.IModelOfServer;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
+import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import timmax.tilegame.transport.TransportOfServer;
 
@@ -25,18 +26,16 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
 
     @Override
     public <ClientId> void executeOnServer(TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
-        System.out.println("  onGameMatchSelect");
+        System.out.println("  onSetGameMatch");
 
         System.out.println("  InstanceIdOfModel = " + instanceIdOfModel);
 
         // ToDo: Исправить Warning:(33, 9) Raw use of parameterized class 'IModelOfServer'
         IModelOfServer iModelOfServer = null;
+        RemoteClientState remoteClientState = transportOfServer.getRemoteClientStateByClientId(clientId);
         if (instanceIdOfModel.getId().equals("New game")) {
             // Определяем ранее выбранный тип
-            ModelOfServerDescriptor modelOfServerDescriptor = transportOfServer
-                    .getRemoteClientStateByClientId(clientId)
-                    .getGameType()
-            ;
+            ModelOfServerDescriptor modelOfServerDescriptor = remoteClientState.getGameType();
             Constructor<? extends IModelOfServer<?>> constructor = modelOfServerDescriptor.getConstructorOfModelOfServerClass();
 
             try {
@@ -47,14 +46,14 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
                 e.printStackTrace();
                 System.exit(1);
             }
-            transportOfServer
-                    .getRemoteClientStateByClientId(clientId)
+            remoteClientState
                     .getGameMatchSet()
                     // ToDo: Исправить Warning:(54, 26) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IModelOfServer' to 'timmax.tilegame.basemodel.protocol.server.IModelOfServer<ClientId>'
                     .add(iModelOfServer);
-        } else {
-            iModelOfServer = transportOfServer
-                    .getRemoteClientStateByClientId(clientId)
+        }
+        /*
+          else {
+            iModelOfServer = remoteClientState
                     .getGameMatchSet()
                     .stream()
                     .filter(x -> x.toString().equals(instanceIdOfModel.getId()))
@@ -64,12 +63,13 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
 
             if (iModelOfServer == null) {
                 System.err.println("There is not model '" + instanceIdOfModel.getId() + "'");
-                transportOfServer.getRemoteClientStateByClientId(clientId).forgetServerBaseModel();
+                remoteClientState.forgetServerBaseModel();
                 return;
             }
         }
+        */
         // ToDo: Исправить Warning:(72, 87) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IModelOfServer' to 'timmax.tilegame.basemodel.protocol.server.IModelOfServer<ClientId>'
-        transportOfServer.getRemoteClientStateByClientId(clientId).setServerBaseModel(iModelOfServer);
+        remoteClientState.setServerBaseModel(iModelOfServer);
     }
 
     @Override
