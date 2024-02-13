@@ -1,19 +1,24 @@
 package timmax.tilegame.basemodel.protocol.client;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Set;
 
+import timmax.tilegame.basecontroller.BaseController;
 import timmax.tilegame.basemodel.protocol.AbstractClientState;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import timmax.tilegame.baseview.View;
 
-public class LocalClientState extends AbstractClientState<InstanceIdOfModel> {
+public abstract class LocalClientState extends AbstractClientState<InstanceIdOfModel> {
     private final IModelOfClient iModelOfClient;
+    private final BaseController baseController;
     private final ListOfLocalView listOfLocalView;
 
-    public LocalClientState(IModelOfClient iModelOfClient) {
+    public LocalClientState(IModelOfClient iModelOfClient, BaseController baseController) {
         this.iModelOfClient = iModelOfClient;
+        this.baseController = baseController;
         this.listOfLocalView = new ListOfLocalView();
     }
 
@@ -103,11 +108,15 @@ public class LocalClientState extends AbstractClientState<InstanceIdOfModel> {
         listOfLocalView.add(view);
     }
 
-    public void confirmView(String viewId) {
-        if (listOfLocalView.getViewByViewId(viewId) != null) {
-            System.out.println("confirmView ok.");
-        } else {
-            System.err.println("confirmView is not ok!");
+    public void addView(Class<? extends View> classOfView, String viewName) {
+        Constructor<? extends View> constructorOfView;
+        constructorOfView = getViewConstructor(classOfView, baseController, viewName);
+        try {
+            constructorOfView.newInstance(iModelOfClient, baseController, viewName);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException(e);
         }
     }
+
+    public abstract Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView, BaseController baseController, String typeIdName);
 }
