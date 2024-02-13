@@ -10,15 +10,16 @@ import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 
+import timmax.tilegame.baseview.ViewMainField;
 import timmax.tilegame.guiengine.jfx.Game;
 import timmax.tilegame.guiengine.jfx.GameStackPane;
 
-public class ViewMainFieldJfx extends ViewJfx {
+public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
     protected GameStackPane[][] cells;
     protected int cellSize;
 
-    public ViewMainFieldJfx(IModelOfClient iModelOfClient, BaseController baseController) {
-        super(iModelOfClient, baseController);
+    public ViewMainFieldJfx(IModelOfClient iModelOfClient, BaseController baseController, String viewName) {
+        super(iModelOfClient, baseController, viewName);
 
         setOnMouseClicked(event ->
                 baseController.onMouseClick(event.getButton(), (int) (event.getX() / cellSize), (int) (event.getY() / cellSize))
