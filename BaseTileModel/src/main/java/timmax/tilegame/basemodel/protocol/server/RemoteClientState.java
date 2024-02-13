@@ -5,6 +5,7 @@ import java.util.Set;
 
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
+import timmax.tilegame.baseview.ViewMainField;
 import timmax.tilegame.transport.TransportOfServer;
 
 public class RemoteClientState<ClientId> extends AbstractClientState<IModelOfServer<ClientId>> {
@@ -97,5 +98,8 @@ public class RemoteClientState<ClientId> extends AbstractClientState<IModelOfSer
     public void setGameIsPlaying(Boolean gameIsPlaying) {
         super.setGameIsPlaying(gameIsPlaying);
         transportOfServer.sendEventOfServer(clientId, new EventOfServer71GameMatchIsPlaying());
+
+        transportOfServer.sendEventOfServer(clientId, new EventOfServer91AddView(ViewMainField.class, "MainField"));
+        serverBaseModel.createNewGame();
     }
 }
