@@ -21,7 +21,7 @@ public class EventOfServer61SetGameMatch extends EventOfServer {
 
     @Override
     public void executeOnClient(TransportOfClient transportOfClient) {
-        System.out.println("  onGameMatchSelect");
+        System.out.println("  onSetGameMatch");
 
         transportOfClient
                 .getLocalClientState()
