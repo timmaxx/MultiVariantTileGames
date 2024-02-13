@@ -5,10 +5,12 @@ import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 
 public class ViewTextFieldsPersistentSettingsJfx extends ViewTextFieldsJfx {
-    public ViewTextFieldsPersistentSettingsJfx(IModelOfClient iModelOfClient) {
+    public ViewTextFieldsPersistentSettingsJfx(IModelOfClient iModelOfClient, String viewName) {
         super(iModelOfClient
                 , GameEventNewGame.class
-                , "\nPersistent settings:\n"); // ToDo: Разобраться и удалить ведущий '\n' в commonLabel.
+                // ToDo: Разобраться и удалить ведущий '\n' в commonLabel.
+                , "\nPersistent settings:\n"
+                , viewName);
     }
 
     @Override
