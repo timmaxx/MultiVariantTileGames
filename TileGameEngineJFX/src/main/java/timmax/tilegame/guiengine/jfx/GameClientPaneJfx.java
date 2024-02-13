@@ -11,10 +11,10 @@ import timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx;
 
 // ToDo: А нужен-ли этот класс?
 public class GameClientPaneJfx extends VBox {
-    public GameClientPaneJfx(IModelOfClient iModelOfClient, TransportOfClient transportOfClient) {
+    public GameClientPaneJfx(IModelOfClient iModelOfClient, TransportOfClient transportOfClient, String viewName) {
         BaseController baseController = new BaseController(transportOfClient);
 
-        ViewJfx viewMainFieldJfx = new ViewMainFieldJfx(iModelOfClient, baseController);
+        ViewJfx viewMainFieldJfx = new ViewMainFieldJfx(iModelOfClient, baseController, viewName);
         getChildren().add(viewMainFieldJfx);
     }
 }
