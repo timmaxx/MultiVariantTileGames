@@ -5,4 +5,5 @@ module timmax.tilegame.guiengine.jfx {
 
     exports timmax.tilegame.guiengine.jfx;
     exports timmax.tilegame.guiengine.jfx.view;
+    exports timmax.tilegame.basemodel.protocol.client.jfx;
 }
