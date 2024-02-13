@@ -28,8 +28,6 @@ public class EventOfClient91AddView extends EventOfClient {
                 .getServerBaseModel()
                 .addRemoteView(new RemoteView<>(clientId, viewName))
         ;
-
-        // transportOfServer.sendEventOfServer(clientId, new EventOfServer91AddView(viewId));
     }
 
     @Override
