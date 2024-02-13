@@ -80,7 +80,7 @@ public class RemoteClientState<ClientId> extends AbstractClientState<IModelOfSer
 
     @Override
     public void setServerBaseModel(IModelOfServer<ClientId> iModelOfServer) {
-        super.setServerBaseModel(serverBaseModel);
+        super.setServerBaseModel(iModelOfServer);
         transportOfServer.sendEventOfServer(clientId, new EventOfServer61SetGameMatch(
                 new InstanceIdOfModel(iModelOfServer.toString())
         ));
