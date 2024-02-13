@@ -19,8 +19,8 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         buttonNextState.setFocusTraversable(false);
 
         buttonNextState.setOnAction(event -> {
-            // disableAllControls();
-            multiGameWebSocketClientManyTimesUse.createNewGame();
+            disableAllControls();
+            multiGameWebSocketClientManyTimesUse.startGameMatchPlaying();
         });
 
         // Контролы для продвижения состояния "назад":
@@ -110,15 +110,45 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         disableAllControls();
     }
 
+    // 5
+    @Override
+    public void updateOnForgetGameMatchSet() {
+        disableAllControls();
+    }
+
+    @Override
+    public void updateOnGetGameMatchSet() {
+        disableAllControls();
+    }
+
+    // 6
+    @Override
+    public void updateOnForgetGameMatch() {
+        disableAllControls();
+    }
+
+    @Override
+    public void updateOnSelectGameMatch() {
+        System.out.println("updateOnSelectGameMatch");
+        setDisableControlsNextState(false);
+    }
+
     // 7
     @Override
     public void updateOnStartGameMatchPlaying() {
-        // ToDo: ???
+        System.out.println("updateOnStartGameMatchPlaying");
+        // ToDo: Создать выборки и контролы, соответствующие типу игры, отправить серверу сообщения об этом.
+        //       Но пока делаем одну универсальную выборку - контрол - основное поле игры.
+        //       ...
+        // ViewMainFieldJfx viewMainFieldJfx = new ViewMainFieldJfx(iModelOfClient, baseController);
+        setDisableControlsNextState(false);
     }
 
     @Override
     public void updateOnStopGameMatchPlaying() {
         // ToDo: ???
+        System.out.println("updateOnStopGameMatchPlaying");
+        setDisableControlsNextState(true);
     }
 
     // X
