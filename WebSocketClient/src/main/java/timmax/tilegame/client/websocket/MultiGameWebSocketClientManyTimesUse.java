@@ -3,6 +3,7 @@ package timmax.tilegame.client.websocket;
 import java.net.URI;
 
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
+import timmax.tilegame.basemodel.protocol.LocalClientStateFabric;
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.basemodel.protocol.client.LocalClientState;
 import timmax.tilegame.basemodel.protocol.HashSetOfObserverOnAbstractEvent;
@@ -19,8 +20,8 @@ public class MultiGameWebSocketClientManyTimesUse implements IModelOfClient {
     private MultiGameWebSocketClient multiGameWebSocketClient;
     private URI uri;
 
-    public MultiGameWebSocketClientManyTimesUse() {
-        localClientState = new LocalClientState(this);
+    public MultiGameWebSocketClientManyTimesUse(LocalClientStateFabric localClientStateFabric) {
+        localClientState = localClientStateFabric.newLocalClientState(this, null);
         hashSetOfObserverOnAbstractEvent = new HashSetOfObserverOnAbstractEvent();
         System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
     }
