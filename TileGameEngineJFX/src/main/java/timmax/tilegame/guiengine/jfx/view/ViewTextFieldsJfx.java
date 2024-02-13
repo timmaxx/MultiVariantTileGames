@@ -11,8 +11,9 @@ abstract public class ViewTextFieldsJfx extends ViewJfx {
     private final Text messageText;
     Class<? extends GameEvent> clazz;
 
-    public ViewTextFieldsJfx(IModelOfClient iModelOfClient, Class<? extends GameEvent> clazz, String commonLabel) {
-        super(iModelOfClient, null); // ToDo: убрать отсюда null. См. ToDo от 02.10.2023.
+    public ViewTextFieldsJfx(IModelOfClient iModelOfClient, Class<? extends GameEvent> clazz, String commonLabel, String viewName) {
+        // ToDo: убрать отсюда null. См. ToDo от 02.10.2023.
+        super(iModelOfClient, null, viewName);
 
         this.clazz = clazz;
         this.commonLabel = commonLabel;
