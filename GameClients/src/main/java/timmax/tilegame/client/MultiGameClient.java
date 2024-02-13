@@ -18,7 +18,7 @@ public class MultiGameClient extends Application {
     public void start(Stage primaryStage) {
         Pane root = new VBox();
 
-        MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse = new MultiGameWebSocketClientManyTimesUse();
+        MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse = new MultiGameWebSocketClientManyTimesUse(new LocalClientStateFabricJfx());
 
         Pane01ServerConnect pane01ServerConnect = new Pane01ServerConnect(multiGameWebSocketClientManyTimesUse);
         Pane02UserLogin pane02UserLogin = new Pane02UserLogin(multiGameWebSocketClientManyTimesUse);
