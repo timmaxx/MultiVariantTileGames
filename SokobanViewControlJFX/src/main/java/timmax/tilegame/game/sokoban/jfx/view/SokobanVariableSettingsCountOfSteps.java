@@ -9,10 +9,11 @@ import timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanVariablePara
 import static timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanVariableParamsCountOfSteps.COMMON_LABEL_OF_VARIABLE_PARAMS_COUNT_OF_STEPS;
 
 public class SokobanVariableSettingsCountOfSteps extends ViewTextFieldsJfx {
-    public SokobanVariableSettingsCountOfSteps(IModelOfClient iModelOfClient) {
+    public SokobanVariableSettingsCountOfSteps(IModelOfClient iModelOfClient, String viewName) {
         super(iModelOfClient
                 , GameEventSokobanVariableParamsCountOfSteps.class
-                , COMMON_LABEL_OF_VARIABLE_PARAMS_COUNT_OF_STEPS);
+                , COMMON_LABEL_OF_VARIABLE_PARAMS_COUNT_OF_STEPS
+                , viewName);
     }
 
     @Override

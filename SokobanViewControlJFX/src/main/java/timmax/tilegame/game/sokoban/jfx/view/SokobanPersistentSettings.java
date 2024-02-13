@@ -10,10 +10,11 @@ import static timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanPersi
 import static timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanPersistentParams.COUNT_OF_BOXES_AND_HOMES;
 
 public class SokobanPersistentSettings extends ViewTextFieldsJfx {
-    public SokobanPersistentSettings(IModelOfClient iModelOfClient) {
+    public SokobanPersistentSettings(IModelOfClient iModelOfClient, String viewName) {
         super(iModelOfClient
                 , GameEventSokobanPersistentParams.class
-                , COMMON_LABEL_OF_PERSISTENT_PARAMS);
+                , COMMON_LABEL_OF_PERSISTENT_PARAMS
+                , viewName);
     }
 
     @Override
