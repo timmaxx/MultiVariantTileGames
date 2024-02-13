@@ -9,10 +9,11 @@ import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVari
 import static timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsOpenClose.*;
 
 public class MinesweeperVariableSettingsOpenClose extends ViewTextFieldsJfx {
-    public MinesweeperVariableSettingsOpenClose(IModelOfClient iModelOfClient) {
+    public MinesweeperVariableSettingsOpenClose(IModelOfClient iModelOfClient, String viewName) {
         super(iModelOfClient
                 , GameEventMinesweeperVariableParamsOpenClose.class
-                , COMMON_LABEL_OF_VARIABLE_PARAMS_OPEN_CLOSE);
+                , COMMON_LABEL_OF_VARIABLE_PARAMS_OPEN_CLOSE
+                , viewName);
     }
 
     @Override

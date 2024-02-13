@@ -10,10 +10,11 @@ import static timmax.tilegame.game.minesweeper.model.gameevent.GameEventMineswee
 import static timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperPersistentParams.COUNT_OF_MINES;
 
 public class MinesweeperPersistentSettings extends ViewTextFieldsJfx {
-    public MinesweeperPersistentSettings(IModelOfClient iModelOfClient) {
+    public MinesweeperPersistentSettings(IModelOfClient iModelOfClient, String viewName) {
         super(iModelOfClient
                 , GameEventMinesweeperPersistentParams.class
-                , COMMON_LABEL_OF_PERSISTENT_PARAMS);
+                , COMMON_LABEL_OF_PERSISTENT_PARAMS
+                , viewName);
     }
 
     @Override
