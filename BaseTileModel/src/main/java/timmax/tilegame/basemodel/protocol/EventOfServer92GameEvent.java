@@ -9,16 +9,16 @@ import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfClient;
 
 public class EventOfServer92GameEvent extends EventOfServer {
-    private String viewId;
+    private String viewName;
     private GameEvent gameEvent;
 
     public EventOfServer92GameEvent() {
         super();
     }
 
-    public EventOfServer92GameEvent(String viewId, GameEvent gameEvent) {
+    public EventOfServer92GameEvent(String viewName, GameEvent gameEvent) {
         this();
-        this.viewId = viewId;
+        this.viewName = viewName;
         this.gameEvent = gameEvent;
     }
 
@@ -26,27 +26,28 @@ public class EventOfServer92GameEvent extends EventOfServer {
     public void executeOnClient(TransportOfClient transportOfClient) {
         System.out.println("  onGameEvent");
 
-        View view = transportOfClient.getLocalClientState().getListOfLocalView().getViewByViewId(viewId);
+        System.out.println("  viewName = " + viewName);
+        View view = transportOfClient.getLocalClientState().getListOfLocalView().getViewByViewId(viewName);
         view.update(gameEvent);
     }
 
     @Override
     public String toString() {
         return "EventOfServer92GameEvent{" +
-                "viewId='" + viewId + '\'' +
+                "viewId='" + viewName + '\'' +
                 ", gameEvent=" + gameEvent +
                 '}';
     }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(viewId);
+        out.writeObject(viewName);
         out.writeObject(gameEvent);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        viewId = (String) in.readObject();
+        viewName = (String) in.readObject();
         gameEvent = (GameEvent) in.readObject();
     }
 }
