@@ -52,40 +52,40 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
     // 1
     @Override
     public void updateOnClose() {
-        disableAllControls();
+        doOnPrevPrevState();
     }
 
     @Override
     public void updateOnOpen() {
-        disableAllControls();
+        doOnPrevPrevState();
     }
 
     // 2
     @Override
     public void updateOnLogout() {
-        disableAllControls();
+        doOnPrevPrevState();
     }
 
     @Override
     public void updateOnLogin() {
-        disableAllControls();
+        doOnPrevPrevState();
     }
 
     // 3
     @Override
     public void updateOnForgetGameTypeSet() {
-        disableAllControls();
+        doOnPrevPrevState();
     }
 
     @Override
     public void updateOnGetGameTypeSet() {
-        disableAllControls();
+        doOnPrevPrevState();
     }
 
     // 4
     @Override
     public void updateOnForgetGameType() {
-        disableAllControls();
+        doOnPrevPrevState();
     }
 
     /*
@@ -107,36 +107,50 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
     */
     @Override
     public void updateOnSelectGameType() {
-        disableAllControls();
+        doOnPrevPrevState();
     }
 
     // 5
     @Override
     public void updateOnForgetGameMatchSet() {
-        disableAllControls();
+        doOnPrevPrevState();
     }
 
     @Override
     public void updateOnGetGameMatchSet() {
-        disableAllControls();
+        doOnPrevPrevState();
     }
 
     // 6
     @Override
     public void updateOnForgetGameMatch() {
-        disableAllControls();
+        doOnPrevPrevState();
     }
 
     @Override
     public void updateOnSelectGameMatch() {
         System.out.println("updateOnSelectGameMatch");
-        setDisableControlsNextState(false);
+        doOnPrevState();
     }
 
     // 7
     @Override
     public void updateOnStartGameMatchPlaying() {
         System.out.println("updateOnStartGameMatchPlaying");
+        doOnPrevState();
+    }
+
+    @Override
+    public void updateOnStopGameMatchPlaying() {
+        doOnNextState();
+    }
+
+    //
+    protected void doOnPrevPrevState() {
+        disableAllControls();
+    }
+
+    protected void doOnPrevState() {
         // ToDo: Создать выборки и контролы, соответствующие типу игры, отправить серверу сообщения об этом.
         //       Но пока делаем одну универсальную выборку - контрол - основное поле игры.
         //       ...
@@ -144,8 +158,7 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         setDisableControlsNextState(false);
     }
 
-    @Override
-    public void updateOnStopGameMatchPlaying() {
+    protected void doOnNextState() {
         // ToDo: ???
         System.out.println("updateOnStopGameMatchPlaying");
         setDisableControlsNextState(true);
