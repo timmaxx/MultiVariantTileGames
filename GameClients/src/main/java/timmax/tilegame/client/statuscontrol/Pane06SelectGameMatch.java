@@ -120,12 +120,14 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
     }
 
     //
+    @Override
     protected void doOnPrevPrevState() {
         disableAllControls();
         comboBoxGameSet.setItems(FXCollections.observableArrayList());
         textFieldSelectedGame.setText("");
     }
 
+    @Override
     protected void doOnPrevState() {
         // ToDo: Эти строки всегда совпадают с последними строками предыдущего метода для всех классов Pane0x.
         //       Ввести дополнительный приватный метод и вызывать его.
@@ -133,6 +135,7 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
         setDisableControlsNextState(false);
     }
 
+    @Override
     protected void doOnNextState() {
         textFieldSelectedGame.setText(localClientState.getServerBaseModel().toString());
         setDisableControlsNextState(true);
