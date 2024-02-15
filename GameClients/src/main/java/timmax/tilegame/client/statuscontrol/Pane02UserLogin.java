@@ -67,7 +67,6 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
         doOnNextState();
     }
 
-
     //
     protected void doOnPrevPrevState() {
         disableAllControls();
