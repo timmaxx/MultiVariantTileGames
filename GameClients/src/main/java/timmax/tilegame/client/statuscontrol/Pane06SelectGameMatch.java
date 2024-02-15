@@ -132,7 +132,7 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
         // ToDo: Эти строки всегда совпадают с последними строками предыдущего метода для всех классов Pane0x.
         //       Ввести дополнительный приватный метод и вызывать его.
         textFieldSelectedGame.setText("");
-        setDisableControlsNextState(false);
+        super.doOnThisState();
     }
 
     @Override

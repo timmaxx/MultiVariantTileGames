@@ -112,7 +112,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
     @Override
     protected void doOnThisState() {
         textFieldSelectedGameType.setText("");
-        setDisableControlsNextState(false);
+        super.doOnThisState();
     }
 
     @Override

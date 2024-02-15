@@ -152,7 +152,7 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         //       Но пока делаем одну универсальную выборку - контрол - основное поле игры.
         //       ...
         // ViewMainFieldJfx viewMainFieldJfx = new ViewMainFieldJfx(iModelOfClient, baseController);
-        setDisableControlsNextState(false);
+        super.doOnThisState();
     }
 
     @Override
