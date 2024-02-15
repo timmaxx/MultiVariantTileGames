@@ -47,69 +47,51 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
     // 1
     @Override
     public void updateOnClose() {
-        disableAllControls();
-        comboBoxGameSet.setItems(FXCollections.observableArrayList());
-        textFieldSelectedGame.setText("");
+        doOnPrevPrevState();
     }
 
     @Override
     public void updateOnOpen() {
-        disableAllControls();
-        comboBoxGameSet.setItems(FXCollections.observableArrayList());
-        textFieldSelectedGame.setText("");
+        doOnPrevPrevState();
     }
 
     // 2
     @Override
     public void updateOnLogout() {
-        disableAllControls();
-        comboBoxGameSet.setItems(FXCollections.observableArrayList());
-        textFieldSelectedGame.setText("");
+        doOnPrevPrevState();
     }
 
     @Override
     public void updateOnLogin() {
-        disableAllControls();
-        comboBoxGameSet.setItems(FXCollections.observableArrayList());
-        textFieldSelectedGame.setText("");
+        doOnPrevPrevState();
     }
 
     // 3
     @Override
     public void updateOnForgetGameTypeSet() {
-        disableAllControls();
-        comboBoxGameSet.setItems(FXCollections.observableArrayList());
-        textFieldSelectedGame.setText("");
+        doOnPrevPrevState();
     }
 
     @Override
     public void updateOnGetGameTypeSet() {
-        disableAllControls();
-        comboBoxGameSet.setItems(FXCollections.observableArrayList());
-        textFieldSelectedGame.setText("");
+        doOnPrevPrevState();
     }
 
     // 4
     @Override
     public void updateOnForgetGameType() {
-        disableAllControls();
-        comboBoxGameSet.setItems(FXCollections.observableArrayList());
-        textFieldSelectedGame.setText("");
+        doOnPrevPrevState();
     }
 
     @Override
     public void updateOnSelectGameType() {
-        disableAllControls();
-        comboBoxGameSet.setItems(FXCollections.observableArrayList());
-        textFieldSelectedGame.setText("");
+        doOnPrevPrevState();
     }
 
     // 5
     @Override
     public void updateOnForgetGameMatchSet() {
-        disableAllControls();
-        comboBoxGameSet.setItems(FXCollections.observableArrayList());
-        textFieldSelectedGame.setText("");
+        doOnPrevPrevState();
     }
 
     @Override
@@ -123,21 +105,35 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
                         .map(InstanceIdOfModel::getId)
                         .toList()
         ));
-        textFieldSelectedGame.setText("");
-        setDisableControlsNextState(false);
+        doOnPrevState();
     }
 
     // 6
     @Override
     public void updateOnForgetGameMatch() {
+        doOnPrevState();
+    }
+
+    @Override
+    public void updateOnSelectGameMatch() {
+        doOnNextState();
+    }
+
+    //
+    protected void doOnPrevPrevState() {
+        disableAllControls();
+        comboBoxGameSet.setItems(FXCollections.observableArrayList());
+        textFieldSelectedGame.setText("");
+    }
+
+    protected void doOnPrevState() {
         // ToDo: Эти строки всегда совпадают с последними строками предыдущего метода для всех классов Pane0x.
         //       Ввести дополнительный приватный метод и вызывать его.
         textFieldSelectedGame.setText("");
         setDisableControlsNextState(false);
     }
 
-    @Override
-    public void updateOnSelectGameMatch() {
+    protected void doOnNextState() {
         textFieldSelectedGame.setText(localClientState.getServerBaseModel().toString());
         setDisableControlsNextState(true);
     }
