@@ -54,39 +54,29 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
     // 1
     @Override
     public void updateOnClose() {
-        disableAllControls();
-        comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
-        textFieldSelectedGameType.setText("");
+        doOnPrevPrevState();
     }
 
     @Override
     public void updateOnOpen() {
-        disableAllControls();
-        comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
-        textFieldSelectedGameType.setText("");
+        doOnPrevPrevState();
     }
 
     // 2
     @Override
     public void updateOnLogout() {
-        disableAllControls();
-        comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
-        textFieldSelectedGameType.setText("");
+        doOnPrevPrevState();
     }
 
     @Override
     public void updateOnLogin() {
-        disableAllControls();
-        comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
-        textFieldSelectedGameType.setText("");
+        doOnPrevPrevState();
     }
 
     // 3
     @Override
     public void updateOnForgetGameTypeSet() {
-        disableAllControls();
-        comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
-        textFieldSelectedGameType.setText("");
+        doOnPrevPrevState();
     }
 
     @Override
@@ -97,19 +87,33 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
                         .map(ModelOfServerDescriptor::getGameName)
                         .toList()
         ));
-        textFieldSelectedGameType.setText("");
-        setDisableControlsNextState(false);
+        doOnPrevState();
     }
 
     // 4
     @Override
     public void updateOnForgetGameType() {
-        textFieldSelectedGameType.setText("");
-        setDisableControlsNextState(false);
+        doOnPrevState();
     }
 
     @Override
     public void updateOnSelectGameType() {
+        doOnNextState();
+    }
+
+    //
+    protected void doOnPrevPrevState() {
+        disableAllControls();
+        comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
+        textFieldSelectedGameType.setText("");
+    }
+
+    protected void doOnPrevState() {
+        textFieldSelectedGameType.setText("");
+        setDisableControlsNextState(false);
+    }
+
+    protected void doOnNextState() {
         textFieldSelectedGameType.setText(localClientState.getGameType().getGameName());
         setDisableControlsNextState(true);
     }
