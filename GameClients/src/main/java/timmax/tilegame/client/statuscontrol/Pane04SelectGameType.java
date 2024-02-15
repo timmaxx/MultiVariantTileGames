@@ -87,13 +87,13 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
                         .map(ModelOfServerDescriptor::getGameName)
                         .toList()
         ));
-        doOnPrevState();
+        doOnThisState();
     }
 
     // 4
     @Override
     public void updateOnForgetGameType() {
-        doOnPrevState();
+        doOnThisState();
     }
 
     @Override
@@ -110,7 +110,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
     }
 
     @Override
-    protected void doOnPrevState() {
+    protected void doOnThisState() {
         textFieldSelectedGameType.setText("");
         setDisableControlsNextState(false);
     }

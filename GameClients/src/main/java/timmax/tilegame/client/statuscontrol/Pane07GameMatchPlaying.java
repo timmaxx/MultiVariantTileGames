@@ -130,14 +130,14 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
     @Override
     public void updateOnSelectGameMatch() {
         System.out.println("updateOnSelectGameMatch");
-        doOnPrevState();
+        doOnThisState();
     }
 
     // 7
     @Override
     public void updateOnStartGameMatchPlaying() {
         System.out.println("updateOnStartGameMatchPlaying");
-        doOnPrevState();
+        doOnThisState();
     }
 
     @Override
@@ -152,7 +152,7 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
     }
 
     @Override
-    protected void doOnPrevState() {
+    protected void doOnThisState() {
         // ToDo: Создать выборки и контролы, соответствующие типу игры, отправить серверу сообщения об этом.
         //       Но пока делаем одну универсальную выборку - контрол - основное поле игры.
         //       ...

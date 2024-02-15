@@ -73,13 +73,13 @@ public class Pane05GetGameMatchSet extends AbstractConnectStatePane {
 
     @Override
     public void updateOnSelectGameType() {
-        doOnPrevState();
+        doOnThisState();
     }
 
     // 5
     @Override
     public void updateOnForgetGameMatchSet() {
-        doOnPrevState();
+        doOnThisState();
     }
 
     @Override
@@ -94,7 +94,7 @@ public class Pane05GetGameMatchSet extends AbstractConnectStatePane {
     }
 
     @Override
-    protected void doOnPrevState() {
+    protected void doOnThisState() {
         setDisableControlsNextState(false);
     }
 

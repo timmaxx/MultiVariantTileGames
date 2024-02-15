@@ -105,13 +105,13 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
                         .map(InstanceIdOfModel::getId)
                         .toList()
         ));
-        doOnPrevState();
+        doOnThisState();
     }
 
     // 6
     @Override
     public void updateOnForgetGameMatch() {
-        doOnPrevState();
+        doOnThisState();
     }
 
     @Override
@@ -128,7 +128,7 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
     }
 
     @Override
-    protected void doOnPrevState() {
+    protected void doOnThisState() {
         // ToDo: Эти строки всегда совпадают с последними строками предыдущего метода для всех классов Pane0x.
         //       Ввести дополнительный приватный метод и вызывать его.
         textFieldSelectedGame.setText("");

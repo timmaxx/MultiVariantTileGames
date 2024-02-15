@@ -51,13 +51,13 @@ public class Pane03GetGameTypeSet extends AbstractConnectStatePane {
 
     @Override
     public void updateOnLogin() {
-        doOnPrevState();
+        doOnThisState();
     }
 
     // 3
     @Override
     public void updateOnForgetGameTypeSet() {
-        doOnPrevState();
+        doOnThisState();
     }
 
     @Override
@@ -72,7 +72,7 @@ public class Pane03GetGameTypeSet extends AbstractConnectStatePane {
     }
 
     @Override
-    protected void doOnPrevState() {
+    protected void doOnThisState() {
         setDisableControlsNextState(false);
     }
 

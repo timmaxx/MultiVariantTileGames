@@ -105,7 +105,7 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     //
     abstract protected void doOnPrevPrevState();
 
-    abstract protected void doOnPrevState();
+    abstract protected void doOnThisState();
 
     abstract protected void doOnNextState();
 
