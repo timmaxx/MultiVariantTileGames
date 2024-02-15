@@ -111,7 +111,9 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
         setDisableControlsNextState(false);
     }
 
-    abstract protected void doOnNextState();
+    protected void doOnNextState() {
+        setDisableControlsNextState(true);
+    }
 
     // X
     @Override

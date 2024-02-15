@@ -159,7 +159,7 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
     protected void doOnNextState() {
         // ToDo: ???
         System.out.println("updateOnStopGameMatchPlaying");
-        setDisableControlsNextState(true);
+        super.doOnNextState();
     }
 
     // X

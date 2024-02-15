@@ -64,10 +64,4 @@ public class Pane03GetGameTypeSet extends AbstractConnectStatePane {
     public void updateOnGetGameTypeSet() {
         doOnNextState();
     }
-
-    //
-    @Override
-    protected void doOnNextState() {
-        setDisableControlsNextState(true);
-    }
 }

@@ -138,6 +138,6 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
     @Override
     protected void doOnNextState() {
         textFieldSelectedGame.setText(localClientState.getServerBaseModel().toString());
-        setDisableControlsNextState(true);
+        super.doOnNextState();
     }
 }

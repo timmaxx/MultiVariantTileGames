@@ -71,10 +71,4 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
     public void updateOnOpen() {
         doOnNextState();
     }
-
-    //
-    @Override
-    protected void doOnNextState() {
-        setDisableControlsNextState(true);
-    }
 }

@@ -86,10 +86,4 @@ public class Pane05GetGameMatchSet extends AbstractConnectStatePane {
     public void updateOnGetGameMatchSet() {
         doOnNextState();
     }
-
-    //
-    @Override
-    protected void doOnNextState() {
-        setDisableControlsNextState(true);
-    }
 }
