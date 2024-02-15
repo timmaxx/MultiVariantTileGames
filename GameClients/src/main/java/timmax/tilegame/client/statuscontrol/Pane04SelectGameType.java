@@ -54,29 +54,29 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
     // 1
     @Override
     public void updateOnClose() {
-        doOnPrevPrevState();
+        doOnPrevState();
     }
 
     @Override
     public void updateOnOpen() {
-        doOnPrevPrevState();
+        doOnPrevState();
     }
 
     // 2
     @Override
     public void updateOnLogout() {
-        doOnPrevPrevState();
+        doOnPrevState();
     }
 
     @Override
     public void updateOnLogin() {
-        doOnPrevPrevState();
+        doOnPrevState();
     }
 
     // 3
     @Override
     public void updateOnForgetGameTypeSet() {
-        doOnPrevPrevState();
+        doOnPrevState();
     }
 
     @Override
@@ -103,7 +103,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
 
     //
     @Override
-    protected void doOnPrevPrevState() {
+    protected void doOnPrevState() {
         disableAllControls();
         comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
         textFieldSelectedGameType.setText("");

@@ -74,7 +74,7 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
 
     //
     @Override
-    protected void doOnPrevPrevState() {
+    protected void doOnPrevState() {
         disableAllControls();
     }
 

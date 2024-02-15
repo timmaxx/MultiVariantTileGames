@@ -49,7 +49,7 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
 
     @Override
     public void updateOnClose() {
-        doOnPrevPrevState();
+        doOnPrevState();
     }
 
     @Override
@@ -69,7 +69,7 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
 
     //
     @Override
-    protected void doOnPrevPrevState() {
+    protected void doOnPrevState() {
         disableAllControls();
     }
 

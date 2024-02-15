@@ -35,40 +35,40 @@ public class Pane05GetGameMatchSet extends AbstractConnectStatePane {
     // 1
     @Override
     public void updateOnClose() {
-        doOnPrevPrevState();
+        doOnPrevState();
     }
 
     @Override
     public void updateOnOpen() {
-        doOnPrevPrevState();
+        doOnPrevState();
     }
 
     // 2
     @Override
     public void updateOnLogout() {
-        doOnPrevPrevState();
+        doOnPrevState();
     }
 
     @Override
     public void updateOnLogin() {
-        doOnPrevPrevState();
+        doOnPrevState();
     }
 
     // 3
     @Override
     public void updateOnForgetGameTypeSet() {
-        doOnPrevPrevState();
+        doOnPrevState();
     }
 
     @Override
     public void updateOnGetGameTypeSet() {
-        doOnPrevPrevState();
+        doOnPrevState();
     }
 
     // 4
     @Override
     public void updateOnForgetGameType() {
-        doOnPrevPrevState();
+        doOnPrevState();
     }
 
     @Override
@@ -89,7 +89,7 @@ public class Pane05GetGameMatchSet extends AbstractConnectStatePane {
 
     //
     @Override
-    protected void doOnPrevPrevState() {
+    protected void doOnPrevState() {
         disableAllControls();
     }
 
