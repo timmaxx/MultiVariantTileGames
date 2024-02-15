@@ -104,7 +104,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
     //
     @Override
     protected void doOnPrevState() {
-        disableAllControls();
+        super.doOnPrevState();
         comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
         textFieldSelectedGameType.setText("");
     }

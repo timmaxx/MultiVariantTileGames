@@ -89,11 +89,6 @@ public class Pane05GetGameMatchSet extends AbstractConnectStatePane {
 
     //
     @Override
-    protected void doOnPrevState() {
-        disableAllControls();
-    }
-
-    @Override
     protected void doOnThisState() {
         setDisableControlsNextState(false);
     }

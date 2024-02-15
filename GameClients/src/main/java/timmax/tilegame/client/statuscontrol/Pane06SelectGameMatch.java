@@ -122,7 +122,7 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
     //
     @Override
     protected void doOnPrevState() {
-        disableAllControls();
+        super.doOnPrevState();
         comboBoxGameSet.setItems(FXCollections.observableArrayList());
         textFieldSelectedGame.setText("");
     }

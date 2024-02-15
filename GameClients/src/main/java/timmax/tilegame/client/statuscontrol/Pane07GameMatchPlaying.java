@@ -147,11 +147,6 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
 
     //
     @Override
-    protected void doOnPrevState() {
-        disableAllControls();
-    }
-
-    @Override
     protected void doOnThisState() {
         // ToDo: Создать выборки и контролы, соответствующие типу игры, отправить серверу сообщения об этом.
         //       Но пока делаем одну универсальную выборку - контрол - основное поле игры.
