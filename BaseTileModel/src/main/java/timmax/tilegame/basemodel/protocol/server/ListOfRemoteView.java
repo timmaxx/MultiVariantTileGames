@@ -19,7 +19,7 @@ public class ListOfRemoteView<ClientId> extends ArrayList<RemoteView<ClientId>> 
         for (RemoteView<ClientId> remoteView : this) {
             // ToDo: Следует отправлять сообщение не всем выборкам, а только тем, которые подписаны на именно этот тип
             //       сообщения.
-            EventOfServer eventOfServer = new EventOfServer92GameEvent(remoteView.getViewId(), gameEvent);
+            EventOfServer eventOfServer = new EventOfServer92GameEvent(remoteView.getViewName(), gameEvent);
             transportOfServer.sendEventOfServer(remoteView.getClientId(), eventOfServer);
         }
     }

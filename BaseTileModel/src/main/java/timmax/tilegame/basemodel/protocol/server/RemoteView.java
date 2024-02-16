@@ -6,27 +6,27 @@ import java.util.Objects;
 // которой нужно отправить то или иное сообщение об игровом событии.
 public class RemoteView<ClientId> {
     private final ClientId clientId;
-    private final String viewId;
+    private final String viewName;
 
 
-    public RemoteView(ClientId clientId, String viewId) {
+    public RemoteView(ClientId clientId, String viewName) {
         this.clientId = clientId;
-        this.viewId = viewId;
+        this.viewName = viewName;
     }
 
     public ClientId getClientId() {
         return clientId;
     }
 
-    public String getViewId() {
-        return viewId;
+    public String getViewName() {
+        return viewName;
     }
 
     @Override
     public String toString() {
         return "RemoteView{" +
                 "clientId=" + clientId +
-                ", viewId='" + viewId + '\'' +
+                ", viewName='" + viewName + '\'' +
                 '}';
     }
 
@@ -38,13 +38,13 @@ public class RemoteView<ClientId> {
         RemoteView<?> that = (RemoteView<?>) o;
 
         if (!Objects.equals(clientId, that.clientId)) return false;
-        return viewId.equals(that.viewId);
+        return viewName.equals(that.viewName);
     }
 
     @Override
     public int hashCode() {
         int result = clientId != null ? clientId.hashCode() : 0;
-        result = 31 * result + viewId.hashCode();
+        result = 31 * result + viewName.hashCode();
         return result;
     }
 }

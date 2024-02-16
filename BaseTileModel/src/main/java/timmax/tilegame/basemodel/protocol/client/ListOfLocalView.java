@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import timmax.tilegame.baseview.View;
 
 public class ListOfLocalView extends ArrayList<View> {
-    public View getViewByViewId(String viewId) {
+    public View getViewByViewName(String viewName) {
         for (View view : this) {
-            if (view.getViewName().equals(viewId)) {
+            if (view.getViewName().equals(viewName)) {
                 return view;
             }
         }
