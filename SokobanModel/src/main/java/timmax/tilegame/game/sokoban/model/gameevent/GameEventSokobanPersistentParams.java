@@ -11,11 +11,8 @@ public class GameEventSokobanPersistentParams extends GameEvent {
     public final static String COMMON_LABEL_OF_PERSISTENT_PARAMS = "\nPersistent settings for Sokoban\n";
     public final static String COUNT_OF_BOXES_AND_HOMES = " Count of all boxes and homes = ";
 
-    // final (в этом классе и в любом, который реализует Externalizable) пришлось убрать из-за readExternal.
-    // Было-бы лучше конечно final оставить!
-    // Да и конструктор без параметров - тоже для Externalizable, и лучше-бы без такого конструктора обойтись.
-    // А так можно было-бы свой интерфейс сделать с конструктором, у которого был-бы параметром массив объектов!
-    private /*final*/ int countOfBoxesAndHomes;
+
+    private int countOfBoxesAndHomes;
 
 
     public GameEventSokobanPersistentParams() {

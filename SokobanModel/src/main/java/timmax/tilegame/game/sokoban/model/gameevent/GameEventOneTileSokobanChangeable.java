@@ -16,14 +16,8 @@ import static timmax.tilegame.game.sokoban.model.gameobject.WhoMovableInTile.*;
 import static timmax.tilegame.game.sokoban.model.gameobject.WhoPersistentInTile.*;
 
 public class GameEventOneTileSokobanChangeable extends GameEventOneTile {
-    // final (в этом классе и в любом, который реализует Externalizable) пришлось убрать из-за readExternal.
-    // Было-бы лучше конечно final оставить!
-    // Да и конструктор без параметров - тоже для Externalizable, и лучше-бы без такого конструктора обойтись.
-    // А так можно было-бы сделать:
-    // - (вместо readExternal) свой дополнительный класс с конструктором, у которого был-бы параметром массив объектов,
-    // - (writeExternal) в этом-же классе или всё таки в интерфейсе.
-    private /*final*/ WhoPersistentInTile whoPersistentInTile;
-    private /*final*/ WhoMovableInTile whoMovableInTile;
+    private WhoPersistentInTile whoPersistentInTile;
+    private WhoMovableInTile whoMovableInTile;
 
     public GameEventOneTileSokobanChangeable() {
         super();
@@ -58,15 +52,7 @@ public class GameEventOneTileSokobanChangeable extends GameEventOneTile {
             cellTextColor = Color.BLACK;
         }
     }
-/*
-    public WhoPersistentInTile getWhoPersistentInTile() {
-        return whoPersistentInTile;
-    }
 
-    public WhoMovableInTile getWhoMovableInTile() {
-        return whoMovableInTile;
-    }
-*/
     @Override
     public String toString() {
         return "GameEventOneTileSokobanChangeable{" +
