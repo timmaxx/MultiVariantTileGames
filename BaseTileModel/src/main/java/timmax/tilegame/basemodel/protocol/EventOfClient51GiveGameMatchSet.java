@@ -1,6 +1,6 @@
 package timmax.tilegame.basemodel.protocol;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 import timmax.tilegame.transport.TransportOfServer;
 
@@ -19,7 +19,7 @@ public class EventOfClient51GiveGameMatchSet extends EventOfClient {
         // 1. Игра для 2-х и более игроков.
         // 2. Есть хотя-бы одна не занятая роль.
 
-        transportOfServer.getRemoteClientStateByClientId(clientId).setGameMatchSet(new ArrayList<>());
+        transportOfServer.getRemoteClientStateByClientId(clientId).setGameMatchSet(new HashSet<>());
     }
 
     @Override

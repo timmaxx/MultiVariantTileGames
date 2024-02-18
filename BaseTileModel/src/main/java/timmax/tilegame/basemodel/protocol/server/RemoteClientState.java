@@ -1,6 +1,6 @@
 package timmax.tilegame.basemodel.protocol.server;
 
-import java.util.List;
+import java.util.stream.Collectors;
 import java.util.Set;
 
 import timmax.tilegame.basemodel.protocol.*;
@@ -61,13 +61,13 @@ public class RemoteClientState<ClientId> extends AbstractClientState<IModelOfSer
         transportOfServer.sendEventOfServer(clientId, new EventOfServer50ForgetGameMatchSet());
     }
 
-    public void setGameMatchSet(List<IModelOfServer<ClientId>> listOfServerBaseModel) {
-        super.setGameMatchSet(listOfServerBaseModel);
+    public void setGameMatchSet(Set<IModelOfServer<ClientId>> setOfServerBaseModel) {
+        super.setGameMatchSet(setOfServerBaseModel);
         transportOfServer.sendEventOfServer(clientId, new EventOfServer51GetGameMatchSet(
-                listOfServerBaseModel
+                setOfServerBaseModel
                         .stream()
                         .map(InstanceIdOfModel::modelOfServerToInstanceIdOfModel)
-                        .toList()
+                        .collect(Collectors.toSet())
         ));
     }
 

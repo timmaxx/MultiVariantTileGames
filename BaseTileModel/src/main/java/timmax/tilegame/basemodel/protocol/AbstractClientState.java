@@ -1,6 +1,5 @@
 package timmax.tilegame.basemodel.protocol;
 
-import java.util.List;
 import java.util.Set;
 
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
@@ -11,7 +10,7 @@ public abstract class AbstractClientState<Model> {
     protected String userName; // ---- 2 (Пользователь)
     protected Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor; // ---- 3 (Список типов игр)
     protected ModelOfServerDescriptor modelOfServerDescriptor; // ---- 4 (Конкретный тип игры)
-    protected List<Model> listOfServerBaseModel; // ---- 5 (Список моделей игр)
+    protected Set<Model> setOfServerBaseModel; // ---- 5 (Набор моделей игр)
     protected Model serverBaseModel; // ---- 6 (Конкретная модель игры)
     protected Boolean gameIsPlaying; // ---- 7 (Партия была начата)
 
@@ -73,22 +72,22 @@ public abstract class AbstractClientState<Model> {
         this.modelOfServerDescriptor = modelOfServerDescriptor;
     }
 
-    // ---- 5 (Список моделей игр)
-    public List<Model> getGameMatchSet() {
-        return listOfServerBaseModel;
+    // ---- 5 (Набор моделей игр)
+    public Set<Model> getGameMatchSet() {
+        return setOfServerBaseModel;
     }
 
-    public void setGameMatchSet(List<Model> listOfServerBaseModel) {
-        setGameMatchSet_(listOfServerBaseModel);
+    public void setGameMatchSet(Set<Model> setOfServerBaseModel) {
+        setGameMatchSet_(setOfServerBaseModel);
     }
 
     public void forgetGameMatchSet() {
         setGameMatchSet_(null);
     }
 
-    private void setGameMatchSet_(List<Model> listOfServerBaseModel) {
+    private void setGameMatchSet_(Set<Model> setOfServerBaseModel) {
         setServerBaseModel_(null);
-        this.listOfServerBaseModel = listOfServerBaseModel;
+        this.setOfServerBaseModel = setOfServerBaseModel;
     }
 
     // ---- 6 (Конкретная модель игры)
@@ -132,9 +131,9 @@ public abstract class AbstractClientState<Model> {
             return MainGameClientStatus.GAME_IS_PLAYING;
         } else if (serverBaseModel != null) {
             return MainGameClientStatus.GAME_MATCH_SELECTED;
-        } // Проверка на длину списка закоментирована, т.к. предполагается, что пользователь может иметь возможность
-          // создавать партию даже если он не получил списка готовых партий.
-          else if (listOfServerBaseModel != null /*&& listOfServerBaseModel.size() > 0*/) {
+        } // Проверка на длину набора закоментирована, т.к. предполагается, что пользователь может иметь возможность
+          // создавать партию даже если он не получил набор готовых партий.
+          else if (setOfServerBaseModel != null /*&& setOfServerBaseModel.size() > 0*/) {
             return MainGameClientStatus.GAME_MATCH_SET_SELECTED;
         } else if (modelOfServerDescriptor != null) {
             return MainGameClientStatus.GAME_TYPE_SELECTED;

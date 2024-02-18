@@ -2,7 +2,6 @@ package timmax.tilegame.basemodel.protocol.client;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -63,10 +62,10 @@ public abstract class LocalClientState extends AbstractClientState<InstanceIdOfM
         iModelOfClient.getHashSetOfObserverOnAbstractEvent().updateOnForgetGameType();
     }
 
-    // ---- 5 (Список моделей игр)
+    // ---- 5 (Набор моделей игр)
     @Override
-    public void setGameMatchSet(List<InstanceIdOfModel> listOfServerBaseModel) {
-        super.setGameMatchSet(listOfServerBaseModel);
+    public void setGameMatchSet(Set<InstanceIdOfModel> setOfServerBaseModel) {
+        super.setGameMatchSet(setOfServerBaseModel);
         iModelOfClient.getHashSetOfObserverOnAbstractEvent().updateOnGetGameMatchSet();
     }
 
