@@ -15,10 +15,6 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
 
         // Контролы для продвижения состояния "вперёд":
         buttonNextState.setText("Start new game");
-        // ToDo: по общему правилу 'buttonNewGame.setFocusTraversable(false);' следует закомметировать,
-        //       но т.к. кнопка 'buttonNewGame' пока не делается не активной после нажатия
-        //       (т.к. от сервера не приходит сообщение о начале новой игры), то пусть пока так:
-        buttonNextState.setFocusTraversable(false);
         buttonNextState.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.startGameMatchPlaying();
@@ -42,10 +38,6 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
                 List.of(buttonNextState),
                 List.of(pane, buttonPrevState)
         );
-
-        enableAllControls();
-        pane.setDisable(false);
-        buttonPrevState.setDisable(false);
     }
 
     // 1
@@ -97,6 +89,14 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
                 multiGameWebSocketClientManyTimesUse,
                 multiGameWebSocketClientManyTimesUse.getMultiGameWebSocketClient()
         ));
+/*
+        setDisableControlsNextState(false);
+            {   // Эти вызовы пока нужны, т.к. нет вызова updateOnCreateNewGame().
+                enableAllControls();
+                pane.setDisable(false);
+                enableAllControls();
+            }
+*/
     }
 
     // 5
@@ -126,44 +126,22 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
     @Override
     public void updateOnStartGameMatchPlaying() {
         System.out.println("updateOnStartGameMatchPlaying");
+        pane.setDisable(false);
         doOnThisState();
     }
 
     @Override
     public void updateOnStopGameMatchPlaying() {
+        pane.setDisable(true);
         doOnNextState();
     }
 
-    //
-    @Override
-    protected void doOnThisState() {
-        // ToDo: Создать выборки и контролы, соответствующие типу игры, отправить серверу сообщения об этом.
-        //       Но пока делаем одну универсальную выборку - контрол - основное поле игры.
-        //       ...
-        // ViewMainFieldJfx viewMainFieldJfx = new ViewMainFieldJfx(iModelOfClient, baseController);
-/*
-        {
-            pane.getChildren().clear();
-            // ToDo: В этой реализации нет заголовка игры (и в будущем других её свойств).
-            // GameClientPaneJfx(IModelOfClient iModelOfClient, TransportOfClient transportOfClient, String viewName)
-            pane.getChildren().addAll(new GameClientPaneJfx(multiGameWebSocketClientManyTimesUse, multiGameWebSocketClientManyTimesUse.getMultiGameWebSocketClient(), "MainField"));
-
-            setDisableControlsNextState(false);
-
-            {   // Эти вызовы пока нужны, т.к. нет вызова updateOnCreateNewGame().
-                enableAllControls();
-                pane.setDisable(false);
-                enableAllControls();
-            }
-        }
-        */
-        super.doOnThisState();
-    }
-
+    // doOnХХХState()
     @Override
     protected void doOnNextState() {
         // ToDo: ???
         System.out.println("updateOnStopGameMatchPlaying");
+        pane.setDisable(false);
         super.doOnNextState();
     }
 
