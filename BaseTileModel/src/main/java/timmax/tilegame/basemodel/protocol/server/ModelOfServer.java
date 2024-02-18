@@ -23,12 +23,12 @@ public abstract class ModelOfServer<ClientId> implements IModelOfServer<ClientId
     private final static int MIN_HEIGHT = 1; // 2;
     private final static int MAX_HEIGHT = 100;
 
-    private final ListOfRemoteView<ClientId> listOfRemoteViews;
+    private final MapOfClientID_SetOfViewName<ClientId> mapOfClientID_SetOfViewName;
 
     private GameStatus gameStatus;
 
     public ModelOfServer(TransportOfServer<ClientId> transportOfServer) {
-        listOfRemoteViews = new ListOfRemoteView<>(transportOfServer);
+        mapOfClientID_SetOfViewName = new MapOfClientID_SetOfViewName<>(transportOfServer);
     }
 
     protected final GameStatus getGameStatus() {
@@ -42,7 +42,7 @@ public abstract class ModelOfServer<ClientId> implements IModelOfServer<ClientId
     // Overiden methods from interface IModelOfServer:
     @Override
     public final void addRemoteView(RemoteView<ClientId> remoteView) {
-        listOfRemoteViews.add(remoteView);
+        mapOfClientID_SetOfViewName.addRemoteView(remoteView);
     }
 
     @Override
@@ -76,7 +76,7 @@ public abstract class ModelOfServer<ClientId> implements IModelOfServer<ClientId
     }
 
     public void sendGameEvent(GameEvent gameEvent) {
-        listOfRemoteViews.sendGameEvent(gameEvent);
+        mapOfClientID_SetOfViewName.sendGameEvent(gameEvent);
     }
 
     private static void validateWidthHeight(int width, int height) {
