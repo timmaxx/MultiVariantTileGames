@@ -11,11 +11,7 @@ public class GameEventMinesweeperPersistentParams extends GameEvent {
     public final static String COMMON_LABEL_OF_PERSISTENT_PARAMS = "\nPersistent settings for Minesweeper\n";
     public final static String COUNT_OF_MINES = " Count of all mines in the field = ";
 
-    // final (в этом классе и в любом, который реализует Externalizable) пришлось убрать из-за readExternal.
-    // Было-бы лучше конечно final оставить!
-    // Да и конструктор без параметров - тоже для Externalizable, и лучше-бы без такого конструктора обойтись.
-    // А так можно было-бы свой интерфейс сделать с конструктором, у которого был-бы параметром массив объектов!
-    private /*final*/ int countOfMines;
+    private int countOfMines;
 
     public GameEventMinesweeperPersistentParams() {
     }

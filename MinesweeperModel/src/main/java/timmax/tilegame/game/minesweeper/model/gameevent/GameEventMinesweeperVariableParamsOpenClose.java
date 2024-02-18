@@ -12,12 +12,8 @@ public class GameEventMinesweeperVariableParamsOpenClose extends GameEvent {
     public final static String TILES_WERE_OPENED = " Tiles were opened = ";
     public final static String TILES_STILL_CLOSED = " Tiles still closed = ";
 
-    // final (в этом классе и в любом, который реализует Externalizable) пришлось убрать из-за readExternal.
-    // Было-бы лучше конечно final оставить!
-    // Да и конструктор без параметров - тоже для Externalizable, и лучше-бы без такого конструктора обойтись.
-    // А так можно было-бы свой интерфейс сделать с конструктором, у которого был-бы параметром массив объектов!
-    private /*final*/ int tilesWereOpened;
-    private /*final*/ int tilesStillClose;
+    private int tilesWereOpened;
+    private int tilesStillClose;
 
     public GameEventMinesweeperVariableParamsOpenClose() {
     }

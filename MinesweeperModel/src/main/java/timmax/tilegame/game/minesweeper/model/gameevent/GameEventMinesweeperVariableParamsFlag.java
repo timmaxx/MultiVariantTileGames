@@ -12,12 +12,8 @@ public class GameEventMinesweeperVariableParamsFlag extends GameEvent {
     public final static String FLAGS_WERE_USED = " Flags were used = ";
     public final static String FLAGS_ARE_STILL_AVAILABLE_FOR_USING = " Flags are still available for using = ";
 
-    // final (в этом классе и в любом, который реализует Externalizable) пришлось убрать из-за readExternal.
-    // Было-бы лучше конечно final оставить!
-    // Да и конструктор без параметров - тоже для Externalizable, и лучше-бы без такого конструктора обойтись.
-    // А так можно было-бы свой интерфейс сделать с конструктором, у которого был-бы параметром массив объектов!
-    private /*final*/ int flagsWereUsed;
-    private /*final*/ int flagsAreStillAvailableForUsing;
+    private int flagsWereUsed;
+    private int flagsAreStillAvailableForUsing;
 
     public GameEventMinesweeperVariableParamsFlag() {
     }
