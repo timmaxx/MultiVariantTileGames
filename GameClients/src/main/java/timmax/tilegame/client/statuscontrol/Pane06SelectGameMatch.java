@@ -19,10 +19,10 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
 
         // Контролы для продвижения состояния "вперёд":
         comboBoxGameSet = new ComboBox<>();
-        buttonNextState.setText("Select the game match");
         textFieldSelectedGame = new TextField();
         textFieldSelectedGame.setEditable(false);
 
+        buttonNextState.setText("Select the game match");
         buttonNextState.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.gameMatchSelect(new InstanceIdOfModel(comboBoxGameSet.getValue()));
@@ -31,7 +31,6 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
         // Контролы для продвижения состояния "назад":
         buttonPrevState.setText("Forget the game match");
         buttonPrevState.setFocusTraversable(false);
-
         buttonPrevState.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.forgetGameMatch();
@@ -119,7 +118,7 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
         doOnNextState();
     }
 
-    //
+    // doOnХХХState()
     @Override
     protected void doOnPrevState() {
         super.doOnPrevState();
