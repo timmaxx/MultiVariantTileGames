@@ -10,7 +10,6 @@ public class Pane03GetGameTypeSet extends AbstractConnectStatePane {
 
         // Контролы для продвижения состояния "вперёд":
         buttonNextState.setText("Get the game type set");
-
         buttonNextState.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.getGameTypeSet();
@@ -19,7 +18,6 @@ public class Pane03GetGameTypeSet extends AbstractConnectStatePane {
         // Контролы для продвижения состояния "назад":
         buttonPrevState.setText("Forget the game type set");
         buttonPrevState.setFocusTraversable(false);
-
         buttonPrevState.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.forgetGameTypeSet();
