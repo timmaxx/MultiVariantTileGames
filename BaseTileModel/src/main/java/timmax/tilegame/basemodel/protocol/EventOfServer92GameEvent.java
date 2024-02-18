@@ -27,7 +27,7 @@ public class EventOfServer92GameEvent extends EventOfServer {
         System.out.println("  onGameEvent");
 
         System.out.println("  viewName = " + viewName);
-        View view = transportOfClient.getLocalClientState().getListOfLocalView().getViewByViewName(viewName);
+        View view = transportOfClient.getLocalClientState().getMapOfVieName_View().get(viewName);
         view.update(gameEvent);
     }
 

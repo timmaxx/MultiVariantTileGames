@@ -15,7 +15,6 @@ import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.basemodel.protocol.client.LocalClientState;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
-import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfClient;
 
 public class MultiGameWebSocketClient extends WebSocketClient implements TransportOfClient, IModelOfClient {
@@ -194,13 +193,6 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     }
 
     // 9
-    @Override
-    public void addView(View view) {
-        System.out.println("addView(View)");
-        localClientState.addView(view);
-        sendEventOfClient(new EventOfClient91AddView(view.getViewName()));
-    }
-
     @Override
     public void createNewGame() {
         System.out.println("createNewGame()");

@@ -10,7 +10,6 @@ import timmax.tilegame.basemodel.protocol.HashSetOfObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
-import timmax.tilegame.baseview.View;
 
 // WebSocket клиент многоразовый
 public class MultiGameWebSocketClientManyTimesUse implements IModelOfClient {
@@ -43,6 +42,10 @@ public class MultiGameWebSocketClientManyTimesUse implements IModelOfClient {
             return;
         }
         multiGameWebSocketClient.close();
+    }
+
+    public MultiGameWebSocketClient getMultiGameWebSocketClient() {
+        return multiGameWebSocketClient;
     }
 
     // Overriden methods from interface IModelOfClient:
@@ -116,11 +119,6 @@ public class MultiGameWebSocketClientManyTimesUse implements IModelOfClient {
     @Override
     public void createNewGame() {
         multiGameWebSocketClient.createNewGame();
-    }
-
-    @Override
-    public void addView(View view) {
-        multiGameWebSocketClient.addView(view);
     }
 
     @Override

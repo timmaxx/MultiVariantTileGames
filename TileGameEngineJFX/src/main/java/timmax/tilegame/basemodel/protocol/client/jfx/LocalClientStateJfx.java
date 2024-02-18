@@ -16,7 +16,7 @@ public class LocalClientStateJfx extends LocalClientState {
     }
 
     @Override
-    public Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView, BaseController baseController, String typeIdName) {
+    public Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView, BaseController baseController, String viewName) {
         Constructor<? extends ViewJfx> constructorOfViewJfx;
         try {
             Class<? extends ViewJfx> classOfViewJfx;

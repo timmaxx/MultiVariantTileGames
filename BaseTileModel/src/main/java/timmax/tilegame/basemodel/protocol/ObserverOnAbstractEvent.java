@@ -34,6 +34,5 @@ public interface ObserverOnAbstractEvent {
     // X
     void updateOnCreateNewGame();
     void updateOnCloseGame();
-    void updateOnAddView();
     void updateOnGameEvent();
 }

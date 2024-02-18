@@ -6,7 +6,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+
+import timmax.tilegame.baseview.ViewMainField;
 
 public class ModelOfServerLoader {
     private final Path path;
@@ -23,7 +26,12 @@ public class ModelOfServerLoader {
             ModelOfServerDescriptor modelOfServerDescriptor;
             while ((line = reader.readLine()) !=null) {
                 try {
-                    modelOfServerDescriptor = new ModelOfServerDescriptor(line);
+                    modelOfServerDescriptor = new ModelOfServerDescriptor(
+                            line,
+                            // ToDo: Именно в данном месте видно, что возможно перечень выборок здесь и не нужен.
+                            //       Пересмотреть архитектуру и возможно удалить.
+                            Map.of("MainField", ViewMainField.class)
+                    );
                 } catch (ClassNotFoundException e) {
                     System.err.println("Class '" + line + "' is not found.");
                     e.printStackTrace();

@@ -11,7 +11,7 @@ import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
 
 public abstract class AbstractConnectStatePane extends HBox implements ObserverOnAbstractEvent {
-    private final MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse;
+    protected final MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse;
 
     protected Button buttonNextState;
     protected Button buttonPrevState;
@@ -122,10 +122,6 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
 
     @Override
     public void updateOnCloseGame() {
-    }
-
-    @Override
-    public void updateOnAddView() {
     }
 
     @Override

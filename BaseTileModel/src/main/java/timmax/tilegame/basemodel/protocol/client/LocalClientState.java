@@ -1,8 +1,9 @@
 package timmax.tilegame.basemodel.protocol.client;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import timmax.tilegame.basecontroller.BaseController;
@@ -14,12 +15,14 @@ import timmax.tilegame.baseview.View;
 public abstract class LocalClientState extends AbstractClientState<InstanceIdOfModel> {
     private final IModelOfClient iModelOfClient;
     private final BaseController baseController;
-    private final ListOfLocalView listOfLocalView;
+    private final Map<String, Class<? extends View>> mapOfVieName_ViewClass;
+    private final Map<String, View> mapOfVieName_View;
 
     public LocalClientState(IModelOfClient iModelOfClient, BaseController baseController) {
         this.iModelOfClient = iModelOfClient;
         this.baseController = baseController;
-        this.listOfLocalView = new ListOfLocalView();
+        this.mapOfVieName_ViewClass = new HashMap<>();
+        this.mapOfVieName_View = new HashMap<>();
     }
 
     // ---- 2 (Пользователь)
@@ -100,23 +103,19 @@ public abstract class LocalClientState extends AbstractClientState<InstanceIdOfM
     }
 
     // Own methods
-    public ListOfLocalView getListOfLocalView() {
-        return listOfLocalView;
+    public Map<String, View> getMapOfVieName_View() {
+        return mapOfVieName_View;
+    }
+
+    public Map<String, Class<? extends View>> getMapOfVieName_ViewClass() {
+        return mapOfVieName_ViewClass;
     }
 
     public void addView(View view) {
-        listOfLocalView.add(view);
+        mapOfVieName_View.put(view.getViewName(), view);
     }
 
-    public void addView(Class<? extends View> classOfView, String viewName) {
-        Constructor<? extends View> constructorOfView;
-        constructorOfView = getViewConstructor(classOfView, baseController, viewName);
-        try {
-            constructorOfView.newInstance(iModelOfClient, baseController, viewName);
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public abstract Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView, BaseController baseController, String typeIdName);
+    public abstract Constructor<? extends View> getViewConstructor(
+            Class<? extends View> classOfView, BaseController baseController, String viewName
+    );
 }

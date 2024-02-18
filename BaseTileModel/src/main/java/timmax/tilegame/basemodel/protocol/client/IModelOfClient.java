@@ -3,7 +3,6 @@ package timmax.tilegame.basemodel.protocol.client;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
-import timmax.tilegame.baseview.View;
 
 // ToDo: Перечень методов для интерфейсов ObserverOnAbstractEvent и IModelOfClient похож.
 //       Может всё свести к одному интерфесу?
@@ -34,7 +33,7 @@ public interface IModelOfClient {
 
     // ---- X
     void createNewGame();
-    void addView(View view);
 
     ObserverOnAbstractEvent getHashSetOfObserverOnAbstractEvent();
+    LocalClientState getLocalClientState();
 }

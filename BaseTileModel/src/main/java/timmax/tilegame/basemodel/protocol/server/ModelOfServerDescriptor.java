@@ -6,9 +6,11 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 
 import timmax.tilegame.basemodel.protocol.EventOfServer;
 import timmax.tilegame.basemodel.protocol.IModelOfServerDescriptor;
+import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfServer;
 
 public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Externalizable {
@@ -22,10 +24,18 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
     // (например для шашек: "Белые", "Черные"; для многих игр для двух игроков: "Первый", "Второй"; для одного: "Игрок").
     // И количество игроков по длине массива будет определено.
 
+    private Map<String, Class <? extends View>> mapOfViewNameViewClass;
+
     public ModelOfServerDescriptor() {
     }
 
-    public ModelOfServerDescriptor(String modelOfServerString) throws ClassNotFoundException, NoSuchMethodException {
+    public ModelOfServerDescriptor(String modelOfServerString,
+                                   // ToDo: Возможно перечень выборок здесь и не нужен.
+                                   //       Пересмотреть архитектуру и возможно удалить.
+                                   //       Также см. ModelOfServerLoader
+                                   Map<String, Class <? extends View>> mapOfViewNameViewClass)
+            throws ClassNotFoundException, NoSuchMethodException {
+        this.mapOfViewNameViewClass = mapOfViewNameViewClass;
         // ToDo: Избавиться от "Warning:(27, 64) Unchecked cast: 'java.lang.Class<capture<?>>' to 'java.lang.Class<? extends timmax.tilegame.basemodel.protocol.server.ModelOfServer<?>>'"
         Class<? extends IModelOfServer<?>> modelOfServerClass = (Class<? extends IModelOfServer<?>>) Class.forName(modelOfServerString);
         this.constructorOfModelOfServerClass = modelOfServerClass.getConstructor(TransportOfServer.class);
@@ -83,6 +93,7 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
                 "constructorOfModelOfServerClass=" + constructorOfModelOfServerClass +
                 ", gameName='" + gameName + '\'' +
                 ", countOfGamers=" + countOfGamers +
+                ", mapOfViewNameViewClass=" + mapOfViewNameViewClass +
                 '}';
     }
 
@@ -102,12 +113,14 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeObject(gameName);
         out.writeInt(countOfGamers);
+        out.writeObject(mapOfViewNameViewClass);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         gameName = (String) in.readObject();
         countOfGamers = in.readInt();
+        mapOfViewNameViewClass = (Map<String, Class<? extends View>>) in.readObject();
     }
 
     // Own methods

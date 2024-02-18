@@ -5,8 +5,10 @@ import java.util.List;
 import javafx.scene.layout.Pane;
 
 import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
+import timmax.tilegame.guiengine.jfx.GameClientPaneJfx;
 
 public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
+    private final Pane pane;
 
     public Pane07GameMatchPlaying(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
         super(multiGameWebSocketClientManyTimesUse);
@@ -17,23 +19,20 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         //       но т.к. кнопка 'buttonNewGame' пока не делается не активной после нажатия
         //       (т.к. от сервера не приходит сообщение о начале новой игры), то пусть пока так:
         buttonNextState.setFocusTraversable(false);
-
         buttonNextState.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.startGameMatchPlaying();
         });
 
         // Контролы для продвижения состояния "назад":
-        Pane pane = new Pane();
+        pane = new Pane();
         pane.setPrefWidth(1000);
         pane.setPrefHeight(300);
 
         buttonPrevState.setText("Quit the game");
-
         buttonPrevState.setFocusTraversable(false); // Это в любом случае д.б.
-
         buttonPrevState.setOnAction(event -> {
-            // disableAllControls();
+            disableAllControls();
             // multiGameWebSocketClientManyTimesUse.quitGame();
             System.out.println("Quit the game");
         });
@@ -88,26 +87,16 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         doOnPrevState();
     }
 
-    /*
-        @Override
-        public void updateOnSelectGameType() {
-            disableAllControls();
-            pane.getChildren().clear();
-            // ToDo: В этой реализации нет заголовка игры (и в будущем других её свойств).
-            pane.getChildren().addAll(new GameClientPaneJfx(multiGameWebSocketClientManyTimesUse, multiGameWebSocketClientManyTimesUse.getMultiGameWebSocketClient()));
-
-            setDisableControlsNextState(false);
-
-            {   // Эти вызовы пока нужны, т.к. нет вызова updateOnCreateNewGame().
-                enableAllControls();
-                pane.setDisable(false);
-                enableAllControls();
-            }
-        }
-    */
     @Override
     public void updateOnSelectGameType() {
         doOnPrevState();
+        pane.getChildren().clear();
+        // ToDo: Передаётся несколько параметров, которые получается из multiGameWebSocketClientManyTimesUse.
+        //       Уменьшить количество параметров.
+        pane.getChildren().add(new GameClientPaneJfx(
+                multiGameWebSocketClientManyTimesUse,
+                multiGameWebSocketClientManyTimesUse.getMultiGameWebSocketClient()
+        ));
     }
 
     // 5
@@ -152,6 +141,22 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         //       Но пока делаем одну универсальную выборку - контрол - основное поле игры.
         //       ...
         // ViewMainFieldJfx viewMainFieldJfx = new ViewMainFieldJfx(iModelOfClient, baseController);
+/*
+        {
+            pane.getChildren().clear();
+            // ToDo: В этой реализации нет заголовка игры (и в будущем других её свойств).
+            // GameClientPaneJfx(IModelOfClient iModelOfClient, TransportOfClient transportOfClient, String viewName)
+            pane.getChildren().addAll(new GameClientPaneJfx(multiGameWebSocketClientManyTimesUse, multiGameWebSocketClientManyTimesUse.getMultiGameWebSocketClient(), "MainField"));
+
+            setDisableControlsNextState(false);
+
+            {   // Эти вызовы пока нужны, т.к. нет вызова updateOnCreateNewGame().
+                enableAllControls();
+                pane.setDisable(false);
+                enableAllControls();
+            }
+        }
+        */
         super.doOnThisState();
     }
 
@@ -163,13 +168,6 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
     }
 
     // X
-    @Override
-    public void updateOnAddView() {
-        // Этот метод не вызывается...
-        System.out.println("updateOnAddView()");
-        setDisableControlsNextState(false);
-    }
-
     @Override
     public void updateOnCreateNewGame() {
         // Этот метод не вызывается...

@@ -87,7 +87,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     // Overiden methods from interface TransportOfServer:
     @Override
     public void sendEventOfServer(WebSocket clientId, EventOfServer eventOfServer) {
-        System.out.println("  send(WebSocket, EventOfServer<WebSocket>)");
+        System.out.println("  sendEventOfServer(WebSocket, EventOfServer)");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         System.out.println("    eventOfServer = " + eventOfServer);
         mapper.writeValue(byteArrayOutputStream, eventOfServer);
