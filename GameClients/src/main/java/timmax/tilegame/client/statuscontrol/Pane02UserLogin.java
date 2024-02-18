@@ -9,8 +9,6 @@ import javafx.scene.control.TextField;
 import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
 
 public class Pane02UserLogin extends AbstractConnectStatePane {
-    private final PasswordField passwordField;
-
     public Pane02UserLogin(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
         super(multiGameWebSocketClientManyTimesUse);
 
@@ -18,14 +16,13 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
         Label labelUser = new Label("User");
         TextField textFieldUser = new TextField();
         Label labelPassword = new Label("Password");
-        passwordField = new PasswordField();
-        buttonNextState.setText("Login");
-
+        PasswordField passwordField = new PasswordField();
         {   // Инициализация для отладки. Потом убрать совсем, либо через конфигурационный файл, но только имя (не пароль)!
             textFieldUser.setText("u1");
             passwordField.setText("1");
         }
 
+        buttonNextState.setText("Login");
         buttonNextState.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.login(textFieldUser.getText(), passwordField.getText());
@@ -34,7 +31,6 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
         // Контролы для продвижения состояния "назад":
         buttonPrevState.setText("Logout");
         buttonPrevState.setFocusTraversable(false);
-
         buttonPrevState.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.logout();
@@ -47,6 +43,7 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
         );
     }
 
+    // 1
     @Override
     public void updateOnClose() {
         doOnPrevState();
@@ -57,6 +54,7 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
         doOnThisState();
     }
 
+    // 2
     @Override
     public void updateOnLogout() {
         doOnThisState();
