@@ -10,7 +10,6 @@ public class Pane05GetGameMatchSet extends AbstractConnectStatePane {
 
         // Контролы для продвижения состояния "вперёд":
         buttonNextState.setText("Get the game match set");
-
         buttonNextState.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.getGameMatchSet();
@@ -19,7 +18,6 @@ public class Pane05GetGameMatchSet extends AbstractConnectStatePane {
         // Контролы для продвижения состояния "назад":
         buttonPrevState.setText("Forget the game match set");
         buttonPrevState.setFocusTraversable(false);
-
         buttonPrevState.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.forgetGameMatchSet();
