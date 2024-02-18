@@ -22,14 +22,13 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
         textFieldServerAddress = new TextField();
         Label labelServerPort = new Label("Port");
         textFieldServerPort = new TextField();
-        buttonNextState.setText("Connect");
         labelConnectString = new Label();
-
         {   // Инициализация для отладки. Потом либо убрать, либо через конфигурационный файл!
             textFieldServerAddress.setText("localhost");
             textFieldServerPort.setText("8887");
         }
 
+        buttonNextState.setText("Connect");
         buttonNextState.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.setURI(getURIFromControls());
@@ -39,7 +38,6 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
         // Контролы для продвижения состояния "назад":
         buttonPrevState.setText("Disconnect");
         buttonPrevState.setFocusTraversable(false);
-
         buttonPrevState.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.close();
@@ -62,6 +60,7 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
         }
     }
 
+    // 1
     @Override
     public void updateOnClose() {
         doOnThisState();
