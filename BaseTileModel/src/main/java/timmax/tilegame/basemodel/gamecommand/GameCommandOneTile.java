@@ -5,8 +5,8 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 public abstract class GameCommandOneTile extends GameCommand {
-    private /*final*/ int x;
-    private /*final*/ int y;
+    private int x;
+    private int y;
 
     public GameCommandOneTile() {
         super();

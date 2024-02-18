@@ -7,12 +7,8 @@ import java.io.ObjectOutput;
 import javafx.scene.paint.Color;
 
 public abstract class GameEventOneTile extends GameEvent {
-    // final (в этом классе и в любом, который реализует Externalizable) пришлось убрать из-за readExternal.
-    // Было-бы лучше конечно final оставить!
-    // Да и конструктор без параметров - тоже для Externalizable, и лучше-бы без такого конструктора обойтись.
-    // А так можно было-бы свой интерфейс сделать с конструктором, у которого был-бы параметром массив объектов!
-    private /*final*/ int x;
-    private /*final*/ int y;
+    private int x;
+    private int y;
 
     // Поля ниже нужны для визуализации. И сейчас они добавлены сюда для работы универсального клиента.
     // Но:
