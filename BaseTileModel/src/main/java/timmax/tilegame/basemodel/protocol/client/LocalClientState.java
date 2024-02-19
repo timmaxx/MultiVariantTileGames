@@ -14,14 +14,12 @@ import timmax.tilegame.baseview.View;
 public abstract class LocalClientState extends AbstractClientState<InstanceIdOfModel> {
     private final IModelOfClient iModelOfClient;
     private final BaseController baseController;
-    private final Map<String, Class<? extends View>> mapOfVieName_ViewClass;
-    private final Map<String, View> mapOfVieName_View;
+    private Map<String, View> mapOfViewName_View;
 
     public LocalClientState(IModelOfClient iModelOfClient, BaseController baseController) {
         this.iModelOfClient = iModelOfClient;
         this.baseController = baseController;
-        this.mapOfVieName_ViewClass = new HashMap<>();
-        this.mapOfVieName_View = new HashMap<>();
+        this.mapOfViewName_View = new HashMap<>();
     }
 
     // ---- 2 (Пользователь)
@@ -102,16 +100,12 @@ public abstract class LocalClientState extends AbstractClientState<InstanceIdOfM
     }
 
     // Own methods
-    public Map<String, View> getMapOfVieName_View() {
-        return mapOfVieName_View;
-    }
-
-    public Map<String, Class<? extends View>> getMapOfVieName_ViewClass() {
-        return mapOfVieName_ViewClass;
+    public Map<String, View> getMapOfViewName_View() {
+        return mapOfViewName_View;
     }
 
     public void addView(View view) {
-        mapOfVieName_View.put(view.getViewName(), view);
+        mapOfViewName_View.put(view.getViewName(), view);
     }
 
     public abstract Constructor<? extends View> getViewConstructor(
