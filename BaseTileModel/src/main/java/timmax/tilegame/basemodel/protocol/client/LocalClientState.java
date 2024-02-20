@@ -126,6 +126,6 @@ public abstract class LocalClientState extends AbstractClientState<InstanceIdOfM
     }
 
     public abstract Constructor<? extends View> getViewConstructor(
-            Class<? extends View> classOfView/*, BaseController baseController, String viewName*/
+            Class<? extends View> classOfView
     );
 }
