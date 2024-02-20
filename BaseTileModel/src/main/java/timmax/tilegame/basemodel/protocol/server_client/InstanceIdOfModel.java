@@ -10,7 +10,7 @@ import timmax.tilegame.basemodel.protocol.server.IModelOfServer;
 public class InstanceIdOfModel implements Externalizable {
     private String id;
 
-    public static InstanceIdOfModel modelOfServerToInstanceIdOfModel(IModelOfServer<?> iModelOfServer) {
+    public static InstanceIdOfModel modelOfServerToInstanceIdOfModel(IModelOfServer iModelOfServer) {
         return new InstanceIdOfModel(iModelOfServer.toString());
     }
 

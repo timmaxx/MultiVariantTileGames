@@ -1,12 +1,15 @@
 package timmax.tilegame.basemodel.protocol.server;
 
+import java.util.Set;
+
 import javafx.scene.paint.Color;
 
 import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
-import timmax.tilegame.transport.TransportOfServer;
+import timmax.tilegame.basemodel.protocol.EventOfServer;
+import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent;
 
 import static timmax.tilegame.basemodel.GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
 import static timmax.tilegame.basemodel.GameStatus.VICTORY;
@@ -17,18 +20,18 @@ import static timmax.tilegame.basemodel.GameStatus.VICTORY;
 // Todo: Дополнить функционалом:
 // - по хранению перечня игровых контроллеров (от которых можно принимать сигналы управления игрой),
 // -- при игре с более чем одним игроком, контроллеры нужно учитывать по отдельному участнику.
-public abstract class ModelOfServer<ClientId> implements IModelOfServer<ClientId> {
+public abstract class ModelOfServer<ClientId> implements IModelOfServer {
     private final static int MIN_WIDTH = 1; // 2;
     private final static int MAX_WIDTH = 100;
     private final static int MIN_HEIGHT = 1; // 2;
     private final static int MAX_HEIGHT = 100;
 
-    private final MapOfClientID_SetOfViewName<ClientId> mapOfClientID_SetOfViewName;
+    private final RemoteClientState remoteClientState;
 
     private GameStatus gameStatus;
 
-    public ModelOfServer(TransportOfServer<ClientId> transportOfServer) {
-        mapOfClientID_SetOfViewName = new MapOfClientID_SetOfViewName<>(transportOfServer);
+    public ModelOfServer(RemoteClientState remoteClientState) {
+        this.remoteClientState = remoteClientState;
     }
 
     protected final GameStatus getGameStatus() {
@@ -40,11 +43,6 @@ public abstract class ModelOfServer<ClientId> implements IModelOfServer<ClientId
     }
 
     // Overiden methods from interface IModelOfServer:
-    @Override
-    public final void addRemoteView(RemoteView<ClientId> remoteView) {
-        mapOfClientID_SetOfViewName.addRemoteView(remoteView);
-    }
-
     @Override
     public void win() {
         setGameStatus(GameStatus.VICTORY);
@@ -76,7 +74,15 @@ public abstract class ModelOfServer<ClientId> implements IModelOfServer<ClientId
     }
 
     public void sendGameEvent(GameEvent gameEvent) {
-        mapOfClientID_SetOfViewName.sendGameEvent(gameEvent);
+        // ToDo: Пробовал сразу написать так:
+        //       for (String viewName : remoteClientState.getSetOfViewName())
+        //       Но такой вариант даже не компилировался.
+        //       Разобраться!
+        Set<String> setOfViewName = remoteClientState.getSetOfViewName();
+        for (String viewName : setOfViewName) {
+            EventOfServer eventOfServer = new EventOfServer92GameEvent(viewName, gameEvent);
+            remoteClientState.getTransportOfServer().sendEventOfServer(remoteClientState.getClientId(), eventOfServer);
+        }
     }
 
     private static void validateWidthHeight(int width, int height) {

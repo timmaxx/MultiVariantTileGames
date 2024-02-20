@@ -29,7 +29,7 @@ public class GameCommandKeyPressed extends GameCommand {
         System.out.println("  keyCode = " + keyCode);
 
         // 1. По clientId определить модель, для которой пришла команда.
-        IModelOfServer<ClientId> modelOfServer = transportOfServer
+        IModelOfServer modelOfServer = transportOfServer
                 .getRemoteClientStateByClientId(clientId)
                 .getServerBaseModel();
 

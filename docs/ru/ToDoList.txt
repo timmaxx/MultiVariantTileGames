@@ -305,3 +305,46 @@ MultiGameWebSocketClient, MultiGameWebSocketServer, GameClients
   Нужно:
 -- При вызове методов проверять, допустимо-ли вызывать определённый метод в текущем состоянии.
    Если не допустимо - создавать исключение.
+
+
+20.02.2024 ------------------------------------------------------------------------------------------------------------
+
+Несколько классов и методов, где есть использование рефлексии. Нужно упорядочить.
+
+LocalClientState::
+// ---- 4 (Конкретный тип игры)
+    @Override
+    public void setGameType(ModelOfServerDescriptor modelOfServerDescriptor) {...
+      Ищется конструктор выборки с определённым типом параметров.
+      Вызывается конструктор и создаются выборки.
+    }
+
+ModelOfServerDescriptor::
+    public ModelOfServerDescriptor(String modelOfServerString,
+                                   // ToDo: Возможно перечень выборок здесь и не нужен.
+                                   //       Пересмотреть архитектуру и возможно удалить.
+                                   //       Также см. ModelOfServerLoader
+                                   Map<String, Class <? extends View>> mapOfViewNameViewClass,
+                                   RemoteClientState remoteClientState)
+            throws ClassNotFoundException, NoSuchMethodException {
+      Ищется класс по имени, заданному строкой.
+      Ищется конструктор модели с определённым типом параметров.
+      Вызывается конструктор и создаётся модель.
+    }
+
+EventOfClient61SetGameMatch::
+    @Override
+    public <ClientId> void executeOnServer(TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
+      Ищется класс по ModelOfServerDescriptor.
+      Ищется конструктор модели с определённым типом параметров.
+      Вызывается конструктор и создаётся модель.
+    }
+
+GameClientPaneJfx::
+    public GameClientPaneJfx(
+            IModelOfClient iModelOfClient,
+            TransportOfClient transportOfClient) {
+      Ищется Jfx класс выборки.
+      Ищется конструктор выборки.
+      Вызывается конструктор и создаются выборки.
+    }

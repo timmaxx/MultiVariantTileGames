@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
-import timmax.tilegame.transport.TransportOfServer;
+import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
 
 import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperPersistentParams;
 import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsFlag;
@@ -37,8 +37,8 @@ public class ModelOfServerOfMinesweeper<ClientId> extends ModelOfServer<ClientId
 
     private AllMinesweeperObjects<ClientId> allMinesweeperObjects;
 
-    public ModelOfServerOfMinesweeper(TransportOfServer<ClientId> transportOfServer) {
-        super(transportOfServer);
+    public ModelOfServerOfMinesweeper(RemoteClientState remoteClientState) {
+        super(remoteClientState);
     }
 
     // Overiden methods from interface IModelOfServer extends IModelOfServerDescriptor:

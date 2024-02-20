@@ -18,7 +18,7 @@ public class ModelOfServerLoader {
         this.path = path;
     }
 
-    public Set<ModelOfServerDescriptor> getCollectionOfModelOfServerDescriptor() {
+    public Set<ModelOfServerDescriptor> getCollectionOfModelOfServerDescriptor(RemoteClientState remoteClientState) {
         Set<ModelOfServerDescriptor> result = new HashSet<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
@@ -30,7 +30,8 @@ public class ModelOfServerLoader {
                             line,
                             // ToDo: Именно в данном месте видно, что возможно перечень выборок здесь и не нужен.
                             //       Пересмотреть архитектуру и возможно удалить.
-                            Map.of("MainField", ViewMainField.class)
+                            Map.of("MainField", ViewMainField.class),
+                            remoteClientState
                     );
                 } catch (ClassNotFoundException e) {
                     System.err.println("Class '" + line + "' is not found.");

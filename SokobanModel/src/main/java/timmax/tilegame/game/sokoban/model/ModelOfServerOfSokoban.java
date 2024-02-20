@@ -12,8 +12,8 @@ import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
+import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
 import timmax.tilegame.basemodel.tile.Direction;
-import timmax.tilegame.transport.TransportOfServer;
 
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventOneTileSokobanChangeable;
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanVariableParamsCountOfBoxesInHouses;
@@ -62,8 +62,8 @@ public class ModelOfServerOfSokoban<ClientId> extends ModelOfServer<ClientId> {
         }
     }
 
-    public ModelOfServerOfSokoban(TransportOfServer<ClientId> transportOfServer) {
-        super(transportOfServer);
+    public ModelOfServerOfSokoban(RemoteClientState remoteClientState) {
+        super(remoteClientState);
     }
 
     // Overiden methods from interface IModelOfServer extends IModelOfServerDescriptor:

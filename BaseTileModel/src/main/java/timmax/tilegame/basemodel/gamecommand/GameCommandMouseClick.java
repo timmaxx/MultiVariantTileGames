@@ -31,7 +31,7 @@ public class GameCommandMouseClick extends GameCommandOneTile {
         System.out.println("  mouseButton = " + mouseButton + ", x = " + getX() + ", y = " + getY());
 
         // 1. По clientId определить модель, для которой пришла команда.
-        IModelOfServer<ClientId> modelOfServer = transportOfServer
+        IModelOfServer modelOfServer = transportOfServer
                 .getRemoteClientStateByClientId(clientId)
                 .getServerBaseModel();
 

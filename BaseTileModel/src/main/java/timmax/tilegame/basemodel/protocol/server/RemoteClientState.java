@@ -1,19 +1,36 @@
 package timmax.tilegame.basemodel.protocol.server;
 
+import java.util.HashSet;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.Set;
 
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
+import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfServer;
 
-public class RemoteClientState<ClientId> extends AbstractClientState<IModelOfServer<ClientId>> {
+public class RemoteClientState<ClientId> extends AbstractClientState<IModelOfServer> {
     private final ClientId clientId;
     private final TransportOfServer<ClientId> transportOfServer;
+
+    private Set<String> setOfViewName;
 
     public RemoteClientState(TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
         this.clientId = clientId;
         this.transportOfServer = transportOfServer;
+    }
+
+    public Set<String> getSetOfViewName() {
+        return setOfViewName;
+    }
+
+    public TransportOfServer<ClientId> getTransportOfServer() {
+        return transportOfServer;
+    }
+
+    public ClientId getClientId() {
+        return clientId;
     }
 
     // ---- 2 (Пользователь)
@@ -52,6 +69,17 @@ public class RemoteClientState<ClientId> extends AbstractClientState<IModelOfSer
     @Override
     public void setGameType(ModelOfServerDescriptor modelOfServerDescriptor) {
         super.setGameType(modelOfServerDescriptor);
+        if(modelOfServerDescriptor != null) {
+            // ToDo: Создать удалёные выборки, в соответствии с тем, что задано в modelOfServerDescriptor
+            setOfViewName = new HashSet<>();
+            // ToDo: Сейчас foreach работает и с ключём и со значением (аналогично как в классе LocalClientState),
+            //       Но здесь достаточно толко с ключём.
+            for (Map.Entry<String, Class<? extends View>> entry : modelOfServerDescriptor.getMapOfViewNameViewClass().entrySet()) {
+                setOfViewName.add(entry.getKey());
+            }
+        } else {
+            setOfViewName = null;
+        }
         transportOfServer.sendEventOfServer(clientId, new EventOfServer41SetGameType(modelOfServerDescriptor));
     }
 
@@ -61,7 +89,7 @@ public class RemoteClientState<ClientId> extends AbstractClientState<IModelOfSer
         transportOfServer.sendEventOfServer(clientId, new EventOfServer50ForgetGameMatchSet());
     }
 
-    public void setGameMatchSet(Set<IModelOfServer<ClientId>> setOfServerBaseModel) {
+    public void setGameMatchSet(Set<IModelOfServer> setOfServerBaseModel) {
         super.setGameMatchSet(setOfServerBaseModel);
         transportOfServer.sendEventOfServer(clientId, new EventOfServer51GetGameMatchSet(
                 setOfServerBaseModel
@@ -79,7 +107,7 @@ public class RemoteClientState<ClientId> extends AbstractClientState<IModelOfSer
     }
 
     @Override
-    public void setServerBaseModel(IModelOfServer<ClientId> iModelOfServer) {
+    public void setServerBaseModel(IModelOfServer iModelOfServer) {
         super.setServerBaseModel(iModelOfServer);
         transportOfServer.sendEventOfServer(clientId, new EventOfServer61SetGameMatch(
                 new InstanceIdOfModel(iModelOfServer.toString())

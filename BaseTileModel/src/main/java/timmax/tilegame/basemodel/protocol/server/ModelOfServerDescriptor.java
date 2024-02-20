@@ -8,14 +8,12 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-import timmax.tilegame.basemodel.protocol.EventOfServer;
 import timmax.tilegame.basemodel.protocol.IModelOfServerDescriptor;
 import timmax.tilegame.baseview.View;
-import timmax.tilegame.transport.TransportOfServer;
 
 public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Externalizable {
     // ToDo: Это поле нужно вынести в класс-наследник.
-    private Constructor<? extends IModelOfServer<?>> constructorOfModelOfServerClass;
+    private Constructor<? extends IModelOfServer> constructorOfModelOfServerClass;
 
     // ToDo: Эти поля можно оставить в базовом (этом) классе:
     private String gameName;
@@ -33,28 +31,18 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
                                    // ToDo: Возможно перечень выборок здесь и не нужен.
                                    //       Пересмотреть архитектуру и возможно удалить.
                                    //       Также см. ModelOfServerLoader
-                                   Map<String, Class <? extends View>> mapOfViewNameViewClass)
+                                   Map<String, Class <? extends View>> mapOfViewNameViewClass,
+                                   RemoteClientState remoteClientState)
             throws ClassNotFoundException, NoSuchMethodException {
         this.mapOfViewNameViewClass = mapOfViewNameViewClass;
         // ToDo: Избавиться от "Warning:(27, 64) Unchecked cast: 'java.lang.Class<capture<?>>' to 'java.lang.Class<? extends timmax.tilegame.basemodel.protocol.server.ModelOfServer<?>>'"
-        Class<? extends IModelOfServer<?>> modelOfServerClass = (Class<? extends IModelOfServer<?>>) Class.forName(modelOfServerString);
-        this.constructorOfModelOfServerClass = modelOfServerClass.getConstructor(TransportOfServer.class);
+        Class<? extends IModelOfServer> modelOfServerClass = (Class<? extends IModelOfServer>) Class.forName(modelOfServerString);
+        this.constructorOfModelOfServerClass = modelOfServerClass.getConstructor(RemoteClientState.class);
 
-        IModelOfServer<?> iModelOfServer;
+        IModelOfServer iModelOfServer;
         try {
             // Создаётся экземпляр. После работы в этом конструкторе он будет не нужен.
-            // iModelOfServer = constructorOfModelOfServerClass.newInstance(null); // Не получилось передать null.
-            // Пришлось передать ему TransportOfServer - заглушку.
-            iModelOfServer = constructorOfModelOfServerClass.newInstance(new TransportOfServer<>() {
-                @Override
-                public void sendEventOfServer(Object clientId, EventOfServer transportPackageOfServer) {
-                }
-
-                @Override
-                public RemoteClientState<Object> getRemoteClientStateByClientId(Object clientId) {
-                    return null;
-                }
-            });
+            iModelOfServer = constructorOfModelOfServerClass.newInstance(remoteClientState);
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
             System.err.println("Server cannot make object of model for " + modelOfServerString + " with concrete constructor.");
             e.printStackTrace();
@@ -67,6 +55,10 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
         gameName = iModelOfServer.getGameName();
         countOfGamers = iModelOfServer.getCountOfGamers();
         // this.otherField = obj.getOtherField();
+    }
+
+    public Map<String, Class<? extends View>> getMapOfViewNameViewClass() {
+        return mapOfViewNameViewClass;
     }
 
     @Override
@@ -124,13 +116,13 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
     }
 
     // Own methods
-    public Constructor<? extends IModelOfServer<?>> getConstructorOfModelOfServerClass() {
+    public Constructor<? extends IModelOfServer> getConstructorOfModelOfServerClass() {
         return constructorOfModelOfServerClass;
     }
 
     // ToDo: Временный метод (потом удалить). После разделения на два класса, этот метод удалить,
     //       а инициализацию сделать через приватный метод и вызов из конструктора с параметром или readExternal.
-    public void setConstructor(Constructor<? extends IModelOfServer<?>> constructor) {
+    public void setConstructor(Constructor<? extends IModelOfServer> constructor) {
         this.constructorOfModelOfServerClass = constructor;
     }
 }

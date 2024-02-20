@@ -31,7 +31,7 @@ public class EventOfClient41SetGameType extends EventOfClient {
             return;
         }
 
-        Constructor<? extends IModelOfServer<?>> constructor = transportOfServer
+        Constructor<? extends IModelOfServer> constructor = transportOfServer
                 .getRemoteClientStateByClientId(clientId)
                 .getGameTypeSet()
                 .stream()

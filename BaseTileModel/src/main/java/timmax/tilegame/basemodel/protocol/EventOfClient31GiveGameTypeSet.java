@@ -23,7 +23,10 @@ public class EventOfClient31GiveGameTypeSet extends EventOfClient {
             e.printStackTrace();
             return;
         }
-        Set<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor = modelLoader.getCollectionOfModelOfServerDescriptor();
+        Set<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor =
+                modelLoader.getCollectionOfModelOfServerDescriptor(
+                        transportOfServer.getRemoteClientStateByClientId(clientId)
+                );
         transportOfServer.getRemoteClientStateByClientId(clientId).setGameTypeSet(collectionOfModelOfServerDescriptor);
     }
 

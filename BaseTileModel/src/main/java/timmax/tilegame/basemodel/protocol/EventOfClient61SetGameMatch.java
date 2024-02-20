@@ -36,11 +36,11 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
         if (instanceIdOfModel.getId().equals("New game")) {
             // Определяем ранее выбранный тип
             ModelOfServerDescriptor modelOfServerDescriptor = remoteClientState.getGameType();
-            Constructor<? extends IModelOfServer<?>> constructor = modelOfServerDescriptor.getConstructorOfModelOfServerClass();
+            Constructor<? extends IModelOfServer> constructor = modelOfServerDescriptor.getConstructorOfModelOfServerClass();
 
             try {
                 // Создаём экземпляр модели, ранее выбранного типа.
-                iModelOfServer = constructor.newInstance(transportOfServer);
+                iModelOfServer = constructor.newInstance(remoteClientState);
             } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
                 System.err.println("Server cannot create object of model for " + modelOfServerDescriptor + " with constructor with specific parameters.");
                 e.printStackTrace();
