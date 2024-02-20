@@ -57,7 +57,7 @@ public abstract class LocalClientState extends AbstractClientState<InstanceIdOfM
             // ToDo: Создать локальные выборки, в соответствии с тем, что задано в modelOfServerDescriptor
             mapOfViewName_View = new HashMap<>();
             for (Map.Entry<String, Class<? extends View>> entry : modelOfServerDescriptor.getMapOfViewNameViewClass().entrySet()) {
-                Constructor<? extends View> constructor = getViewConstructor(entry.getValue(), baseController, entry.getKey());
+                Constructor<? extends View> constructor = getViewConstructor(entry.getValue());
                 View view;
                 try {
                     view = constructor.newInstance(iModelOfClient, baseController, entry.getKey());
@@ -126,6 +126,6 @@ public abstract class LocalClientState extends AbstractClientState<InstanceIdOfM
     }
 
     public abstract Constructor<? extends View> getViewConstructor(
-            Class<? extends View> classOfView, BaseController baseController, String viewName
+            Class<? extends View> classOfView/*, BaseController baseController, String viewName*/
     );
 }

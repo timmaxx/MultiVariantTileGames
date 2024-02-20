@@ -30,9 +30,7 @@ public class GameClientPaneJfx extends VBox {
             // ToDo: Исправить
             //       Warning:(32, 62) Unchecked cast: 'java.lang.reflect.Constructor<capture<? extends timmax.tilegame.baseview.View>>' to 'java.lang.reflect.Constructor<? extends timmax.tilegame.guiengine.jfx.view.ViewJfx>'
             Constructor<? extends ViewJfx> viewConstructor = (Constructor<? extends ViewJfx>) localClientState.getViewConstructor(
-                    entry.getValue(),
-                    baseController,
-                    entry.getKey()
+                    entry.getValue()
             );
             ViewJfx viewJfx;
             try {

@@ -319,6 +319,13 @@ LocalClientState::
       Вызывается конструктор и создаются выборки.
     }
 
+LocalClientStateJfx::
+    @Override
+    public Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView, BaseController baseController, String viewName) {
+      Для интерфейса типа Class<? extends View> (ViewMainField или View) предоставляет
+        соответствующий конструктор Jfx (ViewMainFieldJfx или ViewJfx)
+    }
+
 ModelOfServerDescriptor::
     public ModelOfServerDescriptor(String modelOfServerString,
                                    // ToDo: Возможно перечень выборок здесь и не нужен.
