@@ -27,7 +27,7 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
     public ModelOfServerDescriptor() {
     }
 
-    public ModelOfServerDescriptor(String modelOfServerString,
+    public ModelOfServerDescriptor(String modelOfServerFullClassName,
                                    // ToDo: Возможно перечень выборок здесь и не нужен.
                                    //       Пересмотреть архитектуру и возможно удалить.
                                    //       Также см. ModelOfServerLoader
@@ -36,7 +36,7 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
             throws ClassNotFoundException, NoSuchMethodException {
         this.mapOfViewNameViewClass = mapOfViewNameViewClass;
         // ToDo: Избавиться от "Warning:(27, 64) Unchecked cast: 'java.lang.Class<capture<?>>' to 'java.lang.Class<? extends timmax.tilegame.basemodel.protocol.server.ModelOfServer<?>>'"
-        Class<? extends IModelOfServer> modelOfServerClass = (Class<? extends IModelOfServer>) Class.forName(modelOfServerString);
+        Class<? extends IModelOfServer> modelOfServerClass = (Class<? extends IModelOfServer>) Class.forName(modelOfServerFullClassName);
         this.constructorOfModelOfServerClass = modelOfServerClass.getConstructor(RemoteClientState.class);
 
         IModelOfServer iModelOfServer;
@@ -44,9 +44,9 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
             // Создаётся экземпляр. После работы в этом конструкторе он будет не нужен.
             iModelOfServer = constructorOfModelOfServerClass.newInstance(remoteClientState);
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
-            System.err.println("Server cannot make object of model for " + modelOfServerString + " with concrete constructor.");
+            System.err.println("Server cannot make object of model for " + modelOfServerFullClassName + " with concrete constructor.");
             e.printStackTrace();
-            throw new RuntimeException("Server cannot make object of model for " + modelOfServerString + " with concrete constructor.");
+            throw new RuntimeException("Server cannot make object of model for " + modelOfServerFullClassName + " with concrete constructor.");
         }
 
         // Читается у созданного экземпляра имя типа игры (но возможно и другие характеристики класса...)
