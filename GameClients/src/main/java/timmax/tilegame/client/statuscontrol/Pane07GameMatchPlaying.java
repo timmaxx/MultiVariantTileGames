@@ -14,7 +14,7 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         super(multiGameWebSocketClientManyTimesUse);
 
         // Контролы для продвижения состояния "вперёд":
-        buttonNextState.setText("Start new game");
+        buttonNextState.setText("Start the game match");
         buttonNextState.setOnAction(event -> {
             disableAllControls();
             multiGameWebSocketClientManyTimesUse.startGameMatchPlaying();
@@ -25,12 +25,11 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         pane.setPrefWidth(1000);
         pane.setPrefHeight(300);
 
-        buttonPrevState.setText("Quit the game");
+        buttonPrevState.setText("Stop the game match");
         buttonPrevState.setFocusTraversable(false); // Это в любом случае д.б.
         buttonPrevState.setOnAction(event -> {
             disableAllControls();
-            // multiGameWebSocketClientManyTimesUse.quitGame();
-            System.out.println("Quit the game");
+            multiGameWebSocketClientManyTimesUse.stopGameMatchPlaying();
         });
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
@@ -89,14 +88,6 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
                 multiGameWebSocketClientManyTimesUse,
                 multiGameWebSocketClientManyTimesUse.getMultiGameWebSocketClient()
         ));
-/*
-        setDisableControlsNextState(false);
-            {   // Эти вызовы пока нужны, т.к. нет вызова updateOnCreateNewGame().
-                enableAllControls();
-                pane.setDisable(false);
-                enableAllControls();
-            }
-*/
     }
 
     // 5
@@ -118,49 +109,36 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
 
     @Override
     public void updateOnSelectGameMatch() {
-        System.out.println("updateOnSelectGameMatch");
         doOnThisState();
     }
 
     // 7
     @Override
-    public void updateOnStartGameMatchPlaying() {
-        System.out.println("updateOnStartGameMatchPlaying");
-        pane.setDisable(false);
+    public void updateOnStopGameMatchPlaying() {
         doOnThisState();
     }
 
     @Override
-    public void updateOnStopGameMatchPlaying() {
-        pane.setDisable(true);
+    public void updateOnStartGameMatchPlaying() {
         doOnNextState();
-    }
-
-    // doOnХХХState()
-    @Override
-    protected void doOnNextState() {
-        // ToDo: ???
-        System.out.println("updateOnStopGameMatchPlaying");
-        pane.setDisable(false);
-        super.doOnNextState();
     }
 
     // X
     @Override
     public void updateOnCreateNewGame() {
-        // Этот метод не вызывается...
+        // Этот метод не вызывается. Да и нужен-ли он?
         System.out.println("updateOnCreateNewGame()");
-        setDisableControlsNextState(true);
     }
 
     @Override
     public void updateOnCloseGame() {
-        // setDisableControlsNextState(true);
+        // Этот метод не вызывается. Да и нужен-ли он?
+        System.out.println("updateOnCloseGame()");
     }
 
     @Override
     public void updateOnGameEvent() {
+        // Этот метод не вызывается. Да и нужен-ли он?
         System.out.println("updateOnGameEvent()");
-        //setDisableControlsNextState(true);
     }
 }
