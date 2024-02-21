@@ -138,17 +138,7 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
             control.setDisable(true);
         }
     }
-/*
-    // ToDo: Это временный метод. Потом удалить.
-    protected void enableAllControls() {
-        for (Region control : listOfControlsNextState) {
-            control.setDisable(false);
-        }
-        for (Region control : listOfControlsPrevState) {
-            control.setDisable(false);
-        }
-    }
-*/
+
     protected void setDisableControlsNextState(boolean disableControlsNextState) {
         for (Region control : listOfControlsNextState) {
             control.setDisable(disableControlsNextState);
