@@ -117,11 +117,6 @@ public class MultiGameWebSocketClientManyTimesUse implements IModelOfClient {
 
     // X
     @Override
-    public void createNewGame() {
-        multiGameWebSocketClient.createNewGame();
-    }
-
-    @Override
     public ObserverOnAbstractEvent getHashSetOfObserverOnAbstractEvent() {
         return hashSetOfObserverOnAbstractEvent;
     }

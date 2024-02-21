@@ -32,8 +32,6 @@ public interface IModelOfClient {
     void startGameMatchPlaying();
 
     // ---- X
-    void createNewGame();
-
     ObserverOnAbstractEvent getHashSetOfObserverOnAbstractEvent();
     LocalClientState getLocalClientState();
 }

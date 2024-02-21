@@ -9,7 +9,6 @@ import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
-import timmax.tilegame.basemodel.gamecommand.GameCommandNewGame;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.basemodel.protocol.client.LocalClientState;
@@ -190,12 +189,5 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     public void startGameMatchPlaying() {
         System.out.println("startPlaying()");
         sendEventOfClient(new EventOfClient71StartGameMatchPlaying());
-    }
-
-    // 9
-    @Override
-    public void createNewGame() {
-        System.out.println("createNewGame()");
-        sendEventOfClient(new EventOfClient92GameCommand(new GameCommandNewGame()));
     }
 }
