@@ -1,7 +1,6 @@
 package timmax.tilegame.basemodel.protocol.client;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -52,18 +51,7 @@ public abstract class LocalClientState extends AbstractClientState<InstanceIdOfM
     public void setGameType(ModelOfServerDescriptor modelOfServerDescriptor) {
         super.setGameType(modelOfServerDescriptor);
         if (modelOfServerDescriptor != null) {
-            // ToDo: Создать локальные выборки, в соответствии с тем, что задано в modelOfServerDescriptor
             mapOfViewName_View = new HashMap<>();
-            for (Map.Entry<String, Class<? extends View>> entry : modelOfServerDescriptor.getMapOfViewNameViewClass().entrySet()) {
-                Constructor<? extends View> constructor = getViewConstructor(entry.getValue());
-                View view;
-                try {
-                    view = constructor.newInstance(iModelOfClient, baseController, entry.getKey());
-                } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                    throw new RuntimeException(e);
-                }
-                mapOfViewName_View.put(entry.getKey(), view);
-            }
         } else {
             mapOfViewName_View = null;
         }
