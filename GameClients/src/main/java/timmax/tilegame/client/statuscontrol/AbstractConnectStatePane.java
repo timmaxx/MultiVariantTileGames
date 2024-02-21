@@ -115,19 +115,6 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
         setDisableControlsNextState(true);
     }
 
-    // X
-    @Override
-    public void updateOnCreateNewGame() {
-    }
-
-    @Override
-    public void updateOnCloseGame() {
-    }
-
-    @Override
-    public void updateOnGameEvent() {
-    }
-
     // Own methods
     public void setListsOfControlsAndAllDisable(
             List<Region> listOfControlsNextState,

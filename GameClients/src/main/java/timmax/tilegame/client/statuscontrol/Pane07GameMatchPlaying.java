@@ -122,23 +122,4 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
     public void updateOnStartGameMatchPlaying() {
         doOnNextState();
     }
-
-    // X
-    @Override
-    public void updateOnCreateNewGame() {
-        // Этот метод не вызывается. Да и нужен-ли он?
-        System.out.println("updateOnCreateNewGame()");
-    }
-
-    @Override
-    public void updateOnCloseGame() {
-        // Этот метод не вызывается. Да и нужен-ли он?
-        System.out.println("updateOnCloseGame()");
-    }
-
-    @Override
-    public void updateOnGameEvent() {
-        // Этот метод не вызывается. Да и нужен-ли он?
-        System.out.println("updateOnGameEvent()");
-    }
 }
