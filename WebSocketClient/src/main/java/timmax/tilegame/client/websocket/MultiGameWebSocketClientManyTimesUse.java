@@ -20,7 +20,7 @@ public class MultiGameWebSocketClientManyTimesUse implements IModelOfClient {
     private URI uri;
 
     public MultiGameWebSocketClientManyTimesUse(LocalClientStateFabric localClientStateFabric) {
-        localClientState = localClientStateFabric.newLocalClientState(this, null);
+        localClientState = localClientStateFabric.newLocalClientState(this);
         hashSetOfObserverOnAbstractEvent = new HashSetOfObserverOnAbstractEvent();
         System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
     }
