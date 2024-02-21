@@ -36,4 +36,11 @@ public class BaseController {
         EventOfClient eventOfClient = new EventOfClient92GameCommand(gameCommand);
         sendEventOfClient(eventOfClient);
     }
+
+    @Override
+    public String toString() {
+        return "BaseController{" +
+                "transportOfClient=" + transportOfClient +
+                '}';
+    }
 }
