@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import timmax.tilegame.basecontroller.BaseController;
 import timmax.tilegame.basemodel.protocol.AbstractClientState;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
@@ -17,7 +16,8 @@ public abstract class LocalClientState extends AbstractClientState<InstanceIdOfM
     private final BaseController baseController;
     private Map<String, View> mapOfViewName_View;
 
-    public LocalClientState(IModelOfClient iModelOfClient, BaseController baseController) {
+    public LocalClientState(IModelOfClient iModelOfClient) {
+        super();
         this.iModelOfClient = iModelOfClient;
         this.baseController = baseController;
         this.mapOfViewName_View = new HashMap<>();
