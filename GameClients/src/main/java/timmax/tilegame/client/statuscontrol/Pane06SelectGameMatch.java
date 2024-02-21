@@ -38,7 +38,7 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
-                List.of(comboBoxGameSet, buttonNextState, textFieldSelectedGame),
+                List.of(comboBoxGameSet, textFieldSelectedGame, buttonNextState),
                 List.of(buttonPrevState)
         );
     }
