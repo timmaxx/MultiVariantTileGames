@@ -13,13 +13,11 @@ import timmax.tilegame.baseview.View;
 
 public abstract class LocalClientState extends AbstractClientState<InstanceIdOfModel> {
     private final IModelOfClient iModelOfClient;
-    private final BaseController baseController;
     private Map<String, View> mapOfViewName_View;
 
     public LocalClientState(IModelOfClient iModelOfClient) {
         super();
         this.iModelOfClient = iModelOfClient;
-        this.baseController = baseController;
         this.mapOfViewName_View = new HashMap<>();
     }
 
