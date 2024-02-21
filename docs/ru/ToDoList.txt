@@ -311,19 +311,17 @@ MultiGameWebSocketClient, MultiGameWebSocketServer, GameClients
 
 Несколько классов и методов, где есть использование рефлексии. Нужно упорядочить.
 
-LocalClientState::
-// ---- 4 (Конкретный тип игры)
-    @Override
-    public void setGameType(ModelOfServerDescriptor modelOfServerDescriptor) {...
-      Ищется конструктор выборки с определённым типом параметров.
-      Вызывается конструктор и создаются выборки.
-    }
-
 LocalClientStateJfx::
     @Override
     public Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView, BaseController baseController, String viewName) {
       Для интерфейса типа Class<? extends View> (ViewMainField или View) предоставляет
-        соответствующий конструктор Jfx (ViewMainFieldJfx или ViewJfx)
+        соответствующий конструктор Jfx (ViewMainFieldJfx или ViewJfx).
+    }
+
+EventOfClient41SetGameType::
+    @Override
+    public <ClientId> void executeOnServer(TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
+      Ищет конструктор модели по имени типа игры в modelOfServerDescriptor.
     }
 
 ModelOfServerDescriptor::
@@ -334,7 +332,7 @@ ModelOfServerDescriptor::
                                    Map<String, Class <? extends View>> mapOfViewNameViewClass,
                                    RemoteClientState remoteClientState)
             throws ClassNotFoundException, NoSuchMethodException {
-      Ищется класс по имени, заданному строкой.
+      Ищется класс по полному имени класса модели, заданному строкой.
       Ищется конструктор модели с определённым типом параметров.
       Вызывается конструктор и создаётся модель.
     }
