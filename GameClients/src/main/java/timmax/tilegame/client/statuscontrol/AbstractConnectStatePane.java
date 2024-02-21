@@ -26,6 +26,9 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
         this.buttonPrevState = new Button();
     }
 
+    //  ToDo: Пока не сильно красиво сделано с большим перечнем разнообразных updateXXX().
+    //        Пересмотреть архитектуру, внести изменения в код.
+
     // Overriden method from interface ObserverOnAbstractEvent
     // Все методы здесь для единообразия расположены в порядке:
     // - от 1 к 7 (и далее),
@@ -147,54 +150,4 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
             control.setDisable(!disableControlsNextState);
         }
     }
-
-/*
-    //  Комментарии пока оставил, т.к.:
-    //  1. Пока не сильно красиво сделано с большим перечнем разнообразных updateXXX().
-    //  2. См. комментарии "Сюда есть вход." и "Сюда входа нет".
-
-    //  Описанное было обнаружено при работе с Pane04SelectGameType
-    //  Если ранее comboBoxGameTypeSet уже было заполнено (т.е. вызывался updateOnGetGameTypeSet)
-    //  и не использовать здесь Platform.runLater(), то возникнет исключение:
-    //  Not on FX application thread
-    //  Например:
-    //  Exception in thread "WebSocketConnectReadThread-25" java.lang.IllegalStateException: Not on FX application thread; currentThread = WebSocketConnectReadThread-25
-
-    @Override
-    public final void update(TypeOfEvent typeOfEvent) {
-        Platform.runLater(() -> {
-            if (typeOfEvent == CLOSE) {
-                updateOnClose();
-            } else if (typeOfEvent == OPEN) {
-                updateOnOpen();
-            } else if (typeOfEvent == LOGOUT) {
-                updateOnLogout();
-            } else if (typeOfEvent == LOGIN) {
-                updateOnLogin();
-            } else if (typeOfEvent == FORGET_GAME_TYPE_SET) {
-                updateOnForgetGameTypeSet();
-            } else if (typeOfEvent == GET_GAME_TYPE_SET) {
-                updateOnGetGameTypeSet();
-            } else if (typeOfEvent == FORGET_GAME_TYPE) {
-                updateOnForgetGameType();
-            } else if (typeOfEvent == SELECT_GAME_TYPE) {
-                // Сюда есть вход.
-                System.out.println("before updateOnSelectGameType() in void update(TypeOfEvent typeOfEvent) in class AbstractConnectStatePane");
-                updateOnSelectGameType();
-            } else if (typeOfEvent == CREATE_NEW_GAME) {
-                // Сюда входа нет, т.к. сервер не генерирует "общего" события - только игровое генерирует...
-                System.out.println("before updateOnCreateNewGame() in void update(TypeOfEvent typeOfEvent) in class AbstractConnectStatePane");
-                updateOnCreateNewGame();
-            } else if (typeOfEvent == CLOSE_GAME) {
-                updateOnCloseGame();
-            } else if (typeOfEvent == ADD_VIEW) {
-                updateOnAddView();
-            } else if (typeOfEvent == GAME_EVENT) {
-                // Сюда входа нет...
-                System.out.println("before updateOnGameEvent() in void update(TypeOfEvent typeOfEvent) in class AbstractConnectStatePane");
-                updateOnGameEvent();
-            }
-        });
-    }
-    */
 }
