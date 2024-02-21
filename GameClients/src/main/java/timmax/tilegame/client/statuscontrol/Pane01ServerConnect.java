@@ -12,7 +12,7 @@ import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
 public class Pane01ServerConnect extends AbstractConnectStatePane {
     private final TextField textFieldServerAddress;
     private final TextField textFieldServerPort;
-    private final Label labelConnectString;
+    private final TextField textFieldConnectString;
 
     public Pane01ServerConnect(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
         super(multiGameWebSocketClientManyTimesUse);
@@ -22,7 +22,8 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
         textFieldServerAddress = new TextField();
         Label labelServerPort = new Label("Port");
         textFieldServerPort = new TextField();
-        labelConnectString = new Label();
+        textFieldConnectString = new TextField();
+        textFieldConnectString.setEditable(false);
         {   // Инициализация для отладки. Потом либо убрать, либо через конфигурационный файл!
             textFieldServerAddress.setText("localhost");
             textFieldServerPort.setText("8887");
@@ -45,16 +46,16 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
-                List.of(labelServerAddress, textFieldServerAddress, labelServerPort, textFieldServerPort, buttonNextState, labelConnectString),
+                List.of(labelServerAddress, textFieldServerAddress, labelServerPort, textFieldServerPort, textFieldConnectString, buttonNextState),
                 List.of(buttonPrevState)
         );
         setDisableControlsNextState(false);
     }
 
     public URI getURIFromControls() {
-        labelConnectString.setText("ws://" + textFieldServerAddress.getText() + ":" + textFieldServerPort.getText());
+        textFieldConnectString.setText("ws://" + textFieldServerAddress.getText() + ":" + textFieldServerPort.getText());
         try {
-            return new URI(labelConnectString.getText());
+            return new URI(textFieldConnectString.getText());
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
