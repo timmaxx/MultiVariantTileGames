@@ -5,6 +5,13 @@ import java.util.HashSet;
 import javafx.application.Platform;
 
 public class HashSetOfObserverOnAbstractEvent extends HashSet<ObserverOnAbstractEvent> implements ObserverOnAbstractEvent {
+    //  Описанное было обнаружено при работе с Pane04SelectGameType
+    //  Если ранее comboBoxGameTypeSet уже было заполнено (т.е. вызывался updateOnGetGameTypeSet)
+    //  и не использовать здесь Platform.runLater(), то возникнет исключение:
+    //  Not on FX application thread
+    //  Например:
+    //  Exception in thread "WebSocketConnectReadThread-25" java.lang.IllegalStateException: Not on FX application thread; currentThread = WebSocketConnectReadThread-25
+
     // 1
     @Override
     public void updateOnClose() {
