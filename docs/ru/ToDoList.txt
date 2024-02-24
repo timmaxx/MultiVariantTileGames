@@ -354,8 +354,6 @@ GameClientPaneJfx::
 
 Внести структурные изменения
 
-1. Из interface TransportOfClient удалить дублирующиеся методы interface IModelOfClient.
-
 2. Пересмотреть интерфейсы и их реализации: TransportOfClient, TransportOfServer, IModelOfClient, IModelOfServer.
 
 3. Вводить наконец уже JUnit.

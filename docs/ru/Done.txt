@@ -376,3 +376,10 @@ MultiGameWebSocketClient, MultiGameWebSocketServer, GameClients
 
 (19.11.2023)
 - Реализовать в протоколе и в применении обмен сообщением типа FORGET_GAME_TYPE
+
+
+24.02.2024 ------------------------------------------------------------------------------------------------------------
+
+(24.02.2024)
+Внести структурные изменения
+1. Из interface TransportOfClient удалить дублирующиеся методы interface IModelOfClient.
