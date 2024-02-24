@@ -5,7 +5,7 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
-import timmax.tilegame.transport.TransportOfClient;
+import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 
 public class EventOfServer41SetGameType extends EventOfServer {
     private ModelOfServerDescriptor modelOfServerDescriptor;
@@ -20,9 +20,9 @@ public class EventOfServer41SetGameType extends EventOfServer {
     }
 
     @Override
-    public void executeOnClient(TransportOfClient transportOfClient) {
+    public void executeOnClient(IModelOfClient iModelOfClient) {
         System.out.println("  onGameTypeSelect");
-        transportOfClient.getLocalClientState().setGameType(modelOfServerDescriptor);
+        iModelOfClient.getLocalClientState().setGameType(modelOfServerDescriptor);
     }
 
     @Override

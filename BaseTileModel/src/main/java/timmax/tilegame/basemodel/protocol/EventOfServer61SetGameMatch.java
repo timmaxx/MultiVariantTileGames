@@ -5,7 +5,7 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
-import timmax.tilegame.transport.TransportOfClient;
+import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 
 public class EventOfServer61SetGameMatch extends EventOfServer {
     InstanceIdOfModel serverBaseModel;
@@ -20,10 +20,9 @@ public class EventOfServer61SetGameMatch extends EventOfServer {
     }
 
     @Override
-    public void executeOnClient(TransportOfClient transportOfClient) {
+    public void executeOnClient(IModelOfClient iModelOfClient) {
         System.out.println("  onSetGameMatch");
-
-        transportOfClient
+        iModelOfClient
                 .getLocalClientState()
                 .setServerBaseModel(serverBaseModel);
     }

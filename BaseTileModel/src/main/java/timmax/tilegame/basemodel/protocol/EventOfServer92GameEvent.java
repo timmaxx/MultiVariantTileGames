@@ -6,7 +6,7 @@ import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.baseview.View;
-import timmax.tilegame.transport.TransportOfClient;
+import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 
 public class EventOfServer92GameEvent extends EventOfServer {
     private String viewName;
@@ -23,11 +23,10 @@ public class EventOfServer92GameEvent extends EventOfServer {
     }
 
     @Override
-    public void executeOnClient(TransportOfClient transportOfClient) {
+    public void executeOnClient(IModelOfClient iModelOfClient) {
         System.out.println("  onGameEvent");
-
         System.out.println("  viewName = " + viewName);
-        View view = transportOfClient.getLocalClientState().getMapOfViewName_View().get(viewName);
+        View view = iModelOfClient.getLocalClientState().getMapOfViewName_View().get(viewName);
         view.update(gameEvent);
     }
 

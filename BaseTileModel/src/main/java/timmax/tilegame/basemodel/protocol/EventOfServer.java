@@ -1,10 +1,10 @@
 package timmax.tilegame.basemodel.protocol;
 
-import timmax.tilegame.transport.TransportOfClient;
+import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 
 public abstract class EventOfServer extends Event {
 
-    public abstract void executeOnClient(TransportOfClient transportOfClient);
+    public abstract void executeOnClient(IModelOfClient iModelOfClient);
 
     @Override
     public String toString() {

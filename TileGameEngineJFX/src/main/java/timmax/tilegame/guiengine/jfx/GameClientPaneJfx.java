@@ -22,7 +22,7 @@ public class GameClientPaneJfx extends VBox {
 
         BaseController baseController = new BaseController(transportOfClient);
 
-        LocalClientState localClientState = transportOfClient.getLocalClientState();
+        LocalClientState localClientState = iModelOfClient.getLocalClientState();
         Map<String, Class< ? extends View>> mapOfViewName_ViewClass = localClientState.getGameType().getMapOfViewNameViewClass();
         Map<String, View>  mapOfVieName_View = localClientState.getMapOfViewName_View();
 

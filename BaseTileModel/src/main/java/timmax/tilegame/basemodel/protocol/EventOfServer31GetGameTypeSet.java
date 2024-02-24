@@ -6,7 +6,7 @@ import java.io.ObjectOutput;
 import java.util.Set;
 
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
-import timmax.tilegame.transport.TransportOfClient;
+import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 
 public class EventOfServer31GetGameTypeSet extends EventOfServer {
     private Set<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor;
@@ -21,10 +21,9 @@ public class EventOfServer31GetGameTypeSet extends EventOfServer {
     }
 
     @Override
-    public void executeOnClient(TransportOfClient transportOfClient) {
+    public void executeOnClient(IModelOfClient iModelOfClient) {
         System.out.println("  onGetGameTypeSet");
-
-        transportOfClient
+        iModelOfClient
                 .getLocalClientState()
                 .setGameTypeSet(collectionOfModelOfServerDescriptor);
     }
