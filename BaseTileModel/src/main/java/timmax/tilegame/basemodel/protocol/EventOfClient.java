@@ -1,9 +1,9 @@
 package timmax.tilegame.basemodel.protocol;
 
-import timmax.tilegame.transport.TransportOfServer;
+import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
 
 public abstract class EventOfClient extends Event {
-    public abstract <ClientId> void executeOnServer(TransportOfServer<ClientId> transportOfServer, ClientId clientId);
+    public abstract <ClientId> void executeOnServer(RemoteClientState<ClientId> remoteClientState);
 
     @Override
     public String toString() {

@@ -1,12 +1,12 @@
 package timmax.tilegame.basemodel.protocol;
 
-import timmax.tilegame.transport.TransportOfServer;
+import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
 
 public class EventOfClient20Logout extends EventOfClient {
     @Override
-    public <ClientId> void executeOnServer(TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
+    public <ClientId> void executeOnServer(RemoteClientState<ClientId> remoteClientState) {
         System.out.println("  onLogout");
-        transportOfServer.getRemoteClientStateByClientId(clientId).forgetUserName();
+        remoteClientState.forgetUserName();
     }
 
     @Override

@@ -7,7 +7,7 @@ import java.lang.reflect.Constructor;
 
 import timmax.tilegame.basemodel.protocol.server.IModelOfServer;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
-import timmax.tilegame.transport.TransportOfServer;
+import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
 
 public class EventOfClient41SetGameType extends EventOfClient {
     private ModelOfServerDescriptor modelOfServerDescriptor;
@@ -22,17 +22,16 @@ public class EventOfClient41SetGameType extends EventOfClient {
     }
 
     @Override
-    public <ClientId> void executeOnServer(TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
+    public <ClientId> void executeOnServer(RemoteClientState<ClientId> remoteClientState) {
         System.out.println("  onGameTypeSelect");
         System.out.println("  modelOfServerDescriptor = " + modelOfServerDescriptor);
         if (modelOfServerDescriptor == null) {
             System.err.println("Client sent empty name of model classes.");
-            transportOfServer.getRemoteClientStateByClientId(clientId).forgetGameType();
+            remoteClientState.forgetGameType();
             return;
         }
 
-        Constructor<? extends IModelOfServer> constructor = transportOfServer
-                .getRemoteClientStateByClientId(clientId)
+        Constructor<? extends IModelOfServer> constructor = remoteClientState
                 .getGameTypeSet()
                 .stream()
                 .filter(x -> x.getGameName().equals(modelOfServerDescriptor.getGameName()))
@@ -41,12 +40,12 @@ public class EventOfClient41SetGameType extends EventOfClient {
 
         if (constructor == null) {
             System.err.println(modelOfServerDescriptor + "' was not found in list model classes.");
-            transportOfServer.getRemoteClientStateByClientId(clientId).forgetGameType();
+            remoteClientState.forgetGameType();
             return;
         }
 
         modelOfServerDescriptor.setConstructor(constructor);
-        transportOfServer.getRemoteClientStateByClientId(clientId).setGameType(modelOfServerDescriptor);
+        remoteClientState.setGameType(modelOfServerDescriptor);
     }
 
     @Override

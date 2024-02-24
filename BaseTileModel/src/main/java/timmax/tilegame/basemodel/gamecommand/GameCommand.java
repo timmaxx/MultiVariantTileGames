@@ -5,11 +5,10 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import timmax.tilegame.transport.TransportOfServer;
+import timmax.tilegame.basemodel.protocol.server.IModelOfServer;
 
 public abstract class GameCommand implements Externalizable {
-    public abstract <ClientId> void executeOnServer(TransportOfServer<ClientId> transportOfServer, ClientId clientId);
-
+    public abstract void executeOnServer(IModelOfServer modelOfServer);
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {

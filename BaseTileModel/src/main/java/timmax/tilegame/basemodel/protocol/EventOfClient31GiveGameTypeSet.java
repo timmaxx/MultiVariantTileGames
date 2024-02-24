@@ -7,11 +7,11 @@ import java.util.Set;
 
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerLoader;
-import timmax.tilegame.transport.TransportOfServer;
+import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
 
 public class EventOfClient31GiveGameTypeSet extends EventOfClient {
     @Override
-    public <ClientId> void executeOnServer(TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
+    public <ClientId> void executeOnServer(RemoteClientState<ClientId> remoteClientState) {
         System.out.println("  onGetGameTypeSet");
 
         ModelOfServerLoader modelLoader;
@@ -25,9 +25,9 @@ public class EventOfClient31GiveGameTypeSet extends EventOfClient {
         }
         Set<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor =
                 modelLoader.getCollectionOfModelOfServerDescriptor(
-                        transportOfServer.getRemoteClientStateByClientId(clientId)
+                        remoteClientState
                 );
-        transportOfServer.getRemoteClientStateByClientId(clientId).setGameTypeSet(collectionOfModelOfServerDescriptor);
+        remoteClientState.setGameTypeSet(collectionOfModelOfServerDescriptor);
     }
 
     @Override

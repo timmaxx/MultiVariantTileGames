@@ -5,7 +5,7 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.credential.Credentials;
-import timmax.tilegame.transport.TransportOfServer;
+import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
 
 public class EventOfClient21Login extends EventOfClient {
     private String userName;
@@ -22,16 +22,16 @@ public class EventOfClient21Login extends EventOfClient {
     }
 
     @Override
-    public <ClientId> void executeOnServer(TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
+    public <ClientId> void executeOnServer(RemoteClientState<ClientId> remoteClientState) {
         System.out.println("  onLogin");
 
         System.out.println("    userName = " + userName + " | " + "password = *"); // Пароль не выводим:
 
         if (Credentials.isUserAndPasswordCorrect(userName, password)) {
             password = ""; // Не будем даже хранить пароль.
-            transportOfServer.getRemoteClientStateByClientId(clientId).setUserName(userName);
+            remoteClientState.setUserName(userName);
         } else {
-            transportOfServer.getRemoteClientStateByClientId(clientId).forgetUserName();
+            remoteClientState.forgetUserName();
         }
     }
 

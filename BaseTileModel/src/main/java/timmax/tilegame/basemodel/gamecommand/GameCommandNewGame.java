@@ -1,14 +1,11 @@
 package timmax.tilegame.basemodel.gamecommand;
 
-import timmax.tilegame.transport.TransportOfServer;
+import timmax.tilegame.basemodel.protocol.server.IModelOfServer;
 
 public class GameCommandNewGame extends GameCommand {
     @Override
-    public <ClientId> void executeOnServer(TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
+    public void executeOnServer(IModelOfServer modelOfServer) {
         System.out.println("    onNewGame");
-        transportOfServer
-                .getRemoteClientStateByClientId(clientId)
-                .getServerBaseModel()
-                .createNewGame();
+        modelOfServer.createNewGame();
     }
 }

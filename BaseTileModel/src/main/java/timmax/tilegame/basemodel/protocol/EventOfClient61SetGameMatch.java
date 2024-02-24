@@ -10,7 +10,6 @@ import timmax.tilegame.basemodel.protocol.server.IModelOfServer;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
-import timmax.tilegame.transport.TransportOfServer;
 
 public class EventOfClient61SetGameMatch extends EventOfClient {
     private InstanceIdOfModel instanceIdOfModel;
@@ -25,14 +24,13 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
     }
 
     @Override
-    public <ClientId> void executeOnServer(TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
+    public <ClientId> void executeOnServer(RemoteClientState<ClientId> remoteClientState) {
         System.out.println("  onSetGameMatch");
 
         System.out.println("  InstanceIdOfModel = " + instanceIdOfModel);
 
         // ToDo: Исправить Warning:(33, 9) Raw use of parameterized class 'IModelOfServer'
         IModelOfServer iModelOfServer = null;
-        RemoteClientState remoteClientState = transportOfServer.getRemoteClientStateByClientId(clientId);
         if (instanceIdOfModel.getId().equals("New game")) {
             // Определяем ранее выбранный тип
             ModelOfServerDescriptor modelOfServerDescriptor = remoteClientState.getGameType();

@@ -27,7 +27,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         mapOfRemoteClientState = new HashMap<>();
     }
 
-    // Overiden methods from class WebSocketServer:
+    // Overriden methods from class WebSocketServer:
     @Override
     public void onStart() {
         System.out.println("onStart()");
@@ -72,7 +72,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         System.out.println("  eventOfClient = " + eventOfClient);
         System.out.println("---------- End of onMessage(WebSocket, ByteBuffer)");
 
-        Thread thread = new Thread(() -> eventOfClient.executeOnServer(this, webSocket));
+        Thread thread = new Thread(() -> eventOfClient.executeOnServer(mapOfRemoteClientState.get(webSocket)));
         thread.start();
     }
 
@@ -84,7 +84,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         System.exit(1);
     }
 
-    // Overiden methods from interface TransportOfServer:
+    // Overriden methods from interface TransportOfServer:
     @Override
     public void sendEventOfServer(WebSocket clientId, EventOfServer eventOfServer) {
         System.out.println("  sendEventOfServer(WebSocket, EventOfServer)");
@@ -93,10 +93,5 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         mapper.writeValue(byteArrayOutputStream, eventOfServer);
         clientId.send(byteArrayOutputStream.toByteArray());
         System.out.println("---------- End of send(WebSocket, EventOfServer<WebSocket>)");
-    }
-
-    @Override
-    public RemoteClientState<WebSocket> getRemoteClientStateByClientId(WebSocket clientId) {
-        return mapOfRemoteClientState.get(clientId);
     }
 }

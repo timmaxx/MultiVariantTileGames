@@ -7,7 +7,6 @@ import java.io.ObjectOutput;
 import javafx.scene.input.MouseButton;
 
 import timmax.tilegame.basemodel.protocol.server.IModelOfServer;
-import timmax.tilegame.transport.TransportOfServer;
 
 public class GameCommandMouseClick extends GameCommandOneTile {
     private MouseButton mouseButton;
@@ -26,21 +25,16 @@ public class GameCommandMouseClick extends GameCommandOneTile {
     }
 
     @Override
-    public <ClientId> void executeOnServer(TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
+    public void executeOnServer(IModelOfServer modelOfServer) {
         System.out.println("class GameCommandMouseClick. method executeOnServer.");
         System.out.println("  mouseButton = " + mouseButton + ", x = " + getX() + ", y = " + getY());
 
-        // 1. По clientId определить модель, для которой пришла команда.
-        IModelOfServer modelOfServer = transportOfServer
-                .getRemoteClientStateByClientId(clientId)
-                .getServerBaseModel();
-
-        // 2. Есть-ли допуски у клиента, откуда пришла команда:
-        // 2.1. к модели?
-        // 2.2. к передаче команд (т.е. является ли он игроком и его-ли сейчас ход)?
+        // 1. Есть-ли допуски у клиента, откуда пришла команда:
+        // 1.1. к модели?
+        // 1.2. к передаче команд (т.е. является ли он игроком и его-ли сейчас ход)?
         //      (или же он является только наблюдателем).
 
-        // 3. В найденную модель отправить команду.
+        // 2. В найденную модель отправить команду.
         modelOfServer.executeMouseCommand(this);
     }
 
