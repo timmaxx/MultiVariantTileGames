@@ -6,8 +6,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
+import timmax.tilegame.basemodel.protocol.client.LocalClientState;
+import timmax.tilegame.basemodel.protocol.client.ModelOfClient;
+import timmax.tilegame.basemodel.protocol.client.jfx.LocalClientStateJfx;
 import timmax.tilegame.client.statuscontrol.*;
 import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
+import timmax.tilegame.transport.TransportOfClient;
 
 public class MultiGameClient extends Application {
     public static void main(String[] args) {
@@ -18,15 +23,19 @@ public class MultiGameClient extends Application {
     public void start(Stage primaryStage) {
         Pane root = new VBox();
 
-        MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse = new MultiGameWebSocketClientManyTimesUse(new LocalClientStateFabricJfx());
+        TransportOfClient transportOfClient = new MultiGameWebSocketClientManyTimesUse();
+        LocalClientState localClientStateJfx = new LocalClientStateJfx();
+        IModelOfClient iModelOfClient = new ModelOfClient(transportOfClient, localClientStateJfx);
+        // ToDo: Как-то не нравится мне, что модель приходится инициализировать через сеттер.
+        transportOfClient.setModelOfClient(iModelOfClient);
 
-        Pane01ServerConnect pane01ServerConnect = new Pane01ServerConnect(multiGameWebSocketClientManyTimesUse);
-        Pane02UserLogin pane02UserLogin = new Pane02UserLogin(multiGameWebSocketClientManyTimesUse);
-        Pane03GetGameTypeSet pane03GetGameTypeSet = new Pane03GetGameTypeSet(multiGameWebSocketClientManyTimesUse);
-        Pane04SelectGameType pane04SelectGameType = new Pane04SelectGameType(multiGameWebSocketClientManyTimesUse);
-        Pane05GetGameMatchSet pane05GetGameMatchSet = new Pane05GetGameMatchSet(multiGameWebSocketClientManyTimesUse);
-        Pane06SelectGameMatch pane06SelectGameMatch = new Pane06SelectGameMatch(multiGameWebSocketClientManyTimesUse);
-        Pane07GameMatchPlaying pane07GameMatchPlaying = new Pane07GameMatchPlaying(multiGameWebSocketClientManyTimesUse);
+        Pane01ServerConnect pane01ServerConnect = new Pane01ServerConnect(iModelOfClient, transportOfClient);
+        Pane02UserLogin pane02UserLogin = new Pane02UserLogin(iModelOfClient, transportOfClient);
+        Pane03GetGameTypeSet pane03GetGameTypeSet = new Pane03GetGameTypeSet(iModelOfClient, transportOfClient);
+        Pane04SelectGameType pane04SelectGameType = new Pane04SelectGameType(iModelOfClient, transportOfClient);
+        Pane05GetGameMatchSet pane05GetGameMatchSet = new Pane05GetGameMatchSet(iModelOfClient, transportOfClient);
+        Pane06SelectGameMatch pane06SelectGameMatch = new Pane06SelectGameMatch(iModelOfClient, transportOfClient);
+        Pane07GameMatchPlaying pane07GameMatchPlaying = new Pane07GameMatchPlaying(iModelOfClient, transportOfClient);
 
         root.getChildren().addAll(
                 pane01ServerConnect,
@@ -39,7 +48,7 @@ public class MultiGameClient extends Application {
         );
 
         Scene scene = new Scene(root);
-        primaryStage.setTitle("Multi Game Client");
+        primaryStage.setTitle("Multi tile game client");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

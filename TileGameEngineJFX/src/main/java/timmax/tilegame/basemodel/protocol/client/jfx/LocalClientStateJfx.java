@@ -11,10 +11,6 @@ import timmax.tilegame.guiengine.jfx.view.ViewJfx;
 import timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx;
 
 public class LocalClientStateJfx extends LocalClientState {
-    public LocalClientStateJfx(IModelOfClient iModelOfClient) {
-        super(iModelOfClient);
-    }
-
     @Override
     public Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView) {
         Constructor<? extends ViewJfx> constructorOfViewJfx;

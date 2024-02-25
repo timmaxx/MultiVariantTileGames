@@ -6,15 +6,16 @@ import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
+import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
-import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
+import timmax.tilegame.transport.TransportOfClient;
 
 public class Pane04SelectGameType extends AbstractConnectStatePane {
     private final ComboBox<String> comboBoxGameTypeSet;
     private final TextField textFieldSelectedGameType;
 
-    public Pane04SelectGameType(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
-        super(multiGameWebSocketClientManyTimesUse);
+    public Pane04SelectGameType(IModelOfClient iModelOfClient, TransportOfClient transportOfClient) {
+        super(iModelOfClient, transportOfClient);
 
         // Контролы для продвижения состояния "вперёд":
         comboBoxGameTypeSet = new ComboBox<>();
@@ -25,14 +26,14 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
         buttonNextState.setOnAction(event -> {
             disableAllControls();
             String gameName = comboBoxGameTypeSet.getValue();
-            ModelOfServerDescriptor modelOfServerDescriptor = multiGameWebSocketClientManyTimesUse
+            ModelOfServerDescriptor modelOfServerDescriptor = iModelOfClient
                     .getLocalClientState()
                     .getGameTypeSet()
                     .stream()
                     .filter(x -> x.getGameName().equals(gameName))
                     .findAny()
                     .orElse(null);
-            multiGameWebSocketClientManyTimesUse.gameTypeSelect(modelOfServerDescriptor);
+            iModelOfClient.gameTypeSelect(modelOfServerDescriptor);
         });
 
         // Контролы для продвижения состояния "назад":
@@ -40,7 +41,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
         buttonPrevState.setFocusTraversable(false);
         buttonPrevState.setOnAction(event -> {
             disableAllControls();
-            multiGameWebSocketClientManyTimesUse.forgetGameType();
+            iModelOfClient.forgetGameType();
         });
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
@@ -50,6 +51,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
         );
     }
 
+    // Implemented methods of interface ObserverOnAbstractEvent
     // 1
     @Override
     public void updateOnClose() {
@@ -81,7 +83,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
     @Override
     public void updateOnGetGameTypeSet() {
         comboBoxGameTypeSet.setItems(FXCollections.observableArrayList(
-                localClientState.getGameTypeSet()
+                iModelOfClient.getLocalClientState().getGameTypeSet()
                         .stream()
                         .map(ModelOfServerDescriptor::getGameName)
                         .toList()
@@ -116,7 +118,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
 
     @Override
     protected void doOnNextState() {
-        textFieldSelectedGameType.setText(localClientState.getGameType().getGameName());
+        textFieldSelectedGameType.setText(iModelOfClient.getLocalClientState().getGameType().getGameName());
         super.doOnNextState();
     }
 }

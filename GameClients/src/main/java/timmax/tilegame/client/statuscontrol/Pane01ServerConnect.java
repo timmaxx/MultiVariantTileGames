@@ -7,15 +7,16 @@ import java.util.List;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
+import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
+import timmax.tilegame.transport.TransportOfClient;
 
 public class Pane01ServerConnect extends AbstractConnectStatePane {
     private final TextField textFieldServerAddress;
     private final TextField textFieldServerPort;
     private final TextField textFieldConnectString;
 
-    public Pane01ServerConnect(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
-        super(multiGameWebSocketClientManyTimesUse);
+    public Pane01ServerConnect(IModelOfClient iModelOfClient, TransportOfClient transportOfClient) {
+        super(iModelOfClient, transportOfClient);
 
         // Контролы для продвижения состояния "вперёд":
         Label labelServerAddress = new Label("Address");
@@ -32,8 +33,9 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
         buttonNextState.setText("Connect");
         buttonNextState.setOnAction(event -> {
             disableAllControls();
-            multiGameWebSocketClientManyTimesUse.setURI(getURIFromControls());
-            multiGameWebSocketClientManyTimesUse.connect();
+            // ToDo: С методом setURI() нужно разобраться - включать или не включать его в интерфейс?
+            transportOfClient.setURI(getURIFromControls());
+            transportOfClient.connect();
         });
 
         // Контролы для продвижения состояния "назад":
@@ -41,7 +43,7 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
         buttonPrevState.setFocusTraversable(false);
         buttonPrevState.setOnAction(event -> {
             disableAllControls();
-            multiGameWebSocketClientManyTimesUse.close();
+            transportOfClient.close();
         });
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
@@ -61,6 +63,7 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
         }
     }
 
+    // Implemented methods of interface ObserverOnAbstractEvent
     // 1
     @Override
     public void updateOnClose() {

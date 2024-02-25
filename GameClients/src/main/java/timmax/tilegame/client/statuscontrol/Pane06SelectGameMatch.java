@@ -7,15 +7,16 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
+import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
-import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
+import timmax.tilegame.transport.TransportOfClient;
 
 public class Pane06SelectGameMatch extends AbstractConnectStatePane {
     private final ComboBox<String> comboBoxGameSet;
     private final TextField textFieldSelectedGame;
 
-    public Pane06SelectGameMatch(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
-        super(multiGameWebSocketClientManyTimesUse);
+    public Pane06SelectGameMatch(IModelOfClient iModelOfClient, TransportOfClient transportOfClient) {
+        super(iModelOfClient, transportOfClient);
 
         // Контролы для продвижения состояния "вперёд":
         comboBoxGameSet = new ComboBox<>();
@@ -25,7 +26,7 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
         buttonNextState.setText("Select the game match");
         buttonNextState.setOnAction(event -> {
             disableAllControls();
-            multiGameWebSocketClientManyTimesUse.gameMatchSelect(new InstanceIdOfModel(comboBoxGameSet.getValue()));
+            iModelOfClient.gameMatchSelect(new InstanceIdOfModel(comboBoxGameSet.getValue()));
         });
 
         // Контролы для продвижения состояния "назад":
@@ -33,7 +34,7 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
         buttonPrevState.setFocusTraversable(false);
         buttonPrevState.setOnAction(event -> {
             disableAllControls();
-            multiGameWebSocketClientManyTimesUse.forgetGameMatch();
+            iModelOfClient.forgetGameMatch();
         });
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
@@ -43,6 +44,7 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
         );
     }
 
+    // Implemented methods of interface ObserverOnAbstractEvent
     // 1
     @Override
     public void updateOnClose() {
@@ -97,7 +99,7 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
     public void updateOnGetGameMatchSet() {
         // Также см. комментарии к EventOfClient51GiveGamePlaySet
         ObservableList<InstanceIdOfModel> observableList = FXCollections.observableArrayList(new InstanceIdOfModel("New game"));
-        observableList.addAll(localClientState.getGameMatchSet());
+        observableList.addAll(iModelOfClient.getLocalClientState().getGameMatchSet());
         comboBoxGameSet.setItems(FXCollections.observableArrayList(
                 observableList
                         .stream()
@@ -136,7 +138,7 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
 
     @Override
     protected void doOnNextState() {
-        textFieldSelectedGame.setText(localClientState.getServerBaseModel().toString());
+        textFieldSelectedGame.setText(iModelOfClient.getLocalClientState().getServerBaseModel().toString());
         super.doOnNextState();
     }
 }

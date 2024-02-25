@@ -4,20 +4,21 @@ import java.util.List;
 
 import javafx.scene.layout.Pane;
 
-import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
+import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.guiengine.jfx.GameClientPaneJfx;
+import timmax.tilegame.transport.TransportOfClient;
 
 public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
     private final Pane pane;
 
-    public Pane07GameMatchPlaying(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
-        super(multiGameWebSocketClientManyTimesUse);
+    public Pane07GameMatchPlaying(IModelOfClient iModelOfClient, TransportOfClient transportOfClient) {
+        super(iModelOfClient, transportOfClient);
 
         // Контролы для продвижения состояния "вперёд":
         buttonNextState.setText("Start the game match");
         buttonNextState.setOnAction(event -> {
             disableAllControls();
-            multiGameWebSocketClientManyTimesUse.startGameMatchPlaying();
+            iModelOfClient.startGameMatchPlaying();
         });
 
         // Контролы для продвижения состояния "назад":
@@ -29,7 +30,7 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         buttonPrevState.setFocusTraversable(false); // Это в любом случае д.б.
         buttonPrevState.setOnAction(event -> {
             disableAllControls();
-            multiGameWebSocketClientManyTimesUse.stopGameMatchPlaying();
+            iModelOfClient.stopGameMatchPlaying();
         });
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
@@ -39,6 +40,7 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         );
     }
 
+    // Implemented methods of interface ObserverOnAbstractEvent
     // 1
     @Override
     public void updateOnClose() {
@@ -82,12 +84,7 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
     public void updateOnSelectGameType() {
         doOnPrevState();
         pane.getChildren().clear();
-        // ToDo: Сейчас здесь в метод передаётся два одинаковых параметра. Но нужно разделить реализацию
-        //       TransportOfClient, IModelOfClient в class MultiGameWebSocketClientManyTimesUse.
-        pane.getChildren().add(new GameClientPaneJfx(
-                multiGameWebSocketClientManyTimesUse,
-                multiGameWebSocketClientManyTimesUse
-        ));
+        pane.getChildren().add(new GameClientPaneJfx(iModelOfClient, transportOfClient));
     }
 
     // 5

@@ -11,31 +11,24 @@ import org.java_websocket.handshake.ServerHandshake;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
-import timmax.tilegame.basemodel.protocol.client.LocalClientState;
-import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
-import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
-import timmax.tilegame.transport.TransportOfClient;
 
-public class MultiGameWebSocketClient extends WebSocketClient implements TransportOfClient, IModelOfClient {
+// ToDo: Делать ли этот класс реализующим TransportOfClient?
+public class MultiGameWebSocketClient extends WebSocketClient /*implements TransportOfClient*/ {
     private final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
-    private final LocalClientState localClientState;
-    private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
+    // ToDo: Модель пришлось инициализировать через сеттер. А луше-бы через коструктор.
+    private /*final*/ IModelOfClient iModelOfClient;
 
-    public MultiGameWebSocketClient(URI serverUri, LocalClientState localClientState, HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent) {
+    public MultiGameWebSocketClient(URI serverUri) {
         super(serverUri);
-        this.localClientState = localClientState;
-        this.hashSetOfObserverOnAbstractEvent = hashSetOfObserverOnAbstractEvent;
         System.out.println(serverUri);
     }
 
+    public void setModelOfClient(IModelOfClient iModelOfClient) {
+        this.iModelOfClient = iModelOfClient;
+    }
+
     public MainGameClientStatus getMainGameClientStatus() {
-        if (!isOpen() || isClosed()) {
-            return MainGameClientStatus.NO_CONNECT;
-        }
-        if (isOpen()) {
-            return localClientState.getMainGameClientStatus();
-        }
-        throw new RuntimeException("Unknown state.");
+        return iModelOfClient.getMainGameClientStatus();
     }
 
     // Overriden methods from class WebSocketClient:
@@ -43,9 +36,9 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     public void onClose(int code, String reason, boolean remote) {
         System.out.println("onClose");
 
-        localClientState.forgetUserName();
+        iModelOfClient.getLocalClientState().forgetUserName();
         System.out.println("  getMainGameClientStatus() = " + getMainGameClientStatus());
-        hashSetOfObserverOnAbstractEvent.updateOnClose();
+        iModelOfClient.getLocalClientState().getHashSetOfObserverOnAbstractEvent().updateOnClose();
 
         System.out.println("  Connect was closed.");
         System.out.println("  Code = " + code + ". Reason = " + reason + ". Remote = " + remote + ".");
@@ -56,9 +49,9 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     public void onOpen(ServerHandshake handshakedata) {
         System.out.println("onOpen(ServerHandshake)");
 
-        localClientState.forgetUserName();
+        iModelOfClient.getLocalClientState().forgetUserName();
         System.out.println("  getMainGameClientStatus() = " + getMainGameClientStatus());
-        hashSetOfObserverOnAbstractEvent.updateOnOpen();
+        iModelOfClient.getLocalClientState().getHashSetOfObserverOnAbstractEvent().updateOnOpen();
 
         System.out.println("---------- End of onOpen");
     }
@@ -79,7 +72,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         EventOfServer eventOfServer = mapper.readValue(byteArrayInputStream, EventOfServer.class);
         System.out.println("  eventOfServer = " + eventOfServer);
 
-        eventOfServer.executeOnClient(this);
+        eventOfServer.executeOnClient(iModelOfClient);
         System.out.println("  getMainGameClientStatus() = " + getMainGameClientStatus());
         System.out.println("---------- End of onMessage(ByteBuffer)");
     }
@@ -92,7 +85,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     }
 
     // Overriden methods from interface TransportOfClient:
-    @Override
+    // @Override
     public void sendEventOfClient(EventOfClient eventOfClient) {
         System.out.println("  send(EventOfClient<WebSocket>)");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -100,95 +93,5 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         System.out.println("    eventOfClient = " + eventOfClient);
         send(byteArrayOutputStream.toByteArray());
         System.out.println("---------- End of public void send(EventOfClient<WebSocket> eventOfClient)");
-    }
-
-    // Overriden methods from interface IModelOfClient:
-    // 2
-    @Override
-    public void logout() {
-        System.out.println("logout()");
-        sendEventOfClient(new EventOfClient20Logout());
-    }
-
-    @Override
-    public void login(String userName, String password) {
-        System.out.println("login(String, String)");
-        sendEventOfClient(new EventOfClient21Login(userName, password));
-    }
-
-    // 3
-    @Override
-    public void forgetGameTypeSet() {
-        System.out.println("forgetGameTypeSet()");
-        sendEventOfClient(new EventOfClient30ForgetGameTypeSet());
-    }
-
-    @Override
-    public void getGameTypeSet() {
-        System.out.println("getGameTypeSet()");
-        sendEventOfClient(new EventOfClient31GiveGameTypeSet());
-    }
-
-    // 4
-    @Override
-    public void forgetGameType() {
-        System.out.println("forgetGameType()");
-        sendEventOfClient(new EventOfClient40ForgetGameType());
-    }
-
-    @Override
-    public void gameTypeSelect(ModelOfServerDescriptor modelOfServerDescriptor) {
-        System.out.println("gameTypeSelect(String)");
-        sendEventOfClient(new EventOfClient41SetGameType(modelOfServerDescriptor));
-    }
-
-    // 5
-    @Override
-    public void forgetGameMatchSet() {
-        System.out.println("forgetGameMatchSet()");
-        sendEventOfClient(new EventOfClient50ForgetGameMatchSet());
-    }
-
-    @Override
-    public void getGameMatchSet() {
-        System.out.println("getGameMatchSet()");
-        sendEventOfClient(new EventOfClient51GiveGameMatchSet());
-    }
-
-    // 6
-    @Override
-    public void forgetGameMatch() {
-        System.out.println("forgetGameMatch()");
-        sendEventOfClient(new EventOfClient60ForgetGameMatch());
-    }
-
-    @Override
-    public void gameMatchSelect(InstanceIdOfModel model) {
-        System.out.println("gameMatchSelect(InstanceIdOfModel model)");
-        sendEventOfClient(new EventOfClient61SetGameMatch(model));
-    }
-
-    // 7
-    @Override
-    public void stopGameMatchPlaying() {
-        System.out.println("stopPlaying()");
-        sendEventOfClient(new EventOfClient70StopGameMatchPlaying());
-    }
-
-    @Override
-    public void startGameMatchPlaying() {
-        System.out.println("startPlaying()");
-        sendEventOfClient(new EventOfClient71StartGameMatchPlaying());
-    }
-
-    // ---- X
-    @Override
-    public LocalClientState getLocalClientState() {
-        return localClientState;
-    }
-
-    @Override
-    public HashSetOfObserverOnAbstractEvent getHashSetOfObserverOnAbstractEvent() {
-        return hashSetOfObserverOnAbstractEvent;
     }
 }

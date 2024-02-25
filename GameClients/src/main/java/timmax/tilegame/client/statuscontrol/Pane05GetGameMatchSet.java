@@ -2,17 +2,18 @@ package timmax.tilegame.client.statuscontrol;
 
 import java.util.List;
 
-import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
+import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
+import timmax.tilegame.transport.TransportOfClient;
 
 public class Pane05GetGameMatchSet extends AbstractConnectStatePane {
-    public Pane05GetGameMatchSet(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
-        super(multiGameWebSocketClientManyTimesUse);
+    public Pane05GetGameMatchSet(IModelOfClient iModelOfClient, TransportOfClient transportOfClient) {
+        super(iModelOfClient, transportOfClient);
 
         // Контролы для продвижения состояния "вперёд":
         buttonNextState.setText("Get the game match set");
         buttonNextState.setOnAction(event -> {
             disableAllControls();
-            multiGameWebSocketClientManyTimesUse.getGameMatchSet();
+            iModelOfClient.getGameMatchSet();
         });
 
         // Контролы для продвижения состояния "назад":
@@ -20,7 +21,7 @@ public class Pane05GetGameMatchSet extends AbstractConnectStatePane {
         buttonPrevState.setFocusTraversable(false);
         buttonPrevState.setOnAction(event -> {
             disableAllControls();
-            multiGameWebSocketClientManyTimesUse.forgetGameMatchSet();
+            iModelOfClient.forgetGameMatchSet();
         });
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
@@ -30,6 +31,7 @@ public class Pane05GetGameMatchSet extends AbstractConnectStatePane {
         );
     }
 
+    // Implemented methods of interface ObserverOnAbstractEvent
     // 1
     @Override
     public void updateOnClose() {

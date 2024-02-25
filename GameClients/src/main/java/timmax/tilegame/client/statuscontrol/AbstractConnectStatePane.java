@@ -6,30 +6,76 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.HBox;
 
-import timmax.tilegame.basemodel.protocol.client.LocalClientState;
+import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
-import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
+import timmax.tilegame.transport.TransportOfClient;
 
 public abstract class AbstractConnectStatePane extends HBox implements ObserverOnAbstractEvent {
-    protected final MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse;
+    protected final IModelOfClient iModelOfClient;
+    protected final TransportOfClient transportOfClient;
 
     protected Button buttonNextState;
     protected Button buttonPrevState;
     private List<Region> listOfControlsNextState;
     private List<Region> listOfControlsPrevState;
-    protected LocalClientState localClientState;
 
-    public AbstractConnectStatePane(MultiGameWebSocketClientManyTimesUse multiGameWebSocketClientManyTimesUse) {
-        this.multiGameWebSocketClientManyTimesUse = multiGameWebSocketClientManyTimesUse;
-        this.localClientState = multiGameWebSocketClientManyTimesUse.getLocalClientState();
+    public AbstractConnectStatePane(IModelOfClient iModelOfClient, TransportOfClient transportOfClient) {
+        this.iModelOfClient = iModelOfClient;
+        this.transportOfClient = transportOfClient;
         this.buttonNextState = new Button();
         this.buttonPrevState = new Button();
     }
 
+    public void setListsOfControlsAndAllDisable(
+            List<Region> listOfControlsNextState,
+            List<Region> listOfControlsPrevState
+    ) {
+        this.listOfControlsNextState = listOfControlsNextState;
+        this.listOfControlsPrevState = listOfControlsPrevState;
+        getChildren().clear();
+        getChildren().addAll(listOfControlsNextState);
+        getChildren().addAll(listOfControlsPrevState);
+        disableAllControls();
+
+        iModelOfClient.getLocalClientState().addCallBackOnIncomingTransportPackageEvent(this);
+    }
+
+    protected void disableAllControls() {
+        for (Region control : listOfControlsNextState) {
+            control.setDisable(true);
+        }
+        for (Region control : listOfControlsPrevState) {
+            control.setDisable(true);
+        }
+    }
+
+    protected void setDisableControlsNextState(boolean disableControlsNextState) {
+        for (Region control : listOfControlsNextState) {
+            control.setDisable(disableControlsNextState);
+        }
+        for (Region control : listOfControlsPrevState) {
+            control.setDisable(!disableControlsNextState);
+        }
+    }
+
+    //
+    protected void doOnPrevState() {
+        disableAllControls();
+    }
+
+    protected void doOnThisState() {
+        setDisableControlsNextState(false);
+    }
+
+    protected void doOnNextState() {
+        setDisableControlsNextState(true);
+    }
+
+    // Implemented methods of interface ObserverOnAbstractEvent
+
     //  ToDo: Пока не сильно красиво сделано с большим перечнем разнообразных updateXXX().
     //        Пересмотреть архитектуру, внести изменения в код.
 
-    // Overriden method from interface ObserverOnAbstractEvent
     // Все методы здесь для единообразия расположены в порядке:
     // - от 1 к 7 (и далее),
     // - внутри этого "к предыдущему состоянию (x.0)", "к следующему (x.1)".
@@ -103,51 +149,5 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
 
     @Override
     public void updateOnStartGameMatchPlaying() {
-    }
-
-    //
-    protected void doOnPrevState() {
-        disableAllControls();
-    }
-
-    protected void doOnThisState() {
-        setDisableControlsNextState(false);
-    }
-
-    protected void doOnNextState() {
-        setDisableControlsNextState(true);
-    }
-
-    // Own methods
-    public void setListsOfControlsAndAllDisable(
-            List<Region> listOfControlsNextState,
-            List<Region> listOfControlsPrevState
-    ) {
-        this.listOfControlsNextState = listOfControlsNextState;
-        this.listOfControlsPrevState = listOfControlsPrevState;
-        getChildren().clear();
-        getChildren().addAll(listOfControlsNextState);
-        getChildren().addAll(listOfControlsPrevState);
-        disableAllControls();
-
-        multiGameWebSocketClientManyTimesUse.addCallBackOnIncomingTransportPackageEvent(this);
-    }
-
-    protected void disableAllControls() {
-        for (Region control : listOfControlsNextState) {
-            control.setDisable(true);
-        }
-        for (Region control : listOfControlsPrevState) {
-            control.setDisable(true);
-        }
-    }
-
-    protected void setDisableControlsNextState(boolean disableControlsNextState) {
-        for (Region control : listOfControlsNextState) {
-            control.setDisable(disableControlsNextState);
-        }
-        for (Region control : listOfControlsPrevState) {
-            control.setDisable(!disableControlsNextState);
-        }
     }
 }
