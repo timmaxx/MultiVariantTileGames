@@ -3,6 +3,7 @@ package timmax.tilegame.client.websocket;
 import java.net.URI;
 
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
+import timmax.tilegame.basemodel.protocol.EventOfClient;
 import timmax.tilegame.basemodel.protocol.LocalClientStateFabric;
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.basemodel.protocol.client.LocalClientState;
@@ -10,9 +11,10 @@ import timmax.tilegame.basemodel.protocol.HashSetOfObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
+import timmax.tilegame.transport.TransportOfClient;
 
 // WebSocket клиент многоразовый
-public class MultiGameWebSocketClientManyTimesUse implements IModelOfClient {
+public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient, IModelOfClient {
     private final LocalClientState localClientState;
     private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
 
@@ -40,12 +42,14 @@ public class MultiGameWebSocketClientManyTimesUse implements IModelOfClient {
         multiGameWebSocketClient.close();
     }
 
-    public MultiGameWebSocketClient getMultiGameWebSocketClient() {
-        return multiGameWebSocketClient;
-    }
-
     public void addCallBackOnIncomingTransportPackageEvent(ObserverOnAbstractEvent observerOnAbstractEvent) {
         hashSetOfObserverOnAbstractEvent.add(observerOnAbstractEvent);
+    }
+
+    // Overriden methods from interface TransportOfClient:
+    @Override
+    public void sendEventOfClient(EventOfClient eventOfClient) {
+        multiGameWebSocketClient.sendEventOfClient(eventOfClient);
     }
 
     // Overriden methods from interface IModelOfClient:

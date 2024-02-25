@@ -82,11 +82,11 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
     public void updateOnSelectGameType() {
         doOnPrevState();
         pane.getChildren().clear();
-        // ToDo: Передаётся несколько параметров, которые получается из multiGameWebSocketClientManyTimesUse.
-        //       Уменьшить количество параметров.
+        // ToDo: Сейчас здесь в метод передаётся два одинаковых параметра. Но нужно разделить реализацию
+        //       TransportOfClient, IModelOfClient в class MultiGameWebSocketClientManyTimesUse.
         pane.getChildren().add(new GameClientPaneJfx(
                 multiGameWebSocketClientManyTimesUse,
-                multiGameWebSocketClientManyTimesUse.getMultiGameWebSocketClient()
+                multiGameWebSocketClientManyTimesUse
         ));
     }
 
