@@ -17,12 +17,8 @@ public class BaseController {
         this.transportOfClient = transportOfClient;
     }
 
-    public void sendEventOfClient(EventOfClient eventOfClient) {
-        transportOfClient.sendEventOfClient(eventOfClient);
-    }
-
     public void onKeyPressed(KeyCode keyCode) {
-        System.out.println("class BaseController. method onKeyPressed");
+        System.out.println("BaseController::onKeyPressed()");
         System.out.println("  keyCode = " + keyCode);
         GameCommand gameCommand = new GameCommandKeyPressed(keyCode);
         EventOfClient eventOfClient = new EventOfClient92GameCommand(gameCommand);
@@ -30,11 +26,15 @@ public class BaseController {
     }
 
     public final void onMouseClick(MouseButton mouseButton, int x, int y) {
-        System.out.println("class GameStackPaneController. method onMouseClick");
+        System.out.println("BaseController::onMouseClick()");
         System.out.println("  mouseButton = " + mouseButton + ", x = " + x + ", y = " + y);
         GameCommand gameCommand = new GameCommandMouseClick(x, y, mouseButton);
         EventOfClient eventOfClient = new EventOfClient92GameCommand(gameCommand);
         sendEventOfClient(eventOfClient);
+    }
+
+    private void sendEventOfClient(EventOfClient eventOfClient) {
+        transportOfClient.sendEventOfClient(eventOfClient);
     }
 
     @Override
