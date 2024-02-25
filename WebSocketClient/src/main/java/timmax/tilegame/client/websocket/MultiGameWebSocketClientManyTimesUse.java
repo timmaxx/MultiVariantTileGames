@@ -25,10 +25,6 @@ public class MultiGameWebSocketClientManyTimesUse implements IModelOfClient {
         System.out.println("getMainGameClientStatus() = " + getMainGameClientStatus());
     }
 
-    public LocalClientState getLocalClientState() {
-        return localClientState;
-    }
-
     public MainGameClientStatus getMainGameClientStatus() {
         if (multiGameWebSocketClient == null) {
             return MainGameClientStatus.NO_CONNECT;
@@ -48,7 +44,27 @@ public class MultiGameWebSocketClientManyTimesUse implements IModelOfClient {
         return multiGameWebSocketClient;
     }
 
+    public void addCallBackOnIncomingTransportPackageEvent(ObserverOnAbstractEvent observerOnAbstractEvent) {
+        hashSetOfObserverOnAbstractEvent.add(observerOnAbstractEvent);
+    }
+
     // Overriden methods from interface IModelOfClient:
+    // 1
+    @Override
+    public void close() {
+        if (multiGameWebSocketClient == null) {
+            return;
+        }
+        multiGameWebSocketClient.close();
+        multiGameWebSocketClient = null;
+    }
+
+    @Override
+    public void connect() {
+        multiGameWebSocketClient = new MultiGameWebSocketClient(uri, localClientState, hashSetOfObserverOnAbstractEvent);
+        multiGameWebSocketClient.connect();
+    }
+
     // 2
     @Override
     public void logout() {
@@ -121,21 +137,8 @@ public class MultiGameWebSocketClientManyTimesUse implements IModelOfClient {
         return hashSetOfObserverOnAbstractEvent;
     }
 
-    // Own methods of the class:
-    public void addCallBackOnIncomingTransportPackageEvent(ObserverOnAbstractEvent observerOnAbstractEvent) {
-        hashSetOfObserverOnAbstractEvent.add(observerOnAbstractEvent);
-    }
-
-    public void close() {
-        if (multiGameWebSocketClient == null) {
-            return;
-        }
-        multiGameWebSocketClient.close();
-        multiGameWebSocketClient = null;
-    }
-
-    public void connect() {
-        multiGameWebSocketClient = new MultiGameWebSocketClient(uri, localClientState, hashSetOfObserverOnAbstractEvent);
-        multiGameWebSocketClient.connect();
+    @Override
+    public LocalClientState getLocalClientState() {
+        return localClientState;
     }
 }
