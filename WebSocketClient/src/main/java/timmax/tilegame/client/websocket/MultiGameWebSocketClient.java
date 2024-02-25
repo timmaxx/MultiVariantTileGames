@@ -102,16 +102,6 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         System.out.println("---------- End of public void send(EventOfClient<WebSocket> eventOfClient)");
     }
 
-    @Override
-    public LocalClientState getLocalClientState() {
-        return localClientState;
-    }
-
-    @Override
-    public HashSetOfObserverOnAbstractEvent getHashSetOfObserverOnAbstractEvent() {
-        return hashSetOfObserverOnAbstractEvent;
-    }
-
     // Overriden methods from interface IModelOfClient:
     // 2
     @Override
@@ -189,5 +179,16 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     public void startGameMatchPlaying() {
         System.out.println("startPlaying()");
         sendEventOfClient(new EventOfClient71StartGameMatchPlaying());
+    }
+
+    // ---- X
+    @Override
+    public LocalClientState getLocalClientState() {
+        return localClientState;
+    }
+
+    @Override
+    public HashSetOfObserverOnAbstractEvent getHashSetOfObserverOnAbstractEvent() {
+        return hashSetOfObserverOnAbstractEvent;
     }
 }
