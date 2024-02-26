@@ -23,10 +23,6 @@ public class MultiGameWebSocketClient extends WebSocketClient /*implements Trans
         System.out.println(serverUri);
     }
 
-    public void setModelOfClient(IModelOfClient iModelOfClient) {
-        this.iModelOfClient = iModelOfClient;
-    }
-
     public MainGameClientStatus getMainGameClientStatus() {
         return iModelOfClient.getMainGameClientStatus();
     }
@@ -85,6 +81,11 @@ public class MultiGameWebSocketClient extends WebSocketClient /*implements Trans
     }
 
     // Overriden methods from interface TransportOfClient:
+    // @Override
+    public void setModelOfClient(IModelOfClient iModelOfClient) {
+        this.iModelOfClient = iModelOfClient;
+    }
+
     // @Override
     public void sendEventOfClient(EventOfClient eventOfClient) {
         System.out.println("  send(EventOfClient<WebSocket>)");

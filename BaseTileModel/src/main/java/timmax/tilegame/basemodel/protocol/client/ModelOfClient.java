@@ -15,17 +15,6 @@ public class ModelOfClient implements IModelOfClient {
         this.localClientState = localClientState;
     }
 
-    @Override
-    public MainGameClientStatus getMainGameClientStatus() {
-        if (!transportOfClient.isOpen() || transportOfClient.isClosed()) {
-            return MainGameClientStatus.NO_CONNECT;
-        }
-        if (transportOfClient.isOpen()) {
-            return localClientState.getMainGameClientStatus();
-        }
-        throw new RuntimeException("Unknown state.");
-    }
-
     // Overriden methods from interface IModelOfClient:
     // 2
     @Override
@@ -106,6 +95,17 @@ public class ModelOfClient implements IModelOfClient {
     }
 
     // ---- X
+    @Override
+    public MainGameClientStatus getMainGameClientStatus() {
+        if (!transportOfClient.isOpen() || transportOfClient.isClosed()) {
+            return MainGameClientStatus.NO_CONNECT;
+        }
+        if (transportOfClient.isOpen()) {
+            return localClientState.getMainGameClientStatus();
+        }
+        throw new RuntimeException("Unknown state.");
+    }
+
     @Override
     public LocalClientState getLocalClientState() {
         return localClientState;

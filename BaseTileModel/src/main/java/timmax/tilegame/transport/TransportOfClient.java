@@ -6,7 +6,7 @@ import timmax.tilegame.basemodel.protocol.EventOfClient;
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 
 public interface TransportOfClient {
-    void sendEventOfClient(EventOfClient eventOfClient);
+    void setModelOfClient(IModelOfClient iModelOfClient);
 
     boolean isOpen();
     boolean isClosed();
@@ -17,5 +17,5 @@ public interface TransportOfClient {
     // ToDo: setURI(URI uriFromControls) Нужен в одном из классов, но не в обоих.
     void setURI(URI uriFromControls);
 
-    void setModelOfClient(IModelOfClient iModelOfClient);
+    void sendEventOfClient(EventOfClient eventOfClient);
 }
