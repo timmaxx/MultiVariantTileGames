@@ -356,8 +356,6 @@ GameClientPaneJfx::
 
 3. Вводить наконец уже JUnit.
 
-4. Начать уже использовать логирование, а не велосипедить.
-
 5. Сократить перечень Pane0xXxx и методов interface IModelOfClient и классов EventOfClient / EventOfServer
    (30, 31, 50, 51). Удалить:
 5.1. Pane03. Пусть Pane02 получает перечень типов игр. IModelOfClient удалить 3. EventOfClient / EventOfServer (30, 31)
