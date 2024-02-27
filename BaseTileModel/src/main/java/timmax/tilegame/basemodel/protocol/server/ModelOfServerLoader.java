@@ -9,9 +9,14 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import timmax.tilegame.baseview.ViewMainField;
 
 public class ModelOfServerLoader {
+    protected static final Logger logger = LoggerFactory.getLogger(ModelOfServerLoader.class);
+
     private final Path path;
 
     public ModelOfServerLoader(Path path) {
@@ -34,23 +39,19 @@ public class ModelOfServerLoader {
                             remoteClientState
                     );
                 } catch (ClassNotFoundException e) {
-                    System.err.println("Class '" + line + "' is not found.");
-                    e.printStackTrace();
+                    logger.warn("Class '{}' is not found.", line, e);
                     continue;
                 } catch (NoSuchMethodException e) {
-                    System.err.println("Class '" + line + "' does not contains constructor with one parameter TransportOfServer type.");
-                    e.printStackTrace();
+                    logger.warn("Class '{}' does not contains constructor with one parameter TransportOfServer type.", line, e);
                     continue;
                 }
                 result.add(modelOfServerDescriptor);
             }
         } catch (FileNotFoundException fnfe) {
-            System.err.println("File with list of model class was not found.");
-            fnfe.printStackTrace();
+            logger.error("File with list of model class was not found.", fnfe);
             System.exit(1);
         } catch (IOException ioe) {
-            System.err.println("There is a problem with reading file with list of model class.");
-            ioe.printStackTrace();
+            logger.error("There is a problem with reading file with list of model class.", ioe);
             System.exit(1);
         }
 
