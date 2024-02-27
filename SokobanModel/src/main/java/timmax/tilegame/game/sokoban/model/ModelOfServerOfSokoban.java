@@ -28,7 +28,7 @@ import static timmax.tilegame.basemodel.GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL
 import static timmax.tilegame.game.sokoban.model.gameobject.WhoMovableInTile.*;
 
 public class ModelOfServerOfSokoban<ClientId> extends ModelOfServer<ClientId> {
-    // Константы, описанные ниже относятся к визуализации.
+    // Константы, описанные ниже, относятся к визуализации.
     // ToDo: Вынести логику визуализации из класса.
     public static final Color WALL_CELL_COLOR = RED;
     public static final Color HOME_CELL_COLOR = WHITE;
@@ -53,8 +53,7 @@ public class ModelOfServerOfSokoban<ClientId> extends ModelOfServer<ClientId> {
         try {
             levelLoader = new LevelLoader(Paths.get(Objects.requireNonNull(ModelOfServerOfSokoban.class.getResource("levels.txt")).toURI()));
         } catch (URISyntaxException e) {
-            System.err.println("There is a problem with file with game levels.");
-            e.printStackTrace();
+            logger.error("There is a problem with file with game levels.", e);
             // ToDo: При 'System.exit(1);' сервер закроется. Но ошибка произошла при загрузке только модели одной игры.
             //       Поэтому нужно чтобы только эта модель не загрузилась и клиенту должен быть отправлен перечень игр
             //       без этой игры.
@@ -62,7 +61,7 @@ public class ModelOfServerOfSokoban<ClientId> extends ModelOfServer<ClientId> {
         }
     }
 
-    public ModelOfServerOfSokoban(RemoteClientState remoteClientState) {
+    public ModelOfServerOfSokoban(RemoteClientState<ClientId> remoteClientState) {
         super(remoteClientState);
     }
 
