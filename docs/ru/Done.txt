@@ -383,3 +383,10 @@ MultiGameWebSocketClient, MultiGameWebSocketServer, GameClients
 (24.02.2024)
 Внести структурные изменения
 1. Из interface TransportOfClient удалить дублирующиеся методы interface IModelOfClient.
+
+
+26.02.2024 ------------------------------------------------------------------------------------------------------------
+
+(24.02.2024)
+Внести структурные изменения
+2. Пересмотреть интерфейсы и их реализации: TransportOfClient, TransportOfServer, IModelOfClient, IModelOfServer.
