@@ -5,7 +5,7 @@ import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
 public class EventOfClient70StopGameMatchPlaying extends EventOfClient {
     @Override
     public <ClientId> void executeOnServer(RemoteClientState<ClientId> remoteClientState) {
-        System.out.println("  onStopGameMatchPlaying");
+        logger.debug("  onStopGameMatchPlaying");
         remoteClientState.forgetGameIsPlaying();
     }
 

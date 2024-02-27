@@ -21,7 +21,7 @@ public class EventOfClient92GameCommand extends EventOfClient {
 
     @Override
     public <ClientId> void executeOnServer(RemoteClientState<ClientId> remoteClientState) {
-        System.out.println("  onGameEvent");
+        logger.debug("  onGameEvent");
         gameCommand.executeOnServer(remoteClientState.getServerBaseModel());
     }
 

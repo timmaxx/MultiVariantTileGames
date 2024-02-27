@@ -12,7 +12,7 @@ import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
 public class EventOfClient31GiveGameTypeSet extends EventOfClient {
     @Override
     public <ClientId> void executeOnServer(RemoteClientState<ClientId> remoteClientState) {
-        System.out.println("  onGetGameTypeSet");
+        logger.debug("  onGetGameTypeSet");
 
         ModelOfServerLoader modelLoader;
         try {

@@ -21,7 +21,7 @@ public class EventOfServer61SetGameMatch extends EventOfServer {
 
     @Override
     public void executeOnClient(IModelOfClient iModelOfClient) {
-        System.out.println("  onSetGameMatch");
+        logger.debug("  onSetGameMatch");
         iModelOfClient
                 .getLocalClientState()
                 .setServerBaseModel(serverBaseModel);

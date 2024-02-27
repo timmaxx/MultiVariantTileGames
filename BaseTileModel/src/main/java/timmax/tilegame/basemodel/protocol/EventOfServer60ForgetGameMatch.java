@@ -5,7 +5,7 @@ import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 public class EventOfServer60ForgetGameMatch extends EventOfServer {
     @Override
     public void executeOnClient(IModelOfClient iModelOfClient) {
-        System.out.println("  onForgetGameMatch");
+        logger.debug("  onForgetGameMatch");
         iModelOfClient.getLocalClientState().forgetServerBaseModel();
     }
 

@@ -23,10 +23,10 @@ public class EventOfClient41SetGameType extends EventOfClient {
 
     @Override
     public <ClientId> void executeOnServer(RemoteClientState<ClientId> remoteClientState) {
-        System.out.println("  onGameTypeSelect");
-        System.out.println("  modelOfServerDescriptor = " + modelOfServerDescriptor);
+        logger.debug("  onGameTypeSelect");
+        logger.debug("  modelOfServerDescriptor = {}", modelOfServerDescriptor);
         if (modelOfServerDescriptor == null) {
-            System.err.println("Client sent empty name of model classes.");
+            logger.error("Client sent empty name of model classes.");
             remoteClientState.forgetGameType();
             return;
         }
@@ -39,7 +39,7 @@ public class EventOfClient41SetGameType extends EventOfClient {
                 .map(ModelOfServerDescriptor::getConstructorOfModelOfServerClass).orElse(null);
 
         if (constructor == null) {
-            System.err.println(modelOfServerDescriptor + "' was not found in list model classes.");
+            logger.error("{} was not found in list model classes.", modelOfServerDescriptor);
             remoteClientState.forgetGameType();
             return;
         }

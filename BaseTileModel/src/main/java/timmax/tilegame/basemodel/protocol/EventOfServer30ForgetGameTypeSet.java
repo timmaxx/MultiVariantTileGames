@@ -5,7 +5,7 @@ import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 public class EventOfServer30ForgetGameTypeSet extends EventOfServer {
     @Override
     public void executeOnClient(IModelOfClient iModelOfClient) {
-        System.out.println("  onForgetGameTypeSet");
+        logger.debug("  onForgetGameTypeSet");
         // Todo: улучшить качество кода:
         //       Вызов метода у объекта объекта - не хорошая практика!
         //       multiGameWebSocketClient.clientState.setUserName

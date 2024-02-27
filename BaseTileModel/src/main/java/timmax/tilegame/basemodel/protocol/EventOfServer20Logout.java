@@ -5,7 +5,7 @@ import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 public class EventOfServer20Logout extends EventOfServer {
     @Override
     public void executeOnClient(IModelOfClient iModelOfClient) {
-        System.out.println("  onLogout");
+        logger.debug("  onLogout");
         // Todo: улучшить качество кода:
         //       Вызов метода у объекта объекта - не хорошая практика!
         //       multiGameWebSocketClient.clientState.setUserName

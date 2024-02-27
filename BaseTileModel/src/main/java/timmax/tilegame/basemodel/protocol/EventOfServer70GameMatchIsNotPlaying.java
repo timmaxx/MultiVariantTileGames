@@ -5,7 +5,7 @@ import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 public class EventOfServer70GameMatchIsNotPlaying extends EventOfServer {
     @Override
     public void executeOnClient(IModelOfClient iModelOfClient) {
-        System.out.println("  onGameMatchIsNotPlaying");
+        logger.debug("  onGameMatchIsNotPlaying");
         iModelOfClient.getLocalClientState().forgetGameIsPlaying();
     }
 

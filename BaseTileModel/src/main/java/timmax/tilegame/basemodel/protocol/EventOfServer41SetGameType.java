@@ -21,7 +21,7 @@ public class EventOfServer41SetGameType extends EventOfServer {
 
     @Override
     public void executeOnClient(IModelOfClient iModelOfClient) {
-        System.out.println("  onGameTypeSelect");
+        logger.debug("  onGameTypeSelect");
         iModelOfClient.getLocalClientState().setGameType(modelOfServerDescriptor);
     }
 

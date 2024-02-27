@@ -7,7 +7,7 @@ import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
 public class EventOfClient51GiveGameMatchSet extends EventOfClient {
     @Override
     public <ClientId> void executeOnServer(RemoteClientState<ClientId> remoteClientState) {
-        System.out.println("  GetGameMatchSet");
+        logger.debug("  GetGameMatchSet");
 
         // Сначала вместо new ArrayList<>() применял List.of() и здесь это работало.
         // Но когда на клиенте "вручную" добавляется строка "New game", а на сервере если пришло "New game" и делается

@@ -23,7 +23,7 @@ public class EventOfServer21Login extends EventOfServer {
 
     @Override
     public void executeOnClient(IModelOfClient iModelOfClient) {
-        System.out.println("  onLogin");
+        logger.debug("  onLogin");
         iModelOfClient.getLocalClientState().setUserName(userName);
     }
 

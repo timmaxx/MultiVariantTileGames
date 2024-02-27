@@ -25,9 +25,8 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
 
     @Override
     public <ClientId> void executeOnServer(RemoteClientState<ClientId> remoteClientState) {
-        System.out.println("  onSetGameMatch");
-
-        System.out.println("  InstanceIdOfModel = " + instanceIdOfModel);
+        logger.debug("  onSetGameMatch");
+        logger.debug("  InstanceIdOfModel = {}", instanceIdOfModel);
 
         // ToDo: Исправить Warning:(33, 9) Raw use of parameterized class 'IModelOfServer'
         IModelOfServer iModelOfServer = null;
@@ -40,8 +39,7 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
                 // Создаём экземпляр модели, ранее выбранного типа.
                 iModelOfServer = constructor.newInstance(remoteClientState);
             } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
-                System.err.println("Server cannot create object of model for " + modelOfServerDescriptor + " with constructor with specific parameters.");
-                e.printStackTrace();
+                logger.error("Server cannot create object of model for {} with constructor with specific parameters.", modelOfServerDescriptor, e);
                 System.exit(1);
             }
             remoteClientState

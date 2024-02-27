@@ -22,7 +22,7 @@ public class EventOfServer51GetGameMatchSet extends EventOfServer {
 
     @Override
     public void executeOnClient(IModelOfClient iModelOfClient) {
-        System.out.println("  onGetGameMatchSet");
+        logger.debug("  onGetGameMatchSet");
         iModelOfClient
                 .getLocalClientState()
                 .setGameMatchSet(setOfInstanceIdOfModel);

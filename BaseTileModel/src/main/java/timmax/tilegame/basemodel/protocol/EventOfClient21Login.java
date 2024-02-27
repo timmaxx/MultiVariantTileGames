@@ -23,9 +23,8 @@ public class EventOfClient21Login extends EventOfClient {
 
     @Override
     public <ClientId> void executeOnServer(RemoteClientState<ClientId> remoteClientState) {
-        System.out.println("  onLogin");
-
-        System.out.println("    userName = " + userName + " | " + "password = *"); // Пароль не выводим:
+        logger.debug("  onLogin");
+        logger.debug("    userName = {} | password = *", userName); // Пароль не выводим:
 
         if (Credentials.isUserAndPasswordCorrect(userName, password)) {
             password = ""; // Не будем даже хранить пароль.

@@ -5,7 +5,7 @@ import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
 public class EventOfClient30ForgetGameTypeSet extends EventOfClient {
     @Override
     public <ClientId> void executeOnServer(RemoteClientState<ClientId> remoteClientState) {
-        System.out.println("  onForgetGameTypeSet");
+        logger.debug("  onForgetGameTypeSet");
         remoteClientState.forgetGameTypeSet();
     }
 

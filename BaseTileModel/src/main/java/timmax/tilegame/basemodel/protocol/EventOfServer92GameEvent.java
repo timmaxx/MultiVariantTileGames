@@ -24,8 +24,8 @@ public class EventOfServer92GameEvent extends EventOfServer {
 
     @Override
     public void executeOnClient(IModelOfClient iModelOfClient) {
-        System.out.println("  onGameEvent");
-        System.out.println("  viewName = " + viewName);
+        logger.debug("  onGameEvent");
+        logger.debug("    viewName = {}", viewName);
         View view = iModelOfClient.getLocalClientState().getMapOfViewName_View().get(viewName);
         view.update(gameEvent);
     }
