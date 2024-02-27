@@ -12,7 +12,6 @@ public class LevelGenerator {
         TileOfMinesweeper[][] tileOfMinesweepers = new TileOfMinesweeper[height][width];
         int countMinesOnField = 0;
 
-        // System.out.println( "Mines:");
         do {
             int x = random.nextInt(width);
             int y = random.nextInt(height);
@@ -20,7 +19,6 @@ public class LevelGenerator {
             if (mines.add(tileOfMinesweeper)) {
                 countMinesOnField++;
                 tileOfMinesweepers[y][x] = tileOfMinesweeper;
-                // System.out.println( "( " + x + ", " + y + ")");
             }
         } while (countMinesOnField < height * width * restOfMineInstallationInPercents / 100);
 
