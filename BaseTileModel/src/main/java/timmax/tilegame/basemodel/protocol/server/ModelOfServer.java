@@ -3,6 +3,8 @@ package timmax.tilegame.basemodel.protocol.server;
 import java.util.Set;
 
 import javafx.scene.paint.Color;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
@@ -21,16 +23,18 @@ import static timmax.tilegame.basemodel.GameStatus.VICTORY;
 // - по хранению перечня игровых контроллеров (от которых можно принимать сигналы управления игрой),
 // -- при игре с более чем одним игроком, контроллеры нужно учитывать по отдельному участнику.
 public abstract class ModelOfServer<ClientId> implements IModelOfServer {
+    protected static final Logger logger = LoggerFactory.getLogger(ModelOfServer.class);
+
     private final static int MIN_WIDTH = 1; // 2;
     private final static int MAX_WIDTH = 100;
     private final static int MIN_HEIGHT = 1; // 2;
     private final static int MAX_HEIGHT = 100;
 
-    private final RemoteClientState remoteClientState;
+    private final RemoteClientState<ClientId> remoteClientState;
 
     private GameStatus gameStatus;
 
-    public ModelOfServer(RemoteClientState remoteClientState) {
+    public ModelOfServer(RemoteClientState<ClientId> remoteClientState) {
         this.remoteClientState = remoteClientState;
     }
 
