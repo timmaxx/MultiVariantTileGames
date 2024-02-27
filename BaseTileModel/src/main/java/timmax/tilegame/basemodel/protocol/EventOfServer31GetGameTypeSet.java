@@ -46,7 +46,7 @@ public class EventOfServer31GetGameTypeSet extends EventOfServer {
         if (obj instanceof Set<?> setOfObj) {
             for (Object objOfList : setOfObj) {
                 if (!(objOfList instanceof ModelOfServerDescriptor)) {
-                    System.err.println("class EventOfServer021GetGameTypeSet\n method void readExternal(ObjectInput in)\n  element of collections is not ModelOfServerDescriptor.");
+                    logger.error("readExternal(ObjectInput in)\n  element of collections is not ModelOfServerDescriptor.");
                     System.exit(1);
                 }
             }
@@ -54,7 +54,7 @@ public class EventOfServer31GetGameTypeSet extends EventOfServer {
             Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor = (Set<ModelOfServerDescriptor>) setOfObj;
             this.collectionOfModelOfServerDescriptor = setOfModelOfServerDescriptor;
         } else {
-            System.err.println("class EventOfServer021GetGameTypeSet\n method void readExternal(ObjectInput in)\n  in.readObject() is not instance of Set.");
+            logger.error("readExternal(ObjectInput in)\n  in.readObject() is not instance of Set.");
             System.exit(1);
         }
     }

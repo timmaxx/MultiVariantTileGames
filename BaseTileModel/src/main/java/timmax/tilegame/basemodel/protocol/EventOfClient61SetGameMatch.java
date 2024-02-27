@@ -58,7 +58,7 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
             ;
 
             if (iModelOfServer == null) {
-                System.err.println("There is not model '" + instanceIdOfModel.getId() + "'");
+                logger.error("There is not model '" + instanceIdOfModel.getId() + "'");
                 remoteClientState.forgetServerBaseModel();
                 return;
             }
