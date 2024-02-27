@@ -48,6 +48,7 @@ public class MultiGameWebSocketServerStarter {
         // multiGameWebSocketServer.setUncaughtExceptionHandler();
         multiGameWebSocketServer.start();
 
+        System.out.println("Enter 'exit' to stop the server.");
         BufferedReader sysInBufferedReader = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
             String readLine = sysInBufferedReader.readLine();
