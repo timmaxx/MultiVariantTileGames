@@ -1,5 +1,8 @@
 package timmax.tilegame.basemodel.protocol.client;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
@@ -7,6 +10,8 @@ import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import timmax.tilegame.transport.TransportOfClient;
 
 public class ModelOfClient implements IModelOfClient {
+    private static final Logger logger = LoggerFactory.getLogger(ModelOfClient.class);
+
     private final TransportOfClient transportOfClient;
     private final LocalClientState localClientState;
 
@@ -19,78 +24,78 @@ public class ModelOfClient implements IModelOfClient {
     // 2
     @Override
     public void logout() {
-        System.out.println("logout()");
+        logger.debug("logout()");
         transportOfClient.sendEventOfClient(new EventOfClient20Logout());
     }
 
     @Override
     public void login(String userName, String password) {
-        System.out.println("login(String, String)");
+        logger.debug("login(String, String)");
         transportOfClient.sendEventOfClient(new EventOfClient21Login(userName, password));
     }
 
     // 3
     @Override
     public void forgetGameTypeSet() {
-        System.out.println("forgetGameTypeSet()");
+        logger.debug("forgetGameTypeSet()");
         transportOfClient.sendEventOfClient(new EventOfClient30ForgetGameTypeSet());
     }
 
     @Override
     public void getGameTypeSet() {
-        System.out.println("getGameTypeSet()");
+        logger.debug("getGameTypeSet()");
         transportOfClient.sendEventOfClient(new EventOfClient31GiveGameTypeSet());
     }
 
     // 4
     @Override
     public void forgetGameType() {
-        System.out.println("forgetGameType()");
+        logger.debug("forgetGameType()");
         transportOfClient.sendEventOfClient(new EventOfClient40ForgetGameType());
     }
 
     @Override
     public void gameTypeSelect(ModelOfServerDescriptor modelOfServerDescriptor) {
-        System.out.println("gameTypeSelect(String)");
+        logger.debug("gameTypeSelect(String)");
         transportOfClient.sendEventOfClient(new EventOfClient41SetGameType(modelOfServerDescriptor));
     }
 
     // 5
     @Override
     public void forgetGameMatchSet() {
-        System.out.println("forgetGameMatchSet()");
+        logger.debug("forgetGameMatchSet()");
         transportOfClient.sendEventOfClient(new EventOfClient50ForgetGameMatchSet());
     }
 
     @Override
     public void getGameMatchSet() {
-        System.out.println("getGameMatchSet()");
+        logger.debug("getGameMatchSet()");
         transportOfClient.sendEventOfClient(new EventOfClient51GiveGameMatchSet());
     }
 
     // 6
     @Override
     public void forgetGameMatch() {
-        System.out.println("forgetGameMatch()");
+        logger.debug("forgetGameMatch()");
         transportOfClient.sendEventOfClient(new EventOfClient60ForgetGameMatch());
     }
 
     @Override
     public void gameMatchSelect(InstanceIdOfModel model) {
-        System.out.println("gameMatchSelect(InstanceIdOfModel model)");
+        logger.debug("gameMatchSelect(InstanceIdOfModel model)");
         transportOfClient.sendEventOfClient(new EventOfClient61SetGameMatch(model));
     }
 
     // 7
     @Override
     public void stopGameMatchPlaying() {
-        System.out.println("stopPlaying()");
+        logger.debug("stopPlaying()");
         transportOfClient.sendEventOfClient(new EventOfClient70StopGameMatchPlaying());
     }
 
     @Override
     public void startGameMatchPlaying() {
-        System.out.println("startPlaying()");
+        logger.debug("startPlaying()");
         transportOfClient.sendEventOfClient(new EventOfClient71StartGameMatchPlaying());
     }
 
@@ -103,6 +108,7 @@ public class ModelOfClient implements IModelOfClient {
         if (transportOfClient.isOpen()) {
             return localClientState.getMainGameClientStatus();
         }
+        logger.error("Unknown state.");
         throw new RuntimeException("Unknown state.");
     }
 
