@@ -8,10 +8,15 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import timmax.tilegame.basemodel.protocol.IModelOfServerDescriptor;
 import timmax.tilegame.baseview.View;
 
 public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Externalizable {
+    protected static final Logger logger = LoggerFactory.getLogger(ModelOfServerDescriptor.class);
+
     // ToDo: Это поле нужно вынести в класс-наследник.
     private Constructor<? extends IModelOfServer> constructorOfModelOfServerClass;
 
@@ -44,9 +49,9 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
             // Создаётся экземпляр. После работы в этом конструкторе он будет не нужен.
             iModelOfServer = constructorOfModelOfServerClass.newInstance(remoteClientState);
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
-            System.err.println("Server cannot make object of model for " + modelOfServerFullClassName + " with concrete constructor.");
-            e.printStackTrace();
-            throw new RuntimeException("Server cannot make object of model for " + modelOfServerFullClassName + " with concrete constructor.");
+            String errMessage = "Server cannot make object of model for " + modelOfServerFullClassName + " with concrete constructor.";
+            logger.error(errMessage, e);
+            throw new RuntimeException();
         }
 
         // Читается у созданного экземпляра имя типа игры (но возможно и другие характеристики класса...)
