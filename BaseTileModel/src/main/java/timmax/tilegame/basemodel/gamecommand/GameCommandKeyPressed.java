@@ -24,8 +24,8 @@ public class GameCommandKeyPressed extends GameCommand {
 
     @Override
     public void executeOnServer(IModelOfServer modelOfServer) {
-        System.out.println("class GameCommandKeyPressed. method executeOnServer.");
-        System.out.println("  keyCode = " + keyCode);
+        logger.info("KeyPressed");
+        logger.info("  keyCode = {}", keyCode);
 
         // 1. Есть-ли допуски у клиента, откуда пришла команда:
         // 1.1. к модели?

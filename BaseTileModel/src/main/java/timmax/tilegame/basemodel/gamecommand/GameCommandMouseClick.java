@@ -26,8 +26,8 @@ public class GameCommandMouseClick extends GameCommandOneTile {
 
     @Override
     public void executeOnServer(IModelOfServer modelOfServer) {
-        System.out.println("class GameCommandMouseClick. method executeOnServer.");
-        System.out.println("  mouseButton = " + mouseButton + ", x = " + getX() + ", y = " + getY());
+        logger.info("MouseClick");
+        logger.info("  mouseButton = {}, x = {}, y = {}", mouseButton, getX(), getY());
 
         // 1. Есть-ли допуски у клиента, откуда пришла команда:
         // 1.1. к модели?
