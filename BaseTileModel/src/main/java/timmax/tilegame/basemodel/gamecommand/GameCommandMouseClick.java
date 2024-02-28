@@ -26,8 +26,7 @@ public class GameCommandMouseClick extends GameCommandOneTile {
 
     @Override
     public void executeOnServer(IModelOfServer modelOfServer) {
-        logger.info("MouseClick");
-        logger.info("  mouseButton = {}, x = {}, y = {}", mouseButton, getX(), getY());
+        logger.info("Mouse button was clicked. MouseButton: {}, x: {}, y: {}", mouseButton, getX(), getY());
 
         // 1. Есть-ли допуски у клиента, откуда пришла команда:
         // 1.1. к модели?

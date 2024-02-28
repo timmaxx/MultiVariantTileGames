@@ -24,8 +24,7 @@ public class GameCommandKeyPressed extends GameCommand {
 
     @Override
     public void executeOnServer(IModelOfServer modelOfServer) {
-        logger.info("KeyPressed");
-        logger.info("  keyCode = {}", keyCode);
+        logger.info("Key was pressed. KeyCode: {}", keyCode);
 
         // 1. Есть-ли допуски у клиента, откуда пришла команда:
         // 1.1. к модели?

@@ -5,7 +5,7 @@ import timmax.tilegame.basemodel.protocol.server.IModelOfServer;
 public class GameCommandNewGame extends GameCommand {
     @Override
     public void executeOnServer(IModelOfServer modelOfServer) {
-        logger.info("NewGame");
+        logger.info("New game");
         modelOfServer.createNewGame();
     }
 }
