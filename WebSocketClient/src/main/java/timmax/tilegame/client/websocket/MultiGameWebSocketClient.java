@@ -13,13 +13,19 @@ import org.slf4j.LoggerFactory;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
+import timmax.tilegame.transport.TransportOfClient;
 
-// ToDo: Делать ли этот класс реализующим TransportOfClient?
-public class MultiGameWebSocketClient extends WebSocketClient /*implements TransportOfClient*/ {
+// Этот класс, к сожалению, я не смог использовать "многоразово".
+// Т.е. у меня не получилось после открытия и закрытия вновь открыть соединение.
+// Поэтому:
+// - пришлось создавать класс-обёртку MultiGameWebSocketClientManyTimesUse.
+// - соответственно и работающий метод void setURI(URI uriFromControls) в этом классе не возможен,
+//   но тогда пусть он бросает исключение.
+public class MultiGameWebSocketClient extends WebSocketClient implements TransportOfClient {
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketClient.class);
 
     private final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
-    // ToDo: Модель пришлось инициализировать через сеттер. А луше-бы через коструктор.
+    // ToDo: Модель пришлось инициализировать через сеттер. А лучше-бы через коструктор.
     private /*final*/ IModelOfClient iModelOfClient;
 
     public MultiGameWebSocketClient(URI serverUri) {
@@ -73,12 +79,19 @@ public class MultiGameWebSocketClient extends WebSocketClient /*implements Trans
     }
 
     // Overriden methods from interface TransportOfClient:
-    // @Override
+    @Override
     public void setModelOfClient(IModelOfClient iModelOfClient) {
         this.iModelOfClient = iModelOfClient;
     }
 
-    // @Override
+    @Override
+    public void setURI(URI uriFromControls) {
+        String errLogMessage = "You can not use this method!";
+        logger.error(errLogMessage);
+        throw new RuntimeException(errLogMessage);
+    }
+
+    @Override
     public void sendEventOfClient(EventOfClient eventOfClient) {
         logger.info("Outcoming message. EventOfClient: {}.", eventOfClient);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

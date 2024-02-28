@@ -14,7 +14,11 @@ public interface TransportOfClient {
     void close();
     void connect();
 
-    // ToDo: setURI(URI uriFromControls) Нужен в одном из классов, но не в обоих.
+    //  setURI(URI uriFromControls) Нужен в обоих классах, но в
+    //  class MultiGameWebSocketClient
+    //  т.к. он
+    //  extends org.java_websocket.client.WebSocketClient
+    //  это не получается. Также смотри кооментарии к MultiGameWebSocketClient.
     void setURI(URI uriFromControls);
 
     void sendEventOfClient(EventOfClient eventOfClient);
