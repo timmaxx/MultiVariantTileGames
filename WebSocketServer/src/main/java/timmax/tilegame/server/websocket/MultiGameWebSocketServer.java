@@ -53,7 +53,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
 
     @Override
     public void onError(WebSocket webSocket, Exception ex) {
-        logger.error("WebSocket: {}. There is an error.", webSocket, ex);
+        logger.error("WebSocket: {}. Error occurred.", webSocket, ex);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         // ToDo: А вдруг здесь от клиента прилетит что-то не EventOfClient?
         //       Тогда нужно обрабатывать исключение и выводить в лог.
         EventOfClient eventOfClient = mapper.readValue(byteArrayInputStream, EventOfClient.class);
-        logger.info("WebSocket: {}. A message was received. EventOfClient: {}.", webSocket, eventOfClient);
+        logger.info("WebSocket: {}. Incoming message. EventOfClient: {}.", webSocket, eventOfClient);
         Thread thread = new Thread(() -> eventOfClient.executeOnServer(mapOfRemoteClientState.get(webSocket)));
         thread.start();
     }
@@ -71,7 +71,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     public void onMessage(WebSocket webSocket, String message) {
         // Входящее сообщение как строка не предполагается. Поэтому логировать будем как предупреждение.
         // Т.е. сервер должен залогировать, игнорировать такое входящее сообщение и продолжить работу.
-        logger.warn("WebSocket: {}. A message was received. This type of message (String) should not be!", webSocket);
+        logger.warn("WebSocket: {}. Incoming message. This type of message (String) should not be!", webSocket);
         // ToDo: Но поскольку от какого-то клиента поступило такое сообщение, то его желательно отключить.
     }
 
