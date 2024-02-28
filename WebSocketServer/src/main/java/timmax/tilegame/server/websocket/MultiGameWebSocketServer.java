@@ -34,48 +34,35 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     // Overriden methods from class WebSocketServer:
     @Override
     public void onStart() {
-        logger.info("onStart()");
-        logger.info("  MultiGameWebSocketServer started on port: {}.", getPort());
-        logger.info("---------- End of onStart");
+        logger.info("The server was started on port: {}.", getPort());
     }
 
     @Override
     public void onClose(WebSocket webSocket, int code, String reason, boolean remote) {
-        logger.info("onClose(WebSocket, int, String, boolean)");
-        logger.info("  {}", webSocket);
-        logger.info("  Connect was closed.");
-        logger.info("  Code = {}. Reason = {}. Remote = {}.", code, reason, remote);
+        logger.info("WebSocket: {}. Connection was closed.", webSocket);
+        logger.debug("  Code: {}. Reason: {}. Remote: {}.", code, reason, remote);
         mapOfRemoteClientState.remove(webSocket);
-        logger.info("---------- End of onClose");
     }
 
     @Override
     public void onOpen(WebSocket webSocket, ClientHandshake clientHandshake) {
-        logger.info("onOpen(WebSocket, ClientHandshake)");
-        logger.info("  {}", webSocket);
+        logger.info("WebSocket: {}. Connection was opened.", webSocket);
+        logger.debug("  ClientHandshake: {}", clientHandshake);
         mapOfRemoteClientState.put(webSocket, new RemoteClientState<>(this, webSocket));
-        logger.info("---------- End of onOpen");
     }
 
     @Override
     public void onError(WebSocket webSocket, Exception ex) {
-        logger.info("onError(WebSocket, Exception)");
-        logger.info("  {}", webSocket);
-        ex.printStackTrace();
-        logger.info("---------- End of onError");
+        logger.error("WebSocket: {}. There is error.", webSocket, ex);
     }
 
     @Override
     public void onMessage(WebSocket webSocket, ByteBuffer byteBuffer) {
-        logger.info("onMessage(WebSocket, ByteBuffer)");
-        logger.info("  {}", webSocket);
-
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteBuffer.array());
+        // ToDo: А вдруг здесь от клиента прилетит что-то не EventOfClient?
+        //       Тогда нужно обрабатывать исключение и выводить в лог.
         EventOfClient eventOfClient = mapper.readValue(byteArrayInputStream, EventOfClient.class);
-
-        logger.info("  eventOfClient = {}", eventOfClient);
-        logger.info("---------- End of onMessage(WebSocket, ByteBuffer)");
-
+        logger.info("WebSocket: {}. A message was received. EventOfServer: {}", webSocket, eventOfClient);
         Thread thread = new Thread(() -> eventOfClient.executeOnServer(mapOfRemoteClientState.get(webSocket)));
         thread.start();
     }
@@ -84,20 +71,16 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     public void onMessage(WebSocket webSocket, String message) {
         // Входящее сообщение как строка не предполагается. Поэтому логировать будем как предупреждение.
         // Т.е. сервер должен залогировать, игнорировать такое входящее сообщение и продолжить работу.
-        logger.warn("onMessage(WebSocket, String)");
-        logger.warn("  {}", webSocket);
-        logger.warn("  This type of message (String) should not be!");
+        logger.warn("WebSocket: {}. A message was received. This type of message (String) should not be!", webSocket);
         // ToDo: Но поскольку от какого-то клиента поступило такое сообщение, то его желательно отключить.
     }
 
     // Overriden methods from interface TransportOfServer:
     @Override
-    public void sendEventOfServer(WebSocket clientId, EventOfServer eventOfServer) {
-        logger.info("  sendEventOfServer(WebSocket, EventOfServer)");
+    public void sendEventOfServer(WebSocket webSocket, EventOfServer eventOfServer) {
+        logger.info("WebSocket: {}. Outcoming message. EventOfServer: {}", webSocket, eventOfServer);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        logger.info("    eventOfServer = {}", eventOfServer);
         mapper.writeValue(byteArrayOutputStream, eventOfServer);
-        clientId.send(byteArrayOutputStream.toByteArray());
-        logger.info("---------- End of send(WebSocket, EventOfServer<WebSocket>)");
+        webSocket.send(byteArrayOutputStream.toByteArray());
     }
 }
