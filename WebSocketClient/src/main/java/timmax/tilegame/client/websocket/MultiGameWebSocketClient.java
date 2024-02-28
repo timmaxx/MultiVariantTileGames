@@ -24,7 +24,6 @@ public class MultiGameWebSocketClient extends WebSocketClient /*implements Trans
 
     public MultiGameWebSocketClient(URI serverUri) {
         super(serverUri);
-        logger.info("serverUri = {}", serverUri);
     }
 
     public MainGameClientStatus getMainGameClientStatus() {
@@ -34,45 +33,42 @@ public class MultiGameWebSocketClient extends WebSocketClient /*implements Trans
     // Overriden methods from class WebSocketClient:
     @Override
     public void onClose(int code, String reason, boolean remote) {
-        logger.info("onClose");
+        logger.info("Connection was closed.");
         iModelOfClient.getLocalClientState().forgetUserName();
-        logger.info("  getMainGameClientStatus() = {}", getMainGameClientStatus());
+        logger.info("  Main game client status: {}.", getMainGameClientStatus());
         iModelOfClient.getLocalClientState().getHashSetOfObserverOnAbstractEvent().updateOnClose();
-        logger.info("  Connect was closed.");
-        logger.info("  Code = {}. Reason = {}. Remote = {}.", code, reason, remote);
-        logger.info("---------- End of onClose");
+        logger.debug("  Code: {}. Reason: {}. Remote: {}.", code, reason, remote);
     }
 
     @Override
     public void onOpen(ServerHandshake handshakedata) {
-        logger.info("onOpen(ServerHandshake)");
+        logger.info("Connection was opened. Server URI: {}.", getURI());
         iModelOfClient.getLocalClientState().forgetUserName();
-        logger.info("  getMainGameClientStatus() = {}", getMainGameClientStatus());
+        logger.info("  Main game client status: {}.", getMainGameClientStatus());
         iModelOfClient.getLocalClientState().getHashSetOfObserverOnAbstractEvent().updateOnOpen();
-        logger.info("---------- End of onOpen");
     }
 
     @Override
     public void onError(Exception ex) {
-        logger.error("onError(Exception)", ex);
-        logger.error("---------- End of onError");
+        logger.error("There is an error.", ex);
+        logger.error("  Main game client status: {}.", getMainGameClientStatus());
     }
 
     @Override
     public void onMessage(ByteBuffer byteBuffer) {
-        logger.info("onMessage(ByteBuffer)");
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteBuffer.array());
+        // ToDo: А вдруг здесь от сервера прилетит что-то не EventOfServer?
+        //       Тогда нужно обрабатывать исключение и выводить в лог.
         EventOfServer eventOfServer = mapper.readValue(byteArrayInputStream, EventOfServer.class);
-        logger.info("  eventOfServer = {}", eventOfServer);
+        logger.info("A message was received. EventOfServer: {}.", eventOfServer);
         eventOfServer.executeOnClient(iModelOfClient);
-        logger.info("  getMainGameClientStatus() = {}", getMainGameClientStatus());
-        logger.info("---------- End of onMessage(ByteBuffer)");
+        logger.debug("  Main game client status: {}.", getMainGameClientStatus());
     }
 
     @Override
     public void onMessage(String message) {
-        logger.error("onMessage(String)");
-        logger.error("This type of message (String) should not be!");
+        logger.error("A message was received. This type of message (String) should not be!");
+        logger.error("  Main game client status: {}.", getMainGameClientStatus());
         System.exit(1);
     }
 
@@ -84,11 +80,9 @@ public class MultiGameWebSocketClient extends WebSocketClient /*implements Trans
 
     // @Override
     public void sendEventOfClient(EventOfClient eventOfClient) {
-        logger.info("  send(EventOfClient<WebSocket>)");
+        logger.info("Outcoming message. EventOfClient: {}.", eventOfClient);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         mapper.writeValue(byteArrayOutputStream, eventOfClient);
-        logger.info("    eventOfClient = {}", eventOfClient);
         send(byteArrayOutputStream.toByteArray());
-        logger.info("---------- End of public void send(EventOfClient<WebSocket> eventOfClient)");
     }
 }

@@ -20,7 +20,7 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
 
     public MultiGameWebSocketClientManyTimesUse() {
         super();
-        logger.info("getMainGameClientStatus() = {}", getMainGameClientStatus());
+        logger.info("  Main game client status: {}.", getMainGameClientStatus());
     }
 
     public MainGameClientStatus getMainGameClientStatus() {
