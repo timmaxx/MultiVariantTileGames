@@ -47,13 +47,13 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     @Override
     public void onOpen(WebSocket webSocket, ClientHandshake clientHandshake) {
         logger.info("WebSocket: {}. Connection was opened.", webSocket);
-        logger.debug("  ClientHandshake: {}", clientHandshake);
+        logger.debug("  ClientHandshake: {}.", clientHandshake);
         mapOfRemoteClientState.put(webSocket, new RemoteClientState<>(this, webSocket));
     }
 
     @Override
     public void onError(WebSocket webSocket, Exception ex) {
-        logger.error("WebSocket: {}. There is error.", webSocket, ex);
+        logger.error("WebSocket: {}. There is an error.", webSocket, ex);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         // ToDo: А вдруг здесь от клиента прилетит что-то не EventOfClient?
         //       Тогда нужно обрабатывать исключение и выводить в лог.
         EventOfClient eventOfClient = mapper.readValue(byteArrayInputStream, EventOfClient.class);
-        logger.info("WebSocket: {}. A message was received. EventOfServer: {}", webSocket, eventOfClient);
+        logger.info("WebSocket: {}. A message was received. EventOfClient: {}.", webSocket, eventOfClient);
         Thread thread = new Thread(() -> eventOfClient.executeOnServer(mapOfRemoteClientState.get(webSocket)));
         thread.start();
     }
@@ -78,7 +78,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     // Overriden methods from interface TransportOfServer:
     @Override
     public void sendEventOfServer(WebSocket webSocket, EventOfServer eventOfServer) {
-        logger.info("WebSocket: {}. Outcoming message. EventOfServer: {}", webSocket, eventOfServer);
+        logger.info("WebSocket: {}. Outcoming message. EventOfServer: {}.", webSocket, eventOfServer);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         mapper.writeValue(byteArrayOutputStream, eventOfServer);
         webSocket.send(byteArrayOutputStream.toByteArray());
