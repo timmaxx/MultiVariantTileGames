@@ -50,7 +50,7 @@ public class MultiGameWebSocketClient extends WebSocketClient /*implements Trans
 
     @Override
     public void onError(Exception ex) {
-        logger.error("There is an error.", ex);
+        logger.error("Error occurred.", ex);
         logger.error("  Main game client status: {}.", getMainGameClientStatus());
     }
 
@@ -60,14 +60,14 @@ public class MultiGameWebSocketClient extends WebSocketClient /*implements Trans
         // ToDo: А вдруг здесь от сервера прилетит что-то не EventOfServer?
         //       Тогда нужно обрабатывать исключение и выводить в лог.
         EventOfServer eventOfServer = mapper.readValue(byteArrayInputStream, EventOfServer.class);
-        logger.info("A message was received. EventOfServer: {}.", eventOfServer);
+        logger.info("Incoming message. EventOfServer: {}.", eventOfServer);
         eventOfServer.executeOnClient(iModelOfClient);
         logger.debug("  Main game client status: {}.", getMainGameClientStatus());
     }
 
     @Override
     public void onMessage(String message) {
-        logger.error("A message was received. This type of message (String) should not be!");
+        logger.error("Incoming message. This type of message (String) should not be!");
         logger.error("  Main game client status: {}.", getMainGameClientStatus());
         System.exit(1);
     }
