@@ -24,8 +24,6 @@ public class GameCommandKeyPressed extends GameCommand {
 
     @Override
     public void executeOnServer(IModelOfServer modelOfServer) {
-        logger.info("Key was pressed. KeyCode: {}", keyCode);
-
         // 1. Есть-ли допуски у клиента, откуда пришла команда:
         // 1.1. к модели?
         // 1.2. к передаче команд (т.е. является ли он игроком и его-ли сейчас ход)?
@@ -33,6 +31,13 @@ public class GameCommandKeyPressed extends GameCommand {
 
         // 2. В найденную модель отправить команду.
         modelOfServer.executeKeyboardCommand(this);
+    }
+
+    @Override
+    public String toString() {
+        return "GameCommandKeyPressed{" +
+                "keyCode=" + keyCode +
+                '}';
     }
 
     @Override

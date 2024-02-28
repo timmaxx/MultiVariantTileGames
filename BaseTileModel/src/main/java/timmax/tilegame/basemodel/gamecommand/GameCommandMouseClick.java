@@ -26,8 +26,6 @@ public class GameCommandMouseClick extends GameCommandOneTile {
 
     @Override
     public void executeOnServer(IModelOfServer modelOfServer) {
-        logger.info("Mouse button was clicked. MouseButton: {}, x: {}, y: {}", mouseButton, getX(), getY());
-
         // 1. Есть-ли допуски у клиента, откуда пришла команда:
         // 1.1. к модели?
         // 1.2. к передаче команд (т.е. является ли он игроком и его-ли сейчас ход)?
@@ -35,6 +33,14 @@ public class GameCommandMouseClick extends GameCommandOneTile {
 
         // 2. В найденную модель отправить команду.
         modelOfServer.executeMouseCommand(this);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                "GameCommandMouseClick{" +
+                "mouseButton=" + mouseButton +
+                '}';
     }
 
     @Override

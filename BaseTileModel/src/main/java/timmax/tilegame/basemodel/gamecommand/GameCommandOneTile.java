@@ -26,6 +26,14 @@ public abstract class GameCommandOneTile extends GameCommand {
     }
 
     @Override
+    public String toString() {
+        return "GameCommandOneTile{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
+
+    @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeInt(x);
         out.writeInt(y);
