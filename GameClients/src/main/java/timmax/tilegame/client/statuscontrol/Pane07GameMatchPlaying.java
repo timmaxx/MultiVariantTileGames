@@ -9,7 +9,11 @@ import timmax.tilegame.guiengine.jfx.GameClientPaneJfx;
 import timmax.tilegame.transport.TransportOfClient;
 
 public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
-    private final Pane pane;
+/*
+    private Label labelExample;
+    private TextField textFieldExample;
+*/
+    private final Pane paneGameViewsAndControls;
 
     public Pane07GameMatchPlaying(IModelOfClient iModelOfClient, TransportOfClient transportOfClient) {
         super(iModelOfClient, transportOfClient);
@@ -22,9 +26,9 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         });
 
         // Контролы для продвижения состояния "назад":
-        pane = new Pane();
-        pane.setPrefWidth(1000);
-        pane.setPrefHeight(300);
+        paneGameViewsAndControls = new Pane();
+        paneGameViewsAndControls.setPrefWidth(1000);
+        paneGameViewsAndControls.setPrefHeight(300);
 
         buttonPrevState.setText("Stop the game match");
         buttonPrevState.setFocusTraversable(false); // Это в любом случае д.б.
@@ -36,7 +40,7 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
                 List.of(buttonNextState),
-                List.of(pane, buttonPrevState)
+                List.of(paneGameViewsAndControls, buttonPrevState)
         );
     }
 
@@ -83,8 +87,8 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
     @Override
     public void updateOnSelectGameType() {
         doOnPrevState();
-        pane.getChildren().clear();
-        pane.getChildren().add(new GameClientPaneJfx(iModelOfClient, transportOfClient));
+        paneGameViewsAndControls.getChildren().clear();
+        paneGameViewsAndControls.getChildren().add(new GameClientPaneJfx(iModelOfClient, transportOfClient));
     }
 
     // 5
