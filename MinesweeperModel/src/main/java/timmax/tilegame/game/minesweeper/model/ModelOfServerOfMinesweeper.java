@@ -37,11 +37,26 @@ public class ModelOfServerOfMinesweeper<ClientId> extends ModelOfServer<ClientId
 
     private AllMinesweeperObjects<ClientId> allMinesweeperObjects;
 
-    public ModelOfServerOfMinesweeper(RemoteClientState remoteClientState) {
+    public ModelOfServerOfMinesweeper(RemoteClientState<ClientId> remoteClientState) {
         super(remoteClientState);
     }
 
-    // Overiden methods from interface IModelOfServer extends IModelOfServerDescriptor:
+    private void tryInverseFlag(int x, int y) {
+        if (verifyGameStatusNotGameAndMayBeCreateNewGame() ||
+                allMinesweeperObjects.getTileByXY(x, y).isOpen()) {
+            return;
+        }
+        allMinesweeperObjects.tryInverseFlag(allMinesweeperObjects.getTileByXY(x, y));
+    }
+
+    private void open(int x, int y) {
+        if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
+            return;
+        }
+        setGameStatus(allMinesweeperObjects.open(allMinesweeperObjects.getTileByXY(x, y)));
+    }
+
+    // Overriden methods from interface IModelOfServer extends IModelOfServerDescriptor:
     @Override
     public String getGameName() {
         return "Minesweeper";
@@ -77,7 +92,7 @@ public class ModelOfServerOfMinesweeper<ClientId> extends ModelOfServer<ClientId
         }
     }
 
-    // Overiden methods from class ModelOfServer:
+    // Overriden methods from class ModelOfServer:
     @Override
     public void createNewGame(int width, int height) {
         allMinesweeperObjects = levelGenerator.getLevel(width, height, REST_OF_MINE_INSTALLATION_IN_PERCENTS);
@@ -86,25 +101,5 @@ public class ModelOfServerOfMinesweeper<ClientId> extends ModelOfServer<ClientId
         sendGameEvent(new GameEventMinesweeperVariableParamsOpenClose(0, width * height));
         sendGameEvent(new GameEventMinesweeperVariableParamsFlag(0, allMinesweeperObjects.getCountOfMines()));
         super.createNewGame(width, height, UNOPENED_CELL_COLOR, BLACK, "");
-    }
-
-    // Own methods of the class:
-    private void tryInverseFlag(int x, int y) {
-        if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
-            return;
-        }
-
-        if (allMinesweeperObjects.getTileByXY(x, y).isOpen()) {
-            return;
-        }
-
-        allMinesweeperObjects.tryInverseFlag(allMinesweeperObjects.getTileByXY(x, y));
-    }
-
-    private void open(int x, int y) {
-        if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
-            return;
-        }
-        setGameStatus(allMinesweeperObjects.open(allMinesweeperObjects.getTileByXY(x, y)));
     }
 }
