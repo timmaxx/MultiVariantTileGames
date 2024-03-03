@@ -90,8 +90,8 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         TextField textFieldExample = new TextField();
 
         setListsOfControlsAndAllDisable(
-                List.of(labelExample, textFieldExample, buttonNextState),
-                List.of(paneGameViewsAndControls, buttonPrevState)
+                List.of(labelExample, textFieldExample),
+                List.of(paneGameViewsAndControls)
         );
 
         paneGameViewsAndControls.getChildren().clear();
