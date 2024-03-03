@@ -26,8 +26,8 @@ public class Pane03GetGameTypeSet extends AbstractConnectStatePane {
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
-                List.of(buttonNextState),
-                List.of(buttonPrevState)
+                List.of(),
+                List.of()
         );
     }
 

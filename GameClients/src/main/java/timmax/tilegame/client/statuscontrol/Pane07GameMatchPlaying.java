@@ -11,10 +11,6 @@ import timmax.tilegame.guiengine.jfx.GameClientPaneJfx;
 import timmax.tilegame.transport.TransportOfClient;
 
 public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
-/*
-    private Label labelExample;
-    private TextField textFieldExample;
-*/
     private final Pane paneGameViewsAndControls;
 
     public Pane07GameMatchPlaying(IModelOfClient iModelOfClient, TransportOfClient transportOfClient) {
@@ -41,8 +37,8 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
-                List.of(buttonNextState),
-                List.of(paneGameViewsAndControls, buttonPrevState)
+                List.of(),
+                List.of(paneGameViewsAndControls)
         );
     }
 

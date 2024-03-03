@@ -29,10 +29,10 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
 
         this.paneNextState = new HBox();
         this.panePrevState = new HBox();
-        getChildren().addAll(paneNextState, panePrevState);
-
         this.buttonNextState = new Button();
         this.buttonPrevState = new Button();
+
+        getChildren().addAll(paneNextState, buttonNextState, panePrevState, buttonPrevState);
     }
 
     public void setListsOfControlsAndAllDisable(
@@ -54,18 +54,22 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
         for (Region control : listOfControlsNextState) {
             control.setDisable(true);
         }
+        buttonNextState.setDisable(true);
         for (Region control : listOfControlsPrevState) {
             control.setDisable(true);
         }
+        buttonPrevState.setDisable(true);
     }
 
     protected void setDisableControlsNextState(boolean disableControlsNextState) {
         for (Region control : listOfControlsNextState) {
             control.setDisable(disableControlsNextState);
         }
+        buttonNextState.setDisable(disableControlsNextState);
         for (Region control : listOfControlsPrevState) {
             control.setDisable(!disableControlsNextState);
         }
+        buttonPrevState.setDisable(!disableControlsNextState);
     }
 
     //

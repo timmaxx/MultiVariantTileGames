@@ -48,8 +48,8 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
-                List.of(labelServerAddress, textFieldServerAddress, labelServerPort, textFieldServerPort, textFieldConnectString, buttonNextState),
-                List.of(buttonPrevState)
+                List.of(labelServerAddress, textFieldServerAddress, labelServerPort, textFieldServerPort, textFieldConnectString),
+                List.of()
         );
         setDisableControlsNextState(false);
     }

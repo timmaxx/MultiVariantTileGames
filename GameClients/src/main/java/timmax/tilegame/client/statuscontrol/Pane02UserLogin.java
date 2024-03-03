@@ -39,8 +39,8 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
-                List.of(labelUser, textFieldUser, labelPassword, passwordField, buttonNextState),
-                List.of(buttonPrevState)
+                List.of(labelUser, textFieldUser, labelPassword, passwordField),
+                List.of()
         );
     }
 
