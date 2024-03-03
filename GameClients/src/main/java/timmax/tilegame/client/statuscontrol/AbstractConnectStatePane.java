@@ -3,6 +3,7 @@ package timmax.tilegame.client.statuscontrol;
 import java.util.List;
 
 import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.HBox;
 
@@ -14,6 +15,9 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     protected final IModelOfClient iModelOfClient;
     protected final TransportOfClient transportOfClient;
 
+    protected Pane paneNextState;
+    protected Pane panePrevState;
+
     protected Button buttonNextState;
     protected Button buttonPrevState;
     private List<Region> listOfControlsNextState;
@@ -22,6 +26,11 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     public AbstractConnectStatePane(IModelOfClient iModelOfClient, TransportOfClient transportOfClient) {
         this.iModelOfClient = iModelOfClient;
         this.transportOfClient = transportOfClient;
+
+        this.paneNextState = new HBox();
+        this.panePrevState = new HBox();
+        getChildren().addAll(paneNextState, panePrevState);
+
         this.buttonNextState = new Button();
         this.buttonPrevState = new Button();
     }
@@ -32,9 +41,10 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     ) {
         this.listOfControlsNextState = listOfControlsNextState;
         this.listOfControlsPrevState = listOfControlsPrevState;
-        getChildren().clear();
-        getChildren().addAll(listOfControlsNextState);
-        getChildren().addAll(listOfControlsPrevState);
+        paneNextState.getChildren().clear();
+        panePrevState.getChildren().clear();
+        paneNextState.getChildren().addAll(listOfControlsNextState);
+        panePrevState.getChildren().addAll(listOfControlsPrevState);
         disableAllControls();
 
         iModelOfClient.getLocalClientState().addCallBackOnIncomingTransportPackageEvent(this);

@@ -2,6 +2,8 @@ package timmax.tilegame.client.statuscontrol;
 
 import java.util.List;
 
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
@@ -87,6 +89,15 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
     @Override
     public void updateOnSelectGameType() {
         doOnPrevState();
+        paneNextState.getChildren().clear();
+        Label labelExample = new Label("Example");
+        TextField textFieldExample = new TextField();
+
+        setListsOfControlsAndAllDisable(
+                List.of(labelExample, textFieldExample, buttonNextState),
+                List.of(paneGameViewsAndControls, buttonPrevState)
+        );
+
         paneGameViewsAndControls.getChildren().clear();
         paneGameViewsAndControls.getChildren().add(new GameClientPaneJfx(iModelOfClient, transportOfClient));
     }
