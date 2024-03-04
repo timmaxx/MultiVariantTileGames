@@ -1,5 +1,7 @@
 package timmax.tilegame.game.minesweeper.model;
 
+import java.util.Map;
+
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
@@ -67,6 +69,12 @@ public class ModelOfServerOfMinesweeper<ClientId> extends ModelOfServer<ClientId
         return 1;
     }
 
+    @Override
+    public Map<String, Integer> getMapOfParamsOfModel() {
+        return Map.of("Width", 0, "Height", 0, "Count of mines", 0);
+    }
+
+
     // Overiden methods from interface IModelOfServer:
     @Override
     public void createNewGame() {
@@ -95,6 +103,7 @@ public class ModelOfServerOfMinesweeper<ClientId> extends ModelOfServer<ClientId
     // Overriden methods from class ModelOfServer:
     @Override
     public void createNewGame(int width, int height) {
+        // ToDo: Избавиться от "Warning:(107, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
         allMinesweeperObjects = levelGenerator.getLevel(width, height, REST_OF_MINE_INSTALLATION_IN_PERCENTS);
         allMinesweeperObjects.setModel(this);
 

@@ -1,5 +1,7 @@
 package timmax.tilegame.basemodel.protocol.server;
 
+import java.util.Map;
+
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.protocol.IModelOfServerDescriptor;
@@ -19,4 +21,7 @@ public interface IModelOfServer extends IModelOfServerDescriptor {
 
     @Override
     int getCountOfGamers();
+
+    @Override
+    Map<String, Integer> getMapOfParamsOfModel();
 }

@@ -1,10 +1,12 @@
 package timmax.tilegame.client.statuscontrol;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.guiengine.jfx.GameClientPaneJfx;
@@ -25,8 +27,8 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
 
         // Контролы для продвижения состояния "назад":
         paneGameViewsAndControls = new Pane();
-        paneGameViewsAndControls.setPrefWidth(1000);
-        paneGameViewsAndControls.setPrefHeight(300);
+        // paneGameViewsAndControls.setPrefWidth(1000);
+        // paneGameViewsAndControls.setPrefHeight(300);
 
         buttonPrevState.setText("Stop the game match");
         buttonPrevState.setFocusTraversable(false); // Это в любом случае д.б.
@@ -86,11 +88,16 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
     public void updateOnSelectGameType() {
         doOnPrevState();
         paneNextState.getChildren().clear();
-        Label labelExample = new Label("Example");
-        TextField textFieldExample = new TextField();
+        List<Region> regionList = new ArrayList<>();
+        for (String paramName: iModelOfClient.getLocalClientState().getGameType().getMapOfParamsOfModel().keySet()) {
+            Label label = new Label(paramName);
+            TextField textField = new TextField();
+            regionList.add(label);
+            regionList.add(textField);
+        }
 
         setListsOfControlsAndAllDisable(
-                List.of(labelExample, textFieldExample),
+                regionList,
                 List.of(paneGameViewsAndControls)
         );
 

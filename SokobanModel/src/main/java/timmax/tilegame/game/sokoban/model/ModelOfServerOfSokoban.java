@@ -2,6 +2,7 @@ package timmax.tilegame.game.sokoban.model;
 
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
+import java.util.Map;
 import java.util.Objects;
 
 import javafx.scene.input.KeyCode;
@@ -74,6 +75,11 @@ public class ModelOfServerOfSokoban<ClientId> extends ModelOfServer<ClientId> {
     @Override
     public int getCountOfGamers() {
         return 1;
+    }
+
+    @Override
+    public Map<String, Integer> getMapOfParamsOfModel() {
+        return null;
     }
 
     // Overiden methods from interface IModelOfServer:
