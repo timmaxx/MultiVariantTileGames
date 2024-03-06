@@ -24,6 +24,9 @@ public class Pane03GetGameTypeSet extends AbstractConnectStatePane {
             iModelOfClient.forgetGameTypeSet();
         });
 
+        paneNextState.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * 1);
+        paneNextState.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * 1);
+
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
                 List.of(),

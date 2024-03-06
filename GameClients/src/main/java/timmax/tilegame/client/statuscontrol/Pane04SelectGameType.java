@@ -44,6 +44,15 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
             iModelOfClient.forgetGameType();
         });
 
+        comboBoxGameTypeSet.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
+        comboBoxGameTypeSet.setLayoutY(LAYOUT_Y_OF_FIRST_ROW);
+
+        textFieldSelectedGameType.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
+        textFieldSelectedGameType.setLayoutY(DIFFERENCE_OF_LAYOUT_Y);
+
+        paneNextState.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * 2);
+        paneNextState.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * 2);
+
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
                 List.of(comboBoxGameTypeSet, textFieldSelectedGameType),

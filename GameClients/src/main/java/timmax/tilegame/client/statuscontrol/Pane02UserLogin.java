@@ -37,6 +37,19 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
             iModelOfClient.logout();
         });
 
+        labelUser.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
+        labelUser.setLayoutY(LAYOUT_Y_OF_FIRST_ROW);
+        textFieldUser.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
+        textFieldUser.setLayoutY(LAYOUT_Y_OF_FIRST_ROW);
+
+        labelPassword.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
+        labelPassword.setLayoutY(DIFFERENCE_OF_LAYOUT_Y);
+        passwordField.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
+        passwordField.setLayoutY(DIFFERENCE_OF_LAYOUT_Y);
+
+        paneNextState.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * 2);
+        paneNextState.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * 2);
+
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
                 List.of(labelUser, textFieldUser, labelPassword, passwordField),

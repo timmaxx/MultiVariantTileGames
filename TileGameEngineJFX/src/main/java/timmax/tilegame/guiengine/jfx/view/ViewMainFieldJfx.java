@@ -77,13 +77,14 @@ public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
         //  Т.е. делать это нужно не в этом классе, а, например, в Game в start() после
         //  root.getChildren( ).addAll( nodeList);
         //  А может ещё проще - через компоновку.
-        // this.setWidth( cellSize * width);
-        // this.setHeight( cellSize * height);
+
+        // ToDo: Похожий код см. в Pane07GameMatchPlaying::doOnPrevState()
+        //       Отсюда желательно удалить, т.к. такие константы как 300, 160 определены в AbstractConnectStatePane.
         //  17 - количество пикселей слева и справа, что-бы главное поле влезло во внутреннее окно - PrimaryStage
-        getParent().getScene().getWindow().setWidth(cellSize * width + 17 + 300);
+        getParent().getScene().getWindow().setWidth(cellSize * width + 17 + 300 + 160 + 160 + 2);
         //  40 - количество пикселей сверху и снизу (высота заголовка окна приложения), что-бы главное поле влезло во внутреннее окно - PrimaryStage
         // 180 - количество пикселей в высоту, нужное для достаточного отображения четырёх текстовых выборок
-        getParent().getScene().getWindow().setHeight(cellSize * height + 40 + 180);
+        getParent().getScene().getWindow().setHeight(cellSize * height + 40 + 11 * 30 + 2);
     }
 
     protected void drawCellDuringInitMainField(GameStackPane cell, Color defaultCellBackgroundColor, Color defaultCellTextColor, String defaultCellText) {

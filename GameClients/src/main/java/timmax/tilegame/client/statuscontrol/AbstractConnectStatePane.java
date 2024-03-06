@@ -12,6 +12,16 @@ import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.transport.TransportOfClient;
 
 public abstract class AbstractConnectStatePane extends HBox implements ObserverOnAbstractEvent {
+    protected final static int BUTTON_NEXT_STATE_PREF_WIDTH = 160;
+    protected final static int BUTTON_PREV_STATE_PREF_WIDTH = 160;
+    protected final static int PANE_NEXT_STATE_PREF_WIDTH = 300;
+    protected final static int PANE_PREV_STATE_PREF_WIDTH = 0;
+
+    protected final static int LAYOUT_X_OF_FIRST_COLUMN = 0;
+    protected final static int LAYOUT_X_OF_SECOND_COLUMN = 100;
+    protected final static int LAYOUT_Y_OF_FIRST_ROW = 0;
+    protected final static int DIFFERENCE_OF_LAYOUT_Y = 30;
+
     protected final IModelOfClient iModelOfClient;
     protected final TransportOfClient transportOfClient;
 
@@ -27,12 +37,19 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
         this.iModelOfClient = iModelOfClient;
         this.transportOfClient = transportOfClient;
 
-        this.paneNextState = new HBox();
-        this.panePrevState = new HBox();
-        this.buttonNextState = new Button();
-        this.buttonPrevState = new Button();
+        paneNextState = new Pane();
+        panePrevState = new Pane();
+        buttonNextState = new Button();
+        buttonPrevState = new Button();
+        paneNextState.setPrefWidth(PANE_NEXT_STATE_PREF_WIDTH);
+        panePrevState.setPrefWidth(PANE_PREV_STATE_PREF_WIDTH);
+        buttonNextState.setPrefWidth(BUTTON_NEXT_STATE_PREF_WIDTH);
+        buttonNextState.setLayoutX(paneNextState.getPrefWidth() - buttonNextState.getPrefWidth());
+        buttonPrevState.setPrefWidth(BUTTON_PREV_STATE_PREF_WIDTH);
+        buttonPrevState.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
+        panePrevState.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN + BUTTON_PREV_STATE_PREF_WIDTH);
 
-        getChildren().addAll(paneNextState, buttonNextState, panePrevState, buttonPrevState);
+        getChildren().addAll(paneNextState, buttonNextState, buttonPrevState, panePrevState);
     }
 
     public void setListsOfControlsAndAllDisable(

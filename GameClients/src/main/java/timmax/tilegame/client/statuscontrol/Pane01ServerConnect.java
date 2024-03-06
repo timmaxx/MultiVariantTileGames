@@ -46,6 +46,22 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
             transportOfClient.close();
         });
 
+        labelServerAddress.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
+        labelServerAddress.setLayoutY(LAYOUT_Y_OF_FIRST_ROW);
+        textFieldServerAddress.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
+        textFieldServerAddress.setLayoutY(LAYOUT_Y_OF_FIRST_ROW);
+
+        labelServerPort.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
+        labelServerPort.setLayoutY(DIFFERENCE_OF_LAYOUT_Y);
+        textFieldServerPort.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
+        textFieldServerPort.setLayoutY(DIFFERENCE_OF_LAYOUT_Y);
+
+        textFieldConnectString.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
+        textFieldConnectString.setLayoutY(2 * DIFFERENCE_OF_LAYOUT_Y);
+
+        paneNextState.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * 3);
+        paneNextState.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * 3);
+
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
                 List.of(labelServerAddress, textFieldServerAddress, labelServerPort, textFieldServerPort, textFieldConnectString),

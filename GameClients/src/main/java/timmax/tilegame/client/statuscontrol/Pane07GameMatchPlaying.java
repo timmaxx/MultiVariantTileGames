@@ -27,8 +27,6 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
 
         // Контролы для продвижения состояния "назад":
         paneGameViewsAndControls = new Pane();
-        // paneGameViewsAndControls.setPrefWidth(1000);
-        // paneGameViewsAndControls.setPrefHeight(300);
 
         buttonPrevState.setText("Stop the game match");
         buttonPrevState.setFocusTraversable(false); // Это в любом случае д.б.
@@ -89,12 +87,20 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         doOnPrevState();
         paneNextState.getChildren().clear();
         List<Region> regionList = new ArrayList<>();
+        int y = LAYOUT_Y_OF_FIRST_ROW;
         for (String paramName: iModelOfClient.getLocalClientState().getGameType().getMapOfParamsOfModel().keySet()) {
             Label label = new Label(paramName);
             TextField textField = new TextField();
+            label.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
+            label.setLayoutY(y);
+            textField.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
+            textField.setLayoutY(y);
             regionList.add(label);
             regionList.add(textField);
+            y += DIFFERENCE_OF_LAYOUT_Y;
         }
+        paneNextState.setPrefHeight(y);
+        paneNextState.setMinHeight(y);
 
         setListsOfControlsAndAllDisable(
                 regionList,
@@ -108,18 +114,18 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
     // 5
     @Override
     public void updateOnForgetGameMatchSet() {
-        doOnPrevState();
+        //doOnPrevState();
     }
 
     @Override
     public void updateOnGetGameMatchSet() {
-        doOnPrevState();
+        //doOnPrevState();
     }
 
     // 6
     @Override
     public void updateOnForgetGameMatch() {
-        doOnPrevState();
+        //doOnPrevState();
     }
 
     @Override
@@ -136,5 +142,28 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
     @Override
     public void updateOnStartGameMatchPlaying() {
         doOnNextState();
+    }
+
+    // X
+    @Override
+    public void doOnPrevState() {
+        super.doOnPrevState();
+        paneNextState.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y);
+        paneNextState.setMinHeight(DIFFERENCE_OF_LAYOUT_Y);
+        setListsOfControlsAndAllDisable(
+                List.of(),
+                List.of(paneGameViewsAndControls)
+        );
+        paneGameViewsAndControls.getChildren().clear();
+        panePrevState.setPrefWidth(PANE_PREV_STATE_PREF_WIDTH);
+
+        // ToDo: Похожий код см. в ViewMainFieldJfx::initMainField()
+
+        //  16 - количество пикселей слева и справа, что-бы главное поле влезло во внутреннее окно - PrimaryStage
+        getParent().getScene().getWindow().setWidth(0 * 0 + 16 + PANE_NEXT_STATE_PREF_WIDTH + BUTTON_NEXT_STATE_PREF_WIDTH + BUTTON_PREV_STATE_PREF_WIDTH);
+        //  34 - количество пикселей сверху и снизу (высота заголовка окна приложения), что-бы главное поле влезло во внутреннее окно - PrimaryStage
+        //  12 - количество "строк" элементов в панелях Pane0x... ("строк" от 1 до 7: 3 + 1 + 2 + 1 + 2 + 2 + 1)
+        // // 180 - количество пикселей в высоту, нужное для достаточного отображения четырёх текстовых выборок
+        getParent().getScene().getWindow().setHeight(0 * 0 + 34 + 12 * DIFFERENCE_OF_LAYOUT_Y);
     }
 }
