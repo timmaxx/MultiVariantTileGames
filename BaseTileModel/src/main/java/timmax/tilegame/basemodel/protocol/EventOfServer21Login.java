@@ -25,6 +25,7 @@ public class EventOfServer21Login extends EventOfServer {
     public void executeOnClient(IModelOfClient iModelOfClient) {
         logger.debug("  onLogin");
         iModelOfClient.getLocalClientState().setUserName(userName);
+        iModelOfClient.getGameTypeSet();
     }
 
     @Override
