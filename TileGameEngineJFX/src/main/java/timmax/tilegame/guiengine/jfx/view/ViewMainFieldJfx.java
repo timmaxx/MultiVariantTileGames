@@ -2,7 +2,6 @@ package timmax.tilegame.guiengine.jfx.view;
 
 import javafx.application.Platform;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
 import timmax.tilegame.basecontroller.BaseController;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
@@ -43,7 +42,6 @@ public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
 
     private void initMainField(GameEventNewGame gameEventNewGame) {
         getChildren().removeAll(getChildren());
-        ((Stage) (getParent().getScene().getWindow())).setResizable(true);
 
         int width = gameEventNewGame.getWidth();
         int height = gameEventNewGame.getHeight();
