@@ -109,6 +109,11 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
 
         paneGameViewsAndControls.getChildren().clear();
         paneGameViewsAndControls.getChildren().add(new GameClientPaneJfx(iModelOfClient, transportOfClient));
+
+        if (y > DIFFERENCE_OF_LAYOUT_Y) {
+            y -= DIFFERENCE_OF_LAYOUT_Y;
+        }
+        getParent().getScene().getWindow().setHeight(0 * 0 + 34 + 12 * DIFFERENCE_OF_LAYOUT_Y + y);
     }
 
     // 5
