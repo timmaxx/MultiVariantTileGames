@@ -30,6 +30,10 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
 
         // ToDo: Исправить Warning:(33, 9) Raw use of parameterized class 'IModelOfServer'
         IModelOfServer iModelOfServer = null;
+        if (instanceIdOfModel.getId() == null) {
+            remoteClientState.getTransportOfServer().sendEventOfServer(remoteClientState.getClientId(), new EventOfServer60ForgetGameMatch());
+            return;
+        }
         if (instanceIdOfModel.getId().equals("New game")) {
             // Определяем ранее выбранный тип
             ModelOfServerDescriptor modelOfServerDescriptor = remoteClientState.getGameType();
