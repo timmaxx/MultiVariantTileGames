@@ -19,6 +19,7 @@ public class ParamOfModelDescription implements Externalizable {
         this.defaultValue = defaultValue;
         this.minValue = minValue;
         this.maxValue = maxValue;
+        verifyParams();
     }
 
     public int getDefaultValue() {
@@ -31,6 +32,12 @@ public class ParamOfModelDescription implements Externalizable {
 
     public int getMaxValue() {
         return maxValue;
+    }
+
+    private void verifyParams() {
+        if (defaultValue < minValue || defaultValue > maxValue) {
+            throw new RuntimeException("Wrong parameters. " + toString());
+        }
     }
 
     @Override
@@ -54,5 +61,6 @@ public class ParamOfModelDescription implements Externalizable {
         defaultValue = in.readInt();
         minValue = in.readInt();
         maxValue = in.readInt();
+        verifyParams();
     }
 }
