@@ -27,11 +27,6 @@ public abstract class ModelOfServer<ClientId> implements IModelOfServer {
     protected static final String PARAM_NAME_WIDTH = "Width";
     protected static final String PARAM_NAME_HEIGHT = "Height";
 
-    private final static int MIN_WIDTH = 1; // 2;
-    private final static int MAX_WIDTH = 100;
-    private final static int MIN_HEIGHT = 1; // 2;
-    private final static int MAX_HEIGHT = 100;
-
     protected final RemoteClientState<ClientId> remoteClientState;
 
     private GameStatus gameStatus;
@@ -49,14 +44,12 @@ public abstract class ModelOfServer<ClientId> implements IModelOfServer {
     }
 
     protected void createNewGame(int width, int height) {
-        validateWidthHeight(width, height);
         gameStatus = GameStatus.GAME;
         GameEventNewGame gameEventNewGame = new GameEventNewGame(width, height);
         sendGameEvent(gameEventNewGame);
     }
 
     protected void createNewGame(int width, int height, Color defaultCellColor, Color defaultTextColor, String defaultCellValue) {
-        validateWidthHeight(width, height);
         gameStatus = GameStatus.GAME;
         GameEventNewGame gameEventNewGame = new GameEventNewGame(width, height, defaultCellColor, defaultTextColor, defaultCellValue);
         sendGameEvent(gameEventNewGame);
@@ -72,16 +65,6 @@ public abstract class ModelOfServer<ClientId> implements IModelOfServer {
             EventOfServer eventOfServer = new EventOfServer92GameEvent(viewName, gameEvent);
             remoteClientState.getTransportOfServer().sendEventOfServer(remoteClientState.getClientId(), eventOfServer);
         }
-    }
-
-    private static void validateWidthHeight(int width, int height) {
-        if (width >= MIN_WIDTH && width <= MAX_WIDTH && height >= MIN_HEIGHT && height <= MAX_HEIGHT) {
-            return;
-        }
-        throw new RuntimeException(
-                "It must be width >= " + MIN_WIDTH + " && width <= " + MAX_WIDTH +
-                        " && height >= " + MIN_HEIGHT + " && height <= " + MAX_HEIGHT +
-                        ". But width = " + width + ", height = " + height + ".");
     }
 
     protected final boolean verifyGameStatusNotGameAndMayBeCreateNewGame() {
