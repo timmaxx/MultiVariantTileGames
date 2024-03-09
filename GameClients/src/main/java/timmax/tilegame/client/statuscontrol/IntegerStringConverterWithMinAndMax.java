@@ -7,6 +7,9 @@ public class IntegerStringConverterWithMinAndMax extends IntegerStringConverter 
     private final int maxValue;
 
     public IntegerStringConverterWithMinAndMax(int minValue, int maxValue) {
+        if (minValue > maxValue) {
+            throw new RuntimeException("minValue must be less or equal maxValue (minValue = " + minValue + ", maxValue = " + maxValue + ") ");
+        }
         this.minValue = minValue;
         this.maxValue = maxValue;
     }
