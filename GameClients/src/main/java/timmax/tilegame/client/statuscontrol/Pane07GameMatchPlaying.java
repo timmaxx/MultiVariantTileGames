@@ -1,14 +1,18 @@
 package timmax.tilegame.client.statuscontrol;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
+import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
 import timmax.tilegame.guiengine.jfx.GameClientPaneJfx;
 import timmax.tilegame.transport.TransportOfClient;
 
@@ -22,7 +26,15 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         buttonNextState.setText("Start the game match");
         buttonNextState.setOnAction(event -> {
             disableAllControls();
-            iModelOfClient.startGameMatchPlaying();
+            Map<String, Integer> mapOfParamsOfModelValue = new HashMap<>();
+            for (Region region : getListOfControlsNextState()) {
+                if (region instanceof TextField textField) {
+                    mapOfParamsOfModelValue.put(
+                            textField.getId(),
+                            Integer.valueOf(textField.getText()));
+                }
+            }
+            iModelOfClient.startGameMatchPlaying(mapOfParamsOfModelValue);
         });
 
         // Контролы для продвижения состояния "назад":
@@ -88,13 +100,24 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         paneNextState.getChildren().clear();
         List<Region> regionList = new ArrayList<>();
         int y = LAYOUT_Y_OF_FIRST_ROW;
-        for (String paramName: iModelOfClient.getLocalClientState().getGameType().getMapOfParamsOfModel().keySet()) {
+        for (String paramName : iModelOfClient.getLocalClientState().getGameType().getMapOfParamsOfModelDescription().keySet()) {
             Label label = new Label(paramName);
-            TextField textField = new TextField();
             label.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
             label.setLayoutY(y);
+
+            TextField textField = new TextField();
+            textField.setId(paramName);
             textField.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
             textField.setLayoutY(y);
+            ParamOfModelDescription paramOfModelDescription = iModelOfClient.getLocalClientState().getGameType().getMapOfParamsOfModelDescription().get(paramName);
+            textField.setTextFormatter(
+                    new TextFormatter<>(
+                            new IntegerStringConverterWithMinAndMax(paramOfModelDescription.getMinValue(), paramOfModelDescription.getMaxValue()),
+                            paramOfModelDescription.getDefaultValue(),
+                            new IntegerFilter()
+                    )
+            );
+
             regionList.add(label);
             regionList.add(textField);
             y += DIFFERENCE_OF_LAYOUT_Y;

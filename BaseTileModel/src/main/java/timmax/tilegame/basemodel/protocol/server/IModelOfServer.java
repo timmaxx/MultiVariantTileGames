@@ -23,5 +23,5 @@ public interface IModelOfServer extends IModelOfServerDescriptor {
     int getCountOfGamers();
 
     @Override
-    Map<String, Integer> getMapOfParamsOfModel();
+    Map<String, ParamOfModelDescription> getMapOfParamsOfModelDescription();
 }

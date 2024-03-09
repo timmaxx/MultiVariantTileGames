@@ -1,5 +1,7 @@
 package timmax.tilegame.basemodel.protocol.client;
 
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -94,9 +96,9 @@ public class ModelOfClient implements IModelOfClient {
     }
 
     @Override
-    public void startGameMatchPlaying() {
+    public void startGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue) {
         logger.debug("startPlaying()");
-        transportOfClient.sendEventOfClient(new EventOfClient71StartGameMatchPlaying());
+        transportOfClient.sendEventOfClient(new EventOfClient71StartGameMatchPlaying(mapOfParamsOfModelValue));
     }
 
     // ---- X

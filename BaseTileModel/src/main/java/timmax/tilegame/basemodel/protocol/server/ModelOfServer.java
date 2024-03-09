@@ -24,13 +24,15 @@ import static timmax.tilegame.basemodel.GameStatus.VICTORY;
 // -- при игре с более чем одним игроком, контроллеры нужно учитывать по отдельному участнику.
 public abstract class ModelOfServer<ClientId> implements IModelOfServer {
     protected static final Logger logger = LoggerFactory.getLogger(ModelOfServer.class);
+    protected static final String PARAM_NAME_WIDTH = "Width";
+    protected static final String PARAM_NAME_HEIGHT = "Height";
 
     private final static int MIN_WIDTH = 1; // 2;
     private final static int MAX_WIDTH = 100;
     private final static int MIN_HEIGHT = 1; // 2;
     private final static int MAX_HEIGHT = 100;
 
-    private final RemoteClientState<ClientId> remoteClientState;
+    protected final RemoteClientState<ClientId> remoteClientState;
 
     private GameStatus gameStatus;
 

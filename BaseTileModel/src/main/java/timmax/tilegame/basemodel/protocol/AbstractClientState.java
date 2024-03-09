@@ -1,5 +1,6 @@
 package timmax.tilegame.basemodel.protocol;
 
+import java.util.Map;
 import java.util.Set;
 
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
@@ -13,6 +14,16 @@ public abstract class AbstractClientState<Model> {
     protected Set<Model> setOfServerBaseModel; // ---- 5 (Набор моделей игр)
     protected Model serverBaseModel; // ---- 6 (Конкретная модель игры)
     protected Boolean gameIsPlaying; // ---- 7 (Партия была начата)
+
+    private Map<String, Integer> mapOfParamsOfModelValue;
+
+    public void setMapOfParamsOfModelValue(Map<String, Integer> mapOfParamsOfModelValue) {
+        this.mapOfParamsOfModelValue = mapOfParamsOfModelValue;
+    }
+
+    public Map<String, Integer> getMapOfParamsOfModelValue() {
+        return mapOfParamsOfModelValue;
+    }
 
     // ---- 2 (Пользователь)
     public String getUserName() {

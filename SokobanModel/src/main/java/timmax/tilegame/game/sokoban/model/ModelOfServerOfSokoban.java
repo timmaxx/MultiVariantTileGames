@@ -13,6 +13,7 @@ import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
+import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
 import timmax.tilegame.basemodel.tile.Direction;
 
@@ -66,96 +67,6 @@ public class ModelOfServerOfSokoban<ClientId> extends ModelOfServer<ClientId> {
         super(remoteClientState);
     }
 
-    // Overiden methods from interface IModelOfServer extends IModelOfServerDescriptor:
-    @Override
-    public String getGameName() {
-        return "Sokoban";
-    }
-
-    @Override
-    public int getCountOfGamers() {
-        return 1;
-    }
-
-    @Override
-    public Map<String, Integer> getMapOfParamsOfModel() {
-        return null;
-    }
-
-    // Overiden methods from interface IModelOfServer:
-    @Override
-    public void createNewGame() {
-        allSokobanObjects = levelLoader.getLevel(currentLevel.getValue());
-        super.createNewGame(allSokobanObjects.getWidth(), allSokobanObjects.getHeight());
-        for (int y = 0; y < allSokobanObjects.getHeight(); y++) {
-            for (int x = 0; x < allSokobanObjects.getWidth(); x++) {
-                WhoPersistentInTile whoPersistentInTile = allSokobanObjects.getWhoPersistentInTile(x, y);
-                WhoMovableInTile whoMovableInTile = allSokobanObjects.getWhoMovableInTile(x, y);
-                sendGameEvent(new GameEventOneTileSokobanChangeable(x, y, whoPersistentInTile, whoMovableInTile));
-            }
-        }
-        route = new Route();
-        routeRedo = new Route();
-        // Инициализация информационных выборок.
-        // sendGameEvent(new GameEventSokobanPersistentParams(allSokobanObjects.getCountOfHomesBoxes()));
-        // sendGameEvent(new GameEventSokobanVariableParamsCountOfSteps(0));
-        calcCountOfBoxesInHomes();
-        // sendGameEvent(new GameEventSokobanVariableParamsCountOfBoxesInHouses(countOfBoxesInHomes));
-    }
-
-    @Override
-    public void executeMouseCommand(GameCommandMouseClick gameCommandMouseClick) {
-        if (gameCommandMouseClick.getMouseButton() == MouseButton.PRIMARY) {
-            if (gameCommandMouseClick.getY() == allSokobanObjects.getPlayer().getY()) {
-                if (gameCommandMouseClick.getX() < allSokobanObjects.getPlayer().getX()) {
-                    move(Direction.LEFT);
-                } else if (gameCommandMouseClick.getX() > allSokobanObjects.getPlayer().getX()) {
-                    move(Direction.RIGHT);
-                }
-            } else if ((gameCommandMouseClick.getX() == allSokobanObjects.getPlayer().getX())) {
-                if (gameCommandMouseClick.getY() < allSokobanObjects.getPlayer().getY()) {
-                    move(Direction.UP);
-                } else if (gameCommandMouseClick.getY() > allSokobanObjects.getPlayer().getY()) {
-                    move(Direction.DOWN);
-                }
-            }
-        } else if (gameCommandMouseClick.getMouseButton() == MouseButton.SECONDARY) {
-            moveUndo();
-        } else if (gameCommandMouseClick.getMouseButton() == MouseButton.MIDDLE) {
-            moveRedo();
-        }
-    }
-
-    @Override
-    public void executeKeyboardCommand(GameCommandKeyPressed gameCommandKeyPressed) {
-        if (gameCommandKeyPressed.getKeyCode() == KeyCode.LEFT) {
-            move(Direction.LEFT);
-        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.RIGHT) {
-            move(Direction.RIGHT);
-        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.UP) {
-            move(Direction.UP);
-        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.DOWN) {
-            move(Direction.DOWN);
-        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.Q) {
-            moveUndo();
-        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.P) {
-            moveRedo();
-        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.BACK_SPACE) {
-            prevLevel();
-        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.SPACE) {
-            nextLevel();
-        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.ESCAPE) {
-            restart();
-        }
-    }
-
-    @Override
-    public void win() {
-        currentLevel.incValue();
-        super.win();
-    }
-
-    // Own methods of the class:
     private void moveUndo() {
         if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
             return;
@@ -344,5 +255,94 @@ public class ModelOfServerOfSokoban<ClientId> extends ModelOfServer<ClientId> {
         setGameStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
         currentLevel.decValue();
         sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
+    }
+
+    // Overiden methods from interface IModelOfServer extends IModelOfServerDescriptor:
+    @Override
+    public String getGameName() {
+        return "Sokoban";
+    }
+
+    @Override
+    public int getCountOfGamers() {
+        return 1;
+    }
+
+    @Override
+    public Map<String, ParamOfModelDescription> getMapOfParamsOfModelDescription() {
+        return null;
+    }
+
+    // Overiden methods from interface IModelOfServer:
+    @Override
+    public void createNewGame() {
+        allSokobanObjects = levelLoader.getLevel(currentLevel.getValue());
+        super.createNewGame(allSokobanObjects.getWidth(), allSokobanObjects.getHeight());
+        for (int y = 0; y < allSokobanObjects.getHeight(); y++) {
+            for (int x = 0; x < allSokobanObjects.getWidth(); x++) {
+                WhoPersistentInTile whoPersistentInTile = allSokobanObjects.getWhoPersistentInTile(x, y);
+                WhoMovableInTile whoMovableInTile = allSokobanObjects.getWhoMovableInTile(x, y);
+                sendGameEvent(new GameEventOneTileSokobanChangeable(x, y, whoPersistentInTile, whoMovableInTile));
+            }
+        }
+        route = new Route();
+        routeRedo = new Route();
+        // Инициализация информационных выборок.
+        // sendGameEvent(new GameEventSokobanPersistentParams(allSokobanObjects.getCountOfHomesBoxes()));
+        // sendGameEvent(new GameEventSokobanVariableParamsCountOfSteps(0));
+        calcCountOfBoxesInHomes();
+        // sendGameEvent(new GameEventSokobanVariableParamsCountOfBoxesInHouses(countOfBoxesInHomes));
+    }
+
+    @Override
+    public void executeMouseCommand(GameCommandMouseClick gameCommandMouseClick) {
+        if (gameCommandMouseClick.getMouseButton() == MouseButton.PRIMARY) {
+            if (gameCommandMouseClick.getY() == allSokobanObjects.getPlayer().getY()) {
+                if (gameCommandMouseClick.getX() < allSokobanObjects.getPlayer().getX()) {
+                    move(Direction.LEFT);
+                } else if (gameCommandMouseClick.getX() > allSokobanObjects.getPlayer().getX()) {
+                    move(Direction.RIGHT);
+                }
+            } else if ((gameCommandMouseClick.getX() == allSokobanObjects.getPlayer().getX())) {
+                if (gameCommandMouseClick.getY() < allSokobanObjects.getPlayer().getY()) {
+                    move(Direction.UP);
+                } else if (gameCommandMouseClick.getY() > allSokobanObjects.getPlayer().getY()) {
+                    move(Direction.DOWN);
+                }
+            }
+        } else if (gameCommandMouseClick.getMouseButton() == MouseButton.SECONDARY) {
+            moveUndo();
+        } else if (gameCommandMouseClick.getMouseButton() == MouseButton.MIDDLE) {
+            moveRedo();
+        }
+    }
+
+    @Override
+    public void executeKeyboardCommand(GameCommandKeyPressed gameCommandKeyPressed) {
+        if (gameCommandKeyPressed.getKeyCode() == KeyCode.LEFT) {
+            move(Direction.LEFT);
+        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.RIGHT) {
+            move(Direction.RIGHT);
+        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.UP) {
+            move(Direction.UP);
+        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.DOWN) {
+            move(Direction.DOWN);
+        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.Q) {
+            moveUndo();
+        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.P) {
+            moveRedo();
+        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.BACK_SPACE) {
+            prevLevel();
+        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.SPACE) {
+            nextLevel();
+        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.ESCAPE) {
+            restart();
+        }
+    }
+
+    @Override
+    public void win() {
+        currentLevel.incValue();
+        super.win();
     }
 }

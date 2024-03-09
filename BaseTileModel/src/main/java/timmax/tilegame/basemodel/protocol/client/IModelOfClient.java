@@ -1,5 +1,7 @@
 package timmax.tilegame.basemodel.protocol.client;
 
+import java.util.Map;
+
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
@@ -29,7 +31,7 @@ public interface IModelOfClient {
 
     // ---- 7
     void stopGameMatchPlaying();
-    void startGameMatchPlaying();
+    void startGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue);
 
     // ---- X
     MainGameClientStatus getMainGameClientStatus();

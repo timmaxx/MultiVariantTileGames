@@ -28,7 +28,7 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
     // И количество игроков по длине массива будет определено.
 
     private Map<String, Class <? extends View>> mapOfViewNameViewClass;
-    protected Map<String, Integer> mapOfParamsOfModel;
+    protected Map<String, ParamOfModelDescription> mapOfParamsOfModelDescription;
 
     public ModelOfServerDescriptor() {
     }
@@ -60,7 +60,7 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
         // Т.к. iModelOfServer ничему не присваивается, то он уйдёт в небытие по окончанию работы конструктора.
         gameName = iModelOfServer.getGameName();
         countOfGamers = iModelOfServer.getCountOfGamers();
-        mapOfParamsOfModel = iModelOfServer.getMapOfParamsOfModel();
+        mapOfParamsOfModelDescription = iModelOfServer.getMapOfParamsOfModelDescription();
         // this.otherField = obj.getOtherField();
     }
 
@@ -68,11 +68,11 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
         return mapOfViewNameViewClass;
     }
 
-    public Map<String, Integer> getMapOfParamsOfModel() {
-        if (mapOfParamsOfModel == null) {
-            mapOfParamsOfModel = Map.of();
+    public Map<String, ParamOfModelDescription> getMapOfParamsOfModelDescription() {
+        if (mapOfParamsOfModelDescription == null) {
+            mapOfParamsOfModelDescription = Map.of();
         }
-        return mapOfParamsOfModel;
+        return mapOfParamsOfModelDescription;
     }
 
     @Override
@@ -100,7 +100,7 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
                 ", gameName='" + gameName + '\'' +
                 ", countOfGamers=" + countOfGamers +
                 ", mapOfViewNameViewClass=" + mapOfViewNameViewClass +
-                ", mapOfParamsOfModel=" + mapOfParamsOfModel +
+                ", mapOfParamsOfModelDescription=" + mapOfParamsOfModelDescription +
                 '}';
     }
 
@@ -121,7 +121,7 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
         out.writeObject(gameName);
         out.writeInt(countOfGamers);
         out.writeObject(mapOfViewNameViewClass);
-        out.writeObject(mapOfParamsOfModel);
+        out.writeObject(mapOfParamsOfModelDescription);
     }
 
     @Override
@@ -131,7 +131,7 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
         // ToDo: Избавиться от "Warning:(132, 34) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
         mapOfViewNameViewClass = (Map<String, Class<? extends View>>) in.readObject();
         // ToDo: Избавиться от "Warning:(134, 30) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Integer>'"
-        mapOfParamsOfModel = (Map<String, Integer>) in.readObject();
+        mapOfParamsOfModelDescription = (Map<String, ParamOfModelDescription>) in.readObject();
     }
 
     // Own methods
