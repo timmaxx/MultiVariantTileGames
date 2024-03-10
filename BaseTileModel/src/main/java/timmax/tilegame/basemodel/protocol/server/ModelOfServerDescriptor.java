@@ -28,15 +28,16 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
     // (например для шашек: "Белые", "Черные"; для многих игр для двух игроков: "Первый", "Второй"; для одного: "Игрок").
     // И количество игроков по длине массива будет определено.
 
-    private Map<String, Class <? extends View>> mapOfViewNameViewClass;
+    private Map<String, Class<? extends View>> mapOfViewNameViewClass;
     protected Map<String, ParamOfModelDescription> mapOfParamsOfModelDescription;
 
     public ModelOfServerDescriptor() {
         super();
     }
 
-    public <ClientId> ModelOfServerDescriptor(String modelOfServerFullClassName,
-                                   RemoteClientState<ClientId> remoteClientState)
+    public <ClientId> ModelOfServerDescriptor(
+            String modelOfServerFullClassName,
+            RemoteClientState<ClientId> remoteClientState)
             throws ClassNotFoundException, NoSuchMethodException {
         this();
         // ToDo: Мапу нужно инициализировать не как сейчас - константой, а в классе найти все выборки View.class, в т.ч. и ViewMainField.class.
@@ -77,12 +78,6 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
 
     public Constructor<? extends IModelOfServer> getConstructorOfModelOfServerClass() {
         return constructorOfModelOfServerClass;
-    }
-
-    // ToDo: Временный метод (потом удалить). После разделения на два класса, этот метод удалить,
-    //       а инициализацию сделать через приватный метод и вызов из конструктора с параметром или readExternal.
-    public void setConstructor(Constructor<? extends IModelOfServer> constructor) {
-        this.constructorOfModelOfServerClass = constructor;
     }
 
     // Overriden methods of class Object

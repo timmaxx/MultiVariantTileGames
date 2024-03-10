@@ -3,9 +3,7 @@ package timmax.tilegame.basemodel.protocol;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-import java.lang.reflect.Constructor;
 
-import timmax.tilegame.basemodel.protocol.server.IModelOfServer;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
 
@@ -30,22 +28,41 @@ public class EventOfClient41SetGameType extends EventOfClient {
             remoteClientState.forgetGameType();
             return;
         }
+/*
+        {   // ToDo: Вместо того, что в этих фигурных скобок, можно:
+            //       1. Пересылать по сети только имя игры.
+            //       2. Искать во множестве игр, игру с тем именем, которое пришло по сети.
+            //          (И конструктор даже не вытаскивать!)
+            // От клиента поступил modelOfServerDescriptor (он должен быть один из тех, которые ему направлялись множеством).
+            Constructor<? extends IModelOfServer> constructor = remoteClientState
+                    .getGameTypeSet()
+                    .stream()
+                    // В том перечне ищется modelOfServerDescriptor с таким-же именем:
+                    .filter(x -> x.getGameName().equals(modelOfServerDescriptor.getGameName()))
+                    .findAny()
+                    // И берётся его конструктор:
+                    .map(ModelOfServerDescriptor::getConstructorOfModelOfServerClass).orElse(null);
 
-        Constructor<? extends IModelOfServer> constructor = remoteClientState
+            // ToDo: условие (constructor == null) не должно случаться никогда, т.к. он был определён при создании каждого
+            //       modelOfServerDescriptor ещё ранее на сервере, когда формировался перечень типов игр.
+            //       Поэтому можно удалить if () {}.
+            if (constructor == null) {
+                logger.error("{} was not found in list model classes.", modelOfServerDescriptor);
+                remoteClientState.forgetGameType();
+                return;
+            }
+            modelOfServerDescriptor.setConstructor(constructor);
+        }
+*/
+        ModelOfServerDescriptor modelOfServerDescriptor1 = remoteClientState
                 .getGameTypeSet()
                 .stream()
+                // В том перечне ищется modelOfServerDescriptor с таким-же именем:
                 .filter(x -> x.getGameName().equals(modelOfServerDescriptor.getGameName()))
                 .findAny()
-                .map(ModelOfServerDescriptor::getConstructorOfModelOfServerClass).orElse(null);
+                .orElse(null);
 
-        if (constructor == null) {
-            logger.error("{} was not found in list model classes.", modelOfServerDescriptor);
-            remoteClientState.forgetGameType();
-            return;
-        }
-
-        modelOfServerDescriptor.setConstructor(constructor);
-        remoteClientState.setGameType(modelOfServerDescriptor);
+        remoteClientState.setGameType(modelOfServerDescriptor1);
     }
 
     @Override
