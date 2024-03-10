@@ -1,11 +1,11 @@
 package timmax.tilegame.basemodel.protocol.server;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -13,13 +13,20 @@ import org.slf4j.LoggerFactory;
 
 public class ModelOfServerLoader {
     protected static final Logger logger = LoggerFactory.getLogger(ModelOfServerLoader.class);
+    private static final String FILE_NAME_WITH_CLASS_NAMES_OF_MODELS = "models.txt";
 
     public static <ClientId> Set<ModelOfServerDescriptor> getCollectionOfModelOfServerDescriptor(
-            Path path,
             RemoteClientState<ClientId> remoteClientState
     ) {
-        Set<ModelOfServerDescriptor> result = new HashSet<>();
+        Path path = null;
+        try {
+            path = Paths.get(Objects.requireNonNull(ModelOfServerLoader.class.getResource(FILE_NAME_WITH_CLASS_NAMES_OF_MODELS)).toURI());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
 
+        assert path != null;
+        Set<ModelOfServerDescriptor> result = new HashSet<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
             String line;
             ModelOfServerDescriptor modelOfServerDescriptor;
