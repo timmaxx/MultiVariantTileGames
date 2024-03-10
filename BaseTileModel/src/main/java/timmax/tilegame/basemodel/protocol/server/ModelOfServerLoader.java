@@ -6,13 +6,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import timmax.tilegame.baseview.ViewMainField;
 
 public class ModelOfServerLoader {
     protected static final Logger logger = LoggerFactory.getLogger(ModelOfServerLoader.class);
@@ -23,21 +20,15 @@ public class ModelOfServerLoader {
         this.path = path;
     }
 
-    public Set<ModelOfServerDescriptor> getCollectionOfModelOfServerDescriptor(RemoteClientState remoteClientState) {
+    public <ClientId> Set<ModelOfServerDescriptor> getCollectionOfModelOfServerDescriptor(RemoteClientState<ClientId> remoteClientState) {
         Set<ModelOfServerDescriptor> result = new HashSet<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
             String line;
             ModelOfServerDescriptor modelOfServerDescriptor;
-            while ((line = reader.readLine()) !=null) {
+            while ((line = reader.readLine()) != null) {
                 try {
-                    modelOfServerDescriptor = new ModelOfServerDescriptor(
-                            line,
-                            // ToDo: Именно в данном месте видно, что возможно перечень выборок здесь и не нужен.
-                            //       Пересмотреть архитектуру и возможно удалить.
-                            Map.of("MainField", ViewMainField.class),
-                            remoteClientState
-                    );
+                    modelOfServerDescriptor = new ModelOfServerDescriptor(line, remoteClientState);
                 } catch (ClassNotFoundException e) {
                     logger.warn("Class '{}' is not found.", line, e);
                     continue;

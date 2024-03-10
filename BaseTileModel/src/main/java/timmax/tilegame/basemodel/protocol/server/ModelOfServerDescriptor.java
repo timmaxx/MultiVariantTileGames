@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import timmax.tilegame.basemodel.protocol.IModelOfServerDescriptor;
 import timmax.tilegame.baseview.View;
+import timmax.tilegame.baseview.ViewMainField;
 
 public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Externalizable {
     protected static final Logger logger = LoggerFactory.getLogger(ModelOfServerDescriptor.class);
@@ -31,19 +32,19 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
     protected Map<String, ParamOfModelDescription> mapOfParamsOfModelDescription;
 
     public ModelOfServerDescriptor() {
+        super();
     }
 
     public <ClientId> ModelOfServerDescriptor(String modelOfServerFullClassName,
-                                   // ToDo: Возможно перечень выборок здесь и не нужен.
-                                   //       Пересмотреть архитектуру и возможно удалить.
-                                   //       Также см. ModelOfServerLoader
-                                   Map<String, Class <? extends View>> mapOfViewNameViewClass,
                                    RemoteClientState<ClientId> remoteClientState)
             throws ClassNotFoundException, NoSuchMethodException {
-        this.mapOfViewNameViewClass = mapOfViewNameViewClass;
+        this();
+        // ToDo: Мапу нужно инициализировать не как сейчас - константой, а в классе найти все выборки View.class, в т.ч. и ViewMainField.class.
+        mapOfViewNameViewClass = Map.of("MainField", ViewMainField.class);
+
         // ToDo: Избавиться от "Warning:(45, 62) Unchecked cast: 'java.lang.Class<capture<?>>' to 'java.lang.Class<? extends timmax.tilegame.basemodel.protocol.server.IModelOfServer>'"
         Class<? extends IModelOfServer> modelOfServerClass = (Class<? extends IModelOfServer>) Class.forName(modelOfServerFullClassName);
-        this.constructorOfModelOfServerClass = modelOfServerClass.getConstructor(RemoteClientState.class);
+        constructorOfModelOfServerClass = modelOfServerClass.getConstructor(RemoteClientState.class);
 
         IModelOfServer iModelOfServer;
         try {
@@ -61,7 +62,6 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
         gameName = iModelOfServer.getGameName();
         countOfGamers = iModelOfServer.getCountOfGamers();
         mapOfParamsOfModelDescription = iModelOfServer.getMapOfParamsOfModelDescription();
-        // this.otherField = obj.getOtherField();
     }
 
     public Map<String, Class<? extends View>> getMapOfViewNameViewClass() {
@@ -75,6 +75,17 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
         return mapOfParamsOfModelDescription;
     }
 
+    public Constructor<? extends IModelOfServer> getConstructorOfModelOfServerClass() {
+        return constructorOfModelOfServerClass;
+    }
+
+    // ToDo: Временный метод (потом удалить). После разделения на два класса, этот метод удалить,
+    //       а инициализацию сделать через приватный метод и вызов из конструктора с параметром или readExternal.
+    public void setConstructor(Constructor<? extends IModelOfServer> constructor) {
+        this.constructorOfModelOfServerClass = constructor;
+    }
+
+    // Overriden methods of class Object
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -132,16 +143,5 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
         mapOfViewNameViewClass = (Map<String, Class<? extends View>>) in.readObject();
         // ToDo: Избавиться от "Warning:(134, 30) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Integer>'"
         mapOfParamsOfModelDescription = (Map<String, ParamOfModelDescription>) in.readObject();
-    }
-
-    // Own methods
-    public Constructor<? extends IModelOfServer> getConstructorOfModelOfServerClass() {
-        return constructorOfModelOfServerClass;
-    }
-
-    // ToDo: Временный метод (потом удалить). После разделения на два класса, этот метод удалить,
-    //       а инициализацию сделать через приватный метод и вызов из конструктора с параметром или readExternal.
-    public void setConstructor(Constructor<? extends IModelOfServer> constructor) {
-        this.constructorOfModelOfServerClass = constructor;
     }
 }
