@@ -14,13 +14,10 @@ import org.slf4j.LoggerFactory;
 public class ModelOfServerLoader {
     protected static final Logger logger = LoggerFactory.getLogger(ModelOfServerLoader.class);
 
-    private final Path path;
-
-    public ModelOfServerLoader(Path path) {
-        this.path = path;
-    }
-
-    public <ClientId> Set<ModelOfServerDescriptor> getCollectionOfModelOfServerDescriptor(RemoteClientState<ClientId> remoteClientState) {
+    public static <ClientId> Set<ModelOfServerDescriptor> getCollectionOfModelOfServerDescriptor(
+            Path path,
+            RemoteClientState<ClientId> remoteClientState
+    ) {
         Set<ModelOfServerDescriptor> result = new HashSet<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {

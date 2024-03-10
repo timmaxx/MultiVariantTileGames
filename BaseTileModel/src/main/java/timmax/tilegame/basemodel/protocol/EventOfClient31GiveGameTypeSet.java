@@ -13,21 +13,15 @@ public class EventOfClient31GiveGameTypeSet extends EventOfClient {
     @Override
     public <ClientId> void executeOnServer(RemoteClientState<ClientId> remoteClientState) {
         logger.debug("  onGetGameTypeSet");
-
-        ModelOfServerLoader modelLoader;
         try {
-            modelLoader = new ModelOfServerLoader(
-                    Paths.get(Objects.requireNonNull(ModelOfServerLoader.class.getResource("models.txt")).toURI())
+            Set<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor = ModelOfServerLoader.getCollectionOfModelOfServerDescriptor(
+                    Paths.get(Objects.requireNonNull(ModelOfServerLoader.class.getResource("models.txt")).toURI()),
+                    remoteClientState
             );
+            remoteClientState.setGameTypeSet(collectionOfModelOfServerDescriptor);
         } catch (URISyntaxException e) {
             e.printStackTrace();
-            return;
         }
-        Set<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor =
-                modelLoader.getCollectionOfModelOfServerDescriptor(
-                        remoteClientState
-                );
-        remoteClientState.setGameTypeSet(collectionOfModelOfServerDescriptor);
     }
 
     @Override
