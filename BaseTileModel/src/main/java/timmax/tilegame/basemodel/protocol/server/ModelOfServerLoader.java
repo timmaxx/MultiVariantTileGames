@@ -24,8 +24,8 @@ public class ModelOfServerLoader {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+        assert path != null : "path to file '" + FILE_NAME_WITH_CLASS_NAMES_OF_MODELS + "' must be not null";
 
-        assert path != null;
         Set<ModelOfServerDescriptor> result = new HashSet<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
             String line;
