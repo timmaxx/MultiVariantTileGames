@@ -59,7 +59,7 @@ public class ModelOfClient implements IModelOfClient {
     @Override
     public void gameTypeSelect(ModelOfServerDescriptor modelOfServerDescriptor) {
         logger.debug("gameTypeSelect(String)");
-        transportOfClient.sendEventOfClient(new EventOfClient41SetGameType(modelOfServerDescriptor));
+        transportOfClient.sendEventOfClient(new EventOfClient41SetGameType(modelOfServerDescriptor.getGameName()));
     }
 
     // 5

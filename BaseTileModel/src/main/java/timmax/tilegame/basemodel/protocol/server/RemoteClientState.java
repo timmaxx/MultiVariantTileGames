@@ -69,18 +69,18 @@ public class RemoteClientState<ClientId> extends AbstractClientState<IModelOfSer
     @Override
     public void setGameType(ModelOfServerDescriptor modelOfServerDescriptor) {
         super.setGameType(modelOfServerDescriptor);
-        if(modelOfServerDescriptor != null) {
-            // ToDo: Создать удалёные выборки, в соответствии с тем, что задано в modelOfServerDescriptor
-            setOfViewName = new HashSet<>();
-            // ToDo: Сейчас foreach работает и с ключём и со значением (аналогично как в классе LocalClientState),
-            //       Но здесь достаточно толко с ключём.
-            for (Map.Entry<String, Class<? extends View>> entry : modelOfServerDescriptor.getMapOfViewNameViewClass().entrySet()) {
-                setOfViewName.add(entry.getKey());
-            }
-        } else {
+        if(modelOfServerDescriptor == null) {
             setOfViewName = null;
+            transportOfServer.sendEventOfServer(clientId, new EventOfServer40ForgetGameType());
+            return;
         }
-        transportOfServer.sendEventOfServer(clientId, new EventOfServer41SetGameType(modelOfServerDescriptor));
+        setOfViewName = new HashSet<>();
+        // ToDo: Сейчас foreach работает и с ключём и со значением (аналогично как в классе LocalClientState),
+        //       Но здесь достаточно только с ключём.
+        for (Map.Entry<String, Class<? extends View>> entry : modelOfServerDescriptor.getMapOfViewNameViewClass().entrySet()) {
+            setOfViewName.add(entry.getKey());
+        }
+        transportOfServer.sendEventOfServer(clientId, new EventOfServer41SetGameType(modelOfServerDescriptor.getGameName()));
     }
 
     // ---- 5 Перечень партий

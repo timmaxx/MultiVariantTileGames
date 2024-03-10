@@ -8,20 +8,27 @@ import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 
 public class EventOfServer41SetGameType extends EventOfServer {
-    private ModelOfServerDescriptor modelOfServerDescriptor;
+    private String modelOfServerDescriptorGameTypeName;
 
     public EventOfServer41SetGameType() {
         super();
     }
 
-    public EventOfServer41SetGameType(ModelOfServerDescriptor modelOfServerDescriptor) {
+    public EventOfServer41SetGameType(String modelOfServerDescriptorGameTypeName) {
         this();
-        this.modelOfServerDescriptor = modelOfServerDescriptor;
+        this.modelOfServerDescriptorGameTypeName = modelOfServerDescriptorGameTypeName;
     }
 
     @Override
     public void executeOnClient(IModelOfClient iModelOfClient) {
         logger.debug("  onGameTypeSelect");
+        ModelOfServerDescriptor modelOfServerDescriptor = iModelOfClient
+                .getLocalClientState()
+                .getGameTypeSet()
+                .stream()
+                .filter(x -> x.getGameName().equals(modelOfServerDescriptorGameTypeName))
+                .findAny()
+                .orElse(null);
         iModelOfClient.getLocalClientState().setGameType(modelOfServerDescriptor);
         iModelOfClient.getGameMatchSet();
     }
@@ -29,17 +36,17 @@ public class EventOfServer41SetGameType extends EventOfServer {
     @Override
     public String toString() {
         return "EventOfServer41SetGameType{" +
-                "modelOfServerDescriptor='" + modelOfServerDescriptor + '\'' +
+                "modelOfServerDescriptorGameTypeName='" + modelOfServerDescriptorGameTypeName + '\'' +
                 '}';
     }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(modelOfServerDescriptor);
+        out.writeObject(modelOfServerDescriptorGameTypeName);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        modelOfServerDescriptor = (ModelOfServerDescriptor) in.readObject();
+        modelOfServerDescriptorGameTypeName = (String) in.readObject();
     }
 }
