@@ -6,6 +6,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 
+import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
@@ -43,6 +44,10 @@ public class ModelOfServerOfMinesweeper<ClientId> extends ModelOfServer<ClientId
     }
 
     public void createNewGame(int width, int height, int percentsOfMines) {
+        if (allMinesweeperObjects != null && getGameStatus() == GameStatus.GAME) {
+            return;
+        }
+
         // ToDo: Избавиться от "Warning:(107, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
         allMinesweeperObjects = levelGenerator.getLevel(width, height, percentsOfMines);
         allMinesweeperObjects.setModel(this);

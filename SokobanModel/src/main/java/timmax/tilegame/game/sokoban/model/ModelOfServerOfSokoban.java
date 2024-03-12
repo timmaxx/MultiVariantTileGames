@@ -9,6 +9,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 
+import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
@@ -276,6 +277,10 @@ public class ModelOfServerOfSokoban<ClientId> extends ModelOfServer<ClientId> {
     // Overiden methods from interface IModelOfServer:
     @Override
     public void createNewGame() {
+        if (allSokobanObjects != null && getGameStatus() == GameStatus.GAME) {
+            return;
+        }
+
         allSokobanObjects = levelLoader.getLevel(currentLevel.getValue());
         super.createNewGame(allSokobanObjects.getWidth(), allSokobanObjects.getHeight());
         for (int y = 0; y < allSokobanObjects.getHeight(); y++) {
