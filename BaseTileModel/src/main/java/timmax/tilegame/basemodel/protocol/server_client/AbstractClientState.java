@@ -1,4 +1,4 @@
-package timmax.tilegame.basemodel.protocol;
+package timmax.tilegame.basemodel.protocol.server_client;
 
 import java.util.Map;
 import java.util.Set;

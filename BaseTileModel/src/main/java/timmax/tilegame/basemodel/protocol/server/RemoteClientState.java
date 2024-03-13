@@ -5,8 +5,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.Set;
 
-import timmax.tilegame.basemodel.protocol.*;
+import timmax.tilegame.basemodel.protocol.server_client.AbstractClientState;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
+import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfServer;
 

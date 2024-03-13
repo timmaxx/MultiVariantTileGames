@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import timmax.tilegame.basemodel.protocol.AbstractClientState;
+import timmax.tilegame.basemodel.protocol.server_client.AbstractClientState;
+import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import timmax.tilegame.basemodel.protocol.HashSetOfObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
-import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import timmax.tilegame.baseview.View;
 
 public abstract class LocalClientState extends AbstractClientState<InstanceIdOfModel> {
