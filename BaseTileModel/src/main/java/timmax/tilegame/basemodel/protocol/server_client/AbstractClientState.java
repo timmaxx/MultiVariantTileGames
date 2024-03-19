@@ -3,10 +3,11 @@ package timmax.tilegame.basemodel.protocol.server_client;
 import java.util.Map;
 import java.util.Set;
 
+import timmax.tilegame.basemodel.protocol.cs.IClientState;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 
-public abstract class AbstractClientState<Model> {
+public abstract class AbstractClientState<Model> implements IClientState<Model> {
     // Нумерация приведена соответствующая классам Pane0Х... пакета timmax.tilegame.client.statuscontrol:
     protected String userName; // ---- 2 (Пользователь)
     protected Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor; // ---- 3 (Список типов игр)
@@ -26,10 +27,12 @@ public abstract class AbstractClientState<Model> {
     }
 
     // ---- 2 (Пользователь)
+    @Override
     public String getUserName() {
         return userName;
     }
 
+    @Override
     public void setUserName(String userName) {
         if (userName == null || userName.isEmpty()) {
             throw new NullPointerException("UserName is null. It must be not null for this method.");
@@ -37,6 +40,7 @@ public abstract class AbstractClientState<Model> {
         setUserName_(userName);
     }
 
+    @Override
     public void forgetUserName() {
         setUserName_("");
     }
@@ -47,15 +51,18 @@ public abstract class AbstractClientState<Model> {
     }
 
     // ---- 3 (Список типов игр)
+    @Override
     public Set<ModelOfServerDescriptor> getGameTypeSet() {
         return setOfModelOfServerDescriptor;
     }
 
+    @Override
     public void setGameTypeSet(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor) {
         // ToDo: сделать какую-то проверку на корректностность.
         setGameTypeSet_(setOfModelOfServerDescriptor);
     }
 
+    @Override
     public void forgetGameTypeSet() {
         setGameTypeSet_(null);
     }
@@ -66,14 +73,17 @@ public abstract class AbstractClientState<Model> {
     }
 
     // ---- 4 (Конкретный тип игры)
+    @Override
     public ModelOfServerDescriptor getGameType() {
         return modelOfServerDescriptor;
     }
 
+    @Override
     public void setGameType(ModelOfServerDescriptor modelOfServerDescriptor) {
         setGameType_(modelOfServerDescriptor);
     }
 
+    @Override
     public void forgetGameType() {
         setGameType_(null);
     }
@@ -84,14 +94,17 @@ public abstract class AbstractClientState<Model> {
     }
 
     // ---- 5 (Набор моделей игр)
+    @Override
     public Set<Model> getGameMatchSet() {
         return setOfServerBaseModel;
     }
 
+    @Override
     public void setGameMatchSet(Set<Model> setOfServerBaseModel) {
         setGameMatchSet_(setOfServerBaseModel);
     }
 
+    @Override
     public void forgetGameMatchSet() {
         setGameMatchSet_(null);
     }
@@ -102,14 +115,17 @@ public abstract class AbstractClientState<Model> {
     }
 
     // ---- 6 (Конкретная модель игры)
+    @Override
     public Model getServerBaseModel() {
         return serverBaseModel;
     }
 
+    @Override
     public void setServerBaseModel(Model serverBaseModel) {
         setServerBaseModel_(serverBaseModel);
     }
 
+    @Override
     public void forgetServerBaseModel() {
         setServerBaseModel_(null);
     }
@@ -120,14 +136,17 @@ public abstract class AbstractClientState<Model> {
     }
 
     // ---- 7
+    @Override
     public Boolean getGameIsPlaying() {
         return gameIsPlaying;
     }
 
+    @Override
     public void setGameIsPlaying(Boolean gameIsPlaying) {
         setGameIsPlaying_(gameIsPlaying);
     }
 
+    @Override
     public void forgetGameIsPlaying() {
         setGameIsPlaying_(null);
     }
@@ -137,6 +156,7 @@ public abstract class AbstractClientState<Model> {
     }
 
     // ---- X
+    @Override
     public MainGameClientStatus getMainGameClientStatus() {
         if (gameIsPlaying != null && gameIsPlaying) {
             return MainGameClientStatus.GAME_IS_PLAYING;
