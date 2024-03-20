@@ -6,7 +6,6 @@ import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 
 public class CSP03ConnectAuthorized<Model> extends CSP02ConnectNonIdent<Model> {
-    protected String userName; // ---- 2 (Пользователь)
 
     public CSP03ConnectAuthorized(ClientState<Model> clientState) {
         super(clientState);
@@ -15,8 +14,7 @@ public class CSP03ConnectAuthorized<Model> extends CSP02ConnectNonIdent<Model> {
     // ---- 3 ConnectAuthorized
     @Override
     public String getUserName() {
-        // return clientState.userName;
-        return userName;
+        return clientState.userName;
     }
 
     @Override
