@@ -2,6 +2,7 @@ package timmax.tilegame.basemodel.protocol.cs.inners;
 
 import java.util.Set;
 
+import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 
 public abstract class AClientStateProtected<Model> implements IClientStateProtected<Model> {
@@ -86,6 +87,13 @@ public abstract class AClientStateProtected<Model> implements IClientStateProtec
 
     protected final void forgetGameIsPlaying_() {
         clientState.gameIsPlaying = null;
+    }
+
+    // Implemented for IClientState:
+    // ---- 2 ConnectNonIdent
+    @Override
+    public void setUserName(String userName) {
+        throw new RuntimeException("You cannot call this method in this state!");
     }
 
     // ---- 3 ConnectAuthorized
@@ -194,4 +202,9 @@ public abstract class AClientStateProtected<Model> implements IClientStateProtec
         throw new RuntimeException("You cannot call this method in this state!");
     }
 
+    // ---- X
+    @Override
+    public MainGameClientStatus getMainGameClientStatus() {
+        return clientState.getMainGameClientStatus();
+    }
 }
