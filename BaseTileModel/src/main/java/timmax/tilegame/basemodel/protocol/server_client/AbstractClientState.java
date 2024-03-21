@@ -6,7 +6,7 @@ import java.util.Set;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 
-public abstract class AbstractClientState<Model> {
+public abstract class AbstractClientState<Model> implements IClientState<Model> {
     // Нумерация приведена соответствующая классам Pane0Х... пакета timmax.tilegame.client.statuscontrol:
     protected String userName; // ---- 2 (Пользователь)
     protected Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor; // ---- 3 (Список типов игр)
