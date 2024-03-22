@@ -1,6 +1,6 @@
 package timmax.state;
 
-public record PairDestinationStateAndCanSwitchWithoutParams(
+public record PairDestStateAndCanSwitchWithoutParams(
         Class<? extends AState> destinationStateClass,
         Boolean canSwitchWithoutParams) {
 }

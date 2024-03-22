@@ -8,14 +8,14 @@ import timmax.classes.Classes;
 public abstract class AState implements State {
     private final StateContext stateContext;
     private final Class<? extends StateData> stateDataClass;
-    protected final Set<PairDestinationStateAndCanSwitchWithoutParams> setOfPairDestinationStateAndCanSwitchWithoutParams;
+    protected final Set<PairDestStateAndCanSwitchWithoutParams> setOfPairDestStateAndCanSwitchWithoutParams;
 
     protected StateData stateData;
 
     public AState(StateContext stateContext, Class<? extends StateData> stateDataClass) {
         this.stateContext = stateContext;
         this.stateDataClass = stateDataClass;
-        this.setOfPairDestinationStateAndCanSwitchWithoutParams = new HashSet<>();
+        this.setOfPairDestStateAndCanSwitchWithoutParams = new HashSet<>();
     }
 
     private void setData(StateData stateData) {
@@ -34,9 +34,9 @@ public abstract class AState implements State {
 
     @Override
     public void changeState(AState aState) {
-        for (PairDestinationStateAndCanSwitchWithoutParams pairDestinationStateAndCanSwitchWithoutParams : setOfPairDestinationStateAndCanSwitchWithoutParams) {
-            if (Classes.isInstanceOf(aState, pairDestinationStateAndCanSwitchWithoutParams.destinationStateClass())
-                    && pairDestinationStateAndCanSwitchWithoutParams.canSwitchWithoutParams()
+        for (PairDestStateAndCanSwitchWithoutParams pairDestStateAndCanSwitchWithoutParams : setOfPairDestStateAndCanSwitchWithoutParams) {
+            if (Classes.isInstanceOf(aState, pairDestStateAndCanSwitchWithoutParams.destinationStateClass())
+                    && pairDestStateAndCanSwitchWithoutParams.canSwitchWithoutParams()
             ) {
                 aState.setAsCurrent();
                 return;
@@ -47,9 +47,9 @@ public abstract class AState implements State {
 
     @Override
     public void changeState(AState aState, StateData stateData) {
-        for (PairDestinationStateAndCanSwitchWithoutParams pairDestinationStateAndCanSwitchWithoutParams : setOfPairDestinationStateAndCanSwitchWithoutParams) {
-            if (Classes.isInstanceOf(aState, pairDestinationStateAndCanSwitchWithoutParams.destinationStateClass())
-                // && !pairDestinationStateAndCanSwitchWithoutParams.getCanSwitchWithoutParams()
+        for (PairDestStateAndCanSwitchWithoutParams pairDestStateAndCanSwitchWithoutParams : setOfPairDestStateAndCanSwitchWithoutParams) {
+            if (Classes.isInstanceOf(aState, pairDestStateAndCanSwitchWithoutParams.destinationStateClass())
+                // && !pairDestStateAndCanSwitchWithoutParams.getCanSwitchWithoutParams()
             ) {
                 aState.setData(stateData);
                 aState.setAsCurrent();
