@@ -1,4 +1,4 @@
 module timmax.commons {
-    exports timmax.classes;
-    exports timmax.state;
+    exports timmax.commons.classes;
+    exports timmax.commons.state;
 }
