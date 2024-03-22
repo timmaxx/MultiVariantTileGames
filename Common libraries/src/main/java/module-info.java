@@ -1,4 +1,4 @@
-module Common.libraries {
+module timmax.commons {
     exports timmax.classes;
     exports timmax.state;
 }
