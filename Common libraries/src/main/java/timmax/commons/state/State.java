@@ -1,4 +1,4 @@
-package timmax.state;
+package timmax.commons.state;
 
 public interface State {
     void changeState(AState aState);

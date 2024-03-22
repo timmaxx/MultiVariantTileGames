@@ -1,4 +1,4 @@
-package timmax.state;
+package timmax.commons.state;
 
 public class StateContext implements State {
     AState currentClientState;

@@ -1,4 +1,4 @@
-package timmax.classes;
+package timmax.commons.classes;
 
 public class Classes {
     //  Метод isInstanceOf можно использовать там, где не получается использовать оператор instanceof.

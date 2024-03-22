@@ -1,9 +1,9 @@
-package timmax.state;
+package timmax.commons.state;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import timmax.classes.Classes;
+import timmax.commons.classes.Classes;
 
 public abstract class AState implements State {
     private final StateContext stateContext;
