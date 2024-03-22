@@ -35,8 +35,8 @@ public abstract class AState implements State {
     @Override
     public void changeState(AState aState) {
         for (PairDestinationStateAndCanSwitchWithoutParams pairDestinationStateAndCanSwitchWithoutParams : setOfPairDestinationStateAndCanSwitchWithoutParams) {
-            if (Classes.isInstanceOf(aState, pairDestinationStateAndCanSwitchWithoutParams.getDestinationStateClass())
-                    && pairDestinationStateAndCanSwitchWithoutParams.getCanSwitchWithoutParams()
+            if (Classes.isInstanceOf(aState, pairDestinationStateAndCanSwitchWithoutParams.destinationStateClass())
+                    && pairDestinationStateAndCanSwitchWithoutParams.canSwitchWithoutParams()
             ) {
                 aState.setAsCurrent();
                 return;
@@ -48,7 +48,7 @@ public abstract class AState implements State {
     @Override
     public void changeState(AState aState, StateData stateData) {
         for (PairDestinationStateAndCanSwitchWithoutParams pairDestinationStateAndCanSwitchWithoutParams : setOfPairDestinationStateAndCanSwitchWithoutParams) {
-            if (Classes.isInstanceOf(aState, pairDestinationStateAndCanSwitchWithoutParams.getDestinationStateClass())
+            if (Classes.isInstanceOf(aState, pairDestinationStateAndCanSwitchWithoutParams.destinationStateClass())
                 // && !pairDestinationStateAndCanSwitchWithoutParams.getCanSwitchWithoutParams()
             ) {
                 aState.setData(stateData);
@@ -62,24 +62,5 @@ public abstract class AState implements State {
     @Override
     public StateData getData() {
         return stateData;
-    }
-
-
-    private static class PairDestinationStateAndCanSwitchWithoutParams {
-        private final Class<? extends AState> destinationStateClass;
-        private final Boolean canSwitchWithoutParams;
-
-        public PairDestinationStateAndCanSwitchWithoutParams(Class<? extends AState> destinationStateClass, Boolean canSwitchWithoutParams) {
-            this.destinationStateClass = destinationStateClass;
-            this.canSwitchWithoutParams = canSwitchWithoutParams;
-        }
-
-        public Class<? extends AState> getDestinationStateClass() {
-            return destinationStateClass;
-        }
-
-        public Boolean getCanSwitchWithoutParams() {
-            return canSwitchWithoutParams;
-        }
     }
 }
