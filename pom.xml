@@ -20,5 +20,6 @@
         <module>WebSocketServer</module>
         <module>WebSocketClient</module>
         <module>GameClients</module>
+        <module>Common libraries</module>
     </modules>
 </project>
