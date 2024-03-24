@@ -18,6 +18,28 @@ public abstract class AState implements State {
         this.setOfPairDestStateAndCanSwitchWithoutParams = new HashSet<>();
     }
 
+    public void checkPosibleToChangeState(AState aState) {
+        for (PairDestStateAndCanSwitchWithoutParams pairDestStateAndCanSwitchWithoutParams : setOfPairDestStateAndCanSwitchWithoutParams) {
+            if (Classes.isInstanceOf(aState, pairDestStateAndCanSwitchWithoutParams.destinationStateClass())
+                    && pairDestStateAndCanSwitchWithoutParams.canSwitchWithoutParams()
+            ) {
+                return;
+            }
+        }
+        throw new RuntimeException("You cannot change state from '" + this + "' to '" + aState + "' without papameters!");
+    }
+
+    public void checkPosibleToChangeState(AState aState, StateData stateData) {
+        for (PairDestStateAndCanSwitchWithoutParams pairDestStateAndCanSwitchWithoutParams : setOfPairDestStateAndCanSwitchWithoutParams) {
+            if (Classes.isInstanceOf(aState, pairDestStateAndCanSwitchWithoutParams.destinationStateClass())
+                // && !pairDestStateAndCanSwitchWithoutParams.getCanSwitchWithoutParams()
+            ) {
+                return;
+            }
+        }
+        throw new RuntimeException("You cannot change state from '" + this + "' to '" + aState + "' with or without any papameters!");
+    }
+
     private void setData(StateData stateData) {
         if (stateData == null) {
             throw new RuntimeException("Data for state '" + this + "' is null!");
@@ -34,29 +56,15 @@ public abstract class AState implements State {
 
     @Override
     public void changeState(AState aState) {
-        for (PairDestStateAndCanSwitchWithoutParams pairDestStateAndCanSwitchWithoutParams : setOfPairDestStateAndCanSwitchWithoutParams) {
-            if (Classes.isInstanceOf(aState, pairDestStateAndCanSwitchWithoutParams.destinationStateClass())
-                    && pairDestStateAndCanSwitchWithoutParams.canSwitchWithoutParams()
-            ) {
-                aState.setAsCurrent();
-                return;
-            }
-        }
-        throw new RuntimeException("You cannot change state from '" + this + "' to '" + aState + "' without papameters!");
+        checkPosibleToChangeState(aState);
+        aState.setAsCurrent();
     }
 
     @Override
     public void changeState(AState aState, StateData stateData) {
-        for (PairDestStateAndCanSwitchWithoutParams pairDestStateAndCanSwitchWithoutParams : setOfPairDestStateAndCanSwitchWithoutParams) {
-            if (Classes.isInstanceOf(aState, pairDestStateAndCanSwitchWithoutParams.destinationStateClass())
-                // && !pairDestStateAndCanSwitchWithoutParams.getCanSwitchWithoutParams()
-            ) {
-                aState.setData(stateData);
-                aState.setAsCurrent();
-                return;
-            }
-        }
-        throw new RuntimeException("You cannot change state from '" + this + "' to '" + aState + "' with or without any papameters!");
+        checkPosibleToChangeState(aState, stateData);
+        aState.setData(stateData);
+        aState.setAsCurrent();
     }
 
     @Override
