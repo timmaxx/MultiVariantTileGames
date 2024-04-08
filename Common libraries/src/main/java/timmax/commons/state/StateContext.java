@@ -1,24 +1,24 @@
 package timmax.commons.state;
 
 public class StateContext implements State {
-    AState currentClientState;
+    AState currentState;
 
-    public StateContext(AState currentClientState) {
-        this.currentClientState = currentClientState;
+    public StateContext(AState currentState) {
+        this.currentState = currentState;
     }
 
     @Override
     public void changeState(AState aState) {
-        currentClientState.changeState(aState);
+        currentState.changeState(aState);
     }
 
     @Override
     public void changeState(AState aState, StateData stateData) {
-        currentClientState.changeState(aState, stateData);
+        currentState.changeState(aState, stateData);
     }
 
     @Override
     public StateData getData() {
-        return currentClientState.getData();
+        return currentState.getData();
     }
 }

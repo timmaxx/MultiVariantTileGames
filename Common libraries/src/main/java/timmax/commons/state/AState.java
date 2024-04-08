@@ -51,7 +51,11 @@ public abstract class AState implements State {
     }
 
     private void setAsCurrent() {
-        stateContext.currentClientState = this;
+        stateContext.currentState = this;
+    }
+
+    public StateContext getStateContext() {
+        return stateContext;
     }
 
     @Override
