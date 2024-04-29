@@ -18,26 +18,15 @@ public abstract class AState implements State {
         this.setOfPairDestStateAndCanSwitchWithoutParams = new HashSet<>();
     }
 
-    public void checkPosibleToChangeState(AState aState) {
+    public void checkPosibleToChangeState(State state, boolean isThereStateData) {
         for (PairDestStateAndCanSwitchWithoutParams pairDestStateAndCanSwitchWithoutParams : setOfPairDestStateAndCanSwitchWithoutParams) {
-            if (Classes.isInstanceOf(aState, pairDestStateAndCanSwitchWithoutParams.destinationStateClass())
-                    && pairDestStateAndCanSwitchWithoutParams.canSwitchWithoutParams()
-            ) {
+            if (Classes.isInstanceOf(state, pairDestStateAndCanSwitchWithoutParams.destinationStateClass())
+                    && !isThereStateData
+                    && pairDestStateAndCanSwitchWithoutParams.canSwitchWithoutParams()) {
                 return;
             }
         }
-        throw new RuntimeException("You cannot change state from '" + this + "' to '" + aState + "' without papameters!");
-    }
-
-    public void checkPosibleToChangeState(AState aState, StateData stateData) {
-        for (PairDestStateAndCanSwitchWithoutParams pairDestStateAndCanSwitchWithoutParams : setOfPairDestStateAndCanSwitchWithoutParams) {
-            if (Classes.isInstanceOf(aState, pairDestStateAndCanSwitchWithoutParams.destinationStateClass())
-                // && !pairDestStateAndCanSwitchWithoutParams.getCanSwitchWithoutParams()
-            ) {
-                return;
-            }
-        }
-        throw new RuntimeException("You cannot change state from '" + this + "' to '" + aState + "' with or without any papameters!");
+        throw new RuntimeException("You cannot change state from '" + this + "' to '" + state + "'!");
     }
 
     private void setData(StateData stateData) {
@@ -60,13 +49,13 @@ public abstract class AState implements State {
 
     @Override
     public void changeState(AState aState) {
-        checkPosibleToChangeState(aState);
+        checkPosibleToChangeState(aState, false);
         aState.setAsCurrent();
     }
 
     @Override
     public void changeState(AState aState, StateData stateData) {
-        checkPosibleToChangeState(aState, stateData);
+        checkPosibleToChangeState(aState, true);
         aState.setData(stateData);
         aState.setAsCurrent();
     }

@@ -19,7 +19,7 @@ public class SCS08GameIsPlaying<ClientId> extends CS08GameIsPlaying {
     //
     @Override
     public void changeState(AState aState) {
-        super.checkPosibleToChangeState(aState);
+        super.checkPosibleToChangeState(aState, false);
         if (aState instanceof SCS02ConnectNonIdent<?>) {
             transportOfServer.sendEventOfServer(clientId, new EventOfServer20Logout());
         } else if (aState instanceof SCS03ConnectAuthorized<?>) {

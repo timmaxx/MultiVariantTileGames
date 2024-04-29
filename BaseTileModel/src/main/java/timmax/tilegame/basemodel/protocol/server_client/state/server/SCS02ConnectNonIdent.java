@@ -32,7 +32,7 @@ public class SCS02ConnectNonIdent<ClientId> extends CS02ConnectNonIdent {
 */
     @Override
     public void changeState(AState aState, StateData stateData) {
-        super.checkPosibleToChangeState(aState, stateData);
+        super.checkPosibleToChangeState(aState, true);
         if (aState instanceof SCS03ConnectAuthorized<?>) {
             transportOfServer.sendEventOfServer(clientId, new EventOfServer31GetGameTypeSet());
             super.changeState(aState, stateData);

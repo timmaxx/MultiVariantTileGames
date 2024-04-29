@@ -22,7 +22,7 @@ public class SCS04GameTypeSetSelected<ClientId> extends CS04GameTypeSetSelected 
     //
     @Override
     public void changeState(AState aState) {
-        super.checkPosibleToChangeState(aState);
+        super.checkPosibleToChangeState(aState, false);
         if (aState instanceof SCS02ConnectNonIdent) {
             transportOfServer.sendEventOfServer(clientId, new EventOfServer20Logout());
         } else if (aState instanceof SCS03ConnectAuthorized<?>) {
@@ -35,7 +35,7 @@ public class SCS04GameTypeSetSelected<ClientId> extends CS04GameTypeSetSelected 
 
     @Override
     public void changeState(AState aState, StateData stateData) {
-        super.checkPosibleToChangeState(aState, stateData);
+        super.checkPosibleToChangeState(aState, true);
         if (aState instanceof SCS05GameTypeSelected<?>) {
             transportOfServer.sendEventOfServer(clientId, new EventOfServer51GetGameMatchSet());
             super.changeState(aState, stateData);
