@@ -2,6 +2,7 @@ package timmax.tilegame.basemodel.protocol.client.jfx;
 
 import java.lang.reflect.Constructor;
 
+import timmax.commons.state.StateContext;
 import timmax.tilegame.basecontroller.BaseController;
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.basemodel.protocol.client.LocalClientState;
@@ -11,6 +12,10 @@ import timmax.tilegame.guiengine.jfx.view.ViewJfx;
 import timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx;
 
 public class LocalClientStateJfx extends LocalClientState {
+    public LocalClientStateJfx(StateContext stateContext) {
+        super(stateContext);
+    }
+
     @Override
     public Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView) {
         Constructor<? extends ViewJfx> constructorOfViewJfx;

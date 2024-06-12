@@ -28,7 +28,7 @@ public class EventOfClient21Login extends EventOfClient {
 
         if (Credentials.isUserAndPasswordCorrect(userName, password)) {
             password = ""; // Не будем даже хранить пароль.
-            remoteClientState.setUserName(userName);
+            remoteClientState.setUserName(userName, "");
         } else {
             remoteClientState.forgetUserName();
         }

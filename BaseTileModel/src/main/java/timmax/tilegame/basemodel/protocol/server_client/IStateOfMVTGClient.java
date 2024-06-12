@@ -5,14 +5,14 @@ import java.util.Set;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 
-public interface IClientState<Model> {
+public interface IStateOfMVTGClient<Model> {
     // Нумерация приведена соответствующая классам Pane0Х... пакета timmax.tilegame.client.statuscontrol:
 
     // ---- 1 NoConnect
     // void open();
 
     // ---- 2 ConnectNonIdent
-    void setUserName(String userName); // logIn
+    void setUserName(String userName, String password); // logIn
     // void close();
 
     // ---- 3 ConnectAuthorized

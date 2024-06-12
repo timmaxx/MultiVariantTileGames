@@ -5,19 +5,23 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.Set;
 
+import timmax.commons.state.StateContext;
 import timmax.tilegame.basemodel.protocol.*;
-import timmax.tilegame.basemodel.protocol.server_client.AbstractClientState;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
+import timmax.tilegame.basemodel.protocol.server_client.state.AStateOfMVTGClient;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfServer;
 
-public class RemoteClientState<ClientId> extends AbstractClientState<IModelOfServer> {
+public class RemoteClientState<ClientId> extends AStateOfMVTGClient<IModelOfServer> {
+// public class RemoteClientState<ClientId> extends AbstractStateOfMVTGClient<IModelOfServer> {
+// RemoteStateOfMVTGClient<ClientId> extends AbstractStateOfMVTGClient<IModelOfServer> {
     private final ClientId clientId;
     private final TransportOfServer<ClientId> transportOfServer;
 
     private Set<String> setOfViewName;
 
-    public RemoteClientState(TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
+    public RemoteClientState(StateContext stateContext, TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
+        super(stateContext);
         this.clientId = clientId;
         this.transportOfServer = transportOfServer;
     }
@@ -42,8 +46,8 @@ public class RemoteClientState<ClientId> extends AbstractClientState<IModelOfSer
     }
 
     @Override
-    public void setUserName(String userName) {
-        super.setUserName(userName);
+    public void setUserName(String userName, String password) {
+        super.setUserName(userName, password);
         transportOfServer.sendEventOfServer(clientId, new EventOfServer21Login(userName));
     }
 
@@ -131,6 +135,7 @@ public class RemoteClientState<ClientId> extends AbstractClientState<IModelOfSer
         // ToDo: Вызов этого метода может быть как для модели:
         //       - для которой ранее ещё не было вызвано createNewGame()
         //       - так и для той, у которой был вызов createNewGame(), но потом она была поставлена на паузу.
-        serverBaseModel.createNewGame();
+
+        // // // serverBaseModel.createNewGame();
     }
 }

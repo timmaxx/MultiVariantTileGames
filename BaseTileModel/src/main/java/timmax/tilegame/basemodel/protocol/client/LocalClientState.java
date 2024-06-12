@@ -5,19 +5,22 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import timmax.tilegame.basemodel.protocol.server_client.AbstractClientState;
+import timmax.commons.state.StateContext;
 import timmax.tilegame.basemodel.protocol.HashSetOfObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
+import timmax.tilegame.basemodel.protocol.server_client.state.AStateOfMVTGClient;
 import timmax.tilegame.baseview.View;
 
-public abstract class LocalClientState extends AbstractClientState<InstanceIdOfModel> {
+public abstract class LocalClientState extends AStateOfMVTGClient<InstanceIdOfModel> {
+// public abstract class LocalClientState extends AbstractStateOfMVTGClient<InstanceIdOfModel> {
+// LocalStateOfMVTGClient extends AbstractStateOfMVTGClient<InstanceIdOfModel> {
     private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
     private Map<String, View> mapOfViewName_View;
 
-    public LocalClientState() {
-        super();
+    public LocalClientState(StateContext stateContext) {
+        super(stateContext);
         this.hashSetOfObserverOnAbstractEvent = new HashSetOfObserverOnAbstractEvent();
         this.mapOfViewName_View = new HashMap<>();
     }
@@ -42,11 +45,11 @@ public abstract class LocalClientState extends AbstractClientState<InstanceIdOfM
         hashSetOfObserverOnAbstractEvent.add(observerOnAbstractEvent);
     }
 
-    // Overriden methods of class AbstractClientState
+    // Overriden methods of class AbstractStateOfMVTGClient
     // ---- 2 (Пользователь)
     @Override
-    public void setUserName(String userName) {
-        super.setUserName(userName);
+    public void setUserName(String userName, String password) {
+        super.setUserName(userName, password);
         hashSetOfObserverOnAbstractEvent.updateOnLogin();
     }
 
