@@ -1,16 +1,21 @@
 package timmax.tilegame.basemodel.protocol.client.jfx;
 
-import java.lang.reflect.Constructor;
-
 import timmax.tilegame.basecontroller.BaseController;
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
-import timmax.tilegame.basemodel.protocol.client.LocalClientState;
+import timmax.tilegame.basemodel.protocol.client.LocalClientState02ConnectNonIdent;
+import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.baseview.ViewMainField;
 import timmax.tilegame.guiengine.jfx.view.ViewJfx;
 import timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx;
 
-public class LocalClientStateJfx extends LocalClientState {
+import java.lang.reflect.Constructor;
+
+public class LocalClientState02ConnectNonIdentJfx<Model, ClientId> extends LocalClientState02ConnectNonIdent<Model, ClientId> {
+    public LocalClientState02ConnectNonIdentJfx(ClientStateAutomaton<Model, ClientId> clientStateAutomaton) {
+        super(clientStateAutomaton);
+    }
+
     @Override
     public Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView) {
         Constructor<? extends ViewJfx> constructorOfViewJfx;

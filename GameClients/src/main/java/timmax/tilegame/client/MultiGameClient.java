@@ -7,9 +7,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
-import timmax.tilegame.basemodel.protocol.client.LocalClientState;
 import timmax.tilegame.basemodel.protocol.client.ModelOfClient;
-import timmax.tilegame.basemodel.protocol.client.jfx.LocalClientStateJfx;
+import timmax.tilegame.basemodel.protocol.client.jfx.FabricOfClientStatesJfx;
+import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.client.statuscontrol.*;
 import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
 import timmax.tilegame.transport.TransportOfClient;
@@ -24,7 +24,7 @@ public class MultiGameClient extends Application {
         Pane root = new VBox();
 
         TransportOfClient transportOfClient = new MultiGameWebSocketClientManyTimesUse();
-        LocalClientState localClientStateJfx = new LocalClientStateJfx();
+        ClientStateAutomaton localClientStateJfx = new ClientStateAutomaton(new FabricOfClientStatesJfx());
         IModelOfClient iModelOfClient = new ModelOfClient(transportOfClient, localClientStateJfx);
         // ToDo: Как-то не нравится мне, что модель приходится инициализировать через сеттер.
         transportOfClient.setModelOfClient(iModelOfClient);

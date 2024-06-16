@@ -6,6 +6,9 @@ import java.util.Set;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 
+// ToDo: Удалить этот класс после того, как будут удалены классы
+//       - LocalClientState
+//       - RemoteClientState
 public abstract class AbstractClientState<Model> implements IClientState<Model> {
     // Нумерация приведена соответствующая классам Pane0Х... пакета timmax.tilegame.client.statuscontrol:
     protected String userName; // ---- 2 (Пользователь)

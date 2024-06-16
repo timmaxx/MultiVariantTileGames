@@ -1,5 +1,6 @@
 package timmax.tilegame.client.statuscontrol;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -26,13 +27,29 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
         buttonNextState.setOnAction(event -> {
             disableAllControls();
             String gameName = comboBoxGameTypeSet.getValue();
-            ModelOfServerDescriptor modelOfServerDescriptor = iModelOfClient
+
+//  ToDo: Код в следующем блоке предпочтительнее, но он не компилируется
+//        (перестал после замены класса LocalClientState на ClientStateAutomaton)...
+            ModelOfServerDescriptor modelOfServerDescriptor = null;
+            for (int i = 0; i < iModelOfClient.getLocalClientState().getGameTypeSet().size(); i++) {
+                if (((ModelOfServerDescriptor)(iModelOfClient.getLocalClientState().getGameTypeSet().stream().toList().get(i))).getGameName().equals(gameName)) {
+                    modelOfServerDescriptor = ((ModelOfServerDescriptor)(iModelOfClient.getLocalClientState().getGameTypeSet().stream().toList().get(i)));
+                    break;
+                }
+            }
+//
+
+/*
+            ModelOfServerDescriptor modelOfServerDescriptor =
+                    iModelOfClient
                     .getLocalClientState()
                     .getGameTypeSet()
                     .stream()
                     .filter(x -> x.getGameName().equals(gameName))
                     .findAny()
                     .orElse(null);
+*/
+
             iModelOfClient.gameTypeSelect(modelOfServerDescriptor);
         });
 
@@ -91,12 +108,25 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
 
     @Override
     public void updateOnGetGameTypeSet() {
+//  ToDo: Код в следующем блоке предпочтительнее, но он не компилируется
+//        (перестал после замены класса LocalClientState на ClientStateAutomaton)...
+        List<String> tmp2 = new ArrayList<>();
+        for (int i = 0; i < iModelOfClient.getLocalClientState().getGameTypeSet().size(); i++) {
+            ModelOfServerDescriptor tmpI = (ModelOfServerDescriptor)(iModelOfClient.getLocalClientState().getGameTypeSet().stream().toList().get(i));
+            tmp2.add(tmpI.getGameName());
+        }
+        comboBoxGameTypeSet.setItems(FXCollections.observableArrayList(tmp2));
+//
+
+/*
         comboBoxGameTypeSet.setItems(FXCollections.observableArrayList(
                 iModelOfClient.getLocalClientState().getGameTypeSet()
                         .stream()
                         .map(ModelOfServerDescriptor::getGameName)
                         .toList()
         ));
+*/
+
         doOnThisState();
     }
 

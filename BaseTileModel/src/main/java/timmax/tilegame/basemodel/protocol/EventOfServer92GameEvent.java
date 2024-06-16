@@ -26,7 +26,9 @@ public class EventOfServer92GameEvent extends EventOfServer {
     public void executeOnClient(IModelOfClient iModelOfClient) {
         logger.debug("  onGameEvent");
         logger.debug("    viewName = {}", viewName);
-        View view = iModelOfClient.getLocalClientState().getMapOfViewName_View().get(viewName);
+        // ToDo: Почему-то без явного преобразования типа, такая ошибка:
+        //       java: incompatible types: java.lang.Object cannot be converted to timmax.tilegame.baseview.View
+        View view = (View)(iModelOfClient.getLocalClientState().getMapOfViewName_View().get(viewName));
         view.update(gameEvent);
     }
 

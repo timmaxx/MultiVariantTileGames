@@ -12,6 +12,7 @@ import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import timmax.tilegame.baseview.View;
 
+// ToDo: Удалить класс после того, как будут применены классы RemoteClientState0Х...
 public abstract class LocalClientState extends AbstractClientState<InstanceIdOfModel> {
     private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
     private Map<String, View> mapOfViewName_View;

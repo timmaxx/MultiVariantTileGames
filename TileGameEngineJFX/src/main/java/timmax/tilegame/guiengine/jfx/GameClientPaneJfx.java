@@ -8,21 +8,21 @@ import javafx.scene.layout.VBox;
 
 import timmax.tilegame.basecontroller.BaseController;
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
-import timmax.tilegame.basemodel.protocol.client.LocalClientState;
+import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfClient;
 
 import timmax.tilegame.guiengine.jfx.view.ViewJfx;
 
 // ToDo: А нужен-ли этот класс?
-public class GameClientPaneJfx extends VBox {
+public class GameClientPaneJfx<Model, ClientId> extends VBox {
     public GameClientPaneJfx(
-            IModelOfClient iModelOfClient,
+            IModelOfClient<Model, ClientId> iModelOfClient,
             TransportOfClient transportOfClient) {
 
         BaseController baseController = new BaseController(transportOfClient);
 
-        LocalClientState localClientState = iModelOfClient.getLocalClientState();
+        ClientStateAutomaton<Model, ClientId> localClientState = iModelOfClient.getLocalClientState();
         Map<String, Class< ? extends View>> mapOfViewName_ViewClass = localClientState.getGameType().getMapOfViewNameViewClass();
         Map<String, View>  mapOfVieName_View = localClientState.getMapOfViewName_View();
 
