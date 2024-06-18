@@ -16,14 +16,14 @@ import org.slf4j.LoggerFactory;
 import timmax.tilegame.basemodel.protocol.ObjectMapperOfMvtg;
 import timmax.tilegame.basemodel.protocol.EventOfClient;
 import timmax.tilegame.basemodel.protocol.EventOfServer;
-import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
+import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 import timmax.tilegame.transport.TransportOfServer;
 
 public class MultiGameWebSocketServer extends WebSocketServer implements TransportOfServer<WebSocket> {
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketServer.class);
 
     private final ObjectMapperOfMvtg mapper;
-    private final Map<WebSocket, RemoteClientState<WebSocket>> mapOfRemoteClientState;
+    private final Map<WebSocket, RemoteClientStateAutomaton<WebSocket>> mapOfRemoteClientState;
 
     public MultiGameWebSocketServer(int port) {
         super(new InetSocketAddress(port));
@@ -48,7 +48,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     public void onOpen(WebSocket webSocket, ClientHandshake clientHandshake) {
         logger.info("WebSocket: {}. Connection was opened.", webSocket);
         logger.debug("  ClientHandshake: {}.", clientHandshake);
-        mapOfRemoteClientState.put(webSocket, new RemoteClientState<>(this, webSocket));
+        mapOfRemoteClientState.put(webSocket, new RemoteClientStateAutomaton<>(new FabricOfRemoteClientStates<>(), this, webSocket));
     }
 
     @Override
@@ -61,7 +61,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteBuffer.array());
         // ToDo: А вдруг здесь от клиента прилетит что-то не EventOfClient?
         //       Тогда нужно обрабатывать исключение и выводить в лог.
-        EventOfClient eventOfClient = mapper.readValue(byteArrayInputStream, EventOfClient.class);
+        EventOfClient<WebSocket> eventOfClient = mapper.readValue(byteArrayInputStream, EventOfClient.class);
         logger.info("WebSocket: {}. Incoming message. EventOfClient: {}.", webSocket, eventOfClient);
         Thread thread = new Thread(() -> eventOfClient.executeOnServer(mapOfRemoteClientState.get(webSocket)));
         thread.start();

@@ -37,7 +37,7 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
 
     public <ClientId> ModelOfServerDescriptor(
             String modelOfServerFullClassName,
-            RemoteClientState<ClientId> remoteClientState)
+            RemoteClientStateAutomaton<ClientId> remoteClientState)
             throws ClassNotFoundException, NoSuchMethodException {
         this();
         // ToDo: Мапу нужно инициализировать не как сейчас - константой, а в классе найти все выборки View.class, в т.ч. и ViewMainField.class.
@@ -45,7 +45,7 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
 
         // ToDo: Избавиться от "Warning:(45, 62) Unchecked cast: 'java.lang.Class<capture<?>>' to 'java.lang.Class<? extends timmax.tilegame.basemodel.protocol.server.IModelOfServer>'"
         Class<? extends IModelOfServer> modelOfServerClass = (Class<? extends IModelOfServer>) Class.forName(modelOfServerFullClassName);
-        constructorOfModelOfServerClass = modelOfServerClass.getConstructor(RemoteClientState.class);
+        constructorOfModelOfServerClass = modelOfServerClass.getConstructor(remoteClientState.getClass());
 
         IModelOfServer iModelOfServer;
         try {

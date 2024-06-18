@@ -5,9 +5,9 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.Map;
 
-import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
+import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
-public class EventOfClient71StartGameMatchPlaying extends EventOfClient {
+public class EventOfClient71StartGameMatchPlaying<ClientId> extends EventOfClient<ClientId> {
     private Map<String, Integer> mapOfParamsOfModelValue;
 
     public EventOfClient71StartGameMatchPlaying() {
@@ -20,7 +20,7 @@ public class EventOfClient71StartGameMatchPlaying extends EventOfClient {
     }
 
     @Override
-    public <ClientId> void executeOnServer(RemoteClientState<ClientId> remoteClientState) {
+    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientState) {
         logger.debug("  onStartGameMatchPlaying");
         remoteClientState.setMapOfParamsOfModelValue(mapOfParamsOfModelValue);
         remoteClientState.setGameIsPlaying(true);

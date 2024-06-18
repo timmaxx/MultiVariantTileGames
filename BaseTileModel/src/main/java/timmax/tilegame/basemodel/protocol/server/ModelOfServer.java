@@ -27,11 +27,11 @@ public abstract class ModelOfServer<ClientId> implements IModelOfServer {
     protected static final String PARAM_NAME_WIDTH = "Width";
     protected static final String PARAM_NAME_HEIGHT = "Height";
 
-    protected final RemoteClientState<ClientId> remoteClientState;
+    protected final RemoteClientStateAutomaton<ClientId> remoteClientState;
 
     private GameStatus gameStatus;
 
-    public ModelOfServer(RemoteClientState<ClientId> remoteClientState) {
+    public ModelOfServer(RemoteClientStateAutomaton<ClientId> remoteClientState) {
         this.remoteClientState = remoteClientState;
     }
 

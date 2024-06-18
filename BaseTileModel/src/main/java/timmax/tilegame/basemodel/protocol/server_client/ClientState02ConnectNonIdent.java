@@ -1,15 +1,10 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
-import timmax.tilegame.transport.TransportOfServer;
 
 public abstract class ClientState02ConnectNonIdent<Model, ClientId> extends AbstractClientState2<Model, ClientId> implements IClientState02ConnectNonIdent {
     public ClientState02ConnectNonIdent(ClientStateAutomaton<Model, ClientId> clientStateAutomaton) {
         super(clientStateAutomaton);
-    }
-
-    public ClientState02ConnectNonIdent(ClientStateAutomaton<Model, ClientId> clientStateAutomaton, TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
-        super(clientStateAutomaton, transportOfServer, clientId);
     }
 
     @Override

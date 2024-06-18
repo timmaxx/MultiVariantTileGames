@@ -30,7 +30,6 @@ public class ClientStateAutomaton<Model, ClientId> implements
     ClientState08GameIsPlaying<Model, ClientId> clientState08GameIsPlaying;
 
     private IClientState00 currenState;
-    //private Map<String, Integer> mapOfParamsOfModelValue;
 
     // For local clientState:
     // Эти переменные используются только в классах-наследниках LocalClientState0X.
@@ -40,16 +39,15 @@ public class ClientStateAutomaton<Model, ClientId> implements
     private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
     private final Map<String, View> mapOfViewName_View;
 
-
-    public ClientStateAutomaton(FabricOfClientStates<Model, ClientId> fabricOfClientStates) {
-        clientState01NoConect = fabricOfClientStates.getClientState01NoConect(this);
-        clientState02ConnectNonIdent = fabricOfClientStates.getClientState02ConnectNonIdent(this);
-        clientState03ConnectAuthorized = fabricOfClientStates.getClientState03ConnectAuthorized(this);
-        clientState04GameTypeSetSelected = fabricOfClientStates.getClientState04GameTypeSetSelected(this);
-        clientState05GameTypeSelected = fabricOfClientStates.getClientState05GameTypeSelected(this);
-        clientState06GameMatchSetSelected = fabricOfClientStates.getClientState06GameMatchSetSelected(this);
-        clientState07GameMatchSelected = fabricOfClientStates.getClientState07GameMatchSelected(this);
-        clientState08GameIsPlaying = fabricOfClientStates.getClientState08GameIsPlaying(this);
+    public ClientStateAutomaton(IFabricOfClientStates<Model, ClientId> IFabricOfClientStates) {
+        clientState01NoConect = IFabricOfClientStates.getClientState01NoConect(this);
+        clientState02ConnectNonIdent = IFabricOfClientStates.getClientState02ConnectNonIdent(this);
+        clientState03ConnectAuthorized = IFabricOfClientStates.getClientState03ConnectAuthorized(this);
+        clientState04GameTypeSetSelected = IFabricOfClientStates.getClientState04GameTypeSetSelected(this);
+        clientState05GameTypeSelected = IFabricOfClientStates.getClientState05GameTypeSelected(this);
+        clientState06GameMatchSetSelected = IFabricOfClientStates.getClientState06GameMatchSetSelected(this);
+        clientState07GameMatchSelected = IFabricOfClientStates.getClientState07GameMatchSelected(this);
+        clientState08GameIsPlaying = IFabricOfClientStates.getClientState08GameIsPlaying(this);
 
         // For local clientState:
         this.hashSetOfObserverOnAbstractEvent = new HashSetOfObserverOnAbstractEvent();
@@ -57,19 +55,7 @@ public class ClientStateAutomaton<Model, ClientId> implements
 
         currenState = clientState01NoConect;
     }
-/*
-    protected IClientState00 getCurrenState() {
-        return currenState;
-    }
 
-    protected void setMapOfParamsOfModelValue(Map<String, Integer> mapOfParamsOfModelValue) {
-        this.mapOfParamsOfModelValue = mapOfParamsOfModelValue;
-    }
-
-    protected Map<String, Integer> getMapOfParamsOfModelValue() {
-        return mapOfParamsOfModelValue;
-    }
-*/
     public Map<String, View> getMapOfViewName_View() {
         return mapOfViewName_View;
     }
@@ -90,48 +76,42 @@ public class ClientStateAutomaton<Model, ClientId> implements
     public void addCallBackOnIncomingTransportPackageEvent(ObserverOnAbstractEvent observerOnAbstractEvent) {
         getHashSetOfObserverOnAbstractEvent().add(observerOnAbstractEvent);
     }
-
+/*
     // ---- 2 (Пользователь)
     protected void setUserName_(String userName) {
         setGameTypeSet_(null);
-        // this.userName = userName;
         clientState03ConnectAuthorized.setUserName_(userName);
     }
 
     // ---- 3 (Список типов игр)
     protected void setGameTypeSet_(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor) {
         setGameType_(null);
-        // this.setOfModelOfServerDescriptor = setOfModelOfServerDescriptor;
         clientState04GameTypeSetSelected.setGameTypeSet_(setOfModelOfServerDescriptor);
     }
 
     // ---- 4 (Конкретный тип игры)
     protected void setGameType_(ModelOfServerDescriptor modelOfServerDescriptor) {
         setGameMatchSet_(null);
-        // this.modelOfServerDescriptor = modelOfServerDescriptor;
         clientState05GameTypeSelected.setGameType_(modelOfServerDescriptor);
     }
 
     // ---- 5 (Набор моделей игр)
     protected void setGameMatchSet_(Set<Model> setOfServerBaseModel) {
         setServerBaseModel_(null);
-        // this.setOfServerBaseModel = setOfServerBaseModel;
         clientState06GameMatchSetSelected.setGameMatchSet_(setOfServerBaseModel);
     }
 
     // ---- 6 (Конкретная модель игры)
     protected void setServerBaseModel_(Model serverBaseModel) {
         setGameIsPlaying_(null);
-        // this.serverBaseModel = serverBaseModel;
         clientState07GameMatchSelected.setServerBaseModel_(serverBaseModel);
     }
 
     // ---- 7
     protected void setGameIsPlaying_(Boolean gameIsPlaying) {
-        // this.gameIsPlaying = gameIsPlaying;
         clientState08GameIsPlaying.setGameIsPlaying_(gameIsPlaying);
     }
-
+*/
     //
     @Override
     public MainGameClientStatus getMainGameClientStatus() {

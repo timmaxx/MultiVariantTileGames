@@ -2,7 +2,6 @@ package timmax.tilegame.basemodel.protocol.server_client;
 
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
-import timmax.tilegame.transport.TransportOfServer;
 
 import java.util.Set;
 
@@ -11,10 +10,6 @@ public abstract class ClientState04GameTypeSetSelected<Model, ClientId> extends 
 
     public ClientState04GameTypeSetSelected(ClientStateAutomaton<Model, ClientId> clientStateAutomaton) {
         super(clientStateAutomaton);
-    }
-
-    public ClientState04GameTypeSetSelected(ClientStateAutomaton<Model, ClientId> clientStateAutomaton, TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
-        super(clientStateAutomaton, transportOfServer, clientId);
     }
 
     protected void setGameTypeSet_(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor) {

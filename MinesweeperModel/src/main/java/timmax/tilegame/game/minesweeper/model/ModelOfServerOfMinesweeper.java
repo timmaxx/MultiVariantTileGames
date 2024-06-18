@@ -11,7 +11,7 @@ import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
 import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
-import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
+import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
 import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperPersistentParams;
 import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsFlag;
@@ -39,7 +39,7 @@ public class ModelOfServerOfMinesweeper<ClientId> extends ModelOfServer<ClientId
 
     private AllMinesweeperObjects<ClientId> allMinesweeperObjects;
 
-    public ModelOfServerOfMinesweeper(RemoteClientState<ClientId> remoteClientState) {
+    public ModelOfServerOfMinesweeper(RemoteClientStateAutomaton<ClientId> remoteClientState) {
         super(remoteClientState);
     }
 

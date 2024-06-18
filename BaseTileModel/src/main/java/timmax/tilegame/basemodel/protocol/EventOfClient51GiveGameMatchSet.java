@@ -2,11 +2,11 @@ package timmax.tilegame.basemodel.protocol;
 
 import java.util.HashSet;
 
-import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
+import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
-public class EventOfClient51GiveGameMatchSet extends EventOfClient {
+public class EventOfClient51GiveGameMatchSet<ClientId> extends EventOfClient<ClientId> {
     @Override
-    public <ClientId> void executeOnServer(RemoteClientState<ClientId> remoteClientState) {
+    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientState) {
         logger.debug("  GetGameMatchSet");
 
         // Сначала вместо new ArrayList<>() применял List.of() и здесь это работало.

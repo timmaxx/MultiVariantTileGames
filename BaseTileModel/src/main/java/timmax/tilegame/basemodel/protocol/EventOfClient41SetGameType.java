@@ -5,9 +5,9 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
-import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
+import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
-public class EventOfClient41SetGameType extends EventOfClient {
+public class EventOfClient41SetGameType<ClientId> extends EventOfClient<ClientId> {
     private String modelOfServerDescriptorGameTypeName;
 
     public EventOfClient41SetGameType() {
@@ -20,7 +20,7 @@ public class EventOfClient41SetGameType extends EventOfClient {
     }
 
     @Override
-    public <ClientId> void executeOnServer(RemoteClientState<ClientId> remoteClientState) {
+    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientState) {
         logger.debug("  onGameTypeSelect");
         logger.debug("  modelOfServerDescriptorGameTypeName = {}", modelOfServerDescriptorGameTypeName);
         if (modelOfServerDescriptorGameTypeName == null) {
@@ -29,6 +29,19 @@ public class EventOfClient41SetGameType extends EventOfClient {
             return;
         }
         // От клиента поступило символическое имя типа игры (оно должно быть одно из тех, которые ему направлялись множеством).
+
+        //  ToDo: Код в следующем после этого блоке предпочтительнее, но он не компилируется...
+//
+/*
+        ModelOfServerDescriptor modelOfServerDescriptor = null;
+        for (int i = 0; i < remoteClientState.getGameTypeSet().size(); i++) {
+            modelOfServerDescriptor = remoteClientState.getGameTypeSet().stream().toList().get(i);
+            if (modelOfServerDescriptor.getGameName().equals(modelOfServerDescriptorGameTypeName)) {
+                break;
+            }
+        }
+*/
+//
         ModelOfServerDescriptor modelOfServerDescriptor = remoteClientState
                 .getGameTypeSet()
                 .stream()

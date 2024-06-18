@@ -1,48 +1,15 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
 import timmax.tilegame.baseview.View;
-import timmax.tilegame.transport.TransportOfServer;
 
 import java.lang.reflect.Constructor;
-import java.util.HashSet;
-import java.util.Set;
 
 // ToDo: Переименовать этот класс в AbstractClientState после того, как предыдущий AbstractClientState будет удалён.
 public abstract class AbstractClientState2<Model, ClientId> {
     private final ClientStateAutomaton<Model, ClientId> clientStateAutomaton;
-    // private Map<String, Integer> mapOfParamsOfModelValue;
 
-    // ToDo: Вероятно вынести эти три переменные в ClientStateAutomaton
-    // For remote clientState:
-    private final ClientId clientId;
-    private final TransportOfServer<ClientId> transportOfServer;
-    private final Set<String> setOfViewName;
-
-/*
-    public void setMapOfParamsOfModelValue(Map<String, Integer> mapOfParamsOfModelValue) {
-        this.mapOfParamsOfModelValue = mapOfParamsOfModelValue;
-    }
-
-    public Map<String, Integer> getMapOfParamsOfModelValue() {
-        return mapOfParamsOfModelValue;
-    }
-*/
     public AbstractClientState2(ClientStateAutomaton<Model, ClientId> clientStateAutomaton) {
         this.clientStateAutomaton = clientStateAutomaton;
-
-        // For remote clientState:
-        this.clientId = null;
-        this.transportOfServer = null;
-        setOfViewName = null;
-    }
-
-    public AbstractClientState2(ClientStateAutomaton<Model, ClientId> clientStateAutomaton, TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
-        this.clientStateAutomaton = clientStateAutomaton;
-
-        // For remote clientState:
-        this.clientId = clientId;
-        this.transportOfServer = transportOfServer;
-        this.setOfViewName = new HashSet<>();
     }
 
     public ClientStateAutomaton<Model, ClientId> getClientStateAutomaton() {
@@ -79,20 +46,4 @@ public abstract class AbstractClientState2<Model, ClientId> {
             Class<? extends View> classOfView
     );
     // End of local clientState
-
-
-    // ToDo: Вынести эти методы в ClientStateAutomaton
-    // For remote clientState:
-    protected Set<String> getSetOfViewName() {
-        return setOfViewName;
-    }
-
-    protected TransportOfServer<ClientId> getTransportOfServer() {
-        return transportOfServer;
-    }
-
-    protected ClientId getClientId() {
-        return clientId;
-    }
-    // End of remote clientState
 }

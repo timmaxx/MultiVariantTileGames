@@ -8,10 +8,10 @@ import java.lang.reflect.InvocationTargetException;
 
 import timmax.tilegame.basemodel.protocol.server.IModelOfServer;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
-import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
+import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 
-public class EventOfClient61SetGameMatch extends EventOfClient {
+public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientId> {
     private InstanceIdOfModel instanceIdOfModel;
 
     public EventOfClient61SetGameMatch() {
@@ -24,7 +24,7 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
     }
 
     @Override
-    public <ClientId> void executeOnServer(RemoteClientState<ClientId> remoteClientState) {
+    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientState) {
         logger.debug("  onSetGameMatch");
         logger.debug("  InstanceIdOfModel = {}", instanceIdOfModel);
 

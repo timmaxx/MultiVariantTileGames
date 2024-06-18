@@ -15,7 +15,7 @@ import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
 import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
-import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
+import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 import timmax.tilegame.basemodel.tile.Direction;
 
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventOneTileSokobanChangeable;
@@ -64,7 +64,7 @@ public class ModelOfServerOfSokoban<ClientId> extends ModelOfServer<ClientId> {
         }
     }
 
-    public ModelOfServerOfSokoban(RemoteClientState<ClientId> remoteClientState) {
+    public ModelOfServerOfSokoban(RemoteClientStateAutomaton<ClientId> remoteClientState) {
         super(remoteClientState);
     }
 

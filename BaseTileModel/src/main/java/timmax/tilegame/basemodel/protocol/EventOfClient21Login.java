@@ -5,9 +5,9 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.credential.Credentials;
-import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
+import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
-public class EventOfClient21Login extends EventOfClient {
+public class EventOfClient21Login<ClientId> extends EventOfClient<ClientId> {
     private String userName;
     private String password;
 
@@ -22,7 +22,7 @@ public class EventOfClient21Login extends EventOfClient {
     }
 
     @Override
-    public <ClientId> void executeOnServer(RemoteClientState<ClientId> remoteClientState) {
+    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientState) {
         logger.debug("  onLogin");
         logger.debug("    userName = {} | password = *", userName); // Пароль не выводим:
 

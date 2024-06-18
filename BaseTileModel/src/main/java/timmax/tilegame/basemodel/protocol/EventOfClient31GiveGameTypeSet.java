@@ -1,15 +1,17 @@
 package timmax.tilegame.basemodel.protocol;
 
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerLoader;
-import timmax.tilegame.basemodel.protocol.server.RemoteClientState;
+import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
-public class EventOfClient31GiveGameTypeSet extends EventOfClient {
+public class EventOfClient31GiveGameTypeSet<ClientId> extends EventOfClient<ClientId> {
     @Override
-    public <ClientId> void executeOnServer(RemoteClientState<ClientId> remoteClientState) {
+    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientState) {
         logger.debug("  onGetGameTypeSet");
-        remoteClientState.setGameTypeSet(ModelOfServerLoader.getCollectionOfModelOfServerDescriptor(
-                remoteClientState
-        ));
+        remoteClientState.setGameTypeSet(
+                ModelOfServerLoader.getCollectionOfModelOfServerDescriptor(
+                        remoteClientState
+                )
+        );
     }
 
     @Override

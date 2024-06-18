@@ -16,7 +16,7 @@ public class ModelOfServerLoader {
     private static final String FILE_NAME_WITH_CLASS_NAMES_OF_MODELS = "models.txt";
 
     public static <ClientId> Set<ModelOfServerDescriptor> getCollectionOfModelOfServerDescriptor(
-            RemoteClientState<ClientId> remoteClientState
+            RemoteClientStateAutomaton<ClientId> remoteClientState
     ) {
         Path path = null;
         try {
@@ -37,7 +37,7 @@ public class ModelOfServerLoader {
                     logger.warn("Class '{}' is not found.", line, e);
                     continue;
                 } catch (NoSuchMethodException e) {
-                    logger.warn("Class '{}' does not contains constructor with one parameter TransportOfServer type.", line, e);
+                    logger.warn("Class '{}' does not contains constructor with " + "'one parameter " + remoteClientState.getClass() + "'" + " type.", line, e);
                     continue;
                 }
                 result.add(modelOfServerDescriptor);

@@ -1,17 +1,12 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
 import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
-import timmax.tilegame.transport.TransportOfServer;
 
 public abstract class ClientState07GameMatchSelected<Model, ClientId> extends AbstractClientState2<Model, ClientId> implements IClientState07GameMatchSelected<Model> {
     protected Model serverBaseModel; // ---- 6 (Конкретная модель игры)
 
     public ClientState07GameMatchSelected(ClientStateAutomaton<Model, ClientId> clientStateAutomaton) {
         super(clientStateAutomaton);
-    }
-
-    public ClientState07GameMatchSelected(ClientStateAutomaton<Model, ClientId> clientStateAutomaton, TransportOfServer<ClientId> transportOfServer, ClientId clientId) {
-        super(clientStateAutomaton, transportOfServer, clientId);
     }
 
     protected void setServerBaseModel_(Model serverBaseModel) {
