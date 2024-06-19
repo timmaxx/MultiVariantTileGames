@@ -8,6 +8,7 @@ public abstract class LocalClientState07GameMatchSelected<Model, ClientId> exten
         super(clientStateAutomaton);
     }
 
+    // Overriden methods of class AbstractClientState
     // ---- 6 (Конкретная модель игры)
     @Override
     public void forgetServerBaseModel() {

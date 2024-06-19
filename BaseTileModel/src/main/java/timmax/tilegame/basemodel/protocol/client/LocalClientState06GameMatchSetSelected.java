@@ -8,6 +8,7 @@ public abstract class LocalClientState06GameMatchSetSelected<Model, ClientID> ex
         super(clientStateAutomaton);
     }
 
+    // Overriden methods of class AbstractClientState
     // ---- 5 (Набор моделей игр)
     @Override
     public void forgetGameMatchSet() {

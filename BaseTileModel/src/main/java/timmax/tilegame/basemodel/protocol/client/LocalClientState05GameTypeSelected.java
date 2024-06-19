@@ -10,6 +10,7 @@ public abstract class LocalClientState05GameTypeSelected<Model, ClientID> extend
         super(clientStateAutomaton);
     }
 
+    // Overriden methods of class AbstractClientState
     // ---- 4 (Конкретный тип игры)
     @Override
     public void forgetGameType() {

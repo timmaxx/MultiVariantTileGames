@@ -68,29 +68,31 @@ public class ClientStateAutomaton<Model, ClientId> implements
         mapOfViewName_View.put(view.getViewName(), view);
     }
 
-    // ToDo: Этот метод нужно не для состояния реализовывать, а для автомата!!!
-    public Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView) {
-        return currenState.getViewConstructor(classOfView);
-    }
-
     public void addCallBackOnIncomingTransportPackageEvent(ObserverOnAbstractEvent observerOnAbstractEvent) {
         getHashSetOfObserverOnAbstractEvent().add(observerOnAbstractEvent);
     }
 
-    //
+    // interface IClientState00
+    // ToDo: delete from interface IClientState00 and from this class
+    //       Этот метод нужно не для состояния реализовывать, а для автомата!!!
+    @Override
+    public Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView) {
+        return currenState.getViewConstructor(classOfView);
+    }
+
     @Override
     public MainGameClientStatus getMainGameClientStatus() {
         return currenState.getMainGameClientStatus();
     }
 
-    // 2
+    // 2 interface IClientState02ConnectNonIdent
     @Override
     public void setUserName(String userName) {
         clientState02ConnectNonIdent.setUserName(userName);
         currenState = clientState03ConnectAuthorized;
     }
 
-    // 3
+    // 3 interface IClientState03ConnectAuthorized
     @Override
     public String getUserName() {
         return clientState03ConnectAuthorized.getUserName();
@@ -108,7 +110,7 @@ public class ClientStateAutomaton<Model, ClientId> implements
         currenState = clientState04GameTypeSetSelected;
     }
 
-    // 4
+    // 4 interface IClientState04GameTypeSetSelected
     @Override
     public Set<ModelOfServerDescriptor> getGameTypeSet() {
         return clientState04GameTypeSetSelected.getGameTypeSet();
@@ -126,7 +128,7 @@ public class ClientStateAutomaton<Model, ClientId> implements
         currenState = clientState05GameTypeSelected;
     }
 
-    // 5
+    // 5 interface IClientState05GameTypeSelected
     @Override
     public ModelOfServerDescriptor getGameType() {
         return clientState05GameTypeSelected.getGameType();
@@ -144,7 +146,7 @@ public class ClientStateAutomaton<Model, ClientId> implements
         currenState = clientState06GameMatchSetSelected;
     }
 
-    // 6
+    // 6 interface IClientState06GameMatchSetSelected
     @Override
     public Set<Model> getGameMatchSet() {
         return clientState06GameMatchSetSelected.getGameMatchSet();
@@ -162,7 +164,7 @@ public class ClientStateAutomaton<Model, ClientId> implements
         currenState = clientState07GameMatchSelected;
     }
 
-    // 7
+    // 7 interface IClientState07GameMatchSelected
     @Override
     public Model getServerBaseModel() {
         return clientState07GameMatchSelected.getServerBaseModel();
@@ -180,7 +182,7 @@ public class ClientStateAutomaton<Model, ClientId> implements
         currenState = clientState08GameIsPlaying;
     }
 
-    // 8
+    // 8 interface IClientState08GameIsPlaying
     @Override
     public Boolean getGameIsPlaying() {
         return clientState08GameIsPlaying.getGameIsPlaying();

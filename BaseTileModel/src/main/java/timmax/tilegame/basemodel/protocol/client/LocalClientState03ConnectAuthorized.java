@@ -11,6 +11,7 @@ public abstract class LocalClientState03ConnectAuthorized<Model, ClientId> exten
         super(clientStateAutomaton);
     }
 
+    // Overriden methods of class AbstractClientState
     // ---- 2 (Пользователь)
     @Override
     public void forgetUserName() {

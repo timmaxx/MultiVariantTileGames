@@ -9,6 +9,7 @@ public abstract class LocalClientState04GameTypeSetSelected<Model, ClientId> ext
         super(clientStateAutomaton);
     }
 
+    // Overriden methods of class AbstractClientState
     // ---- 3 (Список типов игр)
     @Override
     public void forgetGameTypeSet() {

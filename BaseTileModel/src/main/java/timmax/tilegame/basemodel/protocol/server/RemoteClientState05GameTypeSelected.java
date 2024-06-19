@@ -15,6 +15,7 @@ public class RemoteClientState05GameTypeSelected<ClientId> extends ClientState05
         super(clientStateAutomaton);
     }
 
+    // Overriden methods of class AbstractClientState
     // ---- 4 (Конкретный тип игры)
     @Override
     public void forgetGameType() {
@@ -36,14 +37,18 @@ public class RemoteClientState05GameTypeSelected<ClientId> extends ClientState05
                                 .stream()
                                 .map(InstanceIdOfModel::modelOfServerToInstanceIdOfModel)
                                 .collect(Collectors.toSet())
-                ));
+                )
+        );
     }
 
+    // interface IClientState00
+    // ToDo: delete from interface IClientState00 and from this class
     @Override
     public Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView) {
         throw new RuntimeException("Not available for this class!");
     }
 
+    // class AbstractClientState
     @Override
     public RemoteClientStateAutomaton<ClientId> getClientStateAutomaton() {
         return (RemoteClientStateAutomaton<ClientId>) (super.getClientStateAutomaton());

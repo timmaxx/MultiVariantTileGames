@@ -13,6 +13,7 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
         super(clientStateAutomaton);
     }
 
+    // Overriden methods of class AbstractClientState
     // ---- 3 (Список типов игр)
     @Override
     public void forgetGameTypeSet() {
@@ -44,11 +45,14 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
         );
     }
 
+    // interface IClientState00
+    // ToDo: delete from interface IClientState00 and from this class
     @Override
     public Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView) {
         throw new RuntimeException("Not available for this class!");
     }
 
+    // class AbstractClientState
     @Override
     public RemoteClientStateAutomaton<ClientId> getClientStateAutomaton() {
         return (RemoteClientStateAutomaton<ClientId>) (super.getClientStateAutomaton());

@@ -8,6 +8,7 @@ public abstract class LocalClientState08GameIsPlaying<Model, ClientId> extends C
         super(clientStateAutomaton);
     }
 
+    // Overriden methods of class AbstractClientState
     // ---- 7
     @Override
     public void forgetGameIsPlaying() {

@@ -13,6 +13,7 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
         super(clientStateAutomaton);
     }
 
+    // Overriden methods of class AbstractClientState
     // ---- 5 Перечень партий
     @Override
     public void forgetGameMatchSet() {
@@ -31,14 +32,18 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
                 getClientStateAutomaton().getClientId(),
                 new EventOfServer61SetGameMatch(
                         new InstanceIdOfModel(iModelOfServer.toString())
-                ));
+                )
+        );
     }
 
+    // interface IClientState00
+    // ToDo: delete from interface IClientState00 and from this class
     @Override
     public Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView) {
         throw new RuntimeException("Not available for this class!");
     }
 
+    // class AbstractClientState
     @Override
     public RemoteClientStateAutomaton<ClientId> getClientStateAutomaton() {
         return (RemoteClientStateAutomaton<ClientId>) (super.getClientStateAutomaton());

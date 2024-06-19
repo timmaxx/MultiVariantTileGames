@@ -12,11 +12,14 @@ public abstract class ClientState05GameTypeSelected<Model, ClientId> extends Abs
         super(clientStateAutomaton);
     }
 
+    // ToDo: сделать его private после реализации всех подобных следующих комментариев.
     protected void setGameType_(ModelOfServerDescriptor modelOfServerDescriptor) {
+        // ToDo: вместо вызова с null параметром, следует вызывать соответствующий forgetXxx();
         getClientStateAutomaton().clientState06GameMatchSetSelected.setGameMatchSet_(null);
         this.modelOfServerDescriptor = modelOfServerDescriptor;
     }
 
+    // Overriden methods of class AbstractClientState
     @Override
     public ModelOfServerDescriptor getGameType() {
         return modelOfServerDescriptor;
@@ -32,6 +35,8 @@ public abstract class ClientState05GameTypeSelected<Model, ClientId> extends Abs
         getClientStateAutomaton().clientState06GameMatchSetSelected.setGameMatchSet_(setOfServerBaseModel);
     }
 
+    // interface IClientState00
+    // ToDo: delete from interface IClientState00 and from this class
     @Override
     public MainGameClientStatus getMainGameClientStatus() {
         return MainGameClientStatus.GAME_TYPE_SELECTED;

@@ -11,11 +11,14 @@ public abstract class ClientState06GameMatchSetSelected<Model, ClientId> extends
         super(clientStateAutomaton);
     }
 
+    // ToDo: сделать его private после реализации всех подобных следующих комментариев.
     protected void setGameMatchSet_(Set<Model> setOfServerBaseModel) {
+        // ToDo: вместо вызова с null параметром, следует вызывать соответствующий forgetXxx();
         getClientStateAutomaton().clientState07GameMatchSelected.setServerBaseModel_(null);
         this.setOfServerBaseModel = setOfServerBaseModel;
     }
 
+    // Overriden methods of class AbstractClientState
     @Override
     public Set<Model> getGameMatchSet() {
         return setOfServerBaseModel;
@@ -31,6 +34,8 @@ public abstract class ClientState06GameMatchSetSelected<Model, ClientId> extends
         getClientStateAutomaton().clientState07GameMatchSelected.setServerBaseModel_(serverBaseModel);
     }
 
+    // interface IClientState00
+    // ToDo: delete from interface IClientState00 and from this class
     @Override
     public MainGameClientStatus getMainGameClientStatus() {
         return MainGameClientStatus.GAME_MATCH_SET_SELECTED;
