@@ -5,7 +5,7 @@ import timmax.tilegame.basemodel.protocol.server_client.*;
 
 // Если из классов LocalClientState0Х убрать метод
 // Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView)
-// И убрать из AbstractClientState2 и перенести в ClientStateAutomaton,
+// И убрать из AbstractClientState и перенести в ClientStateAutomaton,
 // то не понадобятся классы LocalClientState0Х...Jfx и FabricOfClientStatesJfx и FabricOfRemoteClientStates
 public class FabricOfRemoteClientStates<ClientId> implements IFabricOfRemoteClientStates<ClientId> {
     @Override

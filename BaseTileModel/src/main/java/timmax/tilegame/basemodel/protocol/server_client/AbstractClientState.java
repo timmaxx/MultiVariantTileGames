@@ -5,10 +5,10 @@ import timmax.tilegame.baseview.View;
 import java.lang.reflect.Constructor;
 
 // ToDo: Переименовать этот класс в AbstractClientState после того, как предыдущий AbstractClientState будет удалён.
-public abstract class AbstractClientState2<Model, ClientId> {
+public abstract class AbstractClientState<Model, ClientId> {
     private final ClientStateAutomaton<Model, ClientId> clientStateAutomaton;
 
-    public AbstractClientState2(ClientStateAutomaton<Model, ClientId> clientStateAutomaton) {
+    public AbstractClientState(ClientStateAutomaton<Model, ClientId> clientStateAutomaton) {
         this.clientStateAutomaton = clientStateAutomaton;
     }
 

@@ -5,7 +5,7 @@ import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 
 import java.util.Set;
 
-public abstract class ClientState04GameTypeSetSelected<Model, ClientId> extends AbstractClientState2<Model, ClientId> implements IClientState04GameTypeSetSelected {
+public abstract class ClientState04GameTypeSetSelected<Model, ClientId> extends AbstractClientState<Model, ClientId> implements IClientState04GameTypeSetSelected {
     protected Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor; // ---- 3 (Список типов игр)
 
     public ClientState04GameTypeSetSelected(ClientStateAutomaton<Model, ClientId> clientStateAutomaton) {

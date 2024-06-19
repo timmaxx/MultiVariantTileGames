@@ -4,7 +4,7 @@ import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 
 import java.util.Set;
 
-public abstract class ClientState06GameMatchSetSelected<Model, ClientId> extends AbstractClientState2<Model, ClientId> implements IClientState06GameMatchSetSelected<Model> {
+public abstract class ClientState06GameMatchSetSelected<Model, ClientId> extends AbstractClientState<Model, ClientId> implements IClientState06GameMatchSetSelected<Model> {
     protected Set<Model> setOfServerBaseModel; // ---- 5 (Набор моделей игр)
 
     public ClientState06GameMatchSetSelected(ClientStateAutomaton<Model, ClientId> clientStateAutomaton) {
