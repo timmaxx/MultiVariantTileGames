@@ -77,17 +77,6 @@ public class ClientStateAutomaton<Model, ClientId> implements
         getHashSetOfObserverOnAbstractEvent().add(observerOnAbstractEvent);
     }
 
-    // ---- 6 (Конкретная модель игры)
-    protected void setServerBaseModel_(Model serverBaseModel) {
-        setGameIsPlaying_(null);
-        clientState07GameMatchSelected.setServerBaseModel_(serverBaseModel);
-    }
-
-    // ---- 7
-    protected void setGameIsPlaying_(Boolean gameIsPlaying) {
-        clientState08GameIsPlaying.setGameIsPlaying_(gameIsPlaying);
-    }
-*/
     //
     @Override
     public MainGameClientStatus getMainGameClientStatus() {
