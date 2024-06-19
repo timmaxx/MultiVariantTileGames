@@ -76,30 +76,6 @@ public class ClientStateAutomaton<Model, ClientId> implements
     public void addCallBackOnIncomingTransportPackageEvent(ObserverOnAbstractEvent observerOnAbstractEvent) {
         getHashSetOfObserverOnAbstractEvent().add(observerOnAbstractEvent);
     }
-/*
-    // ---- 2 (Пользователь)
-    protected void setUserName_(String userName) {
-        setGameTypeSet_(null);
-        clientState03ConnectAuthorized.setUserName_(userName);
-    }
-
-    // ---- 3 (Список типов игр)
-    protected void setGameTypeSet_(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor) {
-        setGameType_(null);
-        clientState04GameTypeSetSelected.setGameTypeSet_(setOfModelOfServerDescriptor);
-    }
-
-    // ---- 4 (Конкретный тип игры)
-    protected void setGameType_(ModelOfServerDescriptor modelOfServerDescriptor) {
-        setGameMatchSet_(null);
-        clientState05GameTypeSelected.setGameType_(modelOfServerDescriptor);
-    }
-
-    // ---- 5 (Набор моделей игр)
-    protected void setGameMatchSet_(Set<Model> setOfServerBaseModel) {
-        setServerBaseModel_(null);
-        clientState06GameMatchSetSelected.setGameMatchSet_(setOfServerBaseModel);
-    }
 
     // ---- 6 (Конкретная модель игры)
     protected void setServerBaseModel_(Model serverBaseModel) {
