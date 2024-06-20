@@ -5,7 +5,7 @@ import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 
 import java.util.Set;
 
-public abstract class LocalClientState05GameTypeSelected<Model, ClientID> extends ClientState05GameTypeSelected<Model, ClientID> {
+public class LocalClientState05GameTypeSelected<Model, ClientID> extends ClientState05GameTypeSelected<Model, ClientID> {
     public LocalClientState05GameTypeSelected(ClientStateAutomaton<Model, ClientID> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
