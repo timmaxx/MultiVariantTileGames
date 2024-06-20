@@ -3,10 +3,6 @@ package timmax.tilegame.server.websocket;
 import timmax.tilegame.basemodel.protocol.server.*;
 import timmax.tilegame.basemodel.protocol.server_client.*;
 
-// Если из классов LocalClientState0Х убрать метод
-// Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView)
-// И убрать из AbstractClientState и перенести в ClientStateAutomaton,
-// то не понадобятся классы LocalClientState0Х...Jfx и FabricOfClientStatesJfx и FabricOfRemoteClientStates
 public class FabricOfRemoteClientStates<ClientId> implements IFabricOfRemoteClientStates<ClientId> {
     @Override
     public RemoteClientState01NoConect<ClientId> getClientState01NoConect(ClientStateAutomaton<IModelOfServer, ClientId> clientStateAutomaton) {
