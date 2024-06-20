@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.basemodel.protocol.client.ModelOfClient;
+import timmax.tilegame.basemodel.protocol.client.jfx.FabricOfClientStateAutomatonJfx;
 import timmax.tilegame.basemodel.protocol.client.jfx.FabricOfClientStatesJfx;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.client.statuscontrol.*;
@@ -23,9 +24,18 @@ public class MultiGameClient extends Application {
     public void start(Stage primaryStage) {
         Pane root = new VBox();
 
-        TransportOfClient transportOfClient = new MultiGameWebSocketClientManyTimesUse();
-        ClientStateAutomaton localClientStateJfx = new ClientStateAutomaton(new FabricOfClientStatesJfx());
-        IModelOfClient iModelOfClient = new ModelOfClient(transportOfClient, localClientStateJfx);
+        // ToDo: Warning:(28, 27) Raw use of parameterized class 'IModelOfClient'
+        TransportOfClient<IModelOfClient, ?> transportOfClient = new MultiGameWebSocketClientManyTimesUse<>();
+        // ToDo: Вместо использования класса ClientStateAutomaton стоит создать класс LocalClientStateAutomaton,
+        //       в котором и использовать функционал FabricOfClientStateAutomatonJfx и отказаться от FabricOfClientStatesJfx.
+        // ToDo: Warning:(32, 9) Raw use of parameterized class 'ClientStateAutomaton'
+        ClientStateAutomaton localClientStateJfx = new ClientStateAutomaton<>(
+                new FabricOfClientStatesJfx<>(),
+                new FabricOfClientStateAutomatonJfx()
+        );
+        // ToDo: Warning:(38, 9) Raw use of parameterized class 'IModelOfClient'
+        //       Warning:(38, 45) Raw use of parameterized class 'ModelOfClient<>'
+        IModelOfClient iModelOfClient = new ModelOfClient<>(transportOfClient, localClientStateJfx);
         // ToDo: Как-то не нравится мне, что модель приходится инициализировать через сеттер.
         transportOfClient.setModelOfClient(iModelOfClient);
 
