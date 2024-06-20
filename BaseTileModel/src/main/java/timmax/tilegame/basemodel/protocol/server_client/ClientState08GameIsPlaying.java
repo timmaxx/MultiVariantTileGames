@@ -7,7 +7,6 @@ public abstract class ClientState08GameIsPlaying<Model, ClientId> extends Abstra
         super(clientStateAutomaton);
     }
 
-    // ToDo: сделать его private после реализации всех подобных следующих комментариев.
     protected void setGameIsPlaying_(Boolean gameIsPlaying) {
         this.gameIsPlaying = gameIsPlaying;
     }
