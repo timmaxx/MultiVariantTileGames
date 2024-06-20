@@ -11,10 +11,8 @@ public abstract class ClientState03ConnectAuthorized<Model, ClientId> extends Ab
         super(clientStateAutomaton);
     }
 
-    // ToDo: сделать его private после реализации всех подобных следующих комментариев.
     protected void setUserName_(String userName) {
-        // ToDo: вместо вызова с null параметром, следует вызывать соответствующий forgetXxx();
-        getClientStateAutomaton().clientState04GameTypeSetSelected.setGameTypeSet_(null);
+        getClientStateAutomaton().clientState04GameTypeSetSelected.forgetGameTypeSet();
         this.userName = userName;
     }
 

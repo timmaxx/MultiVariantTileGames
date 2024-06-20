@@ -7,10 +7,8 @@ public abstract class ClientState07GameMatchSelected<Model, ClientId> extends Ab
         super(clientStateAutomaton);
     }
 
-    // ToDo: сделать его private после реализации всех подобных следующих комментариев.
     protected void setServerBaseModel_(Model serverBaseModel) {
-        // ToDo: вместо вызова с null параметром, следует вызывать соответствующий forgetXxx();
-        getClientStateAutomaton().clientState08GameIsPlaying.setGameIsPlaying_(null);
+        getClientStateAutomaton().clientState08GameIsPlaying.forgetGameIsPlaying();
         this.serverBaseModel = serverBaseModel;
     }
 

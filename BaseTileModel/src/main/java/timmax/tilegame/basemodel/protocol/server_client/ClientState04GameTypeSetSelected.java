@@ -11,10 +11,8 @@ public abstract class ClientState04GameTypeSetSelected<Model, ClientId> extends 
         super(clientStateAutomaton);
     }
 
-    // ToDo: сделать его private после реализации всех подобных следующих комментариев.
     protected void setGameTypeSet_(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor) {
-        // ToDo: вместо вызова с null параметром, следует вызывать соответствующий forgetXxx();
-        getClientStateAutomaton().clientState05GameTypeSelected.setGameType_(null);
+        getClientStateAutomaton().clientState05GameTypeSelected.forgetGameType();
         this.setOfModelOfServerDescriptor = setOfModelOfServerDescriptor;
     }
 
