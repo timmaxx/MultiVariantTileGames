@@ -1,6 +1,5 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
-import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.protocol.HashSetOfObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
@@ -50,8 +49,8 @@ public class ClientStateAutomaton<Model, ClientId> implements
         clientState08GameIsPlaying = IFabricOfClientStates.getClientState08GameIsPlaying(this);
 
         // For local clientState:
-        this.hashSetOfObserverOnAbstractEvent = new HashSetOfObserverOnAbstractEvent();
-        this.mapOfViewName_View = new HashMap<>();
+        hashSetOfObserverOnAbstractEvent = new HashSetOfObserverOnAbstractEvent();
+        mapOfViewName_View = new HashMap<>();
 
         currenState = clientState01NoConect;
     }
@@ -78,11 +77,6 @@ public class ClientStateAutomaton<Model, ClientId> implements
     @Override
     public Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView) {
         return currenState.getViewConstructor(classOfView);
-    }
-
-    @Override
-    public MainGameClientStatus getMainGameClientStatus() {
-        return currenState.getMainGameClientStatus();
     }
 
     // 2 interface IClientState02ConnectNonIdent
@@ -192,5 +186,13 @@ public class ClientStateAutomaton<Model, ClientId> implements
     public void forgetGameIsPlaying() {
         clientState08GameIsPlaying.forgetGameIsPlaying();
         currenState = clientState07GameMatchSelected;
+    }
+
+    // class Object
+    @Override
+    public String toString() {
+        return "ClientStateAutomaton{" +
+                "currenState=" + currenState +
+                '}';
     }
 }

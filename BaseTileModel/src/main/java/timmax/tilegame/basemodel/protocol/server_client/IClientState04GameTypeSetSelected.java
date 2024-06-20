@@ -4,6 +4,7 @@ import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 
 import java.util.Set;
 
+//  Выбран перечень типов игр.
 public interface IClientState04GameTypeSetSelected extends IClientState00 {
     // Нумерация приведена соответствующая классам Pane0Х... пакета timmax.tilegame.client.statuscontrol:
 

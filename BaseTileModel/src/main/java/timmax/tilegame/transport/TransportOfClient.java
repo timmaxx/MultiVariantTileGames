@@ -5,8 +5,9 @@ import java.net.URI;
 import timmax.tilegame.basemodel.protocol.EventOfClient;
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 
-public interface TransportOfClient {
-    void setModelOfClient(IModelOfClient iModelOfClient);
+// ToDo: класс не должен здесь параметризироватья Model
+public interface TransportOfClient<Model, ClientId> {
+    void setModelOfClient(IModelOfClient<Model, ClientId> iModelOfClient);
 
     boolean isOpen();
     boolean isClosed();
@@ -21,5 +22,5 @@ public interface TransportOfClient {
     //  это не получается. Также смотри кооментарии к MultiGameWebSocketClient.
     void setURI(URI uriFromControls);
 
-    void sendEventOfClient(EventOfClient eventOfClient);
+    void sendEventOfClient(EventOfClient<ClientId> eventOfClient);
 }

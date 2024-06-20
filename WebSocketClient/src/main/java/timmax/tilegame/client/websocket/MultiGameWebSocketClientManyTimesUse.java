@@ -2,37 +2,33 @@ package timmax.tilegame.client.websocket;
 
 import java.net.URI;
 
+import org.java_websocket.WebSocket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.protocol.EventOfClient;
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.transport.TransportOfClient;
 
 // WebSocket клиент многоразовый
-public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
+public class MultiGameWebSocketClientManyTimesUse<Model> implements TransportOfClient<Model, WebSocket> {
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketClientManyTimesUse.class);
 
-    private IModelOfClient iModelOfClient;
-    private MultiGameWebSocketClient transportOfClient;
+    private IModelOfClient<Model, WebSocket> iModelOfClient;
+    private MultiGameWebSocketClient<Model> transportOfClient;
     private URI uri;
 
     public MultiGameWebSocketClientManyTimesUse() {
         super();
-        logger.info("  Main game client status: {}.", getMainGameClientStatus());
+        // ToDo: Здесь не инициализируется iModelOfClient, поэтому выводится константа в лог.
+        //       Но возможно, что-бы не использовать null, стоит реализовать класс, реализующий IClientState01NoConect
+        //       и здесь им инициализировать.
+        logger.info("  Main game client status: {}.", "NO_CONNECT");
     }
 
-    public MainGameClientStatus getMainGameClientStatus() {
-        if (iModelOfClient == null) {
-            return MainGameClientStatus.NO_CONNECT;
-        }
-        return iModelOfClient.getMainGameClientStatus();
-    }
-
-    // Overriden methods from interface TransportOfClient:
+    // interface TransportOfClient:
     @Override
-    public void setModelOfClient(IModelOfClient iModelOfClient) {
+    public void setModelOfClient(IModelOfClient<Model, WebSocket> iModelOfClient) {
         this.iModelOfClient = iModelOfClient;
     }
 
@@ -46,7 +42,6 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
         return transportOfClient == null || transportOfClient.isClosed();
     }
 
-    // 1
     @Override
     public void close() {
         if (transportOfClient == null) {
@@ -58,7 +53,7 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
 
     @Override
     public void connect() {
-        transportOfClient = new MultiGameWebSocketClient(uri);
+        transportOfClient = new MultiGameWebSocketClient<>(uri);
         transportOfClient.setModelOfClient(iModelOfClient);
         transportOfClient.connect();
     }
@@ -73,7 +68,7 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
     }
 
     @Override
-    public void sendEventOfClient(EventOfClient eventOfClient) {
+    public void sendEventOfClient(EventOfClient<WebSocket> eventOfClient) {
         transportOfClient.sendEventOfClient(eventOfClient);
     }
 }

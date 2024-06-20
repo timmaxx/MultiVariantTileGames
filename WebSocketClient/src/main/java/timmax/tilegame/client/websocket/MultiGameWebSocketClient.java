@@ -5,12 +5,12 @@ import java.io.ByteArrayOutputStream;
 import java.net.URI;
 import java.nio.ByteBuffer;
 
+import org.java_websocket.WebSocket;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.transport.TransportOfClient;
@@ -21,19 +21,17 @@ import timmax.tilegame.transport.TransportOfClient;
 // - пришлось создавать класс-обёртку MultiGameWebSocketClientManyTimesUse.
 // - соответственно и работающий метод void setURI(URI uriFromControls) в этом классе не возможен,
 //   но тогда пусть он бросает исключение.
-public class MultiGameWebSocketClient extends WebSocketClient implements TransportOfClient {
+
+// ToDo: класс не должен здесь параметризироватья от Model
+public class MultiGameWebSocketClient<Model> extends WebSocketClient implements TransportOfClient<Model, WebSocket> {
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketClient.class);
 
     private final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
     // ToDo: Модель пришлось инициализировать через сеттер. А лучше-бы через коструктор.
-    private /*final*/ IModelOfClient iModelOfClient;
+    private /*final*/ IModelOfClient<Model, WebSocket> iModelOfClient;
 
     public MultiGameWebSocketClient(URI serverUri) {
         super(serverUri);
-    }
-
-    public MainGameClientStatus getMainGameClientStatus() {
-        return iModelOfClient.getMainGameClientStatus();
     }
 
     // Overriden methods from class WebSocketClient:
@@ -41,7 +39,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     public void onClose(int code, String reason, boolean remote) {
         logger.info("Connection was closed.");
         iModelOfClient.getLocalClientState().forgetUserName();
-        logger.info("  Main game client status: {}.", getMainGameClientStatus());
+        logger.info("  Main game client status: {}.", iModelOfClient);
         iModelOfClient.getLocalClientState().getHashSetOfObserverOnAbstractEvent().updateOnClose();
         logger.debug("  Code: {}. Reason: {}. Remote: {}.", code, reason, remote);
     }
@@ -50,14 +48,14 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     public void onOpen(ServerHandshake handshakedata) {
         logger.info("Connection was opened. Server URI: {}.", getURI());
         iModelOfClient.getLocalClientState().forgetUserName();
-        logger.info("  Main game client status: {}.", getMainGameClientStatus());
+        logger.info("  Main game client status: {}.", iModelOfClient);
         iModelOfClient.getLocalClientState().getHashSetOfObserverOnAbstractEvent().updateOnOpen();
     }
 
     @Override
     public void onError(Exception ex) {
         logger.error("Error occurred.", ex);
-        logger.error("  Main game client status: {}.", getMainGameClientStatus());
+        logger.error("  Main game client status: {}.", iModelOfClient);
     }
 
     @Override
@@ -68,19 +66,19 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         EventOfServer eventOfServer = mapper.readValue(byteArrayInputStream, EventOfServer.class);
         logger.info("Incoming message. EventOfServer: {}.", eventOfServer);
         eventOfServer.executeOnClient(iModelOfClient);
-        logger.debug("  Main game client status: {}.", getMainGameClientStatus());
+        logger.debug("  Main game client status: {}.", iModelOfClient);
     }
 
     @Override
     public void onMessage(String message) {
         logger.error("Incoming message. This type of message (String) should not be!");
-        logger.error("  Main game client status: {}.", getMainGameClientStatus());
+        logger.error("  Main game client status: {}.", iModelOfClient);
         System.exit(1);
     }
 
     // Overriden methods from interface TransportOfClient:
     @Override
-    public void setModelOfClient(IModelOfClient iModelOfClient) {
+    public void setModelOfClient(IModelOfClient<Model, WebSocket> iModelOfClient) {
         this.iModelOfClient = iModelOfClient;
     }
 
@@ -92,7 +90,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     }
 
     @Override
-    public void sendEventOfClient(EventOfClient eventOfClient) {
+    public void sendEventOfClient(EventOfClient<WebSocket> eventOfClient) {
         logger.info("Outcoming message. EventOfClient: {}.", eventOfClient);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         mapper.writeValue(byteArrayOutputStream, eventOfClient);

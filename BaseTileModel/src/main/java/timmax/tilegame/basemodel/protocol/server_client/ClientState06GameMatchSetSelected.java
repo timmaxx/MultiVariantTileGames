@@ -1,7 +1,5 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
-import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
-
 import java.util.Set;
 
 public abstract class ClientState06GameMatchSetSelected<Model, ClientId> extends AbstractClientState<Model, ClientId> implements IClientState06GameMatchSetSelected<Model> {
@@ -18,7 +16,7 @@ public abstract class ClientState06GameMatchSetSelected<Model, ClientId> extends
         this.setOfServerBaseModel = setOfServerBaseModel;
     }
 
-    // Overriden methods of class AbstractClientState
+    // interface IClientState06GameMatchSetSelected
     @Override
     public Set<Model> getGameMatchSet() {
         return setOfServerBaseModel;
@@ -32,12 +30,5 @@ public abstract class ClientState06GameMatchSetSelected<Model, ClientId> extends
     @Override
     public void setServerBaseModel(Model serverBaseModel) {
         getClientStateAutomaton().clientState07GameMatchSelected.setServerBaseModel_(serverBaseModel);
-    }
-
-    // interface IClientState00
-    // ToDo: delete from interface IClientState00 and from this class
-    @Override
-    public MainGameClientStatus getMainGameClientStatus() {
-        return MainGameClientStatus.GAME_MATCH_SET_SELECTED;
     }
 }

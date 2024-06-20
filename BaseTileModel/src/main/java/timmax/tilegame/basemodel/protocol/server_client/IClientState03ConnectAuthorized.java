@@ -4,6 +4,7 @@ import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 
 import java.util.Set;
 
+//  Сервер идентифицировал, аутентифицировал и авторизовал пользователя.
 public interface IClientState03ConnectAuthorized extends IClientState00 {
     // Нумерация приведена соответствующая классам Pane0Х... пакета timmax.tilegame.client.statuscontrol:
 

@@ -1,7 +1,5 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
-import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
-
 public abstract class ClientState07GameMatchSelected<Model, ClientId> extends AbstractClientState<Model, ClientId> implements IClientState07GameMatchSelected<Model> {
     protected Model serverBaseModel; // ---- 6 (Конкретная модель игры)
 
@@ -16,7 +14,7 @@ public abstract class ClientState07GameMatchSelected<Model, ClientId> extends Ab
         this.serverBaseModel = serverBaseModel;
     }
 
-    // Overriden methods of class AbstractClientState
+    // interface IClientState07GameMatchSelected
     @Override
     public Model getServerBaseModel() {
         return serverBaseModel;
@@ -30,12 +28,5 @@ public abstract class ClientState07GameMatchSelected<Model, ClientId> extends Ab
     @Override
     public void setGameIsPlaying(Boolean gameIsPlaying) {
         getClientStateAutomaton().clientState08GameIsPlaying.setGameIsPlaying_(gameIsPlaying);
-    }
-
-    // interface IClientState00
-    // ToDo: delete from interface IClientState00 and from this class
-    @Override
-    public MainGameClientStatus getMainGameClientStatus() {
-        return MainGameClientStatus.GAME_MATCH_SELECTED;
     }
 }

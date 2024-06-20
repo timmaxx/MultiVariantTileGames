@@ -2,11 +2,13 @@ package timmax.tilegame.basemodel.protocol.client;
 
 import java.util.Map;
 
-import timmax.tilegame.basemodel.clientappstatus.MainGameClientStatus;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 
+// ToDo: Этот интерфейс является по сути комбинацией интерфейсов IClientState0Х...
+//       Нужно так и сделать!
+// ToDo: Model здесь не должен быть параметром (см. коммент к getLocalClientState()).
 // ToDo: Перечень методов для интерфейсов ObserverOnAbstractEvent и IModelOfClient похож.
 //       Может всё свести к одному интерфесу?
 public interface IModelOfClient<Model, ClientId> {
@@ -35,7 +37,6 @@ public interface IModelOfClient<Model, ClientId> {
     void startGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue);
 
     // ---- X
-    MainGameClientStatus getMainGameClientStatus();
-    // ToDo: переименовать метод после удаления LocalClientState
+    // ToDo: Здесь не от Model должен параметризироваться, а от конкретного класса/интерфейса
     ClientStateAutomaton<Model, ClientId> getLocalClientState();
 }
