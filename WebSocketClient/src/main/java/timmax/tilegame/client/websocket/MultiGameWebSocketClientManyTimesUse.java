@@ -53,7 +53,8 @@ public class MultiGameWebSocketClientManyTimesUse<Model> implements TransportOfC
 
     @Override
     public void connect() {
-        transportOfClient = new MultiGameWebSocketClient<>(uri);
+        transportOfClient = new MultiGameWebSocketClient<>(uri/*, iModelOfClient*/);
+        // ToDo: См. коммент к setModelOfClient
         transportOfClient.setModelOfClient(iModelOfClient);
         transportOfClient.connect();
     }

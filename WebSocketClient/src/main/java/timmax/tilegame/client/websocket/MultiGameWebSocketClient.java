@@ -28,11 +28,19 @@ public class MultiGameWebSocketClient<Model> extends WebSocketClient implements 
 
     private final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
     // ToDo: Модель пришлось инициализировать через сеттер. А лучше-бы через коструктор.
+    //       Если получится ч/з конструктор, то и сеттер можно будет удалить и final раскомментировать.
     private /*final*/ IModelOfClient<Model, WebSocket> iModelOfClient;
 
     public MultiGameWebSocketClient(URI serverUri) {
         super(serverUri);
     }
+
+/*
+    public MultiGameWebSocketClient(URI serverUri, IModelOfClient<Model, WebSocket> iModelOfClient) {
+        super(serverUri);
+        this.iModelOfClient = iModelOfClient;
+    }
+*/
 
     // Overriden methods from class WebSocketClient:
     @Override
@@ -77,6 +85,8 @@ public class MultiGameWebSocketClient<Model> extends WebSocketClient implements 
     }
 
     // Overriden methods from interface TransportOfClient:
+    // ToDo: Модель пришлось инициализировать через сеттер. А лучше-бы через коструктор.
+    //       Если получится ч/з конструктор, то удалить этот сеттер.
     @Override
     public void setModelOfClient(IModelOfClient<Model, WebSocket> iModelOfClient) {
         this.iModelOfClient = iModelOfClient;
