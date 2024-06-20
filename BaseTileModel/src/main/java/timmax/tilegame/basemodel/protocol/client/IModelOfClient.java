@@ -3,7 +3,6 @@ package timmax.tilegame.basemodel.protocol.client;
 import java.util.Map;
 
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
-import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 
 // ToDo: Этот интерфейс является по сути комбинацией интерфейсов IClientState0Х...
@@ -56,5 +55,5 @@ public interface IModelOfClient<Model, ClientId> {
 
     // ---- X
     // ToDo: Здесь не от Model должен параметризироваться, а от конкретного класса/интерфейса
-    ClientStateAutomaton<Model, ClientId> getLocalClientState();
+    LocalClientStateAutomaton<Model, ClientId> getLocalClientState();
 }

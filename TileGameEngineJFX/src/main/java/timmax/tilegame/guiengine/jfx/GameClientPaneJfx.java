@@ -8,7 +8,7 @@ import javafx.scene.layout.VBox;
 
 import timmax.tilegame.basecontroller.BaseController;
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
-import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
+import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfClient;
 
@@ -18,12 +18,12 @@ import timmax.tilegame.guiengine.jfx.view.ViewJfx;
 public class GameClientPaneJfx<Model, ClientId> extends VBox {
     public GameClientPaneJfx(
             IModelOfClient<Model, ClientId> iModelOfClient,
-            TransportOfClient transportOfClient) {
+            TransportOfClient<Model, ClientId> transportOfClient) {
 
         BaseController baseController = new BaseController(transportOfClient);
 
-        ClientStateAutomaton<Model, ClientId> localClientState = iModelOfClient.getLocalClientState();
-        Map<String, Class< ? extends View>> mapOfViewName_ViewClass = localClientState.getGameType().getMapOfViewNameViewClass();
+        LocalClientStateAutomaton<Model, ClientId> localClientState = iModelOfClient.getLocalClientState();
+        Map<String, Class<? extends View>> mapOfViewName_ViewClass = localClientState.getGameType().getMapOfViewNameViewClass();
         Map<String, View>  mapOfVieName_View = localClientState.getMapOfViewName_View();
 
         for (Map.Entry<String, Class< ? extends View>> entry: mapOfViewName_ViewClass.entrySet()) {

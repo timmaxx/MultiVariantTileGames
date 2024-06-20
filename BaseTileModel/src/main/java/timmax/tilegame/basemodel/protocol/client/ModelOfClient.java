@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
-import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import timmax.tilegame.transport.TransportOfClient;
 
@@ -15,9 +14,9 @@ public class ModelOfClient<Model, ClientId> implements IModelOfClient<Model, Cli
     private static final Logger logger = LoggerFactory.getLogger(ModelOfClient.class);
 
     private final TransportOfClient<Model, ClientId> transportOfClient;
-    private final ClientStateAutomaton<Model, ClientId> localClientState;
+    private final LocalClientStateAutomaton<Model, ClientId> localClientState;
 
-    public ModelOfClient(TransportOfClient<Model, ClientId> transportOfClient, ClientStateAutomaton<Model, ClientId> localClientState) {
+    public ModelOfClient(TransportOfClient<Model, ClientId> transportOfClient, LocalClientStateAutomaton<Model, ClientId> localClientState) {
         this.transportOfClient = transportOfClient;
         this.localClientState = localClientState;
     }
@@ -104,7 +103,7 @@ public class ModelOfClient<Model, ClientId> implements IModelOfClient<Model, Cli
 
     // interface IModelOfClient
     @Override
-    public ClientStateAutomaton<Model, ClientId> getLocalClientState() {
+    public LocalClientStateAutomaton<Model, ClientId> getLocalClientState() {
         return localClientState;
     }
 

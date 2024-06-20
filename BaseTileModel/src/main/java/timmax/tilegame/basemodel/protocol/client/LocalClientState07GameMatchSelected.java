@@ -22,4 +22,10 @@ public class LocalClientState07GameMatchSelected<Model, ClientId> extends Client
         super.setGameIsPlaying(gameIsPlaying);
         getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnStartGameMatchPlaying();
     }
+
+    // class AbstractClientState
+    @Override
+    public LocalClientStateAutomaton<Model, ClientId> getClientStateAutomaton() {
+        return (LocalClientStateAutomaton<Model, ClientId>)(super.getClientStateAutomaton());
+    }
 }

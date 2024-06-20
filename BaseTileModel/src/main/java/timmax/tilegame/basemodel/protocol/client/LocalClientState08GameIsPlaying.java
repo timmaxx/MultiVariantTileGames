@@ -15,4 +15,10 @@ public class LocalClientState08GameIsPlaying<Model, ClientId> extends ClientStat
         super.forgetGameIsPlaying();
         getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnStopGameMatchPlaying();
     }
+
+    // class AbstractClientState
+    @Override
+    public LocalClientStateAutomaton<Model, ClientId> getClientStateAutomaton() {
+        return (LocalClientStateAutomaton<Model, ClientId>)(super.getClientStateAutomaton());
+    }
 }

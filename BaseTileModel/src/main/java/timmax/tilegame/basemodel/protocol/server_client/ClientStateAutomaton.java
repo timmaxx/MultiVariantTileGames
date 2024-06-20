@@ -1,13 +1,9 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
-import timmax.tilegame.basemodel.protocol.HashSetOfObserverOnAbstractEvent;
-import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.baseview.View;
 
 import java.lang.reflect.Constructor;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 
 public class ClientStateAutomaton<Model, ClientId> implements
@@ -30,13 +26,6 @@ public class ClientStateAutomaton<Model, ClientId> implements
 
     private IClientState00 currenState;
 
-    // For local clientState:
-    // Эти переменные используются только в классах-наследниках LocalClientState0X.
-    // ToDo: Пересмотреть архитектуру расположения этих переменных. Возможно:
-    //       - удалить их отсюда
-    //       - из них собрать класс и использовать в классах-наследниках LocalClientState0X
-    private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
-    private final Map<String, View> mapOfViewName_View;
     private final IFabricOfClientStateAutomaton iFabricOfClientStateAutomaton;
 
     public ClientStateAutomaton(
@@ -51,28 +40,9 @@ public class ClientStateAutomaton<Model, ClientId> implements
         clientState07GameMatchSelected = IFabricOfClientStates.getClientState07GameMatchSelected(this);
         clientState08GameIsPlaying = IFabricOfClientStates.getClientState08GameIsPlaying(this);
 
-        // For local clientState:
-        hashSetOfObserverOnAbstractEvent = new HashSetOfObserverOnAbstractEvent();
-        mapOfViewName_View = new HashMap<>();
         this.iFabricOfClientStateAutomaton = iFabricOfClientStateAutomaton;
 
         currenState = clientState01NoConect;
-    }
-
-    public Map<String, View> getMapOfViewName_View() {
-        return mapOfViewName_View;
-    }
-
-    public HashSetOfObserverOnAbstractEvent getHashSetOfObserverOnAbstractEvent() {
-        return hashSetOfObserverOnAbstractEvent;
-    }
-
-    public void addView(View view) {
-        mapOfViewName_View.put(view.getViewName(), view);
-    }
-
-    public void addCallBackOnIncomingTransportPackageEvent(ObserverOnAbstractEvent observerOnAbstractEvent) {
-        getHashSetOfObserverOnAbstractEvent().add(observerOnAbstractEvent);
     }
 
     public Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView) {

@@ -3,8 +3,8 @@ package timmax.tilegame.basemodel.protocol.client;
 import timmax.tilegame.basemodel.protocol.server_client.ClientState06GameMatchSetSelected;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 
-public class LocalClientState06GameMatchSetSelected<Model, ClientID> extends ClientState06GameMatchSetSelected<Model, ClientID> {
-    public LocalClientState06GameMatchSetSelected(ClientStateAutomaton<Model, ClientID> clientStateAutomaton) {
+public class LocalClientState06GameMatchSetSelected<Model, ClientId> extends ClientState06GameMatchSetSelected<Model, ClientId> {
+    public LocalClientState06GameMatchSetSelected(ClientStateAutomaton<Model, ClientId> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 
@@ -21,5 +21,11 @@ public class LocalClientState06GameMatchSetSelected<Model, ClientID> extends Cli
     public void setServerBaseModel(Model serverBaseModel) {
         super.setServerBaseModel(serverBaseModel);
         getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnSelectGameMatch();
+    }
+
+    // class AbstractClientState
+    @Override
+    public LocalClientStateAutomaton<Model, ClientId> getClientStateAutomaton() {
+        return (LocalClientStateAutomaton<Model, ClientId>)(super.getClientStateAutomaton());
     }
 }

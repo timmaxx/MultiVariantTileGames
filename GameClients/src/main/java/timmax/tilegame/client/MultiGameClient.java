@@ -7,10 +7,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
+import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.client.ModelOfClient;
 import timmax.tilegame.basemodel.protocol.client.jfx.FabricOfClientStateAutomatonJfx;
 import timmax.tilegame.basemodel.protocol.client.jfx.FabricOfClientStatesJfx;
-import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.client.statuscontrol.*;
 import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
 import timmax.tilegame.transport.TransportOfClient;
@@ -29,7 +29,7 @@ public class MultiGameClient extends Application {
         // ToDo: Вместо использования класса ClientStateAutomaton стоит создать класс LocalClientStateAutomaton,
         //       в котором и использовать функционал FabricOfClientStateAutomatonJfx и отказаться от FabricOfClientStatesJfx.
         // ToDo: Warning:(32, 9) Raw use of parameterized class 'ClientStateAutomaton'
-        ClientStateAutomaton localClientStateJfx = new ClientStateAutomaton<>(
+        LocalClientStateAutomaton localClientStateJfx = new LocalClientStateAutomaton(
                 new FabricOfClientStatesJfx<>(),
                 new FabricOfClientStateAutomatonJfx()
         );

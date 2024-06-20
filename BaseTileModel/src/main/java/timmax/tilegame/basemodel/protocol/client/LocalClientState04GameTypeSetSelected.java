@@ -24,4 +24,10 @@ public class LocalClientState04GameTypeSetSelected<Model, ClientId> extends Clie
         getClientStateAutomaton().getMapOfViewName_View().clear();
         getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnSelectGameType();
     }
+
+    // class AbstractClientState
+    @Override
+    public LocalClientStateAutomaton<Model, ClientId> getClientStateAutomaton() {
+        return (LocalClientStateAutomaton<Model, ClientId>)(super.getClientStateAutomaton());
+    }
 }

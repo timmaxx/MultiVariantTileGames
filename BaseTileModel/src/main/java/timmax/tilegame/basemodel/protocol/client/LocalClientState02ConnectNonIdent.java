@@ -15,4 +15,10 @@ public class LocalClientState02ConnectNonIdent<Model, ClientId> extends ClientSt
         super.setUserName(userName);
         getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnLogin();
     }
+
+    // class AbstractClientState
+    @Override
+    public LocalClientStateAutomaton<Model, ClientId> getClientStateAutomaton() {
+        return (LocalClientStateAutomaton<Model, ClientId>)(super.getClientStateAutomaton());
+    }
 }
