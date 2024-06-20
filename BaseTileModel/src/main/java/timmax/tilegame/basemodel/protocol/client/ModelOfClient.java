@@ -25,12 +25,6 @@ public class ModelOfClient<Model, ClientId> implements IModelOfClient<Model, Cli
     // interface IModelOfClient:
     // 2
     @Override
-    public void logout() {
-        logger.debug("logout()");
-        transportOfClient.sendEventOfClient(new EventOfClient20Logout<>());
-    }
-
-    @Override
     public void login(String userName, String password) {
         logger.debug("login(String, String)");
         transportOfClient.sendEventOfClient(new EventOfClient21Login<>(userName, password));
@@ -38,9 +32,9 @@ public class ModelOfClient<Model, ClientId> implements IModelOfClient<Model, Cli
 
     // 3
     @Override
-    public void forgetGameTypeSet() {
-        logger.debug("forgetGameTypeSet()");
-        transportOfClient.sendEventOfClient(new EventOfClient30ForgetGameTypeSet<>());
+    public void logout() {
+        logger.debug("logout()");
+        transportOfClient.sendEventOfClient(new EventOfClient20Logout<>());
     }
 
     @Override
@@ -51,9 +45,9 @@ public class ModelOfClient<Model, ClientId> implements IModelOfClient<Model, Cli
 
     // 4
     @Override
-    public void forgetGameType() {
-        logger.debug("forgetGameType()");
-        transportOfClient.sendEventOfClient(new EventOfClient40ForgetGameType<>());
+    public void forgetGameTypeSet() {
+        logger.debug("forgetGameTypeSet()");
+        transportOfClient.sendEventOfClient(new EventOfClient30ForgetGameTypeSet<>());
     }
 
     @Override
@@ -64,9 +58,9 @@ public class ModelOfClient<Model, ClientId> implements IModelOfClient<Model, Cli
 
     // 5
     @Override
-    public void forgetGameMatchSet() {
-        logger.debug("forgetGameMatchSet()");
-        transportOfClient.sendEventOfClient(new EventOfClient50ForgetGameMatchSet<>());
+    public void forgetGameType() {
+        logger.debug("forgetGameType()");
+        transportOfClient.sendEventOfClient(new EventOfClient40ForgetGameType<>());
     }
 
     @Override
@@ -77,9 +71,9 @@ public class ModelOfClient<Model, ClientId> implements IModelOfClient<Model, Cli
 
     // 6
     @Override
-    public void forgetGameMatch() {
-        logger.debug("forgetGameMatch()");
-        transportOfClient.sendEventOfClient(new EventOfClient60ForgetGameMatch<>());
+    public void forgetGameMatchSet() {
+        logger.debug("forgetGameMatchSet()");
+        transportOfClient.sendEventOfClient(new EventOfClient50ForgetGameMatchSet<>());
     }
 
     @Override
@@ -90,15 +84,22 @@ public class ModelOfClient<Model, ClientId> implements IModelOfClient<Model, Cli
 
     // 7
     @Override
-    public void stopGameMatchPlaying() {
-        logger.debug("stopPlaying()");
-        transportOfClient.sendEventOfClient(new EventOfClient70StopGameMatchPlaying<>());
+    public void forgetGameMatch() {
+        logger.debug("forgetGameMatch()");
+        transportOfClient.sendEventOfClient(new EventOfClient60ForgetGameMatch<>());
     }
 
     @Override
     public void startGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue) {
         logger.debug("startPlaying()");
         transportOfClient.sendEventOfClient(new EventOfClient71StartGameMatchPlaying<>(mapOfParamsOfModelValue));
+    }
+
+    // 8
+    @Override
+    public void stopGameMatchPlaying() {
+        logger.debug("stopPlaying()");
+        transportOfClient.sendEventOfClient(new EventOfClient70StopGameMatchPlaying<>());
     }
 
     // interface IModelOfClient

@@ -11,30 +11,48 @@ import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 // ToDo: Model здесь не должен быть параметром (см. коммент к getLocalClientState()).
 // ToDo: Перечень методов для интерфейсов ObserverOnAbstractEvent и IModelOfClient похож.
 //       Может всё свести к одному интерфесу?
+
+//  Методы этого интерфейса возвращают void т.к. все они исполняются на стороне клиента и не ждут синхронного ответа от сервера.
+//  В правой колонке, в комментариях, даны соответствующие методы интерфейсов IClientState0Х...
 public interface IModelOfClient<Model, ClientId> {
-    // ---- 2
-    void logout();
-    void login(String userName, String password);
+    // ---- 2 ConnectNonIdent
+    void login(String userName, String password);                               //  22  //  2 -> 3  void setUserName(String userName);
 
-    // ---- 3
-    void forgetGameTypeSet();
-    void getGameTypeSet();
 
-    // ---- 4
-    void forgetGameType();
-    void gameTypeSelect(ModelOfServerDescriptor modelOfServerDescriptor);
+    // ---- 3 ConnectAuthorized
+    // ???                                                                              //  3       String getUserName();
+    void logout();                                                              //  21  //  3 -> 2  void forgetUserName();
+    void getGameTypeSet();                                                      //  32  //  3 -> 4  void setGameTypeSet(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor);
 
-    // ---- 5
-    void forgetGameMatchSet();
-    void getGameMatchSet();
 
-    // ---- 6
-    void forgetGameMatch();
-    void gameMatchSelect(InstanceIdOfModel model);
+    // ---- 4 (GameTypeSetSelected)
+    // ???                                                                              //  4       Set<ModelOfServerDescriptor> getGameTypeSet();
+    void forgetGameTypeSet();                                                   //  31  //  4 -> 3  void forgetGameTypeSet();
+    void gameTypeSelect(ModelOfServerDescriptor modelOfServerDescriptor);       //  42  //  4 -> 5  void setGameType(ModelOfServerDescriptor modelOfServerDescriptor);
 
-    // ---- 7
-    void stopGameMatchPlaying();
-    void startGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue);
+
+    // ---- 5 (GameTypeSelected)
+    // ???                                                                              //  5       ModelOfServerDescriptor getGameType();
+    void forgetGameType();                                                      //  41  //  5 -> 4  void forgetGameType();
+    void getGameMatchSet();                                                     //  52  //  5 -> 6  void setGameMatchSet(Set<Model> setOfServerBaseModel);
+
+
+    // ---- 6 (MatchSetSelected)
+    // ???                                                                              //  6       Set<Model> getGameMatchSet();
+    void forgetGameMatchSet();                                                  //  51  //  6 -> 5  void forgetGameMatchSet();
+    void gameMatchSelect(InstanceIdOfModel model);                              //  62  //  6 -> 7  void setServerBaseModel(Model serverBaseModel);
+
+
+    // ---- 7 (MatchSelected)
+    // ???                                                                              //  7       Model getServerBaseModel();
+    void forgetGameMatch();                                                     //  61  //  7 -> 6  void forgetServerBaseModel();
+    void startGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue);   //  72  //  7 -> 8  void setGameIsPlaying(Boolean gameIsPlaying);
+
+
+    // ---- 8 (GameIsPlaying)
+    // ???                                                                              //  8       Boolean getGameIsPlaying();
+    void stopGameMatchPlaying();                                                //  71  //  8 -> 7  void forgetGameIsPlaying();
+
 
     // ---- X
     // ToDo: Здесь не от Model должен параметризироваться, а от конкретного класса/интерфейса
