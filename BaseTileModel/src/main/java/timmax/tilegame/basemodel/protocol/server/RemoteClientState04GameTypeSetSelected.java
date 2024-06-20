@@ -5,7 +5,6 @@ import timmax.tilegame.basemodel.protocol.server_client.ClientState04GameTypeSet
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.baseview.View;
 
-import java.lang.reflect.Constructor;
 import java.util.Map;
 
 public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientState04GameTypeSetSelected<IModelOfServer, ClientId> {
@@ -13,7 +12,7 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
         super(clientStateAutomaton);
     }
 
-    // Overriden methods of class AbstractClientState
+    // class AbstractClientState
     // ---- 3 (Список типов игр)
     @Override
     public void forgetGameTypeSet() {
@@ -43,13 +42,6 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
                 getClientStateAutomaton().getClientId(),
                 new EventOfServer41SetGameType(modelOfServerDescriptor.getGameName())
         );
-    }
-
-    // interface IClientState00
-    // ToDo: delete from interface IClientState00 and from this class
-    @Override
-    public Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView) {
-        throw new RuntimeException("Not available for this class!");
     }
 
     // class AbstractClientState

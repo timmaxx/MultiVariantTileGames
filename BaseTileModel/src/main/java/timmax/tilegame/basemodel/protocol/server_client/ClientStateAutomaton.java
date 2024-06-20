@@ -37,8 +37,11 @@ public class ClientStateAutomaton<Model, ClientId> implements
     //       - из них собрать класс и использовать в классах-наследниках LocalClientState0X
     private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
     private final Map<String, View> mapOfViewName_View;
+    private final IFabricOfClientStateAutomaton iFabricOfClientStateAutomaton;
 
-    public ClientStateAutomaton(IFabricOfClientStates<Model, ClientId> IFabricOfClientStates) {
+    public ClientStateAutomaton(
+            IFabricOfClientStates<Model, ClientId> IFabricOfClientStates,
+            IFabricOfClientStateAutomaton iFabricOfClientStateAutomaton) {
         clientState01NoConect = IFabricOfClientStates.getClientState01NoConect(this);
         clientState02ConnectNonIdent = IFabricOfClientStates.getClientState02ConnectNonIdent(this);
         clientState03ConnectAuthorized = IFabricOfClientStates.getClientState03ConnectAuthorized(this);
@@ -51,6 +54,7 @@ public class ClientStateAutomaton<Model, ClientId> implements
         // For local clientState:
         hashSetOfObserverOnAbstractEvent = new HashSetOfObserverOnAbstractEvent();
         mapOfViewName_View = new HashMap<>();
+        this.iFabricOfClientStateAutomaton = iFabricOfClientStateAutomaton;
 
         currenState = clientState01NoConect;
     }
@@ -71,12 +75,8 @@ public class ClientStateAutomaton<Model, ClientId> implements
         getHashSetOfObserverOnAbstractEvent().add(observerOnAbstractEvent);
     }
 
-    // interface IClientState00
-    // ToDo: delete from interface IClientState00 and from this class
-    //       Этот метод нужно не для состояния реализовывать, а для автомата!!!
-    @Override
     public Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView) {
-        return currenState.getViewConstructor(classOfView);
+        return iFabricOfClientStateAutomaton.getViewConstructor(classOfView);
     }
 
     // 2 interface IClientState02ConnectNonIdent

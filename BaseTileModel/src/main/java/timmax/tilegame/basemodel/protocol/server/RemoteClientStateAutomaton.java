@@ -1,6 +1,7 @@
 package timmax.tilegame.basemodel.protocol.server;
 
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
+import timmax.tilegame.basemodel.protocol.server_client.IFabricOfClientStateAutomaton;
 import timmax.tilegame.transport.TransportOfServer;
 
 import java.util.HashSet;
@@ -14,8 +15,12 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
 
     private Map<String, Integer> mapOfParamsOfModelValue;
 
-    public RemoteClientStateAutomaton(IFabricOfRemoteClientStates<ClientId> fabricOfClientStatesForServer, TransportOfServer<ClientId> multiGameWebSocketServer, ClientId webSocket) {
-        super(fabricOfClientStatesForServer);
+    public RemoteClientStateAutomaton(
+            IFabricOfRemoteClientStates<ClientId> fabricOfClientStatesForServer,
+            IFabricOfClientStateAutomaton iFabricOfClientStateAutomaton,
+            TransportOfServer<ClientId> multiGameWebSocketServer,
+            ClientId webSocket) {
+        super(fabricOfClientStatesForServer, iFabricOfClientStateAutomaton);
         this.multiGameWebSocketServer = multiGameWebSocketServer;
         this.setOfViewName = new HashSet<>();
         this.webSocket = webSocket;

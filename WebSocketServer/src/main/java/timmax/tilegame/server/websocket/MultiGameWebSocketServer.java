@@ -48,7 +48,15 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     public void onOpen(WebSocket webSocket, ClientHandshake clientHandshake) {
         logger.info("WebSocket: {}. Connection was opened.", webSocket);
         logger.debug("  ClientHandshake: {}.", clientHandshake);
-        mapOfRemoteClientState.put(webSocket, new RemoteClientStateAutomaton<>(new FabricOfRemoteClientStates<>(), this, webSocket));
+        mapOfRemoteClientState.put(
+                webSocket,
+                new RemoteClientStateAutomaton<>(
+                        new FabricOfRemoteClientStates<>(),
+                        new FabricOfRemoteClientStateAutomaton(),
+                        this,
+                        webSocket
+                )
+        );
     }
 
     @Override
@@ -61,6 +69,8 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteBuffer.array());
         // ToDo: А вдруг здесь от клиента прилетит что-то не EventOfClient?
         //       Тогда нужно обрабатывать исключение и выводить в лог.
+        // ToDo: Обработать Warning:
+        //       Warning:(74, 50) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.EventOfClient' to 'timmax.tilegame.basemodel.protocol.EventOfClient<org.java_websocket.WebSocket>'
         EventOfClient<WebSocket> eventOfClient = mapper.readValue(byteArrayInputStream, EventOfClient.class);
         logger.info("WebSocket: {}. Incoming message. EventOfClient: {}.", webSocket, eventOfClient);
         Thread thread = new Thread(() -> eventOfClient.executeOnServer(mapOfRemoteClientState.get(webSocket)));
@@ -69,10 +79,10 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
 
     @Override
     public void onMessage(WebSocket webSocket, String message) {
-        // Входящее сообщение как строка не предполагается. Поэтому логировать будем как предупреждение.
+        // Входящее сообщение, как строка, не предполагается. Поэтому логировать будем как предупреждение.
         // Т.е. сервер должен залогировать, игнорировать такое входящее сообщение и продолжить работу.
         logger.warn("WebSocket: {}. Incoming message. This type of message (String) should not be!", webSocket);
-        // ToDo: Но поскольку от какого-то клиента поступило такое сообщение, то его желательно отключить.
+        // ToDo: Но поскольку от какого-то клиента поступило такое сообщение, то этого клиента желательно отключить.
     }
 
     // Overriden methods from interface TransportOfServer:
