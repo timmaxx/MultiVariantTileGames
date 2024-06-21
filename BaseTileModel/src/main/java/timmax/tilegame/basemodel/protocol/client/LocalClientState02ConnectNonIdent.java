@@ -3,12 +3,12 @@ package timmax.tilegame.basemodel.protocol.client;
 import timmax.tilegame.basemodel.protocol.server_client.ClientState02ConnectNonIdent;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 
-public class LocalClientState02ConnectNonIdent<Model, ClientId> extends ClientState02ConnectNonIdent<Model, ClientId> {
-    public LocalClientState02ConnectNonIdent(ClientStateAutomaton<Model, ClientId> clientStateAutomaton) {
+public class LocalClientState02ConnectNonIdent<Model> extends ClientState02ConnectNonIdent<Model> {
+    public LocalClientState02ConnectNonIdent(ClientStateAutomaton<Model> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 
-    // Overriden methods of class AbstractClientState
+    // class AbstractClientState
     // ---- 2 (Пользователь)
     @Override
     public void setUserName(String userName) {
@@ -18,7 +18,7 @@ public class LocalClientState02ConnectNonIdent<Model, ClientId> extends ClientSt
 
     // class AbstractClientState
     @Override
-    public LocalClientStateAutomaton<Model, ClientId> getClientStateAutomaton() {
-        return (LocalClientStateAutomaton<Model, ClientId>)(super.getClientStateAutomaton());
+    public LocalClientStateAutomaton<Model> getClientStateAutomaton() {
+        return (LocalClientStateAutomaton<Model>)(super.getClientStateAutomaton());
     }
 }

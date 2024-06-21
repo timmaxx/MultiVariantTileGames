@@ -2,10 +2,10 @@ package timmax.tilegame.basemodel.protocol.server_client;
 
 import java.util.Set;
 
-public abstract class ClientState06GameMatchSetSelected<Model, ClientId> extends AbstractClientState<Model, ClientId> implements IClientState06GameMatchSetSelected<Model> {
+public abstract class ClientState06GameMatchSetSelected<Model> extends AbstractClientState<Model> implements IClientState06GameMatchSetSelected<Model> {
     protected Set<Model> setOfServerBaseModel; // ---- 5 (Набор моделей игр)
 
-    public ClientState06GameMatchSetSelected(ClientStateAutomaton<Model, ClientId> clientStateAutomaton) {
+    public ClientState06GameMatchSetSelected(ClientStateAutomaton<Model> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 

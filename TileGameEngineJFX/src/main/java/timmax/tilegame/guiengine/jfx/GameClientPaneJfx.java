@@ -17,12 +17,12 @@ import timmax.tilegame.guiengine.jfx.view.ViewJfx;
 // ToDo: А нужен-ли этот класс?
 public class GameClientPaneJfx<Model, ClientId> extends VBox {
     public GameClientPaneJfx(
-            IModelOfClient<Model, ClientId> iModelOfClient,
-            TransportOfClient<Model, ClientId> transportOfClient) {
+            IModelOfClient<Model> iModelOfClient,
+            TransportOfClient<ClientId> transportOfClient) {
 
         BaseController baseController = new BaseController(transportOfClient);
 
-        LocalClientStateAutomaton<Model, ClientId> localClientState = iModelOfClient.getLocalClientState();
+        LocalClientStateAutomaton<Model> localClientState = iModelOfClient.getLocalClientState();
         Map<String, Class<? extends View>> mapOfViewName_ViewClass = localClientState.getGameType().getMapOfViewNameViewClass();
         Map<String, View>  mapOfVieName_View = localClientState.getMapOfViewName_View();
 

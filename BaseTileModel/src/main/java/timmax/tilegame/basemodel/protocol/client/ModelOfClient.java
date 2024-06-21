@@ -10,13 +10,13 @@ import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import timmax.tilegame.transport.TransportOfClient;
 
-public class ModelOfClient<Model, ClientId> implements IModelOfClient<Model, ClientId> {
+public class ModelOfClient<ClientId> implements IModelOfClient<IModelOfClient> {
     private static final Logger logger = LoggerFactory.getLogger(ModelOfClient.class);
 
-    private final TransportOfClient<Model, ClientId> transportOfClient;
-    private final LocalClientStateAutomaton<Model, ClientId> localClientState;
+    private final TransportOfClient<ClientId> transportOfClient;
+    private final LocalClientStateAutomaton<IModelOfClient> localClientState;
 
-    public ModelOfClient(TransportOfClient<Model, ClientId> transportOfClient, LocalClientStateAutomaton<Model, ClientId> localClientState) {
+    public ModelOfClient(TransportOfClient<ClientId> transportOfClient, LocalClientStateAutomaton<IModelOfClient> localClientState) {
         this.transportOfClient = transportOfClient;
         this.localClientState = localClientState;
     }
@@ -103,7 +103,7 @@ public class ModelOfClient<Model, ClientId> implements IModelOfClient<Model, Cli
 
     // interface IModelOfClient
     @Override
-    public LocalClientStateAutomaton<Model, ClientId> getLocalClientState() {
+    public LocalClientStateAutomaton<IModelOfClient> getLocalClientState() {
         return localClientState;
     }
 

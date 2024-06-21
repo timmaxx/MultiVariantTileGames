@@ -6,7 +6,7 @@ import timmax.tilegame.baseview.View;
 import java.lang.reflect.Constructor;
 import java.util.Set;
 
-public class ClientStateAutomaton<Model, ClientId> implements
+public class ClientStateAutomaton<Model> implements
         IClientState01NoConect,
         IClientState02ConnectNonIdent,
         IClientState03ConnectAuthorized,
@@ -15,21 +15,21 @@ public class ClientStateAutomaton<Model, ClientId> implements
         IClientState06GameMatchSetSelected<Model>,
         IClientState07GameMatchSelected<Model>,
         IClientState08GameIsPlaying {
-    ClientState01NoConect<Model, ClientId> clientState01NoConect;
-    ClientState02ConnectNonIdent<Model, ClientId> clientState02ConnectNonIdent;
-    ClientState03ConnectAuthorized<Model, ClientId> clientState03ConnectAuthorized;
-    ClientState04GameTypeSetSelected<Model, ClientId> clientState04GameTypeSetSelected;
-    ClientState05GameTypeSelected<Model, ClientId> clientState05GameTypeSelected;
-    ClientState06GameMatchSetSelected<Model, ClientId> clientState06GameMatchSetSelected;
-    ClientState07GameMatchSelected<Model, ClientId> clientState07GameMatchSelected;
-    ClientState08GameIsPlaying<Model, ClientId> clientState08GameIsPlaying;
+    ClientState01NoConect<Model> clientState01NoConect;
+    ClientState02ConnectNonIdent<Model> clientState02ConnectNonIdent;
+    ClientState03ConnectAuthorized<Model> clientState03ConnectAuthorized;
+    ClientState04GameTypeSetSelected<Model> clientState04GameTypeSetSelected;
+    ClientState05GameTypeSelected<Model> clientState05GameTypeSelected;
+    ClientState06GameMatchSetSelected<Model> clientState06GameMatchSetSelected;
+    ClientState07GameMatchSelected<Model> clientState07GameMatchSelected;
+    ClientState08GameIsPlaying<Model> clientState08GameIsPlaying;
 
     private IClientState00 currenState;
 
     private final IFabricOfClientStateAutomaton iFabricOfClientStateAutomaton;
 
     public ClientStateAutomaton(
-            IFabricOfClientStates<Model, ClientId> IFabricOfClientStates,
+            IFabricOfClientStates<Model> IFabricOfClientStates,
             IFabricOfClientStateAutomaton iFabricOfClientStateAutomaton) {
         clientState01NoConect = IFabricOfClientStates.getClientState01NoConect(this);
         clientState02ConnectNonIdent = IFabricOfClientStates.getClientState02ConnectNonIdent(this);

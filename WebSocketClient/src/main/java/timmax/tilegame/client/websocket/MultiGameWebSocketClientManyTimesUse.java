@@ -11,10 +11,10 @@ import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.transport.TransportOfClient;
 
 // WebSocket клиент многоразовый
-public class MultiGameWebSocketClientManyTimesUse<Model> implements TransportOfClient<Model, WebSocket> {
+public class MultiGameWebSocketClientManyTimesUse<Model> implements TransportOfClient<WebSocket> {
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketClientManyTimesUse.class);
 
-    private IModelOfClient<Model, WebSocket> iModelOfClient;
+    private IModelOfClient<Model> iModelOfClient;
     private MultiGameWebSocketClient<Model> transportOfClient;
     private URI uri;
 
@@ -28,10 +28,10 @@ public class MultiGameWebSocketClientManyTimesUse<Model> implements TransportOfC
 
     // interface TransportOfClient:
     @Override
-    public void setModelOfClient(IModelOfClient<Model, WebSocket> iModelOfClient) {
+    public void setModelOfClient(IModelOfClient iModelOfClient) {
         this.iModelOfClient = iModelOfClient;
     }
-
+/*
     @Override
     public boolean isOpen() {
         return transportOfClient != null && transportOfClient.isOpen();
@@ -41,7 +41,7 @@ public class MultiGameWebSocketClientManyTimesUse<Model> implements TransportOfC
     public boolean isClosed() {
         return transportOfClient == null || transportOfClient.isClosed();
     }
-
+*/
     @Override
     public void close() {
         if (transportOfClient == null) {

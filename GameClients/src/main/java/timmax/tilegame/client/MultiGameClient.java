@@ -25,7 +25,7 @@ public class MultiGameClient extends Application {
         Pane root = new VBox();
 
         // ToDo: Warning:(28, 27) Raw use of parameterized class 'IModelOfClient'
-        TransportOfClient<IModelOfClient, ?> transportOfClient = new MultiGameWebSocketClientManyTimesUse<>();
+        TransportOfClient<?> transportOfClient = new MultiGameWebSocketClientManyTimesUse<>();
         // ToDo: Вместо использования класса ClientStateAutomaton стоит создать класс LocalClientStateAutomaton,
         //       в котором и использовать функционал FabricOfClientStateAutomatonJfx и отказаться от FabricOfClientStatesJfx.
         // ToDo: Warning:(32, 9) Raw use of parameterized class 'ClientStateAutomaton'

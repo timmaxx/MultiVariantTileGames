@@ -13,7 +13,7 @@ import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 
 //  Методы этого интерфейса возвращают void т.к. все они исполняются на стороне клиента и не ждут синхронного ответа от сервера.
 //  В правой колонке, в комментариях, даны соответствующие методы интерфейсов IClientState0Х...
-public interface IModelOfClient<Model, ClientId> {
+public interface IModelOfClient<Model> {
     // ---- 2 ConnectNonIdent
     void login(String userName, String password);                               //  22  //  2 -> 3  void setUserName(String userName);
 
@@ -53,7 +53,8 @@ public interface IModelOfClient<Model, ClientId> {
     void stopGameMatchPlaying();                                                //  71  //  8 -> 7  void forgetGameIsPlaying();
 
 
+    // ToDo: Возможно этот метод здесь лишний. В т.ч. если так, то параметр <Model> можно будет удалить из сигнатуры интерфейса.
     // ---- X
     // ToDo: Здесь не от Model должен параметризироваться, а от конкретного класса/интерфейса
-    LocalClientStateAutomaton<Model, ClientId> getLocalClientState();
+    LocalClientStateAutomaton<Model> getLocalClientState();
 }

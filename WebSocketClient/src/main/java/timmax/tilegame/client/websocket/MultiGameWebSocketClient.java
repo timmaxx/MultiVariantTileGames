@@ -23,13 +23,13 @@ import timmax.tilegame.transport.TransportOfClient;
 //   но тогда пусть он бросает исключение.
 
 // ToDo: класс не должен здесь параметризироватья от Model
-public class MultiGameWebSocketClient<Model> extends WebSocketClient implements TransportOfClient<Model, WebSocket> {
+public class MultiGameWebSocketClient<Model> extends WebSocketClient implements TransportOfClient<WebSocket> {
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketClient.class);
 
     private final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
     // ToDo: Модель пришлось инициализировать через сеттер. А лучше-бы через коструктор.
     //       Если получится ч/з конструктор, то и сеттер можно будет удалить и final раскомментировать.
-    private /*final*/ IModelOfClient<Model, WebSocket> iModelOfClient;
+    private /*final*/ IModelOfClient<Model> iModelOfClient;
 
     public MultiGameWebSocketClient(URI serverUri) {
         super(serverUri);
@@ -88,7 +88,7 @@ public class MultiGameWebSocketClient<Model> extends WebSocketClient implements 
     // ToDo: Модель пришлось инициализировать через сеттер. А лучше-бы через коструктор.
     //       Если получится ч/з конструктор, то удалить этот сеттер.
     @Override
-    public void setModelOfClient(IModelOfClient<Model, WebSocket> iModelOfClient) {
+    public void setModelOfClient(IModelOfClient iModelOfClient) {
         this.iModelOfClient = iModelOfClient;
     }
 

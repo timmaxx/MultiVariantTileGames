@@ -10,11 +10,13 @@ import timmax.tilegame.baseview.View;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LocalClientStateAutomaton<Model, ClientId> extends ClientStateAutomaton<Model, ClientId> {
+public class LocalClientStateAutomaton<Model> extends ClientStateAutomaton<Model> {
     private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
     private final Map<String, View> mapOfViewName_View;
 
-    public LocalClientStateAutomaton(IFabricOfClientStates<Model, ClientId> IFabricOfClientStates, IFabricOfClientStateAutomaton iFabricOfClientStateAutomaton) {
+    public LocalClientStateAutomaton(
+            IFabricOfClientStates<Model> IFabricOfClientStates,
+            IFabricOfClientStateAutomaton iFabricOfClientStateAutomaton) {
         super(IFabricOfClientStates, iFabricOfClientStateAutomaton);
 
         hashSetOfObserverOnAbstractEvent = new HashSetOfObserverOnAbstractEvent();

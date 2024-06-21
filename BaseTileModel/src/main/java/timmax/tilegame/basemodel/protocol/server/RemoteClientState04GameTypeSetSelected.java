@@ -7,8 +7,8 @@ import timmax.tilegame.baseview.View;
 
 import java.util.Map;
 
-public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientState04GameTypeSetSelected<IModelOfServer, ClientId> {
-    public RemoteClientState04GameTypeSetSelected(ClientStateAutomaton<IModelOfServer, ClientId> clientStateAutomaton) {
+public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientState04GameTypeSetSelected<IModelOfServer> {
+    public RemoteClientState04GameTypeSetSelected(ClientStateAutomaton<IModelOfServer> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 

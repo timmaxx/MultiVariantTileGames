@@ -5,8 +5,8 @@ import timmax.tilegame.basemodel.protocol.server_client.ClientState06GameMatchSe
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 
-public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientState06GameMatchSetSelected<IModelOfServer, ClientId> {
-    public RemoteClientState06GameMatchSetSelected(ClientStateAutomaton<IModelOfServer, ClientId> clientStateAutomaton) {
+public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientState06GameMatchSetSelected<IModelOfServer> {
+    public RemoteClientState06GameMatchSetSelected(ClientStateAutomaton<IModelOfServer> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 

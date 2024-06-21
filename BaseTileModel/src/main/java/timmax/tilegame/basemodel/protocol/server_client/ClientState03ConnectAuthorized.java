@@ -4,10 +4,10 @@ import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 
 import java.util.Set;
 
-public abstract class ClientState03ConnectAuthorized<Model, ClientId> extends AbstractClientState<Model, ClientId> implements IClientState03ConnectAuthorized {
+public abstract class ClientState03ConnectAuthorized<Model> extends AbstractClientState<Model> implements IClientState03ConnectAuthorized {
     private String userName; // ---- 2 (Пользователь)
 
-    public ClientState03ConnectAuthorized(ClientStateAutomaton<Model, ClientId> clientStateAutomaton) {
+    public ClientState03ConnectAuthorized(ClientStateAutomaton<Model> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 

@@ -6,12 +6,12 @@ import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 
 import java.util.Set;
 
-public class LocalClientState03ConnectAuthorized<Model, ClientId> extends ClientState03ConnectAuthorized<Model, ClientId> {
-    public LocalClientState03ConnectAuthorized(ClientStateAutomaton<Model, ClientId> clientStateAutomaton) {
+public class LocalClientState03ConnectAuthorized<Model> extends ClientState03ConnectAuthorized<Model> {
+    public LocalClientState03ConnectAuthorized(ClientStateAutomaton<Model> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 
-    // Overriden methods of class AbstractClientState
+    // class AbstractClientState
     // ---- 2 (Пользователь)
     @Override
     public void forgetUserName() {
@@ -28,7 +28,7 @@ public class LocalClientState03ConnectAuthorized<Model, ClientId> extends Client
 
     // class AbstractClientState
     @Override
-    public LocalClientStateAutomaton<Model, ClientId> getClientStateAutomaton() {
-        return (LocalClientStateAutomaton<Model, ClientId>)(super.getClientStateAutomaton());
+    public LocalClientStateAutomaton<Model> getClientStateAutomaton() {
+        return (LocalClientStateAutomaton<Model>)(super.getClientStateAutomaton());
     }
 }

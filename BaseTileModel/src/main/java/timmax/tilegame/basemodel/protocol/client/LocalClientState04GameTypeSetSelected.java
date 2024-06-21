@@ -4,12 +4,12 @@ import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.protocol.server_client.ClientState04GameTypeSetSelected;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 
-public class LocalClientState04GameTypeSetSelected<Model, ClientId> extends ClientState04GameTypeSetSelected<Model, ClientId> {
-    public LocalClientState04GameTypeSetSelected(ClientStateAutomaton<Model, ClientId> clientStateAutomaton) {
+public class LocalClientState04GameTypeSetSelected<Model> extends ClientState04GameTypeSetSelected<Model> {
+    public LocalClientState04GameTypeSetSelected(ClientStateAutomaton<Model> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 
-    // Overriden methods of class AbstractClientState
+    // class AbstractClientState
     // ---- 3 (Список типов игр)
     @Override
     public void forgetGameTypeSet() {
@@ -27,7 +27,7 @@ public class LocalClientState04GameTypeSetSelected<Model, ClientId> extends Clie
 
     // class AbstractClientState
     @Override
-    public LocalClientStateAutomaton<Model, ClientId> getClientStateAutomaton() {
-        return (LocalClientStateAutomaton<Model, ClientId>)(super.getClientStateAutomaton());
+    public LocalClientStateAutomaton<Model> getClientStateAutomaton() {
+        return (LocalClientStateAutomaton<Model>)(super.getClientStateAutomaton());
     }
 }

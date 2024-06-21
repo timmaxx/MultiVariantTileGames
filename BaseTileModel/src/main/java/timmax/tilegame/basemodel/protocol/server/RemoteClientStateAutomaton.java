@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<IModelOfServer, ClientId> {
+public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<IModelOfServer> {
     private final TransportOfServer<ClientId> multiGameWebSocketServer;
     private final ClientId webSocket;
     private final Set<String> setOfViewName;

@@ -8,8 +8,8 @@ import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class RemoteClientState05GameTypeSelected<ClientId> extends ClientState05GameTypeSelected<IModelOfServer, ClientId> {
-    public RemoteClientState05GameTypeSelected(ClientStateAutomaton<IModelOfServer, ClientId> clientStateAutomaton) {
+public class RemoteClientState05GameTypeSelected<ClientId> extends ClientState05GameTypeSelected<IModelOfServer> {
+    public RemoteClientState05GameTypeSelected(ClientStateAutomaton<IModelOfServer> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 
