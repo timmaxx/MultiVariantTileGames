@@ -23,6 +23,18 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketServer.class);
 
     private final ObjectMapperOfMvtg mapper;
+
+    // ToDo: Удалить комментарий после решения проблеммы, указанной в нём.
+    //       Здесь используется только
+    //       RemoteClientStateAutomaton<WebSocket>> mapOfRemoteClientState
+    //       и это хорошо!
+    //       Но в
+    //       MultiGameClient :: void start(Stage primaryStage)
+    //       есть одновременно
+    //       LocalClientStateAutomaton localClientStateJfx
+    //       и
+    //       IModelOfClient iModelOfClient
+    //       что не есть хорошо, т.к. не единообразно!
     private final Map<WebSocket, RemoteClientStateAutomaton<WebSocket>> mapOfRemoteClientState;
 
     public MultiGameWebSocketServer(int port) {
@@ -54,6 +66,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
                         new FabricOfRemoteClientStates<>(),
                         new FabricOfRemoteClientStateAutomaton(),
                         this,
+                        // ToDo: Удалить этот параметр, т.к. в мапу и так он попадает (см. несколько строк выше).
                         webSocket
                 )
         );
@@ -82,7 +95,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         // Входящее сообщение, как строка, не предполагается. Поэтому логировать будем как предупреждение.
         // Т.е. сервер должен залогировать, игнорировать такое входящее сообщение и продолжить работу.
         logger.warn("WebSocket: {}. Incoming message. This type of message (String) should not be!", webSocket);
-        // ToDo: Но поскольку от какого-то клиента поступило такое сообщение, то этого клиента желательно отключить.
+        // ToDo: Но поскольку, от какого-то клиента поступило такое сообщение, то этого клиента желательно отключить.
     }
 
     // Overriden methods from interface TransportOfServer:

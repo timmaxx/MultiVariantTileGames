@@ -5,7 +5,12 @@ import java.net.URI;
 import timmax.tilegame.basemodel.protocol.EventOfClient;
 import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 
-// ToDo: класс не должен здесь параметризироватья Model
+// ToDo: Непонятно, почему класс параметризирован ClientId? Ведь он используется на клиенте. В частности
+//       sendEventOfClient(...)
+//       отправляет событие от клиента серверу и событие не содержит идентификатора клиента.
+//       Но сервер, приняв событие от клиента, знает идентификатор клиента и как-то по нему будет у себя понимать,
+//       сообщение пришло от того или иного клиента.
+// ToDo: класс не должен здесь параметризироватья Model.
 public interface TransportOfClient<ClientId> {
     void setModelOfClient(IModelOfClient iModelOfClient);
 /*

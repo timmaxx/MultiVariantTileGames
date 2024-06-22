@@ -5,7 +5,7 @@ import java.util.Map;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 
-// ToDo: Этот интерфейс является по сути комбинацией интерфейсов IClientState0Х...
+// ToDo: Этот интерфейс является по сути комбинацией методов, подобных методам интерфейсов IClientState0Х... (но не всех).
 //       Нужно так и сделать!
 // ToDo: Model здесь не должен быть параметром (см. коммент к getLocalClientState()).
 // ToDo: Перечень методов для интерфейсов ObserverOnAbstractEvent и IModelOfClient похож.
@@ -13,7 +13,9 @@ import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 
 //  Методы этого интерфейса возвращают void т.к. все они исполняются на стороне клиента и не ждут синхронного ответа от сервера.
 //  В правой колонке, в комментариях, даны соответствующие методы интерфейсов IClientState0Х...
-public interface IModelOfClient<Model> {
+public interface IModelOfClient<Model>
+// public interface IModelOfClient  // К этому правильному варианту (без параметра Model) потом вернусь
+{
     // ---- 2 ConnectNonIdent
     void login(String userName, String password);                               //  22  //  2 -> 3  void setUserName(String userName);
 
@@ -57,4 +59,5 @@ public interface IModelOfClient<Model> {
     // ---- X
     // ToDo: Здесь не от Model должен параметризироваться, а от конкретного класса/интерфейса
     LocalClientStateAutomaton<Model> getLocalClientState();
+    // LocalClientStateAutomaton<IModelOfClient> getLocalClientState(); // К этому правильному варианту (без параметра Model) потом вернусь
 }

@@ -86,7 +86,7 @@ public abstract class ModelOfServer<ClientId> implements IModelOfServer {
         return false;
     }
 
-    // Overriden methods from interface IModelOfServer:
+    // interface IModelOfServer:
     @Override
     public void win() {
         setGameStatus(GameStatus.VICTORY);
@@ -101,4 +101,11 @@ public abstract class ModelOfServer<ClientId> implements IModelOfServer {
         setGameStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
         sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
     }
+
+/*  // См. комменты в class InstanceIdOfModel
+    @Override
+    public InstanceIdOfModel modelOfServerToInstanceIdOfModel() {
+        return new InstanceIdOfModel(toString());
+    }
+*/
 }

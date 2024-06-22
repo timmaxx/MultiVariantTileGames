@@ -23,6 +23,12 @@ public class EventOfServer51GetGameMatchSet extends EventOfServer {
     @Override
     public void executeOnClient(IModelOfClient iModelOfClient) {
         logger.debug("  onGetGameMatchSet");
+
+        // Ниже сигнатура setGameMatchSet:
+        // void setGameMatchSet(Set<Model> setOfServerBaseModel)
+        // но
+        // Set<InstanceIdOfModel> setOfInstanceIdOfModel
+        // Поэтому Set<InstanceIdOfModel> нужно преобразовать в Set<IModelOfClient>
         iModelOfClient
                 .getLocalClientState()
                 .setGameMatchSet(setOfInstanceIdOfModel);

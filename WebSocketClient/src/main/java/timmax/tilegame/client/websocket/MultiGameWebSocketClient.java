@@ -18,7 +18,7 @@ import timmax.tilegame.transport.TransportOfClient;
 // Этот класс, к сожалению, я не смог использовать "многоразово".
 // Т.е. у меня не получилось после открытия и закрытия вновь открыть соединение.
 // Поэтому:
-// - пришлось создавать класс-обёртку MultiGameWebSocketClientManyTimesUse.
+// - создал класс-обёртку MultiGameWebSocketClientManyTimesUse.
 // - соответственно и работающий метод void setURI(URI uriFromControls) в этом классе не возможен,
 //   но тогда пусть он бросает исключение.
 
@@ -27,14 +27,20 @@ public class MultiGameWebSocketClient<Model> extends WebSocketClient implements 
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketClient.class);
 
     private final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
-    // ToDo: Модель пришлось инициализировать через сеттер. А лучше-бы через коструктор.
-    //       Если получится ч/з конструктор, то и сеттер можно будет удалить и final раскомментировать.
+
+    // ToDo: О наличии переменной IModelOfClient в классах:
+    //       1. Она есть и в MultiGameWebSocketClient и в MultiGameWebSocketClientManyTimesUse, уже это плохо!
+    //       2. А в классе MultiGameWebSocketServer его "аналога" (т.е. IModelOfServer) нет.
+    //          Не обнаружил места, где объявляется переменая типа IModelOfServer.
+    //          Странно, но тогда, по единообразию и переменных IModelOfClient не должно быть.
     private /*final*/ IModelOfClient<Model> iModelOfClient;
 
     public MultiGameWebSocketClient(URI serverUri) {
         super(serverUri);
     }
 
+    // ToDo: Модель пришлось инициализировать через сеттер. А лучше-бы через конструктор.
+    //       Если получится ч/з конструктор, то и сеттер можно будет удалить и final раскомментировать.
 /*
     public MultiGameWebSocketClient(URI serverUri, IModelOfClient<Model, WebSocket> iModelOfClient) {
         super(serverUri);

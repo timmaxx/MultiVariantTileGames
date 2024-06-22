@@ -6,17 +6,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import timmax.tilegame.basemodel.protocol.*;
+// import timmax.tilegame.basemodel.protocol.server.IModelOfServer;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import timmax.tilegame.transport.TransportOfClient;
 
-public class ModelOfClient<ClientId> implements IModelOfClient<IModelOfClient> {
+public class ModelOfClient<ClientId> implements IModelOfClient<IModelOfClient>
+// public class ModelOfClient<ClientId> implements IModelOfClient // К этому правильному варианту (без параметра Model) потом вернусь
+{
     private static final Logger logger = LoggerFactory.getLogger(ModelOfClient.class);
 
     private final TransportOfClient<ClientId> transportOfClient;
     private final LocalClientStateAutomaton<IModelOfClient> localClientState;
 
-    public ModelOfClient(TransportOfClient<ClientId> transportOfClient, LocalClientStateAutomaton<IModelOfClient> localClientState) {
+    public ModelOfClient(
+            TransportOfClient<ClientId> transportOfClient,
+            LocalClientStateAutomaton<IModelOfClient> localClientState) {
         this.transportOfClient = transportOfClient;
         this.localClientState = localClientState;
     }

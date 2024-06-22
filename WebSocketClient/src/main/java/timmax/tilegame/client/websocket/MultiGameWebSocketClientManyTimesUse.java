@@ -14,7 +14,13 @@ import timmax.tilegame.transport.TransportOfClient;
 public class MultiGameWebSocketClientManyTimesUse<Model> implements TransportOfClient<WebSocket> {
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketClientManyTimesUse.class);
 
+    // ToDo: О наличии переменной IModelOfClient в классах:
+    //       1. Она есть и в MultiGameWebSocketClient и в MultiGameWebSocketClientManyTimesUse, уже это плохо!
+    //       2. А в классе MultiGameWebSocketServer его "аналога" (т.е. IModelOfServer) нет.
+    //          Не обнаружил места, где объявляется переменая типа IModelOfServer.
+    //          Странно, но тогда, по единообразию и переменных IModelOfClient не должно быть.
     private IModelOfClient<Model> iModelOfClient;
+
     private MultiGameWebSocketClient<Model> transportOfClient;
     private URI uri;
 

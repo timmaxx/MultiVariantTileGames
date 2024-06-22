@@ -15,7 +15,10 @@ public interface IModelOfServer extends IModelOfServerDescriptor {
     void win();
     void restart();
 
-    // Overiden methods from interface IModelOfServerDescriptor
+    // См. комменты в class InstanceIdOfModel
+    // InstanceIdOfModel modelOfServerToInstanceIdOfModel();
+
+    // interface IModelOfServerDescriptor
     @Override
     String getGameName();
 

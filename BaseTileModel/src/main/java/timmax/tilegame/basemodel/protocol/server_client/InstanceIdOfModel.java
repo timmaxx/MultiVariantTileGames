@@ -10,6 +10,13 @@ import timmax.tilegame.basemodel.protocol.server.IModelOfServer;
 public class InstanceIdOfModel implements Externalizable {
     private String id;
 
+    // ToDo: Удалить отсюда, при решении проблеммы ниже.
+    //       Вместо этого метода здесь (как статического),
+    //       он также объявлен в IModelOfServer и реализован в ModelOfServer.
+    //       Но если его здесь нет, то возникает ошибка компиляции в
+    //       RemoteClientState05GameTypeSelected :: void setGameMatchSet(Set<IModelOfServer> setOfServerBaseModel)
+    //       См.
+    //       setOfServerBaseModel.stream().map(InstanceIdOfModel::modelOfServerToInstanceIdOfModel)
     public static InstanceIdOfModel modelOfServerToInstanceIdOfModel(IModelOfServer iModelOfServer) {
         return new InstanceIdOfModel(iModelOfServer.toString());
     }

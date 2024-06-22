@@ -33,7 +33,9 @@ public class RemoteClientState05GameTypeSelected<ClientId> extends ClientState05
                 new EventOfServer51GetGameMatchSet(
                         setOfServerBaseModel
                                 .stream()
+                                // См. комменты в class InstanceIdOfModel
                                 .map(InstanceIdOfModel::modelOfServerToInstanceIdOfModel)
+                                // .map(ModelOfServer::modelOfServerToInstanceIdOfModel)
                                 .collect(Collectors.toSet())
                 )
         );

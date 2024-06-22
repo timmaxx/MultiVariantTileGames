@@ -20,6 +20,16 @@ public class MultiGameClient extends Application {
         Application.launch(args);
     }
 
+    // ToDo: Удалить комментарий после решения проблеммы, указанной в нём.
+    //       В классе MultiGameWebSocketServer используется только
+    //       RemoteClientStateAutomaton<WebSocket>> mapOfRemoteClientState
+    //       и это хорошо!
+    //       Но здесь (в MultiGameClient :: void start(Stage primaryStage))
+    //       есть одновременно и
+    //       LocalClientStateAutomaton localClientStateJfx
+    //       и
+    //       IModelOfClient iModelOfClient
+    //       что не есть хорошо, т.к. не единообразно!
     @Override
     public void start(Stage primaryStage) {
         Pane root = new VBox();
