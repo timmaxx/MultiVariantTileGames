@@ -21,7 +21,7 @@ public class MultiGameWebSocketClientManyTimesUse<Model> implements TransportOfC
     public MultiGameWebSocketClientManyTimesUse() {
         super();
         // ToDo: Здесь не инициализируется iModelOfClient, поэтому выводится константа в лог.
-        //       Но возможно, что-бы не использовать null, стоит реализовать класс, реализующий IClientState01NoConect
+        //       Но возможно, что-бы не использовать null, стоит реализовать класс, реализующий IClientState01NoConnect
         //       и здесь им инициализировать.
         logger.info("  Main game client status: {}.", "NO_CONNECT");
     }

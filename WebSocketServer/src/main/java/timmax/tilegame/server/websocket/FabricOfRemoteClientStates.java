@@ -5,8 +5,8 @@ import timmax.tilegame.basemodel.protocol.server_client.*;
 
 public class FabricOfRemoteClientStates<ClientId> implements IFabricOfRemoteClientStates<ClientId> {
     @Override
-    public RemoteClientState01NoConect<ClientId> getClientState01NoConect(ClientStateAutomaton<IModelOfServer> clientStateAutomaton) {
-        return new RemoteClientState01NoConect<>(clientStateAutomaton);
+    public RemoteClientState01NoConnect<ClientId> getClientState01NoConnect(ClientStateAutomaton<IModelOfServer> clientStateAutomaton) {
+        return new RemoteClientState01NoConnect<>(clientStateAutomaton);
     }
 
     @Override

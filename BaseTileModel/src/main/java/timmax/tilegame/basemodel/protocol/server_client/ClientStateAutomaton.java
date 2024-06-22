@@ -7,7 +7,7 @@ import java.lang.reflect.Constructor;
 import java.util.Set;
 
 public class ClientStateAutomaton<Model> implements
-        IClientState01NoConect,
+        IClientState01NoConnect,
         IClientState02ConnectNonIdent,
         IClientState03ConnectAuthorized,
         IClientState04GameTypeSetSelected,
@@ -15,7 +15,7 @@ public class ClientStateAutomaton<Model> implements
         IClientState06GameMatchSetSelected<Model>,
         IClientState07GameMatchSelected<Model>,
         IClientState08GameIsPlaying {
-    ClientState01NoConect<Model> clientState01NoConect;
+    ClientState01NoConnect<Model> clientState01NoConnect;
     ClientState02ConnectNonIdent<Model> clientState02ConnectNonIdent;
     ClientState03ConnectAuthorized<Model> clientState03ConnectAuthorized;
     ClientState04GameTypeSetSelected<Model> clientState04GameTypeSetSelected;
@@ -31,7 +31,7 @@ public class ClientStateAutomaton<Model> implements
     public ClientStateAutomaton(
             IFabricOfClientStates<Model> IFabricOfClientStates,
             IFabricOfClientStateAutomaton iFabricOfClientStateAutomaton) {
-        clientState01NoConect = IFabricOfClientStates.getClientState01NoConect(this);
+        clientState01NoConnect = IFabricOfClientStates.getClientState01NoConnect(this);
         clientState02ConnectNonIdent = IFabricOfClientStates.getClientState02ConnectNonIdent(this);
         clientState03ConnectAuthorized = IFabricOfClientStates.getClientState03ConnectAuthorized(this);
         clientState04GameTypeSetSelected = IFabricOfClientStates.getClientState04GameTypeSetSelected(this);
@@ -42,7 +42,7 @@ public class ClientStateAutomaton<Model> implements
 
         this.iFabricOfClientStateAutomaton = iFabricOfClientStateAutomaton;
 
-        currenState = clientState01NoConect;
+        currenState = clientState01NoConnect;
     }
 
     public Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView) {

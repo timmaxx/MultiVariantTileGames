@@ -5,8 +5,8 @@ import timmax.tilegame.basemodel.protocol.server_client.*;
 
 public class FabricOfClientStatesJfx<Model> implements IFabricOfClientStates<Model> {
     @Override
-    public ClientState01NoConect<Model> getClientState01NoConect(ClientStateAutomaton<Model> clientStateAutomaton) {
-        return new LocalClientState01NoConect<>(clientStateAutomaton);
+    public ClientState01NoConnect<Model> getClientState01NoConnect(ClientStateAutomaton<Model> clientStateAutomaton) {
+        return new LocalClientState01NoConnect<>(clientStateAutomaton);
     }
 
     @Override

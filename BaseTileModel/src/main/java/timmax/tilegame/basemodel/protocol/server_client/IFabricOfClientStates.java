@@ -2,7 +2,7 @@ package timmax.tilegame.basemodel.protocol.server_client;
 
 // ToDo: удалить интерфейс, если будет удалён FabricOfClientStatesJfx (и LocalClientState0Х...Jfx)
 public interface IFabricOfClientStates<Model> {
-    ClientState01NoConect<Model> getClientState01NoConect(ClientStateAutomaton<Model> clientStateAutomaton);
+    ClientState01NoConnect<Model> getClientState01NoConnect(ClientStateAutomaton<Model> clientStateAutomaton);
     ClientState02ConnectNonIdent<Model> getClientState02ConnectNonIdent(ClientStateAutomaton<Model> clientStateAutomaton);
     ClientState03ConnectAuthorized<Model> getClientState03ConnectAuthorized(ClientStateAutomaton<Model> clientStateAutomaton);
     ClientState04GameTypeSetSelected<Model> getClientState04GameTypeSetSelected(ClientStateAutomaton<Model> clientStateAutomaton);
