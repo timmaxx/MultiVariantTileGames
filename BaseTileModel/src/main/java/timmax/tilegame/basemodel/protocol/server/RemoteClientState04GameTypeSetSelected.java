@@ -12,7 +12,7 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
         super(clientStateAutomaton);
     }
 
-    // class AbstractClientState
+    // class ClientState04GameTypeSetSelected
     // ---- 3 (Список типов игр)
     @Override
     public void forgetGameTypeSet() {

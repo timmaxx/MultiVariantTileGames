@@ -10,7 +10,7 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
         super(clientStateAutomaton);
     }
 
-    // class AbstractClientState
+    // class ClientState06GameMatchSetSelected
     // ---- 5 Перечень партий
     @Override
     public void forgetGameMatchSet() {

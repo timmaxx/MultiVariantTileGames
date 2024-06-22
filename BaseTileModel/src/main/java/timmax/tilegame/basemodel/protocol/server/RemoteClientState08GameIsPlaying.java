@@ -8,7 +8,7 @@ public class RemoteClientState08GameIsPlaying<ClientId> extends ClientState08Gam
         super(clientStateAutomaton);
     }
 
-    // class AbstractClientState
+    // class ClientState08GameIsPlaying
     // ---- 7
     @Override
     public void forgetGameIsPlaying() {

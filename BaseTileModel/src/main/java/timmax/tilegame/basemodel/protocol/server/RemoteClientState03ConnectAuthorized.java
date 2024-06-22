@@ -11,7 +11,7 @@ public class RemoteClientState03ConnectAuthorized<ClientId> extends ClientState0
         super(clientStateAutomaton);
     }
 
-    // class AbstractClientState
+    // class ClientState03ConnectAuthorized
     // ---- 2 (Пользователь)
     @Override
     public void forgetUserName() {

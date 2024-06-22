@@ -8,7 +8,7 @@ public class RemoteClientState02ConnectNonIdent<ClientId> extends ClientState02C
         super(clientStateAutomaton);
     }
 
-    // Overriden methods of class AbstractClientState
+    // class ClientState02ConnectNonIdent
     // ---- 2 (Пользователь)
     @Override
     public void setUserName(String userName) {

@@ -9,7 +9,7 @@ public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState0
         super(clientStateAutomaton);
     }
 
-    // class AbstractClientState
+    // class ClientState07GameMatchSelected
     // ---- 6 Конкретная партия игры
     @Override
     public void forgetServerBaseModel() {
