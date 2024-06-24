@@ -68,6 +68,20 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
                         this
                 )
         );
+/*
+        //  См. коммент к IFabricOfClientStates
+        FabricOfRemoteClientStates fabricOfRemoteClientStates = new FabricOfRemoteClientStates<>(webSocket);
+        RemoteClientStateAutomaton remoteClientStateAutomaton = new RemoteClientStateAutomaton<>(
+                fabricOfRemoteClientStates,
+                new FabricOfRemoteClientStateAutomaton(),
+                this
+        );
+        fabricOfRemoteClientStates.setClientStateAutomaton(remoteClientStateAutomaton);
+        mapOfRemoteClientState.put(
+                webSocket,
+                remoteClientStateAutomaton
+        );
+*/
     }
 
     @Override
