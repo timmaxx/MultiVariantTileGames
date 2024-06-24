@@ -47,6 +47,9 @@ public class MultiGameClient extends Application {
         );
         // ToDo: Warning:(38, 9) Raw use of parameterized class 'IModelOfClient'
         //       Warning:(38, 45) Raw use of parameterized class 'ModelOfClient<>'
+        // ToDo: Устранить взаимозависимость класса, реализующих интерфейс IModelOfClient, с классом
+        //       TransportOfClient.
+        //       Из-за всзаимозависимости приходится применять transportOfClient.setModelOfClient().
         IModelOfClient iModelOfClient = new ModelOfClient<>(transportOfClient, localClientStateJfx);
         // ToDo: Как-то не нравится мне, что модель приходится инициализировать через сеттер.
         transportOfClient.setModelOfClient(iModelOfClient);
