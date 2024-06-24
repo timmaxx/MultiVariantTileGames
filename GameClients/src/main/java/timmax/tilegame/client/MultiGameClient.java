@@ -39,19 +39,21 @@ public class MultiGameClient extends Application {
         // ToDo: Вместо использования класса ClientStateAutomaton стоит создать класс LocalClientStateAutomaton,
         //       в котором и использовать функционал FabricOfClientStateAutomatonJfx и отказаться от FabricOfClientStatesJfx.
         // ToDo: Warning:(32, 9) Raw use of parameterized class 'ClientStateAutomaton'
-        // ToDo: Устранить взаимозависимость интерфейса IFabricOfClientStates и класса ClientStateAtomaton.
-        //       См. коммент к IFabricOfClientStates
+        // ToDo: Устранить взаимозависимость классов, реализующих интерфейс IFabricOfClientStates, с классом
+        //       ClientStateAutomaton.
+        //       См. комментарий к IFabricOfClientStates.
         LocalClientStateAutomaton localClientStateJfx = new LocalClientStateAutomaton(
                 new FabricOfClientStatesJfx<>(),
                 new FabricOfClientStateAutomatonJfx()
         );
         // ToDo: Warning:(38, 9) Raw use of parameterized class 'IModelOfClient'
         //       Warning:(38, 45) Raw use of parameterized class 'ModelOfClient<>'
-        // ToDo: Устранить взаимозависимость класса, реализующих интерфейс IModelOfClient, с классом
+        // ToDo: Устранить взаимозависимость классов, реализующих интерфейс IModelOfClient, с классом
         //       TransportOfClient.
-        //       Из-за всзаимозависимости приходится применять transportOfClient.setModelOfClient().
+        //       Из-за взаимозависимости приходится применять transportOfClient.setModelOfClient().
         IModelOfClient iModelOfClient = new ModelOfClient<>(transportOfClient, localClientStateJfx);
-        // ToDo: Как-то не нравится мне, что модель приходится инициализировать через сеттер.
+        // ToDo: Как-то не нравится мне, что iModelOfClient приходится внедрять в transportOfClient через сеттер.
+        //       См. предыдущий комментарий.
         transportOfClient.setModelOfClient(iModelOfClient);
 
         Pane01ServerConnect pane01ServerConnect = new Pane01ServerConnect(iModelOfClient, transportOfClient);
