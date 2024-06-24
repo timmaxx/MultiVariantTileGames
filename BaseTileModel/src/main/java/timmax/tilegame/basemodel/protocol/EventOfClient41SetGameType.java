@@ -20,7 +20,7 @@ public class EventOfClient41SetGameType<ClientId> extends EventOfClient<ClientId
     }
 
     @Override
-    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientState) {
+    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientState, ClientId clientId) {
         logger.debug("  onGameTypeSelect");
         logger.debug("  modelOfServerDescriptorGameTypeName = {}", modelOfServerDescriptorGameTypeName);
         if (modelOfServerDescriptorGameTypeName == null) {
@@ -30,8 +30,8 @@ public class EventOfClient41SetGameType<ClientId> extends EventOfClient<ClientId
         }
         // От клиента поступило символическое имя типа игры (оно должно быть одно из тех, которые ему направлялись множеством).
 
-        //  ToDo: Код в следующем после этого блоке предпочтительнее, но он не компилируется...
-//
+        //  ToDo: Код в следующем, после этого блоке, предпочтительнее, но он не компилируется...
+        //        !!!Хотя, вроде компилируется!!!
 /*
         ModelOfServerDescriptor modelOfServerDescriptor = null;
         for (int i = 0; i < remoteClientState.getGameTypeSet().size(); i++) {
@@ -60,6 +60,7 @@ public class EventOfClient41SetGameType<ClientId> extends EventOfClient<ClientId
                 '}';
     }
 
+    // interface Externalizable
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeObject(modelOfServerDescriptorGameTypeName);

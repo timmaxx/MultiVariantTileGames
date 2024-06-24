@@ -4,8 +4,11 @@ import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server_client.*;
 
 public class RemoteClientState08GameIsPlaying<ClientId> extends ClientState08GameIsPlaying<IModelOfServer> {
-    public RemoteClientState08GameIsPlaying(ClientStateAutomaton<IModelOfServer> clientStateAutomaton) {
+    private final ClientId clientId;
+
+    public RemoteClientState08GameIsPlaying(ClientStateAutomaton<IModelOfServer> clientStateAutomaton, ClientId clientId) {
         super(clientStateAutomaton);
+        this.clientId = clientId;
     }
 
     // class ClientState08GameIsPlaying
@@ -14,7 +17,7 @@ public class RemoteClientState08GameIsPlaying<ClientId> extends ClientState08Gam
     public void forgetGameIsPlaying() {
         super.forgetGameIsPlaying();
         getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
-                getClientStateAutomaton().getClientId(),
+                clientId,
                 new EventOfServer70GameMatchIsNotPlaying()
         );
     }

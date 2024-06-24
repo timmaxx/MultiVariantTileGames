@@ -64,8 +64,12 @@ public class ModelOfServerOfSokoban<ClientId> extends ModelOfServer<ClientId> {
         }
     }
 
-    public ModelOfServerOfSokoban(RemoteClientStateAutomaton<ClientId> remoteClientState) {
-        super(remoteClientState);
+    // ToDo: См. комментарии о согласовании параметров в
+    //       - ModelOfServerDescriptor :: ModelOfServerDescriptor(...)
+    //       и в
+    //       - ModelOfServerLoader :: getCollectionOfModelOfServerDescriptor(...)
+    public ModelOfServerOfSokoban(RemoteClientStateAutomaton<ClientId> remoteClientState, ClientId clientId) {
+        super(remoteClientState, clientId);
     }
 
     private void moveUndo() {

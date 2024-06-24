@@ -63,11 +63,9 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         mapOfRemoteClientState.put(
                 webSocket,
                 new RemoteClientStateAutomaton<>(
-                        new FabricOfRemoteClientStates<>(),
+                        new FabricOfRemoteClientStates<>(webSocket),
                         new FabricOfRemoteClientStateAutomaton(),
-                        this,
-                        // ToDo: Удалить этот параметр, т.к. в мапу и так он попадает (см. несколько строк выше).
-                        webSocket
+                        this
                 )
         );
     }
@@ -86,7 +84,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         //       Warning:(74, 50) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.EventOfClient' to 'timmax.tilegame.basemodel.protocol.EventOfClient<org.java_websocket.WebSocket>'
         EventOfClient<WebSocket> eventOfClient = mapper.readValue(byteArrayInputStream, EventOfClient.class);
         logger.info("WebSocket: {}. Incoming message. EventOfClient: {}.", webSocket, eventOfClient);
-        Thread thread = new Thread(() -> eventOfClient.executeOnServer(mapOfRemoteClientState.get(webSocket)));
+        Thread thread = new Thread(() -> eventOfClient.executeOnServer(mapOfRemoteClientState.get(webSocket), webSocket));
         thread.start();
     }
 

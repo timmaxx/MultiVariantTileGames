@@ -5,8 +5,11 @@ import timmax.tilegame.basemodel.protocol.server_client.ClientState07GameMatchSe
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 
 public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState07GameMatchSelected<IModelOfServer> {
-    public RemoteClientState07GameMatchSelected(ClientStateAutomaton<IModelOfServer> clientStateAutomaton) {
+    private final ClientId clientId;
+
+    public RemoteClientState07GameMatchSelected(ClientStateAutomaton<IModelOfServer> clientStateAutomaton, ClientId clientId) {
         super(clientStateAutomaton);
+        this.clientId = clientId;
     }
 
     // class ClientState07GameMatchSelected
@@ -15,7 +18,7 @@ public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState0
     public void forgetServerBaseModel() {
         super.forgetServerBaseModel();
         getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
-                getClientStateAutomaton().getClientId(),
+                clientId,
                 new EventOfServer60ForgetGameMatch()
         );
     }
@@ -25,7 +28,7 @@ public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState0
     public void setGameIsPlaying(Boolean gameIsPlaying) {
         super.setGameIsPlaying(gameIsPlaying);
         getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
-                getClientStateAutomaton().getClientId(),
+                clientId,
                 new EventOfServer71GameMatchIsPlaying()
         );
         // ToDo: Вызов этого метода может быть как для модели:

@@ -16,7 +16,8 @@ public class ModelOfServerLoader {
     private static final String FILE_NAME_WITH_CLASS_NAMES_OF_MODELS = "models.txt";
 
     public static <ClientId> Set<ModelOfServerDescriptor> getCollectionOfModelOfServerDescriptor(
-            RemoteClientStateAutomaton<ClientId> remoteClientState
+            RemoteClientStateAutomaton<ClientId> remoteClientState,
+            ClientId clientId
     ) {
         Path path = null;
         try {
@@ -32,12 +33,18 @@ public class ModelOfServerLoader {
             ModelOfServerDescriptor modelOfServerDescriptor;
             while ((line = reader.readLine()) != null) {
                 try {
-                    modelOfServerDescriptor = new ModelOfServerDescriptor(line, remoteClientState);
+                    // ToDo: Нужно минимизировать количество согласований в методах и между классами.
+                    //       Второй и третий параметр - это группа параметров для конструктора модели.
+                    //       И эту группу и можно было-бы обрабатывать как группу.
+                    //       1. Во первых при вызове new ModelOfServerDescriptor(...)
+                    modelOfServerDescriptor = new ModelOfServerDescriptor(line, remoteClientState, clientId);
                 } catch (ClassNotFoundException e) {
                     logger.warn("Class '{}' is not found.", line, e);
                     continue;
                 } catch (NoSuchMethodException e) {
-                    logger.warn("Class '{}' does not contains constructor with " + "'one parameter " + remoteClientState.getClass() + "'" + " type.", line, e);
+                    // ToDo: - продолжение предыдущего ToDo.
+                    //       2. Во вторых при логировании здесь.
+                    logger.warn("Class '{}' does not contains constructor with " + "'parameter(s) " + remoteClientState.getClass() + "'" + " type and " + clientId.getClass() + " type.", line, e);
                     continue;
                 }
                 result.add(modelOfServerDescriptor);

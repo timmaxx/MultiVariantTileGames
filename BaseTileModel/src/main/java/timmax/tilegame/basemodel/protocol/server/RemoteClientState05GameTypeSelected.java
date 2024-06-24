@@ -9,8 +9,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class RemoteClientState05GameTypeSelected<ClientId> extends ClientState05GameTypeSelected<IModelOfServer> {
-    public RemoteClientState05GameTypeSelected(ClientStateAutomaton<IModelOfServer> clientStateAutomaton) {
+    private final ClientId clientId;
+
+    public RemoteClientState05GameTypeSelected(ClientStateAutomaton<IModelOfServer> clientStateAutomaton, ClientId clientId) {
         super(clientStateAutomaton);
+        this.clientId = clientId;
     }
 
     // class ClientState05GameTypeSelected
@@ -19,7 +22,7 @@ public class RemoteClientState05GameTypeSelected<ClientId> extends ClientState05
     public void forgetGameType() {
         super.forgetGameType();
         getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
-                getClientStateAutomaton().getClientId(),
+                clientId,
                 new EventOfServer40ForgetGameType()
         );
     }
@@ -29,7 +32,7 @@ public class RemoteClientState05GameTypeSelected<ClientId> extends ClientState05
     public void setGameMatchSet(Set<IModelOfServer> setOfServerBaseModel) {
         super.setGameMatchSet(setOfServerBaseModel);
         getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
-                getClientStateAutomaton().getClientId(),
+                clientId,
                 new EventOfServer51GetGameMatchSet(
                         setOfServerBaseModel
                                 .stream()

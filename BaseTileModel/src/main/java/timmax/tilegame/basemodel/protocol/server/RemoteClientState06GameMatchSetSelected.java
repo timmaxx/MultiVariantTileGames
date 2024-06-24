@@ -6,8 +6,11 @@ import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 
 public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientState06GameMatchSetSelected<IModelOfServer> {
-    public RemoteClientState06GameMatchSetSelected(ClientStateAutomaton<IModelOfServer> clientStateAutomaton) {
+    private final ClientId clientId;
+
+    public RemoteClientState06GameMatchSetSelected(ClientStateAutomaton<IModelOfServer> clientStateAutomaton, ClientId clientId) {
         super(clientStateAutomaton);
+        this.clientId = clientId;
     }
 
     // class ClientState06GameMatchSetSelected
@@ -16,7 +19,7 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
     public void forgetGameMatchSet() {
         super.forgetGameMatchSet();
         getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
-                getClientStateAutomaton().getClientId(),
+                clientId,
                 new EventOfServer50ForgetGameMatchSet()
         );
     }
@@ -26,7 +29,7 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
     public void setServerBaseModel(IModelOfServer iModelOfServer) {
         super.setServerBaseModel(iModelOfServer);
         getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
-                getClientStateAutomaton().getClientId(),
+                clientId,
                 new EventOfServer61SetGameMatch(
                         new InstanceIdOfModel(iModelOfServer.toString())
                 )

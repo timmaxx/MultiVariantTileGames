@@ -39,8 +39,12 @@ public class ModelOfServerOfMinesweeper<ClientId> extends ModelOfServer<ClientId
 
     private AllMinesweeperObjects<ClientId> allMinesweeperObjects;
 
-    public ModelOfServerOfMinesweeper(RemoteClientStateAutomaton<ClientId> remoteClientState) {
-        super(remoteClientState);
+    // ToDo: См. комментарии о согласовании параметров в
+    //       - ModelOfServerDescriptor :: ModelOfServerDescriptor(...)
+    //       и в
+    //       - ModelOfServerLoader :: getCollectionOfModelOfServerDescriptor(...)
+    public ModelOfServerOfMinesweeper(RemoteClientStateAutomaton<ClientId> remoteClientState, ClientId clientId) {
+        super(remoteClientState, clientId);
     }
 
     public void createNewGame(int width, int height, int percentsOfMines) {

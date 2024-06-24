@@ -20,7 +20,7 @@ public class EventOfClient92GameCommand<ClientId> extends EventOfClient<ClientId
     }
 
     @Override
-    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientState) {
+    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientState, ClientId clientId) {
         logger.debug("  onGameEvent");
         gameCommand.executeOnServer(remoteClientState.getServerBaseModel());
     }
@@ -32,6 +32,7 @@ public class EventOfClient92GameCommand<ClientId> extends EventOfClient<ClientId
                 '}';
     }
 
+    // interface Externalizable
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeObject(gameCommand);

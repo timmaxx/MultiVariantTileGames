@@ -11,8 +11,6 @@ import java.util.Set;
 public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<IModelOfServer> {
     private final TransportOfServer<ClientId> multiGameWebSocketServer;
 
-    // ToDo: Удалить, т.к. ClientId есть в мапе в MultiGameWebSocketServer
-    private final ClientId webSocket;
     private final Set<String> setOfViewName;
 
     private Map<String, Integer> mapOfParamsOfModelValue;
@@ -20,19 +18,10 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
     public RemoteClientStateAutomaton(
             IFabricOfRemoteClientStates<ClientId> fabricOfClientStatesForServer,
             IFabricOfClientStateAutomaton iFabricOfClientStateAutomaton,
-            TransportOfServer<ClientId> multiGameWebSocketServer,
-            // ToDo: Удалить, т.к. ClientId есть в мапе в MultiGameWebSocketServer
-            ClientId webSocket) {
+            TransportOfServer<ClientId> multiGameWebSocketServer) {
         super(fabricOfClientStatesForServer, iFabricOfClientStateAutomaton);
         this.multiGameWebSocketServer = multiGameWebSocketServer;
         this.setOfViewName = new HashSet<>();
-        this.webSocket = webSocket;
-    }
-
-    // For remote clientState:
-    // ToDo: Удалить, т.к. ClientId есть в мапе в MultiGameWebSocketServer
-    public ClientId getClientId() {
-        return webSocket;
     }
 
     public TransportOfServer<ClientId> getTransportOfServer() {

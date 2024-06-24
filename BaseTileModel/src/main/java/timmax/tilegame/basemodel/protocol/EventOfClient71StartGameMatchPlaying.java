@@ -20,7 +20,7 @@ public class EventOfClient71StartGameMatchPlaying<ClientId> extends EventOfClien
     }
 
     @Override
-    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientState) {
+    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientState, ClientId clientId) {
         logger.debug("  onStartGameMatchPlaying");
         remoteClientState.setMapOfParamsOfModelValue(mapOfParamsOfModelValue);
         remoteClientState.setGameIsPlaying(true);
@@ -33,6 +33,7 @@ public class EventOfClient71StartGameMatchPlaying<ClientId> extends EventOfClien
                 '}';
     }
 
+    // interface Externalizable
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeObject(mapOfParamsOfModelValue);

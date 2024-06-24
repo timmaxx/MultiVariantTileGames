@@ -37,7 +37,8 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
 
     public <ClientId> ModelOfServerDescriptor(
             String modelOfServerFullClassName,
-            RemoteClientStateAutomaton<ClientId> remoteClientState)
+            RemoteClientStateAutomaton<ClientId> remoteClientState,
+            ClientId clientId)
             throws ClassNotFoundException, NoSuchMethodException {
         this();
         // ToDo: Мапу нужно инициализировать не как сейчас - константой, а в классе найти все выборки View.class, в т.ч. и ViewMainField.class.
@@ -45,12 +46,21 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
 
         // ToDo: Избавиться от "Warning:(45, 62) Unchecked cast: 'java.lang.Class<capture<?>>' to 'java.lang.Class<? extends timmax.tilegame.basemodel.protocol.server.IModelOfServer>'"
         Class<? extends IModelOfServer> modelOfServerClass = (Class<? extends IModelOfServer>) Class.forName(modelOfServerFullClassName);
-        constructorOfModelOfServerClass = modelOfServerClass.getConstructor(remoteClientState.getClass());
+        // ToDo: Нужно минимизировать количество согласований в методах и между классами.
+        //       Параметры, которые передаются в getConstructor() и ниже newInstance(), также согласуются с параметрами в
+        //       ModelOfServerLoader :: getCollectionOfModelOfServerDescriptor()
+        //       и внутри того метода с параметрами при вызове
+        //       modelOfServerDescriptor = new ModelOfServerDescriptor()
+        //       и там же ниже в ветке
+        //       catch (NoSuchMethodException e)
+        //       при логировании.
+        // ToDo: Одним из типов параметров указан Object.class. Сделал так, т.к. не знаю как указать параметризированный тип.
+        constructorOfModelOfServerClass = modelOfServerClass.getConstructor(remoteClientState.getClass(), Object.class);
 
         IModelOfServer iModelOfServer;
         try {
             // Создаётся экземпляр. После работы в этом конструкторе он будет не нужен.
-            iModelOfServer = constructorOfModelOfServerClass.newInstance(remoteClientState);
+            iModelOfServer = constructorOfModelOfServerClass.newInstance(remoteClientState, clientId);
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
             String errMessage = "Server cannot make object of model for " + modelOfServerFullClassName + " with concrete constructor.";
             logger.error(errMessage, e);

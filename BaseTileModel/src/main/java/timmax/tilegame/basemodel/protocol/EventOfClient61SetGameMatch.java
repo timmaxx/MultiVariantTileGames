@@ -24,14 +24,17 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
     }
 
     @Override
-    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientState) {
+    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientState, ClientId clientId) {
         logger.debug("  onSetGameMatch");
         logger.debug("  InstanceIdOfModel = {}", instanceIdOfModel);
 
         // ToDo: Исправить Warning:(33, 9) Raw use of parameterized class 'IModelOfServer'
         IModelOfServer iModelOfServer = null;
         if (instanceIdOfModel.getId() == null) {
-            remoteClientState.getTransportOfServer().sendEventOfServer(remoteClientState.getClientId(), new EventOfServer60ForgetGameMatch());
+            remoteClientState.getTransportOfServer().sendEventOfServer(
+                    clientId,
+                    new EventOfServer60ForgetGameMatch()
+            );
             return;
         }
         if (instanceIdOfModel.getId().equals("New game")) {
@@ -41,7 +44,16 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
 
             try {
                 // Создаём экземпляр модели, ранее выбранного типа.
-                iModelOfServer = constructor.newInstance(remoteClientState);
+                // ToDo: Нужно минимизировать количество согласований между классами.
+                //       Параметры, которые передаются в newInstance():
+                //       1. Перечень параметров согласовывается с перечнем в
+                //          ModelOfServerDescriptor :: ModelOfServerDescriptor(...)
+                //          в строке
+                //          constructorOfModelOfServerClass = modelOfServerClass.getConstructor(...);
+                //          и там-же ниже в строке
+                //          iModelOfServer = constructorOfModelOfServerClass.newInstance(...);
+                //       2. Ну в т.ч. это, те-же параметры, которые поступили в executeOnServer().
+                iModelOfServer = constructor.newInstance(remoteClientState, clientId);
             } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
                 logger.error("Server cannot create object of model for {} with constructor with specific parameters.", modelOfServerDescriptor, e);
                 System.exit(1);
@@ -79,6 +91,7 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
                 '}';
     }
 
+    // interface Externalizable
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeObject(instanceIdOfModel);

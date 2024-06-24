@@ -4,8 +4,11 @@ import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server_client.*;
 
 public class RemoteClientState02ConnectNonIdent<ClientId> extends ClientState02ConnectNonIdent<IModelOfServer> {
-    public RemoteClientState02ConnectNonIdent(ClientStateAutomaton<IModelOfServer> clientStateAutomaton) {
+    private final ClientId clientId;
+
+    public RemoteClientState02ConnectNonIdent(ClientStateAutomaton<IModelOfServer> clientStateAutomaton, ClientId clientId) {
         super(clientStateAutomaton);
+        this.clientId = clientId;
     }
 
     // class ClientState02ConnectNonIdent
@@ -13,7 +16,7 @@ public class RemoteClientState02ConnectNonIdent<ClientId> extends ClientState02C
     @Override
     public void setUserName(String userName) {
         super.setUserName(userName);
-        getClientStateAutomaton().getTransportOfServer().sendEventOfServer(getClientStateAutomaton().getClientId(), new EventOfServer21Login(userName));
+        getClientStateAutomaton().getTransportOfServer().sendEventOfServer(clientId, new EventOfServer21Login(userName));
     }
 
     // class AbstractClientState

@@ -22,7 +22,7 @@ public class EventOfClient21Login<ClientId> extends EventOfClient<ClientId> {
     }
 
     @Override
-    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientState) {
+    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientState, ClientId clientId) {
         logger.debug("  onLogin");
         logger.debug("    userName = {} | password = *", userName); // Пароль не выводим:
 
@@ -41,6 +41,7 @@ public class EventOfClient21Login<ClientId> extends EventOfClient<ClientId> {
                 '}';
     }
 
+    // interface Externalizable
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeObject(userName);

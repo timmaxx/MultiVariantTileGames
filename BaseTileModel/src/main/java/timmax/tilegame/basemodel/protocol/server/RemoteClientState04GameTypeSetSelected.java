@@ -8,8 +8,11 @@ import timmax.tilegame.baseview.View;
 import java.util.Map;
 
 public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientState04GameTypeSetSelected<IModelOfServer> {
-    public RemoteClientState04GameTypeSetSelected(ClientStateAutomaton<IModelOfServer> clientStateAutomaton) {
+    private final ClientId clientId;
+
+    public RemoteClientState04GameTypeSetSelected(ClientStateAutomaton<IModelOfServer> clientStateAutomaton, ClientId clientId) {
         super(clientStateAutomaton);
+        this.clientId = clientId;
     }
 
     // class ClientState04GameTypeSetSelected
@@ -17,7 +20,10 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
     @Override
     public void forgetGameTypeSet() {
         super.forgetGameTypeSet();
-        getClientStateAutomaton().getTransportOfServer().sendEventOfServer(getClientStateAutomaton().getClientId(), new EventOfServer30ForgetGameTypeSet());
+        getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
+                clientId,
+                new EventOfServer30ForgetGameTypeSet()
+        );
     }
 
     // ---- 4 (Конкретный тип игры)
@@ -27,7 +33,7 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
         if (modelOfServerDescriptor == null) {
             getClientStateAutomaton().getSetOfViewName().clear();
             getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
-                    getClientStateAutomaton().getClientId(),
+                    clientId,
                     new EventOfServer40ForgetGameType()
             );
             return;
@@ -39,7 +45,7 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
             getClientStateAutomaton().getSetOfViewName().add(entry.getKey());
         }
         getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
-                getClientStateAutomaton().getClientId(),
+                clientId,
                 new EventOfServer41SetGameType(modelOfServerDescriptor.getGameName())
         );
     }
