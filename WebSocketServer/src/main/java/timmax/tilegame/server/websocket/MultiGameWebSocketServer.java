@@ -45,16 +45,6 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
 
     // class WebSocketServer:
     @Override
-    public void start() {
-        super.start();
-    }
-
-    @Override
-    public void stop(int timeout) throws InterruptedException {
-        super.stop(timeout);
-    }
-
-    @Override
     public void onStart() {
         logger.info("The server was started on port: {}.", getPort());
     }
@@ -63,7 +53,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     public void onClose(WebSocket webSocket, int code, String reason, boolean remote) {
         logger.info("WebSocket: {}. Connection was closed.", webSocket);
         logger.debug("  Code: {}. Reason: {}. Remote: {}.", code, reason, remote);
-        mapOfRemoteClientState.remove(webSocket);
+        mapOfWebSocketAndRemoteClientState.remove(webSocket);
     }
 
     @Override
@@ -72,7 +62,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         logger.debug("  ClientHandshake: {}.", clientHandshake);
         // ToDo: Устранить взаимозависимость интерфейса IFabricOfClientStates и класса ClientStateAtomaton.
         //       См. коммент к IFabricOfClientStates
-        mapOfRemoteClientState.put(
+        mapOfWebSocketAndRemoteClientState.put(
                 webSocket,
                 new RemoteClientStateAutomaton<>(
                         new FabricOfRemoteClientStates<>(webSocket),
@@ -96,7 +86,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         //       Warning:(87, 50) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.EventOfClient' to 'timmax.tilegame.basemodel.protocol.EventOfClient<org.java_websocket.WebSocket>'
         EventOfClient<WebSocket> eventOfClient = mapper.readValue(byteArrayInputStream, EventOfClient.class);
         logger.info("WebSocket: {}. Incoming message. EventOfClient: {}.", webSocket, eventOfClient);
-        Thread thread = new Thread(() -> eventOfClient.executeOnServer(mapOfRemoteClientState.get(webSocket), webSocket));
+        Thread thread = new Thread(() -> eventOfClient.executeOnServer(mapOfWebSocketAndRemoteClientState.get(webSocket), webSocket));
         thread.start();
     }
 
