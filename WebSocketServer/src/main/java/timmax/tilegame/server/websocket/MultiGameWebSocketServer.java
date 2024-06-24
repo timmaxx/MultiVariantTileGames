@@ -35,12 +35,12 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     //       и
     //       IModelOfClient iModelOfClient
     //       что не есть хорошо, т.к. не единообразно!
-    private final Map<WebSocket, RemoteClientStateAutomaton<WebSocket>> mapOfRemoteClientState;
+    private final Map<WebSocket, RemoteClientStateAutomaton<WebSocket>> mapOfWebSocketAndRemoteClientState;
 
     public MultiGameWebSocketServer(int port) {
         super(new InetSocketAddress(port));
         mapper = new ObjectMapperOfMvtg();
-        mapOfRemoteClientState = new HashMap<>();
+        mapOfWebSocketAndRemoteClientState = new HashMap<>();
     }
 
     // class WebSocketServer:
