@@ -20,27 +20,3 @@ public interface IFabricOfRemoteClientStates<ClientId> extends IFabricOfClientSt
     @Override
     RemoteClientState08GameIsPlaying<ClientId> getClientState08GameIsPlaying(ClientStateAutomaton<IModelOfServer> clientStateAutomaton);
 }
-
-/*
-//  См. коммент к IFabricOfClientStates
-public interface IFabricOfRemoteClientStates<ClientId> extends IFabricOfClientStates<IModelOfServer> {
-    @Override
-    void setClientStateAutomaton(ClientStateAutomaton ClientState);
-    @Override
-    RemoteClientState01NoConnect<ClientId> getClientState01NoConnect();
-    @Override
-    RemoteClientState02ConnectNonIdent<ClientId> getClientState02ConnectNonIdent();
-    @Override
-    RemoteClientState03ConnectAuthorized<ClientId> getClientState03ConnectAuthorized();
-    @Override
-    RemoteClientState04GameTypeSetSelected<ClientId> getClientState04GameTypeSetSelected();
-    @Override
-    RemoteClientState05GameTypeSelected<ClientId> getClientState05GameTypeSelected();
-    @Override
-    RemoteClientState06GameMatchSetSelected<ClientId> getClientState06GameMatchSetSelected();
-    @Override
-    RemoteClientState07GameMatchSelected<ClientId> getClientState07GameMatchSelected();
-    @Override
-    RemoteClientState08GameIsPlaying<ClientId> getClientState08GameIsPlaying();
-}
-*/

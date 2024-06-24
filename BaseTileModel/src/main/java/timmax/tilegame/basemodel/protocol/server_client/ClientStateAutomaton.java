@@ -39,17 +39,6 @@ public class ClientStateAutomaton<Model> implements
         clientState06GameMatchSetSelected = IFabricOfClientStates.getClientState06GameMatchSetSelected(this);
         clientState07GameMatchSelected = IFabricOfClientStates.getClientState07GameMatchSelected(this);
         clientState08GameIsPlaying = IFabricOfClientStates.getClientState08GameIsPlaying(this);
-/*
-        //  См. коммент к IFabricOfClientStates
-        clientState01NoConnect = IFabricOfClientStates.getClientState01NoConnect();
-        clientState02ConnectNonIdent = IFabricOfClientStates.getClientState02ConnectNonIdent();
-        clientState03ConnectAuthorized = IFabricOfClientStates.getClientState03ConnectAuthorized();
-        clientState04GameTypeSetSelected = IFabricOfClientStates.getClientState04GameTypeSetSelected();
-        clientState05GameTypeSelected = IFabricOfClientStates.getClientState05GameTypeSelected();
-        clientState06GameMatchSetSelected = IFabricOfClientStates.getClientState06GameMatchSetSelected();
-        clientState07GameMatchSelected = IFabricOfClientStates.getClientState07GameMatchSelected();
-        clientState08GameIsPlaying = IFabricOfClientStates.getClientState08GameIsPlaying();
-*/
 
         this.iFabricOfClientStateAutomaton = iFabricOfClientStateAutomaton;
 

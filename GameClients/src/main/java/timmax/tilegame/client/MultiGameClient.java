@@ -39,19 +39,12 @@ public class MultiGameClient extends Application {
         // ToDo: Вместо использования класса ClientStateAutomaton стоит создать класс LocalClientStateAutomaton,
         //       в котором и использовать функционал FabricOfClientStateAutomatonJfx и отказаться от FabricOfClientStatesJfx.
         // ToDo: Warning:(32, 9) Raw use of parameterized class 'ClientStateAutomaton'
+        // ToDo: Устранить взаимозависимость интерфейса IFabricOfClientStates и класса ClientStateAtomaton.
+        //       См. коммент к IFabricOfClientStates
         LocalClientStateAutomaton localClientStateJfx = new LocalClientStateAutomaton(
                 new FabricOfClientStatesJfx<>(),
                 new FabricOfClientStateAutomatonJfx()
         );
-/*
-        //  См. коммент к IFabricOfClientStates
-        FabricOfClientStatesJfx fabricOfClientStatesJfx = new FabricOfClientStatesJfx<>();
-        LocalClientStateAutomaton localClientStateJfx = new LocalClientStateAutomaton(
-                fabricOfClientStatesJfx,
-                new FabricOfClientStateAutomatonJfx()
-        );
-        fabricOfClientStatesJfx.setClientStateAutomaton(localClientStateJfx);
-*/
         // ToDo: Warning:(38, 9) Raw use of parameterized class 'IModelOfClient'
         //       Warning:(38, 45) Raw use of parameterized class 'ModelOfClient<>'
         IModelOfClient iModelOfClient = new ModelOfClient<>(transportOfClient, localClientStateJfx);

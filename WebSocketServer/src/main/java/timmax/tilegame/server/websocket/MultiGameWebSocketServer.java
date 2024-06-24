@@ -60,6 +60,8 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     public void onOpen(WebSocket webSocket, ClientHandshake clientHandshake) {
         logger.info("WebSocket: {}. Connection was opened.", webSocket);
         logger.debug("  ClientHandshake: {}.", clientHandshake);
+        // ToDo: Устранить взаимозависимость интерфейса IFabricOfClientStates и класса ClientStateAtomaton.
+        //       См. коммент к IFabricOfClientStates
         mapOfRemoteClientState.put(
                 webSocket,
                 new RemoteClientStateAutomaton<>(
@@ -68,20 +70,6 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
                         this
                 )
         );
-/*
-        //  См. коммент к IFabricOfClientStates
-        FabricOfRemoteClientStates fabricOfRemoteClientStates = new FabricOfRemoteClientStates<>(webSocket);
-        RemoteClientStateAutomaton remoteClientStateAutomaton = new RemoteClientStateAutomaton<>(
-                fabricOfRemoteClientStates,
-                new FabricOfRemoteClientStateAutomaton(),
-                this
-        );
-        fabricOfRemoteClientStates.setClientStateAutomaton(remoteClientStateAutomaton);
-        mapOfRemoteClientState.put(
-                webSocket,
-                remoteClientStateAutomaton
-        );
-*/
     }
 
     @Override
@@ -95,7 +83,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         // ToDo: А вдруг здесь от клиента прилетит что-то не EventOfClient?
         //       Тогда нужно обрабатывать исключение и выводить в лог.
         // ToDo: Обработать Warning:
-        //       Warning:(74, 50) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.EventOfClient' to 'timmax.tilegame.basemodel.protocol.EventOfClient<org.java_websocket.WebSocket>'
+        //       Warning:(87, 50) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.EventOfClient' to 'timmax.tilegame.basemodel.protocol.EventOfClient<org.java_websocket.WebSocket>'
         EventOfClient<WebSocket> eventOfClient = mapper.readValue(byteArrayInputStream, EventOfClient.class);
         logger.info("WebSocket: {}. Incoming message. EventOfClient: {}.", webSocket, eventOfClient);
         Thread thread = new Thread(() -> eventOfClient.executeOnServer(mapOfRemoteClientState.get(webSocket), webSocket));
