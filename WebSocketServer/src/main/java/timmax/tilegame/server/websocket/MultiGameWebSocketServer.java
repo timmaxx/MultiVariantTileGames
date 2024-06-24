@@ -43,7 +43,17 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         mapOfRemoteClientState = new HashMap<>();
     }
 
-    // Overriden methods from class WebSocketServer:
+    // class WebSocketServer:
+    @Override
+    public void start() {
+        super.start();
+    }
+
+    @Override
+    public void stop(int timeout) throws InterruptedException {
+        super.stop(timeout);
+    }
+
     @Override
     public void onStart() {
         logger.info("The server was started on port: {}.", getPort());
@@ -98,7 +108,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         // ToDo: Но поскольку, от какого-то клиента поступило такое сообщение, то этого клиента желательно отключить.
     }
 
-    // Overriden methods from interface TransportOfServer:
+    // interface TransportOfServer:
     @Override
     public void sendEventOfServer(WebSocket webSocket, EventOfServer eventOfServer) {
         logger.info("WebSocket: {}. Outcoming message. EventOfServer: {}.", webSocket, eventOfServer);
