@@ -56,22 +56,14 @@ public class MultiGameClient extends Application {
         //       См. предыдущий комментарий.
         transportOfClient.setModelOfClient(iModelOfClient);
 
-        Pane01ServerConnect pane01ServerConnect = new Pane01ServerConnect(iModelOfClient, transportOfClient);
-        Pane02UserLogin pane02UserLogin = new Pane02UserLogin(iModelOfClient, transportOfClient);
-        Pane03GetGameTypeSet pane03GetGameTypeSet = new Pane03GetGameTypeSet(iModelOfClient, transportOfClient);
-        Pane04SelectGameType pane04SelectGameType = new Pane04SelectGameType(iModelOfClient, transportOfClient);
-        Pane05GetGameMatchSet pane05GetGameMatchSet = new Pane05GetGameMatchSet(iModelOfClient, transportOfClient);
-        Pane06SelectGameMatch pane06SelectGameMatch = new Pane06SelectGameMatch(iModelOfClient, transportOfClient);
-        Pane07GameMatchPlaying pane07GameMatchPlaying = new Pane07GameMatchPlaying(iModelOfClient, transportOfClient);
-
         root.getChildren().addAll(
-                pane01ServerConnect,
-                pane02UserLogin,
-                pane03GetGameTypeSet,
-                pane04SelectGameType,
-                pane05GetGameMatchSet,
-                pane06SelectGameMatch,
-                pane07GameMatchPlaying
+                new Pane01ServerConnect(iModelOfClient, transportOfClient),
+                new Pane02UserLogin(iModelOfClient, transportOfClient),
+                new Pane03GetGameTypeSet(iModelOfClient, transportOfClient),
+                new Pane04SelectGameType(iModelOfClient, transportOfClient),
+                new Pane05GetGameMatchSet(iModelOfClient, transportOfClient),
+                new Pane06SelectGameMatch(iModelOfClient, transportOfClient),
+                new Pane07GameMatchPlaying(iModelOfClient, transportOfClient)
         );
 
         Scene scene = new Scene(root);
