@@ -46,17 +46,15 @@ public class MultiGameClient extends Application {
                 new FabricOfClientStatesJfx<>(),
                 new FabricOfClientStateAutomatonJfx()
         );
-        // ToDo: Warning:(38, 9) Raw use of parameterized class 'IModelOfClient'
-        //       Warning:(38, 45) Raw use of parameterized class 'ModelOfClient<>'
-        // ToDo: Устранить взаимозависимость классов, реализующих интерфейс IModelOfClient, с классом
-        //       TransportOfClient.
-        //       Из-за взаимозависимости приходится применять transportOfClient.setModelOfClient().
+        // ToDo: Удалить интерфейс IModelOfClient и класс, его реализующий (ModelOfClient), т.к.
+        //       IModelOfClient - это надстройка над TransportOfClient. Вот и перенести методы
+        //       IModelOfClient (ModelOfClient) в TransportOfClient (MultiGameWebSocketClientManyTimesUse).
         IModelOfClient iModelOfClient = new ModelOfClient<>(transportOfClient, localClientStateJfx);
-        // ToDo: Как-то не нравится мне, что iModelOfClient приходится внедрять в transportOfClient через сеттер.
-        //       См. предыдущий комментарий.
+        // ToDo: Удалить сеттер, т.к. и сеттеру нечего будет сетить
         transportOfClient.setModelOfClient(iModelOfClient);
 
         root.getChildren().addAll(
+                // ToDo: Удалить параметр iModelOfClient после реализации предыдущего ToDo.
                 new Pane01ServerConnect(iModelOfClient, transportOfClient),
                 new Pane02UserLogin(iModelOfClient, transportOfClient),
                 new Pane03GetGameTypeSet(iModelOfClient, transportOfClient),

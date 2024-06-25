@@ -27,49 +27,40 @@ public class MultiGameWebSocketClient<Model> extends WebSocketClient implements 
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketClient.class);
 
     private final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
+    private final MultiGameWebSocketClientManyTimesUse<Model> modelMultiGameWebSocketClientManyTimesUse;
 
-    // ToDo: О наличии переменной IModelOfClient в классах:
-    //       1. Она есть и в MultiGameWebSocketClient и в MultiGameWebSocketClientManyTimesUse, уже это плохо!
-    //       2. А в классе MultiGameWebSocketServer его "аналога" (т.е. IModelOfServer) нет.
-    //          Не обнаружил места, где объявляется переменая типа IModelOfServer.
-    //          Странно, но тогда, по единообразию и переменных IModelOfClient не должно быть.
-    private /*final*/ IModelOfClient<Model> iModelOfClient;
-
-    public MultiGameWebSocketClient(URI serverUri) {
+    public MultiGameWebSocketClient(URI serverUri, MultiGameWebSocketClientManyTimesUse<Model> modelMultiGameWebSocketClientManyTimesUse) {
         super(serverUri);
+        this.modelMultiGameWebSocketClientManyTimesUse = modelMultiGameWebSocketClientManyTimesUse;
     }
 
-    // ToDo: Модель пришлось инициализировать через сеттер. А лучше-бы через конструктор.
-    //       Если получится ч/з конструктор, то и сеттер можно будет удалить и final раскомментировать.
-/*
-    public MultiGameWebSocketClient(URI serverUri, IModelOfClient<Model, WebSocket> iModelOfClient) {
-        super(serverUri);
-        this.iModelOfClient = iModelOfClient;
+    // ToDo: Удалить метод после удаления IModelOfClient.
+    private IModelOfClient<Model> getIModelOfClient() {
+        return modelMultiGameWebSocketClientManyTimesUse.getIModelOfClient();
     }
-*/
 
-    // Overriden methods from class WebSocketClient:
+    // class WebSocketClient:
     @Override
     public void onClose(int code, String reason, boolean remote) {
         logger.info("Connection was closed.");
-        iModelOfClient.getLocalClientState().forgetUserName();
-        logger.info("  Main game client status: {}.", iModelOfClient);
-        iModelOfClient.getLocalClientState().getHashSetOfObserverOnAbstractEvent().updateOnClose();
+        getIModelOfClient().getLocalClientState().forgetUserName();
+        logger.info("  Main game client status: {}.", getIModelOfClient());
+        getIModelOfClient().getLocalClientState().getHashSetOfObserverOnAbstractEvent().updateOnClose();
         logger.debug("  Code: {}. Reason: {}. Remote: {}.", code, reason, remote);
     }
 
     @Override
     public void onOpen(ServerHandshake handshakedata) {
         logger.info("Connection was opened. Server URI: {}.", getURI());
-        iModelOfClient.getLocalClientState().forgetUserName();
-        logger.info("  Main game client status: {}.", iModelOfClient);
-        iModelOfClient.getLocalClientState().getHashSetOfObserverOnAbstractEvent().updateOnOpen();
+        getIModelOfClient().getLocalClientState().forgetUserName();
+        logger.info("  Main game client status: {}.", getIModelOfClient());
+        getIModelOfClient().getLocalClientState().getHashSetOfObserverOnAbstractEvent().updateOnOpen();
     }
 
     @Override
     public void onError(Exception ex) {
         logger.error("Error occurred.", ex);
-        logger.error("  Main game client status: {}.", iModelOfClient);
+        logger.error("  Main game client status: {}.", getIModelOfClient());
     }
 
     @Override
@@ -79,23 +70,22 @@ public class MultiGameWebSocketClient<Model> extends WebSocketClient implements 
         //       Тогда нужно обрабатывать исключение и выводить в лог.
         EventOfServer eventOfServer = mapper.readValue(byteArrayInputStream, EventOfServer.class);
         logger.info("Incoming message. EventOfServer: {}.", eventOfServer);
-        eventOfServer.executeOnClient(iModelOfClient);
-        logger.debug("  Main game client status: {}.", iModelOfClient);
+        eventOfServer.executeOnClient(getIModelOfClient());
+        logger.debug("  Main game client status: {}.", getIModelOfClient());
     }
 
     @Override
     public void onMessage(String message) {
         logger.error("Incoming message. This type of message (String) should not be!");
-        logger.error("  Main game client status: {}.", iModelOfClient);
+        logger.error("  Main game client status: {}.", getIModelOfClient());
         System.exit(1);
     }
 
-    // Overriden methods from interface TransportOfClient:
-    // ToDo: Модель пришлось инициализировать через сеттер. А лучше-бы через коструктор.
-    //       Если получится ч/з конструктор, то удалить этот сеттер.
+    // interface TransportOfClient:
+    // ToDo: Удалить этот метод!
     @Override
     public void setModelOfClient(IModelOfClient iModelOfClient) {
-        this.iModelOfClient = iModelOfClient;
+        throw new RuntimeException("Удалить этот метод!");
     }
 
     @Override

@@ -15,10 +15,9 @@ public class MultiGameWebSocketClientManyTimesUse<Model> implements TransportOfC
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketClientManyTimesUse.class);
 
     // ToDo: О наличии переменной IModelOfClient в классах:
-    //       1. Она есть и в MultiGameWebSocketClient и в MultiGameWebSocketClientManyTimesUse, уже это плохо!
-    //       2. А в классе MultiGameWebSocketServer его "аналога" (т.е. IModelOfServer) нет.
-    //          Не обнаружил места, где объявляется переменая типа IModelOfServer.
-    //          Странно, но тогда, по единообразию и переменных IModelOfClient не должно быть.
+    //       В классе MultiGameWebSocketServer его "аналога" (т.е. IModelOfServer) нет.
+    //       Не обнаружил места, где объявляется переменая типа IModelOfServer.
+    //       Странно, но тогда, по единообразию и переменных IModelOfClient не должно быть.
     private IModelOfClient<Model> iModelOfClient;
 
     private MultiGameWebSocketClient<Model> transportOfClient;
@@ -26,8 +25,7 @@ public class MultiGameWebSocketClientManyTimesUse<Model> implements TransportOfC
 
     public MultiGameWebSocketClientManyTimesUse() {
         super();
-        // ToDo: Здесь не инициализируется iModelOfClient, поэтому выводится константа в лог.
-        //       Но возможно, что-бы не использовать null, стоит реализовать класс, реализующий IClientState01NoConnect
+        // ToDo: Возможно, что-бы не использовать null, стоит реализовать класс, реализующий IClientState01NoConnect
         //       и здесь им инициализировать.
         logger.info("  Main game client status: {}.", "NO_CONNECT");
     }
@@ -49,9 +47,8 @@ public class MultiGameWebSocketClientManyTimesUse<Model> implements TransportOfC
 
     @Override
     public void connect() {
-        transportOfClient = new MultiGameWebSocketClient<>(uri/*, iModelOfClient*/);
+        transportOfClient = new MultiGameWebSocketClient<>(uri, this);
         // ToDo: См. коммент к setModelOfClient
-        transportOfClient.setModelOfClient(iModelOfClient);
         transportOfClient.connect();
     }
 
