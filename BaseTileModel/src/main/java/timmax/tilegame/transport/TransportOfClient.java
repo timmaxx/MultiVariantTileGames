@@ -13,10 +13,6 @@ import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 // ToDo: класс не должен здесь параметризироватья Model.
 public interface TransportOfClient<ClientId> {
     void setModelOfClient(IModelOfClient iModelOfClient);
-/*
-    boolean isOpen();
-    boolean isClosed();
-*/
     void close();
     void connect();
 

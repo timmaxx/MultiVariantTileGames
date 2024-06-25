@@ -37,17 +37,7 @@ public class MultiGameWebSocketClientManyTimesUse<Model> implements TransportOfC
     public void setModelOfClient(IModelOfClient iModelOfClient) {
         this.iModelOfClient = iModelOfClient;
     }
-/*
-    @Override
-    public boolean isOpen() {
-        return transportOfClient != null && transportOfClient.isOpen();
-    }
 
-    @Override
-    public boolean isClosed() {
-        return transportOfClient == null || transportOfClient.isClosed();
-    }
-*/
     @Override
     public void close() {
         if (transportOfClient == null) {
