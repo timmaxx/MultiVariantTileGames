@@ -16,7 +16,7 @@ public class FabricOfRemoteClientStates<ClientId> implements IFabricOfRemoteClie
     //       интерфейса это не поменяло.
     //       Значит и первый параметр можно убрать в конструктор!
     //  Такой вариант рассматривался, но он вёл к тому, что приходилось создавать IFabricOfClientStates с пустой
-    //  ClientStateAtomaton, потом создавать ClientStateAtomaton, которому в конструкторе передавал IFabricOfClientStates,
+    //  ClientStateAutomaton, потом создавать ClientStateAutomaton, которому в конструкторе передавал IFabricOfClientStates,
     //  и потом для IFabricOfClientStates вызывать setClientStateAutomaton.
     //  Классы получались взаимозависимы и поэтому такой приём не привёл к хорошему варианту.
 
