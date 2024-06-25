@@ -60,7 +60,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     public void onOpen(WebSocket webSocket, ClientHandshake clientHandshake) {
         logger.info("WebSocket: {}. Connection was opened.", webSocket);
         logger.debug("  ClientHandshake: {}.", clientHandshake);
-        // ToDo: Устранить взаимозависимость интерфейса IFabricOfClientStates и класса ClientStateAtomaton.
+        // ToDo: Устранить взаимозависимость интерфейса IFabricOfClientStates и класса ClientStateAutomaton.
         //       См. коммент к IFabricOfClientStates
         mapOfWebSocketAndRemoteClientState.put(
                 webSocket,

@@ -4,9 +4,9 @@ package timmax.tilegame.basemodel.protocol.server_client;
 public interface IFabricOfClientStates<Model> {
     // ToDo: Устранить взаимозависимость классов, реализующих IFabricOfClientStates
     //  (FabricOfClientStatesJfx и FabricOfRemoteClientStates)
-    //  и класса ClientStateAtomaton.
+    //  и класса ClientStateAutomaton.
     //  Взаимозависимость может проявиться тогда, когда в реализациях IFabricOfClientStates
-    //  появляется ClientStateAtomaton (а ей желательно там появиться).
+    //  появляется ClientStateAutomaton (а ей желательно там появиться).
     //  Поэтому при вызове их конструкторов приходится создавать и пользоваться сеттером.
     ClientState01NoConnect<Model> getClientState01NoConnect(ClientStateAutomaton<Model> clientStateAutomaton);
     ClientState02ConnectNonIdent<Model> getClientState02ConnectNonIdent(ClientStateAutomaton<Model> clientStateAutomaton);
