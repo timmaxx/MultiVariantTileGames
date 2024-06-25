@@ -15,30 +15,30 @@ public class ClientStateAutomaton<Model> implements
         IClientState06GameMatchSetSelected<Model>,
         IClientState07GameMatchSelected<Model>,
         IClientState08GameIsPlaying {
-    ClientState01NoConnect<Model> clientState01NoConnect;
-    ClientState02ConnectNonIdent<Model> clientState02ConnectNonIdent;
-    ClientState03ConnectAuthorized<Model> clientState03ConnectAuthorized;
-    ClientState04GameTypeSetSelected<Model> clientState04GameTypeSetSelected;
-    ClientState05GameTypeSelected<Model> clientState05GameTypeSelected;
-    ClientState06GameMatchSetSelected<Model> clientState06GameMatchSetSelected;
-    ClientState07GameMatchSelected<Model> clientState07GameMatchSelected;
-    ClientState08GameIsPlaying<Model> clientState08GameIsPlaying;
+    final ClientState01NoConnect<Model> clientState01NoConnect;
+    final ClientState02ConnectNonIdent<Model> clientState02ConnectNonIdent;
+    final ClientState03ConnectAuthorized<Model> clientState03ConnectAuthorized;
+    final ClientState04GameTypeSetSelected<Model> clientState04GameTypeSetSelected;
+    final ClientState05GameTypeSelected<Model> clientState05GameTypeSelected;
+    final ClientState06GameMatchSetSelected<Model> clientState06GameMatchSetSelected;
+    final ClientState07GameMatchSelected<Model> clientState07GameMatchSelected;
+    final ClientState08GameIsPlaying<Model> clientState08GameIsPlaying;
 
     private IClientState00 currenState;
 
     private final IFabricOfClientStateAutomaton iFabricOfClientStateAutomaton;
 
     public ClientStateAutomaton(
-            IFabricOfClientStates<Model> IFabricOfClientStates,
+            IFabricOfClientStates<Model> iFabricOfClientStates,
             IFabricOfClientStateAutomaton iFabricOfClientStateAutomaton) {
-        clientState01NoConnect = IFabricOfClientStates.getClientState01NoConnect(this);
-        clientState02ConnectNonIdent = IFabricOfClientStates.getClientState02ConnectNonIdent(this);
-        clientState03ConnectAuthorized = IFabricOfClientStates.getClientState03ConnectAuthorized(this);
-        clientState04GameTypeSetSelected = IFabricOfClientStates.getClientState04GameTypeSetSelected(this);
-        clientState05GameTypeSelected = IFabricOfClientStates.getClientState05GameTypeSelected(this);
-        clientState06GameMatchSetSelected = IFabricOfClientStates.getClientState06GameMatchSetSelected(this);
-        clientState07GameMatchSelected = IFabricOfClientStates.getClientState07GameMatchSelected(this);
-        clientState08GameIsPlaying = IFabricOfClientStates.getClientState08GameIsPlaying(this);
+        clientState01NoConnect = iFabricOfClientStates.getClientState01NoConnect(this);
+        clientState02ConnectNonIdent = iFabricOfClientStates.getClientState02ConnectNonIdent(this);
+        clientState03ConnectAuthorized = iFabricOfClientStates.getClientState03ConnectAuthorized(this);
+        clientState04GameTypeSetSelected = iFabricOfClientStates.getClientState04GameTypeSetSelected(this);
+        clientState05GameTypeSelected = iFabricOfClientStates.getClientState05GameTypeSelected(this);
+        clientState06GameMatchSetSelected = iFabricOfClientStates.getClientState06GameMatchSetSelected(this);
+        clientState07GameMatchSelected = iFabricOfClientStates.getClientState07GameMatchSelected(this);
+        clientState08GameIsPlaying = iFabricOfClientStates.getClientState08GameIsPlaying(this);
 
         this.iFabricOfClientStateAutomaton = iFabricOfClientStateAutomaton;
 
