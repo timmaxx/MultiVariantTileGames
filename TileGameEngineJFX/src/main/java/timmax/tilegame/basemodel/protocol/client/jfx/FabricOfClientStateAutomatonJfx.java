@@ -10,16 +10,16 @@ import timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx;
 
 import java.lang.reflect.Constructor;
 
-public class FabricOfClientStateAutomatonJfx<ClientId> implements IFabricOfClientStateAutomaton {
+public class FabricOfClientStateAutomatonJfx implements IFabricOfClientStateAutomaton {
     @Override
     public Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView) {
-        Constructor<? extends ViewJfx<ClientId>> constructorOfViewJfx;
+        Constructor<? extends ViewJfx> constructorOfViewJfx;
         try {
-            Class<? extends ViewJfx<ClientId>> classOfViewJfx;
+            Class<? extends ViewJfx> classOfViewJfx;
             if (classOfView.equals(ViewMainField.class)) {
-                classOfViewJfx = (Class<? extends ViewJfx<ClientId>>) ViewMainFieldJfx.class;
+                classOfViewJfx = ViewMainFieldJfx.class;
             } else if (classOfView.equals(View.class)) {
-                classOfViewJfx = (Class<? extends ViewJfx<ClientId>>) ViewJfx.class;
+                classOfViewJfx = ViewJfx.class;
             } else {
                 throw new RuntimeException("Unknown class");
             }

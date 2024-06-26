@@ -25,7 +25,7 @@ public class MultiGameClient extends Application {
         // ToDo: Warning:(32, 9) Raw use of parameterized class 'ClientStateAutomaton'
         LocalClientStateAutomaton localClientStateJfx = new LocalClientStateAutomaton<>(
                 new FabricOfClientStatesJfx<>(),
-                new FabricOfClientStateAutomatonJfx<>()
+                new FabricOfClientStateAutomatonJfx()
         );
 
         TransportOfClient<?> transportOfClient = new MultiGameWebSocketClientManyTimesUse<>(localClientStateJfx);
