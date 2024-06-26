@@ -22,28 +22,17 @@ public class EventOfServer41SetGameType extends EventOfServer {
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
         logger.debug("  onGameTypeSelect");
-        //  ToDo: Код, в следующем после этого блока, предпочтительнее, но он не компилируется
-        //        (перестал после замены класса LocalClientState на ClientStateAutomaton)...
-        ModelOfServerDescriptor modelOfServerDescriptor = null;
-        for (int i = 0; i < localClientStateAutomaton.getGameTypeSet().size(); i++) {
-            modelOfServerDescriptor = localClientStateAutomaton.getGameTypeSet().stream().toList().get(i);
-            if (modelOfServerDescriptor.getGameName().equals(modelOfServerDescriptorGameTypeName)) {
-                break;
-            }
-        }
-//
 
-/*
         ModelOfServerDescriptor modelOfServerDescriptor =
                 localClientStateAutomaton
-                .getGameTypeSet()
-                .stream()
-                .filter(x -> x.getGameName().equals(modelOfServerDescriptorGameTypeName))
-                .findAny()
-                .orElse(null);
-*/
+                        .getGameTypeSet()
+                        .stream()
+                        .filter(x -> x.getGameName().equals(modelOfServerDescriptorGameTypeName))
+                        .findAny()
+                        .orElse(null);
 
         localClientStateAutomaton.setGameType(modelOfServerDescriptor);
+        // ToDo: Разобраться, для чего нужно это?
         localClientStateAutomaton.getGameMatchSet();
     }
 

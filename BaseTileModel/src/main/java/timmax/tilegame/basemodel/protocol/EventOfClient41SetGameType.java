@@ -30,18 +30,6 @@ public class EventOfClient41SetGameType<ClientId> extends EventOfClient<ClientId
         }
         // От клиента поступило символическое имя типа игры (оно должно быть одно из тех, которые ему направлялись множеством).
 
-        //  ToDo: Код в следующем, после этого блоке, предпочтительнее, но он не компилируется...
-        //        !!!Хотя, вроде компилируется!!!
-/*
-        ModelOfServerDescriptor modelOfServerDescriptor = null;
-        for (int i = 0; i < remoteClientState.getGameTypeSet().size(); i++) {
-            modelOfServerDescriptor = remoteClientState.getGameTypeSet().stream().toList().get(i);
-            if (modelOfServerDescriptor.getGameName().equals(modelOfServerDescriptorGameTypeName)) {
-                break;
-            }
-        }
-*/
-//
         ModelOfServerDescriptor modelOfServerDescriptor = remoteClientState
                 .getGameTypeSet()
                 .stream()
