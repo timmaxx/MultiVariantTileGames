@@ -24,17 +24,6 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
 
     private final ObjectMapperOfMvtg mapper;
 
-    // ToDo: Удалить комментарий после решения проблеммы, указанной в нём.
-    //       Здесь используется только
-    //       RemoteClientStateAutomaton<WebSocket>> mapOfRemoteClientState
-    //       и это хорошо!
-    //       Но в
-    //       MultiGameClient :: void start(Stage primaryStage)
-    //       есть одновременно
-    //       LocalClientStateAutomaton localClientStateJfx
-    //       и
-    //       IModelOfClient iModelOfClient
-    //       что не есть хорошо, т.к. не единообразно!
     private final Map<WebSocket, RemoteClientStateAutomaton<WebSocket>> mapOfWebSocketAndRemoteClientState;
 
     public MultiGameWebSocketServer(int port) {
@@ -84,6 +73,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         //       Тогда нужно обрабатывать исключение и выводить в лог.
         // ToDo: Обработать Warning:
         //       Warning:(87, 50) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.EventOfClient' to 'timmax.tilegame.basemodel.protocol.EventOfClient<org.java_websocket.WebSocket>'
+        //       При удалении параметра ClientId из класса EventOfClient, уйдёт и это предупреждение.
         EventOfClient<WebSocket> eventOfClient = mapper.readValue(byteArrayInputStream, EventOfClient.class);
         logger.info("WebSocket: {}. Incoming message. EventOfClient: {}.", webSocket, eventOfClient);
         Thread thread = new Thread(() -> eventOfClient.executeOnServer(mapOfWebSocketAndRemoteClientState.get(webSocket), webSocket));

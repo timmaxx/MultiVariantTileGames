@@ -10,6 +10,7 @@ import timmax.tilegame.baseview.View;
 import java.util.HashMap;
 import java.util.Map;
 
+// ToDo: Устранить параметризацию от <Model>
 public class LocalClientStateAutomaton<Model> extends ClientStateAutomaton<Model> {
     private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
     private final Map<String, View> mapOfViewName_View;

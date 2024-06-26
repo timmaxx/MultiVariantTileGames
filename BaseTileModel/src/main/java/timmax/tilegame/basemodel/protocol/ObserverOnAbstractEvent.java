@@ -1,6 +1,6 @@
 package timmax.tilegame.basemodel.protocol;
 
-// ToDo: Перечень методов для интерфейсов ObserverOnAbstractEvent и IModelOfClient похож.
+// ToDo: Перечень методов для интерфейсов ObserverOnAbstractEvent и TransportOfClient похож.
 //       Может всё свести к одному интерфесу?
 public interface ObserverOnAbstractEvent {
     // 1

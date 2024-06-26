@@ -97,86 +97,87 @@ public class MultiGameWebSocketClient<Model> extends WebSocketClient implements 
     }
 
 
-    // interface IModelOfClient:
+    // interface TransportOfClient:
     // 2
-    //@Override
+    @Override
     public void login(String userName, String password) {
         logger.debug("login(String, String)");
         sendEventOfClient(new EventOfClient21Login<>(userName, password));
     }
 
     // 3
-    //@Override
+    @Override
     public void logout() {
         logger.debug("logout()");
         sendEventOfClient(new EventOfClient20Logout<>());
     }
 
-    //@Override
+    @Override
     public void getGameTypeSet() {
         logger.debug("getGameTypeSet()");
         sendEventOfClient(new EventOfClient31GiveGameTypeSet<>());
     }
 
     // 4
-    //@Override
+    @Override
     public void forgetGameTypeSet() {
         logger.debug("forgetGameTypeSet()");
         sendEventOfClient(new EventOfClient30ForgetGameTypeSet<>());
     }
 
-    //@Override
+    @Override
     public void gameTypeSelect(ModelOfServerDescriptor modelOfServerDescriptor) {
         logger.debug("gameTypeSelect(String)");
         sendEventOfClient(new EventOfClient41SetGameType<>(modelOfServerDescriptor.getGameName()));
     }
 
     // 5
-    //@Override
+    @Override
     public void forgetGameType() {
         logger.debug("forgetGameType()");
         sendEventOfClient(new EventOfClient40ForgetGameType<>());
     }
 
-    //@Override
+    @Override
     public void getGameMatchSet() {
         logger.debug("getGameMatchSet()");
         sendEventOfClient(new EventOfClient51GiveGameMatchSet<>());
     }
 
     // 6
-    //@Override
+    @Override
     public void forgetGameMatchSet() {
         logger.debug("forgetGameMatchSet()");
         sendEventOfClient(new EventOfClient50ForgetGameMatchSet<>());
     }
 
-    //@Override
+    @Override
     public void gameMatchSelect(InstanceIdOfModel model) {
         logger.debug("gameMatchSelect(InstanceIdOfModel model)");
         sendEventOfClient(new EventOfClient61SetGameMatch<>(model));
     }
 
     // 7
-    //@Override
+    @Override
     public void forgetGameMatch() {
         logger.debug("forgetGameMatch()");
         sendEventOfClient(new EventOfClient60ForgetGameMatch<>());
     }
 
-    //@Override
+    @Override
     public void startGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue) {
         logger.debug("startPlaying()");
         sendEventOfClient(new EventOfClient71StartGameMatchPlaying<>(mapOfParamsOfModelValue));
     }
 
     // 8
-    //@Override
+    @Override
     public void stopGameMatchPlaying() {
         logger.debug("stopPlaying()");
         sendEventOfClient(new EventOfClient70StopGameMatchPlaying<>());
     }
 
+    // X
     @Override
     public LocalClientStateAutomaton<Model> getLocalClientState() {
         return modelMultiGameWebSocketClientManyTimesUse.getLocalClientState();

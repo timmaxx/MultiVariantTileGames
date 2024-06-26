@@ -31,8 +31,24 @@ public class Pane04SelectGameType<ClientId> extends AbstractConnectStatePane<Cli
             //        (перестал после замены класса LocalClientState на ClientStateAutomaton)...
             ModelOfServerDescriptor modelOfServerDescriptor = null;
             for (int i = 0; i < transportOfClient.getLocalClientState().getGameTypeSet().size(); i++) {
-                if (((ModelOfServerDescriptor)(transportOfClient.getLocalClientState().getGameTypeSet().stream().toList().get(i))).getGameName().equals(gameName)) {
-                    modelOfServerDescriptor = ((ModelOfServerDescriptor)(transportOfClient.getLocalClientState().getGameTypeSet().stream().toList().get(i)));
+                if (((ModelOfServerDescriptor) (
+                        transportOfClient
+                                .getLocalClientState()
+                                .getGameTypeSet()
+                                .stream()
+                                .toList()
+                                .get(i)))
+                        .getGameName()
+                        .equals(gameName)
+                ) {
+                    modelOfServerDescriptor = ((ModelOfServerDescriptor) (
+                            transportOfClient
+                                    .getLocalClientState()
+                                    .getGameTypeSet()
+                                    .stream()
+                                    .toList()
+                                    .get(i)
+                    ));
                     break;
                 }
             }
@@ -40,8 +56,7 @@ public class Pane04SelectGameType<ClientId> extends AbstractConnectStatePane<Cli
 
 /*
             ModelOfServerDescriptor modelOfServerDescriptor =
-                    iModelOfClient
-                    .getLocalClientState()
+                    transportOfClient
                     .getGameTypeSet()
                     .stream()
                     .filter(x -> x.getGameName().equals(gameName))
@@ -111,7 +126,14 @@ public class Pane04SelectGameType<ClientId> extends AbstractConnectStatePane<Cli
 //        (перестал после замены класса LocalClientState на ClientStateAutomaton)...
         List<String> tmp2 = new ArrayList<>();
         for (int i = 0; i < transportOfClient.getLocalClientState().getGameTypeSet().size(); i++) {
-            ModelOfServerDescriptor tmpI = (ModelOfServerDescriptor)(transportOfClient.getLocalClientState().getGameTypeSet().stream().toList().get(i));
+            ModelOfServerDescriptor tmpI = (ModelOfServerDescriptor) (
+                    transportOfClient
+                            .getLocalClientState()
+                            .getGameTypeSet()
+                            .stream()
+                            .toList()
+                            .get(i)
+            );
             tmp2.add(tmpI.getGameName());
         }
         comboBoxGameTypeSet.setItems(FXCollections.observableArrayList(tmp2));
@@ -119,7 +141,7 @@ public class Pane04SelectGameType<ClientId> extends AbstractConnectStatePane<Cli
 
 /*
         comboBoxGameTypeSet.setItems(FXCollections.observableArrayList(
-                iModelOfClient.getLocalClientState().getGameTypeSet()
+                transportOfClient.getGameTypeSet()
                         .stream()
                         .map(ModelOfServerDescriptor::getGameName)
                         .toList()
