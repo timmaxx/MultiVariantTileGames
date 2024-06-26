@@ -8,6 +8,11 @@ import java.util.Set;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 
+// ToDo: Почему ...31Get...? Ведь в
+//       void executeOnClient(...)
+//       в последней строке
+//       ...setGameTypeSet(...);
+//       Т.е. нужно переименовать класс в ...31Set...
 public class EventOfServer31GetGameTypeSet extends EventOfServer {
     private Set<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor;
 
