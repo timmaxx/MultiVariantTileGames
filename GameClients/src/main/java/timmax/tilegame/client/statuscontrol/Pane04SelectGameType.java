@@ -1,6 +1,5 @@
 package timmax.tilegame.client.statuscontrol;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -27,42 +26,14 @@ public class Pane04SelectGameType<ClientId> extends AbstractConnectStatePane<Cli
             disableAllControls();
             String gameName = comboBoxGameTypeSet.getValue();
 
-            //  ToDo: Код в следующем блоке предпочтительнее, но он не компилируется
-            //        (перестал после замены класса LocalClientState на ClientStateAutomaton)...
-            ModelOfServerDescriptor modelOfServerDescriptor = null;
-            for (int i = 0; i < transportOfClient.getLocalClientState().getGameTypeSet().size(); i++) {
-                if (((ModelOfServerDescriptor) (
-                        transportOfClient
-                                .getLocalClientState()
-                                .getGameTypeSet()
-                                .stream()
-                                .toList()
-                                .get(i)))
-                        .getGameName()
-                        .equals(gameName)
-                ) {
-                    modelOfServerDescriptor = ((ModelOfServerDescriptor) (
-                            transportOfClient
-                                    .getLocalClientState()
-                                    .getGameTypeSet()
-                                    .stream()
-                                    .toList()
-                                    .get(i)
-                    ));
-                    break;
-                }
-            }
-//
-
-/*
             ModelOfServerDescriptor modelOfServerDescriptor =
                     transportOfClient
-                    .getGameTypeSet()
-                    .stream()
-                    .filter(x -> x.getGameName().equals(gameName))
-                    .findAny()
-                    .orElse(null);
-*/
+                            .getLocalClientState()
+                            .getGameTypeSet()
+                            .stream()
+                            .filter(x -> x.getGameName().equals(gameName))
+                            .findAny()
+                            .orElse(null);
 
             transportOfClient.gameTypeSelect(modelOfServerDescriptor);
         });
@@ -122,32 +93,16 @@ public class Pane04SelectGameType<ClientId> extends AbstractConnectStatePane<Cli
 
     @Override
     public void updateOnGetGameTypeSet() {
-//  ToDo: Код в следующем блоке предпочтительнее, но он не компилируется
-//        (перестал после замены класса LocalClientState на ClientStateAutomaton)...
-        List<String> tmp2 = new ArrayList<>();
-        for (int i = 0; i < transportOfClient.getLocalClientState().getGameTypeSet().size(); i++) {
-            ModelOfServerDescriptor tmpI = (ModelOfServerDescriptor) (
-                    transportOfClient
-                            .getLocalClientState()
-                            .getGameTypeSet()
-                            .stream()
-                            .toList()
-                            .get(i)
-            );
-            tmp2.add(tmpI.getGameName());
-        }
-        comboBoxGameTypeSet.setItems(FXCollections.observableArrayList(tmp2));
-//
-
-/*
-        comboBoxGameTypeSet.setItems(FXCollections.observableArrayList(
-                transportOfClient.getGameTypeSet()
-                        .stream()
-                        .map(ModelOfServerDescriptor::getGameName)
-                        .toList()
-        ));
-*/
-
+        comboBoxGameTypeSet.setItems(
+                FXCollections.observableArrayList(
+                        transportOfClient
+                                .getLocalClientState()
+                                .getGameTypeSet()
+                                .stream()
+                                .map(ModelOfServerDescriptor::getGameName)
+                                .toList()
+                )
+        );
         doOnThisState();
     }
 
