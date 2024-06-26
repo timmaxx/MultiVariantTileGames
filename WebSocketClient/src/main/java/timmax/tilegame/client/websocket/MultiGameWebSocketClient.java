@@ -25,7 +25,6 @@ import timmax.tilegame.transport.TransportOfClient;
 // - соответственно и работающий метод void setURI(URI uriFromControls) в этом классе не возможен,
 //   но тогда пусть он бросает исключение.
 
-// ToDo: класс не должен здесь параметризироватья от Model
 public class MultiGameWebSocketClient extends WebSocketClient implements TransportOfClient<WebSocket> {
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketClient.class);
 
