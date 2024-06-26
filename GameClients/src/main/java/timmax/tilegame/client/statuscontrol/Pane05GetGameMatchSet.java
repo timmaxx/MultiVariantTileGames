@@ -2,18 +2,17 @@ package timmax.tilegame.client.statuscontrol;
 
 import java.util.List;
 
-import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.transport.TransportOfClient;
 
-public class Pane05GetGameMatchSet extends AbstractConnectStatePane {
-    public Pane05GetGameMatchSet(IModelOfClient iModelOfClient, TransportOfClient transportOfClient) {
-        super(iModelOfClient, transportOfClient);
+public class Pane05GetGameMatchSet<ClientId> extends AbstractConnectStatePane<ClientId> {
+    public Pane05GetGameMatchSet(TransportOfClient<ClientId> transportOfClient) {
+        super(transportOfClient);
 
         // Контролы для продвижения состояния "вперёд":
         buttonNextState.setText("Get the game match set");
         buttonNextState.setOnAction(event -> {
             disableAllControls();
-            iModelOfClient.getGameMatchSet();
+            transportOfClient.getGameMatchSet();
         });
 
         // Контролы для продвижения состояния "назад":
@@ -21,7 +20,7 @@ public class Pane05GetGameMatchSet extends AbstractConnectStatePane {
         buttonPrevState.setFocusTraversable(false);
         buttonPrevState.setOnAction(event -> {
             disableAllControls();
-            iModelOfClient.forgetGameMatchSet();
+            transportOfClient.forgetGameMatchSet();
         });
 
         paneNextState.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * 1);

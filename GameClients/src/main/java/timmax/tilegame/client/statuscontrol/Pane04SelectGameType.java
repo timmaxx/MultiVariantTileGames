@@ -7,16 +7,15 @@ import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
-import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.transport.TransportOfClient;
 
-public class Pane04SelectGameType extends AbstractConnectStatePane {
+public class Pane04SelectGameType<ClientId> extends AbstractConnectStatePane<ClientId> {
     private final ComboBox<String> comboBoxGameTypeSet;
     private final TextField textFieldSelectedGameType;
 
-    public Pane04SelectGameType(IModelOfClient iModelOfClient, TransportOfClient transportOfClient) {
-        super(iModelOfClient, transportOfClient);
+    public Pane04SelectGameType(TransportOfClient<ClientId> transportOfClient) {
+        super(transportOfClient);
 
         // Контролы для продвижения состояния "вперёд":
         comboBoxGameTypeSet = new ComboBox<>();
@@ -28,12 +27,12 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
             disableAllControls();
             String gameName = comboBoxGameTypeSet.getValue();
 
-//  ToDo: Код в следующем блоке предпочтительнее, но он не компилируется
-//        (перестал после замены класса LocalClientState на ClientStateAutomaton)...
+            //  ToDo: Код в следующем блоке предпочтительнее, но он не компилируется
+            //        (перестал после замены класса LocalClientState на ClientStateAutomaton)...
             ModelOfServerDescriptor modelOfServerDescriptor = null;
-            for (int i = 0; i < iModelOfClient.getLocalClientState().getGameTypeSet().size(); i++) {
-                if (((ModelOfServerDescriptor)(iModelOfClient.getLocalClientState().getGameTypeSet().stream().toList().get(i))).getGameName().equals(gameName)) {
-                    modelOfServerDescriptor = ((ModelOfServerDescriptor)(iModelOfClient.getLocalClientState().getGameTypeSet().stream().toList().get(i)));
+            for (int i = 0; i < transportOfClient.getLocalClientState().getGameTypeSet().size(); i++) {
+                if (((ModelOfServerDescriptor)(transportOfClient.getLocalClientState().getGameTypeSet().stream().toList().get(i))).getGameName().equals(gameName)) {
+                    modelOfServerDescriptor = ((ModelOfServerDescriptor)(transportOfClient.getLocalClientState().getGameTypeSet().stream().toList().get(i)));
                     break;
                 }
             }
@@ -50,7 +49,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
                     .orElse(null);
 */
 
-            iModelOfClient.gameTypeSelect(modelOfServerDescriptor);
+            transportOfClient.gameTypeSelect(modelOfServerDescriptor);
         });
 
         // Контролы для продвижения состояния "назад":
@@ -58,7 +57,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
         buttonPrevState.setFocusTraversable(false);
         buttonPrevState.setOnAction(event -> {
             disableAllControls();
-            iModelOfClient.forgetGameType();
+            transportOfClient.forgetGameType();
         });
 
         comboBoxGameTypeSet.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
@@ -111,8 +110,8 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
 //  ToDo: Код в следующем блоке предпочтительнее, но он не компилируется
 //        (перестал после замены класса LocalClientState на ClientStateAutomaton)...
         List<String> tmp2 = new ArrayList<>();
-        for (int i = 0; i < iModelOfClient.getLocalClientState().getGameTypeSet().size(); i++) {
-            ModelOfServerDescriptor tmpI = (ModelOfServerDescriptor)(iModelOfClient.getLocalClientState().getGameTypeSet().stream().toList().get(i));
+        for (int i = 0; i < transportOfClient.getLocalClientState().getGameTypeSet().size(); i++) {
+            ModelOfServerDescriptor tmpI = (ModelOfServerDescriptor)(transportOfClient.getLocalClientState().getGameTypeSet().stream().toList().get(i));
             tmp2.add(tmpI.getGameName());
         }
         comboBoxGameTypeSet.setItems(FXCollections.observableArrayList(tmp2));
@@ -157,7 +156,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
 
     @Override
     protected void doOnNextState() {
-        textFieldSelectedGameType.setText(iModelOfClient.getLocalClientState().getGameType().getGameName());
+        textFieldSelectedGameType.setText(transportOfClient.getLocalClientState().getGameType().getGameName());
         super.doOnNextState();
     }
 }

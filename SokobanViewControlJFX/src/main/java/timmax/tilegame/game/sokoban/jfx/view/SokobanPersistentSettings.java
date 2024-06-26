@@ -1,7 +1,7 @@
 package timmax.tilegame.game.sokoban.jfx.view;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
-import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
+import timmax.tilegame.transport.TransportOfClient;
 import timmax.tilegame.guiengine.jfx.view.ViewTextFieldsJfx;
 
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanPersistentParams;
@@ -9,9 +9,9 @@ import timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanPersistentPa
 import static timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanPersistentParams.COMMON_LABEL_OF_PERSISTENT_PARAMS;
 import static timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanPersistentParams.COUNT_OF_BOXES_AND_HOMES;
 
-public class SokobanPersistentSettings extends ViewTextFieldsJfx {
-    public SokobanPersistentSettings(IModelOfClient iModelOfClient, String viewName) {
-        super(iModelOfClient
+public class SokobanPersistentSettings<ClientId> extends ViewTextFieldsJfx<ClientId> {
+    public SokobanPersistentSettings(TransportOfClient<ClientId> transportOfClient, String viewName) {
+        super(transportOfClient
                 , GameEventSokobanPersistentParams.class
                 , COMMON_LABEL_OF_PERSISTENT_PARAMS
                 , viewName);

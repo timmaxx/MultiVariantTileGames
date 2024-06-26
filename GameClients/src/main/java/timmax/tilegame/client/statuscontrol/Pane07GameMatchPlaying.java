@@ -11,16 +11,15 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 
-import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
 import timmax.tilegame.guiengine.jfx.GameClientPaneJfx;
 import timmax.tilegame.transport.TransportOfClient;
 
-public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
+public class Pane07GameMatchPlaying<ClientId> extends AbstractConnectStatePane<ClientId> {
     private final Pane paneGameViewsAndControls;
 
-    public Pane07GameMatchPlaying(IModelOfClient iModelOfClient, TransportOfClient transportOfClient) {
-        super(iModelOfClient, transportOfClient);
+    public Pane07GameMatchPlaying(TransportOfClient<ClientId> transportOfClient) {
+        super(transportOfClient);
 
         // Контролы для продвижения состояния "вперёд":
         buttonNextState.setText("Start the game match");
@@ -34,7 +33,7 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
                             Integer.valueOf(textField.getText()));
                 }
             }
-            iModelOfClient.startGameMatchPlaying(mapOfParamsOfModelValue);
+            transportOfClient.startGameMatchPlaying(mapOfParamsOfModelValue);
         });
 
         // Контролы для продвижения состояния "назад":
@@ -44,7 +43,7 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         buttonPrevState.setFocusTraversable(false); // Это в любом случае д.б.
         buttonPrevState.setOnAction(event -> {
             disableAllControls();
-            iModelOfClient.stopGameMatchPlaying();
+            transportOfClient.stopGameMatchPlaying();
         });
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
@@ -100,7 +99,7 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         paneNextState.getChildren().clear();
         List<Region> regionList = new ArrayList<>();
         int y = LAYOUT_Y_OF_FIRST_ROW;
-        for (String paramName : iModelOfClient.getLocalClientState().getGameType().getMapOfParamsOfModelDescription().keySet()) {
+        for (String paramName : transportOfClient.getLocalClientState().getGameType().getMapOfParamsOfModelDescription().keySet()) {
             Label label = new Label(paramName);
             label.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
             label.setLayoutY(y);
@@ -109,10 +108,17 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
             textField.setId(paramName);
             textField.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
             textField.setLayoutY(y);
-            ParamOfModelDescription paramOfModelDescription = iModelOfClient.getLocalClientState().getGameType().getMapOfParamsOfModelDescription().get(paramName);
+            ParamOfModelDescription paramOfModelDescription = transportOfClient
+                    .getLocalClientState()
+                    .getGameType()
+                    .getMapOfParamsOfModelDescription()
+                    .get(paramName);
             textField.setTextFormatter(
                     new TextFormatter<>(
-                            new IntegerStringConverterWithMinAndMax(paramOfModelDescription.getMinValue(), paramOfModelDescription.getMaxValue()),
+                            new IntegerStringConverterWithMinAndMax(
+                                    paramOfModelDescription.getMinValue(),
+                                    paramOfModelDescription.getMaxValue()
+                            ),
                             paramOfModelDescription.getDefaultValue(),
                             new IntegerFilter()
                     )
@@ -131,7 +137,7 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         );
 
         paneGameViewsAndControls.getChildren().clear();
-        paneGameViewsAndControls.getChildren().add(new GameClientPaneJfx(iModelOfClient, transportOfClient));
+        paneGameViewsAndControls.getChildren().add(new GameClientPaneJfx<>(transportOfClient));
 
         if (y > DIFFERENCE_OF_LAYOUT_Y) {
             y -= DIFFERENCE_OF_LAYOUT_Y;

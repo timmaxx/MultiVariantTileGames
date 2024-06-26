@@ -7,16 +7,15 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
-import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import timmax.tilegame.transport.TransportOfClient;
 
-public class Pane06SelectGameMatch extends AbstractConnectStatePane {
+public class Pane06SelectGameMatch<ClientId> extends AbstractConnectStatePane<ClientId> {
     private final ComboBox<String> comboBoxGameSet;
     private final TextField textFieldSelectedGame;
 
-    public Pane06SelectGameMatch(IModelOfClient iModelOfClient, TransportOfClient transportOfClient) {
-        super(iModelOfClient, transportOfClient);
+    public Pane06SelectGameMatch(TransportOfClient<ClientId> transportOfClient) {
+        super(transportOfClient);
 
         // Контролы для продвижения состояния "вперёд":
         comboBoxGameSet = new ComboBox<>();
@@ -26,7 +25,7 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
         buttonNextState.setText("Select the game match");
         buttonNextState.setOnAction(event -> {
             disableAllControls();
-            iModelOfClient.gameMatchSelect(new InstanceIdOfModel(comboBoxGameSet.getValue()));
+            transportOfClient.gameMatchSelect(new InstanceIdOfModel(comboBoxGameSet.getValue()));
         });
 
         // Контролы для продвижения состояния "назад":
@@ -34,7 +33,7 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
         buttonPrevState.setFocusTraversable(false);
         buttonPrevState.setOnAction(event -> {
             disableAllControls();
-            iModelOfClient.forgetGameMatch();
+            transportOfClient.forgetGameMatch();
         });
 
         comboBoxGameSet.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
@@ -108,7 +107,7 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
     public void updateOnGetGameMatchSet() {
         // Также см. комментарии к EventOfClient51GiveGamePlaySet
         ObservableList<InstanceIdOfModel> observableList = FXCollections.observableArrayList(new InstanceIdOfModel("New game"));
-        observableList.addAll(iModelOfClient.getLocalClientState().getGameMatchSet());
+        observableList.addAll(transportOfClient.getLocalClientState().getGameMatchSet());
         comboBoxGameSet.setItems(FXCollections.observableArrayList(
                 observableList
                         .stream()
@@ -147,7 +146,7 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
 
     @Override
     protected void doOnNextState() {
-        textFieldSelectedGame.setText(iModelOfClient.getLocalClientState().getServerBaseModel().toString());
+        textFieldSelectedGame.setText(transportOfClient.getLocalClientState().getServerBaseModel().toString());
         super.doOnNextState();
     }
 }

@@ -7,11 +7,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.HBox;
 
-import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.transport.TransportOfClient;
 
-public abstract class AbstractConnectStatePane extends HBox implements ObserverOnAbstractEvent {
+public abstract class AbstractConnectStatePane<ClientId> extends HBox implements ObserverOnAbstractEvent {
     protected final static int BUTTON_NEXT_STATE_PREF_WIDTH = 160;
     protected final static int BUTTON_PREV_STATE_PREF_WIDTH = 160;
     protected final static int PANE_NEXT_STATE_PREF_WIDTH = 300;
@@ -22,8 +21,7 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     protected final static int LAYOUT_Y_OF_FIRST_ROW = 0;
     protected final static int DIFFERENCE_OF_LAYOUT_Y = 30;
 
-    protected final IModelOfClient iModelOfClient;
-    protected final TransportOfClient transportOfClient;
+    protected final TransportOfClient<ClientId> transportOfClient;
 
     protected Pane paneNextState;
     protected Pane panePrevState;
@@ -33,8 +31,7 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     private List<Region> listOfControlsNextState;
     private List<Region> listOfControlsPrevState;
 
-    public AbstractConnectStatePane(IModelOfClient iModelOfClient, TransportOfClient transportOfClient) {
-        this.iModelOfClient = iModelOfClient;
+    public AbstractConnectStatePane(TransportOfClient<ClientId> transportOfClient) {
         this.transportOfClient = transportOfClient;
 
         paneNextState = new Pane();
@@ -68,7 +65,7 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
         panePrevState.getChildren().addAll(listOfControlsPrevState);
         disableAllControls();
 
-        iModelOfClient.getLocalClientState().addCallBackOnIncomingTransportPackageEvent(this);
+        transportOfClient.getLocalClientState().addCallBackOnIncomingTransportPackageEvent(this);
     }
 
     protected void disableAllControls() {

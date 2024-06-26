@@ -1,41 +1,36 @@
 package timmax.tilegame.client.websocket;
 
 import java.net.URI;
+import java.util.Map;
 
 import org.java_websocket.WebSocket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import timmax.tilegame.basemodel.protocol.EventOfClient;
-import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
+import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
+import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
+import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import timmax.tilegame.transport.TransportOfClient;
 
 // WebSocket клиент многоразовый
 public class MultiGameWebSocketClientManyTimesUse<Model> implements TransportOfClient<WebSocket> {
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketClientManyTimesUse.class);
 
-    // ToDo: О наличии переменной IModelOfClient в классах:
-    //       В классе MultiGameWebSocketServer его "аналога" (т.е. IModelOfServer) нет.
-    //       Не обнаружил места, где объявляется переменая типа IModelOfServer.
-    //       Странно, но тогда, по единообразию и переменных IModelOfClient не должно быть.
-    private IModelOfClient<Model> iModelOfClient;
-
-    private MultiGameWebSocketClient<Model> transportOfClient;
+    private TransportOfClient<WebSocket> transportOfClient;
     private URI uri;
 
-    public MultiGameWebSocketClientManyTimesUse() {
+    LocalClientStateAutomaton<Model> localClientStateJfx;
+
+    public MultiGameWebSocketClientManyTimesUse(LocalClientStateAutomaton<Model> localClientStateJfx) {
         super();
+        this.localClientStateJfx = localClientStateJfx;
         // ToDo: Возможно, что-бы не использовать null, стоит реализовать класс, реализующий IClientState01NoConnect
         //       и здесь им инициализировать.
         logger.info("  Main game client status: {}.", "NO_CONNECT");
     }
 
     // interface TransportOfClient:
-    @Override
-    public void setModelOfClient(IModelOfClient iModelOfClient) {
-        this.iModelOfClient = iModelOfClient;
-    }
-
     @Override
     public void close() {
         if (transportOfClient == null) {
@@ -64,5 +59,71 @@ public class MultiGameWebSocketClientManyTimesUse<Model> implements TransportOfC
     @Override
     public void sendEventOfClient(EventOfClient<WebSocket> eventOfClient) {
         transportOfClient.sendEventOfClient(eventOfClient);
+    }
+
+    // !!!!
+    @Override
+    public void login(String userName, String password) {
+        transportOfClient.login(userName, password);
+    }
+
+    @Override
+    public void logout() {
+        transportOfClient.logout();
+    }
+
+    @Override
+    public void getGameTypeSet() {
+        transportOfClient.getGameTypeSet();
+    }
+
+    @Override
+    public void forgetGameTypeSet() {
+        transportOfClient.forgetGameTypeSet();
+    }
+
+    @Override
+    public void gameTypeSelect(ModelOfServerDescriptor modelOfServerDescriptor) {
+        transportOfClient.gameTypeSelect(modelOfServerDescriptor);
+    }
+
+    @Override
+    public void forgetGameType() {
+        transportOfClient.forgetGameType();
+    }
+
+    @Override
+    public void getGameMatchSet() {
+        transportOfClient.getGameMatchSet();
+    }
+
+    @Override
+    public void forgetGameMatchSet() {
+        transportOfClient.forgetGameMatchSet();
+    }
+
+    @Override
+    public void gameMatchSelect(InstanceIdOfModel model) {
+        transportOfClient.gameMatchSelect(model);
+    }
+
+    @Override
+    public void forgetGameMatch() {
+        transportOfClient.forgetGameMatch();
+    }
+
+    @Override
+    public void startGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue) {
+        transportOfClient.startGameMatchPlaying(mapOfParamsOfModelValue);
+    }
+
+    @Override
+    public void stopGameMatchPlaying() {
+        transportOfClient.stopGameMatchPlaying();
+    }
+
+    @Override
+    public LocalClientStateAutomaton<Model> getLocalClientState() {
+        return localClientStateJfx;
     }
 }

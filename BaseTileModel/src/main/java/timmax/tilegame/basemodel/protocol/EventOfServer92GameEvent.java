@@ -5,10 +5,10 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
+import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.baseview.View;
-import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 
-public class EventOfServer92GameEvent extends EventOfServer {
+public class EventOfServer92GameEvent<Model> extends EventOfServer<Model> {
     private String viewName;
     private GameEvent gameEvent;
 
@@ -23,12 +23,10 @@ public class EventOfServer92GameEvent extends EventOfServer {
     }
 
     @Override
-    public void executeOnClient(IModelOfClient iModelOfClient) {
+    public void executeOnClient(LocalClientStateAutomaton<Model> localClientStateAutomaton) {
         logger.debug("  onGameEvent");
         logger.debug("    viewName = {}", viewName);
-        // ToDo: Почему-то без явного преобразования типа, такая ошибка:
-        //       java: incompatible types: java.lang.Object cannot be converted to timmax.tilegame.baseview.View
-        View view = (View)(iModelOfClient.getLocalClientState().getMapOfViewName_View().get(viewName));
+        View view = localClientStateAutomaton.getMapOfViewName_View().get(viewName);
         view.update(gameEvent);
     }
 

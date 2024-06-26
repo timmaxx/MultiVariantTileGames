@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
+import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 
-public class EventOfServer21Login extends EventOfServer {
+public class EventOfServer21Login<Model> extends EventOfServer<Model> {
     private String userName;
 
     public EventOfServer21Login() {
@@ -22,10 +22,10 @@ public class EventOfServer21Login extends EventOfServer {
     }
 
     @Override
-    public void executeOnClient(IModelOfClient iModelOfClient) {
+    public void executeOnClient(LocalClientStateAutomaton<Model> localClientStateAutomaton) {
         logger.debug("  onLogin");
-        iModelOfClient.getLocalClientState().setUserName(userName);
-        iModelOfClient.getGameTypeSet();
+        localClientStateAutomaton.setUserName(userName);
+        localClientStateAutomaton.getGameTypeSet();
     }
 
     @Override

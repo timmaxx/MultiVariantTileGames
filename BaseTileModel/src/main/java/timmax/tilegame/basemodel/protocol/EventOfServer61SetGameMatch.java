@@ -4,11 +4,10 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-// import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
-import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
+import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 
-public class EventOfServer61SetGameMatch extends EventOfServer {
+public class EventOfServer61SetGameMatch<Model> extends EventOfServer<Model> {
     InstanceIdOfModel serverBaseModel;
 
     public EventOfServer61SetGameMatch() {
@@ -21,27 +20,9 @@ public class EventOfServer61SetGameMatch extends EventOfServer {
     }
 
     @Override
-    public void executeOnClient(IModelOfClient iModelOfClient) {
+    public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
         logger.debug("  onSetGameMatch");
-/*
-        IModelOfClient iModelOfClient3 = null;
-        for (IModelOfClient iModelOfClient2 : iModelOfClient.getLocalClientState().getGameMatchSet()) {
-            if (iModelOfClient2.toString().equals(serverBaseModel.getId())) {
-                iModelOfClient3 = iModelOfClient2;
-                break;
-            }
-        };
-*/
-        // Ниже сигнатура setServerBaseModel:
-        // void setServerBaseModel(Model serverBaseModel)
-        // но
-        // InstanceIdOfModel serverBaseModel
-        // Поэтому InstanceIdOfModel нужно преобразовать в IModelOfClient
-        iModelOfClient
-                .getLocalClientState()
-                .setServerBaseModel(serverBaseModel)
-//              .setServerBaseModel(iModelOfClient3)
-        ;
+        localClientStateAutomaton.setServerBaseModel(serverBaseModel);
     }
 
     @Override

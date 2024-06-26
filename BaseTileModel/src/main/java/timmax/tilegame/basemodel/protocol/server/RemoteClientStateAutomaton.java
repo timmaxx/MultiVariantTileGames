@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.Set;
 
 public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<IModelOfServer> {
+    // ToDo: Удалить TransportOfServer<ClientId> multiGameWebSocketServer.
+    //       Вместо того, чтобы хранить переменную типа TransportOfServer здесь, нужно рассмотреть вариант по передаче
+    //       её как параметра в те методы, где она нужна.
     private final TransportOfServer<ClientId> multiGameWebSocketServer;
 
     private final Set<String> setOfViewName;

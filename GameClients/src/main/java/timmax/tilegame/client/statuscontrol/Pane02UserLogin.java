@@ -6,12 +6,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.transport.TransportOfClient;
 
-public class Pane02UserLogin extends AbstractConnectStatePane {
-    public Pane02UserLogin(IModelOfClient iModelOfClient, TransportOfClient transportOfClient) {
-        super(iModelOfClient, transportOfClient);
+public class Pane02UserLogin<ClientId> extends AbstractConnectStatePane<ClientId> {
+    public Pane02UserLogin(TransportOfClient<ClientId> transportOfClient) {
+        super(transportOfClient);
 
         // Контролы для продвижения состояния "вперёд":
         Label labelUser = new Label("User");
@@ -26,7 +25,7 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
         buttonNextState.setText("Login");
         buttonNextState.setOnAction(event -> {
             disableAllControls();
-            iModelOfClient.login(textFieldUser.getText(), passwordField.getText());
+            transportOfClient.login(textFieldUser.getText(), passwordField.getText());
         });
 
         // Контролы для продвижения состояния "назад":
@@ -34,7 +33,7 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
         buttonPrevState.setFocusTraversable(false);
         buttonPrevState.setOnAction(event -> {
             disableAllControls();
-            iModelOfClient.logout();
+            transportOfClient.logout();
         });
 
         labelUser.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);

@@ -5,10 +5,10 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.Set;
 
+import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
-import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 
-public class EventOfServer31GetGameTypeSet extends EventOfServer {
+public class EventOfServer31GetGameTypeSet<Model> extends EventOfServer<Model> {
     private Set<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor;
 
     public EventOfServer31GetGameTypeSet() {
@@ -21,11 +21,9 @@ public class EventOfServer31GetGameTypeSet extends EventOfServer {
     }
 
     @Override
-    public void executeOnClient(IModelOfClient iModelOfClient) {
+    public void executeOnClient(LocalClientStateAutomaton<Model> localClientStateAutomaton) {
         logger.debug("  onGetGameTypeSet");
-        iModelOfClient
-                .getLocalClientState()
-                .setGameTypeSet(collectionOfModelOfServerDescriptor);
+        localClientStateAutomaton.setGameTypeSet(collectionOfModelOfServerDescriptor);
     }
 
     @Override

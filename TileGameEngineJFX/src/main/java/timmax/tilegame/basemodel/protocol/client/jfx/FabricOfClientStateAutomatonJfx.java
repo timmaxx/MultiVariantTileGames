@@ -1,7 +1,7 @@
 package timmax.tilegame.basemodel.protocol.client.jfx;
 
 import timmax.tilegame.basecontroller.BaseController;
-import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
+import timmax.tilegame.transport.TransportOfClient;
 import timmax.tilegame.basemodel.protocol.server_client.IFabricOfClientStateAutomaton;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.baseview.ViewMainField;
@@ -10,16 +10,16 @@ import timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx;
 
 import java.lang.reflect.Constructor;
 
-public class FabricOfClientStateAutomatonJfx implements IFabricOfClientStateAutomaton {
+public class FabricOfClientStateAutomatonJfx<ClientId> implements IFabricOfClientStateAutomaton {
     @Override
     public Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView) {
-        Constructor<? extends ViewJfx> constructorOfViewJfx;
+        Constructor<? extends ViewJfx<ClientId>> constructorOfViewJfx;
         try {
-            Class<? extends ViewJfx> classOfViewJfx;
+            Class<? extends ViewJfx<ClientId>> classOfViewJfx;
             if (classOfView.equals(ViewMainField.class)) {
-                classOfViewJfx = ViewMainFieldJfx.class;
+                classOfViewJfx = (Class<? extends ViewJfx<ClientId>>) ViewMainFieldJfx.class;
             } else if (classOfView.equals(View.class)) {
-                classOfViewJfx = ViewJfx.class;
+                classOfViewJfx = (Class<? extends ViewJfx<ClientId>>) ViewJfx.class;
             } else {
                 throw new RuntimeException("Unknown class");
             }
@@ -32,7 +32,7 @@ public class FabricOfClientStateAutomatonJfx implements IFabricOfClientStateAuto
             //       Но в таком виде это не будет работать во время компиляции, да и вызов этого метода придётся делать
             //       в каждом из реализующих классов. К сожалению в интерфейсе нельзя определить сигнатуру конструктора
             //       с определённым перечнем типов параметров...
-            constructorOfViewJfx = classOfViewJfx.getConstructor(IModelOfClient.class, BaseController.class, String.class);
+            constructorOfViewJfx = classOfViewJfx.getConstructor(TransportOfClient.class, BaseController.class, String.class);
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }

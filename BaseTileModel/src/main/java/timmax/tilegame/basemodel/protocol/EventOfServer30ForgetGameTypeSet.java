@@ -1,16 +1,16 @@
 package timmax.tilegame.basemodel.protocol;
 
-import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
+import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 
-public class EventOfServer30ForgetGameTypeSet extends EventOfServer {
+public class EventOfServer30ForgetGameTypeSet<Model> extends EventOfServer<Model> {
     @Override
-    public void executeOnClient(IModelOfClient iModelOfClient) {
+    public void executeOnClient(LocalClientStateAutomaton<Model> localClientStateAutomaton) {
         logger.debug("  onForgetGameTypeSet");
         // Todo: улучшить качество кода:
         //       Вызов метода у объекта объекта - не хорошая практика!
         //       multiGameWebSocketClient.clientState.setUserName
         //       Ну и далее по аналогии.
-        iModelOfClient.getLocalClientState().forgetGameTypeSet();
+        localClientStateAutomaton.forgetGameTypeSet();
     }
 
     @Override

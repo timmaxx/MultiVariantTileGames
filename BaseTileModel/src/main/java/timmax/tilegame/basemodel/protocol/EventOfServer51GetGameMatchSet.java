@@ -5,10 +5,10 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.Set;
 
+import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
-import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 
-public class EventOfServer51GetGameMatchSet extends EventOfServer {
+public class EventOfServer51GetGameMatchSet<Model> extends EventOfServer<Model> {
     private Set<InstanceIdOfModel> setOfInstanceIdOfModel;
 
     public EventOfServer51GetGameMatchSet() {
@@ -21,17 +21,9 @@ public class EventOfServer51GetGameMatchSet extends EventOfServer {
     }
 
     @Override
-    public void executeOnClient(IModelOfClient iModelOfClient) {
+    public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
         logger.debug("  onGetGameMatchSet");
-
-        // Ниже сигнатура setGameMatchSet:
-        // void setGameMatchSet(Set<Model> setOfServerBaseModel)
-        // но
-        // Set<InstanceIdOfModel> setOfInstanceIdOfModel
-        // Поэтому Set<InstanceIdOfModel> нужно преобразовать в Set<IModelOfClient>
-        iModelOfClient
-                .getLocalClientState()
-                .setGameMatchSet(setOfInstanceIdOfModel);
+        localClientStateAutomaton.setGameMatchSet(setOfInstanceIdOfModel);
     }
 
     @Override

@@ -1,12 +1,12 @@
 package timmax.tilegame.basemodel.protocol;
 
-import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
+import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 
-public class EventOfServer70GameMatchIsNotPlaying extends EventOfServer {
+public class EventOfServer70GameMatchIsNotPlaying<Model> extends EventOfServer<Model> {
     @Override
-    public void executeOnClient(IModelOfClient iModelOfClient) {
+    public void executeOnClient(LocalClientStateAutomaton<Model> localClientStateAutomaton) {
         logger.debug("  onGameMatchIsNotPlaying");
-        iModelOfClient.getLocalClientState().forgetGameIsPlaying();
+        localClientStateAutomaton.forgetGameIsPlaying();
     }
 
     @Override

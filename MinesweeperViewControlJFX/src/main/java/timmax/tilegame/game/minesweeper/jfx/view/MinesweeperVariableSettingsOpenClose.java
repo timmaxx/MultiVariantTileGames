@@ -1,16 +1,16 @@
 package timmax.tilegame.game.minesweeper.jfx.view;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
-import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
+import timmax.tilegame.transport.TransportOfClient;
 import timmax.tilegame.guiengine.jfx.view.ViewTextFieldsJfx;
 
 import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsOpenClose;
 
 import static timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsOpenClose.*;
 
-public class MinesweeperVariableSettingsOpenClose extends ViewTextFieldsJfx {
-    public MinesweeperVariableSettingsOpenClose(IModelOfClient iModelOfClient, String viewName) {
-        super(iModelOfClient
+public class MinesweeperVariableSettingsOpenClose<ClientId> extends ViewTextFieldsJfx<ClientId> {
+    public MinesweeperVariableSettingsOpenClose(TransportOfClient<ClientId> transportOfClient, String viewName) {
+        super(transportOfClient
                 , GameEventMinesweeperVariableParamsOpenClose.class
                 , COMMON_LABEL_OF_VARIABLE_PARAMS_OPEN_CLOSE
                 , viewName);

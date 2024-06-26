@@ -7,16 +7,15 @@ import java.util.List;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 import timmax.tilegame.transport.TransportOfClient;
 
-public class Pane01ServerConnect extends AbstractConnectStatePane {
+public class Pane01ServerConnect<ClientId> extends AbstractConnectStatePane<ClientId> {
     private final TextField textFieldServerAddress;
     private final TextField textFieldServerPort;
     private final TextField textFieldConnectString;
 
-    public Pane01ServerConnect(IModelOfClient iModelOfClient, TransportOfClient transportOfClient) {
-        super(iModelOfClient, transportOfClient);
+    public Pane01ServerConnect(TransportOfClient<ClientId> transportOfClient) {
+        super(transportOfClient);
 
         // Контролы для продвижения состояния "вперёд":
         Label labelServerAddress = new Label("Address");

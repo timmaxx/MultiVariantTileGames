@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
+import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
-import timmax.tilegame.basemodel.protocol.client.IModelOfClient;
 
-public class EventOfServer41SetGameType extends EventOfServer {
+public class EventOfServer41SetGameType<Model> extends EventOfServer<Model> {
     private String modelOfServerDescriptorGameTypeName;
 
     public EventOfServer41SetGameType() {
@@ -20,14 +20,14 @@ public class EventOfServer41SetGameType extends EventOfServer {
     }
 
     @Override
-    public void executeOnClient(IModelOfClient iModelOfClient) {
+    public void executeOnClient(LocalClientStateAutomaton<Model> localClientStateAutomaton) {
         logger.debug("  onGameTypeSelect");
 
 //  ToDo: Код в следующем блоке предпочтительнее, но он не компилируется
 //        (перестал после замены класса LocalClientState на ClientStateAutomaton)...
         ModelOfServerDescriptor modelOfServerDescriptor = null;
-        for (int i = 0; i < iModelOfClient.getLocalClientState().getGameTypeSet().size(); i++) {
-            modelOfServerDescriptor = ((ModelOfServerDescriptor)(iModelOfClient.getLocalClientState().getGameTypeSet().stream().toList().get(i)));
+        for (int i = 0; i < localClientStateAutomaton.getGameTypeSet().size(); i++) {
+            modelOfServerDescriptor = localClientStateAutomaton.getGameTypeSet().stream().toList().get(i);
             if (modelOfServerDescriptor.getGameName().equals(modelOfServerDescriptorGameTypeName)) {
                 break;
             }
@@ -45,8 +45,8 @@ public class EventOfServer41SetGameType extends EventOfServer {
                 .orElse(null);
 */
 
-        iModelOfClient.getLocalClientState().setGameType(modelOfServerDescriptor);
-        iModelOfClient.getGameMatchSet();
+        localClientStateAutomaton.setGameType(modelOfServerDescriptor);
+        localClientStateAutomaton.getGameMatchSet();
     }
 
     @Override
