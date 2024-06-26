@@ -4,6 +4,4 @@ import timmax.tilegame.basemodel.protocol.EventOfServer;
 
 public interface TransportOfServer<ClientId> {
     void sendEventOfServer(ClientId clientId, EventOfServer transportPackageOfServer);
-    void start();
-    void stop(int timeout) throws InterruptedException;
 }

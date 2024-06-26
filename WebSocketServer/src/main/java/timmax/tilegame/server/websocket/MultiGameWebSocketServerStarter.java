@@ -1,9 +1,5 @@
 package timmax.tilegame.server.websocket;
 
-import timmax.tilegame.transport.TransportOfServer;
-
-import org.java_websocket.WebSocket;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,7 +12,7 @@ public class MultiGameWebSocketServerStarter {
         } catch (Exception ex) {
             port = 8887; // 843 flash policy port
         }
-        TransportOfServer<WebSocket> multiGameWebSocketServer = new MultiGameWebSocketServer(port);
+        MultiGameWebSocketServer multiGameWebSocketServer = new MultiGameWebSocketServer(port);
 /*
         // Вариант работы с непойманными исключениями, которые могли возникнуть в дочерних потоках-нитях:
         {
