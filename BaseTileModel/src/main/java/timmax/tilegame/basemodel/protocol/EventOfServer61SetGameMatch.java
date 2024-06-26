@@ -7,7 +7,7 @@ import java.io.ObjectOutput;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 
-public class EventOfServer61SetGameMatch<Model> extends EventOfServer<Model> {
+public class EventOfServer61SetGameMatch extends EventOfServer {
     InstanceIdOfModel serverBaseModel;
 
     public EventOfServer61SetGameMatch() {

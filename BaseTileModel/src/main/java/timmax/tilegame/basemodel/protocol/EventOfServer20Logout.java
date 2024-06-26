@@ -2,9 +2,9 @@ package timmax.tilegame.basemodel.protocol;
 
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 
-public class EventOfServer20Logout<Model> extends EventOfServer<Model> {
+public class EventOfServer20Logout extends EventOfServer {
     @Override
-    public void executeOnClient(LocalClientStateAutomaton<Model> localClientStateAutomaton) {
+    public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
         logger.debug("  onLogout");
         // Todo: улучшить качество кода:
         //       Вызов метода у объекта объекта - не хорошая практика!

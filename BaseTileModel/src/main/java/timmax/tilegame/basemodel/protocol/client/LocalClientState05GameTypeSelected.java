@@ -2,11 +2,12 @@ package timmax.tilegame.basemodel.protocol.client;
 
 import timmax.tilegame.basemodel.protocol.server_client.ClientState05GameTypeSelected;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
+import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 
 import java.util.Set;
 
-public class LocalClientState05GameTypeSelected<Model> extends ClientState05GameTypeSelected<Model> {
-    public LocalClientState05GameTypeSelected(ClientStateAutomaton<Model> clientStateAutomaton) {
+public class LocalClientState05GameTypeSelected extends ClientState05GameTypeSelected<InstanceIdOfModel> {
+    public LocalClientState05GameTypeSelected(ClientStateAutomaton<InstanceIdOfModel> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 
@@ -20,14 +21,14 @@ public class LocalClientState05GameTypeSelected<Model> extends ClientState05Game
 
     // ---- 5 (Набор моделей игр)
     @Override
-    public void setGameMatchSet(Set<Model> setOfServerBaseModel) {
+    public void setGameMatchSet(Set<InstanceIdOfModel> setOfServerBaseModel) {
         super.setGameMatchSet(setOfServerBaseModel);
         getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnGetGameMatchSet();
     }
 
     // class AbstractClientState
     @Override
-    public LocalClientStateAutomaton<Model> getClientStateAutomaton() {
-        return (LocalClientStateAutomaton<Model>)(super.getClientStateAutomaton());
+    public LocalClientStateAutomaton getClientStateAutomaton() {
+        return (LocalClientStateAutomaton)(super.getClientStateAutomaton());
     }
 }

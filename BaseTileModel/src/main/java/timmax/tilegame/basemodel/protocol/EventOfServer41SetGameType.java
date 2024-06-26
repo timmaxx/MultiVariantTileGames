@@ -7,7 +7,7 @@ import java.io.ObjectOutput;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 
-public class EventOfServer41SetGameType<Model> extends EventOfServer<Model> {
+public class EventOfServer41SetGameType extends EventOfServer {
     private String modelOfServerDescriptorGameTypeName;
 
     public EventOfServer41SetGameType() {
@@ -20,7 +20,7 @@ public class EventOfServer41SetGameType<Model> extends EventOfServer<Model> {
     }
 
     @Override
-    public void executeOnClient(LocalClientStateAutomaton<Model> localClientStateAutomaton) {
+    public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
         logger.debug("  onGameTypeSelect");
         //  ToDo: Код, в следующем после этого блока, предпочтительнее, но он не компилируется
         //        (перестал после замены класса LocalClientState на ClientStateAutomaton)...

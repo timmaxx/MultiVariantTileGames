@@ -3,11 +3,12 @@ package timmax.tilegame.basemodel.protocol.client;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import timmax.tilegame.basemodel.protocol.server_client.ClientState03ConnectAuthorized;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
+import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 
 import java.util.Set;
 
-public class LocalClientState03ConnectAuthorized<Model> extends ClientState03ConnectAuthorized<Model> {
-    public LocalClientState03ConnectAuthorized(ClientStateAutomaton<Model> clientStateAutomaton) {
+public class LocalClientState03ConnectAuthorized extends ClientState03ConnectAuthorized<InstanceIdOfModel> {
+    public LocalClientState03ConnectAuthorized(ClientStateAutomaton<InstanceIdOfModel> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 
@@ -28,7 +29,7 @@ public class LocalClientState03ConnectAuthorized<Model> extends ClientState03Con
 
     // class AbstractClientState
     @Override
-    public LocalClientStateAutomaton<Model> getClientStateAutomaton() {
-        return (LocalClientStateAutomaton<Model>)(super.getClientStateAutomaton());
+    public LocalClientStateAutomaton getClientStateAutomaton() {
+        return (LocalClientStateAutomaton)(super.getClientStateAutomaton());
     }
 }

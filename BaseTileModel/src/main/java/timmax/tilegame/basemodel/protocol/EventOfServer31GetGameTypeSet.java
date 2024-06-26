@@ -8,7 +8,7 @@ import java.util.Set;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 
-public class EventOfServer31GetGameTypeSet<Model> extends EventOfServer<Model> {
+public class EventOfServer31GetGameTypeSet extends EventOfServer {
     private Set<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor;
 
     public EventOfServer31GetGameTypeSet() {
@@ -21,7 +21,7 @@ public class EventOfServer31GetGameTypeSet<Model> extends EventOfServer<Model> {
     }
 
     @Override
-    public void executeOnClient(LocalClientStateAutomaton<Model> localClientStateAutomaton) {
+    public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
         logger.debug("  onGetGameTypeSet");
         localClientStateAutomaton.setGameTypeSet(collectionOfModelOfServerDescriptor);
     }

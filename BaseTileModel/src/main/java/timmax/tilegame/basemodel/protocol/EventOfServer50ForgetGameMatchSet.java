@@ -2,9 +2,9 @@ package timmax.tilegame.basemodel.protocol;
 
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 
-public class EventOfServer50ForgetGameMatchSet<Model> extends EventOfServer<Model> {
+public class EventOfServer50ForgetGameMatchSet extends EventOfServer {
     @Override
-    public void executeOnClient(LocalClientStateAutomaton<Model> localClientStateAutomaton) {
+    public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
         logger.debug("  onForgetGameMatchSet");
         localClientStateAutomaton.forgetGameMatchSet();
     }

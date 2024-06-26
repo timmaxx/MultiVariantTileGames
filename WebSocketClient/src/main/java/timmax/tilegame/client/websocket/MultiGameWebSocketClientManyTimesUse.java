@@ -14,15 +14,15 @@ import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import timmax.tilegame.transport.TransportOfClient;
 
 // WebSocket клиент многоразовый
-public class MultiGameWebSocketClientManyTimesUse<Model> implements TransportOfClient<WebSocket> {
+public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient<WebSocket> {
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketClientManyTimesUse.class);
 
     private TransportOfClient<WebSocket> transportOfClient;
     private URI uri;
 
-    LocalClientStateAutomaton<Model> localClientStateJfx;
+    LocalClientStateAutomaton localClientStateJfx;
 
-    public MultiGameWebSocketClientManyTimesUse(LocalClientStateAutomaton<Model> localClientStateJfx) {
+    public MultiGameWebSocketClientManyTimesUse(LocalClientStateAutomaton localClientStateJfx) {
         super();
         this.localClientStateJfx = localClientStateJfx;
         // ToDo: Возможно, что-бы не использовать null, стоит реализовать класс, реализующий IClientState01NoConnect
@@ -42,7 +42,7 @@ public class MultiGameWebSocketClientManyTimesUse<Model> implements TransportOfC
 
     @Override
     public void connect() {
-        transportOfClient = new MultiGameWebSocketClient<>(uri, this);
+        transportOfClient = new MultiGameWebSocketClient(uri, this);
         transportOfClient.connect();
     }
 
@@ -122,7 +122,7 @@ public class MultiGameWebSocketClientManyTimesUse<Model> implements TransportOfC
     }
 
     @Override
-    public LocalClientStateAutomaton<Model> getLocalClientState() {
+    public LocalClientStateAutomaton getLocalClientState() {
         return localClientStateJfx;
     }
 }

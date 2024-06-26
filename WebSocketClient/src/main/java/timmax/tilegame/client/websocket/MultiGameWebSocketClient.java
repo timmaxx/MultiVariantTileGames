@@ -26,13 +26,13 @@ import timmax.tilegame.transport.TransportOfClient;
 //   но тогда пусть он бросает исключение.
 
 // ToDo: класс не должен здесь параметризироватья от Model
-public class MultiGameWebSocketClient<Model> extends WebSocketClient implements TransportOfClient<WebSocket> {
+public class MultiGameWebSocketClient extends WebSocketClient implements TransportOfClient<WebSocket> {
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketClient.class);
 
     private final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
-    private final TransportOfClient<Model> modelMultiGameWebSocketClientManyTimesUse;
+    private final TransportOfClient<WebSocket> modelMultiGameWebSocketClientManyTimesUse;
 
-    public MultiGameWebSocketClient(URI serverUri, TransportOfClient<Model> modelMultiGameWebSocketClientManyTimesUse) {
+    public MultiGameWebSocketClient(URI serverUri, TransportOfClient<WebSocket> modelMultiGameWebSocketClientManyTimesUse) {
         super(serverUri);
         this.modelMultiGameWebSocketClientManyTimesUse = modelMultiGameWebSocketClientManyTimesUse;
     }
@@ -66,7 +66,7 @@ public class MultiGameWebSocketClient<Model> extends WebSocketClient implements 
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteBuffer.array());
         // ToDo: А вдруг здесь от сервера прилетит что-то не EventOfServer?
         //       Тогда нужно обрабатывать исключение и выводить в лог.
-        EventOfServer<Model> eventOfServer = mapper.readValue(byteArrayInputStream, EventOfServer.class);
+        EventOfServer eventOfServer = mapper.readValue(byteArrayInputStream, EventOfServer.class);
         logger.info("Incoming message. EventOfServer: {}.", eventOfServer);
         eventOfServer.executeOnClient(modelMultiGameWebSocketClientManyTimesUse.getLocalClientState());
         logger.debug("  Main game client status: {}.", modelMultiGameWebSocketClientManyTimesUse);
@@ -179,7 +179,7 @@ public class MultiGameWebSocketClient<Model> extends WebSocketClient implements 
 
     // X
     @Override
-    public LocalClientStateAutomaton<Model> getLocalClientState() {
+    public LocalClientStateAutomaton getLocalClientState() {
         return modelMultiGameWebSocketClientManyTimesUse.getLocalClientState();
     }
 }

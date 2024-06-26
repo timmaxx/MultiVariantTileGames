@@ -23,12 +23,12 @@ public class MultiGameClient extends Application {
         Pane root = new VBox();
 
         // ToDo: Warning:(32, 9) Raw use of parameterized class 'ClientStateAutomaton'
-        LocalClientStateAutomaton localClientStateJfx = new LocalClientStateAutomaton<>(
-                new FabricOfClientStatesJfx<>(),
+        LocalClientStateAutomaton localClientStateJfx = new LocalClientStateAutomaton(
+                new FabricOfClientStatesJfx(),
                 new FabricOfClientStateAutomatonJfx()
         );
 
-        TransportOfClient<?> transportOfClient = new MultiGameWebSocketClientManyTimesUse<>(localClientStateJfx);
+        TransportOfClient<?> transportOfClient = new MultiGameWebSocketClientManyTimesUse(localClientStateJfx);
 
         root.getChildren().addAll(
                 new Pane01ServerConnect<>(transportOfClient),

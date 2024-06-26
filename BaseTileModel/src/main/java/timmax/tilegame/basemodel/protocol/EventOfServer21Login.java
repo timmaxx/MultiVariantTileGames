@@ -6,7 +6,7 @@ import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 
-public class EventOfServer21Login<Model> extends EventOfServer<Model> {
+public class EventOfServer21Login extends EventOfServer {
     private String userName;
 
     public EventOfServer21Login() {
@@ -22,7 +22,7 @@ public class EventOfServer21Login<Model> extends EventOfServer<Model> {
     }
 
     @Override
-    public void executeOnClient(LocalClientStateAutomaton<Model> localClientStateAutomaton) {
+    public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
         logger.debug("  onLogin");
         localClientStateAutomaton.setUserName(userName);
         localClientStateAutomaton.getGameTypeSet();

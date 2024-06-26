@@ -6,7 +6,6 @@ import timmax.tilegame.baseview.View;
 import java.lang.reflect.Constructor;
 import java.util.Set;
 
-// ToDo: Устранить параметризацию от Model
 public class ClientStateAutomaton<Model> implements
         IClientState01NoConnect,
         IClientState02ConnectNonIdent,

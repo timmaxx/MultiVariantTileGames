@@ -8,7 +8,7 @@ import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.baseview.View;
 
-public class EventOfServer92GameEvent<Model> extends EventOfServer<Model> {
+public class EventOfServer92GameEvent extends EventOfServer {
     private String viewName;
     private GameEvent gameEvent;
 
@@ -23,7 +23,7 @@ public class EventOfServer92GameEvent<Model> extends EventOfServer<Model> {
     }
 
     @Override
-    public void executeOnClient(LocalClientStateAutomaton<Model> localClientStateAutomaton) {
+    public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
         logger.debug("  onGameEvent");
         logger.debug("    viewName = {}", viewName);
         View view = localClientStateAutomaton.getMapOfViewName_View().get(viewName);

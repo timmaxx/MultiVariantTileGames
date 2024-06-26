@@ -5,18 +5,18 @@ import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.IFabricOfClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.IFabricOfClientStates;
+import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import timmax.tilegame.baseview.View;
 
 import java.util.HashMap;
 import java.util.Map;
 
-// ToDo: Устранить параметризацию от <Model>
-public class LocalClientStateAutomaton<Model> extends ClientStateAutomaton<Model> {
+public class LocalClientStateAutomaton extends ClientStateAutomaton<InstanceIdOfModel> {
     private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
     private final Map<String, View> mapOfViewName_View;
 
     public LocalClientStateAutomaton(
-            IFabricOfClientStates<Model> IFabricOfClientStates,
+            IFabricOfClientStates<InstanceIdOfModel> IFabricOfClientStates,
             IFabricOfClientStateAutomaton iFabricOfClientStateAutomaton) {
         super(IFabricOfClientStates, iFabricOfClientStateAutomaton);
 
