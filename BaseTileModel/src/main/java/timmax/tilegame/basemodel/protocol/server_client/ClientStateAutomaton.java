@@ -1,9 +1,7 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
-import timmax.tilegame.baseview.View;
 
-import java.lang.reflect.Constructor;
 import java.util.Set;
 
 public class ClientStateAutomaton<Model> implements
@@ -26,11 +24,8 @@ public class ClientStateAutomaton<Model> implements
 
     private IClientState00 currenState;
 
-    private final IFabricOfClientStateAutomaton iFabricOfClientStateAutomaton;
-
     public ClientStateAutomaton(
-            IFabricOfClientStates<Model> iFabricOfClientStates,
-            IFabricOfClientStateAutomaton iFabricOfClientStateAutomaton) {
+            IFabricOfClientStates<Model> iFabricOfClientStates) {
         clientState01NoConnect = iFabricOfClientStates.getClientState01NoConnect(this);
         clientState02ConnectNonIdent = iFabricOfClientStates.getClientState02ConnectNonIdent(this);
         clientState03ConnectAuthorized = iFabricOfClientStates.getClientState03ConnectAuthorized(this);
@@ -40,13 +35,7 @@ public class ClientStateAutomaton<Model> implements
         clientState07GameMatchSelected = iFabricOfClientStates.getClientState07GameMatchSelected(this);
         clientState08GameIsPlaying = iFabricOfClientStates.getClientState08GameIsPlaying(this);
 
-        this.iFabricOfClientStateAutomaton = iFabricOfClientStateAutomaton;
-
         currenState = clientState01NoConnect;
-    }
-
-    public Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView) {
-        return iFabricOfClientStateAutomaton.getViewConstructor(classOfView);
     }
 
     // 2 interface IClientState02ConnectNonIdent

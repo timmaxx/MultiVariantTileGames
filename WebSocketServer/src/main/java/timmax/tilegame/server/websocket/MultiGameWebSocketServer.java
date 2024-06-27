@@ -53,9 +53,22 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         //       См. коммент к IFabricOfClientStates
         mapOfWebSocketAndRemoteClientState.put(
                 webSocket,
+                // ToDo: Внедрить двусторонюю мапу (https://coderlessons.com/articles/java/google-guava-bimaps)
+                // ToDo: Сейчас в конструктор RemoteClientStateAutomaton передаются несколько параметров, некоторые из
+                //       них не являются необходимыми (см. комментарий перед каждым параметром):
                 new RemoteClientStateAutomaton<>(
+                        // - webSocket(как параметр конструктора FabricOfRemoteClientStates), который понадобится тогда,
+                        //   когда нужно будет отправить сообщение конкретному клиенту, но его можно было-бы получить
+                        //   через двустороннюю мапу
+                        //   WebSocket <-> RemoteClientStateAutomaton
+                        //   (но сейчас обычная мапа ->
+                        //   Map<WebSocket, RemoteClientStateAutomaton<WebSocket>> mapOfWebSocketAndRemoteClientState.
+                        //   )
+                        //   webSocket стоит убрать из параметра (после внедрения двусторонней мапы).
                         new FabricOfRemoteClientStates<>(webSocket),
-                        new FabricOfRemoteClientStateAutomaton(),
+                        // - ссылка на текущий класс
+                        //   class MultiGameWebSocketServer extends WebSocketServer implements TransportOfServer<WebSocket>,
+                        //   которую также можно получить через двустороннюю мапу.
                         this
                 )
         );
