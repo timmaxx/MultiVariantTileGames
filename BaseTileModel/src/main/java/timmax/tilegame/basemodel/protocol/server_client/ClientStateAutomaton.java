@@ -150,8 +150,6 @@ public class ClientStateAutomaton<Model> implements
     // class Object
     @Override
     public String toString() {
-        return "ClientStateAutomaton{" +
-                "currenState=" + currenState +
-                '}';
+        return currenState.getClass().getSimpleName();
     }
 }
