@@ -11,6 +11,15 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
     // ToDo: Удалить TransportOfServer<ClientId> multiGameWebSocketServer.
     //       Вместо того, чтобы хранить переменную типа TransportOfServer здесь, нужно рассмотреть вариант по передаче
     //       её как параметра в те методы, где она нужна.
+    // ToDo: Удалить TransportOfServer<ClientId> multiGameWebSocketServer.
+    //       1. TransportOfClient - LocalClientStateAutomaton:
+    //         - В MultiGameWebSocketClientManyTimesUse есть переменная LocalClientStateAutomaton.
+    //         - В LocalClientStateAutomaton нет переменной TransportOfClient (или MultiGameWebSocketClientManyTimesUse).
+    //           И как-то без этого обходится.
+    //       2. TransportOfServer - Map<WebSocket, RemoteClientStateAutomaton<WebSocket>>
+    //         - В MultiGameWebSocketServer есть мапа WebSocket -> RemoteClientStateAutomaton
+    //         - В RemoteClientStateAutomaton есть переменная TransportOfServer.
+    //           Почему-же здесь нужна эта переменная?
     private final TransportOfServer<ClientId> multiGameWebSocketServer;
 
     private final Set<String> setOfViewName;
