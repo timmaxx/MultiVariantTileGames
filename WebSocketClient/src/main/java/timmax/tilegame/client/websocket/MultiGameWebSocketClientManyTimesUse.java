@@ -30,7 +30,7 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient<W
         logger.info("  Main game client status: {}.", "NO_CONNECT");
     }
 
-    // interface TransportOfClient:
+    // interface TransportOfClient
     @Override
     public void close() {
         if (transportOfClient == null) {
@@ -60,7 +60,11 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient<W
         transportOfClient.sendEventOfClient(eventOfClient);
     }
 
-    // !!!!
+    @Override
+    public LocalClientStateAutomaton getLocalClientState() {
+        return localClientStateJfx;
+    }
+
     @Override
     public void login(String userName, String password) {
         transportOfClient.login(userName, password);
@@ -121,8 +125,9 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient<W
         transportOfClient.stopGameMatchPlaying();
     }
 
+    // class Object
     @Override
-    public LocalClientStateAutomaton getLocalClientState() {
-        return localClientStateJfx;
+    public String toString() {
+        return localClientStateJfx.toString();
     }
 }
