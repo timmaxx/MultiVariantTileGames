@@ -180,6 +180,6 @@ public abstract class AbstractConnectStatePane<ClientId> extends HBox implements
     }
 
     @Override
-    public void updateOnStartGameMatchPlaying() {
+    public void updateOnSetGameMatchPlaying() {
     }
 }

@@ -21,7 +21,7 @@ public class LocalClientState07GameMatchSelected extends ClientState07GameMatchS
     @Override
     public void setGameIsPlaying(Boolean gameIsPlaying) {
         super.setGameIsPlaying(gameIsPlaying);
-        getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnStartGameMatchPlaying();
+        getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnSetGameMatchPlaying();
     }
 
     // class AbstractClientState
