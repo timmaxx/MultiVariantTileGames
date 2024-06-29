@@ -24,12 +24,12 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
 
     private final ObjectMapperOfMvtg mapper;
 
-    private final Map<WebSocket, RemoteClientStateAutomaton<WebSocket>> mapOfWebSocketAndRemoteClientState;
+    private final Map<WebSocket, RemoteClientStateAutomaton<WebSocket>> mapOfWebSocketAndRemoteClientStateAutomaton;
 
     public MultiGameWebSocketServer(int port) {
         super(new InetSocketAddress(port));
         mapper = new ObjectMapperOfMvtg();
-        mapOfWebSocketAndRemoteClientState = new HashMap<>();
+        mapOfWebSocketAndRemoteClientStateAutomaton = new HashMap<>();
     }
 
     // class WebSocketServer:
@@ -42,7 +42,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     public void onClose(WebSocket webSocket, int code, String reason, boolean remote) {
         logger.info("WebSocket: {}. Connection was closed.", webSocket);
         logger.debug("  Code: {}. Reason: {}. Remote: {}.", code, reason, remote);
-        mapOfWebSocketAndRemoteClientState.remove(webSocket);
+        mapOfWebSocketAndRemoteClientStateAutomaton.remove(webSocket);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         logger.debug("  ClientHandshake: {}.", clientHandshake);
         // ToDo: Устранить взаимозависимость интерфейса IFabricOfClientStates и класса ClientStateAutomaton.
         //       См. коммент к IFabricOfClientStates
-        mapOfWebSocketAndRemoteClientState.put(
+        mapOfWebSocketAndRemoteClientStateAutomaton.put(
                 webSocket,
                 // ToDo: Внедрить двусторонюю мапу (https://coderlessons.com/articles/java/google-guava-bimaps)
                 // ToDo: Сейчас в конструктор RemoteClientStateAutomaton передаются несколько параметров, некоторые из
@@ -89,7 +89,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         //       При удалении параметра ClientId из класса EventOfClient, уйдёт и это предупреждение.
         EventOfClient<WebSocket> eventOfClient = mapper.readValue(byteArrayInputStream, EventOfClient.class);
         logger.info("WebSocket: {}. Incoming message. EventOfClient: {}.", webSocket, eventOfClient);
-        Thread thread = new Thread(() -> eventOfClient.executeOnServer(mapOfWebSocketAndRemoteClientState.get(webSocket), webSocket));
+        Thread thread = new Thread(() -> eventOfClient.executeOnServer(mapOfWebSocketAndRemoteClientStateAutomaton.get(webSocket), webSocket));
         thread.start();
     }
 

@@ -43,8 +43,8 @@ public class ModelOfServerOfMinesweeper<ClientId> extends ModelOfServer<ClientId
     //       - ModelOfServerDescriptor :: ModelOfServerDescriptor(...)
     //       и в
     //       - ModelOfServerLoader :: getCollectionOfModelOfServerDescriptor(...)
-    public ModelOfServerOfMinesweeper(RemoteClientStateAutomaton<ClientId> remoteClientState, ClientId clientId) {
-        super(remoteClientState, clientId);
+    public ModelOfServerOfMinesweeper(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
+        super(remoteClientStateAutomaton, clientId);
     }
 
     public void createNewGame(int width, int height, int percentsOfMines) {
@@ -99,9 +99,9 @@ public class ModelOfServerOfMinesweeper<ClientId> extends ModelOfServer<ClientId
     @Override
     public void createNewGame() {
         createNewGame(
-                remoteClientState.getMapOfParamsOfModelValue().get(PARAM_NAME_WIDTH),
-                remoteClientState.getMapOfParamsOfModelValue().get(PARAM_NAME_HEIGHT),
-                remoteClientState.getMapOfParamsOfModelValue().get(PARAM_NAME_PERCENTS_OF_MINES)
+                remoteClientStateAutomaton.getMapOfParamsOfModelValue().get(PARAM_NAME_WIDTH),
+                remoteClientStateAutomaton.getMapOfParamsOfModelValue().get(PARAM_NAME_HEIGHT),
+                remoteClientStateAutomaton.getMapOfParamsOfModelValue().get(PARAM_NAME_PERCENTS_OF_MINES)
         );
         sendGameEvent(new GameEventMinesweeperPersistentParams(allMinesweeperObjects.getCountOfMines()));
     }

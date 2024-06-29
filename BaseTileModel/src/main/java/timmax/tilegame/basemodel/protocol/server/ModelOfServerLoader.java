@@ -16,7 +16,7 @@ public class ModelOfServerLoader {
     private static final String FILE_NAME_WITH_CLASS_NAMES_OF_MODELS = "models.txt";
 
     public static <ClientId> Set<ModelOfServerDescriptor> getCollectionOfModelOfServerDescriptor(
-            RemoteClientStateAutomaton<ClientId> remoteClientState,
+            RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton,
             ClientId clientId
     ) {
         Path path = null;
@@ -37,14 +37,14 @@ public class ModelOfServerLoader {
                     //       Второй и третий параметр - это группа параметров для конструктора модели.
                     //       И эту группу и можно было-бы обрабатывать как группу.
                     //       1. Во первых при вызове new ModelOfServerDescriptor(...)
-                    modelOfServerDescriptor = new ModelOfServerDescriptor(line, remoteClientState, clientId);
+                    modelOfServerDescriptor = new ModelOfServerDescriptor(line, remoteClientStateAutomaton, clientId);
                 } catch (ClassNotFoundException e) {
                     logger.warn("Class '{}' is not found.", line, e);
                     continue;
                 } catch (NoSuchMethodException e) {
                     // ToDo: - продолжение предыдущего ToDo.
                     //       2. Во вторых при логировании здесь.
-                    logger.warn("Class '{}' does not contains constructor with " + "'parameter(s) " + remoteClientState.getClass() + "'" + " type and " + clientId.getClass() + " type.", line, e);
+                    logger.warn("Class '{}' does not contains constructor with " + "'parameter(s) " + remoteClientStateAutomaton.getClass() + "'" + " type and " + clientId.getClass() + " type.", line, e);
                     continue;
                 }
                 result.add(modelOfServerDescriptor);

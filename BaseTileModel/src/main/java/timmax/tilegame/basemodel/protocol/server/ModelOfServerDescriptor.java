@@ -37,7 +37,7 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
 
     public <ClientId> ModelOfServerDescriptor(
             String modelOfServerFullClassName,
-            RemoteClientStateAutomaton<ClientId> remoteClientState,
+            RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton,
             ClientId clientId)
             throws ClassNotFoundException, NoSuchMethodException {
         this();
@@ -55,12 +55,12 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
         //       catch (NoSuchMethodException e)
         //       при логировании.
         // ToDo: Одним из типов параметров указан Object.class. Сделал так, т.к. не знаю как указать параметризированный тип.
-        constructorOfModelOfServerClass = modelOfServerClass.getConstructor(remoteClientState.getClass(), Object.class);
+        constructorOfModelOfServerClass = modelOfServerClass.getConstructor(remoteClientStateAutomaton.getClass(), Object.class);
 
         IModelOfServer iModelOfServer;
         try {
             // Создаётся экземпляр. После работы в этом конструкторе он будет не нужен.
-            iModelOfServer = constructorOfModelOfServerClass.newInstance(remoteClientState, clientId);
+            iModelOfServer = constructorOfModelOfServerClass.newInstance(remoteClientStateAutomaton, clientId);
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
             String errMessage = "Server cannot make object of model for " + modelOfServerFullClassName + " with concrete constructor.";
             logger.error(errMessage, e);

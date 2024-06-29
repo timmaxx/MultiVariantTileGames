@@ -24,14 +24,14 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
     }
 
     @Override
-    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientState, ClientId clientId) {
+    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
         logger.debug("  onSetGameMatch");
         logger.debug("  InstanceIdOfModel = {}", instanceIdOfModel);
 
         // ToDo: Исправить Warning:(33, 9) Raw use of parameterized class 'IModelOfServer'
         IModelOfServer iModelOfServer = null;
         if (instanceIdOfModel.getId() == null) {
-            remoteClientState.getTransportOfServer().sendEventOfServer(
+            remoteClientStateAutomaton.getTransportOfServer().sendEventOfServer(
                     clientId,
                     new EventOfServer60ForgetGameMatch()
             );
@@ -39,7 +39,7 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
         }
         if (instanceIdOfModel.getId().equals("New game")) {
             // Определяем ранее выбранный тип
-            ModelOfServerDescriptor modelOfServerDescriptor = remoteClientState.getGameType();
+            ModelOfServerDescriptor modelOfServerDescriptor = remoteClientStateAutomaton.getGameType();
             Constructor<? extends IModelOfServer> constructor = modelOfServerDescriptor.getConstructorOfModelOfServerClass();
 
             try {
@@ -53,12 +53,12 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
                 //          и там-же ниже в строке
                 //          iModelOfServer = constructorOfModelOfServerClass.newInstance(...);
                 //       2. Ну в т.ч. это, те-же параметры, которые поступили в executeOnServer().
-                iModelOfServer = constructor.newInstance(remoteClientState, clientId);
+                iModelOfServer = constructor.newInstance(remoteClientStateAutomaton, clientId);
             } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
                 logger.error("Server cannot create object of model for {} with constructor with specific parameters.", modelOfServerDescriptor, e);
                 System.exit(1);
             }
-            remoteClientState
+            remoteClientStateAutomaton
                     .getGameMatchSet()
                     // ToDo: Исправить Warning:(54, 26) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IModelOfServer' to 'timmax.tilegame.basemodel.protocol.server.IModelOfServer<ClientId>'
                     .add(iModelOfServer);
@@ -81,7 +81,7 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
         }
         */
         // ToDo: Исправить Warning:(72, 87) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IModelOfServer' to 'timmax.tilegame.basemodel.protocol.server.IModelOfServer<ClientId>'
-        remoteClientState.setServerBaseModel(iModelOfServer);
+        remoteClientStateAutomaton.setServerBaseModel(iModelOfServer);
     }
 
     @Override

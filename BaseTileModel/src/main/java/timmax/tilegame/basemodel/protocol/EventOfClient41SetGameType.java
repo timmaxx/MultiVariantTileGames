@@ -20,17 +20,17 @@ public class EventOfClient41SetGameType<ClientId> extends EventOfClient<ClientId
     }
 
     @Override
-    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientState, ClientId clientId) {
+    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
         logger.debug("  onGameTypeSelect");
         logger.debug("  modelOfServerDescriptorGameTypeName = {}", modelOfServerDescriptorGameTypeName);
         if (modelOfServerDescriptorGameTypeName == null) {
             logger.error("Client sent empty name of model classes.");
-            remoteClientState.forgetGameType();
+            remoteClientStateAutomaton.forgetGameType();
             return;
         }
         // От клиента поступило символическое имя типа игры (оно должно быть одно из тех, которые ему направлялись множеством).
 
-        ModelOfServerDescriptor modelOfServerDescriptor = remoteClientState
+        ModelOfServerDescriptor modelOfServerDescriptor = remoteClientStateAutomaton
                 .getGameTypeSet()
                 .stream()
                 // В том перечне ищется modelOfServerDescriptor с таким-же именем:
@@ -38,7 +38,7 @@ public class EventOfClient41SetGameType<ClientId> extends EventOfClient<ClientId
                 .findAny()
                 .orElse(null);
 
-        remoteClientState.setGameType(modelOfServerDescriptor);
+        remoteClientStateAutomaton.setGameType(modelOfServerDescriptor);
     }
 
     @Override

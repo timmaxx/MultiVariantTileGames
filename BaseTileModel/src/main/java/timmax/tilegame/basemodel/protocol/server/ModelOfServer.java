@@ -27,7 +27,7 @@ public abstract class ModelOfServer<ClientId> implements IModelOfServer {
     protected static final String PARAM_NAME_WIDTH = "Width";
     protected static final String PARAM_NAME_HEIGHT = "Height";
 
-    protected final RemoteClientStateAutomaton<ClientId> remoteClientState;
+    protected final RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton;
     // ToDo: Сейчас здесь одна переменная типа ClientId. И для одного игрока вполне норм.
     //       Но для для двух (а возможно и более игроков) или если какой-то участник игры, не являющийся игроком будет
     //       работать в отдельном клиенте, придётся создавать какуюто коллекцию, в которой и будет описание игроков
@@ -36,8 +36,8 @@ public abstract class ModelOfServer<ClientId> implements IModelOfServer {
 
     private GameStatus gameStatus;
 
-    public ModelOfServer(RemoteClientStateAutomaton<ClientId> remoteClientState, ClientId clientId) {
-        this.remoteClientState = remoteClientState;
+    public ModelOfServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
+        this.remoteClientStateAutomaton = remoteClientStateAutomaton;
         this.clientId = clientId;
     }
 
@@ -66,10 +66,10 @@ public abstract class ModelOfServer<ClientId> implements IModelOfServer {
         //       for (String viewName : remoteClientState.getSetOfViewName())
         //       Но такой вариант даже не компилировался.
         //       Разобраться!
-        Set<String> setOfViewName = remoteClientState.getSetOfViewName();
+        Set<String> setOfViewName = remoteClientStateAutomaton.getSetOfViewName();
         for (String viewName : setOfViewName) {
             EventOfServer eventOfServer = new EventOfServer92GameEvent(viewName, gameEvent);
-            remoteClientState.getTransportOfServer().sendEventOfServer(clientId, eventOfServer);
+            remoteClientStateAutomaton.getTransportOfServer().sendEventOfServer(clientId, eventOfServer);
         }
     }
 

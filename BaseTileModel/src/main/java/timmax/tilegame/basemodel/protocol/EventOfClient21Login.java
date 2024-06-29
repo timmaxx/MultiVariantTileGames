@@ -22,15 +22,15 @@ public class EventOfClient21Login<ClientId> extends EventOfClient<ClientId> {
     }
 
     @Override
-    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientState, ClientId clientId) {
+    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
         logger.debug("  onLogin");
         logger.debug("    userName = {} | password = *", userName); // Пароль не выводим:
 
         if (Credentials.isUserAndPasswordCorrect(userName, password)) {
             password = ""; // Не будем даже хранить пароль.
-            remoteClientState.setUserName(userName);
+            remoteClientStateAutomaton.setUserName(userName);
         } else {
-            remoteClientState.forgetUserName();
+            remoteClientStateAutomaton.forgetUserName();
         }
     }
 

@@ -6,7 +6,7 @@ import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
 public class EventOfClient51GiveGameMatchSet<ClientId> extends EventOfClient<ClientId> {
     @Override
-    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientState, ClientId clientId) {
+    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
         logger.debug("  GetGameMatchSet");
 
         // Сначала вместо new ArrayList<>() применял List.of() и здесь это работало.
@@ -19,7 +19,7 @@ public class EventOfClient51GiveGameMatchSet<ClientId> extends EventOfClient<Cli
         // 1. Игра для 2-х и более игроков.
         // 2. Есть хотя-бы одна не занятая роль.
 
-        remoteClientState.setGameMatchSet(new HashSet<>());
+        remoteClientStateAutomaton.setGameMatchSet(new HashSet<>());
     }
 
     @Override
