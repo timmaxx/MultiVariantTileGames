@@ -26,8 +26,8 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
 
     // ---- 6 Конкретная партия игры
     @Override
-    public void setServerBaseModel(IModelOfServer iModelOfServer) {
-        super.setServerBaseModel(iModelOfServer);
+    public void setGameMatch(IModelOfServer iModelOfServer) {
+        super.setGameMatch(iModelOfServer);
         getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
                 clientId,
                 new EventOfServer61SetGameMatch(

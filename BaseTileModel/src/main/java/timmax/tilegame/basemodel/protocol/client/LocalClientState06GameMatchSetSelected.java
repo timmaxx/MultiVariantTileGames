@@ -19,9 +19,9 @@ public class LocalClientState06GameMatchSetSelected extends ClientState06GameMat
 
     // ---- 6 (Конкретная модель игры)
     @Override
-    public void setServerBaseModel(InstanceIdOfModel serverBaseModel) {
-        super.setServerBaseModel(serverBaseModel);
-        getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnSelectGameMatch();
+    public void setGameMatch(InstanceIdOfModel serverBaseModel) {
+        super.setGameMatch(serverBaseModel);
+        getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnSetGameMatch();
     }
 
     // class AbstractClientState

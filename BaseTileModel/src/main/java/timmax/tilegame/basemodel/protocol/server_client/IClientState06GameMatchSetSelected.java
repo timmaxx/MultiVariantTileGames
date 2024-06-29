@@ -11,5 +11,5 @@ public interface IClientState06GameMatchSetSelected<Model> extends IClientState0
 
     void forgetGameMatchSet();
 
-    void setServerBaseModel(Model serverBaseModel);
+    void setGameMatch(Model serverBaseModel);
 }

@@ -22,7 +22,7 @@ public class EventOfServer61SetGameMatch extends EventOfServer {
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
         logger.debug("  onSetGameMatch");
-        localClientStateAutomaton.setServerBaseModel(serverBaseModel);
+        localClientStateAutomaton.setGameMatch(serverBaseModel);
     }
 
     @Override

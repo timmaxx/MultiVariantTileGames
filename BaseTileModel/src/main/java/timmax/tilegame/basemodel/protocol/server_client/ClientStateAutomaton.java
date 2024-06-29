@@ -112,8 +112,8 @@ public class ClientStateAutomaton<Model> implements
     }
 
     @Override
-    public void setServerBaseModel(Model serverBaseModel) {
-        clientState06GameMatchSetSelected.setServerBaseModel(serverBaseModel);
+    public void setGameMatch(Model serverBaseModel) {
+        clientState06GameMatchSetSelected.setGameMatch(serverBaseModel);
         currenState = clientState07GameMatchSelected;
     }
 

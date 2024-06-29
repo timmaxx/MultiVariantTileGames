@@ -171,7 +171,7 @@ public abstract class AbstractConnectStatePane<ClientId> extends HBox implements
     }
 
     @Override
-    public void updateOnSelectGameMatch() {
+    public void updateOnSetGameMatch() {
     }
 
     // 7

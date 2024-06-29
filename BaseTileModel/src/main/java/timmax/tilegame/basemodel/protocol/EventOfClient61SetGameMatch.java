@@ -97,7 +97,7 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
         }
         */
         // ToDo: Исправить Warning:(72, 87) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IModelOfServer' to 'timmax.tilegame.basemodel.protocol.server.IModelOfServer<ClientId>'
-        remoteClientStateAutomaton.setServerBaseModel(iModelOfServer);
+        remoteClientStateAutomaton.setGameMatch(iModelOfServer);
     }
 
     @Override
