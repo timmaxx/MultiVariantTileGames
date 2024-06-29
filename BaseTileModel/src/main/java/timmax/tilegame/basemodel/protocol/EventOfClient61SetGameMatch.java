@@ -23,6 +23,22 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
         this.instanceIdOfModel = instanceIdOfModel;
     }
 
+    // ToDo: Вероятно нужно переработать код executeOnServer(...) для двух классов (см. ниже) и вероятно перестать
+    //       использовать в них clientId.
+    //       Комментарий относится:
+    //       - в первую очередь к классам:
+    //       -- EventOfClient31GiveGameTypeSet,
+    //       -- EventOfClient61SetGameMatch,
+    //       - во вторых:
+    //       -- к EventOfClient,
+    //       - в третьих:
+    //       -- ко всем остальным EventOfClientХХ...
+    //       clientId используется в executeOnServer(...) в классах-наследниках EventOfClient только в:
+    //       - EventOfClient31GiveGameTypeSet
+    //       -- используется с рефлексией,
+    //       - EventOfClient61SetGameMatch (используется с рефлексией)
+    //       -- используется с рефлексией,
+    //       -- явно вызывается sendEventOfServer, в которую передаётся clientId.
     @Override
     public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
         logger.debug("  onSetGameMatch");
