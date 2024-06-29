@@ -48,7 +48,7 @@ public interface TransportOfClient<ClientId> {
     // ---- 5 (GameTypeSelected)
     // ???                                                                              //  5       ModelOfServerDescriptor getGameType();
     void forgetGameType();                                                      //  41  //  5 -> 4  void forgetGameType();
-    void getGameMatchSet();                                                     //  52  //  5 -> 6  void setGameMatchSet(Set<Model> setOfServerBaseModel);
+    void setGameMatchSet();                                                     //  52  //  5 -> 6  void setGameMatchSet(Set<Model> setOfServerBaseModel);
 
     // ---- 6 (MatchSetSelected)
     // ???                                                                              //  6       Set<Model> getGameMatchSet();

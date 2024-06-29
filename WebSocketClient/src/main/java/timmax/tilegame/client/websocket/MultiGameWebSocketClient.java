@@ -142,9 +142,9 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     }
 
     @Override
-    public void getGameMatchSet() {
-        logger.debug("getGameMatchSet()");
-        sendEventOfClient(new EventOfClient51GiveGameMatchSet<>());
+    public void setGameMatchSet() {
+        logger.debug("setGameMatchSet()");
+        sendEventOfClient(new EventOfClient51SetGameMatchSet<>());
     }
 
     // 6

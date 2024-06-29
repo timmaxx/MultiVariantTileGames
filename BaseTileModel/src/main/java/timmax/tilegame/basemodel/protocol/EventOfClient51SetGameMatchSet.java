@@ -4,7 +4,7 @@ import java.util.HashSet;
 
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
-public class EventOfClient51GiveGameMatchSet<ClientId> extends EventOfClient<ClientId> {
+public class EventOfClient51SetGameMatchSet<ClientId> extends EventOfClient<ClientId> {
     @Override
     public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
         logger.debug("  GetGameMatchSet");
@@ -24,6 +24,6 @@ public class EventOfClient51GiveGameMatchSet<ClientId> extends EventOfClient<Cli
 
     @Override
     public String toString() {
-        return "EventOfClient51GiveGameMatchSet{}";
+        return "EventOfClient51SetGameMatchSet{}";
     }
 }

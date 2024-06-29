@@ -12,7 +12,7 @@ public class Pane05GetGameMatchSet<ClientId> extends AbstractConnectStatePane<Cl
         buttonNextState.setText("Get the game match set");
         buttonNextState.setOnAction(event -> {
             disableAllControls();
-            transportOfClient.getGameMatchSet();
+            transportOfClient.setGameMatchSet();
         });
 
         // Контролы для продвижения состояния "назад":
