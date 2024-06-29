@@ -131,7 +131,7 @@ public abstract class AbstractConnectStatePane<ClientId> extends HBox implements
 
     // 2
     @Override
-    public void updateOnLogout() {
+    public void updateOnForgetUser() {
     }
 
     @Override

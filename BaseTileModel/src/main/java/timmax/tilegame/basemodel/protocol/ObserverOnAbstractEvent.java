@@ -8,7 +8,7 @@ public interface ObserverOnAbstractEvent {
     void updateOnOpen();
 
     // 2
-    void updateOnLogout();
+    void updateOnForgetUser();
     void updateOnSetUser();
 
     // 3

@@ -17,7 +17,7 @@ public class LocalClientState03ConnectAuthorized extends ClientState03ConnectAut
     @Override
     public void forgetUser() {
         super.forgetUser();
-        getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnLogout();
+        getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnForgetUser();
     }
 
     // ---- 3
