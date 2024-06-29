@@ -81,7 +81,7 @@ public class Pane04SelectGameType<ClientId> extends AbstractConnectStatePane<Cli
     }
 
     @Override
-    public void updateOnLogin() {
+    public void updateOnSetUser() {
         doOnPrevState();
     }
 

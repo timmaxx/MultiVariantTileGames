@@ -14,7 +14,7 @@ public class LocalClientState02ConnectNonIdent extends ClientState02ConnectNonId
     @Override
     public void setUser(String userName) {
         super.setUser(userName);
-        getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnLogin();
+        getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnSetUser();
     }
 
     // class AbstractClientState

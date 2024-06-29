@@ -9,7 +9,7 @@ public interface ObserverOnAbstractEvent {
 
     // 2
     void updateOnLogout();
-    void updateOnLogin();
+    void updateOnSetUser();
 
     // 3
     void updateOnForgetGameTypeSet();

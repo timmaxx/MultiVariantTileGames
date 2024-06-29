@@ -72,7 +72,7 @@ public class Pane07GameMatchPlaying<ClientId> extends AbstractConnectStatePane<C
     }
 
     @Override
-    public void updateOnLogin() {
+    public void updateOnSetUser() {
         doOnPrevState();
     }
 

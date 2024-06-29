@@ -75,7 +75,7 @@ public class Pane02UserLogin<ClientId> extends AbstractConnectStatePane<ClientId
     }
 
     @Override
-    public void updateOnLogin() {
+    public void updateOnSetUser() {
         doOnNextState();
     }
 }

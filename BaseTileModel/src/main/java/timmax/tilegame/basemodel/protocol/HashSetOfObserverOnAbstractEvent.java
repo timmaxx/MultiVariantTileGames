@@ -42,10 +42,10 @@ public class HashSetOfObserverOnAbstractEvent extends HashSet<ObserverOnAbstract
     }
 
     @Override
-    public void updateOnLogin() {
+    public void updateOnSetUser() {
         Platform.runLater(() -> {
             for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
-                observerOnAbstractEvent.updateOnLogin();
+                observerOnAbstractEvent.updateOnSetUser();
             }
         });
     }
