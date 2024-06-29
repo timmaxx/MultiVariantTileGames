@@ -43,7 +43,7 @@ public interface TransportOfClient<ClientId> {
     // ---- 4 (GameTypeSetSelected)
     // ???                                                                              //  4       Set<ModelOfServerDescriptor> getGameTypeSet();
     void forgetGameTypeSet();                                                   //  31  //  4 -> 3  void forgetGameTypeSet();
-    void gameTypeSelect(ModelOfServerDescriptor modelOfServerDescriptor);       //  42  //  4 -> 5  void setGameType(ModelOfServerDescriptor modelOfServerDescriptor);
+    void setGameType(ModelOfServerDescriptor modelOfServerDescriptor);          //  42  //  4 -> 5  void setGameType(ModelOfServerDescriptor modelOfServerDescriptor);
 
     // ---- 5 (GameTypeSelected)
     // ???                                                                              //  5       ModelOfServerDescriptor getGameType();

@@ -35,7 +35,7 @@ public class Pane04SelectGameType<ClientId> extends AbstractConnectStatePane<Cli
                             .findAny()
                             .orElse(null);
 
-            transportOfClient.gameTypeSelect(modelOfServerDescriptor);
+            transportOfClient.setGameType(modelOfServerDescriptor);
         });
 
         // Контролы для продвижения состояния "назад":
