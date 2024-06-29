@@ -62,5 +62,5 @@ public interface TransportOfClient<ClientId> {
 
     // ---- 8 (GameIsPlaying)
     // ???                                                                              //  8       Boolean getGameIsPlaying();
-    void stopGameMatchPlaying();                                                //  71  //  8 -> 7  void forgetGameIsPlaying();
+    void forgetGameIsPlaying();                                                 //  71  //  8 -> 7  void forgetGameIsPlaying();
 }

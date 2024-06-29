@@ -129,8 +129,8 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient<W
 
     // 8
     @Override
-    public void stopGameMatchPlaying() {
-        transportOfClient.stopGameMatchPlaying();
+    public void forgetGameIsPlaying() {
+        transportOfClient.forgetGameIsPlaying();
     }
 
     // class Object

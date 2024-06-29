@@ -28,6 +28,6 @@ public interface ObserverOnAbstractEvent {
     void updateOnSetGameMatch();
 
     // 7
+    void updateOnForgetGameIsPlaying();
     void updateOnStartGameMatchPlaying();
-    void updateOnStopGameMatchPlaying();
 }

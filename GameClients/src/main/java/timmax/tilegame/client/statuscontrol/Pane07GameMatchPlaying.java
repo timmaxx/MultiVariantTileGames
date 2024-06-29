@@ -43,7 +43,7 @@ public class Pane07GameMatchPlaying<ClientId> extends AbstractConnectStatePane<C
         buttonPrevState.setFocusTraversable(false); // Это в любом случае д.б.
         buttonPrevState.setOnAction(event -> {
             disableAllControls();
-            transportOfClient.stopGameMatchPlaying();
+            transportOfClient.forgetGameIsPlaying();
         });
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
@@ -169,7 +169,7 @@ public class Pane07GameMatchPlaying<ClientId> extends AbstractConnectStatePane<C
 
     // 7
     @Override
-    public void updateOnStopGameMatchPlaying() {
+    public void updateOnForgetGameIsPlaying() {
         doOnThisState();
     }
 

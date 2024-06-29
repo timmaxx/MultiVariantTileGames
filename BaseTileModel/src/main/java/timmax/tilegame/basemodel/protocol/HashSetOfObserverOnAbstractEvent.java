@@ -137,10 +137,10 @@ public class HashSetOfObserverOnAbstractEvent extends HashSet<ObserverOnAbstract
     }
 
     @Override
-    public void updateOnStopGameMatchPlaying() {
+    public void updateOnForgetGameIsPlaying() {
         Platform.runLater(() -> {
             for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
-                observerOnAbstractEvent.updateOnStopGameMatchPlaying();
+                observerOnAbstractEvent.updateOnForgetGameIsPlaying();
             }
         });
     }
