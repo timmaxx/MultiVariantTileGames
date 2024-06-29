@@ -27,14 +27,14 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
     //       использовать в них clientId.
     //       Комментарий относится:
     //       - в первую очередь к классам:
-    //       -- EventOfClient31GiveGameTypeSet,
+    //       -- EventOfClient31SetGameTypeSet,
     //       -- EventOfClient61SetGameMatch,
     //       - во вторых:
     //       -- к EventOfClient,
     //       - в третьих:
     //       -- ко всем остальным EventOfClientХХ...
     //       clientId используется в executeOnServer(...) в классах-наследниках EventOfClient только в:
-    //       - EventOfClient31GiveGameTypeSet
+    //       - EventOfClient31SetGameTypeSet
     //       -- используется с рефлексией,
     //       - EventOfClient61SetGameMatch (используется с рефлексией)
     //       -- используется с рефлексией,
