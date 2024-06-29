@@ -83,7 +83,7 @@ public class Pane07GameMatchPlaying<ClientId> extends AbstractConnectStatePane<C
     }
 
     @Override
-    public void updateOnGetGameTypeSet() {
+    public void updateOnSetGameTypeSet() {
         doOnPrevState();
     }
 

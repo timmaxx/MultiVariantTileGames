@@ -63,7 +63,7 @@ public class Pane03GetGameTypeSet<ClientId> extends AbstractConnectStatePane<Cli
     }
 
     @Override
-    public void updateOnGetGameTypeSet() {
+    public void updateOnSetGameTypeSet() {
         doOnNextState();
     }
 }

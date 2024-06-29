@@ -144,7 +144,7 @@ public abstract class AbstractConnectStatePane<ClientId> extends HBox implements
     }
 
     @Override
-    public void updateOnGetGameTypeSet() {
+    public void updateOnSetGameTypeSet() {
     }
 
     // 4

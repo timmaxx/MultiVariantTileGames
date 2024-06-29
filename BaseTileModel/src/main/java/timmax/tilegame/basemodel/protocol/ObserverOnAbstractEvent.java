@@ -13,7 +13,7 @@ public interface ObserverOnAbstractEvent {
 
     // 3
     void updateOnForgetGameTypeSet();
-    void updateOnGetGameTypeSet();
+    void updateOnSetGameTypeSet();
 
     // 4
     void updateOnForgetGameType();

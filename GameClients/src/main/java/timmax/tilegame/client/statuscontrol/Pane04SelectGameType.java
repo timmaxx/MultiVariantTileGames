@@ -92,7 +92,7 @@ public class Pane04SelectGameType<ClientId> extends AbstractConnectStatePane<Cli
     }
 
     @Override
-    public void updateOnGetGameTypeSet() {
+    public void updateOnSetGameTypeSet() {
         comboBoxGameTypeSet.setItems(
                 FXCollections.observableArrayList(
                         transportOfClient

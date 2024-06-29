@@ -24,7 +24,7 @@ public class LocalClientState03ConnectAuthorized extends ClientState03ConnectAut
     @Override
     public void setGameTypeSet(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor) {
         super.setGameTypeSet(setOfModelOfServerDescriptor);
-        getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnGetGameTypeSet();
+        getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnSetGameTypeSet();
     }
 
     // class AbstractClientState
