@@ -74,8 +74,8 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient<W
 
     // 3
     @Override
-    public void logout() {
-        transportOfClient.logout();
+    public void forgetUser() {
+        transportOfClient.forgetUser();
     }
 
     @Override

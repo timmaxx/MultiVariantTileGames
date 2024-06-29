@@ -33,7 +33,7 @@ public class Pane02UserLogin<ClientId> extends AbstractConnectStatePane<ClientId
         buttonPrevState.setFocusTraversable(false);
         buttonPrevState.setOnAction(event -> {
             disableAllControls();
-            transportOfClient.logout();
+            transportOfClient.forgetUser();
         });
 
         labelUser.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);

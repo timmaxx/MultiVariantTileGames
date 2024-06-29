@@ -19,7 +19,7 @@ public class RemoteClientState03ConnectAuthorized<ClientId> extends ClientState0
     @Override
     public void forgetUser() {
         super.forgetUser();
-        getClientStateAutomaton().getTransportOfServer().sendEventOfServer(clientId, new EventOfServer20Logout());
+        getClientStateAutomaton().getTransportOfServer().sendEventOfServer(clientId, new EventOfServer20ForgetUser());
     }
 
     // ---- 3
