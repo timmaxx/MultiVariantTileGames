@@ -8,19 +8,14 @@ import java.util.Set;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 
-// ToDo: Почему ...51Get...? Ведь в
-//       void executeOnClient(...)
-//       в последней строке
-//       ...setGameMatchSet(...);
-//       Т.е. нужно переименовать класс в ...51Set...
-public class EventOfServer51GetGameMatchSet extends EventOfServer {
+public class EventOfServer51SetGameMatchSet extends EventOfServer {
     private Set<InstanceIdOfModel> setOfInstanceIdOfModel;
 
-    public EventOfServer51GetGameMatchSet() {
+    public EventOfServer51SetGameMatchSet() {
         super();
     }
 
-    public EventOfServer51GetGameMatchSet(Set<InstanceIdOfModel> setOfInstanceIdOfModel) {
+    public EventOfServer51SetGameMatchSet(Set<InstanceIdOfModel> setOfInstanceIdOfModel) {
         this();
         this.setOfInstanceIdOfModel = setOfInstanceIdOfModel;
     }
@@ -33,7 +28,7 @@ public class EventOfServer51GetGameMatchSet extends EventOfServer {
 
     @Override
     public String toString() {
-        return "EventOfServer51GetGameMatchSet{" +
+        return "EventOfServer51SetGameMatchSet{" +
                 "setOfInstanceIdOfModel=" + setOfInstanceIdOfModel +
                 '}';
     }
@@ -45,7 +40,7 @@ public class EventOfServer51GetGameMatchSet extends EventOfServer {
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        // ToDo: Исправить Warning:(50, 34) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel>'
+        // ToDo: Исправить Warning:(45, 34) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel>'
         //       Например как в readExternal в EventOfServer31SetGameTypeSet
         setOfInstanceIdOfModel = (Set<InstanceIdOfModel>) in.readObject();
     }

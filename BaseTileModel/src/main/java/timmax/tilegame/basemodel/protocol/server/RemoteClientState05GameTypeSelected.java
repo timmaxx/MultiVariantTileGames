@@ -33,7 +33,7 @@ public class RemoteClientState05GameTypeSelected<ClientId> extends ClientState05
         super.setGameMatchSet(setOfServerBaseModel);
         getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
                 clientId,
-                new EventOfServer51GetGameMatchSet(
+                new EventOfServer51SetGameMatchSet(
                         setOfServerBaseModel
                                 .stream()
                                 // См. комменты в class InstanceIdOfModel
