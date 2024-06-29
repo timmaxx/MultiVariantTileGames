@@ -68,8 +68,8 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient<W
     // interface TransportOfClient:
     // 2
     @Override
-    public void login(String userName, String password) {
-        transportOfClient.login(userName, password);
+    public void setUser(String userName, String password) {
+        transportOfClient.setUser(userName, password);
     }
 
     // 3

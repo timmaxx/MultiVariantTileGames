@@ -25,7 +25,7 @@ public class Pane02UserLogin<ClientId> extends AbstractConnectStatePane<ClientId
         buttonNextState.setText("Login");
         buttonNextState.setOnAction(event -> {
             disableAllControls();
-            transportOfClient.login(textFieldUser.getText(), passwordField.getText());
+            transportOfClient.setUser(textFieldUser.getText(), passwordField.getText());
         });
 
         // Контролы для продвижения состояния "назад":

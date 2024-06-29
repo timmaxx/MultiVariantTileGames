@@ -40,8 +40,8 @@ public class ClientStateAutomaton<Model> implements
 
     // 2 interface IClientState02ConnectNonIdent
     @Override
-    public void setUserName(String userName) {
-        clientState02ConnectNonIdent.setUserName(userName);
+    public void setUser(String userName) {
+        clientState02ConnectNonIdent.setUser(userName);
         currenState = clientState03ConnectAuthorized;
     }
 

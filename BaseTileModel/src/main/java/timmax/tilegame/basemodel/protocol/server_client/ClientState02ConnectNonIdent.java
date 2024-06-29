@@ -7,7 +7,7 @@ public abstract class ClientState02ConnectNonIdent<Model> extends AbstractClient
 
     // interface IClientState02ConnectNonIdent
     @Override
-    public void setUserName(String userName) {
+    public void setUser(String userName) {
         if (userName == null || userName.isEmpty()) {
             throw new NullPointerException("UserName is null. It must be not null for this method.");
         }

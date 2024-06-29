@@ -6,14 +6,14 @@ import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 
-public class EventOfServer21Login extends EventOfServer {
+public class EventOfServer21SetUser extends EventOfServer {
     private String userName;
 
-    public EventOfServer21Login() {
+    public EventOfServer21SetUser() {
         super();
     }
 
-    public EventOfServer21Login(String userName) {
+    public EventOfServer21SetUser(String userName) {
         this();
         if (userName == null || userName.equals("")) {
             throw new NullPointerException("UserName is null. UserName must not be null.");
@@ -24,13 +24,13 @@ public class EventOfServer21Login extends EventOfServer {
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
         logger.debug("  onLogin");
-        localClientStateAutomaton.setUserName(userName);
+        localClientStateAutomaton.setUser(userName);
         localClientStateAutomaton.getGameTypeSet();
     }
 
     @Override
     public String toString() {
-        return "EventOfServer21Login{" +
+        return "EventOfServer21SetUser{" +
                 "userName='" + userName + '\'' +
                 '}';
     }

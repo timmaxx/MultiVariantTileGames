@@ -14,9 +14,9 @@ public class RemoteClientState02ConnectNonIdent<ClientId> extends ClientState02C
     // class ClientState02ConnectNonIdent
     // ---- 2 (Пользователь)
     @Override
-    public void setUserName(String userName) {
-        super.setUserName(userName);
-        getClientStateAutomaton().getTransportOfServer().sendEventOfServer(clientId, new EventOfServer21Login(userName));
+    public void setUser(String userName) {
+        super.setUser(userName);
+        getClientStateAutomaton().getTransportOfServer().sendEventOfServer(clientId, new EventOfServer21SetUser(userName));
     }
 
     // class AbstractClientState

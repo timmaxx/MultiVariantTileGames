@@ -33,7 +33,7 @@ public interface TransportOfClient<ClientId> {
     // Методы этого интерфейса возвращают void т.к. все они исполняются на стороне клиента и не ждут синхронного ответа от сервера.
     // В правой колонке, в комментариях, даны соответствующие методы интерфейсов IClientState0Х...
     // ---- 2 ConnectNonIdent
-    void login(String userName, String password);                               //  22  //  2 -> 3  void setUserName(String userName);
+    void setUser(String userName, String password);                             //  22  //  2 -> 3  void setUser(String userName);
 
     // ---- 3 ConnectAuthorized
     // ???                                                                              //  3       String getUserName();

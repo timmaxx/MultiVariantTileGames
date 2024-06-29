@@ -7,15 +7,15 @@ import java.io.ObjectOutput;
 import timmax.tilegame.basemodel.credential.Credentials;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
-public class EventOfClient21Login<ClientId> extends EventOfClient<ClientId> {
+public class EventOfClient21SetUser<ClientId> extends EventOfClient<ClientId> {
     private String userName;
     private String password;
 
-    public EventOfClient21Login() {
+    public EventOfClient21SetUser() {
         super();
     }
 
-    public EventOfClient21Login(String userName, String password) {
+    public EventOfClient21SetUser(String userName, String password) {
         this();
         this.userName = userName;
         this.password = password;
@@ -28,7 +28,7 @@ public class EventOfClient21Login<ClientId> extends EventOfClient<ClientId> {
 
         if (Credentials.isUserAndPasswordCorrect(userName, password)) {
             password = ""; // Не будем даже хранить пароль.
-            remoteClientStateAutomaton.setUserName(userName);
+            remoteClientStateAutomaton.setUser(userName);
         } else {
             remoteClientStateAutomaton.forgetUser();
         }
@@ -36,7 +36,7 @@ public class EventOfClient21Login<ClientId> extends EventOfClient<ClientId> {
 
     @Override
     public String toString() {
-        return "EventOfClient21Login{" +
+        return "EventOfClient21SetUser{" +
                 "userName='" + userName + '\'' +
                 '}';
     }
