@@ -40,18 +40,18 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     @Override
     public void onClose(int code, String reason, boolean remote) {
         logger.info("Connection was closed.");
-        getLocalClientState().forgetUserName();
+        getLocalClientStateAutomaton().forgetUserName();
         logger.info("  Main game client status: {}.", modelMultiGameWebSocketClientManyTimesUse);
-        getLocalClientState().getHashSetOfObserverOnAbstractEvent().updateOnClose();
+        getLocalClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnClose();
         logger.debug("  Code: {}. Reason: {}. Remote: {}.", code, reason, remote);
     }
 
     @Override
     public void onOpen(ServerHandshake handshakedata) {
         logger.info("Connection was opened. Server URI: {}.", getURI());
-        getLocalClientState().forgetUserName();
+        getLocalClientStateAutomaton().forgetUserName();
         logger.info("  Main game client status: {}.", modelMultiGameWebSocketClientManyTimesUse);
-        getLocalClientState().getHashSetOfObserverOnAbstractEvent().updateOnOpen();
+        getLocalClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnOpen();
     }
 
     @Override
@@ -67,7 +67,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         //       Тогда нужно обрабатывать исключение и выводить в лог.
         EventOfServer eventOfServer = mapper.readValue(byteArrayInputStream, EventOfServer.class);
         logger.info("Incoming message. EventOfServer: {}.", eventOfServer);
-        eventOfServer.executeOnClient(modelMultiGameWebSocketClientManyTimesUse.getLocalClientState());
+        eventOfServer.executeOnClient(modelMultiGameWebSocketClientManyTimesUse.getLocalClientStateAutomaton());
         logger.debug("  Main game client status: {}.", modelMultiGameWebSocketClientManyTimesUse);
         logger.info("  Main game client status: {}.", modelMultiGameWebSocketClientManyTimesUse);
     }
@@ -95,6 +95,10 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         send(byteArrayOutputStream.toByteArray());
     }
 
+    @Override
+    public LocalClientStateAutomaton getLocalClientStateAutomaton() {
+        return modelMultiGameWebSocketClientManyTimesUse.getLocalClientStateAutomaton();
+    }
 
     // interface TransportOfClient:
     // 2
@@ -174,11 +178,5 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     public void stopGameMatchPlaying() {
         logger.debug("stopPlaying()");
         sendEventOfClient(new EventOfClient70StopGameMatchPlaying<>());
-    }
-
-    // X
-    @Override
-    public LocalClientStateAutomaton getLocalClientState() {
-        return modelMultiGameWebSocketClientManyTimesUse.getLocalClientState();
     }
 }

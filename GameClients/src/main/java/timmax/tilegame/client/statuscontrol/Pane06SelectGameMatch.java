@@ -107,7 +107,7 @@ public class Pane06SelectGameMatch<ClientId> extends AbstractConnectStatePane<Cl
     public void updateOnGetGameMatchSet() {
         // Также см. комментарии к EventOfClient51GiveGamePlaySet
         ObservableList<InstanceIdOfModel> observableList = FXCollections.observableArrayList(new InstanceIdOfModel("New game"));
-        observableList.addAll(transportOfClient.getLocalClientState().getGameMatchSet());
+        observableList.addAll(transportOfClient.getLocalClientStateAutomaton().getGameMatchSet());
         comboBoxGameSet.setItems(
                 FXCollections.observableArrayList(
                         observableList
@@ -148,7 +148,7 @@ public class Pane06SelectGameMatch<ClientId> extends AbstractConnectStatePane<Cl
 
     @Override
     protected void doOnNextState() {
-        textFieldSelectedGame.setText(transportOfClient.getLocalClientState().getServerBaseModel().toString());
+        textFieldSelectedGame.setText(transportOfClient.getLocalClientStateAutomaton().getServerBaseModel().toString());
         super.doOnNextState();
     }
 }

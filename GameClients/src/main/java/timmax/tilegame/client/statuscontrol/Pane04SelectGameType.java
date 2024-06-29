@@ -28,7 +28,7 @@ public class Pane04SelectGameType<ClientId> extends AbstractConnectStatePane<Cli
 
             ModelOfServerDescriptor modelOfServerDescriptor =
                     transportOfClient
-                            .getLocalClientState()
+                            .getLocalClientStateAutomaton()
                             .getGameTypeSet()
                             .stream()
                             .filter(x -> x.getGameName().equals(gameName))
@@ -96,7 +96,7 @@ public class Pane04SelectGameType<ClientId> extends AbstractConnectStatePane<Cli
         comboBoxGameTypeSet.setItems(
                 FXCollections.observableArrayList(
                         transportOfClient
-                                .getLocalClientState()
+                                .getLocalClientStateAutomaton()
                                 .getGameTypeSet()
                                 .stream()
                                 .map(ModelOfServerDescriptor::getGameName)
@@ -133,7 +133,7 @@ public class Pane04SelectGameType<ClientId> extends AbstractConnectStatePane<Cli
 
     @Override
     protected void doOnNextState() {
-        textFieldSelectedGameType.setText(transportOfClient.getLocalClientState().getGameType().getGameName());
+        textFieldSelectedGameType.setText(transportOfClient.getLocalClientStateAutomaton().getGameType().getGameName());
         super.doOnNextState();
     }
 }

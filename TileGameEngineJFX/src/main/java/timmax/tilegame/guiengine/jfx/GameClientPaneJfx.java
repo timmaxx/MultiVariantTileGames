@@ -20,9 +20,9 @@ public class GameClientPaneJfx<ClientId> extends VBox {
     public GameClientPaneJfx(TransportOfClient<ClientId> transportOfClient) {
         BaseController baseController = new BaseController(transportOfClient);
 
-        LocalClientStateAutomaton localClientState = transportOfClient.getLocalClientState();
-        Map<String, Class<? extends View>> mapOfViewName_ViewClass = localClientState.getGameType().getMapOfViewNameViewClass();
-        Map<String, View> mapOfVieName_View = localClientState.getMapOfViewName_View();
+        LocalClientStateAutomaton localClientStateAutomaton = transportOfClient.getLocalClientStateAutomaton();
+        Map<String, Class<? extends View>> mapOfViewName_ViewClass = localClientStateAutomaton.getGameType().getMapOfViewNameViewClass();
+        Map<String, View> mapOfVieName_View = localClientStateAutomaton.getMapOfViewName_View();
 
         for (Map.Entry<String, Class<? extends View>> entry : mapOfViewName_ViewClass.entrySet()) {
             // ToDo: Исправить

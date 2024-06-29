@@ -65,7 +65,7 @@ public abstract class AbstractConnectStatePane<ClientId> extends HBox implements
         panePrevState.getChildren().addAll(listOfControlsPrevState);
         disableAllControls();
 
-        transportOfClient.getLocalClientState().addCallBackOnIncomingTransportPackageEvent(this);
+        transportOfClient.getLocalClientStateAutomaton().addCallBackOnIncomingTransportPackageEvent(this);
     }
 
     protected void disableAllControls() {

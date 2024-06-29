@@ -27,7 +27,7 @@ public interface TransportOfClient<ClientId> {
 
     void sendEventOfClient(EventOfClient<ClientId> eventOfClient);
 
-    LocalClientStateAutomaton getLocalClientState();
+    LocalClientStateAutomaton getLocalClientStateAutomaton();
 
     // Методы ниже я перевёл сюда из интерфейса IModelOfClient (уже удалён).
     // Методы этого интерфейса возвращают void т.к. все они исполняются на стороне клиента и не ждут синхронного ответа от сервера.

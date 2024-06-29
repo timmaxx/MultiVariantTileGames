@@ -17,7 +17,7 @@ public abstract class ViewJfx<ClientId> extends Pane implements View {
         super();
         this.baseController = baseController;
         this.viewName = viewName;
-        transportOfClient.getLocalClientState().addView(this);
+        transportOfClient.getLocalClientStateAutomaton().addView(this);
     }
 
     @Override

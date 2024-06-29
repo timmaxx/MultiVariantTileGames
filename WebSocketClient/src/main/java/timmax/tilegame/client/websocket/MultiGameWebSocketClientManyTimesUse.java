@@ -20,11 +20,11 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient<W
     private TransportOfClient<WebSocket> transportOfClient;
     private URI uri;
 
-    LocalClientStateAutomaton localClientStateJfx;
+    LocalClientStateAutomaton localClientStateAutomatonJfx;
 
-    public MultiGameWebSocketClientManyTimesUse(LocalClientStateAutomaton localClientStateJfx) {
+    public MultiGameWebSocketClientManyTimesUse(LocalClientStateAutomaton localClientStateAutomatonJfx) {
         super();
-        this.localClientStateJfx = localClientStateJfx;
+        this.localClientStateAutomatonJfx = localClientStateAutomatonJfx;
         // ToDo: Возможно, что-бы не использовать null, стоит реализовать класс, реализующий IClientState01NoConnect
         //       и здесь им инициализировать.
         logger.info("  Main game client status: {}.", "NO_CONNECT");
@@ -61,15 +61,18 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient<W
     }
 
     @Override
-    public LocalClientStateAutomaton getLocalClientState() {
-        return localClientStateJfx;
+    public LocalClientStateAutomaton getLocalClientStateAutomaton() {
+        return localClientStateAutomatonJfx;
     }
 
+    // interface TransportOfClient:
+    // 2
     @Override
     public void login(String userName, String password) {
         transportOfClient.login(userName, password);
     }
 
+    // 3
     @Override
     public void logout() {
         transportOfClient.logout();
@@ -80,6 +83,7 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient<W
         transportOfClient.giveGameTypeSet();
     }
 
+    // 4
     @Override
     public void forgetGameTypeSet() {
         transportOfClient.forgetGameTypeSet();
@@ -90,6 +94,7 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient<W
         transportOfClient.gameTypeSelect(modelOfServerDescriptor);
     }
 
+    // 5
     @Override
     public void forgetGameType() {
         transportOfClient.forgetGameType();
@@ -100,6 +105,7 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient<W
         transportOfClient.getGameMatchSet();
     }
 
+    // 6
     @Override
     public void forgetGameMatchSet() {
         transportOfClient.forgetGameMatchSet();
@@ -110,6 +116,7 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient<W
         transportOfClient.gameMatchSelect(model);
     }
 
+    // 7
     @Override
     public void forgetGameMatch() {
         transportOfClient.forgetGameMatch();
@@ -120,6 +127,7 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient<W
         transportOfClient.startGameMatchPlaying(mapOfParamsOfModelValue);
     }
 
+    // 8
     @Override
     public void stopGameMatchPlaying() {
         transportOfClient.stopGameMatchPlaying();
@@ -128,6 +136,6 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient<W
     // class Object
     @Override
     public String toString() {
-        return localClientStateJfx.toString();
+        return localClientStateAutomatonJfx.toString();
     }
 }
