@@ -12,7 +12,7 @@ public class Pane03GetGameTypeSet<ClientId> extends AbstractConnectStatePane<Cli
         buttonNextState.setText("Get the game type set");
         buttonNextState.setOnAction(event -> {
             disableAllControls();
-            transportOfClient.getGameTypeSet();
+            transportOfClient.giveGameTypeSet();
         });
 
         // Контролы для продвижения состояния "назад":

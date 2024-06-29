@@ -76,8 +76,8 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient<W
     }
 
     @Override
-    public void getGameTypeSet() {
-        transportOfClient.getGameTypeSet();
+    public void giveGameTypeSet() {
+        transportOfClient.giveGameTypeSet();
     }
 
     @Override
