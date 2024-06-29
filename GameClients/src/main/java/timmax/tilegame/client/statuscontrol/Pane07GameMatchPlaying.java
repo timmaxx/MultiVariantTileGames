@@ -94,7 +94,7 @@ public class Pane07GameMatchPlaying<ClientId> extends AbstractConnectStatePane<C
     }
 
     @Override
-    public void updateOnSelectGameType() {
+    public void updateOnSetGameType() {
         doOnPrevState();
         paneNextState.getChildren().clear();
         List<Region> regionList = new ArrayList<>();

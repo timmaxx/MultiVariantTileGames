@@ -23,7 +23,7 @@ public class LocalClientState04GameTypeSetSelected extends ClientState04GameType
     public void setGameType(ModelOfServerDescriptor modelOfServerDescriptor) {
         super.setGameType(modelOfServerDescriptor);
         getClientStateAutomaton().getMapOfViewName_View().clear();
-        getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnSelectGameType();
+        getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnSetGameType();
     }
 
     // class AbstractClientState
