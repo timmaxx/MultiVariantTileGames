@@ -13,14 +13,14 @@ public class LocalClientState03ConnectAuthorized extends ClientState03ConnectAut
     }
 
     // class AbstractClientState
-    // ---- 2 (Пользователь)
+    // ---- 2
     @Override
-    public void forgetUserName() {
-        super.forgetUserName();
+    public void forgetUser() {
+        super.forgetUser();
         getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnLogout();
     }
 
-    // ---- 3 (Список типов игр)
+    // ---- 3
     @Override
     public void setGameTypeSet(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor) {
         super.setGameTypeSet(setOfModelOfServerDescriptor);

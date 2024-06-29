@@ -11,7 +11,7 @@ public interface IClientState03ConnectAuthorized extends IClientState00 {
     // ---- 3 ConnectAuthorized
     String getUserName();
 
-    void forgetUserName(); // logOff
+    void forgetUser(); // logOut
 
     void setGameTypeSet(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor);
 }

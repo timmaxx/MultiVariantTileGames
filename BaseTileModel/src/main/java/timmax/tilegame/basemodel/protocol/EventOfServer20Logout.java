@@ -6,11 +6,7 @@ public class EventOfServer20Logout extends EventOfServer {
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
         logger.debug("  onLogout");
-        // Todo: улучшить качество кода:
-        //       Вызов метода у объекта объекта - не хорошая практика!
-        //       multiGameWebSocketClient.clientState.setUserName
-        //       Ну и далее по аналогии.
-        localClientStateAutomaton.forgetUserName();
+        localClientStateAutomaton.forgetUser();
     }
 
     @Override

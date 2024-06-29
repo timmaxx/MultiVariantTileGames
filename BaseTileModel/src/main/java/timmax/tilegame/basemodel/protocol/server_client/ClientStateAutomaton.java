@@ -52,8 +52,8 @@ public class ClientStateAutomaton<Model> implements
     }
 
     @Override
-    public void forgetUserName() {
-        clientState03ConnectAuthorized.forgetUserName();
+    public void forgetUser() {
+        clientState03ConnectAuthorized.forgetUser();
         currenState = clientState02ConnectNonIdent;
     }
 

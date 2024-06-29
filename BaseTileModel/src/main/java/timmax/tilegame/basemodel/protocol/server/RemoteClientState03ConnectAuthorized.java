@@ -15,10 +15,10 @@ public class RemoteClientState03ConnectAuthorized<ClientId> extends ClientState0
     }
 
     // class ClientState03ConnectAuthorized
-    // ---- 2 (Пользователь)
+    // ---- 2
     @Override
-    public void forgetUserName() {
-        super.forgetUserName();
+    public void forgetUser() {
+        super.forgetUser();
         getClientStateAutomaton().getTransportOfServer().sendEventOfServer(clientId, new EventOfServer20Logout());
     }
 

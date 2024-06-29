@@ -23,7 +23,7 @@ public abstract class ClientState03ConnectAuthorized<Model> extends AbstractClie
     }
 
     @Override
-    public void forgetUserName() {
+    public void forgetUser() {
         setUserName_("");
     }
 

@@ -6,7 +6,7 @@ public class EventOfClient20Logout<ClientId> extends EventOfClient<ClientId> {
     @Override
     public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
         logger.debug("  onLogout");
-        remoteClientStateAutomaton.forgetUserName();
+        remoteClientStateAutomaton.forgetUser();
     }
 
     @Override
