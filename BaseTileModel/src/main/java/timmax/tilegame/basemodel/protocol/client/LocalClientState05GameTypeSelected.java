@@ -23,7 +23,7 @@ public class LocalClientState05GameTypeSelected extends ClientState05GameTypeSel
     @Override
     public void setGameMatchSet(Set<InstanceIdOfModel> setOfServerBaseModel) {
         super.setGameMatchSet(setOfServerBaseModel);
-        getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnGetGameMatchSet();
+        getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnSetGameMatchSet();
     }
 
     // class AbstractClientState

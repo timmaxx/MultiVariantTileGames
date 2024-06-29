@@ -85,7 +85,7 @@ public class Pane05GetGameMatchSet<ClientId> extends AbstractConnectStatePane<Cl
     }
 
     @Override
-    public void updateOnGetGameMatchSet() {
+    public void updateOnSetGameMatchSet() {
         doOnNextState();
     }
 }
