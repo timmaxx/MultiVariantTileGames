@@ -8,19 +8,14 @@ import java.util.Set;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 
-// ToDo: Почему ...31Get...? Ведь в
-//       void executeOnClient(...)
-//       в последней строке
-//       ...setGameTypeSet(...);
-//       Т.е. нужно переименовать класс в ...31Set...
-public class EventOfServer31GetGameTypeSet extends EventOfServer {
+public class EventOfServer31SetGameTypeSet extends EventOfServer {
     private Set<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor;
 
-    public EventOfServer31GetGameTypeSet() {
+    public EventOfServer31SetGameTypeSet() {
         super();
     }
 
-    public EventOfServer31GetGameTypeSet(Set<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor) {
+    public EventOfServer31SetGameTypeSet(Set<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor) {
         this();
         this.collectionOfModelOfServerDescriptor = collectionOfModelOfServerDescriptor;
     }
@@ -33,7 +28,7 @@ public class EventOfServer31GetGameTypeSet extends EventOfServer {
 
     @Override
     public String toString() {
-        return "EventOfServer31GetGameTypeSet{" +
+        return "EventOfServer31SetGameTypeSet{" +
                 "collectionOfModelOfServerDescriptor=" + collectionOfModelOfServerDescriptor +
                 '}';
     }

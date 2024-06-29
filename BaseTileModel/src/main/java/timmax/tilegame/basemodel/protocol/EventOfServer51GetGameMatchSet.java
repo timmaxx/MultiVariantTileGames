@@ -45,8 +45,8 @@ public class EventOfServer51GetGameMatchSet extends EventOfServer {
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        // ToDo: Исправить Warning:(48, 35) Unchecked cast: 'java.lang.Object' to 'java.util.List<timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel>'
-        //       Например как в readExternal в EventOfServer31GetGameTypeSet
+        // ToDo: Исправить Warning:(50, 34) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel>'
+        //       Например как в readExternal в EventOfServer31SetGameTypeSet
         setOfInstanceIdOfModel = (Set<InstanceIdOfModel>) in.readObject();
     }
 }
