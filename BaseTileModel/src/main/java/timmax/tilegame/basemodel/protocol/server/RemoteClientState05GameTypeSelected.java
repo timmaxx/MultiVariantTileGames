@@ -27,6 +27,7 @@ public class RemoteClientState05GameTypeSelected<ClientId> extends ClientState05
         );
     }
 
+
     // ---- 5 Перечень партий
     @Override
     public void setGameMatchSet(Set<IModelOfServer> setOfServerBaseModel) {
