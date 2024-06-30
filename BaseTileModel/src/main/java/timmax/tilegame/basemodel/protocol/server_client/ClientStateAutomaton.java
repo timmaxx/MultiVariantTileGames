@@ -28,6 +28,7 @@ public class ClientStateAutomaton<Model> implements
     private Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor; // ---- 3 (Список типов игр)
     private ModelOfServerDescriptor modelOfServerDescriptor; // ---- 4 (Конкретный тип игры)
     private Set<Model> setOfServerBaseModel; // ---- 5 (Набор моделей игр)
+    private Model serverBaseModel; // ---- 6 (Конкретная модель игры)
 
     public ClientStateAutomaton(
             IFabricOfClientStates<Model> iFabricOfClientStates) {
@@ -67,12 +68,21 @@ public class ClientStateAutomaton<Model> implements
         this.modelOfServerDescriptor = modelOfServerDescriptor;
     }
 
-    public Set<Model> getSetOfServerBaseModel0() {
+    Set<Model> getSetOfServerBaseModel0() {
         return setOfServerBaseModel;
     }
 
-    public void setSetOfServerBaseModel0(Set<Model> setOfServerBaseModel) {
+    void setSetOfServerBaseModel0(Set<Model> setOfServerBaseModel) {
         this.setOfServerBaseModel = setOfServerBaseModel;
+    }
+
+    // ToDo: Только из-за класса RemoteClientState07GameMatchSelected понадобилось сделать public.
+    public Model getServerBaseModel0() {
+        return serverBaseModel;
+    }
+
+    void setServerBaseModel0(Model serverBaseModel) {
+        this.serverBaseModel = serverBaseModel;
     }
 
     // 2 interface IClientState02ConnectNonIdent

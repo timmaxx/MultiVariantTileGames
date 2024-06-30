@@ -34,7 +34,10 @@ public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState0
         // ToDo: Вызов этого метода может быть как для модели:
         //       - для которой ранее ещё не было вызвано createNewGame()
         //       - так и для той, у которой был вызов createNewGame(), но потом она была поставлена на паузу.
-        serverBaseModel.createNewGame();
+        // ToDo: Не предполагалось, что обращение к getClientStateAutomaton().getServerBaseModel0()
+        //       понадобиться где-то, кроме ClientState0X..., но здесь понадобилось.
+        //       Пришлось сделать public, но нужно вернуть package-private.
+        getClientStateAutomaton().getServerBaseModel0().createNewGame();
     }
 
     // class AbstractClientState
