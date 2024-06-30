@@ -24,6 +24,8 @@ public class ClientStateAutomaton<Model> implements
 
     private IClientState00 currenState;
 
+    private String userName; // ---- 2 (Пользователь)
+
     public ClientStateAutomaton(
             IFabricOfClientStates<Model> iFabricOfClientStates) {
         clientState01NoConnect = iFabricOfClientStates.getClientState01NoConnect(this);
@@ -36,6 +38,14 @@ public class ClientStateAutomaton<Model> implements
         clientState08GameMatchPlaying = iFabricOfClientStates.getClientState08GameMatchPlaying(this);
 
         currenState = clientState01NoConnect;
+    }
+
+    String getUserName0() {
+        return userName;
+    }
+
+    void setUserName0(String userName) {
+        this.userName = userName;
     }
 
     // 2 interface IClientState02ConnectNonIdent
