@@ -7,5 +7,5 @@ public interface IClientState08GameIsPlaying extends IClientState00 {
     // ---- 8 (GameIsPlaying)
     Boolean getGameIsPlaying();
 
-    void forgetGameIsPlaying();
+    void forgetGameMatchPlaying();
 }

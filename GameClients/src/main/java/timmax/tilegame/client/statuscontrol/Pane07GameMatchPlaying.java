@@ -169,7 +169,7 @@ public class Pane07GameMatchPlaying<ClientId> extends AbstractConnectStatePane<C
 
     // 7
     @Override
-    public void updateOnForgetGameIsPlaying() {
+    public void updateOnForgetGameMatchPlaying() {
         doOnThisState();
     }
 

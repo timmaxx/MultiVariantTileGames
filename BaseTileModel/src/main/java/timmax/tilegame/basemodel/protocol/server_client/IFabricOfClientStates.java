@@ -15,5 +15,5 @@ public interface IFabricOfClientStates<Model> {
     ClientState05GameTypeSelected<Model> getClientState05GameTypeSelected(ClientStateAutomaton<Model> clientStateAutomaton);
     ClientState06GameMatchSetSelected<Model> getClientState06GameMatchSetSelected(ClientStateAutomaton<Model> clientStateAutomaton);
     ClientState07GameMatchSelected<Model> getClientState07GameMatchSelected(ClientStateAutomaton<Model> clientStateAutomaton);
-    ClientState08GameIsPlaying<Model> getClientState08GameIsPlaying(ClientStateAutomaton<Model> clientStateAutomaton);
+    ClientState08GameMatchPlaying<Model> getClientState08GameMatchPlaying(ClientStateAutomaton<Model> clientStateAutomaton);
 }

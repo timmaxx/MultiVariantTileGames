@@ -40,7 +40,7 @@ public class FabricOfClientStatesJfx implements IFabricOfClientStates<InstanceId
     }
 
     @Override
-    public LocalClientState08GameIsPlaying getClientState08GameIsPlaying(ClientStateAutomaton<InstanceIdOfModel> clientStateAutomaton) {
-        return new LocalClientState08GameIsPlaying(clientStateAutomaton);
+    public LocalClientState08GameMatchPlaying getClientState08GameMatchPlaying(ClientStateAutomaton<InstanceIdOfModel> clientStateAutomaton) {
+        return new LocalClientState08GameMatchPlaying(clientStateAutomaton);
     }
 }

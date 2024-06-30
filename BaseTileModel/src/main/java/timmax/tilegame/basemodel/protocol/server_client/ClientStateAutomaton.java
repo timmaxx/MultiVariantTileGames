@@ -20,7 +20,7 @@ public class ClientStateAutomaton<Model> implements
     final ClientState05GameTypeSelected<Model> clientState05GameTypeSelected;
     final ClientState06GameMatchSetSelected<Model> clientState06GameMatchSetSelected;
     final ClientState07GameMatchSelected<Model> clientState07GameMatchSelected;
-    final ClientState08GameIsPlaying<Model> clientState08GameIsPlaying;
+    final ClientState08GameMatchPlaying<Model> clientState08GameMatchPlaying;
 
     private IClientState00 currenState;
 
@@ -33,7 +33,7 @@ public class ClientStateAutomaton<Model> implements
         clientState05GameTypeSelected = iFabricOfClientStates.getClientState05GameTypeSelected(this);
         clientState06GameMatchSetSelected = iFabricOfClientStates.getClientState06GameMatchSetSelected(this);
         clientState07GameMatchSelected = iFabricOfClientStates.getClientState07GameMatchSelected(this);
-        clientState08GameIsPlaying = iFabricOfClientStates.getClientState08GameIsPlaying(this);
+        clientState08GameMatchPlaying = iFabricOfClientStates.getClientState08GameMatchPlaying(this);
 
         currenState = clientState01NoConnect;
     }
@@ -132,18 +132,18 @@ public class ClientStateAutomaton<Model> implements
     @Override
     public void setGameIsPlaying(Boolean gameIsPlaying) {
         clientState07GameMatchSelected.setGameIsPlaying(gameIsPlaying);
-        currenState = clientState08GameIsPlaying;
+        currenState = clientState08GameMatchPlaying;
     }
 
     // 8 interface IClientState08GameIsPlaying
     @Override
     public Boolean getGameIsPlaying() {
-        return clientState08GameIsPlaying.getGameIsPlaying();
+        return clientState08GameMatchPlaying.getGameIsPlaying();
     }
 
     @Override
-    public void forgetGameIsPlaying() {
-        clientState08GameIsPlaying.forgetGameIsPlaying();
+    public void forgetGameMatchPlaying() {
+        clientState08GameMatchPlaying.forgetGameMatchPlaying();
         currenState = clientState07GameMatchSelected;
     }
 

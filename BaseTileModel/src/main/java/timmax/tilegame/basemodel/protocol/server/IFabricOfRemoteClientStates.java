@@ -18,5 +18,5 @@ public interface IFabricOfRemoteClientStates<ClientId> extends IFabricOfClientSt
     @Override
     RemoteClientState07GameMatchSelected<ClientId> getClientState07GameMatchSelected(ClientStateAutomaton<IModelOfServer> clientStateAutomaton);
     @Override
-    RemoteClientState08GameIsPlaying<ClientId> getClientState08GameIsPlaying(ClientStateAutomaton<IModelOfServer> clientStateAutomaton);
+    RemoteClientState08GameMatchPlaying<ClientId> getClientState08GameMatchPlaying(ClientStateAutomaton<IModelOfServer> clientStateAutomaton);
 }

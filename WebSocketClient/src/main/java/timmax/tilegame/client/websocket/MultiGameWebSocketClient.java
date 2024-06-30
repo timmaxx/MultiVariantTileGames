@@ -177,6 +177,6 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     @Override
     public void forgetGameIsPlaying() {
         logger.debug("forgetGameIsPlaying()");
-        sendEventOfClient(new EventOfClient70ForgetGameIsPlaying<>());
+        sendEventOfClient(new EventOfClient70ForgetGameMatchPlaying<>());
     }
 }

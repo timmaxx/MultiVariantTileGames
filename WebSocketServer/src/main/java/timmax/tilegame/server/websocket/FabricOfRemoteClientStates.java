@@ -56,7 +56,7 @@ public class FabricOfRemoteClientStates<ClientId> implements IFabricOfRemoteClie
     }
 
     @Override
-    public RemoteClientState08GameIsPlaying<ClientId> getClientState08GameIsPlaying(ClientStateAutomaton<IModelOfServer> clientStateAutomaton) {
-        return new RemoteClientState08GameIsPlaying<>(clientStateAutomaton, clientId);
+    public RemoteClientState08GameMatchPlaying<ClientId> getClientState08GameMatchPlaying(ClientStateAutomaton<IModelOfServer> clientStateAutomaton) {
+        return new RemoteClientState08GameMatchPlaying<>(clientStateAutomaton, clientId);
     }
 }

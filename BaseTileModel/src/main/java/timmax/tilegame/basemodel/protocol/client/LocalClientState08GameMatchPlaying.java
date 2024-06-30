@@ -1,20 +1,20 @@
 package timmax.tilegame.basemodel.protocol.client;
 
-import timmax.tilegame.basemodel.protocol.server_client.ClientState08GameIsPlaying;
+import timmax.tilegame.basemodel.protocol.server_client.ClientState08GameMatchPlaying;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 
-public class LocalClientState08GameIsPlaying extends ClientState08GameIsPlaying<InstanceIdOfModel> {
-    public LocalClientState08GameIsPlaying(ClientStateAutomaton<InstanceIdOfModel> clientStateAutomaton) {
+public class LocalClientState08GameMatchPlaying extends ClientState08GameMatchPlaying<InstanceIdOfModel> {
+    public LocalClientState08GameMatchPlaying(ClientStateAutomaton<InstanceIdOfModel> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 
     // class AbstractClientState
     // ---- 7
     @Override
-    public void forgetGameIsPlaying() {
-        super.forgetGameIsPlaying();
-        getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnForgetGameIsPlaying();
+    public void forgetGameMatchPlaying() {
+        super.forgetGameMatchPlaying();
+        getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnForgetGameMatchPlaying();
     }
 
     // class AbstractClientState
