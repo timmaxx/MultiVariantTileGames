@@ -123,6 +123,10 @@ public class ClientStateAutomaton<Model> implements
         this.gameIsPlaying = gameIsPlaying;
     }
 
+    void setGameIsPlaying_(Boolean gameIsPlaying) {
+        setGameIsPlaying0(gameIsPlaying);
+    }
+
     // 2 interface IClientState02ConnectNonIdent
     @Override
     public void setUser(String userName) {

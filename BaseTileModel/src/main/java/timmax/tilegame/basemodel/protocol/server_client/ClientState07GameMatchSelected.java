@@ -18,6 +18,6 @@ public abstract class ClientState07GameMatchSelected<Model> extends AbstractClie
 
     @Override
     public void setGameMatchPlaying(Boolean gameIsPlaying) {
-        getClientStateAutomaton().clientState08GameMatchPlaying.setGameIsPlaying_(gameIsPlaying);
+        getClientStateAutomaton().setGameIsPlaying_(gameIsPlaying);
     }
 }

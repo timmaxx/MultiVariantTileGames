@@ -5,10 +5,6 @@ public abstract class ClientState08GameMatchPlaying<Model> extends AbstractClien
         super(clientStateAutomaton);
     }
 
-    protected void setGameIsPlaying_(Boolean gameIsPlaying) {
-        getClientStateAutomaton().setGameIsPlaying0(gameIsPlaying);
-    }
-
     // interface IClientState08GameMatchPlaying
     @Override
     public Boolean getGameIsPlaying() {
@@ -17,6 +13,6 @@ public abstract class ClientState08GameMatchPlaying<Model> extends AbstractClien
 
     @Override
     public void forgetGameMatchPlaying() {
-        setGameIsPlaying_(null);
+        getClientStateAutomaton().setGameIsPlaying_(null);
     }
 }
