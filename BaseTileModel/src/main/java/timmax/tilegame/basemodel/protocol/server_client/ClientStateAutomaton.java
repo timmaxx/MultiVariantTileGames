@@ -25,6 +25,7 @@ public class ClientStateAutomaton<Model> implements
     private IClientState00 currenState;
 
     private String userName; // ---- 2 (Пользователь)
+    private Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor; // ---- 3 (Список типов игр)
 
     public ClientStateAutomaton(
             IFabricOfClientStates<Model> iFabricOfClientStates) {
@@ -46,6 +47,14 @@ public class ClientStateAutomaton<Model> implements
 
     void setUserName0(String userName) {
         this.userName = userName;
+    }
+
+    Set<ModelOfServerDescriptor> getSetOfModelOfServerDescriptor0() {
+        return setOfModelOfServerDescriptor;
+    }
+
+    void setSetOfModelOfServerDescriptor0(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor0) {
+        this.setOfModelOfServerDescriptor = setOfModelOfServerDescriptor0;
     }
 
     // 2 interface IClientState02ConnectNonIdent
