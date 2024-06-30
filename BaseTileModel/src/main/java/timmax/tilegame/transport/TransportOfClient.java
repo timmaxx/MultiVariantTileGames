@@ -13,7 +13,6 @@ import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 //       отправляет событие от клиента серверу и событие не содержит идентификатора клиента.
 //       Но сервер, приняв событие от клиента, знает идентификатор клиента и как-то по нему будет у себя понимать,
 //       сообщение пришло от того или иного клиента.
-// ToDo: класс не должен здесь параметризироватья Model.
 public interface TransportOfClient<ClientId> {
     void close();
     void connect();
@@ -53,14 +52,14 @@ public interface TransportOfClient<ClientId> {
     // ---- 6 (MatchSetSelected)
     // ???                                                                              //  6       Set<Model> getGameMatchSet();
     void forgetGameMatchSet();                                                  //  51  //  6 -> 5  void forgetGameMatchSet();
-    void setGameMatch(InstanceIdOfModel model);                                 //  62  //  6 -> 7  void setServerBaseModel(Model serverBaseModel);
+    void setGameMatch(InstanceIdOfModel model);                                 //  62  //  6 -> 7  void setGameMatch(Model serverBaseModel);
 
     // ---- 7 (MatchSelected)
     // ???                                                                              //  7       Model getServerBaseModel();
-    void forgetGameMatch();                                                     //  61  //  7 -> 6  void forgetServerBaseModel();
-    void setGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue);   //  72  //  7 -> 8  void setGameIsPlaying(Boolean gameIsPlaying);
+    void forgetGameMatch();                                                     //  61  //  7 -> 6  void forgetGameMatch();
+    void setGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue);     //  72  //  7 -> 8  void setGameMatchPlaying(Boolean gameIsPlaying);
 
     // ---- 8 (GameIsPlaying)
     // ???                                                                              //  8       Boolean getGameIsPlaying();
-    void forgetGameMatchPlaying();                                                 //  71  //  8 -> 7  void forgetGameIsPlaying();
+    void forgetGameMatchPlaying();                                              //  71  //  8 -> 7  void forgetGameMatchPlaying();
 }
