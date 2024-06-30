@@ -5,21 +5,19 @@ import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
 import java.util.Set;
 
 public abstract class ClientState05GameTypeSelected<Model> extends AbstractClientState<Model> implements IClientState05GameTypeSelected<Model> {
-    protected ModelOfServerDescriptor modelOfServerDescriptor; // ---- 4 (Конкретный тип игры)
-
     public ClientState05GameTypeSelected(ClientStateAutomaton<Model> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 
     protected void setGameType_(ModelOfServerDescriptor modelOfServerDescriptor) {
         getClientStateAutomaton().clientState06GameMatchSetSelected.forgetGameMatchSet();
-        this.modelOfServerDescriptor = modelOfServerDescriptor;
+        getClientStateAutomaton().setModelOfServerDescriptor0(modelOfServerDescriptor);
     }
 
     // interface IClientState05GameTypeSelected
     @Override
     public ModelOfServerDescriptor getGameType() {
-        return modelOfServerDescriptor;
+        return getClientStateAutomaton().getModelOfServerDescriptor0();
     }
 
     @Override
