@@ -62,16 +62,16 @@ public class ClientStateAutomaton<Model> implements
         return gameTypeSet;
     }
 
-    void setGameTypeSet0(Set<GameType> setOfModelOfServerDescriptor0) {
-        this.gameTypeSet = setOfModelOfServerDescriptor0;
+    void setGameTypeSet0(Set<GameType> gameTypeSet) {
+        this.gameTypeSet = gameTypeSet;
     }
 
-    void setGameTypeSet_(Set<GameType> setOfModelOfServerDescriptor) {
+    void setGameTypeSet_(Set<GameType> gameTypeSet) {
         clientState05GameTypeSelected.forgetGameType();
-        setGameTypeSet0(setOfModelOfServerDescriptor);
+        setGameTypeSet0(gameTypeSet);
     }
 
-    GameType getModelOfServerDescriptor0() {
+    GameType getGameType0() {
         return gameType;
     }
 
@@ -79,9 +79,9 @@ public class ClientStateAutomaton<Model> implements
         this.gameType = gameType;
     }
 
-    void setGameType_(GameType modelOfServerDescriptor) {
+    void setGameType_(GameType gameType) {
         clientState06GameMatchSetSelected.forgetGameMatchSet();
-        setGameType0(modelOfServerDescriptor);
+        setGameType0(gameType);
     }
 
     Set<Model> getSetOfServerBaseModel0() {
