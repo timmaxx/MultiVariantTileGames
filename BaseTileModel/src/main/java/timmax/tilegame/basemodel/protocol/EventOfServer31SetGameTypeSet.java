@@ -22,7 +22,6 @@ public class EventOfServer31SetGameTypeSet extends EventOfServer {
 
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
-        logger.debug("  onGetGameTypeSet");
         localClientStateAutomaton.setGameTypeSet(collectionOfModelOfServerDescriptor);
     }
 

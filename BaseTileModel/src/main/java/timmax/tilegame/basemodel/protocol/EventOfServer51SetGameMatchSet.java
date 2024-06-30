@@ -22,7 +22,6 @@ public class EventOfServer51SetGameMatchSet extends EventOfServer {
 
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
-        logger.debug("  onSetGameMatchSet");
         localClientStateAutomaton.setGameMatchSet(setOfInstanceIdOfModel);
     }
 

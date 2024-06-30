@@ -5,7 +5,6 @@ import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 public class EventOfServer70ForgetGameMatchPlaying extends EventOfServer {
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
-        logger.debug("  onForgetGameIsPlaying");
         localClientStateAutomaton.forgetGameMatchPlaying();
     }
 

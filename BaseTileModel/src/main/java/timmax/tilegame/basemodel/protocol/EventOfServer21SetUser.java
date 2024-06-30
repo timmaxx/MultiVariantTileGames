@@ -23,7 +23,6 @@ public class EventOfServer21SetUser extends EventOfServer {
 
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
-        logger.debug("  onLogin");
         localClientStateAutomaton.setUser(userName);
         // localClientStateAutomaton.getGameTypeSet();
     }
