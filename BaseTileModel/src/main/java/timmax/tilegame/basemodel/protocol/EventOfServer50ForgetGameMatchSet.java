@@ -10,6 +10,6 @@ public class EventOfServer50ForgetGameMatchSet extends EventOfServer {
 
     @Override
     public String toString() {
-        return "EventOfServer50ForgetGameMatchSet{}";
+        return getClass().getSimpleName() + "{}";
     }
 }

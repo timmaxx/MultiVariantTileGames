@@ -7,6 +7,6 @@ public abstract class EventOfServer extends Event {
 
     @Override
     public String toString() {
-        return "EventOfServer{}";
+        return getClass().getSimpleName() + "{}";
     }
 }

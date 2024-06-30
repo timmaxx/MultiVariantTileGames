@@ -27,7 +27,7 @@ public class EventOfServer31SetGameTypeSet extends EventOfServer {
 
     @Override
     public String toString() {
-        return "EventOfServer31SetGameTypeSet{" +
+        return this.getClass().getSimpleName() + "{" +
                 "collectionOfModelOfServerDescriptor=" + collectionOfModelOfServerDescriptor +
                 '}';
     }

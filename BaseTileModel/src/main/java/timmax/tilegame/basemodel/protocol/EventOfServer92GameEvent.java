@@ -30,7 +30,7 @@ public class EventOfServer92GameEvent extends EventOfServer {
 
     @Override
     public String toString() {
-        return "EventOfServer92GameEvent{" +
+        return getClass().getSimpleName() + "{" +
                 "viewName='" + viewName + '\'' +
                 ", gameEvent=" + gameEvent +
                 '}';

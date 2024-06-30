@@ -10,6 +10,6 @@ public class EventOfServer20ForgetUser extends EventOfServer {
 
     @Override
     public String toString() {
-        return "EventOfServer20ForgetUser{}";
+        return getClass().getSimpleName() + "{}";
     }
 }

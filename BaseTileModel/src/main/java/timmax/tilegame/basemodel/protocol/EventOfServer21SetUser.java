@@ -29,7 +29,7 @@ public class EventOfServer21SetUser extends EventOfServer {
 
     @Override
     public String toString() {
-        return "EventOfServer21SetUser{" +
+        return getClass().getSimpleName() + "{" +
                 "userName='" + userName + '\'' +
                 '}';
     }

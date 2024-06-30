@@ -27,7 +27,7 @@ public class EventOfServer51SetGameMatchSet extends EventOfServer {
 
     @Override
     public String toString() {
-        return "EventOfServer51SetGameMatchSet{" +
+        return getClass().getSimpleName() + "{" +
                 "setOfInstanceIdOfModel=" + setOfInstanceIdOfModel +
                 '}';
     }
