@@ -22,6 +22,6 @@ public abstract class ClientState04GameTypeSetSelected<Model> extends AbstractCl
 
     @Override
     public void setGameType(ModelOfServerDescriptor modelOfServerDescriptor) {
-        getClientStateAutomaton().clientState05GameTypeSelected.setGameType_(modelOfServerDescriptor);
+        getClientStateAutomaton().setGameType_(modelOfServerDescriptor);
     }
 }

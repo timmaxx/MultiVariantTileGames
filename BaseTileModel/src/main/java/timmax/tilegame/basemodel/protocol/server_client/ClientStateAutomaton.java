@@ -80,6 +80,12 @@ public class ClientStateAutomaton<Model> implements
         this.modelOfServerDescriptor = modelOfServerDescriptor;
     }
 
+    // ToDo: Имя метода с предыдущим должно почти совпадать!
+    void setGameType_(ModelOfServerDescriptor modelOfServerDescriptor) {
+        clientState06GameMatchSetSelected.forgetGameMatchSet();
+        setModelOfServerDescriptor0(modelOfServerDescriptor);
+    }
+
     Set<Model> getSetOfServerBaseModel0() {
         return setOfServerBaseModel;
     }

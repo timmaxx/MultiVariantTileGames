@@ -9,11 +9,6 @@ public abstract class ClientState05GameTypeSelected<Model> extends AbstractClien
         super(clientStateAutomaton);
     }
 
-    protected void setGameType_(ModelOfServerDescriptor modelOfServerDescriptor) {
-        getClientStateAutomaton().clientState06GameMatchSetSelected.forgetGameMatchSet();
-        getClientStateAutomaton().setModelOfServerDescriptor0(modelOfServerDescriptor);
-    }
-
     // interface IClientState05GameTypeSelected
     @Override
     public ModelOfServerDescriptor getGameType() {
@@ -22,7 +17,7 @@ public abstract class ClientState05GameTypeSelected<Model> extends AbstractClien
 
     @Override
     public void forgetGameType() {
-        setGameType_(null);
+        getClientStateAutomaton().setGameType_(null);
     }
 
     @Override
