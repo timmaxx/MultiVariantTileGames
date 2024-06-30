@@ -95,17 +95,9 @@ public class ClientStateAutomaton<Model> implements
     }
 
     // ToDo: Имя метода с предыдущим должно почти совпадать!
-    protected void setGameMatchSet_(Set<Model> setOfServerBaseModel) {
+    void setGameMatchSet_(Set<Model> setOfServerBaseModel) {
         clientState07GameMatchSelected.forgetGameMatch();
         setSetOfServerBaseModel0(setOfServerBaseModel);
-    }
-
-    public Boolean getGameIsPlaying0() {
-        return gameIsPlaying;
-    }
-
-    public void setGameIsPlaying0(Boolean gameIsPlaying) {
-        this.gameIsPlaying = gameIsPlaying;
     }
 
     // ToDo: Только из-за класса RemoteClientState07GameMatchSelected понадобилось сделать public.
@@ -115,6 +107,20 @@ public class ClientStateAutomaton<Model> implements
 
     void setServerBaseModel0(Model serverBaseModel) {
         this.serverBaseModel = serverBaseModel;
+    }
+
+    // ToDo: Имя метода с предыдущим должно почти совпадать!
+    void setServerBaseModel_(Model serverBaseModel) {
+        clientState08GameMatchPlaying.forgetGameMatchPlaying();
+        setServerBaseModel0(serverBaseModel);
+    }
+
+    Boolean getGameIsPlaying0() {
+        return gameIsPlaying;
+    }
+
+    void setGameIsPlaying0(Boolean gameIsPlaying) {
+        this.gameIsPlaying = gameIsPlaying;
     }
 
     // 2 interface IClientState02ConnectNonIdent

@@ -5,11 +5,6 @@ public abstract class ClientState07GameMatchSelected<Model> extends AbstractClie
         super(clientStateAutomaton);
     }
 
-    protected void setServerBaseModel_(Model serverBaseModel) {
-        getClientStateAutomaton().clientState08GameMatchPlaying.forgetGameMatchPlaying();
-        getClientStateAutomaton().setServerBaseModel0(serverBaseModel);
-    }
-
     // interface IClientState07GameMatchSelected
     @Override
     public Model getServerBaseModel() {
@@ -18,7 +13,7 @@ public abstract class ClientState07GameMatchSelected<Model> extends AbstractClie
 
     @Override
     public void forgetGameMatch() {
-        setServerBaseModel_(null);
+        getClientStateAutomaton().setServerBaseModel_(null);
     }
 
     @Override

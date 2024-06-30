@@ -20,6 +20,6 @@ public abstract class ClientState06GameMatchSetSelected<Model> extends AbstractC
 
     @Override
     public void setGameMatch(Model serverBaseModel) {
-        getClientStateAutomaton().clientState07GameMatchSelected.setServerBaseModel_(serverBaseModel);
+        getClientStateAutomaton().setServerBaseModel_(serverBaseModel);
     }
 }
