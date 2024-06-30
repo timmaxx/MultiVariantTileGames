@@ -9,11 +9,6 @@ public abstract class ClientState04GameTypeSetSelected<Model> extends AbstractCl
         super(clientStateAutomaton);
     }
 
-    protected void setGameTypeSet_(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor) {
-        getClientStateAutomaton().clientState05GameTypeSelected.forgetGameType();
-        getClientStateAutomaton().setSetOfModelOfServerDescriptor0(setOfModelOfServerDescriptor);
-    }
-
     // interface IClientState04GameTypeSetSelected
     @Override
     public Set<ModelOfServerDescriptor> getGameTypeSet() {
@@ -22,7 +17,7 @@ public abstract class ClientState04GameTypeSetSelected<Model> extends AbstractCl
 
     @Override
     public void forgetGameTypeSet() {
-        setGameTypeSet_(null);
+        getClientStateAutomaton().setGameTypeSet_(null);
     }
 
     @Override

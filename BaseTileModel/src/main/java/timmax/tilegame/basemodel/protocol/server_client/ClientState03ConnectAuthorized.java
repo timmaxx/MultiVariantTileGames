@@ -23,6 +23,6 @@ public abstract class ClientState03ConnectAuthorized<Model> extends AbstractClie
     @Override
     public void setGameTypeSet(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor) {
         // ToDo: сделать какую-то проверку на корректностность.
-        getClientStateAutomaton().clientState04GameTypeSetSelected.setGameTypeSet_(setOfModelOfServerDescriptor);
+        getClientStateAutomaton().setGameTypeSet_(setOfModelOfServerDescriptor);
     }
 }
