@@ -1,6 +1,6 @@
 package timmax.tilegame.basemodel.protocol.client;
 
-import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
+import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server_client.ClientState04GameTypeSetSelected;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
@@ -20,8 +20,8 @@ public class LocalClientState04GameTypeSetSelected extends ClientState04GameType
 
     // ---- 4 (Конкретный тип игры)
     @Override
-    public void setGameType(ModelOfServerDescriptor modelOfServerDescriptor) {
-        super.setGameType(modelOfServerDescriptor);
+    public void setGameType(GameType gameType) {
+        super.setGameType(gameType);
         getClientStateAutomaton().getMapOfViewName_View().clear();
         getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnSetGameType();
     }

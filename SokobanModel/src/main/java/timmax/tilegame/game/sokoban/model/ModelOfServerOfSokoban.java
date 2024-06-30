@@ -65,7 +65,7 @@ public class ModelOfServerOfSokoban<ClientId> extends ModelOfServer<ClientId> {
     }
 
     // ToDo: См. комментарии о согласовании параметров в
-    //       - ModelOfServerDescriptor :: ModelOfServerDescriptor(...)
+    //       - GameType :: GameType(...)
     //       и в
     //       - ModelOfServerLoader :: getCollectionOfModelOfServerDescriptor(...)
     public ModelOfServerOfSokoban(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
@@ -262,7 +262,7 @@ public class ModelOfServerOfSokoban<ClientId> extends ModelOfServer<ClientId> {
         sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
     }
 
-    // Overiden methods from interface IModelOfServer extends IModelOfServerDescriptor:
+    // Overiden methods from interface IModelOfServer extends IGameType:
     @Override
     public String getGameName() {
         return "Sokoban";

@@ -28,9 +28,9 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
 
     // ---- 4 (Конкретный тип игры)
     @Override
-    public void setGameType(ModelOfServerDescriptor modelOfServerDescriptor) {
-        super.setGameType(modelOfServerDescriptor);
-        if (modelOfServerDescriptor == null) {
+    public void setGameType(GameType gameType) {
+        super.setGameType(gameType);
+        if (gameType == null) {
             getClientStateAutomaton().getSetOfViewName().clear();
             getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
                     clientId,
@@ -41,12 +41,12 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
         getClientStateAutomaton().getSetOfViewName().clear();
         // ToDo: Сейчас foreach работает и с ключём и со значением (аналогично как в классе LocalClientState),
         //       Но здесь достаточно только с ключём.
-        for (Map.Entry<String, Class<? extends View>> entry : modelOfServerDescriptor.getMapOfViewNameViewClass().entrySet()) {
+        for (Map.Entry<String, Class<? extends View>> entry : gameType.getMapOfViewNameViewClass().entrySet()) {
             getClientStateAutomaton().getSetOfViewName().add(entry.getKey());
         }
         getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
                 clientId,
-                new EventOfServer41SetGameType(modelOfServerDescriptor.getGameName())
+                new EventOfServer41SetGameType(gameType.getGameName())
         );
     }
 

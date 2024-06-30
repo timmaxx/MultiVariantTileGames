@@ -1,6 +1,6 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
-import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
+import timmax.tilegame.basemodel.protocol.server.GameType;
 
 import java.util.Set;
 
@@ -25,8 +25,8 @@ public class ClientStateAutomaton<Model> implements
     private IClientState00 currenState;
 
     private String userName; // ---- 2 (Пользователь)
-    private Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor; // ---- 3 (Список типов игр)
-    private ModelOfServerDescriptor modelOfServerDescriptor; // ---- 4 (Конкретный тип игры)
+    private Set<GameType> gameTypeSet; // ---- 3 (Список типов игр)
+    private GameType gameType; // ---- 4 (Конкретный тип игры)
     private Set<Model> setOfServerBaseModel; // ---- 5 (Набор моделей игр)
     private Model serverBaseModel; // ---- 6 (Конкретная модель игры)
     private Boolean gameIsPlaying; // ---- 7 (Партия была начата)
@@ -58,32 +58,30 @@ public class ClientStateAutomaton<Model> implements
         setUserName0(userName);
     }
 
-    Set<ModelOfServerDescriptor> getSetOfModelOfServerDescriptor0() {
-        return setOfModelOfServerDescriptor;
+    Set<GameType> getGameTypeSet0() {
+        return gameTypeSet;
     }
 
-    void setSetOfModelOfServerDescriptor0(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor0) {
-        this.setOfModelOfServerDescriptor = setOfModelOfServerDescriptor0;
+    void setGameTypeSet0(Set<GameType> setOfModelOfServerDescriptor0) {
+        this.gameTypeSet = setOfModelOfServerDescriptor0;
     }
 
-    // ToDo: Имя метода с предыдущим должно почти совпадать!
-    void setGameTypeSet_(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor) {
+    void setGameTypeSet_(Set<GameType> setOfModelOfServerDescriptor) {
         clientState05GameTypeSelected.forgetGameType();
-        setSetOfModelOfServerDescriptor0(setOfModelOfServerDescriptor);
+        setGameTypeSet0(setOfModelOfServerDescriptor);
     }
 
-    ModelOfServerDescriptor getModelOfServerDescriptor0() {
-        return modelOfServerDescriptor;
+    GameType getModelOfServerDescriptor0() {
+        return gameType;
     }
 
-    void setModelOfServerDescriptor0(ModelOfServerDescriptor modelOfServerDescriptor) {
-        this.modelOfServerDescriptor = modelOfServerDescriptor;
+    void setGameType0(GameType gameType) {
+        this.gameType = gameType;
     }
 
-    // ToDo: Имя метода с предыдущим должно почти совпадать!
-    void setGameType_(ModelOfServerDescriptor modelOfServerDescriptor) {
+    void setGameType_(GameType modelOfServerDescriptor) {
         clientState06GameMatchSetSelected.forgetGameMatchSet();
-        setModelOfServerDescriptor0(modelOfServerDescriptor);
+        setGameType0(modelOfServerDescriptor);
     }
 
     Set<Model> getSetOfServerBaseModel0() {
@@ -147,14 +145,14 @@ public class ClientStateAutomaton<Model> implements
     }
 
     @Override
-    public void setGameTypeSet(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor) {
-        clientState03ConnectAuthorized.setGameTypeSet(setOfModelOfServerDescriptor);
+    public void setGameTypeSet(Set<GameType> gameTypeSet) {
+        clientState03ConnectAuthorized.setGameTypeSet(gameTypeSet);
         currenState = clientState04GameTypeSetSelected;
     }
 
     // 4 interface IClientState04GameTypeSetSelected
     @Override
-    public Set<ModelOfServerDescriptor> getGameTypeSet() {
+    public Set<GameType> getGameTypeSet() {
         return clientState04GameTypeSetSelected.getGameTypeSet();
     }
 
@@ -165,14 +163,14 @@ public class ClientStateAutomaton<Model> implements
     }
 
     @Override
-    public void setGameType(ModelOfServerDescriptor modelOfServerDescriptor) {
-        clientState04GameTypeSetSelected.setGameType(modelOfServerDescriptor);
+    public void setGameType(GameType gameType) {
+        clientState04GameTypeSetSelected.setGameType(gameType);
         currenState = clientState05GameTypeSelected;
     }
 
     // 5 interface IClientState05GameTypeSelected
     @Override
-    public ModelOfServerDescriptor getGameType() {
+    public GameType getGameType() {
         return clientState05GameTypeSelected.getGameType();
     }
 

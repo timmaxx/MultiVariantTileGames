@@ -7,7 +7,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import timmax.tilegame.basemodel.protocol.server.IModelOfServer;
-import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
+import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 
@@ -52,15 +52,15 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
         }
         if (instanceIdOfModel.getId().equals("New game")) {
             // Определяем ранее выбранный тип
-            ModelOfServerDescriptor modelOfServerDescriptor = remoteClientStateAutomaton.getGameType();
-            Constructor<? extends IModelOfServer> constructor = modelOfServerDescriptor.getConstructorOfModelOfServerClass();
+            GameType gameType = remoteClientStateAutomaton.getGameType();
+            Constructor<? extends IModelOfServer> constructor = gameType.getConstructorOfModelOfServerClass();
 
             try {
                 // Создаём экземпляр модели, ранее выбранного типа.
                 // ToDo: Нужно минимизировать количество согласований между классами.
                 //       Параметры, которые передаются в newInstance():
                 //       1. Перечень параметров согласовывается с перечнем в
-                //          ModelOfServerDescriptor :: ModelOfServerDescriptor(...)
+                //          GameType :: GameType(...)
                 //          в строке
                 //          constructorOfModelOfServerClass = modelOfServerClass.getConstructor(...);
                 //          и там-же ниже в строке
@@ -68,7 +68,7 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
                 //       2. Ну в т.ч. это, те-же параметры, которые поступили в executeOnServer().
                 iModelOfServer = constructor.newInstance(remoteClientStateAutomaton, clientId);
             } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
-                logger.error("Server cannot create object of model for {} with constructor with specific parameters.", modelOfServerDescriptor, e);
+                logger.error("Server cannot create object of model for {} with constructor with specific parameters.", gameType, e);
                 System.exit(1);
             }
             remoteClientStateAutomaton

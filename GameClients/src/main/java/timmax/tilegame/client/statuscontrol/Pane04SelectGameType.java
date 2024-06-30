@@ -6,7 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
-import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
+import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.transport.TransportOfClient;
 
 public class Pane04SelectGameType<ClientId> extends AbstractConnectStatePane<ClientId> {
@@ -26,7 +26,7 @@ public class Pane04SelectGameType<ClientId> extends AbstractConnectStatePane<Cli
             disableAllControls();
             String gameName = comboBoxGameTypeSet.getValue();
 
-            ModelOfServerDescriptor modelOfServerDescriptor =
+            GameType gameType =
                     transportOfClient
                             .getLocalClientStateAutomaton()
                             .getGameTypeSet()
@@ -35,7 +35,7 @@ public class Pane04SelectGameType<ClientId> extends AbstractConnectStatePane<Cli
                             .findAny()
                             .orElse(null);
 
-            transportOfClient.setGameType(modelOfServerDescriptor);
+            transportOfClient.setGameType(gameType);
         });
 
         // Контролы для продвижения состояния "назад":
@@ -99,7 +99,7 @@ public class Pane04SelectGameType<ClientId> extends AbstractConnectStatePane<Cli
                                 .getLocalClientStateAutomaton()
                                 .getGameTypeSet()
                                 .stream()
-                                .map(ModelOfServerDescriptor::getGameName)
+                                .map(GameType::getGameName)
                                 .toList()
                 )
         );

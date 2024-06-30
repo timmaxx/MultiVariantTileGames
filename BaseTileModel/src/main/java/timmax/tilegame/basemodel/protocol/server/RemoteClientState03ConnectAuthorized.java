@@ -24,9 +24,9 @@ public class RemoteClientState03ConnectAuthorized<ClientId> extends ClientState0
 
     // ---- 3
     @Override
-    public void setGameTypeSet(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor) {
-        super.setGameTypeSet(setOfModelOfServerDescriptor);
-        getClientStateAutomaton().getTransportOfServer().sendEventOfServer(clientId, new EventOfServer31SetGameTypeSet(setOfModelOfServerDescriptor));
+    public void setGameTypeSet(Set<GameType> gameTypeSet) {
+        super.setGameTypeSet(gameTypeSet);
+        getClientStateAutomaton().getTransportOfServer().sendEventOfServer(clientId, new EventOfServer31SetGameTypeSet(gameTypeSet));
     }
 
     // class AbstractClientState

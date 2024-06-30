@@ -1,6 +1,6 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
-import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
+import timmax.tilegame.basemodel.protocol.server.GameType;
 
 import java.util.Set;
 
@@ -21,8 +21,8 @@ public abstract class ClientState03ConnectAuthorized<Model> extends AbstractClie
     }
 
     @Override
-    public void setGameTypeSet(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor) {
+    public void setGameTypeSet(Set<GameType> gameTypeSet) {
         // ToDo: сделать какую-то проверку на корректностность.
-        getClientStateAutomaton().setGameTypeSet_(setOfModelOfServerDescriptor);
+        getClientStateAutomaton().setGameTypeSet_(gameTypeSet);
     }
 }

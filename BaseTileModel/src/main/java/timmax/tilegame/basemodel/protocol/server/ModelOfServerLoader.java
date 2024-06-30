@@ -15,7 +15,7 @@ public class ModelOfServerLoader {
     protected static final Logger logger = LoggerFactory.getLogger(ModelOfServerLoader.class);
     private static final String FILE_NAME_WITH_CLASS_NAMES_OF_MODELS = "models.txt";
 
-    public static <ClientId> Set<ModelOfServerDescriptor> getCollectionOfModelOfServerDescriptor(
+    public static <ClientId> Set<GameType> getCollectionOfModelOfServerDescriptor(
             RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton,
             ClientId clientId
     ) {
@@ -27,17 +27,17 @@ public class ModelOfServerLoader {
         }
         assert path != null : "path to file '" + FILE_NAME_WITH_CLASS_NAMES_OF_MODELS + "' must be not null";
 
-        Set<ModelOfServerDescriptor> result = new HashSet<>();
+        Set<GameType> gameTypeSet = new HashSet<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
             String line;
-            ModelOfServerDescriptor modelOfServerDescriptor;
+            GameType gameType;
             while ((line = reader.readLine()) != null) {
                 try {
                     // ToDo: Нужно минимизировать количество согласований в методах и между классами.
                     //       Второй и третий параметр - это группа параметров для конструктора модели.
                     //       И эту группу и можно было-бы обрабатывать как группу.
-                    //       1. Во первых при вызове new ModelOfServerDescriptor(...)
-                    modelOfServerDescriptor = new ModelOfServerDescriptor(line, remoteClientStateAutomaton, clientId);
+                    //       1. Во первых при вызове new GameType(...)
+                    gameType = new GameType(line, remoteClientStateAutomaton, clientId);
                 } catch (ClassNotFoundException e) {
                     logger.warn("Class '{}' is not found.", line, e);
                     continue;
@@ -47,7 +47,7 @@ public class ModelOfServerLoader {
                     logger.warn("Class '{}' does not contains constructor with " + "'parameter(s) " + remoteClientStateAutomaton.getClass() + "'" + " type and " + clientId.getClass() + " type.", line, e);
                     continue;
                 }
-                result.add(modelOfServerDescriptor);
+                gameTypeSet.add(gameType);
             }
         } catch (FileNotFoundException fnfe) {
             logger.error("File with list of model class was not found.", fnfe);
@@ -57,10 +57,10 @@ public class ModelOfServerLoader {
             System.exit(1);
         }
 
-        if (result.size() == 0) {
+        if (gameTypeSet.size() == 0) {
             throw new RuntimeException("No one class was found!");
             // System.exit(1);
         }
-        return result;
+        return gameTypeSet;
     }
 }

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import timmax.tilegame.basemodel.protocol.EventOfClient;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
+import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 
 // ToDo: Непонятно, почему класс параметризирован ClientId? Ведь он используется на клиенте. В частности
@@ -37,15 +37,15 @@ public interface TransportOfClient<ClientId> {
     // ---- 3 ConnectAuthorized
     // ???                                                                              //  3       String getUserName();
     void forgetUser();                                                          //  21  //  3 -> 2  void forgetUser();
-    void setGameTypeSet();                                                      //  32  //  3 -> 4  void setGameTypeSet(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor);
+    void setGameTypeSet();                                                      //  32  //  3 -> 4  void setGameTypeSet(Set<GameType> setOfModelOfServerDescriptor);
 
     // ---- 4 (GameTypeSetSelected)
-    // ???                                                                              //  4       Set<ModelOfServerDescriptor> getGameTypeSet();
+    // ???                                                                              //  4       Set<GameType> getGameTypeSet();
     void forgetGameTypeSet();                                                   //  31  //  4 -> 3  void forgetGameTypeSet();
-    void setGameType(ModelOfServerDescriptor modelOfServerDescriptor);          //  42  //  4 -> 5  void setGameType(ModelOfServerDescriptor modelOfServerDescriptor);
+    void setGameType(GameType gameType);                                        //  42  //  4 -> 5  void setGameType(GameType gameType);
 
     // ---- 5 (GameTypeSelected)
-    // ???                                                                              //  5       ModelOfServerDescriptor getGameType();
+    // ???                                                                              //  5       GameType getGameType();
     void forgetGameType();                                                      //  41  //  5 -> 4  void forgetGameType();
     void setGameMatchSet();                                                     //  52  //  5 -> 6  void setGameMatchSet(Set<Model> setOfServerBaseModel);
 

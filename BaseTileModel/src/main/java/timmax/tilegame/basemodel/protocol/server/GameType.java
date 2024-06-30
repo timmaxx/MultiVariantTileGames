@@ -11,12 +11,12 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import timmax.tilegame.basemodel.protocol.IModelOfServerDescriptor;
+import timmax.tilegame.basemodel.protocol.IGameType;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.baseview.ViewMainField;
 
-public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Externalizable {
-    protected static final Logger logger = LoggerFactory.getLogger(ModelOfServerDescriptor.class);
+public class GameType implements IGameType, Externalizable {
+    protected static final Logger logger = LoggerFactory.getLogger(GameType.class);
 
     // ToDo: Это поле нужно вынести в класс-наследник.
     private Constructor<? extends IModelOfServer> constructorOfModelOfServerClass;
@@ -31,11 +31,11 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
     private Map<String, Class<? extends View>> mapOfViewNameViewClass;
     protected Map<String, ParamOfModelDescription> mapOfParamsOfModelDescription;
 
-    public ModelOfServerDescriptor() {
+    public GameType() {
         super();
     }
 
-    public <ClientId> ModelOfServerDescriptor(
+    public <ClientId> GameType(
             String modelOfServerFullClassName,
             RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton,
             ClientId clientId)
@@ -50,7 +50,7 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
         //       Параметры, которые передаются в getConstructor() и ниже newInstance(), также согласуются с параметрами в
         //       ModelOfServerLoader :: getCollectionOfModelOfServerDescriptor()
         //       и внутри того метода с параметрами при вызове
-        //       modelOfServerDescriptor = new ModelOfServerDescriptor()
+        //       modelOfServerDescriptor = new GameType()
         //       и там же ниже в ветке
         //       catch (NoSuchMethodException e)
         //       при логировании.
@@ -96,7 +96,7 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ModelOfServerDescriptor that = (ModelOfServerDescriptor) o;
+        GameType that = (GameType) o;
 
         if (countOfGamers != that.countOfGamers) return false;
         return gameName.equals(that.gameName);
@@ -111,7 +111,7 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
 
     @Override
     public String toString() {
-        return "ModelOfServerDescriptor{" +
+        return "GameType{" +
                 "constructorOfModelOfServerClass=" + constructorOfModelOfServerClass +
                 ", gameName='" + gameName + '\'' +
                 ", countOfGamers=" + countOfGamers +
@@ -120,7 +120,7 @@ public class ModelOfServerDescriptor implements IModelOfServerDescriptor, Extern
                 '}';
     }
 
-    // Overriden methods from interface IModelOfServerDescriptor
+    // Overriden methods from interface IGameType
     @Override
     public String getGameName() {
         return gameName;

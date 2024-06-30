@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
+import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import timmax.tilegame.transport.TransportOfClient;
 
@@ -129,9 +129,9 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     }
 
     @Override
-    public void setGameType(ModelOfServerDescriptor modelOfServerDescriptor) {
-        logger.debug("setGameType(ModelOfServerDescriptor)");
-        sendEventOfClient(new EventOfClient41SetGameType<>(modelOfServerDescriptor.getGameName()));
+    public void setGameType(GameType gameType) {
+        logger.debug("setGameType(GameType)");
+        sendEventOfClient(new EventOfClient41SetGameType<>(gameType.getGameName()));
     }
 
     // 5

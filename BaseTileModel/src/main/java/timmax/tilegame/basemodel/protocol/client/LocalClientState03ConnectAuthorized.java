@@ -1,6 +1,6 @@
 package timmax.tilegame.basemodel.protocol.client;
 
-import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
+import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server_client.ClientState03ConnectAuthorized;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
@@ -22,8 +22,8 @@ public class LocalClientState03ConnectAuthorized extends ClientState03ConnectAut
 
     // ---- 3
     @Override
-    public void setGameTypeSet(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor) {
-        super.setGameTypeSet(setOfModelOfServerDescriptor);
+    public void setGameTypeSet(Set<GameType> gameTypeSet) {
+        super.setGameTypeSet(gameTypeSet);
         getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnSetGameTypeSet();
     }
 

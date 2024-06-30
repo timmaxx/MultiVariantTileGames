@@ -1,6 +1,6 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
-import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
+import timmax.tilegame.basemodel.protocol.server.GameType;
 
 import java.util.Set;
 
@@ -11,8 +11,8 @@ public abstract class ClientState04GameTypeSetSelected<Model> extends AbstractCl
 
     // interface IClientState04GameTypeSetSelected
     @Override
-    public Set<ModelOfServerDescriptor> getGameTypeSet() {
-        return getClientStateAutomaton().getSetOfModelOfServerDescriptor0();
+    public Set<GameType> getGameTypeSet() {
+        return getClientStateAutomaton().getGameTypeSet0();
     }
 
     @Override
@@ -21,7 +21,7 @@ public abstract class ClientState04GameTypeSetSelected<Model> extends AbstractCl
     }
 
     @Override
-    public void setGameType(ModelOfServerDescriptor modelOfServerDescriptor) {
-        getClientStateAutomaton().setGameType_(modelOfServerDescriptor);
+    public void setGameType(GameType gameType) {
+        getClientStateAutomaton().setGameType_(gameType);
     }
 }

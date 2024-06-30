@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import timmax.tilegame.basemodel.protocol.EventOfClient;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
+import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 import timmax.tilegame.transport.TransportOfClient;
 
@@ -90,8 +90,8 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient<W
     }
 
     @Override
-    public void setGameType(ModelOfServerDescriptor modelOfServerDescriptor) {
-        transportOfClient.setGameType(modelOfServerDescriptor);
+    public void setGameType(GameType gameType) {
+        transportOfClient.setGameType(gameType);
     }
 
     // 5

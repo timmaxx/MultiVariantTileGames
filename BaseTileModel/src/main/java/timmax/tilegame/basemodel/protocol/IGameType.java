@@ -4,7 +4,7 @@ import java.util.Map;
 
 import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
 
-public interface IModelOfServerDescriptor {
+public interface IGameType {
     String getGameName();
     int getCountOfGamers();
     Map<String, ParamOfModelDescription> getMapOfParamsOfModelDescription();

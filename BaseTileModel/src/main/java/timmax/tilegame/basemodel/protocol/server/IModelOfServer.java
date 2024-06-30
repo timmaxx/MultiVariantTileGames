@@ -4,9 +4,9 @@ import java.util.Map;
 
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
-import timmax.tilegame.basemodel.protocol.IModelOfServerDescriptor;
+import timmax.tilegame.basemodel.protocol.IGameType;
 
-public interface IModelOfServer extends IModelOfServerDescriptor {
+public interface IModelOfServer extends IGameType {
     void createNewGame();
 
     void executeMouseCommand(GameCommandMouseClick gameCommandMouseClick);
@@ -18,7 +18,7 @@ public interface IModelOfServer extends IModelOfServerDescriptor {
     // См. комменты в class InstanceIdOfModel
     // InstanceIdOfModel modelOfServerToInstanceIdOfModel();
 
-    // interface IModelOfServerDescriptor
+    // interface IGameType
     @Override
     String getGameName();
 

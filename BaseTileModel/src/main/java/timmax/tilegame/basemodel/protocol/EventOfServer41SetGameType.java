@@ -5,7 +5,7 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
+import timmax.tilegame.basemodel.protocol.server.GameType;
 
 public class EventOfServer41SetGameType extends EventOfServer {
     private String modelOfServerDescriptorGameTypeName;
@@ -21,7 +21,7 @@ public class EventOfServer41SetGameType extends EventOfServer {
 
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
-        ModelOfServerDescriptor modelOfServerDescriptor =
+        GameType gameType =
                 localClientStateAutomaton
                         .getGameTypeSet()
                         .stream()
@@ -29,7 +29,7 @@ public class EventOfServer41SetGameType extends EventOfServer {
                         .findAny()
                         .orElse(null);
 
-        localClientStateAutomaton.setGameType(modelOfServerDescriptor);
+        localClientStateAutomaton.setGameType(gameType);
         // ToDo: Разобраться, для чего нужно это?
         // localClientStateAutomaton.getGameMatchSet();
     }

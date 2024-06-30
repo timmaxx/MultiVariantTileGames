@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
+import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
 public class EventOfClient41SetGameType<ClientId> extends EventOfClient<ClientId> {
@@ -28,7 +28,7 @@ public class EventOfClient41SetGameType<ClientId> extends EventOfClient<ClientId
         }
         // От клиента поступило символическое имя типа игры (оно должно быть одно из тех, которые ему направлялись множеством).
 
-        ModelOfServerDescriptor modelOfServerDescriptor = remoteClientStateAutomaton
+        GameType gameType = remoteClientStateAutomaton
                 .getGameTypeSet()
                 .stream()
                 // В том перечне ищется modelOfServerDescriptor с таким-же именем:
@@ -36,7 +36,7 @@ public class EventOfClient41SetGameType<ClientId> extends EventOfClient<ClientId
                 .findAny()
                 .orElse(null);
 
-        remoteClientStateAutomaton.setGameType(modelOfServerDescriptor);
+        remoteClientStateAutomaton.setGameType(gameType);
     }
 
     @Override

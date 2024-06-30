@@ -6,35 +6,35 @@ import java.io.ObjectOutput;
 import java.util.Set;
 
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
+import timmax.tilegame.basemodel.protocol.server.GameType;
 
 public class EventOfServer31SetGameTypeSet extends EventOfServer {
-    private Set<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor;
+    private Set<GameType> gameTypeSet;
 
     public EventOfServer31SetGameTypeSet() {
         super();
     }
 
-    public EventOfServer31SetGameTypeSet(Set<ModelOfServerDescriptor> collectionOfModelOfServerDescriptor) {
+    public EventOfServer31SetGameTypeSet(Set<GameType> gameTypeSet) {
         this();
-        this.collectionOfModelOfServerDescriptor = collectionOfModelOfServerDescriptor;
+        this.gameTypeSet = gameTypeSet;
     }
 
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
-        localClientStateAutomaton.setGameTypeSet(collectionOfModelOfServerDescriptor);
+        localClientStateAutomaton.setGameTypeSet(gameTypeSet);
     }
 
     @Override
     public String toString() {
         return this.getClass().getSimpleName() + "{" +
-                "collectionOfModelOfServerDescriptor=" + collectionOfModelOfServerDescriptor +
+                "gameTypeSet=" + gameTypeSet +
                 '}';
     }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(collectionOfModelOfServerDescriptor);
+        out.writeObject(gameTypeSet);
     }
 
     @Override
@@ -42,14 +42,14 @@ public class EventOfServer31SetGameTypeSet extends EventOfServer {
         Object obj = in.readObject();
         if (obj instanceof Set<?> setOfObj) {
             for (Object objOfList : setOfObj) {
-                if (!(objOfList instanceof ModelOfServerDescriptor)) {
-                    logger.error("readExternal(ObjectInput in)\n  element of collections is not ModelOfServerDescriptor.");
+                if (!(objOfList instanceof GameType)) {
+                    logger.error("readExternal(ObjectInput in)\n  element of collections is not GameType.");
                     System.exit(1);
                 }
             }
             @SuppressWarnings("unchecked")
-            Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor = (Set<ModelOfServerDescriptor>) setOfObj;
-            this.collectionOfModelOfServerDescriptor = setOfModelOfServerDescriptor;
+            Set<GameType> setOfGameType = (Set<GameType>) setOfObj;
+            this.gameTypeSet = setOfGameType;
         } else {
             logger.error("readExternal(ObjectInput in)\n  in.readObject() is not instance of Set.");
             System.exit(1);

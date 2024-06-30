@@ -40,7 +40,7 @@ public class ModelOfServerOfMinesweeper<ClientId> extends ModelOfServer<ClientId
     private AllMinesweeperObjects<ClientId> allMinesweeperObjects;
 
     // ToDo: См. комментарии о согласовании параметров в
-    //       - ModelOfServerDescriptor :: ModelOfServerDescriptor(...)
+    //       - GameType :: GameType(...)
     //       и в
     //       - ModelOfServerLoader :: getCollectionOfModelOfServerDescriptor(...)
     public ModelOfServerOfMinesweeper(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
@@ -76,7 +76,7 @@ public class ModelOfServerOfMinesweeper<ClientId> extends ModelOfServer<ClientId
         setGameStatus(allMinesweeperObjects.open(allMinesweeperObjects.getTileByXY(x, y)));
     }
 
-    // Overriden methods from interface IModelOfServer extends IModelOfServerDescriptor:
+    // Overriden methods from interface IModelOfServer extends IGameType:
     @Override
     public String getGameName() {
         return "Minesweeper";

@@ -1,6 +1,6 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
-import timmax.tilegame.basemodel.protocol.server.ModelOfServerDescriptor;
+import timmax.tilegame.basemodel.protocol.server.GameType;
 
 import java.util.Set;
 
@@ -13,5 +13,5 @@ public interface IClientState03ConnectAuthorized extends IClientState00 {
 
     void forgetUser(); // logOut
 
-    void setGameTypeSet(Set<ModelOfServerDescriptor> setOfModelOfServerDescriptor);
+    void setGameTypeSet(Set<GameType> gameTypeSet);
 }
