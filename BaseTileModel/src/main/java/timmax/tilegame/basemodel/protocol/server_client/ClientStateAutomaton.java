@@ -53,6 +53,11 @@ public class ClientStateAutomaton<Model> implements
         this.userName = userName;
     }
 
+    void setUserName_(String userName) {
+        clientState04GameTypeSetSelected.forgetGameTypeSet();
+        setUserName0(userName);
+    }
+
     Set<ModelOfServerDescriptor> getSetOfModelOfServerDescriptor0() {
         return setOfModelOfServerDescriptor;
     }

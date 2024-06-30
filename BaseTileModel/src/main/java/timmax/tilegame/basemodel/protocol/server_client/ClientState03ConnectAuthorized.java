@@ -9,11 +9,6 @@ public abstract class ClientState03ConnectAuthorized<Model> extends AbstractClie
         super(clientStateAutomaton);
     }
 
-    protected void setUserName_(String userName) {
-        getClientStateAutomaton().clientState04GameTypeSetSelected.forgetGameTypeSet();
-        getClientStateAutomaton().setUserName0(userName);
-    }
-
     // interface IClientState03ConnectAuthorized
     @Override
     public String getUserName() {
@@ -22,7 +17,7 @@ public abstract class ClientState03ConnectAuthorized<Model> extends AbstractClie
 
     @Override
     public void forgetUser() {
-        setUserName_("");
+        getClientStateAutomaton().setUserName_("");
     }
 
     @Override

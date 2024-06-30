@@ -11,6 +11,6 @@ public abstract class ClientState02ConnectNonIdent<Model> extends AbstractClient
         if (userName == null || userName.isEmpty()) {
             throw new NullPointerException("UserName is null. It must be not null for this method.");
         }
-        getClientStateAutomaton().clientState03ConnectAuthorized.setUserName_(userName);
+        getClientStateAutomaton().setUserName_(userName);
     }
 }
