@@ -15,7 +15,7 @@ public class ModelOfServerLoader {
     protected static final Logger logger = LoggerFactory.getLogger(ModelOfServerLoader.class);
     private static final String FILE_NAME_WITH_CLASS_NAMES_OF_MODELS = "models.txt";
 
-    public static <ClientId> Set<GameType> getCollectionOfModelOfServerDescriptor(
+    public static <ClientId> Set<GameType> getCollectionOfGameType(
             RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton,
             ClientId clientId
     ) {

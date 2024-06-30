@@ -48,9 +48,9 @@ public class GameType implements IGameType, Externalizable {
         Class<? extends IModelOfServer> modelOfServerClass = (Class<? extends IModelOfServer>) Class.forName(modelOfServerFullClassName);
         // ToDo: Нужно минимизировать количество согласований в методах и между классами.
         //       Параметры, которые передаются в getConstructor() и ниже newInstance(), также согласуются с параметрами в
-        //       ModelOfServerLoader :: getCollectionOfModelOfServerDescriptor()
+        //       ModelOfServerLoader :: getCollectionOfGameType()
         //       и внутри того метода с параметрами при вызове
-        //       modelOfServerDescriptor = new GameType()
+        //       gameType = new GameType()
         //       и там же ниже в ветке
         //       catch (NoSuchMethodException e)
         //       при логировании.

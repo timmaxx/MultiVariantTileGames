@@ -23,7 +23,7 @@ public class EventOfClient31SetGameTypeSet<ClientId> extends EventOfClient<Clien
     @Override
     public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
         remoteClientStateAutomaton.setGameTypeSet(
-                ModelOfServerLoader.getCollectionOfModelOfServerDescriptor(
+                ModelOfServerLoader.getCollectionOfGameType(
                         remoteClientStateAutomaton, clientId
                 )
         );

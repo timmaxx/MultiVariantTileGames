@@ -8,20 +8,20 @@ import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
 public class EventOfClient41SetGameType<ClientId> extends EventOfClient<ClientId> {
-    private String modelOfServerDescriptorGameTypeName;
+    private String gameTypeName;
 
     public EventOfClient41SetGameType() {
         super();
     }
 
-    public EventOfClient41SetGameType(String modelOfServerDescriptorGameTypeName) {
+    public EventOfClient41SetGameType(String gameTypeName) {
         this();
-        this.modelOfServerDescriptorGameTypeName = modelOfServerDescriptorGameTypeName;
+        this.gameTypeName = gameTypeName;
     }
 
     @Override
     public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
-        if (modelOfServerDescriptorGameTypeName == null) {
+        if (gameTypeName == null) {
             logger.error("Client sent empty name of model classes.");
             remoteClientStateAutomaton.forgetGameType();
             return;
@@ -31,8 +31,8 @@ public class EventOfClient41SetGameType<ClientId> extends EventOfClient<ClientId
         GameType gameType = remoteClientStateAutomaton
                 .getGameTypeSet()
                 .stream()
-                // В том перечне ищется modelOfServerDescriptor с таким-же именем:
-                .filter(x -> x.getGameName().equals(modelOfServerDescriptorGameTypeName))
+                // В том перечне ищется gameType с таким-же именем:
+                .filter(x -> x.getGameName().equals(gameTypeName))
                 .findAny()
                 .orElse(null);
 
@@ -42,18 +42,18 @@ public class EventOfClient41SetGameType<ClientId> extends EventOfClient<ClientId
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{" +
-                "modelOfServerDescriptorGameTypeName='" + modelOfServerDescriptorGameTypeName + '\'' +
+                "gameTypeName='" + gameTypeName + '\'' +
                 '}';
     }
 
     // interface Externalizable
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(modelOfServerDescriptorGameTypeName);
+        out.writeObject(gameTypeName);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        modelOfServerDescriptorGameTypeName = (String) in.readObject();
+        gameTypeName = (String) in.readObject();
     }
 }

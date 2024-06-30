@@ -42,7 +42,7 @@ public class ModelOfServerOfMinesweeper<ClientId> extends ModelOfServer<ClientId
     // ToDo: См. комментарии о согласовании параметров в
     //       - GameType :: GameType(...)
     //       и в
-    //       - ModelOfServerLoader :: getCollectionOfModelOfServerDescriptor(...)
+    //       - ModelOfServerLoader :: getCollectionOfGameType(...)
     public ModelOfServerOfMinesweeper(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
         super(remoteClientStateAutomaton, clientId);
     }

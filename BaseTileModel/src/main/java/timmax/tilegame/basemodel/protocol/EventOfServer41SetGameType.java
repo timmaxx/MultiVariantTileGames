@@ -8,15 +8,15 @@ import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
 public class EventOfServer41SetGameType extends EventOfServer {
-    private String modelOfServerDescriptorGameTypeName;
+    private String gameTypeName;
 
     public EventOfServer41SetGameType() {
         super();
     }
 
-    public EventOfServer41SetGameType(String modelOfServerDescriptorGameTypeName) {
+    public EventOfServer41SetGameType(String gameTypeName) {
         this();
-        this.modelOfServerDescriptorGameTypeName = modelOfServerDescriptorGameTypeName;
+        this.gameTypeName = gameTypeName;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class EventOfServer41SetGameType extends EventOfServer {
                 localClientStateAutomaton
                         .getGameTypeSet()
                         .stream()
-                        .filter(x -> x.getGameName().equals(modelOfServerDescriptorGameTypeName))
+                        .filter(x -> x.getGameName().equals(gameTypeName))
                         .findAny()
                         .orElse(null);
 
@@ -37,17 +37,17 @@ public class EventOfServer41SetGameType extends EventOfServer {
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{" +
-                "modelOfServerDescriptorGameTypeName='" + modelOfServerDescriptorGameTypeName + '\'' +
+                "gameTypeName='" + gameTypeName + '\'' +
                 '}';
     }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(modelOfServerDescriptorGameTypeName);
+        out.writeObject(gameTypeName);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        modelOfServerDescriptorGameTypeName = (String) in.readObject();
+        gameTypeName = (String) in.readObject();
     }
 }

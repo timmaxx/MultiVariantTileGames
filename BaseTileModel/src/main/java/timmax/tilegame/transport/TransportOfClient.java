@@ -37,7 +37,7 @@ public interface TransportOfClient<ClientId> {
     // ---- 3 ConnectAuthorized
     // ???                                                                              //  3       String getUserName();
     void forgetUser();                                                          //  21  //  3 -> 2  void forgetUser();
-    void setGameTypeSet();                                                      //  32  //  3 -> 4  void setGameTypeSet(Set<GameType> setOfModelOfServerDescriptor);
+    void setGameTypeSet();                                                      //  32  //  3 -> 4  void setGameTypeSet(Set<GameType> gameTypeSet);
 
     // ---- 4 (GameTypeSetSelected)
     // ???                                                                              //  4       Set<GameType> getGameTypeSet();
