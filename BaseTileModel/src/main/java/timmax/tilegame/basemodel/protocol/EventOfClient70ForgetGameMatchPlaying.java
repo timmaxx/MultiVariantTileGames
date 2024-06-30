@@ -10,6 +10,6 @@ public class EventOfClient70ForgetGameMatchPlaying<ClientId> extends EventOfClie
 
     @Override
     public String toString() {
-        return "EventOfClient70ForgetGameMatchPlaying{}";
+        return getClass().getSimpleName() + "{}";
     }
 }

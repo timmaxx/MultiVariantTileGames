@@ -99,7 +99,7 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
 
     @Override
     public String toString() {
-        return "EventOfClient61SetGameMatch{" +
+        return getClass().getSimpleName() + "{" +
                 "instanceIdOfModel=" + instanceIdOfModel +
                 '}';
     }

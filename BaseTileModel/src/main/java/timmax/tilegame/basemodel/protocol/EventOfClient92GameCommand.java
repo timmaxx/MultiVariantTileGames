@@ -26,7 +26,7 @@ public class EventOfClient92GameCommand<ClientId> extends EventOfClient<ClientId
 
     @Override
     public String toString() {
-        return "EventOfClient92GameCommand{" +
+        return getClass().getSimpleName() + "{" +
                 "gameCommand=" + gameCommand +
                 '}';
     }

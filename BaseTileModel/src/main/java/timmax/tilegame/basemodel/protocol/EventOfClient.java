@@ -24,6 +24,6 @@ public abstract class EventOfClient<ClientId> extends Event {
 
     @Override
     public String toString() {
-        return "EventOfClient{}";
+        return getClass().getSimpleName() + "{}";
     }
 }

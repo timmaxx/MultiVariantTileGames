@@ -31,6 +31,6 @@ public class EventOfClient31SetGameTypeSet<ClientId> extends EventOfClient<Clien
 
     @Override
     public String toString() {
-        return "EventOfClient31SetGameTypeSet{}";
+        return getClass().getSimpleName() + "{}";
     }
 }

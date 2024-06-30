@@ -41,7 +41,7 @@ public class EventOfClient41SetGameType<ClientId> extends EventOfClient<ClientId
 
     @Override
     public String toString() {
-        return "EventOfClient41SetGameType{" +
+        return getClass().getSimpleName() + "{" +
                 "modelOfServerDescriptorGameTypeName='" + modelOfServerDescriptorGameTypeName + '\'' +
                 '}';
     }

@@ -22,6 +22,6 @@ public class EventOfClient51SetGameMatchSet<ClientId> extends EventOfClient<Clie
 
     @Override
     public String toString() {
-        return "EventOfClient51SetGameMatchSet{}";
+        return getClass().getSimpleName() + "{}";
     }
 }

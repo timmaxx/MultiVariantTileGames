@@ -33,7 +33,7 @@ public class EventOfClient21SetUser<ClientId> extends EventOfClient<ClientId> {
 
     @Override
     public String toString() {
-        return "EventOfClient21SetUser{" +
+        return getClass().getSimpleName() + "{" +
                 "userName='" + userName + '\'' +
                 '}';
     }

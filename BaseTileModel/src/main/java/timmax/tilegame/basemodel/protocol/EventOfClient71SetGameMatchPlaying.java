@@ -27,7 +27,7 @@ public class EventOfClient71SetGameMatchPlaying<ClientId> extends EventOfClient<
 
     @Override
     public String toString() {
-        return "EventOfClient71SetGameMatchPlaying{" +
+        return getClass().getSimpleName() + "{" +
                 "mapOfParamsOfModelValue=" + mapOfParamsOfModelValue +
                 '}';
     }
