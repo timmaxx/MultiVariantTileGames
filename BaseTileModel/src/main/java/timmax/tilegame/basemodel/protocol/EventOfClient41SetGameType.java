@@ -21,8 +21,6 @@ public class EventOfClient41SetGameType<ClientId> extends EventOfClient<ClientId
 
     @Override
     public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
-        logger.debug("  onGameTypeSelect");
-        logger.debug("  modelOfServerDescriptorGameTypeName = {}", modelOfServerDescriptorGameTypeName);
         if (modelOfServerDescriptorGameTypeName == null) {
             logger.error("Client sent empty name of model classes.");
             remoteClientStateAutomaton.forgetGameType();

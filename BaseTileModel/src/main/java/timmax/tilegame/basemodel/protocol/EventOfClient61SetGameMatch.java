@@ -41,9 +41,6 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
     //       -- явно вызывается sendEventOfServer, в которую передаётся clientId.
     @Override
     public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
-        logger.debug("  onSetGameMatch");
-        logger.debug("  InstanceIdOfModel = {}", instanceIdOfModel);
-
         // ToDo: Исправить Warning:(33, 9) Raw use of parameterized class 'IModelOfServer'
         IModelOfServer iModelOfServer = null;
         if (instanceIdOfModel.getId() == null) {

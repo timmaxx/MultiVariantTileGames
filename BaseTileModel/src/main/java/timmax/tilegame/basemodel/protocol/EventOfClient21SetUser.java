@@ -23,9 +23,6 @@ public class EventOfClient21SetUser<ClientId> extends EventOfClient<ClientId> {
 
     @Override
     public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
-        logger.debug("  onLogin");
-        logger.debug("    userName = {} | password = *", userName); // Пароль не выводим:
-
         if (Credentials.isUserAndPasswordCorrect(userName, password)) {
             password = ""; // Не будем даже хранить пароль.
             remoteClientStateAutomaton.setUser(userName);
