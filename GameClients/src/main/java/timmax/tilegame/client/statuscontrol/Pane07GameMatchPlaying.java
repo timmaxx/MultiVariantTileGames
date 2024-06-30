@@ -33,7 +33,7 @@ public class Pane07GameMatchPlaying<ClientId> extends AbstractConnectStatePane<C
                             Integer.valueOf(textField.getText()));
                 }
             }
-            transportOfClient.startGameMatchPlaying(mapOfParamsOfModelValue);
+            transportOfClient.setGameMatchPlaying(mapOfParamsOfModelValue);
         });
 
         // Контролы для продвижения состояния "назад":
@@ -43,7 +43,7 @@ public class Pane07GameMatchPlaying<ClientId> extends AbstractConnectStatePane<C
         buttonPrevState.setFocusTraversable(false); // Это в любом случае д.б.
         buttonPrevState.setOnAction(event -> {
             disableAllControls();
-            transportOfClient.forgetGameIsPlaying();
+            transportOfClient.forgetGameMatchPlaying();
         });
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".

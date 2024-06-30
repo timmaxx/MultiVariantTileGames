@@ -15,8 +15,8 @@ public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState0
     // class ClientState07GameMatchSelected
     // ---- 6 Конкретная партия игры
     @Override
-    public void forgetServerBaseModel() {
-        super.forgetServerBaseModel();
+    public void forgetGameMatch() {
+        super.forgetGameMatch();
         getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
                 clientId,
                 new EventOfServer60ForgetGameMatch()
@@ -25,11 +25,11 @@ public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState0
 
     // ---- 7
     @Override
-    public void setGameIsPlaying(Boolean gameIsPlaying) {
-        super.setGameIsPlaying(gameIsPlaying);
+    public void setGameMatchPlaying(Boolean gameIsPlaying) {
+        super.setGameMatchPlaying(gameIsPlaying);
         getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
                 clientId,
-                new EventOfServer71GameMatchIsPlaying()
+                new EventOfServer71SetGameMatchPlaying()
         );
         // ToDo: Вызов этого метода может быть как для модели:
         //       - для которой ранее ещё не было вызвано createNewGame()

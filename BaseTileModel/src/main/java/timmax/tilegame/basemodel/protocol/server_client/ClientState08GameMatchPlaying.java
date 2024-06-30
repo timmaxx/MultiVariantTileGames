@@ -1,6 +1,6 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
-public abstract class ClientState08GameMatchPlaying<Model> extends AbstractClientState<Model> implements IClientState08GameIsPlaying {
+public abstract class ClientState08GameMatchPlaying<Model> extends AbstractClientState<Model> implements IClientState08GameMatchPlaying {
     protected Boolean gameIsPlaying; // ---- 7 (Партия была начата)
 
     public ClientState08GameMatchPlaying(ClientStateAutomaton<Model> clientStateAutomaton) {
@@ -11,7 +11,7 @@ public abstract class ClientState08GameMatchPlaying<Model> extends AbstractClien
         this.gameIsPlaying = gameIsPlaying;
     }
 
-    // interface IClientState08GameIsPlaying
+    // interface IClientState08GameMatchPlaying
     @Override
     public Boolean getGameIsPlaying() {
         return gameIsPlaying;

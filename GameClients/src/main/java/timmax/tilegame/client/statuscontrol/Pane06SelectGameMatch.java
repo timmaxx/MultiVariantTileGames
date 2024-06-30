@@ -25,7 +25,7 @@ public class Pane06SelectGameMatch<ClientId> extends AbstractConnectStatePane<Cl
         buttonNextState.setText("Select the game match");
         buttonNextState.setOnAction(event -> {
             disableAllControls();
-            transportOfClient.gameMatchSelect(new InstanceIdOfModel(comboBoxGameSet.getValue()));
+            transportOfClient.setGameMatch(new InstanceIdOfModel(comboBoxGameSet.getValue()));
         });
 
         // Контролы для продвижения состояния "назад":

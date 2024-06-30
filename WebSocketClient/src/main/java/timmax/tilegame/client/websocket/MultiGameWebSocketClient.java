@@ -155,7 +155,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     }
 
     @Override
-    public void gameMatchSelect(InstanceIdOfModel model) {
+    public void setGameMatch(InstanceIdOfModel model) {
         logger.debug("gameMatchSelect(InstanceIdOfModel model)");
         sendEventOfClient(new EventOfClient61SetGameMatch<>(model));
     }
@@ -168,14 +168,14 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     }
 
     @Override
-    public void startGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue) {
+    public void setGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue) {
         logger.debug("startPlaying()");
-        sendEventOfClient(new EventOfClient71StartGameMatchPlaying<>(mapOfParamsOfModelValue));
+        sendEventOfClient(new EventOfClient71SetGameMatchPlaying<>(mapOfParamsOfModelValue));
     }
 
     // 8
     @Override
-    public void forgetGameIsPlaying() {
+    public void forgetGameMatchPlaying() {
         logger.debug("forgetGameIsPlaying()");
         sendEventOfClient(new EventOfClient70ForgetGameMatchPlaying<>());
     }

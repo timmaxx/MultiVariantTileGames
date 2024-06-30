@@ -53,14 +53,14 @@ public interface TransportOfClient<ClientId> {
     // ---- 6 (MatchSetSelected)
     // ???                                                                              //  6       Set<Model> getGameMatchSet();
     void forgetGameMatchSet();                                                  //  51  //  6 -> 5  void forgetGameMatchSet();
-    void gameMatchSelect(InstanceIdOfModel model);                              //  62  //  6 -> 7  void setServerBaseModel(Model serverBaseModel);
+    void setGameMatch(InstanceIdOfModel model);                                 //  62  //  6 -> 7  void setServerBaseModel(Model serverBaseModel);
 
     // ---- 7 (MatchSelected)
     // ???                                                                              //  7       Model getServerBaseModel();
     void forgetGameMatch();                                                     //  61  //  7 -> 6  void forgetServerBaseModel();
-    void startGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue);   //  72  //  7 -> 8  void setGameIsPlaying(Boolean gameIsPlaying);
+    void setGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue);   //  72  //  7 -> 8  void setGameIsPlaying(Boolean gameIsPlaying);
 
     // ---- 8 (GameIsPlaying)
     // ???                                                                              //  8       Boolean getGameIsPlaying();
-    void forgetGameIsPlaying();                                                 //  71  //  8 -> 7  void forgetGameIsPlaying();
+    void forgetGameMatchPlaying();                                                 //  71  //  8 -> 7  void forgetGameIsPlaying();
 }

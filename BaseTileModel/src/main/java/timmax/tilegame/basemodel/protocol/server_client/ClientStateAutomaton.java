@@ -12,7 +12,7 @@ public class ClientStateAutomaton<Model> implements
         IClientState05GameTypeSelected<Model>,
         IClientState06GameMatchSetSelected<Model>,
         IClientState07GameMatchSelected<Model>,
-        IClientState08GameIsPlaying {
+        IClientState08GameMatchPlaying {
     final ClientState01NoConnect<Model> clientState01NoConnect;
     final ClientState02ConnectNonIdent<Model> clientState02ConnectNonIdent;
     final ClientState03ConnectAuthorized<Model> clientState03ConnectAuthorized;
@@ -124,18 +124,18 @@ public class ClientStateAutomaton<Model> implements
     }
 
     @Override
-    public void forgetServerBaseModel() {
-        clientState07GameMatchSelected.forgetServerBaseModel();
+    public void forgetGameMatch() {
+        clientState07GameMatchSelected.forgetGameMatch();
         currenState = clientState06GameMatchSetSelected;
     }
 
     @Override
-    public void setGameIsPlaying(Boolean gameIsPlaying) {
-        clientState07GameMatchSelected.setGameIsPlaying(gameIsPlaying);
+    public void setGameMatchPlaying(Boolean gameIsPlaying) {
+        clientState07GameMatchSelected.setGameMatchPlaying(gameIsPlaying);
         currenState = clientState08GameMatchPlaying;
     }
 
-    // 8 interface IClientState08GameIsPlaying
+    // 8 interface IClientState08GameMatchPlaying
     @Override
     public Boolean getGameIsPlaying() {
         return clientState08GameMatchPlaying.getGameIsPlaying();

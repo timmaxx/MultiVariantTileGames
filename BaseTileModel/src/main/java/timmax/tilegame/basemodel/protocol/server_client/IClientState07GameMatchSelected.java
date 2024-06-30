@@ -7,7 +7,7 @@ public interface IClientState07GameMatchSelected<Model> extends IClientState00 {
     // ---- 7 (MatchSelected)
     Model getServerBaseModel();
 
-    void forgetServerBaseModel();
+    void forgetGameMatch();
 
-    void setGameIsPlaying(Boolean gameIsPlaying);
+    void setGameMatchPlaying(Boolean gameIsPlaying);
 }

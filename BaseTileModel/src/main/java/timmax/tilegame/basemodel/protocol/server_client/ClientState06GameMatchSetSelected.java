@@ -10,7 +10,7 @@ public abstract class ClientState06GameMatchSetSelected<Model> extends AbstractC
     }
 
     protected void setGameMatchSet_(Set<Model> setOfServerBaseModel) {
-        getClientStateAutomaton().clientState07GameMatchSelected.forgetServerBaseModel();
+        getClientStateAutomaton().clientState07GameMatchSelected.forgetGameMatch();
         this.setOfServerBaseModel = setOfServerBaseModel;
     }
 

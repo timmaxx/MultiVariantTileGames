@@ -112,8 +112,8 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient<W
     }
 
     @Override
-    public void gameMatchSelect(InstanceIdOfModel model) {
-        transportOfClient.gameMatchSelect(model);
+    public void setGameMatch(InstanceIdOfModel model) {
+        transportOfClient.setGameMatch(model);
     }
 
     // 7
@@ -123,14 +123,14 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient<W
     }
 
     @Override
-    public void startGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue) {
-        transportOfClient.startGameMatchPlaying(mapOfParamsOfModelValue);
+    public void setGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue) {
+        transportOfClient.setGameMatchPlaying(mapOfParamsOfModelValue);
     }
 
     // 8
     @Override
-    public void forgetGameIsPlaying() {
-        transportOfClient.forgetGameIsPlaying();
+    public void forgetGameMatchPlaying() {
+        transportOfClient.forgetGameMatchPlaying();
     }
 
     // class Object

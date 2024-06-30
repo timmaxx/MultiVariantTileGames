@@ -6,7 +6,7 @@ public class EventOfClient60ForgetGameMatch<ClientId> extends EventOfClient<Clie
     @Override
     public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
         logger.debug("  onForgetGameMatch");
-        remoteClientStateAutomaton.forgetServerBaseModel();
+        remoteClientStateAutomaton.forgetGameMatch();
     }
 
     @Override
