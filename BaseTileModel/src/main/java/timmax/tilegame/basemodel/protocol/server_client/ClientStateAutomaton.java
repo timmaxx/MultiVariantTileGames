@@ -94,6 +94,12 @@ public class ClientStateAutomaton<Model> implements
         this.setOfServerBaseModel = setOfServerBaseModel;
     }
 
+    // ToDo: Имя метода с предыдущим должно почти совпадать!
+    protected void setGameMatchSet_(Set<Model> setOfServerBaseModel) {
+        clientState07GameMatchSelected.forgetGameMatch();
+        setSetOfServerBaseModel0(setOfServerBaseModel);
+    }
+
     public Boolean getGameIsPlaying0() {
         return gameIsPlaying;
     }
