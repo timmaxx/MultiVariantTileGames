@@ -30,7 +30,7 @@ public abstract class ModelOfServer<ClientId> implements IModelOfServer {
     protected final RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton;
     // ToDo: Сейчас здесь одна переменная типа ClientId. И для одного игрока вполне норм.
     //       Но для для двух (а возможно и более игроков) или если какой-то участник игры, не являющийся игроком будет
-    //       работать в отдельном клиенте, придётся создавать какуюто коллекцию, в которой и будет описание игроков
+    //       работать в отдельном клиенте, придётся создавать какую-то коллекцию, в которой и будет описание игроков
     //       или других участников.
     private final ClientId clientId;
 
@@ -107,11 +107,4 @@ public abstract class ModelOfServer<ClientId> implements IModelOfServer {
         setGameStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
         sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
     }
-
-/*  // См. комменты в class InstanceIdOfModel
-    @Override
-    public InstanceIdOfModel modelOfServerToInstanceIdOfModel() {
-        return new InstanceIdOfModel(toString());
-    }
-*/
 }

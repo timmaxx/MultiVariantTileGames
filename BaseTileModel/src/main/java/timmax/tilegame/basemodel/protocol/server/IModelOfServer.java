@@ -15,9 +15,6 @@ public interface IModelOfServer extends IGameType {
     void win();
     void restart();
 
-    // См. комменты в class InstanceIdOfModel
-    // InstanceIdOfModel modelOfServerToInstanceIdOfModel();
-
     // interface IGameType
     @Override
     String getGameName();
