@@ -27,7 +27,7 @@ public class ClientStateAutomaton<Model> implements
     private String userName; // ---- 2 (Пользователь)
     private Set<GameType> gameTypeSet; // ---- 3 (Список типов игр)
     private GameType gameType; // ---- 4 (Конкретный тип игры)
-    private Set<Model> setOfServerBaseModel; // ---- 5 (Набор моделей игр)
+    private Set<Model> serverBaseModelSet; // ---- 5 (Набор моделей игр)
     private Model serverBaseModel; // ---- 6 (Конкретная модель игры)
     private Boolean gameIsPlaying; // ---- 7 (Партия была начата)
 
@@ -84,18 +84,18 @@ public class ClientStateAutomaton<Model> implements
         setGameType0(gameType);
     }
 
-    Set<Model> getSetOfServerBaseModel0() {
-        return setOfServerBaseModel;
+    Set<Model> getServerBaseModelSet0() {
+        return serverBaseModelSet;
     }
 
-    void setSetOfServerBaseModel0(Set<Model> setOfServerBaseModel) {
-        this.setOfServerBaseModel = setOfServerBaseModel;
+    void setServerBaseModelSet0(Set<Model> serverBaseModelSet) {
+        this.serverBaseModelSet = serverBaseModelSet;
     }
 
     // ToDo: Имя метода с предыдущим должно почти совпадать!
-    void setGameMatchSet_(Set<Model> setOfServerBaseModel) {
+    void setGameMatchSet_(Set<Model> serverBaseModelSet) {
         clientState07GameMatchSelected.forgetGameMatch();
-        setSetOfServerBaseModel0(setOfServerBaseModel);
+        setServerBaseModelSet0(serverBaseModelSet);
     }
 
     // ToDo: Только из-за класса RemoteClientState07GameMatchSelected понадобилось сделать public.
@@ -181,8 +181,8 @@ public class ClientStateAutomaton<Model> implements
     }
 
     @Override
-    public void setGameMatchSet(Set<Model> setOfServerBaseModel) {
-        clientState05GameTypeSelected.setGameMatchSet(setOfServerBaseModel);
+    public void setGameMatchSet(Set<Model> serverBaseModelSet) {
+        clientState05GameTypeSelected.setGameMatchSet(serverBaseModelSet);
         currenState = clientState06GameMatchSetSelected;
     }
 
