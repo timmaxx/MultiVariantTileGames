@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 
-import static timmax.tilegame.game.minesweeper.model.ModelOfServerOfMinesweeper.*;
+import static timmax.tilegame.game.minesweeper.model.GameMatchOfMinesweeper.*;
 
 public class GameEventOneTileMinesweeperChangeFlag extends GameEventOneTile {
     private boolean isFlag;

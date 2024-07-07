@@ -3,10 +3,10 @@ package timmax.tilegame.basemodel.protocol.server;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server_client.*;
 
-public class RemoteClientState08GameMatchPlaying<ClientId> extends ClientState08GameMatchPlaying<IModelOfServer> {
+public class RemoteClientState08GameMatchPlaying<ClientId> extends ClientState08GameMatchPlaying<IGameMatch> {
     private final ClientId clientId;
 
-    public RemoteClientState08GameMatchPlaying(ClientStateAutomaton<IModelOfServer> clientStateAutomaton, ClientId clientId) {
+    public RemoteClientState08GameMatchPlaying(ClientStateAutomaton<IGameMatch> clientStateAutomaton, ClientId clientId) {
         super(clientStateAutomaton);
         this.clientId = clientId;
     }

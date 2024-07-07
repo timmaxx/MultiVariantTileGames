@@ -5,13 +5,13 @@ import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
 
 import java.util.Map;
 
-import static timmax.tilegame.basemodel.protocol.server.ModelOfServer.PARAM_NAME_HEIGHT;
-import static timmax.tilegame.basemodel.protocol.server.ModelOfServer.PARAM_NAME_WIDTH;
-import static timmax.tilegame.game.minesweeper.model.ModelOfServerOfMinesweeper.PARAM_NAME_PERCENTS_OF_MINES;
+import static timmax.tilegame.basemodel.protocol.server.GameMatch.PARAM_NAME_HEIGHT;
+import static timmax.tilegame.basemodel.protocol.server.GameMatch.PARAM_NAME_WIDTH;
+import static timmax.tilegame.game.minesweeper.model.GameMatchOfMinesweeper.PARAM_NAME_PERCENTS_OF_MINES;
 
 public class GameTypeOfMinesweeper extends GameType {
     public GameTypeOfMinesweeper() throws ClassNotFoundException, NoSuchMethodException {
-        super("Minesweeper", 1, ModelOfServerOfMinesweeper.class);
+        super("Minesweeper", 1, GameMatchOfMinesweeper.class);
     }
 
     @Override

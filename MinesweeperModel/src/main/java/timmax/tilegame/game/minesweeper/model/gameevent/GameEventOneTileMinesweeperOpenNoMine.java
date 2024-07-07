@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 
-import static timmax.tilegame.game.minesweeper.model.ModelOfServerOfMinesweeper.OPENED_CELL_COLOR;
+import static timmax.tilegame.game.minesweeper.model.GameMatchOfMinesweeper.OPENED_CELL_COLOR;
 
 public class GameEventOneTileMinesweeperOpenNoMine extends GameEventOneTile {
     private int countOfMineNeighbors;

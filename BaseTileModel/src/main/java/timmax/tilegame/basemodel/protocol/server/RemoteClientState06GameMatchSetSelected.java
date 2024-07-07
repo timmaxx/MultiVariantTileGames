@@ -5,10 +5,10 @@ import timmax.tilegame.basemodel.protocol.server_client.ClientState06GameMatchSe
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
 
-public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientState06GameMatchSetSelected<IModelOfServer> {
+public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientState06GameMatchSetSelected<IGameMatch> {
     private final ClientId clientId;
 
-    public RemoteClientState06GameMatchSetSelected(ClientStateAutomaton<IModelOfServer> clientStateAutomaton, ClientId clientId) {
+    public RemoteClientState06GameMatchSetSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton, ClientId clientId) {
         super(clientStateAutomaton);
         this.clientId = clientId;
     }
@@ -26,12 +26,12 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
 
     // ---- 6 Конкретная партия игры
     @Override
-    public void setGameMatch(IModelOfServer iModelOfServer) {
-        super.setGameMatch(iModelOfServer);
+    public void setGameMatch(IGameMatch iGameMatch) {
+        super.setGameMatch(iGameMatch);
         getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
                 clientId,
                 new EventOfServer61SetGameMatch(
-                        new InstanceIdOfModel(iModelOfServer.toString())
+                        new InstanceIdOfModel(iGameMatch.toString())
                 )
         );
     }

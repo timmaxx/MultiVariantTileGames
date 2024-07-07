@@ -5,10 +5,10 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import timmax.tilegame.basemodel.protocol.server.IModelOfServer;
+import timmax.tilegame.basemodel.protocol.server.IGameMatch;
 
 public abstract class GameCommand implements Externalizable {
-    public abstract void executeOnServer(IModelOfServer modelOfServer);
+    public abstract void executeOnServer(IGameMatch iGameMatch);
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {

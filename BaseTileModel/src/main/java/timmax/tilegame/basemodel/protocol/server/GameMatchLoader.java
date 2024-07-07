@@ -12,14 +12,14 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ModelOfServerLoader {
-    protected static final Logger logger = LoggerFactory.getLogger(ModelOfServerLoader.class);
+public class GameMatchLoader {
+    protected static final Logger logger = LoggerFactory.getLogger(GameMatchLoader.class);
     private static final String FILE_NAME_WITH_CLASS_NAMES_OF_GAME_TYPES = "gameTypes.txt";
 
     public static Set<GameType> getCollectionOfGameType() {
         Path path = null;
         try {
-            path = Paths.get(Objects.requireNonNull(ModelOfServerLoader.class.getResource(FILE_NAME_WITH_CLASS_NAMES_OF_GAME_TYPES)).toURI());
+            path = Paths.get(Objects.requireNonNull(GameMatchLoader.class.getResource(FILE_NAME_WITH_CLASS_NAMES_OF_GAME_TYPES)).toURI());
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }

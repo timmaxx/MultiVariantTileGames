@@ -17,7 +17,7 @@ import timmax.tilegame.baseview.ViewMainField;
 public abstract class GameType implements IGameType, Externalizable {
     protected static final Logger logger = LoggerFactory.getLogger(GameType.class);
 
-    private Constructor<? extends IModelOfServer> constructorOfModelOfServerClass;
+    private Constructor<? extends IGameMatch> constructorOfGameMatch;
 
     // ToDo: Эти поля можно оставить в базовом (этом) классе:
     private String gameName;
@@ -36,7 +36,7 @@ public abstract class GameType implements IGameType, Externalizable {
     public GameType(
             String gameName,
             int countOfGamers,
-            Class<? extends IModelOfServer> modelOfServerClass)
+            Class<? extends IGameMatch> gameMatchClass)
             throws ClassNotFoundException, NoSuchMethodException {
         this();
         this.gameName = gameName;
@@ -47,14 +47,14 @@ public abstract class GameType implements IGameType, Externalizable {
 
         // ToDo: Нужно минимизировать количество согласований в методах и между классами.
         //       Параметры, которые передаются в getConstructor() и ниже newInstance(), также согласуются с параметрами в
-        //       ModelOfServerLoader :: getCollectionOfGameType()
+        //       GameMatchLoader :: getCollectionOfGameType()
         //       и внутри того метода с параметрами при вызове
         //       gameType = new GameType()
         //       и там же ниже в ветке
         //       catch (NoSuchMethodException e)
         //       при логировании.
         // ToDo: Одним из типов параметров указан Object.class. Сделал так, т.к. не знаю как указать параметризированный тип.
-        constructorOfModelOfServerClass = modelOfServerClass.getConstructor(RemoteClientStateAutomaton.class, Object.class);
+        constructorOfGameMatch = gameMatchClass.getConstructor(RemoteClientStateAutomaton.class, Object.class);
     }
 
     public Map<String, Class<? extends View>> getMapOfViewNameViewClass() {
@@ -68,8 +68,8 @@ public abstract class GameType implements IGameType, Externalizable {
         return mapOfParamsOfModelDescription;
     }
 
-    public Constructor<? extends IModelOfServer> getConstructorOfModelOfServerClass() {
-        return constructorOfModelOfServerClass;
+    public Constructor<? extends IGameMatch> getConstructorOfGameMatch() {
+        return constructorOfGameMatch;
     }
 
     // class Object
@@ -94,7 +94,7 @@ public abstract class GameType implements IGameType, Externalizable {
     @Override
     public String toString() {
         return "GameType{" +
-                "constructorOfModelOfServerClass=" + constructorOfModelOfServerClass +
+                "constructorOfGameMatch=" + constructorOfGameMatch +
                 ", gameName='" + gameName + '\'' +
                 ", countOfGamers=" + countOfGamers +
                 ", mapOfViewNameViewClass=" + mapOfViewNameViewClass +

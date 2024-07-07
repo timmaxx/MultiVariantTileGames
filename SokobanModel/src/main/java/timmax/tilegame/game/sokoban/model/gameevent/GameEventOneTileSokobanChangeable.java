@@ -11,7 +11,7 @@ import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.game.sokoban.model.gameobject.WhoMovableInTile;
 import timmax.tilegame.game.sokoban.model.gameobject.WhoPersistentInTile;
 
-import static timmax.tilegame.game.sokoban.model.ModelOfServerOfSokoban.*;
+import static timmax.tilegame.game.sokoban.model.GameMatchOfSokoban.*;
 import static timmax.tilegame.game.sokoban.model.gameobject.WhoMovableInTile.*;
 import static timmax.tilegame.game.sokoban.model.gameobject.WhoPersistentInTile.*;
 

@@ -2,21 +2,21 @@ package timmax.tilegame.basemodel.protocol.server;
 
 import timmax.tilegame.basemodel.protocol.server_client.*;
 
-public interface IFabricOfRemoteClientStates<ClientId> extends IFabricOfClientStates<IModelOfServer> {
+public interface IFabricOfRemoteClientStates<ClientId> extends IFabricOfClientStates<IGameMatch> {
     @Override
-    RemoteClientState01NoConnect<ClientId> getClientState01NoConnect(ClientStateAutomaton<IModelOfServer> clientStateAutomaton);
+    RemoteClientState01NoConnect<ClientId> getClientState01NoConnect(ClientStateAutomaton<IGameMatch> clientStateAutomaton);
     @Override
-    RemoteClientState02ConnectNonIdent<ClientId> getClientState02ConnectNonIdent(ClientStateAutomaton<IModelOfServer> clientStateAutomaton);
+    RemoteClientState02ConnectNonIdent<ClientId> getClientState02ConnectNonIdent(ClientStateAutomaton<IGameMatch> clientStateAutomaton);
     @Override
-    RemoteClientState03ConnectAuthorized<ClientId> getClientState03ConnectAuthorized(ClientStateAutomaton<IModelOfServer> clientStateAutomaton);
+    RemoteClientState03ConnectAuthorized<ClientId> getClientState03ConnectAuthorized(ClientStateAutomaton<IGameMatch> clientStateAutomaton);
     @Override
-    RemoteClientState04GameTypeSetSelected<ClientId> getClientState04GameTypeSetSelected(ClientStateAutomaton<IModelOfServer> clientStateAutomaton);
+    RemoteClientState04GameTypeSetSelected<ClientId> getClientState04GameTypeSetSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton);
     @Override
-    RemoteClientState05GameTypeSelected<ClientId> getClientState05GameTypeSelected(ClientStateAutomaton<IModelOfServer> clientStateAutomaton);
+    RemoteClientState05GameTypeSelected<ClientId> getClientState05GameTypeSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton);
     @Override
-    RemoteClientState06GameMatchSetSelected<ClientId> getClientState06GameMatchSetSelected(ClientStateAutomaton<IModelOfServer> clientStateAutomaton);
+    RemoteClientState06GameMatchSetSelected<ClientId> getClientState06GameMatchSetSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton);
     @Override
-    RemoteClientState07GameMatchSelected<ClientId> getClientState07GameMatchSelected(ClientStateAutomaton<IModelOfServer> clientStateAutomaton);
+    RemoteClientState07GameMatchSelected<ClientId> getClientState07GameMatchSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton);
     @Override
-    RemoteClientState08GameMatchPlaying<ClientId> getClientState08GameMatchPlaying(ClientStateAutomaton<IModelOfServer> clientStateAutomaton);
+    RemoteClientState08GameMatchPlaying<ClientId> getClientState08GameMatchPlaying(ClientStateAutomaton<IGameMatch> clientStateAutomaton);
 }

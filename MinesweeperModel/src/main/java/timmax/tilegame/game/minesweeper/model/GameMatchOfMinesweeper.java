@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
-import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
+import timmax.tilegame.basemodel.protocol.server.GameMatch;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
 import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperPersistentParams;
@@ -18,8 +18,7 @@ import timmax.tilegame.game.minesweeper.model.gameobject.LevelGenerator;
 
 import static javafx.scene.paint.Color.*;
 
-// ToDo: Переименовать в GameMatchOfMinesweeper (после переименования ModelOfServer).
-public class ModelOfServerOfMinesweeper<ClientId> extends ModelOfServer<ClientId> {
+public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     public static final String PARAM_NAME_PERCENTS_OF_MINES = "Percents of mines";
 
     // Константы, описанные ниже относятся к визуализации.
@@ -40,8 +39,8 @@ public class ModelOfServerOfMinesweeper<ClientId> extends ModelOfServer<ClientId
     // ToDo: См. комментарии о согласовании параметров в
     //       - GameType :: GameType(...)
     //       и в
-    //       - ModelOfServerLoader :: getCollectionOfGameType(...)
-    public ModelOfServerOfMinesweeper(
+    //       - GameMatchLoader :: getCollectionOfGameType(...)
+    public GameMatchOfMinesweeper(
             RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton,
             ClientId clientId)
             throws ClassNotFoundException, NoSuchMethodException {
@@ -53,7 +52,7 @@ public class ModelOfServerOfMinesweeper<ClientId> extends ModelOfServer<ClientId
             return;
         }
 
-        // ToDo: Избавиться от "Warning:(57, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
+        // ToDo: Избавиться от "Warning:(56, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
         allMinesweeperObjects = levelGenerator.getLevel(width, height, percentsOfMines);
         allMinesweeperObjects.setModel(this);
 
@@ -77,7 +76,7 @@ public class ModelOfServerOfMinesweeper<ClientId> extends ModelOfServer<ClientId
         setGameStatus(allMinesweeperObjects.open(allMinesweeperObjects.getTileByXY(x, y)));
     }
 
-    // interface IModelOfServer:
+    // interface IGameMatch:
     @Override
     public void createNewGame() {
         createNewGame(

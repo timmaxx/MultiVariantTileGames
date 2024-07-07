@@ -6,10 +6,10 @@ import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 
 import java.util.Set;
 
-public class RemoteClientState03ConnectAuthorized<ClientId> extends ClientState03ConnectAuthorized<IModelOfServer> {
+public class RemoteClientState03ConnectAuthorized<ClientId> extends ClientState03ConnectAuthorized<IGameMatch> {
     private final ClientId clientId;
 
-    public RemoteClientState03ConnectAuthorized(ClientStateAutomaton<IModelOfServer> clientStateAutomaton, ClientId clientId) {
+    public RemoteClientState03ConnectAuthorized(ClientStateAutomaton<IGameMatch> clientStateAutomaton, ClientId clientId) {
         super(clientStateAutomaton);
         this.clientId = clientId;
     }

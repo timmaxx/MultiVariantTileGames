@@ -12,7 +12,7 @@ import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
-import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
+import timmax.tilegame.basemodel.protocol.server.GameMatch;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 import timmax.tilegame.basemodel.tile.Direction;
 
@@ -28,7 +28,7 @@ import static javafx.scene.paint.Color.*;
 import static timmax.tilegame.basemodel.GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
 import static timmax.tilegame.game.sokoban.model.gameobject.WhoMovableInTile.*;
 
-public class ModelOfServerOfSokoban<ClientId> extends ModelOfServer<ClientId> {
+public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     // Константы, описанные ниже, относятся к визуализации.
     // ToDo: Вынести логику визуализации из класса.
     public static final Color WALL_CELL_COLOR = RED;
@@ -52,7 +52,7 @@ public class ModelOfServerOfSokoban<ClientId> extends ModelOfServer<ClientId> {
 
     static {
         try {
-            levelLoader = new LevelLoader(Paths.get(Objects.requireNonNull(ModelOfServerOfSokoban.class.getResource("levels.txt")).toURI()));
+            levelLoader = new LevelLoader(Paths.get(Objects.requireNonNull(GameMatchOfSokoban.class.getResource("levels.txt")).toURI()));
         } catch (URISyntaxException e) {
             logger.error("There is a problem with file with game levels.", e);
             // ToDo: При 'System.exit(1);' сервер закроется. Но ошибка произошла при загрузке только модели одной игры.
@@ -65,8 +65,8 @@ public class ModelOfServerOfSokoban<ClientId> extends ModelOfServer<ClientId> {
     // ToDo: См. комментарии о согласовании параметров в
     //       - GameType :: GameType(...)
     //       и в
-    //       - ModelOfServerLoader :: getCollectionOfGameType(...)
-    public ModelOfServerOfSokoban(
+    //       - GameMatchLoader :: getCollectionOfGameType(...)
+    public GameMatchOfSokoban(
             RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton,
             ClientId clientId)
             throws ClassNotFoundException, NoSuchMethodException {
@@ -263,7 +263,7 @@ public class ModelOfServerOfSokoban<ClientId> extends ModelOfServer<ClientId> {
         sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
     }
 
-    // interface IModelOfServer:
+    // interface IGameMatch:
     @Override
     public void createNewGame() {
         if (allSokobanObjects != null && getGameStatus() == GameStatus.GAME) {

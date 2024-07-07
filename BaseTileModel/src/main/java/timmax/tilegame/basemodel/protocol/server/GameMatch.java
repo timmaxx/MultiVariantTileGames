@@ -22,9 +22,8 @@ import static timmax.tilegame.basemodel.GameStatus.VICTORY;
 // ToDo: Дополнить функционалом:
 //       - по хранению перечня игровых контроллеров (от которых можно принимать сигналы управления игрой),
 //       -- при игре с более чем одним игроком, контроллеры нужно учитывать по отдельному участнику.
-// ToDo: Переименовать в GameMatch (и интерфейс тоже).
-public abstract class ModelOfServer<ClientId> implements IModelOfServer {
-    protected static final Logger logger = LoggerFactory.getLogger(ModelOfServer.class);
+public abstract class GameMatch<ClientId> implements IGameMatch {
+    protected static final Logger logger = LoggerFactory.getLogger(GameMatch.class);
 
     public static final String PARAM_NAME_WIDTH = "Width";
     public static final String PARAM_NAME_HEIGHT = "Height";
@@ -40,7 +39,7 @@ public abstract class ModelOfServer<ClientId> implements IModelOfServer {
 
     private GameStatus gameStatus;
 
-    public ModelOfServer(
+    public GameMatch(
             GameType gameType,
             RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton,
             ClientId clientId) {
@@ -100,7 +99,7 @@ public abstract class ModelOfServer<ClientId> implements IModelOfServer {
         return false;
     }
 
-    // interface IModelOfServer:
+    // interface IGameMatch:
     @Override
     public void win() {
         setGameStatus(GameStatus.VICTORY);
