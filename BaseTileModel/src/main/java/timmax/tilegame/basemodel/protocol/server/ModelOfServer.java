@@ -19,24 +19,32 @@ import static timmax.tilegame.basemodel.GameStatus.VICTORY;
 // Абстрактная модель. Она уже может:
 // - хранить перечень удалённых выборок (которым нужно отправлять сообщения об игровых событиях),
 // - отправлять сообщения об игровых событиях (с помощью ссылки на абстрактный транспорт).
-// Todo: Дополнить функционалом:
-// - по хранению перечня игровых контроллеров (от которых можно принимать сигналы управления игрой),
-// -- при игре с более чем одним игроком, контроллеры нужно учитывать по отдельному участнику.
+// ToDo: Дополнить функционалом:
+//       - по хранению перечня игровых контроллеров (от которых можно принимать сигналы управления игрой),
+//       -- при игре с более чем одним игроком, контроллеры нужно учитывать по отдельному участнику.
+// ToDo: Переименовать в GameMatch (и интерфейс тоже).
 public abstract class ModelOfServer<ClientId> implements IModelOfServer {
     protected static final Logger logger = LoggerFactory.getLogger(ModelOfServer.class);
-    protected static final String PARAM_NAME_WIDTH = "Width";
-    protected static final String PARAM_NAME_HEIGHT = "Height";
 
-    protected final RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton;
-    // ToDo: Сейчас здесь одна переменная типа ClientId. И для одного игрока вполне норм.
+    public static final String PARAM_NAME_WIDTH = "Width";
+    public static final String PARAM_NAME_HEIGHT = "Height";
+
+    protected final GameType gameType;
+
+    // ToDo: Сейчас здесь одна переменная типа RemoteClientStateAutomaton и ClientId. И для одного игрока вполне норм.
     //       Но для для двух (а возможно и более игроков) или если какой-то участник игры, не являющийся игроком будет
     //       работать в отдельном клиенте, придётся создавать какую-то коллекцию, в которой и будет описание игроков
     //       или других участников.
-    private final ClientId clientId;
+    protected final RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton;
+    protected final ClientId clientId;
 
     private GameStatus gameStatus;
 
-    public ModelOfServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
+    public ModelOfServer(
+            GameType gameType,
+            RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton,
+            ClientId clientId) {
+        this.gameType = gameType;
         this.remoteClientStateAutomaton = remoteClientStateAutomaton;
         this.clientId = clientId;
     }

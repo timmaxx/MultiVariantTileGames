@@ -1,7 +1,5 @@
 package timmax.tilegame.game.minesweeper.model;
 
-import java.util.Map;
-
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
@@ -10,7 +8,6 @@ import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
-import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
 import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperPersistentParams;
@@ -21,8 +18,9 @@ import timmax.tilegame.game.minesweeper.model.gameobject.LevelGenerator;
 
 import static javafx.scene.paint.Color.*;
 
+// ToDo: Переименовать в GameMatchOfMinesweeper (после переименования ModelOfServer).
 public class ModelOfServerOfMinesweeper<ClientId> extends ModelOfServer<ClientId> {
-    private static final String PARAM_NAME_PERCENTS_OF_MINES = "Percents of mines";
+    public static final String PARAM_NAME_PERCENTS_OF_MINES = "Percents of mines";
 
     // Константы, описанные ниже относятся к визуализации.
     // ToDo: Вынести логику визуализации из класса.
@@ -43,8 +41,11 @@ public class ModelOfServerOfMinesweeper<ClientId> extends ModelOfServer<ClientId
     //       - GameType :: GameType(...)
     //       и в
     //       - ModelOfServerLoader :: getCollectionOfGameType(...)
-    public ModelOfServerOfMinesweeper(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
-        super(remoteClientStateAutomaton, clientId);
+    public ModelOfServerOfMinesweeper(
+            RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton,
+            ClientId clientId)
+            throws ClassNotFoundException, NoSuchMethodException {
+        super(new GameTypeOfMinesweeper(), remoteClientStateAutomaton, clientId);
     }
 
     public void createNewGame(int width, int height, int percentsOfMines) {
@@ -52,7 +53,7 @@ public class ModelOfServerOfMinesweeper<ClientId> extends ModelOfServer<ClientId
             return;
         }
 
-        // ToDo: Избавиться от "Warning:(107, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
+        // ToDo: Избавиться от "Warning:(57, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
         allMinesweeperObjects = levelGenerator.getLevel(width, height, percentsOfMines);
         allMinesweeperObjects.setModel(this);
 
@@ -76,26 +77,7 @@ public class ModelOfServerOfMinesweeper<ClientId> extends ModelOfServer<ClientId
         setGameStatus(allMinesweeperObjects.open(allMinesweeperObjects.getTileByXY(x, y)));
     }
 
-    // Overriden methods from interface IModelOfServer extends IGameType:
-    @Override
-    public String getGameName() {
-        return "Minesweeper";
-    }
-
-    @Override
-    public int getCountOfGamers() {
-        return 1;
-    }
-
-    @Override
-    public Map<String, ParamOfModelDescription> getMapOfParamsOfModelDescription() {
-        return Map.of(
-                PARAM_NAME_WIDTH, new ParamOfModelDescription(8, 2, 20),
-                PARAM_NAME_HEIGHT, new ParamOfModelDescription(8, 2, 20),
-                PARAM_NAME_PERCENTS_OF_MINES, new ParamOfModelDescription(10, 1, 99));
-    }
-
-    // Overiden methods from interface IModelOfServer:
+    // interface IModelOfServer:
     @Override
     public void createNewGame() {
         createNewGame(

@@ -2,7 +2,6 @@ package timmax.tilegame.game.sokoban.model;
 
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
-import java.util.Map;
 import java.util.Objects;
 
 import javafx.scene.input.KeyCode;
@@ -14,7 +13,6 @@ import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.protocol.server.ModelOfServer;
-import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 import timmax.tilegame.basemodel.tile.Direction;
 
@@ -68,8 +66,11 @@ public class ModelOfServerOfSokoban<ClientId> extends ModelOfServer<ClientId> {
     //       - GameType :: GameType(...)
     //       и в
     //       - ModelOfServerLoader :: getCollectionOfGameType(...)
-    public ModelOfServerOfSokoban(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
-        super(remoteClientStateAutomaton, clientId);
+    public ModelOfServerOfSokoban(
+            RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton,
+            ClientId clientId)
+            throws ClassNotFoundException, NoSuchMethodException {
+        super(new GameTypeOfSokoban(), remoteClientStateAutomaton, clientId);
     }
 
     private void moveUndo() {
@@ -262,23 +263,7 @@ public class ModelOfServerOfSokoban<ClientId> extends ModelOfServer<ClientId> {
         sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
     }
 
-    // Overiden methods from interface IModelOfServer extends IGameType:
-    @Override
-    public String getGameName() {
-        return "Sokoban";
-    }
-
-    @Override
-    public int getCountOfGamers() {
-        return 1;
-    }
-
-    @Override
-    public Map<String, ParamOfModelDescription> getMapOfParamsOfModelDescription() {
-        return null;
-    }
-
-    // Overiden methods from interface IModelOfServer:
+    // interface IModelOfServer:
     @Override
     public void createNewGame() {
         if (allSokobanObjects != null && getGameStatus() == GameStatus.GAME) {

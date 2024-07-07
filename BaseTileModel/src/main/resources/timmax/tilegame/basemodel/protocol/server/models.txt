@@ -1,2 +1,0 @@
-timmax.tilegame.game.minesweeper.model.ModelOfServerOfMinesweeper
-timmax.tilegame.game.sokoban.model.ModelOfServerOfSokoban
