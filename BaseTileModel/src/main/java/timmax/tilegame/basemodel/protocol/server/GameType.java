@@ -17,10 +17,16 @@ import timmax.tilegame.baseview.ViewMainField;
 public abstract class GameType implements IGameType, Externalizable {
     protected static final Logger logger = LoggerFactory.getLogger(GameType.class);
 
-    private Constructor<? extends IGameMatch> constructorOfGameMatch;
-
-    // ToDo: Эти поля можно оставить в базовом (этом) классе:
+    // ToDo: Рассмотреть вариант выделения из этого класса "String gameName" в отдельный класс GameTypeName.
+    //       Тогда EventOfServer31SetGameTypeSet будет передавать "Set<GameType> gameTypeSet",
+    //       а EventOfClient41SetGameType будет передавать не "String gameTypeName", а "GameTypeName gameTypeName".
+    //       Причины:
+    //          Среди реквизитов класса, идентифицирующим (типа первичным ключём) является gameName.
+    //          Поэтому, при передаче полной информации о типе игры нужно передавать все поля.
+    //          А вот при передаче как-бы ссылки на тип игры, достаточно передать только gameName.
+    //          И похожим образом сделано для идентификации GameMatch (см. коммент для InstanceIdOfModel)
     private String gameName;
+    private Constructor<? extends IGameMatch> constructorOfGameMatch;
     private int countOfGamers;
     // private String[] ; // тогда в этом массиве строк можно хранить имя роли каждого из игроков
     // (например для шашек: "Белые", "Черные"; для многих игр для двух игроков: "Первый", "Второй"; для одного: "Игрок").
@@ -126,9 +132,9 @@ public abstract class GameType implements IGameType, Externalizable {
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         gameName = (String) in.readObject();
         countOfGamers = in.readInt();
-        // ToDo: Избавиться от "Warning:(130, 34) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
+        // ToDo: Избавиться от "Warning:(136, 34) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
         mapOfViewNameViewClass = (Map<String, Class<? extends View>>) in.readObject();
-        // ToDo: Избавиться от "Warning:(132, 41) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription>'"
+        // ToDo: Избавиться от "Warning:(138, 41) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription>'"
         mapOfParamsOfModelDescription = (Map<String, ParamOfModelDescription>) in.readObject();
     }
 }

@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
+// ToDo:
+//      1. Переименовать в GameMatchId.
+//      2. Функциональность увеличить.
 public class InstanceIdOfModel implements Externalizable {
     private String id;
 

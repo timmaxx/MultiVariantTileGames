@@ -8,6 +8,7 @@ import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
 public class EventOfClient41SetGameType<ClientId> extends EventOfClient<ClientId> {
+    // ToDo: См. комментарий к GameType.
     private String gameTypeName;
 
     public EventOfClient41SetGameType() {

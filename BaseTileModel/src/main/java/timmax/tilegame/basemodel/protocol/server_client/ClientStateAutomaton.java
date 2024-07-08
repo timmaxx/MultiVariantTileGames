@@ -4,6 +4,13 @@ import timmax.tilegame.basemodel.protocol.server.GameType;
 
 import java.util.Set;
 
+// ToDo:
+//      1. Классы (см. ниже) свести в одну иерархию наследования.
+//      2. Model желательно определить жёстче (через extends).
+//      3. Переименовать Model в GameMatchX.
+// В качестве параметра Model в классах наследниках используются:
+// - IGameMatch и GameMatch для серверной стороны;
+// - InstanceIdOfModel для клиента и для передачи по сети.
 public class ClientStateAutomaton<Model> implements
         IClientState01NoConnect,
         IClientState02ConnectNonIdent,
@@ -27,7 +34,9 @@ public class ClientStateAutomaton<Model> implements
     private String userName; // ---- 2 (Пользователь)
     private Set<GameType> gameTypeSet; // ---- 3 (Список типов игр)
     private GameType gameType; // ---- 4 (Конкретный тип игры)
+    // ToDo: переименовать serverBaseModel в gameMatchX.
     private Set<Model> serverBaseModelSet; // ---- 5 (Набор моделей игр)
+    // ToDo: переименовать serverBaseModel в gameMatchX.
     private Model serverBaseModel; // ---- 6 (Конкретная модель игры)
     private Boolean gameIsPlaying; // ---- 7 (Партия была начата)
 
