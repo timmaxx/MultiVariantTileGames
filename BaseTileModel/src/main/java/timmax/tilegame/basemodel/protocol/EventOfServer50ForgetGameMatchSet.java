@@ -5,7 +5,7 @@ import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 public class EventOfServer50ForgetGameMatchSet extends EventOfServer {
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
-        localClientStateAutomaton.forgetGameMatchSet();
+        localClientStateAutomaton.forgetGameMatchXSet();
     }
 
     @Override

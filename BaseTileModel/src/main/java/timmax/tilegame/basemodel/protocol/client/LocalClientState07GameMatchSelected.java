@@ -12,8 +12,8 @@ public class LocalClientState07GameMatchSelected extends ClientState07GameMatchS
     // class AbstractClientState
     // ---- 6 (Конкретная модель игры)
     @Override
-    public void forgetGameMatch() {
-        super.forgetGameMatch();
+    public void forgetGameMatchX() {
+        super.forgetGameMatchX();
         getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnForgetGameMatch();
     }
 

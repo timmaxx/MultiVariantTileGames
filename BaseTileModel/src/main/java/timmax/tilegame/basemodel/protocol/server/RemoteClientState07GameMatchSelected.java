@@ -15,8 +15,8 @@ public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState0
     // class ClientState07GameMatchSelected
     // ---- 6 Конкретная партия игры
     @Override
-    public void forgetGameMatch() {
-        super.forgetGameMatch();
+    public void forgetGameMatchX() {
+        super.forgetGameMatchX();
         getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
                 clientId,
                 new EventOfServer60ForgetGameMatch()
@@ -37,7 +37,7 @@ public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState0
         // ToDo: Не предполагалось, что обращение к getClientStateAutomaton().getServerBaseModel0()
         //       понадобиться где-то, кроме ClientState0X..., но здесь понадобилось.
         //       Пришлось сделать public, но нужно вернуть package-private.
-        getClientStateAutomaton().getServerBaseModel0().createNewGame();
+        getClientStateAutomaton().getGameMatchX0().createNewGame();
     }
 
     // class AbstractClientState

@@ -35,9 +35,7 @@ public class ClientStateAutomaton<Model> implements
     private Set<GameType> gameTypeSet; // ---- 3 (Список типов игр)
     private GameType gameType; // ---- 4 (Конкретный тип игры)
     private Set<Model> gameMatchXSet; // ---- 5 (Набор моделей игр)
-
-    // ToDo: переименовать serverBaseModel в gameMatchX.
-    private Model serverBaseModel; // ---- 6 (Конкретная модель игры)
+    private Model gameMatchX; // ---- 6 (Конкретная модель игры)
     private Boolean gameIsPlaying; // ---- 7 (Партия была начата)
 
     public ClientStateAutomaton(
@@ -89,7 +87,7 @@ public class ClientStateAutomaton<Model> implements
     }
 
     void setGameType_(GameType gameType) {
-        clientState06GameMatchSetSelected.forgetGameMatchSet();
+        clientState06GameMatchSetSelected.forgetGameMatchXSet();
         setGameType0(gameType);
     }
 
@@ -101,23 +99,23 @@ public class ClientStateAutomaton<Model> implements
         this.gameMatchXSet = gameMatchXSet;
     }
 
-    void setGameMatchSet_(Set<Model> gameMatchXSet) {
-        clientState07GameMatchSelected.forgetGameMatch();
+    void setGameMatchXSet_(Set<Model> gameMatchXSet) {
+        clientState07GameMatchSelected.forgetGameMatchX();
         setGameMatchXSet0(gameMatchXSet);
     }
 
     // ToDo: Только из-за класса RemoteClientState07GameMatchSelected понадобилось сделать public.
-    public Model getServerBaseModel0() {
-        return serverBaseModel;
+    public Model getGameMatchX0() {
+        return gameMatchX;
     }
 
-    void setServerBaseModel0(Model serverBaseModel) {
-        this.serverBaseModel = serverBaseModel;
+    void setGameMatchX0(Model gameMatchX) {
+        this.gameMatchX = gameMatchX;
     }
 
-    void setServerBaseModel_(Model serverBaseModel) {
+    void setGameMatchX_(Model gameMatchX) {
         clientState08GameMatchPlaying.forgetGameMatchPlaying();
-        setServerBaseModel0(serverBaseModel);
+        setGameMatchX0(gameMatchX);
     }
 
     Boolean getGameIsPlaying0() {
@@ -188,38 +186,38 @@ public class ClientStateAutomaton<Model> implements
     }
 
     @Override
-    public void setGameMatchSet(Set<Model> gameMatchXSet) {
-        clientState05GameTypeSelected.setGameMatchSet(gameMatchXSet);
+    public void setGameMatchXSet(Set<Model> gameMatchXSet) {
+        clientState05GameTypeSelected.setGameMatchXSet(gameMatchXSet);
         currenState = clientState06GameMatchSetSelected;
     }
 
     // 6 interface IClientState06GameMatchSetSelected
     @Override
-    public Set<Model> getGameMatchSet() {
-        return clientState06GameMatchSetSelected.getGameMatchSet();
+    public Set<Model> getGameMatchXSet() {
+        return clientState06GameMatchSetSelected.getGameMatchXSet();
     }
 
     @Override
-    public void forgetGameMatchSet() {
-        clientState06GameMatchSetSelected.forgetGameMatchSet();
+    public void forgetGameMatchXSet() {
+        clientState06GameMatchSetSelected.forgetGameMatchXSet();
         currenState = clientState05GameTypeSelected;
     }
 
     @Override
-    public void setGameMatch(Model serverBaseModel) {
-        clientState06GameMatchSetSelected.setGameMatch(serverBaseModel);
+    public void setGameMatchX(Model gameMatchX) {
+        clientState06GameMatchSetSelected.setGameMatchX(gameMatchX);
         currenState = clientState07GameMatchSelected;
     }
 
     // 7 interface IClientState07GameMatchSelected
     @Override
-    public Model getServerBaseModel() {
-        return clientState07GameMatchSelected.getServerBaseModel();
+    public Model getGameMatchX() {
+        return clientState07GameMatchSelected.getGameMatchX();
     }
 
     @Override
-    public void forgetGameMatch() {
-        clientState07GameMatchSelected.forgetGameMatch();
+    public void forgetGameMatchX() {
+        clientState07GameMatchSelected.forgetGameMatchX();
         currenState = clientState06GameMatchSetSelected;
     }
 

@@ -7,13 +7,13 @@ public abstract class ClientState07GameMatchSelected<Model> extends AbstractClie
 
     // interface IClientState07GameMatchSelected
     @Override
-    public Model getServerBaseModel() {
-        return getClientStateAutomaton().getServerBaseModel0();
+    public Model getGameMatchX() {
+        return getClientStateAutomaton().getGameMatchX0();
     }
 
     @Override
-    public void forgetGameMatch() {
-        getClientStateAutomaton().setServerBaseModel_(null);
+    public void forgetGameMatchX() {
+        getClientStateAutomaton().setGameMatchX_(null);
     }
 
     @Override

@@ -17,7 +17,7 @@ public class EventOfClient51SetGameMatchSet<ClientId> extends EventOfClient<Clie
         // 1. Игра для 2-х и более игроков.
         // 2. Есть хотя-бы одна не занятая роль.
 
-        remoteClientStateAutomaton.setGameMatchSet(new HashSet<>());
+        remoteClientStateAutomaton.setGameMatchXSet(new HashSet<>());
     }
 
     @Override

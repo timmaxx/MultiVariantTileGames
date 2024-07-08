@@ -9,17 +9,17 @@ public abstract class ClientState06GameMatchSetSelected<Model> extends AbstractC
 
     // interface IClientState06GameMatchSetSelected
     @Override
-    public Set<Model> getGameMatchSet() {
+    public Set<Model> getGameMatchXSet() {
         return getClientStateAutomaton().getGameMatchXSet0();
     }
 
     @Override
-    public void forgetGameMatchSet() {
-        getClientStateAutomaton().setGameMatchSet_(null);
+    public void forgetGameMatchXSet() {
+        getClientStateAutomaton().setGameMatchXSet_(null);
     }
 
     @Override
-    public void setGameMatch(Model serverBaseModel) {
-        getClientStateAutomaton().setServerBaseModel_(serverBaseModel);
+    public void setGameMatchX(Model gameMatchX) {
+        getClientStateAutomaton().setGameMatchX_(gameMatchX);
     }
 }

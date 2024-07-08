@@ -22,8 +22,8 @@ public class LocalClientState05GameTypeSelected extends ClientState05GameTypeSel
 
     // ---- 5 (Набор моделей игр)
     @Override
-    public void setGameMatchSet(Set<GameMatchId> gameMatchIdSet) {
-        super.setGameMatchSet(gameMatchIdSet);
+    public void setGameMatchXSet(Set<GameMatchId> gameMatchXSet) {
+        super.setGameMatchXSet(gameMatchXSet);
         getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnSetGameMatchSet();
     }
 

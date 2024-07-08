@@ -21,7 +21,7 @@ public abstract class ClientState05GameTypeSelected<Model> extends AbstractClien
     }
 
     @Override
-    public void setGameMatchSet(Set<Model> serverBaseModelSet) {
-        getClientStateAutomaton().setGameMatchSet_(serverBaseModelSet);
+    public void setGameMatchXSet(Set<Model> gameMatchXSet) {
+        getClientStateAutomaton().setGameMatchXSet_(gameMatchXSet);
     }
 }

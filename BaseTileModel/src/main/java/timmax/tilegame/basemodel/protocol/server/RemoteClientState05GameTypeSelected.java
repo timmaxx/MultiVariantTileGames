@@ -29,12 +29,12 @@ public class RemoteClientState05GameTypeSelected<ClientId> extends ClientState05
 
     // ---- 5 Перечень партий
     @Override
-    public void setGameMatchSet(Set<IGameMatch> iGameMatchSet) {
-        super.setGameMatchSet(iGameMatchSet);
+    public void setGameMatchXSet(Set<IGameMatch> gameMatchXSet) {
+        super.setGameMatchXSet(gameMatchXSet);
         getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
                 clientId,
                 new EventOfServer51SetGameMatchSet(
-                        iGameMatchSet
+                        gameMatchXSet
                                 .stream()
                                 .map(x -> new GameMatchId(x.toString()))
                                 .collect(Collectors.toSet())

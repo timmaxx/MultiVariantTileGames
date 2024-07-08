@@ -16,8 +16,8 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
     // class ClientState06GameMatchSetSelected
     // ---- 5 Перечень партий
     @Override
-    public void forgetGameMatchSet() {
-        super.forgetGameMatchSet();
+    public void forgetGameMatchXSet() {
+        super.forgetGameMatchXSet();
         getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
                 clientId,
                 new EventOfServer50ForgetGameMatchSet()
@@ -26,12 +26,12 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
 
     // ---- 6 Конкретная партия игры
     @Override
-    public void setGameMatch(IGameMatch iGameMatch) {
-        super.setGameMatch(iGameMatch);
+    public void setGameMatchX(IGameMatch gameMatchX) {
+        super.setGameMatchX(gameMatchX);
         getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
                 clientId,
                 new EventOfServer61SetGameMatch(
-                        new GameMatchId(iGameMatch.toString())
+                        new GameMatchId(gameMatchX.toString())
                 )
         );
     }

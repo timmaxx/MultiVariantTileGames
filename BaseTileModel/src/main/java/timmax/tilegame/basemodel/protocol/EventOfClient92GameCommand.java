@@ -21,7 +21,7 @@ public class EventOfClient92GameCommand<ClientId> extends EventOfClient<ClientId
 
     @Override
     public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
-        gameCommand.executeOnServer(remoteClientStateAutomaton.getServerBaseModel());
+        gameCommand.executeOnServer(remoteClientStateAutomaton.getGameMatchX());
     }
 
     @Override

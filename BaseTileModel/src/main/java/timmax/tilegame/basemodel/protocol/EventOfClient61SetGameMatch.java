@@ -69,7 +69,7 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
                 System.exit(1);
             }
             remoteClientStateAutomaton
-                    .getGameMatchSet()
+                    .getGameMatchXSet()
                     // ToDo: Исправить Warning:(54, 26) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IGameMatch' to 'timmax.tilegame.basemodel.protocol.server.IGameMatch<ClientId>'
                     .add(iGameMatch);
         }
@@ -91,7 +91,7 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
         }
         */
         // ToDo: Исправить Warning:(72, 87) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IGameMatch' to 'timmax.tilegame.basemodel.protocol.server.IGameMatch<ClientId>'
-        remoteClientStateAutomaton.setGameMatch(iGameMatch);
+        remoteClientStateAutomaton.setGameMatchX(iGameMatch);
     }
 
     @Override
