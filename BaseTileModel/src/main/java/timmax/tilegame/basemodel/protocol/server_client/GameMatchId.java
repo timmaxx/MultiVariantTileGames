@@ -23,7 +23,7 @@ public class GameMatchId implements Externalizable {
 
     @Override
     public String toString() {
-        return "InstanceIdOfModel{" +
+        return "GameMatchId{" +
                 "id='" + id + '\'' +
                 '}';
     }

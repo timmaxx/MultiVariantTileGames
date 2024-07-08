@@ -80,13 +80,13 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
             iGameMatch = remoteClientState
                     .getGameMatchSet()
                     .stream()
-                    .filter(x -> x.toString().equals(instanceIdOfModel.getId()))
+                    .filter(x -> x.toString().equals(gameMatchId.getId()))
                     .findAny()
                     .orElse(null)
             ;
 
             if (iGameMatch == null) {
-                logger.error("There is not model '" + instanceIdOfModel.getId() + "'");
+                logger.error("There is not model '" + gameMatchId.getId() + "'");
                 remoteClientState.forgetServerBaseModel();
                 return;
             }
