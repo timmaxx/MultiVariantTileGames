@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
-import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
+import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
 import timmax.tilegame.transport.TransportOfClient;
 
 public class Pane06SelectGameMatch<ClientId> extends AbstractConnectStatePane<ClientId> {
@@ -25,7 +25,7 @@ public class Pane06SelectGameMatch<ClientId> extends AbstractConnectStatePane<Cl
         buttonNextState.setText("Select the game match");
         buttonNextState.setOnAction(event -> {
             disableAllControls();
-            transportOfClient.setGameMatch(new InstanceIdOfModel(comboBoxGameSet.getValue()));
+            transportOfClient.setGameMatch(new GameMatchId(comboBoxGameSet.getValue()));
         });
 
         // Контролы для продвижения состояния "назад":
@@ -106,13 +106,14 @@ public class Pane06SelectGameMatch<ClientId> extends AbstractConnectStatePane<Cl
     @Override
     public void updateOnSetGameMatchSet() {
         // Также см. комментарии к EventOfClient51GiveGamePlaySet
-        ObservableList<InstanceIdOfModel> observableList = FXCollections.observableArrayList(new InstanceIdOfModel("New game"));
+        ObservableList<GameMatchId> observableList = FXCollections.observableArrayList(new GameMatchId("New game"));
         observableList.addAll(transportOfClient.getLocalClientStateAutomaton().getGameMatchSet());
         comboBoxGameSet.setItems(
                 FXCollections.observableArrayList(
                         observableList
                                 .stream()
-                                .map(InstanceIdOfModel::getId)
+                                // ToDo: Именно этого функционала и не хватает в GameMatchId
+                                .map(GameMatchId::getId)
                                 .toList()
                 )
         );

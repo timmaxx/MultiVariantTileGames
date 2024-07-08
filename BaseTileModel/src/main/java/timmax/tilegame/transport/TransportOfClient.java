@@ -6,7 +6,7 @@ import java.util.Map;
 import timmax.tilegame.basemodel.protocol.EventOfClient;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
+import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
 
 // ToDo: Непонятно, почему класс параметризирован ClientId? Ведь он используется на клиенте. В частности
 //       sendEventOfClient(...)
@@ -52,7 +52,7 @@ public interface TransportOfClient<ClientId> {
     // ---- 6 (MatchSetSelected)
     // ???                                                                              //  6       Set<Model> getGameMatchSet();
     void forgetGameMatchSet();                                                  //  51  //  6 -> 5  void forgetGameMatchSet();
-    void setGameMatch(InstanceIdOfModel model);                                 //  62  //  6 -> 7  void setGameMatch(Model serverBaseModel);
+    void setGameMatch(GameMatchId gameMatchId);                                 //  62  //  6 -> 7  void setGameMatch(Model serverBaseModel);
 
     // ---- 7 (MatchSelected)
     // ???                                                                              //  7       Model getServerBaseModel();

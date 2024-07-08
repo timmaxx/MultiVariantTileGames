@@ -24,7 +24,7 @@ public abstract class GameType implements IGameType, Externalizable {
     //          Среди реквизитов класса, идентифицирующим (типа первичным ключём) является gameName.
     //          Поэтому, при передаче полной информации о типе игры нужно передавать все поля.
     //          А вот при передаче как-бы ссылки на тип игры, достаточно передать только gameName.
-    //          И похожим образом сделано для идентификации GameMatch (см. коммент для InstanceIdOfModel)
+    //          И похожим образом сделано для идентификации GameMatch (см. коммент для GameMatchId)
     private String gameName;
     private Constructor<? extends IGameMatch> constructorOfGameMatch;
     private int countOfGamers;

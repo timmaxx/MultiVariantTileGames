@@ -3,7 +3,7 @@ package timmax.tilegame.basemodel.protocol.server;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server_client.ClientState06GameMatchSetSelected;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
+import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
 
 public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientState06GameMatchSetSelected<IGameMatch> {
     private final ClientId clientId;
@@ -31,7 +31,9 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
         getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
                 clientId,
                 new EventOfServer61SetGameMatch(
-                        new InstanceIdOfModel(iGameMatch.toString())
+                        // ToDo: Именно этого функционала и не хватает в GameMatchId
+                        // Создаём gameMatchId из iGameMatch
+                        new GameMatchId(iGameMatch.toString())
                 )
         );
     }

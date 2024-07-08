@@ -10,7 +10,7 @@ import java.util.Set;
 //      3. Переименовать Model в GameMatchX.
 // В качестве параметра Model в классах наследниках используются:
 // - IGameMatch и GameMatch для серверной стороны;
-// - InstanceIdOfModel для клиента и для передачи по сети.
+// - GameMatchId для клиента и для передачи по сети.
 public class ClientStateAutomaton<Model> implements
         IClientState01NoConnect,
         IClientState02ConnectNonIdent,

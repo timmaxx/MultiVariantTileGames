@@ -5,39 +5,39 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
+import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
 
 public class EventOfServer61SetGameMatch extends EventOfServer {
-    InstanceIdOfModel serverBaseModel;
+    GameMatchId gameMatchId;
 
     public EventOfServer61SetGameMatch() {
         super();
     }
 
-    public EventOfServer61SetGameMatch(InstanceIdOfModel serverBaseModel) {
+    public EventOfServer61SetGameMatch(GameMatchId gameMatchId) {
         this();
-        this.serverBaseModel = serverBaseModel;
+        this.gameMatchId = gameMatchId;
     }
 
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
-        localClientStateAutomaton.setGameMatch(serverBaseModel);
+        localClientStateAutomaton.setGameMatch(gameMatchId);
     }
 
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{" +
-                "serverBaseModel=" + serverBaseModel +
+                "gameMatchId=" + gameMatchId +
                 '}';
     }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(serverBaseModel);
+        out.writeObject(gameMatchId);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        serverBaseModel = (InstanceIdOfModel) in.readObject();
+        gameMatchId = (GameMatchId) in.readObject();
     }
 }

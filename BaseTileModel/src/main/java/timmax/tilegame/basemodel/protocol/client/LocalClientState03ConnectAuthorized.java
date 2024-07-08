@@ -3,12 +3,12 @@ package timmax.tilegame.basemodel.protocol.client;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server_client.ClientState03ConnectAuthorized;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
+import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
 
 import java.util.Set;
 
-public class LocalClientState03ConnectAuthorized extends ClientState03ConnectAuthorized<InstanceIdOfModel> {
-    public LocalClientState03ConnectAuthorized(ClientStateAutomaton<InstanceIdOfModel> clientStateAutomaton) {
+public class LocalClientState03ConnectAuthorized extends ClientState03ConnectAuthorized<GameMatchId> {
+    public LocalClientState03ConnectAuthorized(ClientStateAutomaton<GameMatchId> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 

@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
+import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
 import timmax.tilegame.transport.TransportOfClient;
 
 // Этот класс, к сожалению, я не смог использовать "многоразово".
@@ -155,9 +155,9 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     }
 
     @Override
-    public void setGameMatch(InstanceIdOfModel model) {
-        logger.debug("gameMatchSelect(InstanceIdOfModel model)");
-        sendEventOfClient(new EventOfClient61SetGameMatch<>(model));
+    public void setGameMatch(GameMatchId gameMatchId) {
+        logger.debug("setGameMatch(GameMatchId gameMatchId)");
+        sendEventOfClient(new EventOfClient61SetGameMatch<>(gameMatchId));
     }
 
     // 7
@@ -169,14 +169,14 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
 
     @Override
     public void setGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue) {
-        logger.debug("startPlaying()");
+        logger.debug("setGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue)");
         sendEventOfClient(new EventOfClient71SetGameMatchPlaying<>(mapOfParamsOfModelValue));
     }
 
     // 8
     @Override
     public void forgetGameMatchPlaying() {
-        logger.debug("forgetGameIsPlaying()");
+        logger.debug("forgetGameMatchPlaying()");
         sendEventOfClient(new EventOfClient70ForgetGameMatchPlaying<>());
     }
 }

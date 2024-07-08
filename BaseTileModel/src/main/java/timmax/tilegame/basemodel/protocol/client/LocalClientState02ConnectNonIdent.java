@@ -2,10 +2,10 @@ package timmax.tilegame.basemodel.protocol.client;
 
 import timmax.tilegame.basemodel.protocol.server_client.ClientState02ConnectNonIdent;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
+import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
 
-public class LocalClientState02ConnectNonIdent extends ClientState02ConnectNonIdent<InstanceIdOfModel> {
-    public LocalClientState02ConnectNonIdent(ClientStateAutomaton<InstanceIdOfModel> clientStateAutomaton) {
+public class LocalClientState02ConnectNonIdent extends ClientState02ConnectNonIdent<GameMatchId> {
+    public LocalClientState02ConnectNonIdent(ClientStateAutomaton<GameMatchId> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 

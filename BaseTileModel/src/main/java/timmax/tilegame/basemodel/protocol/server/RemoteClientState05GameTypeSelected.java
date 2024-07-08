@@ -3,7 +3,7 @@ package timmax.tilegame.basemodel.protocol.server;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server_client.ClientState05GameTypeSelected;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
+import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -36,7 +36,8 @@ public class RemoteClientState05GameTypeSelected<ClientId> extends ClientState05
                 new EventOfServer51SetGameMatchSet(
                         iGameMatchSet
                                 .stream()
-                                .map(x -> new InstanceIdOfModel(x.toString()))
+                                // ToDo: Именно этого функционала и не хватает в GameMatchId
+                                .map(x -> new GameMatchId(x.toString()))
                                 .collect(Collectors.toSet())
                 )
         );

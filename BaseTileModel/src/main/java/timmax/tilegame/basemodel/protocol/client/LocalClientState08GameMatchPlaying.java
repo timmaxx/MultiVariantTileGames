@@ -2,10 +2,10 @@ package timmax.tilegame.basemodel.protocol.client;
 
 import timmax.tilegame.basemodel.protocol.server_client.ClientState08GameMatchPlaying;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
+import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
 
-public class LocalClientState08GameMatchPlaying extends ClientState08GameMatchPlaying<InstanceIdOfModel> {
-    public LocalClientState08GameMatchPlaying(ClientStateAutomaton<InstanceIdOfModel> clientStateAutomaton) {
+public class LocalClientState08GameMatchPlaying extends ClientState08GameMatchPlaying<GameMatchId> {
+    public LocalClientState08GameMatchPlaying(ClientStateAutomaton<GameMatchId> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 

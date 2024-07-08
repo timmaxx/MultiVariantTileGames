@@ -9,18 +9,18 @@ import java.lang.reflect.InvocationTargetException;
 import timmax.tilegame.basemodel.protocol.server.IGameMatch;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.InstanceIdOfModel;
+import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
 
 public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientId> {
-    private InstanceIdOfModel instanceIdOfModel;
+    private GameMatchId gameMatchId;
 
     public EventOfClient61SetGameMatch() {
         super();
     }
 
-    public EventOfClient61SetGameMatch(InstanceIdOfModel instanceIdOfModel) {
+    public EventOfClient61SetGameMatch(GameMatchId gameMatchId) {
         this();
-        this.instanceIdOfModel = instanceIdOfModel;
+        this.gameMatchId = gameMatchId;
     }
 
     // ToDo: Вероятно нужно переработать код executeOnServer(...) для классов (см. ниже) и вероятно перестать
@@ -40,14 +40,16 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
     public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
         // ToDo: Исправить Warning:(33, 9) Raw use of parameterized class 'IGameMatch'
         IGameMatch iGameMatch = null;
-        if (instanceIdOfModel.getId() == null) {
+        // ToDo: Именно этого функционала и не хватает в GameMatchId
+        if (gameMatchId.getId() == null) {
             remoteClientStateAutomaton.getTransportOfServer().sendEventOfServer(
                     clientId,
                     new EventOfServer60ForgetGameMatch()
             );
             return;
         }
-        if (instanceIdOfModel.getId().equals("New game")) {
+        // ToDo: Именно этого функционала и не хватает в GameMatchId
+        if (gameMatchId.getId().equals("New game")) {
             // Определяем ранее выбранный тип
             GameType gameType = remoteClientStateAutomaton.getGameType();
             Constructor<? extends IGameMatch> constructorOfGameMatch = gameType.getConstructorOfGameMatch();
@@ -97,18 +99,18 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{" +
-                "instanceIdOfModel=" + instanceIdOfModel +
+                "gameMatchId=" + gameMatchId +
                 '}';
     }
 
     // interface Externalizable
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(instanceIdOfModel);
+        out.writeObject(gameMatchId);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        instanceIdOfModel = (InstanceIdOfModel) in.readObject();
+        gameMatchId = (GameMatchId) in.readObject();
     }
 }
