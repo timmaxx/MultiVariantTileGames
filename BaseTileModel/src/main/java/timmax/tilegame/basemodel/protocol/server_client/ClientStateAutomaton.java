@@ -34,8 +34,8 @@ public class ClientStateAutomaton<Model> implements
     private String userName; // ---- 2 (Пользователь)
     private Set<GameType> gameTypeSet; // ---- 3 (Список типов игр)
     private GameType gameType; // ---- 4 (Конкретный тип игры)
-    // ToDo: переименовать serverBaseModel в gameMatchX.
-    private Set<Model> serverBaseModelSet; // ---- 5 (Набор моделей игр)
+    private Set<Model> gameMatchXSet; // ---- 5 (Набор моделей игр)
+
     // ToDo: переименовать serverBaseModel в gameMatchX.
     private Model serverBaseModel; // ---- 6 (Конкретная модель игры)
     private Boolean gameIsPlaying; // ---- 7 (Партия была начата)
@@ -93,18 +93,17 @@ public class ClientStateAutomaton<Model> implements
         setGameType0(gameType);
     }
 
-    Set<Model> getServerBaseModelSet0() {
-        return serverBaseModelSet;
+    Set<Model> getGameMatchXSet0() {
+        return gameMatchXSet;
     }
 
-    void setServerBaseModelSet0(Set<Model> serverBaseModelSet) {
-        this.serverBaseModelSet = serverBaseModelSet;
+    void setGameMatchXSet0(Set<Model> gameMatchXSet) {
+        this.gameMatchXSet = gameMatchXSet;
     }
 
-    // ToDo: Имя метода с предыдущим должно почти совпадать!
-    void setGameMatchSet_(Set<Model> serverBaseModelSet) {
+    void setGameMatchSet_(Set<Model> gameMatchXSet) {
         clientState07GameMatchSelected.forgetGameMatch();
-        setServerBaseModelSet0(serverBaseModelSet);
+        setGameMatchXSet0(gameMatchXSet);
     }
 
     // ToDo: Только из-за класса RemoteClientState07GameMatchSelected понадобилось сделать public.
@@ -116,7 +115,6 @@ public class ClientStateAutomaton<Model> implements
         this.serverBaseModel = serverBaseModel;
     }
 
-    // ToDo: Имя метода с предыдущим должно почти совпадать!
     void setServerBaseModel_(Model serverBaseModel) {
         clientState08GameMatchPlaying.forgetGameMatchPlaying();
         setServerBaseModel0(serverBaseModel);
@@ -190,8 +188,8 @@ public class ClientStateAutomaton<Model> implements
     }
 
     @Override
-    public void setGameMatchSet(Set<Model> serverBaseModelSet) {
-        clientState05GameTypeSelected.setGameMatchSet(serverBaseModelSet);
+    public void setGameMatchSet(Set<Model> gameMatchXSet) {
+        clientState05GameTypeSelected.setGameMatchSet(gameMatchXSet);
         currenState = clientState06GameMatchSetSelected;
     }
 

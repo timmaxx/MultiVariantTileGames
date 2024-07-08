@@ -25,7 +25,7 @@ public class GameMatchId implements Externalizable {
     }
 
     public boolean equalsNewGame() {
-        return id != null && id.equals("New Game");
+        return id != null && id.equals("New game");
     }
 
     @Override
