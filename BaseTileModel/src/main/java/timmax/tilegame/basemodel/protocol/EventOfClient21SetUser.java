@@ -27,6 +27,7 @@ public class EventOfClient21SetUser<ClientId> extends EventOfClient<ClientId> {
             password = ""; // Не будем даже хранить пароль.
             remoteClientStateAutomaton.setUser(userName);
         } else {
+            password = ""; // Не будем даже хранить не правильный пароль.
             remoteClientStateAutomaton.forgetUser();
         }
     }
