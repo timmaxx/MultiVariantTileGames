@@ -40,16 +40,14 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
     public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
         // ToDo: Исправить Warning:(33, 9) Raw use of parameterized class 'IGameMatch'
         IGameMatch iGameMatch = null;
-        // ToDo: Именно этого функционала и не хватает в GameMatchId
-        if (gameMatchId.getId() == null) {
+        if (gameMatchId.isNullOrEmpty()) {
             remoteClientStateAutomaton.getTransportOfServer().sendEventOfServer(
                     clientId,
                     new EventOfServer60ForgetGameMatch()
             );
             return;
         }
-        // ToDo: Именно этого функционала и не хватает в GameMatchId
-        if (gameMatchId.getId().equals("New game")) {
+        if (gameMatchId.equalsNewGame()) {
             // Определяем ранее выбранный тип
             GameType gameType = remoteClientStateAutomaton.getGameType();
             Constructor<? extends IGameMatch> constructorOfGameMatch = gameType.getConstructorOfGameMatch();

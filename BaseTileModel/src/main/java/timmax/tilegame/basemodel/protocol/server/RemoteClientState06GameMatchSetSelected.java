@@ -31,8 +31,6 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
         getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
                 clientId,
                 new EventOfServer61SetGameMatch(
-                        // ToDo: Именно этого функционала и не хватает в GameMatchId
-                        // Создаём gameMatchId из iGameMatch
                         new GameMatchId(iGameMatch.toString())
                 )
         );

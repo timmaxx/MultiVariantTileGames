@@ -36,7 +36,6 @@ public class RemoteClientState05GameTypeSelected<ClientId> extends ClientState05
                 new EventOfServer51SetGameMatchSet(
                         iGameMatchSet
                                 .stream()
-                                // ToDo: Именно этого функционала и не хватает в GameMatchId
                                 .map(x -> new GameMatchId(x.toString()))
                                 .collect(Collectors.toSet())
                 )

@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-// ToDo: Функциональность увеличить.
 public class GameMatchId implements Externalizable {
     private String id;
 
@@ -19,6 +18,14 @@ public class GameMatchId implements Externalizable {
 
     public String getId() {
         return id;
+    }
+
+    public boolean isNullOrEmpty() {
+        return id == null || id.equals("");
+    }
+
+    public boolean equalsNewGame() {
+        return id != null && id.equals("New Game");
     }
 
     @Override

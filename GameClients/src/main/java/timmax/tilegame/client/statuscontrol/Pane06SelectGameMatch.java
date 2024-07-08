@@ -112,7 +112,6 @@ public class Pane06SelectGameMatch<ClientId> extends AbstractConnectStatePane<Cl
                 FXCollections.observableArrayList(
                         observableList
                                 .stream()
-                                // ToDo: Именно этого функционала и не хватает в GameMatchId
                                 .map(GameMatchId::getId)
                                 .toList()
                 )
