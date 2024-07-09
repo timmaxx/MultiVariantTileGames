@@ -44,6 +44,10 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
         return setOfViewName;
     }
 
+    void ViewNameSetClear() {
+        setOfViewName.clear();
+    }
+
     public void setMapOfParamsOfModelValue(Map<String, Integer> mapOfParamsOfModelValue) {
         this.mapOfParamsOfModelValue = mapOfParamsOfModelValue;
     }
