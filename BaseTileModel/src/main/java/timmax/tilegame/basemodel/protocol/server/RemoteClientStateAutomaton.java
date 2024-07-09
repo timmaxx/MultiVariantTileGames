@@ -25,8 +25,8 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
 
     private final Set<String> viewNameSet;
 
-    // ToDo: Переименовать
-    private Map<String, Integer> mapOfParamsOfModelValue;
+    // ToDo: Найти функционал, использующий мапу, и перенести сюда.
+    private Map<String, Integer> paramsOfModelValueMap;
 
     public RemoteClientStateAutomaton(
             IFabricOfRemoteClientStates<ClientId> fabricOfClientStatesForServer,
@@ -56,11 +56,11 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
         return viewNameSet.add(viewName);
     }
 
-    public void setMapOfParamsOfModelValue(Map<String, Integer> mapOfParamsOfModelValue) {
-        this.mapOfParamsOfModelValue = mapOfParamsOfModelValue;
+    public void setParamsOfModelValueMap(Map<String, Integer> mapOfParamsOfModelValue) {
+        this.paramsOfModelValueMap = mapOfParamsOfModelValue;
     }
 
-    public Map<String, Integer> getMapOfParamsOfModelValue() {
-        return mapOfParamsOfModelValue;
+    public Map<String, Integer> getParamsOfModelValueMap() {
+        return paramsOfModelValueMap;
     }
 }

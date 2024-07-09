@@ -80,9 +80,9 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     @Override
     public void createNewGame() {
         createNewGame(
-                remoteClientStateAutomaton.getMapOfParamsOfModelValue().get(PARAM_NAME_WIDTH),
-                remoteClientStateAutomaton.getMapOfParamsOfModelValue().get(PARAM_NAME_HEIGHT),
-                remoteClientStateAutomaton.getMapOfParamsOfModelValue().get(PARAM_NAME_PERCENTS_OF_MINES)
+                remoteClientStateAutomaton.getParamsOfModelValueMap().get(PARAM_NAME_WIDTH),
+                remoteClientStateAutomaton.getParamsOfModelValueMap().get(PARAM_NAME_HEIGHT),
+                remoteClientStateAutomaton.getParamsOfModelValueMap().get(PARAM_NAME_PERCENTS_OF_MINES)
         );
         sendGameEvent(new GameEventMinesweeperPersistentParams(allMinesweeperObjects.getCountOfMines()));
     }
