@@ -27,7 +27,7 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
 
     private final Set<String> viewNameSet;
 
-    // ToDo: Найти функционал, использующий мапу, и перенести сюда.
+    // ToDo: Мапу и её сеттер и гетер перенести в класс GameMatch.
     private Map<String, Integer> paramsOfModelValueMap;
 
     public RemoteClientStateAutomaton(
