@@ -91,14 +91,13 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         return false;
     }
 
+    // ToDo: Сеттер вероятно совсем не нужен, т.к. пусть лучше конструктор инициализирует.
     public void setParamsOfModelValueMap(Map<String, Integer> mapOfParamsOfModelValue) {
         this.paramsOfModelValueMap = mapOfParamsOfModelValue;
     }
 
-    // ToDo: Создать метод в классе GameMatch, который сразу будет как paramsOfModelValueMap.get(PARAM_NAME_WIDTH).
-    //       И тогда удалить getParamsOfModelValueMap().
-    public Map<String, Integer> getParamsOfModelValueMap() {
-        return paramsOfModelValueMap;
+    public int paramsOfModelValueMapGet(String paramName) {
+        return paramsOfModelValueMap.get(paramName);
     }
 
     // interface IGameMatch:

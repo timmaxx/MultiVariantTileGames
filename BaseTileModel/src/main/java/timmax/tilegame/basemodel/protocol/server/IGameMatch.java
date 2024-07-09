@@ -16,7 +16,5 @@ public interface IGameMatch {
 
     // ToDo: Сеттер вероятно совсем не нужен, т.к. пусть лучше конструктор инициализирует.
     void setParamsOfModelValueMap(Map<String, Integer> mapOfParamsOfModelValue);
-    // ToDo: Геттер в чистом виде вряд-ли нужен. Вместо этого сделать доступ к
-    //       paramsOfModelValueMap.get(...)
-    Map<String, Integer> getParamsOfModelValueMap();
+    int paramsOfModelValueMapGet(String paramName);
 }

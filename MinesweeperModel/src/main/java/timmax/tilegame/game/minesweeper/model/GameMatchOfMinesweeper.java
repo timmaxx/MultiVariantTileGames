@@ -80,10 +80,9 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     @Override
     public void createNewGame() {
         createNewGame(
-                // ToDo: Создать метод в классе GameMatch, который сразу будет как get(PARAM_NAME_WIDTH).
-                getParamsOfModelValueMap().get(PARAM_NAME_WIDTH),
-                getParamsOfModelValueMap().get(PARAM_NAME_HEIGHT),
-                getParamsOfModelValueMap().get(PARAM_NAME_PERCENTS_OF_MINES)
+                paramsOfModelValueMapGet(PARAM_NAME_WIDTH),
+                paramsOfModelValueMapGet(PARAM_NAME_HEIGHT),
+                paramsOfModelValueMapGet(PARAM_NAME_PERCENTS_OF_MINES)
         );
         sendGameEvent(new GameEventMinesweeperPersistentParams(allMinesweeperObjects.getCountOfMines()));
     }
