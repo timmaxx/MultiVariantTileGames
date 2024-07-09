@@ -1,7 +1,5 @@
 package timmax.tilegame.basemodel.protocol.server;
 
-import java.util.Set;
-
 import javafx.scene.paint.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,8 +8,6 @@ import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
-import timmax.tilegame.basemodel.protocol.EventOfServer;
-import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent;
 
 import static timmax.tilegame.basemodel.GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
 import static timmax.tilegame.basemodel.GameStatus.VICTORY;
@@ -70,20 +66,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
 
     // Посылает событие всем выборкам.
     public void sendGameEvent(GameEvent gameEvent) {
-        // ToDo: Пробовал сразу написать так:
-        //       for (String viewName : remoteClientState.getSetOfViewName())
-        //       Но такой вариант даже не компилировался.
-        //       Разобраться!
-
-        // ToDo: Перенести функционал в RemoteClientStateAutomaton:
-        //       Сначала извлекаем из remoteClientStateAutomaton множество выборок
-        //       А потом для каждой выборки собираем событие
-        //       и отправляем его.
-        Set<String> viewNameSet = remoteClientStateAutomaton.getViewNameSet();
-        for (String viewName : viewNameSet) {
-            EventOfServer eventOfServer = new EventOfServer92GameEvent(viewName, gameEvent);
-            remoteClientStateAutomaton.sendEventOfServer(clientId, eventOfServer);
-        }
+        remoteClientStateAutomaton.sendGameEventToAllViews(clientId, gameEvent);
     }
 
     protected final boolean verifyGameStatusNotGameAndMayBeCreateNewGame() {

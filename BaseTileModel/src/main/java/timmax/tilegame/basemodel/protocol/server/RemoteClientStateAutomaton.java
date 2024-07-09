@@ -1,6 +1,8 @@
 package timmax.tilegame.basemodel.protocol.server;
 
+import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.EventOfServer;
+import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.transport.TransportOfServer;
 
@@ -40,12 +42,16 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
         multiGameWebSocketServer.sendEventOfServer(clientId, transportPackageOfServer);
     }
 
-    // ToDo: Удалить.
-    //       Единственное место использования - это
-    //       GameMatch :: void sendGameEvent(GameEvent gameEvent)
-    //       См. комментарий в GameMatch.
-    Set<String> getViewNameSet() {
-        return viewNameSet;
+    // Посылает игровое событие всем выборкам.
+    void sendGameEventToAllViews(ClientId clientId, GameEvent gameEvent) {
+        // ToDo: Пробовал сразу написать так:
+        //       for (String viewName : remoteClientState.getSetOfViewName())
+        //       Но такой вариант даже не компилировался.
+        //       Разобраться!
+        for (String viewName : viewNameSet) {
+            EventOfServer eventOfServer = new EventOfServer92GameEvent(viewName, gameEvent);
+            sendEventOfServer(clientId, eventOfServer);
+        }
     }
 
     void viewNameSetClear() {
