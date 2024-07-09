@@ -41,10 +41,7 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
         // ToDo: Исправить Warning:(33, 9) Raw use of parameterized class 'IGameMatch'
         IGameMatch iGameMatch = null;
         if (gameMatchId.isNullOrEmpty()) {
-            remoteClientStateAutomaton.getTransportOfServer().sendEventOfServer(
-                    clientId,
-                    new EventOfServer60ForgetGameMatch()
-            );
+            remoteClientStateAutomaton.forgetGameMatchX();
             return;
         }
         if (gameMatchId.equalsNewGame()) {
