@@ -15,8 +15,7 @@ public abstract class EventOfClient<ClientId> extends Event {
     //       -- ко всем остальным EventOfClientХХ...
     //       clientId используется в executeOnServer(...) в классах-наследниках EventOfClient только в:
     //       - EventOfClient61SetGameMatch (используется с рефлексией)
-    //       -- используется с рефлексией,
-    //       -- явно вызывается sendEventOfServer, в которую передаётся clientId.
+    //       -- используется с рефлексией.
     public abstract void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId);
 
     @Override

@@ -34,8 +34,7 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
     //       -- ко всем остальным EventOfClientХХ...
     //       clientId используется в executeOnServer(...) в классах-наследниках EventOfClient только в:
     //       - EventOfClient61SetGameMatch (используется с рефлексией)
-    //       -- используется с рефлексией,
-    //       -- явно вызывается sendEventOfServer, в которую передаётся clientId.
+    //       -- используется с рефлексией.
     @Override
     public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
         // ToDo: Исправить Warning:(33, 9) Raw use of parameterized class 'IGameMatch'
