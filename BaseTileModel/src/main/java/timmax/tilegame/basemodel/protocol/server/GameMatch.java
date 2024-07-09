@@ -68,11 +68,17 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         sendGameEvent(gameEventNewGame);
     }
 
+    // Посылает событие всем выборкам.
     public void sendGameEvent(GameEvent gameEvent) {
         // ToDo: Пробовал сразу написать так:
         //       for (String viewName : remoteClientState.getSetOfViewName())
         //       Но такой вариант даже не компилировался.
         //       Разобраться!
+
+        // ToDo: Перенести функционал в RemoteClientStateAutomaton:
+        //       Сначала извлекаем из remoteClientStateAutomaton множество выборок
+        //       А потом для каждой выборки собираем событие
+        //       и отправляем его.
         Set<String> setOfViewName = remoteClientStateAutomaton.getSetOfViewName();
         for (String viewName : setOfViewName) {
             EventOfServer eventOfServer = new EventOfServer92GameEvent(viewName, gameEvent);

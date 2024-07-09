@@ -23,6 +23,7 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
     //           Почему-же здесь нужна эта переменная?
     private final TransportOfServer<ClientId> multiGameWebSocketServer;
 
+    // ToDo: Переименовать в viewNameSet.
     private final Set<String> setOfViewName;
 
     private Map<String, Integer> mapOfParamsOfModelValue;
@@ -39,13 +40,20 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
         multiGameWebSocketServer.sendEventOfServer(clientId, transportPackageOfServer);
     }
 
-    // ToDo: Удалить. И сделать доступ к clear() и add().
-    protected Set<String> getSetOfViewName() {
+    // ToDo: Удалить.
+    //       Единственное место использования - это
+    //       GameMatch :: void sendGameEvent(GameEvent gameEvent)
+    //       См. комментарий в GameMatch.
+    Set<String> getSetOfViewName() {
         return setOfViewName;
     }
 
-    void ViewNameSetClear() {
+    void viewNameSetClear() {
         setOfViewName.clear();
+    }
+
+    boolean viewNameSetAdd(String viewName) {
+        return setOfViewName.add(viewName);
     }
 
     public void setMapOfParamsOfModelValue(Map<String, Integer> mapOfParamsOfModelValue) {

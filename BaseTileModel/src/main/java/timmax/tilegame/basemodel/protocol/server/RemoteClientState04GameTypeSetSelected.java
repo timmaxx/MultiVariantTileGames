@@ -31,19 +31,18 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
     public void setGameType(GameType gameType) {
         super.setGameType(gameType);
         if (gameType == null) {
-            getClientStateAutomaton().ViewNameSetClear();
+            getClientStateAutomaton().viewNameSetClear();
             getClientStateAutomaton().sendEventOfServer(
                     clientId,
                     new EventOfServer40ForgetGameType()
             );
             return;
         }
-        getClientStateAutomaton().ViewNameSetClear();
+        getClientStateAutomaton().viewNameSetClear();
         // ToDo: Сейчас foreach работает и с ключём и со значением (аналогично как в классе LocalClientState),
         //       Но здесь достаточно только с ключём.
         for (Map.Entry<String, Class<? extends View>> entry : gameType.getMapOfViewNameViewClass().entrySet()) {
-            // ToDo: Сделать прямой вызов add() и удалить метод getSetOfViewName()
-            getClientStateAutomaton().getSetOfViewName().add(entry.getKey());
+            getClientStateAutomaton().viewNameSetAdd(entry.getKey());
         }
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
