@@ -9,6 +9,8 @@ import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
 
+import java.util.Map;
+
 import static timmax.tilegame.basemodel.GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
 import static timmax.tilegame.basemodel.GameStatus.VICTORY;
 
@@ -33,6 +35,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     protected final RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton;
     protected final ClientId clientId;
 
+    private Map<String, Integer> paramsOfModelValueMap;
     private GameStatus gameStatus;
 
     public GameMatch(
@@ -86,6 +89,16 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
             return true;
         }
         return false;
+    }
+
+    public void setParamsOfModelValueMap(Map<String, Integer> mapOfParamsOfModelValue) {
+        this.paramsOfModelValueMap = mapOfParamsOfModelValue;
+    }
+
+    // ToDo: Создать метод в классе GameMatch, который сразу будет как paramsOfModelValueMap.get(PARAM_NAME_WIDTH).
+    //       И тогда удалить getParamsOfModelValueMap().
+    public Map<String, Integer> getParamsOfModelValueMap() {
+        return paramsOfModelValueMap;
     }
 
     // interface IGameMatch:

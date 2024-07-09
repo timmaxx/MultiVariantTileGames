@@ -7,7 +7,6 @@ import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.transport.TransportOfServer;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<IGameMatch> {
@@ -25,10 +24,19 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
     //           Почему-же здесь нужна эта переменная?
     private final TransportOfServer<ClientId> multiGameWebSocketServer;
 
+    // ToDo: Пересмотреть архитектуру и вероятно исключить отсюда Set<String> viewNameSet
+    //       - перенести его в GameMatch:
+    //       Основания те-же, что и для IGameMatch iGameMatch.
     private final Set<String> viewNameSet;
 
-    // ToDo: Мапу и её сеттер и гетер перенести в класс GameMatch.
-    private Map<String, Integer> paramsOfModelValueMap;
+    // ToDo: Пересмотреть архитектуру и вероятно исключить отсюда IGameMatch:
+    //       iGameMatch инициализируется значительно позже чем создаётся экземпляр
+    //       RemoteClientStateAutomaton,
+    //       Поэтому он:
+    //       1. инициализируется через сеттер.
+    //       2. не может быть final
+    //       3. но возможно, что этому параметру вообще здесь не место!
+    private IGameMatch iGameMatch;
 
     public RemoteClientStateAutomaton(
             IFabricOfRemoteClientStates<ClientId> fabricOfClientStatesForServer,
@@ -36,6 +44,14 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
         super(fabricOfClientStatesForServer);
         this.multiGameWebSocketServer = multiGameWebSocketServer;
         this.viewNameSet = new HashSet<>();
+    }
+
+    public IGameMatch getGameMatch() {
+        return iGameMatch;
+    }
+
+    public void setGameMatch(IGameMatch iGameMatch) {
+        this.iGameMatch = iGameMatch;
     }
 
     void sendEventOfServer(ClientId clientId, EventOfServer transportPackageOfServer) {
@@ -60,13 +76,5 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
 
     boolean viewNameSetAdd(String viewName) {
         return viewNameSet.add(viewName);
-    }
-
-    public void setParamsOfModelValueMap(Map<String, Integer> mapOfParamsOfModelValue) {
-        this.paramsOfModelValueMap = mapOfParamsOfModelValue;
-    }
-
-    public Map<String, Integer> getParamsOfModelValueMap() {
-        return paramsOfModelValueMap;
     }
 }

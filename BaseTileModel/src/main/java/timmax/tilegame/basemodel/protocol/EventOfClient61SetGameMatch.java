@@ -65,9 +65,12 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
                 System.exit(1);
             }
             remoteClientStateAutomaton
+                    // ToDo: Странно. У одного remoteClientStateAutomaton может быть несколько GameMatch?
+                    //       Проверить. Вероятно неправильно.
                     .getGameMatchXSet()
                     // ToDo: Исправить Warning:(54, 26) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IGameMatch' to 'timmax.tilegame.basemodel.protocol.server.IGameMatch<ClientId>'
                     .add(iGameMatch);
+            remoteClientStateAutomaton.setGameMatch(iGameMatch);
         }
         /*
           else {

@@ -19,9 +19,12 @@ public class EventOfClient71SetGameMatchPlaying<ClientId> extends EventOfClient<
         this.paramsOfModelValueMap = paramsOfModelValueMap;
     }
 
+    // ToDo: Этот класс (и все последующие и некоторые предыдущие) уже может работать не только с
+    //       RemoteClientStateAutomaton, но и с экземпляром GameMatch.
+    //       Нужно пересмотреть архитектуру и передавать сюда GameMatch.
     @Override
     public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
-        remoteClientStateAutomaton.setParamsOfModelValueMap(paramsOfModelValueMap);
+        remoteClientStateAutomaton.getGameMatch().setParamsOfModelValueMap(paramsOfModelValueMap);
         remoteClientStateAutomaton.setGameMatchPlaying(true);
     }
 
@@ -40,7 +43,7 @@ public class EventOfClient71SetGameMatchPlaying<ClientId> extends EventOfClient<
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        // ToDo: Избавиться от "Warning:(44, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Integer>'"
+        // ToDo: Избавиться от "Warning:(47, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Integer>'"
         paramsOfModelValueMap = (Map<String, Integer>) in.readObject();
     }
 }
