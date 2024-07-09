@@ -76,7 +76,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         Set<String> setOfViewName = remoteClientStateAutomaton.getSetOfViewName();
         for (String viewName : setOfViewName) {
             EventOfServer eventOfServer = new EventOfServer92GameEvent(viewName, gameEvent);
-            remoteClientStateAutomaton.getTransportOfServer().sendEventOfServer(clientId, eventOfServer);
+            remoteClientStateAutomaton.sendEventOfServer(clientId, eventOfServer);
         }
     }
 

@@ -16,7 +16,7 @@ public class RemoteClientState08GameMatchPlaying<ClientId> extends ClientState08
     @Override
     public void forgetGameMatchPlaying() {
         super.forgetGameMatchPlaying();
-        getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
+        getClientStateAutomaton().sendEventOfServer(
                 clientId,
                 new EventOfServer70ForgetGameMatchPlaying()
         );

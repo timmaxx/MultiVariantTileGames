@@ -1,5 +1,6 @@
 package timmax.tilegame.basemodel.protocol.server;
 
+import timmax.tilegame.basemodel.protocol.EventOfServer;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.transport.TransportOfServer;
 
@@ -34,10 +35,11 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
         this.setOfViewName = new HashSet<>();
     }
 
-    public TransportOfServer<ClientId> getTransportOfServer() {
-        return multiGameWebSocketServer;
+    void sendEventOfServer(ClientId clientId, EventOfServer transportPackageOfServer) {
+        multiGameWebSocketServer.sendEventOfServer(clientId, transportPackageOfServer);
     }
 
+    // ToDo: Удалить. И сделать доступ к clear() и add().
     protected Set<String> getSetOfViewName() {
         return setOfViewName;
     }

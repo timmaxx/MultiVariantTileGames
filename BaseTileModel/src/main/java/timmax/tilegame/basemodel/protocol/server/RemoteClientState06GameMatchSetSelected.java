@@ -18,7 +18,7 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
     @Override
     public void forgetGameMatchXSet() {
         super.forgetGameMatchXSet();
-        getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
+        getClientStateAutomaton().sendEventOfServer(
                 clientId,
                 new EventOfServer50ForgetGameMatchSet()
         );
@@ -28,7 +28,7 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
     @Override
     public void setGameMatchX(IGameMatch gameMatchX) {
         super.setGameMatchX(gameMatchX);
-        getClientStateAutomaton().getTransportOfServer().sendEventOfServer(
+        getClientStateAutomaton().sendEventOfServer(
                 clientId,
                 new EventOfServer61SetGameMatch(
                         new GameMatchId(gameMatchX.toString())

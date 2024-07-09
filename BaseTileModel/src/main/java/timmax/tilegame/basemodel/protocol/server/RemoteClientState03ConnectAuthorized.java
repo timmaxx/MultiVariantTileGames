@@ -19,14 +19,14 @@ public class RemoteClientState03ConnectAuthorized<ClientId> extends ClientState0
     @Override
     public void forgetUser() {
         super.forgetUser();
-        getClientStateAutomaton().getTransportOfServer().sendEventOfServer(clientId, new EventOfServer20ForgetUser());
+        getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer20ForgetUser());
     }
 
     // ---- 3
     @Override
     public void setGameTypeSet(Set<GameType> gameTypeSet) {
         super.setGameTypeSet(gameTypeSet);
-        getClientStateAutomaton().getTransportOfServer().sendEventOfServer(clientId, new EventOfServer31SetGameTypeSet(gameTypeSet));
+        getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer31SetGameTypeSet(gameTypeSet));
     }
 
     // class AbstractClientState
