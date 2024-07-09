@@ -23,13 +23,12 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketServer.class);
 
     private final ObjectMapperOfMvtg mapper;
-
-    private final Map<WebSocket, RemoteClientStateAutomaton<WebSocket>> mapOfWebSocketAndRemoteClientStateAutomaton;
+    private final Map<WebSocket, RemoteClientStateAutomaton<WebSocket>> webSocketAndRemoteClientStateAutomatonMap;
 
     public MultiGameWebSocketServer(int port) {
         super(new InetSocketAddress(port));
         mapper = new ObjectMapperOfMvtg();
-        mapOfWebSocketAndRemoteClientStateAutomaton = new HashMap<>();
+        webSocketAndRemoteClientStateAutomatonMap = new HashMap<>();
     }
 
     // class WebSocketServer:
@@ -42,7 +41,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     public void onClose(WebSocket webSocket, int code, String reason, boolean remote) {
         logger.info("WebSocket: {}. Connection was closed.", webSocket);
         logger.debug("  Code: {}. Reason: {}. Remote: {}.", code, reason, remote);
-        mapOfWebSocketAndRemoteClientStateAutomaton.remove(webSocket);
+        webSocketAndRemoteClientStateAutomatonMap.remove(webSocket);
     }
 
     @Override
@@ -51,9 +50,9 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         logger.debug("  ClientHandshake: {}.", clientHandshake);
         // ToDo: Устранить взаимозависимость интерфейса IFabricOfClientStates и класса ClientStateAutomaton.
         //       См. коммент к IFabricOfClientStates
-        mapOfWebSocketAndRemoteClientStateAutomaton.put(
+        webSocketAndRemoteClientStateAutomatonMap.put(
                 webSocket,
-                // ToDo: Внедрить двусторонюю мапу (https://coderlessons.com/articles/java/google-guava-bimaps)
+                // ToDo: Внедрить двустороннюю мапу (https://coderlessons.com/articles/java/google-guava-bimaps)
                 // ToDo: Сейчас в конструктор RemoteClientStateAutomaton передаются несколько параметров, некоторые из
                 //       них не являются необходимыми (см. комментарий перед каждым параметром):
                 new RemoteClientStateAutomaton<>(
@@ -84,12 +83,11 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteBuffer.array());
         // ToDo: А вдруг здесь от клиента прилетит что-то не EventOfClient?
         //       Тогда нужно обрабатывать исключение и выводить в лог.
-        // ToDo: Обработать Warning:
-        //       Warning:(87, 50) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.EventOfClient' to 'timmax.tilegame.basemodel.protocol.EventOfClient<org.java_websocket.WebSocket>'
+        // ToDo: Избавиться от "Warning:(88, 50) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.EventOfClient' to 'timmax.tilegame.basemodel.protocol.EventOfClient<org.java_websocket.WebSocket>'"
         //       При удалении параметра ClientId из класса EventOfClient, уйдёт и это предупреждение.
         EventOfClient<WebSocket> eventOfClient = mapper.readValue(byteArrayInputStream, EventOfClient.class);
         logger.info("WebSocket: {}. Incoming message. EventOfClient: {}.", webSocket, eventOfClient);
-        Thread thread = new Thread(() -> eventOfClient.executeOnServer(mapOfWebSocketAndRemoteClientStateAutomaton.get(webSocket), webSocket));
+        Thread thread = new Thread(() -> eventOfClient.executeOnServer(webSocketAndRemoteClientStateAutomatonMap.get(webSocket), webSocket));
         thread.start();
     }
 
