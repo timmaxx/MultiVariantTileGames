@@ -70,7 +70,6 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
                     .getGameMatchXSet()
                     // ToDo: Исправить Warning:(54, 26) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IGameMatch' to 'timmax.tilegame.basemodel.protocol.server.IGameMatch<ClientId>'
                     .add(iGameMatch);
-            remoteClientStateAutomaton.setGameMatch(iGameMatch);
         }
         /*
           else {

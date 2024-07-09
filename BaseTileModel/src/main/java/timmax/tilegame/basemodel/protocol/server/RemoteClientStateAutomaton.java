@@ -29,29 +29,12 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
     //       Основания те-же, что и для IGameMatch iGameMatch.
     private final Set<String> viewNameSet;
 
-    // ToDo: Пересмотреть архитектуру и вероятно исключить отсюда IGameMatch:
-    //       iGameMatch инициализируется значительно позже чем создаётся экземпляр
-    //       RemoteClientStateAutomaton,
-    //       Поэтому он:
-    //       1. инициализируется через сеттер.
-    //       2. не может быть final
-    //       3. но возможно, что этому параметру вообще здесь не место!
-    private IGameMatch iGameMatch;
-
     public RemoteClientStateAutomaton(
             IFabricOfRemoteClientStates<ClientId> fabricOfClientStatesForServer,
             TransportOfServer<ClientId> multiGameWebSocketServer) {
         super(fabricOfClientStatesForServer);
         this.multiGameWebSocketServer = multiGameWebSocketServer;
         this.viewNameSet = new HashSet<>();
-    }
-
-    public IGameMatch getGameMatch() {
-        return iGameMatch;
-    }
-
-    public void setGameMatch(IGameMatch iGameMatch) {
-        this.iGameMatch = iGameMatch;
     }
 
     void sendEventOfServer(ClientId clientId, EventOfServer transportPackageOfServer) {
@@ -74,7 +57,7 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
         viewNameSet.clear();
     }
 
-    boolean viewNameSetAdd(String viewName) {
-        return viewNameSet.add(viewName);
+    void viewNameSetAdd(String viewName) {
+        viewNameSet.add(viewName);
     }
 }
