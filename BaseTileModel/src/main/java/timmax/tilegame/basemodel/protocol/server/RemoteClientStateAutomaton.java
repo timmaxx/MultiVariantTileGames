@@ -33,7 +33,7 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
             TransportOfServer<ClientId> multiGameWebSocketServer) {
         super(fabricOfClientStatesForServer);
         this.multiGameWebSocketServer = multiGameWebSocketServer;
-        this.setOfViewName = new HashSet<>();
+        this.viewNameSet = new HashSet<>();
     }
 
     void sendEventOfServer(ClientId clientId, EventOfServer transportPackageOfServer) {
