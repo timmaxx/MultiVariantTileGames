@@ -61,7 +61,6 @@ public class ClientStateAutomaton<Model> implements
     }
 
     void setUserName_(String userName) {
-        clientState04GameTypeSetSelected.forgetGameTypeSet();
         setUserName0(userName);
     }
 
@@ -74,7 +73,6 @@ public class ClientStateAutomaton<Model> implements
     }
 
     void setGameTypeSet_(Set<GameType> gameTypeSet) {
-        clientState05GameTypeSelected.forgetGameType();
         setGameTypeSet0(gameTypeSet);
     }
 
@@ -87,7 +85,6 @@ public class ClientStateAutomaton<Model> implements
     }
 
     void setGameType_(GameType gameType) {
-        clientState06GameMatchSetSelected.forgetGameMatchXSet();
         setGameType0(gameType);
     }
 
@@ -100,7 +97,6 @@ public class ClientStateAutomaton<Model> implements
     }
 
     void setGameMatchXSet_(Set<Model> gameMatchXSet) {
-        clientState07GameMatchSelected.forgetGameMatchX();
         setGameMatchXSet0(gameMatchXSet);
     }
 
@@ -114,7 +110,6 @@ public class ClientStateAutomaton<Model> implements
     }
 
     void setGameMatchX_(Model gameMatchX) {
-        clientState08GameMatchPlaying.forgetGameMatchPlaying();
         setGameMatchX0(gameMatchX);
     }
 
