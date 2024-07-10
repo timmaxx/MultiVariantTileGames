@@ -30,6 +30,13 @@ public class RemoteClientState05GameTypeSelected<ClientId> extends ClientState05
     // ---- 5 Перечень партий
     @Override
     public void setGameMatchXSet(Set<IGameMatch> gameMatchXSet) {
+        // ToDo: Сейчас сюда поступает пустое множество
+        //       (см. EventOfClient51SetGameMatchSet :: executeOnServer(...)
+        //       remoteClientStateAutomaton.setGameMatchXSet(new HashSet<>())
+        //       )
+        //       вот и создать здесь новый матч.
+        //       Т.е. взять большую часть логики из
+        //       EventOfClient61SetGameMatch :: executeOnServer(...)
         super.setGameMatchXSet(gameMatchXSet);
         getClientStateAutomaton().sendEventOfServer(
                 clientId,

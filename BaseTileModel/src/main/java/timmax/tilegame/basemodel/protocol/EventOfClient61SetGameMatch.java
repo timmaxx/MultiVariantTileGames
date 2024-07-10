@@ -37,12 +37,14 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
     //       -- используется с рефлексией.
     @Override
     public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
-        // ToDo: Исправить Warning:(33, 9) Raw use of parameterized class 'IGameMatch'
         IGameMatch iGameMatch = null;
         if (gameMatchId.isNullOrEmpty()) {
             remoteClientStateAutomaton.forgetGameMatchX();
             return;
         }
+        // ToDo: То, что внутри if - унести в RemoteClientState05GameTypeSelected.
+        //       И удалить if.
+        //       Также см. else.
         if (gameMatchId.equalsNewGame()) {
             // ToDo: Лучше-бы чтобы:
             //       1.1. При создании перечня матчей на сервере (не в этом, а в более раннем классе),
@@ -96,10 +98,11 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
                     // ToDo: Исправить Warning:(54, 26) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IGameMatch' to 'timmax.tilegame.basemodel.protocol.server.IGameMatch<ClientId>'
                     .add(iGameMatch);
         }
-        /*
+        // ToDo: То, что внутри else, вытащить из него.
           else {
-            iGameMatch = remoteClientState
-                    .getGameMatchSet()
+
+            iGameMatch = remoteClientStateAutomaton
+                    .getGameMatchXSet()
                     .stream()
                     .filter(x -> x.toString().equals(gameMatchId.getId()))
                     .findAny()
@@ -107,12 +110,12 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
             ;
 
             if (iGameMatch == null) {
-                logger.error("There is not model '" + gameMatchId.getId() + "'");
-                remoteClientState.forgetServerBaseModel();
+                logger.error("There is not match '" + gameMatchId.getId() + "'");
+                remoteClientStateAutomaton.forgetGameMatchX();
                 return;
             }
         }
-        */
+
         // ToDo: Исправить Warning:(72, 87) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IGameMatch' to 'timmax.tilegame.basemodel.protocol.server.IGameMatch<ClientId>'
         remoteClientStateAutomaton.setGameMatchX(iGameMatch);
     }
