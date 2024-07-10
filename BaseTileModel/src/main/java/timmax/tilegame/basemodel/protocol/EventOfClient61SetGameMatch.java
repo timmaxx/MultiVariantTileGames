@@ -21,7 +21,7 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
     }
 
     @Override
-    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
+    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
         if (gameMatchId.isNullOrEmpty()) {
             remoteClientStateAutomaton.forgetGameMatchX();
             return;

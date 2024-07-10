@@ -87,7 +87,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         //       При удалении параметра ClientId из класса EventOfClient, уйдёт и это предупреждение.
         EventOfClient<WebSocket> eventOfClient = mapper.readValue(byteArrayInputStream, EventOfClient.class);
         logger.info("WebSocket: {}. Incoming message. EventOfClient: {}.", webSocket, eventOfClient);
-        Thread thread = new Thread(() -> eventOfClient.executeOnServer(webSocketAndRemoteClientStateAutomatonMap.get(webSocket), webSocket));
+        Thread thread = new Thread(() -> eventOfClient.executeOnServer(webSocketAndRemoteClientStateAutomatonMap.get(webSocket)));
         thread.start();
     }
 
