@@ -12,7 +12,7 @@ public abstract class ClientState04GameTypeSetSelected<Model> extends AbstractCl
     // interface IClientState04GameTypeSetSelected
     @Override
     public Set<GameType> getGameTypeSet() {
-        return getClientStateAutomaton().getGameTypeSet0();
+        return getClientStateAutomaton().getGameTypeSet_();
     }
 
     @Override

@@ -12,7 +12,7 @@ public abstract class ClientState05GameTypeSelected<Model> extends AbstractClien
     // interface IClientState05GameTypeSelected
     @Override
     public GameType getGameType() {
-        return getClientStateAutomaton().getGameType0();
+        return getClientStateAutomaton().getGameType_();
     }
 
     @Override

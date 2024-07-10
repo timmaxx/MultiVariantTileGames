@@ -12,7 +12,7 @@ public abstract class ClientState03ConnectAuthorized<Model> extends AbstractClie
     // interface IClientState03ConnectAuthorized
     @Override
     public String getUserName() {
-        return getClientStateAutomaton().getUserName0();
+        return getClientStateAutomaton().getUserName_();
     }
 
     @Override

@@ -8,7 +8,7 @@ public abstract class ClientState08GameMatchPlaying<Model> extends AbstractClien
     // interface IClientState08GameMatchPlaying
     @Override
     public Boolean getGameIsPlaying() {
-        return getClientStateAutomaton().getGameIsPlaying0();
+        return getClientStateAutomaton().getGameIsPlaying_();
     }
 
     @Override

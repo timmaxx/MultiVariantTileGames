@@ -52,77 +52,52 @@ public class ClientStateAutomaton<Model> implements
         currenState = clientState01NoConnect;
     }
 
-    String getUserName0() {
+    String getUserName_() {
         return userName;
     }
 
-    void setUserName0(String userName) {
+    void setUserName_(String userName) {
         this.userName = userName;
     }
 
-    void setUserName_(String userName) {
-        setUserName0(userName);
-    }
-
-    Set<GameType> getGameTypeSet0() {
+    Set<GameType> getGameTypeSet_() {
         return gameTypeSet;
     }
 
-    void setGameTypeSet0(Set<GameType> gameTypeSet) {
+    void setGameTypeSet_(Set<GameType> gameTypeSet) {
         this.gameTypeSet = gameTypeSet;
     }
 
-    void setGameTypeSet_(Set<GameType> gameTypeSet) {
-        setGameTypeSet0(gameTypeSet);
-    }
-
-    GameType getGameType0() {
+    GameType getGameType_() {
         return gameType;
     }
 
-    void setGameType0(GameType gameType) {
+    void setGameType_(GameType gameType) {
         this.gameType = gameType;
     }
 
-    void setGameType_(GameType gameType) {
-        setGameType0(gameType);
-    }
-
-    Set<Model> getGameMatchXSet0() {
+    Set<Model> getGameMatchXSet_() {
         return gameMatchXSet;
     }
 
-    void setGameMatchXSet0(Set<Model> gameMatchXSet) {
+    void setGameMatchXSet_(Set<Model> gameMatchXSet) {
         this.gameMatchXSet = gameMatchXSet;
     }
 
-    void setGameMatchXSet_(Set<Model> gameMatchXSet) {
-        setGameMatchXSet0(gameMatchXSet);
-    }
-
-    // ToDo: Только из-за класса RemoteClientState07GameMatchSelected понадобилось сделать public.
-    public Model getGameMatchX0() {
+    Model getGameMatchX_() {
         return gameMatchX;
     }
 
-    void setGameMatchX0(Model gameMatchX) {
+    void setGameMatchX_(Model gameMatchX) {
         this.gameMatchX = gameMatchX;
     }
 
-    void setGameMatchX_(Model gameMatchX) {
-        setGameMatchX0(gameMatchX);
-    }
-
-    Boolean getGameIsPlaying0() {
+    Boolean getGameIsPlaying_() {
         return gameIsPlaying;
     }
 
-    void setGameIsPlaying0(Boolean gameIsPlaying) {
-        this.gameIsPlaying = gameIsPlaying;
-    }
-
     void setGameIsPlaying_(Boolean gameIsPlaying) {
-        setGameIsPlaying0(gameIsPlaying);
+        this.gameIsPlaying = gameIsPlaying;
     }
 
     // 2 interface IClientState02ConnectNonIdent
