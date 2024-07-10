@@ -25,8 +25,7 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
     private final TransportOfServer<ClientId> multiGameWebSocketServer;
 
     // ToDo: Пересмотреть архитектуру и вероятно исключить отсюда Set<String> viewNameSet
-    //       - перенести его в GameMatch:
-    //       Основания те-же, что и для IGameMatch iGameMatch.
+    //       - перенести его в GameMatch.
     private final Set<String> viewNameSet;
 
     public RemoteClientStateAutomaton(

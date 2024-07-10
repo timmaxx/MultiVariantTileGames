@@ -8,14 +8,9 @@ public abstract class EventOfClient<ClientId> extends Event {
     //       использовать в них clientId.
     //       Комментарий относится:
     //       - в первую очередь к классу:
-    //       -- EventOfClient61SetGameMatch,
-    //       - во вторых:
     //       -- к EventOfClient,
-    //       - в третьих:
+    //       - во вторых:
     //       -- ко всем остальным EventOfClientХХ...
-    //       clientId используется в executeOnServer(...) в классах-наследниках EventOfClient только в:
-    //       - EventOfClient61SetGameMatch (используется с рефлексией)
-    //       -- используется с рефлексией.
     public abstract void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId);
 
     @Override
