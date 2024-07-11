@@ -45,13 +45,13 @@ public class AllMinesweeperObjects<T> {
             return;
         }
         tileOfMinesweeper.inverseFlag(); // Инвертируем флаг
-        gameMatch.sendGameEvent(new GameEventOneTileMinesweeperChangeFlag(tileOfMinesweeper.getX(), tileOfMinesweeper.getY(), tileOfMinesweeper.isFlag()));
+        gameMatch.sendGameEventToAllViews(new GameEventOneTileMinesweeperChangeFlag(tileOfMinesweeper.getX(), tileOfMinesweeper.getY(), tileOfMinesweeper.isFlag()));
         if (tileOfMinesweeper.isFlag()) {
             countOfFlags--;
         } else {
             countOfFlags++;
         }
-        gameMatch.sendGameEvent(new GameEventMinesweeperVariableParamsFlag(
+        gameMatch.sendGameEventToAllViews(new GameEventMinesweeperVariableParamsFlag(
                 countOfMines - countOfFlags,
                 countOfFlags
         ));
@@ -63,7 +63,7 @@ public class AllMinesweeperObjects<T> {
             return GAME;
         }
         GameStatus gameStatus = openRecursive(tileOfMinesweeper);
-        gameMatch.sendGameEvent(new GameEventMinesweeperVariableParamsOpenClose(
+        gameMatch.sendGameEventToAllViews(new GameEventMinesweeperVariableParamsOpenClose(
                 getWidth() * getHeight() - countOfClosedTiles,
                 countOfClosedTiles
         ));
@@ -87,12 +87,12 @@ public class AllMinesweeperObjects<T> {
         // Если в открытой плитке мина
         if (tileOfMinesweeper.isMine()) {
             // Завершение игры поражением
-            gameMatch.sendGameEvent(new GameEventOneTileMinesweeperOpenMine(tileOfMinesweeper.getX(), tileOfMinesweeper.getY()));
-            gameMatch.sendGameEvent(new GameEventGameOver(DEFEAT));
+            gameMatch.sendGameEventToAllViews(new GameEventOneTileMinesweeperOpenMine(tileOfMinesweeper.getX(), tileOfMinesweeper.getY()));
+            gameMatch.sendGameEventToAllViews(new GameEventGameOver(DEFEAT));
             return DEFEAT;
         } else {
             defineNeighbors(tileOfMinesweeper);
-            gameMatch.sendGameEvent(new GameEventOneTileMinesweeperOpenNoMine(tileOfMinesweeper.getX(), tileOfMinesweeper.getY(), tileOfMinesweeper.getCountOfMineNeighbors()));
+            gameMatch.sendGameEventToAllViews(new GameEventOneTileMinesweeperOpenNoMine(tileOfMinesweeper.getX(), tileOfMinesweeper.getY(), tileOfMinesweeper.getCountOfMineNeighbors()));
             // Если в соседних плитках нет мин
             if (tileOfMinesweeper.getCountOfMineNeighbors() == 0) {
                 // Пройдёмся по соседним плиткам

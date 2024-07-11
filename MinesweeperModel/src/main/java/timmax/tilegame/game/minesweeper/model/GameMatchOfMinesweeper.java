@@ -56,8 +56,8 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
         allMinesweeperObjects = levelGenerator.getLevel(width, height, percentsOfMines);
         allMinesweeperObjects.setModel(this);
 
-        sendGameEvent(new GameEventMinesweeperVariableParamsOpenClose(0, width * height));
-        sendGameEvent(new GameEventMinesweeperVariableParamsFlag(0, allMinesweeperObjects.getCountOfMines()));
+        sendGameEventToAllViews(new GameEventMinesweeperVariableParamsOpenClose(0, width * height));
+        sendGameEventToAllViews(new GameEventMinesweeperVariableParamsFlag(0, allMinesweeperObjects.getCountOfMines()));
         super.createNewGame(width, height, UNOPENED_CELL_COLOR, BLACK, "");
     }
 
@@ -84,7 +84,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
                 paramsOfModelValueMapGet(PARAM_NAME_HEIGHT),
                 paramsOfModelValueMapGet(PARAM_NAME_PERCENTS_OF_MINES)
         );
-        sendGameEvent(new GameEventMinesweeperPersistentParams(allMinesweeperObjects.getCountOfMines()));
+        sendGameEventToAllViews(new GameEventMinesweeperPersistentParams(allMinesweeperObjects.getCountOfMines()));
     }
 
     @Override

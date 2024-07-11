@@ -95,7 +95,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
                     box.move(step.oppositeStepDirection());
 
                     WhoPersistentInTile oldWhoPersistentInTile = allSokobanObjects.getWhoPersistentInTile(oldBoxX, oldBoxY);
-                    sendGameEvent(new GameEventOneTileSokobanChangeable(oldBoxX, oldBoxY, oldWhoPersistentInTile, IS_NOBODY));
+                    sendGameEventToAllViews(new GameEventOneTileSokobanChangeable(oldBoxX, oldBoxY, oldWhoPersistentInTile, IS_NOBODY));
 
                     break;
                 }
@@ -110,10 +110,10 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         addGameEventAboutPlayer(direction, player, oldWhoMovableInTile);
         routeRedo.push(step);
 
-        sendGameEvent(new GameEventSokobanVariableParamsCountOfSteps(route.size()));
+        sendGameEventToAllViews(new GameEventSokobanVariableParamsCountOfSteps(route.size()));
         if (step.isBoxMoved()) {
             calcCountOfBoxesInHomes();
-            sendGameEvent(new GameEventSokobanVariableParamsCountOfBoxesInHouses(countOfBoxesInHomes));
+            sendGameEventToAllViews(new GameEventSokobanVariableParamsCountOfBoxesInHouses(countOfBoxesInHomes));
         }
     }
 
@@ -187,7 +187,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
                 newBoxY = box.getY();
 
                 WhoPersistentInTile newWhoPersistentInTile = allSokobanObjects.getWhoPersistentInTile(newBoxX, newBoxY);
-                sendGameEvent(new GameEventOneTileSokobanChangeable(newBoxX, newBoxY, newWhoPersistentInTile, IS_BOX));
+                sendGameEventToAllViews(new GameEventOneTileSokobanChangeable(newBoxX, newBoxY, newWhoPersistentInTile, IS_BOX));
 
                 isBoxMoved = true;
                 break;
@@ -197,10 +197,10 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         addGameEventAboutPlayer(direction, player, IS_NOBODY);
         route.push(new Step(direction, isBoxMoved));
 
-        sendGameEvent(new GameEventSokobanVariableParamsCountOfSteps(route.size()));
+        sendGameEventToAllViews(new GameEventSokobanVariableParamsCountOfSteps(route.size()));
         if (isBoxMoved) {
             calcCountOfBoxesInHomes();
-            sendGameEvent(new GameEventSokobanVariableParamsCountOfBoxesInHouses(countOfBoxesInHomes));
+            sendGameEventToAllViews(new GameEventSokobanVariableParamsCountOfBoxesInHouses(countOfBoxesInHomes));
         }
 
         checkCompletion();
@@ -214,14 +214,14 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         x = player.getX();
         y = player.getY();
         whoPersistentInTile = allSokobanObjects.getWhoPersistentInTile(x, y);
-        sendGameEvent(new GameEventOneTileSokobanChangeable(x, y, whoPersistentInTile, whoMovableInTile));
+        sendGameEventToAllViews(new GameEventOneTileSokobanChangeable(x, y, whoPersistentInTile, whoMovableInTile));
 
         player.move(direction);
 
         x = player.getX();
         y = player.getY();
         whoPersistentInTile = allSokobanObjects.getWhoPersistentInTile(x, y);
-        sendGameEvent(new GameEventOneTileSokobanChangeable(x, y, whoPersistentInTile, IS_PLAYER));
+        sendGameEventToAllViews(new GameEventOneTileSokobanChangeable(x, y, whoPersistentInTile, IS_PLAYER));
     }
 
     private void calcCountOfBoxesInHomes() {
@@ -251,7 +251,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         }
         setGameStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
         currentLevel.incValue();
-        sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
+        sendGameEventToAllViews(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
     }
 
     public void prevLevel() {
@@ -260,7 +260,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         }
         setGameStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
         currentLevel.decValue();
-        sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
+        sendGameEventToAllViews(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
     }
 
     // interface IGameMatch:
@@ -276,7 +276,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
             for (int x = 0; x < allSokobanObjects.getWidth(); x++) {
                 WhoPersistentInTile whoPersistentInTile = allSokobanObjects.getWhoPersistentInTile(x, y);
                 WhoMovableInTile whoMovableInTile = allSokobanObjects.getWhoMovableInTile(x, y);
-                sendGameEvent(new GameEventOneTileSokobanChangeable(x, y, whoPersistentInTile, whoMovableInTile));
+                sendGameEventToAllViews(new GameEventOneTileSokobanChangeable(x, y, whoPersistentInTile, whoMovableInTile));
             }
         }
         route = new Route();

@@ -8,8 +8,13 @@ import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
+import timmax.tilegame.basemodel.protocol.EventOfServer;
+import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent;
+import timmax.tilegame.baseview.View;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import static timmax.tilegame.basemodel.GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
 import static timmax.tilegame.basemodel.GameStatus.VICTORY;
@@ -28,6 +33,8 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
 
     protected final GameType gameType;
 
+    private final Set<String> viewNameSet;
+
     // ToDo: Сейчас здесь одна переменная типа RemoteClientStateAutomaton и ClientId. И для одного игрока вполне норм.
     //       Но для для двух (а возможно и более игроков) или если какой-то участник игры, не являющийся игроком будет
     //       работать в отдельном клиенте, придётся создавать какую-то коллекцию, в которой и будет описание игроков
@@ -45,6 +52,13 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         this.gameType = gameType;
         this.remoteClientStateAutomaton = remoteClientStateAutomaton;
         this.clientId = clientId;
+        this.viewNameSet = new HashSet<>();
+
+        // ToDo: Сейчас foreach работает и с ключём и со значением (аналогично как в классе LocalClientState),
+        //       Но здесь достаточно только с ключём.
+        for (Map.Entry<String, Class<? extends View>> entry : gameType.getMapOfViewNameViewClass().entrySet()) {
+            viewNameSet.add(entry.getKey());
+        }
     }
 
     protected final GameStatus getGameStatus() {
@@ -58,18 +72,25 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     protected void createNewGame(int width, int height) {
         gameStatus = GameStatus.GAME;
         GameEventNewGame gameEventNewGame = new GameEventNewGame(width, height);
-        sendGameEvent(gameEventNewGame);
+        sendGameEventToAllViews(gameEventNewGame);
     }
 
     protected void createNewGame(int width, int height, Color defaultCellColor, Color defaultTextColor, String defaultCellValue) {
         gameStatus = GameStatus.GAME;
         GameEventNewGame gameEventNewGame = new GameEventNewGame(width, height, defaultCellColor, defaultTextColor, defaultCellValue);
-        sendGameEvent(gameEventNewGame);
+        sendGameEventToAllViews(gameEventNewGame);
     }
 
-    // Посылает событие всем выборкам.
-    public void sendGameEvent(GameEvent gameEvent) {
-        remoteClientStateAutomaton.sendGameEventToAllViews(clientId, gameEvent);
+    // Посылает игровое событие всем выборкам.
+    public void sendGameEventToAllViews(GameEvent gameEvent) {
+        // ToDo: Пробовал сразу написать так:
+        //       for (String viewName : remoteClientState.getSetOfViewName())
+        //       Но такой вариант даже не компилировался.
+        //       Разобраться!
+        for (String viewName : viewNameSet) {
+            EventOfServer eventOfServer = new EventOfServer92GameEvent(viewName, gameEvent);
+            remoteClientStateAutomaton.sendEventOfServer(clientId, eventOfServer);
+        }
     }
 
     protected final boolean verifyGameStatusNotGameAndMayBeCreateNewGame() {
@@ -104,7 +125,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     @Override
     public void win() {
         setGameStatus(GameStatus.VICTORY);
-        sendGameEvent(new GameEventGameOver(VICTORY));
+        sendGameEventToAllViews(new GameEventGameOver(VICTORY));
     }
 
     @Override
@@ -113,6 +134,6 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
             return;
         }
         setGameStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
-        sendGameEvent(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
+        sendGameEventToAllViews(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
     }
 }
