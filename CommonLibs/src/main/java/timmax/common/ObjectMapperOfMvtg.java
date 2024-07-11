@@ -1,4 +1,4 @@
-package timmax.tilegame.basemodel.protocol;
+package timmax.common;
 
 import java.io.*;
 
@@ -37,6 +37,7 @@ public class ObjectMapperOfMvtg {
         ObjectInput objectInput;
         try {
             objectInput = new ObjectInputStream(byteArrayInputStream);
+            // ToDo: Избавиться от "Warning:(41, 22) Unchecked cast: 'java.lang.Object' to 'T'"
             result = (T)objectInput.readObject();
         } catch (IOException ioe) {
             ioe.printStackTrace();

@@ -13,7 +13,7 @@ import org.java_websocket.server.WebSocketServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import timmax.tilegame.basemodel.protocol.ObjectMapperOfMvtg;
+import timmax.common.ObjectMapperOfMvtg;
 import timmax.tilegame.basemodel.protocol.EventOfClient;
 import timmax.tilegame.basemodel.protocol.EventOfServer;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;

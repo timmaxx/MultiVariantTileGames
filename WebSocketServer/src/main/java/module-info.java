@@ -3,4 +3,5 @@ module WebSocketServer {
     requires org.apache.commons.collections4;
 
     requires timmax.tilegame.basetilemodel;
+    requires CommonLibs;
 }

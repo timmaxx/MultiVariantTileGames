@@ -32,19 +32,11 @@
             <artifactId>BaseTileModel</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-<!--
         <dependency>
             <groupId>timmax</groupId>
-            <artifactId>MinesweeperModel</artifactId>
+            <artifactId>CommonLibs</artifactId>
             <version>1.0-SNAPSHOT</version>
-            &lt;!&ndash;<scope>compile</scope>&ndash;&gt;
+            <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>timmax</groupId>
-            <artifactId>SokobanModel</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            &lt;!&ndash;<scope>compile</scope>&ndash;&gt;
-        </dependency>
--->
     </dependencies>
 </project>
