@@ -1,4 +1,4 @@
-package timmax.tilegame.basemodel.protocol;
+package timmax.common;
 
 public class Classes {
     //  Метод isInstanceOf можно использовать там, где не получается использовать оператор instanceof.
