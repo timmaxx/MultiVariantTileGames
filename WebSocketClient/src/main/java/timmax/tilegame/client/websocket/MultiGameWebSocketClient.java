@@ -65,7 +65,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteBuffer.array());
         // ToDo: А вдруг здесь от сервера прилетит что-то не EventOfServer?
         //       Тогда нужно обрабатывать исключение и выводить в лог.
-        EventOfServer eventOfServer = mapper.readValue(byteArrayInputStream, EventOfServer.class);
+        EventOfServer eventOfServer = mapper.readValue(byteArrayInputStream);
         logger.info("Incoming message. EventOfServer: {}.", eventOfServer);
         eventOfServer.executeOnClient(modelMultiGameWebSocketClientManyTimesUse.getLocalClientStateAutomaton());
         logger.debug("  Main game client status: {}.", modelMultiGameWebSocketClientManyTimesUse);

@@ -30,15 +30,22 @@ public class ObjectMapperOfMvtg {
     //  В ObjectMapper:
     //  public <T> T readValue(String content, Class<T> valueType) throws JsonProcessingException, JsonMappingException
 
-    public <T> T readValue(ByteArrayInputStream byteArrayInputStream, Class<T> valueType) {
+    // Как по другому сделать приведение типа в строке
+    // result = (T) objectInput.readObject();
+    // чтобы не появлялось
+    // Warning:(41, 22) Unchecked cast: 'java.lang.Object' to 'T'
+    // я не разобрался.
+    @SuppressWarnings("unchecked")
+    public <T> T readValue(ByteArrayInputStream byteArrayInputStream) {
         _assertNotNull("byteArrayInputStream", byteArrayInputStream);
 
         T result = null;
         ObjectInput objectInput;
         try {
             objectInput = new ObjectInputStream(byteArrayInputStream);
-            // ToDo: Избавиться от "Warning:(41, 22) Unchecked cast: 'java.lang.Object' to 'T'"
-            result = (T)objectInput.readObject();
+            // См. комментарий выше перед
+            // @SuppressWarnings("unchecked")
+            result = (T) objectInput.readObject();
         } catch (IOException ioe) {
             ioe.printStackTrace();
             // throw new RuntimeException(ioe);
