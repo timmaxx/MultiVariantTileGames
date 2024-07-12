@@ -2,6 +2,8 @@ package timmax.common;
 
 import java.io.*;
 
+import static timmax.common.Asserts._assertNotNull;
+
 // Класс похож на ObjectMapper из Jackson
 public class ObjectMapperOfMvtg {
     /*
@@ -57,12 +59,5 @@ public class ObjectMapperOfMvtg {
         }
 
         return result;
-    }
-
-    // ToDo: этот метод следует вне этого класса разместить.
-    protected static void _assertNotNull(String paramName, Object src) {
-        if (src == null) {
-            throw new IllegalArgumentException(String.format("argument \"%s\" is null", paramName));
-        }
     }
 }
