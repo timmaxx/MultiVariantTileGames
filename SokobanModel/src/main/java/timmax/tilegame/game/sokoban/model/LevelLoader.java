@@ -12,7 +12,7 @@ import timmax.tilegame.game.sokoban.model.gameobject.*;
 public class LevelLoader {
     private final Path levels;
 
-    public LevelLoader( Path levels) {
+    public LevelLoader(Path levels) {
         this.levels = levels;
     }
 
@@ -22,9 +22,9 @@ public class LevelLoader {
         int countOfHome = 0;
         int countOfPlayers = 0;
 
-        Set< Wall> walls = new HashSet< >( );
-        Set< Box> boxes = new HashSet< >( );
-        Set< Home> homes = new HashSet< >( );
+        Set<Wall> walls = new HashSet<>();
+        Set<Box> boxes = new HashSet<>();
+        Set<Home> homes = new HashSet<>();
         Player player = null;
 
         // ToDo: Сейчас берутся явно из файла.
@@ -32,89 +32,89 @@ public class LevelLoader {
         int width = 0;
         int height = 0;
 
-        try ( BufferedReader reader = new BufferedReader( new FileReader( levels.toFile( )))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(levels.toFile()))) {
             int readLevel = 0;
             int x;
             int y = 0;
             boolean isLevelMap = false;
 
             String line;
-            while ( ( line = reader.readLine( )) != null) {
-                if ( line.contains( "Maze:")) {
-                    readLevel = Integer.parseInt( line.split( " ")[ 1]);
+            while ((line = reader.readLine()) != null) {
+                if (line.contains("Maze:")) {
+                    readLevel = Integer.parseInt(line.split(" ")[1]);
                     continue;
-                } else if ( line.contains( "Size X:")) {
-                    width = Integer.parseInt( line.split( " ")[ 2]);
+                } else if (line.contains("Size X:")) {
+                    width = Integer.parseInt(line.split(" ")[2]);
                     continue;
-                } else if ( line.contains( "Size Y:")) {
-                    height = Integer.parseInt( line.split( " ")[ 2]);
+                } else if (line.contains("Size Y:")) {
+                    height = Integer.parseInt(line.split(" ")[2]);
                     continue;
                 }
-                if ( readLevel == level) {
-                    if ( line.length( ) == 0) {
+                if (readLevel == level) {
+                    if (line.length() == 0) {
                         boolean isEnd = isLevelMap;
 
                         isLevelMap = !isLevelMap;
 
-                        if ( isEnd && !isLevelMap) {
+                        if (isEnd && !isLevelMap) {
                             break;
                         } else {
                             continue;
                         }
                     }
-                    if ( !isLevelMap) {
+                    if (!isLevelMap) {
                         continue;
                     }
 
-                    char[ ] chars = line.toCharArray( );
+                    char[] chars = line.toCharArray();
                     x = 0;
-                    for ( char c : chars) {
-                        if ( c == 'X') {
-                            walls.add( new Wall( x, y));
-                        } else if ( c == '*') {
+                    for (char c : chars) {
+                        if (c == 'X') {
+                            walls.add(new Wall(x, y));
+                        } else if (c == '*') {
                             countOfBoxes++;
-                            boxes.add( new Box( x, y));
-                        } else if ( c == '.') {
+                            boxes.add(new Box(x, y));
+                        } else if (c == '.') {
                             countOfHome++;
-                            homes.add( new Home( x, y));
-                        } else if ( c == '&') {
+                            homes.add(new Home(x, y));
+                        } else if (c == '&') {
                             countOfBoxes++;
-                            boxes.add( new Box( x, y));
+                            boxes.add(new Box(x, y));
 
                             countOfHome++;
-                            homes.add( new Home( x, y));
+                            homes.add(new Home(x, y));
 
                         } else if (c == '@') {
                             countOfPlayers++;
-                            player = new Player( x, y);
+                            player = new Player(x, y);
                         }
                         x++;
                     }
                     y++;
                 }
             }
-        } catch ( IOException e) {
-            e.printStackTrace( );
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        validate( countOfPlayers, countOfBoxes, countOfHome);
+        validate(countOfPlayers, countOfBoxes, countOfHome);
 
-        return new AllSokobanObjects( width, height, walls, boxes, homes, player, countOfBoxes);
+        return new AllSokobanObjects(width, height, walls, boxes, homes, player, countOfBoxes);
     }
 
-    private static void validate( int countOfPlayers, int countOfBoxes, int countOfHome) {
-        StringBuilder errMessage = new StringBuilder( );
+    private static void validate(int countOfPlayers, int countOfBoxes, int countOfHome) {
+        StringBuilder errMessage = new StringBuilder();
         boolean isError = false;
-        if ( countOfPlayers != 1) {
+        if (countOfPlayers != 1) {
             isError = true;
-            errMessage.append( "countOfPlayers <> 1!");
+            errMessage.append("countOfPlayers <> 1!");
         }
-        if ( countOfBoxes != countOfHome) {
+        if (countOfBoxes != countOfHome) {
             isError = true;
-            errMessage.append( " countOfBoxes <> countOfHome!");
+            errMessage.append(" countOfBoxes <> countOfHome!");
         }
-        if ( isError) {
-            throw new RuntimeException( errMessage.toString( ));
+        if (isError) {
+            throw new RuntimeException(errMessage.toString());
         }
     }
 }

@@ -16,7 +16,7 @@ abstract public class CollisionObject extends Tile {
 
     public boolean isOutOfBoard(Direction direction, int width, int height) {
         Tile tile = add(direction);
-        return  tile.getX() < 0 || tile.getX() >= width ||
+        return tile.getX() < 0 || tile.getX() >= width ||
                 tile.getY() < 0 || tile.getY() >= height;
     }
 }

@@ -6,14 +6,13 @@ public class Step {
     private final Direction direction;
     private final boolean isBoxMoved;
 
-
-    public Step( Direction direction, boolean isBoxMoved) {
+    public Step(Direction direction, boolean isBoxMoved) {
         this.direction = direction;
         this.isBoxMoved = isBoxMoved;
     }
 
     @Override
-    public String toString( ) {
+    public String toString() {
         return "Step{ " +
                 "direction = " + direction +
                 ", isBoxMoved = " + isBoxMoved +
@@ -21,33 +20,33 @@ public class Step {
     }
 
     @Override
-    public boolean equals( Object obj) {
-        if ( obj == null) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        if ( this == obj) {
+        if (this == obj) {
             return true;
         }
-        if ( !( obj instanceof Step step)) {
+        if (!(obj instanceof Step step)) {
             return false;
         }
 
-        return this.isBoxMoved == step.isBoxMoved && direction.equals( step.direction);
+        return this.isBoxMoved == step.isBoxMoved && direction.equals(step.direction);
     }
 
-    public Step oppositeStep( ) {
-        return new Step( direction.not( ), isBoxMoved);
+    public Step oppositeStep() {
+        return new Step(direction.not(), isBoxMoved);
     }
 
-    public Direction oppositeStepDirection( ) {
-        return oppositeStep( ).direction;
+    public Direction oppositeStepDirection() {
+        return oppositeStep().direction;
     }
 
-    public boolean isBoxMoved( ) {
+    public boolean isBoxMoved() {
         return isBoxMoved;
     }
 
-    public Direction getDirection( ) {
+    public Direction getDirection() {
         return direction;
     }
 }

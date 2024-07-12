@@ -11,9 +11,7 @@ public class GameEventSokobanPersistentParams extends GameEvent {
     public final static String COMMON_LABEL_OF_PERSISTENT_PARAMS = "\nPersistent settings for Sokoban\n";
     public final static String COUNT_OF_BOXES_AND_HOMES = " Count of all boxes and homes = ";
 
-
     private int countOfBoxesAndHomes;
-
 
     public GameEventSokobanPersistentParams() {
         super();

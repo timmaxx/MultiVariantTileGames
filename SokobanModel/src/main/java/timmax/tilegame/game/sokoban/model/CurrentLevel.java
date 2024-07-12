@@ -6,15 +6,15 @@ public class CurrentLevel {
     private int value = 1;
 
 
-    void incValue( ) {
-        value = ( value + COUNT_OF_LEVELS) % COUNT_OF_LEVELS + 1;
+    void incValue() {
+        value = (value + COUNT_OF_LEVELS) % COUNT_OF_LEVELS + 1;
     }
 
-    void decValue( ) {
-        value = ( value - 2 + COUNT_OF_LEVELS) % COUNT_OF_LEVELS + 1;
+    void decValue() {
+        value = (value - 2 + COUNT_OF_LEVELS) % COUNT_OF_LEVELS + 1;
     }
 
-    int getValue( ) {
+    int getValue() {
         return value;
     }
 }
