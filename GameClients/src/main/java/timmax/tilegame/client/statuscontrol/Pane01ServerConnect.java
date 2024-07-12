@@ -9,12 +9,12 @@ import javafx.scene.control.TextField;
 
 import timmax.tilegame.transport.TransportOfClient;
 
-public class Pane01ServerConnect<ClientId> extends AbstractConnectStatePane<ClientId> {
+public class Pane01ServerConnect extends AbstractConnectStatePane {
     private final TextField textFieldServerAddress;
     private final TextField textFieldServerPort;
     private final TextField textFieldConnectString;
 
-    public Pane01ServerConnect(TransportOfClient<ClientId> transportOfClient) {
+    public Pane01ServerConnect(TransportOfClient transportOfClient) {
         super(transportOfClient);
 
         // Контролы для продвижения состояния "вперёд":

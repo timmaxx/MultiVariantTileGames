@@ -6,13 +6,13 @@ import javafx.scene.text.Text;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.transport.TransportOfClient;
 
-abstract public class ViewTextFieldsJfx<ClientId> extends ViewJfx<ClientId> {
+abstract public class ViewTextFieldsJfx extends ViewJfx {
     String commonLabel;
     private final Text messageText;
     Class<? extends GameEvent> clazz;
 
     public ViewTextFieldsJfx(
-            TransportOfClient<ClientId> transportOfClient,
+            TransportOfClient transportOfClient,
             Class<? extends GameEvent> clazz,
             String commonLabel,
             String viewName) {

@@ -4,8 +4,8 @@ import java.util.List;
 
 import timmax.tilegame.transport.TransportOfClient;
 
-public class Pane05GetGameMatchSet<ClientId> extends AbstractConnectStatePane<ClientId> {
-    public Pane05GetGameMatchSet(TransportOfClient<ClientId> transportOfClient) {
+public class Pane05GetGameMatchSet extends AbstractConnectStatePane {
+    public Pane05GetGameMatchSet(TransportOfClient transportOfClient) {
         super(transportOfClient);
 
         // Контролы для продвижения состояния "вперёд":

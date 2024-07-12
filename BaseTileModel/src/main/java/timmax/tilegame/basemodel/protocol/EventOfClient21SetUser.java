@@ -7,7 +7,7 @@ import java.io.ObjectOutput;
 import timmax.tilegame.basemodel.credential.Credentials;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
-public class EventOfClient21SetUser<ClientId> extends EventOfClient<ClientId> {
+public class EventOfClient21SetUser extends EventOfClient {
     private String userName;
     private String password;
 
@@ -22,7 +22,7 @@ public class EventOfClient21SetUser<ClientId> extends EventOfClient<ClientId> {
     }
 
     @Override
-    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
+    public <ClientId> void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
         if (Credentials.isUserAndPasswordCorrect(userName, password)) {
             password = ""; // Не будем даже хранить пароль.
             remoteClientStateAutomaton.setUser(userName);

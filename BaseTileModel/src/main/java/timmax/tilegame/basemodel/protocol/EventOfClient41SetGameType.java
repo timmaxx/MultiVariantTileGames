@@ -7,7 +7,7 @@ import java.io.ObjectOutput;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
-public class EventOfClient41SetGameType<ClientId> extends EventOfClient<ClientId> {
+public class EventOfClient41SetGameType extends EventOfClient {
     // ToDo: См. комментарий к GameType.
     private String gameTypeName;
 
@@ -21,7 +21,7 @@ public class EventOfClient41SetGameType<ClientId> extends EventOfClient<ClientId
     }
 
     @Override
-    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
+    public <ClientId> void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
         if (gameTypeName == null) {
             logger.error("Client sent empty name of model classes.");
             remoteClientStateAutomaton.forgetGameType();

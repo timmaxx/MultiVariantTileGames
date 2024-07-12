@@ -9,8 +9,8 @@ import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperPers
 import static timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperPersistentParams.COMMON_LABEL_OF_PERSISTENT_PARAMS;
 import static timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperPersistentParams.COUNT_OF_MINES;
 
-public class MinesweeperPersistentSettings<ClientId> extends ViewTextFieldsJfx<ClientId> {
-    public MinesweeperPersistentSettings(TransportOfClient<ClientId> transportOfClient, String viewName) {
+public class MinesweeperPersistentSettings extends ViewTextFieldsJfx {
+    public MinesweeperPersistentSettings(TransportOfClient transportOfClient, String viewName) {
         super(transportOfClient
                 , GameEventMinesweeperPersistentParams.class
                 , COMMON_LABEL_OF_PERSISTENT_PARAMS

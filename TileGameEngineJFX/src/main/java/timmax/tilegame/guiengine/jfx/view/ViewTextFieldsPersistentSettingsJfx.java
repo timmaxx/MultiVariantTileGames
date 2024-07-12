@@ -4,9 +4,9 @@ import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
 import timmax.tilegame.transport.TransportOfClient;
 
-public class ViewTextFieldsPersistentSettingsJfx<ClientId> extends ViewTextFieldsJfx<ClientId> {
+public class ViewTextFieldsPersistentSettingsJfx extends ViewTextFieldsJfx {
     public ViewTextFieldsPersistentSettingsJfx(
-            TransportOfClient<ClientId> transportOfClient,
+            TransportOfClient transportOfClient,
             String viewName) {
         super(transportOfClient
                 , GameEventNewGame.class

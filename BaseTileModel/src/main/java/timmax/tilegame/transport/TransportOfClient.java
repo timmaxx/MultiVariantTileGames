@@ -8,12 +8,7 @@ import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
 
-// ToDo: Непонятно, почему класс параметризирован ClientId? Ведь он используется на клиенте. В частности
-//       sendEventOfClient(...)
-//       отправляет событие от клиента серверу и событие не содержит идентификатора клиента.
-//       Но сервер, приняв событие от клиента, знает идентификатор клиента и как-то по нему будет у себя понимать,
-//       сообщение пришло от того или иного клиента.
-public interface TransportOfClient<ClientId> {
+public interface TransportOfClient {
     void close();
     void connect();
 
@@ -21,10 +16,10 @@ public interface TransportOfClient<ClientId> {
     //  class MultiGameWebSocketClient
     //  т.к. он
     //  extends org.java_websocket.client.WebSocketClient
-    //  это не получается. Также смотри кооментарии к MultiGameWebSocketClient.
+    //  это не получается. Также смотри комментарии к MultiGameWebSocketClient.
     void setURI(URI uriFromControls);
 
-    void sendEventOfClient(EventOfClient<ClientId> eventOfClient);
+    void sendEventOfClient(EventOfClient eventOfClient);
 
     LocalClientStateAutomaton getLocalClientStateAutomaton();
 

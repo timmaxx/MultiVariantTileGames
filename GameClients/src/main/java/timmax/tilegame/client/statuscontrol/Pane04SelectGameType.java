@@ -9,11 +9,11 @@ import javafx.scene.control.TextField;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.transport.TransportOfClient;
 
-public class Pane04SelectGameType<ClientId> extends AbstractConnectStatePane<ClientId> {
+public class Pane04SelectGameType extends AbstractConnectStatePane {
     private final ComboBox<String> comboBoxGameTypeSet;
     private final TextField textFieldSelectedGameType;
 
-    public Pane04SelectGameType(TransportOfClient<ClientId> transportOfClient) {
+    public Pane04SelectGameType(TransportOfClient transportOfClient) {
         super(transportOfClient);
 
         // Контролы для продвижения состояния "вперёд":

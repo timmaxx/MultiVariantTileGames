@@ -6,12 +6,12 @@ import timmax.tilegame.transport.TransportOfClient;
 import timmax.tilegame.basecontroller.BaseController;
 import timmax.tilegame.baseview.View;
 
-public abstract class ViewJfx<ClientId> extends Pane implements View {
+public abstract class ViewJfx extends Pane implements View {
     private final String viewName;
     protected final BaseController baseController;
 
     public ViewJfx(
-            TransportOfClient<ClientId> transportOfClient,
+            TransportOfClient transportOfClient,
             BaseController baseController,
             String viewName) {
         super();

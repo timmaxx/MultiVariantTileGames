@@ -13,12 +13,12 @@ import timmax.tilegame.baseview.ViewMainField;
 import timmax.tilegame.guiengine.jfx.Game;
 import timmax.tilegame.guiengine.jfx.GameStackPane;
 
-public class ViewMainFieldJfx<ClientId> extends ViewJfx<ClientId> implements ViewMainField {
+public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
     protected GameStackPane[][] cells;
     protected int cellSize;
 
     public ViewMainFieldJfx(
-            TransportOfClient<ClientId> transportOfClient,
+            TransportOfClient transportOfClient,
             BaseController baseController,
             String viewName) {
         super(transportOfClient, baseController, viewName);

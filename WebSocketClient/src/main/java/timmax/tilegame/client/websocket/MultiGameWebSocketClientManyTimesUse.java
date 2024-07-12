@@ -3,7 +3,6 @@ package timmax.tilegame.client.websocket;
 import java.net.URI;
 import java.util.Map;
 
-import org.java_websocket.WebSocket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,10 +13,10 @@ import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
 import timmax.tilegame.transport.TransportOfClient;
 
 // WebSocket клиент многоразовый
-public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient<WebSocket> {
+public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketClientManyTimesUse.class);
 
-    private TransportOfClient<WebSocket> transportOfClient;
+    private TransportOfClient transportOfClient;
     private URI uri;
 
     LocalClientStateAutomaton localClientStateAutomatonJfx;
@@ -56,7 +55,7 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient<W
     }
 
     @Override
-    public void sendEventOfClient(EventOfClient<WebSocket> eventOfClient) {
+    public void sendEventOfClient(EventOfClient eventOfClient) {
         transportOfClient.sendEventOfClient(eventOfClient);
     }
 

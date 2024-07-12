@@ -85,7 +85,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         //       Тогда нужно обрабатывать исключение и выводить в лог.
         // ToDo: Избавиться от "Warning:(88, 50) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.EventOfClient' to 'timmax.tilegame.basemodel.protocol.EventOfClient<org.java_websocket.WebSocket>'"
         //       При удалении параметра ClientId из класса EventOfClient, уйдёт и это предупреждение.
-        EventOfClient<WebSocket> eventOfClient = mapper.readValue(byteArrayInputStream);
+        EventOfClient eventOfClient = mapper.readValue(byteArrayInputStream);
         logger.info("WebSocket: {}. Incoming message. EventOfClient: {}.", webSocket, eventOfClient);
         Thread thread = new Thread(() -> eventOfClient.executeOnServer(webSocketAndRemoteClientStateAutomatonMap.get(webSocket)));
         thread.start();

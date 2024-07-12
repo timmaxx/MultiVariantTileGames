@@ -26,16 +26,16 @@ public class MultiGameClient extends Application {
                 new FabricOfClientStatesJfx()
         );
 
-        TransportOfClient<?> transportOfClient = new MultiGameWebSocketClientManyTimesUse(localClientStateAutomatonJfx);
+        TransportOfClient transportOfClient = new MultiGameWebSocketClientManyTimesUse(localClientStateAutomatonJfx);
 
         root.getChildren().addAll(
-                new Pane01ServerConnect<>(transportOfClient),
-                new Pane02UserLogin<>(transportOfClient),
-                new Pane03GetGameTypeSet<>(transportOfClient),
-                new Pane04SelectGameType<>(transportOfClient),
-                new Pane05GetGameMatchSet<>(transportOfClient),
-                new Pane06SelectGameMatch<>(transportOfClient),
-                new Pane07GameMatchPlaying<>(transportOfClient)
+                new Pane01ServerConnect(transportOfClient),
+                new Pane02UserLogin(transportOfClient),
+                new Pane03GetGameTypeSet(transportOfClient),
+                new Pane04SelectGameType(transportOfClient),
+                new Pane05GetGameMatchSet(transportOfClient),
+                new Pane06SelectGameMatch(transportOfClient),
+                new Pane07GameMatchPlaying(transportOfClient)
         );
 
         Scene scene = new Scene(root);

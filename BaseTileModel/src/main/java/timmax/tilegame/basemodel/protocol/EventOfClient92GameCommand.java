@@ -7,7 +7,7 @@ import java.io.ObjectOutput;
 import timmax.tilegame.basemodel.gamecommand.GameCommand;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
-public class EventOfClient92GameCommand<ClientId> extends EventOfClient<ClientId> {
+public class EventOfClient92GameCommand extends EventOfClient {
     private GameCommand gameCommand;
 
     public EventOfClient92GameCommand() {
@@ -20,7 +20,7 @@ public class EventOfClient92GameCommand<ClientId> extends EventOfClient<ClientId
     }
 
     @Override
-    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
+    public <ClientId> void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
         gameCommand.executeOnServer(remoteClientStateAutomaton.getGameMatchX());
     }
 

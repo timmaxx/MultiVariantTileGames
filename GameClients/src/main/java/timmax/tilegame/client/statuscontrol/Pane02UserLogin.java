@@ -8,8 +8,8 @@ import javafx.scene.control.TextField;
 
 import timmax.tilegame.transport.TransportOfClient;
 
-public class Pane02UserLogin<ClientId> extends AbstractConnectStatePane<ClientId> {
-    public Pane02UserLogin(TransportOfClient<ClientId> transportOfClient) {
+public class Pane02UserLogin extends AbstractConnectStatePane {
+    public Pane02UserLogin(TransportOfClient transportOfClient) {
         super(transportOfClient);
 
         // Контролы для продвижения состояния "вперёд":

@@ -15,10 +15,10 @@ import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
 import timmax.tilegame.guiengine.jfx.GameClientPaneJfx;
 import timmax.tilegame.transport.TransportOfClient;
 
-public class Pane07GameMatchPlaying<ClientId> extends AbstractConnectStatePane<ClientId> {
+public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
     private final Pane paneGameViewsAndControls;
 
-    public Pane07GameMatchPlaying(TransportOfClient<ClientId> transportOfClient) {
+    public Pane07GameMatchPlaying(TransportOfClient transportOfClient) {
         super(transportOfClient);
 
         // Контролы для продвижения состояния "вперёд":
@@ -137,7 +137,7 @@ public class Pane07GameMatchPlaying<ClientId> extends AbstractConnectStatePane<C
         );
 
         paneGameViewsAndControls.getChildren().clear();
-        paneGameViewsAndControls.getChildren().add(new GameClientPaneJfx<>(transportOfClient));
+        paneGameViewsAndControls.getChildren().add(new GameClientPaneJfx(transportOfClient));
 
         if (y > DIFFERENCE_OF_LAYOUT_Y) {
             y -= DIFFERENCE_OF_LAYOUT_Y;

@@ -7,7 +7,7 @@ import java.util.Map;
 
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
-public class EventOfClient71SetGameMatchPlaying<ClientId> extends EventOfClient<ClientId> {
+public class EventOfClient71SetGameMatchPlaying extends EventOfClient {
     private Map<String, Integer> paramsOfModelValueMap;
 
     public EventOfClient71SetGameMatchPlaying() {
@@ -23,7 +23,7 @@ public class EventOfClient71SetGameMatchPlaying<ClientId> extends EventOfClient<
     //       RemoteClientStateAutomaton, но и с экземпляром GameMatch.
     //       Нужно пересмотреть архитектуру и передавать сюда GameMatch.
     @Override
-    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
+    public <ClientId> void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
         remoteClientStateAutomaton.getGameMatchX().setParamsOfModelValueMap(paramsOfModelValueMap);
         remoteClientStateAutomaton.setGameMatchPlaying(true);
     }

@@ -6,7 +6,6 @@ import java.net.URI;
 import java.nio.ByteBuffer;
 import java.util.Map;
 
-import org.java_websocket.WebSocket;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 import org.slf4j.Logger;
@@ -26,13 +25,13 @@ import timmax.tilegame.transport.TransportOfClient;
 // - соответственно и работающий метод void setURI(URI uriFromControls) в этом классе не возможен,
 //   но тогда пусть он бросает исключение.
 
-public class MultiGameWebSocketClient extends WebSocketClient implements TransportOfClient<WebSocket> {
+public class MultiGameWebSocketClient extends WebSocketClient implements TransportOfClient {
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketClient.class);
 
     private final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
-    private final TransportOfClient<WebSocket> modelMultiGameWebSocketClientManyTimesUse;
+    private final TransportOfClient modelMultiGameWebSocketClientManyTimesUse;
 
-    public MultiGameWebSocketClient(URI serverUri, TransportOfClient<WebSocket> modelMultiGameWebSocketClientManyTimesUse) {
+    public MultiGameWebSocketClient(URI serverUri, TransportOfClient modelMultiGameWebSocketClientManyTimesUse) {
         super(serverUri);
         this.modelMultiGameWebSocketClientManyTimesUse = modelMultiGameWebSocketClientManyTimesUse;
     }
@@ -87,7 +86,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     }
 
     @Override
-    public void sendEventOfClient(EventOfClient<WebSocket> eventOfClient) {
+    public void sendEventOfClient(EventOfClient eventOfClient) {
         logger.info("Outcoming message. EventOfClient: {}.", eventOfClient);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         mapper.writeValue(byteArrayOutputStream, eventOfClient);
@@ -104,78 +103,78 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     @Override
     public void setUser(String userName, String password) {
         logger.debug("setUser(String, String)");
-        sendEventOfClient(new EventOfClient21SetUser<>(userName, password));
+        sendEventOfClient(new EventOfClient21SetUser(userName, password));
     }
 
     // 3
     @Override
     public void forgetUser() {
         logger.debug("forgetUser()");
-        sendEventOfClient(new EventOfClient20ForgetUser<>());
+        sendEventOfClient(new EventOfClient20ForgetUser());
     }
 
     @Override
     public void setGameTypeSet() {
         logger.debug("setGameTypeSet()");
-        sendEventOfClient(new EventOfClient31SetGameTypeSet<>());
+        sendEventOfClient(new EventOfClient31SetGameTypeSet());
     }
 
     // 4
     @Override
     public void forgetGameTypeSet() {
         logger.debug("forgetGameTypeSet()");
-        sendEventOfClient(new EventOfClient30ForgetGameTypeSet<>());
+        sendEventOfClient(new EventOfClient30ForgetGameTypeSet());
     }
 
     @Override
     public void setGameType(GameType gameType) {
         logger.debug("setGameType(GameType)");
-        sendEventOfClient(new EventOfClient41SetGameType<>(gameType.getGameName()));
+        sendEventOfClient(new EventOfClient41SetGameType(gameType.getGameName()));
     }
 
     // 5
     @Override
     public void forgetGameType() {
         logger.debug("forgetGameType()");
-        sendEventOfClient(new EventOfClient40ForgetGameType<>());
+        sendEventOfClient(new EventOfClient40ForgetGameType());
     }
 
     @Override
     public void setGameMatchSet() {
         logger.debug("setGameMatchSet()");
-        sendEventOfClient(new EventOfClient51SetGameMatchSet<>());
+        sendEventOfClient(new EventOfClient51SetGameMatchSet());
     }
 
     // 6
     @Override
     public void forgetGameMatchSet() {
         logger.debug("forgetGameMatchSet()");
-        sendEventOfClient(new EventOfClient50ForgetGameMatchSet<>());
+        sendEventOfClient(new EventOfClient50ForgetGameMatchSet());
     }
 
     @Override
     public void setGameMatch(GameMatchId gameMatchId) {
         logger.debug("setGameMatch(GameMatchId gameMatchId)");
-        sendEventOfClient(new EventOfClient61SetGameMatch<>(gameMatchId));
+        sendEventOfClient(new EventOfClient61SetGameMatch(gameMatchId));
     }
 
     // 7
     @Override
     public void forgetGameMatch() {
         logger.debug("forgetGameMatch()");
-        sendEventOfClient(new EventOfClient60ForgetGameMatch<>());
+        sendEventOfClient(new EventOfClient60ForgetGameMatch());
     }
 
     @Override
     public void setGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue) {
         logger.debug("setGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue)");
-        sendEventOfClient(new EventOfClient71SetGameMatchPlaying<>(mapOfParamsOfModelValue));
+        sendEventOfClient(new EventOfClient71SetGameMatchPlaying(mapOfParamsOfModelValue));
     }
 
     // 8
     @Override
     public void forgetGameMatchPlaying() {
         logger.debug("forgetGameMatchPlaying()");
-        sendEventOfClient(new EventOfClient70ForgetGameMatchPlaying<>());
+        sendEventOfClient(new EventOfClient70ForgetGameMatchPlaying());
     }
 }

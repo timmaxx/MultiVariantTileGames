@@ -2,9 +2,8 @@ package timmax.tilegame.basemodel.protocol;
 
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
-// ToDo: Вероятно параметризация ClientId этому классу не должна быть нужна.
-public abstract class EventOfClient<ClientId> extends Event {
-    public abstract void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton);
+public abstract class EventOfClient extends Event {
+    public abstract <ClientId> void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton);
 
     @Override
     public String toString() {

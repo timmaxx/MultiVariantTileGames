@@ -8,7 +8,7 @@ import timmax.tilegame.basemodel.protocol.server.IGameMatch;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
 
-public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientId> {
+public class EventOfClient61SetGameMatch extends EventOfClient {
     private GameMatchId gameMatchId;
 
     public EventOfClient61SetGameMatch() {
@@ -21,7 +21,7 @@ public class EventOfClient61SetGameMatch<ClientId> extends EventOfClient<ClientI
     }
 
     @Override
-    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
+    public <ClientId> void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
         if (gameMatchId.isNullOrEmpty()) {
             remoteClientStateAutomaton.forgetGameMatchX();
             return;

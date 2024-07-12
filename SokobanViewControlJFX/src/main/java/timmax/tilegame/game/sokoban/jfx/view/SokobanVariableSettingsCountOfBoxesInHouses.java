@@ -8,8 +8,8 @@ import timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanVariablePara
 
 import static timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanVariableParamsCountOfBoxesInHouses.COMMON_LABEL_OF_VARIABLE_PARAMS_COUNT_OF_BOXES_IN_HOMES;
 
-public class SokobanVariableSettingsCountOfBoxesInHouses<ClientId> extends ViewTextFieldsJfx<ClientId> {
-    public SokobanVariableSettingsCountOfBoxesInHouses(TransportOfClient<ClientId> transportOfClient, String viewName) {
+public class SokobanVariableSettingsCountOfBoxesInHouses extends ViewTextFieldsJfx {
+    public SokobanVariableSettingsCountOfBoxesInHouses(TransportOfClient transportOfClient, String viewName) {
         super(transportOfClient
                 , GameEventSokobanVariableParamsCountOfBoxesInHouses.class
                 , COMMON_LABEL_OF_VARIABLE_PARAMS_COUNT_OF_BOXES_IN_HOMES

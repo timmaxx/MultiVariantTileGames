@@ -2,9 +2,9 @@ package timmax.tilegame.basemodel.protocol;
 
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
-public class EventOfClient70ForgetGameMatchPlaying<ClientId> extends EventOfClient<ClientId> {
+public class EventOfClient70ForgetGameMatchPlaying extends EventOfClient {
     @Override
-    public void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
+    public <ClientId> void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
         remoteClientStateAutomaton.forgetGameMatchPlaying();
     }
 

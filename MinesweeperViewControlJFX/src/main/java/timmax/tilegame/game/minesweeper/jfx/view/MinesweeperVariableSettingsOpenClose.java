@@ -8,8 +8,8 @@ import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVari
 
 import static timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsOpenClose.*;
 
-public class MinesweeperVariableSettingsOpenClose<ClientId> extends ViewTextFieldsJfx<ClientId> {
-    public MinesweeperVariableSettingsOpenClose(TransportOfClient<ClientId> transportOfClient, String viewName) {
+public class MinesweeperVariableSettingsOpenClose extends ViewTextFieldsJfx {
+    public MinesweeperVariableSettingsOpenClose(TransportOfClient transportOfClient, String viewName) {
         super(transportOfClient
                 , GameEventMinesweeperVariableParamsOpenClose.class
                 , COMMON_LABEL_OF_VARIABLE_PARAMS_OPEN_CLOSE

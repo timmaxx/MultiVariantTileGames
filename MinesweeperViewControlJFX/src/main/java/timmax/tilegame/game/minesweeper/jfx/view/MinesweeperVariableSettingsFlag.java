@@ -8,8 +8,8 @@ import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVari
 
 import static timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsFlag.*;
 
-public class MinesweeperVariableSettingsFlag<ClientId> extends ViewTextFieldsJfx<ClientId> {
-    public MinesweeperVariableSettingsFlag(TransportOfClient<ClientId> transportOfClient, String viewName) {
+public class MinesweeperVariableSettingsFlag extends ViewTextFieldsJfx {
+    public MinesweeperVariableSettingsFlag(TransportOfClient transportOfClient, String viewName) {
         super(transportOfClient
                 , GameEventMinesweeperVariableParamsFlag.class
                 , COMMON_LABEL_OF_VARIABLE_PARAMS_FLAG
