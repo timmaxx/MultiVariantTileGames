@@ -48,7 +48,7 @@ public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
 
         int width = gameEventNewGame.getWidth();
         int height = gameEventNewGame.getHeight();
-        cellSize = Math.min(Game.APP_WIDTH / width, Game.APP_HEIGHT / height);
+        cellSize = Math.min(Game.APP_WIDTH / width, Game.APP_HEIGHT / height) * 2 / 3;
 
         Color defaultCellBackgroundColor = gameEventNewGame.getDefaultCellBackgroundColor();
         Color defaultCellTextColor = gameEventNewGame.getDefaultCellTextColor();
