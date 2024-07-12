@@ -22,7 +22,8 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     public static final String PARAM_NAME_PERCENTS_OF_MINES = "Percents of mines";
 
     // Константы, описанные ниже относятся к визуализации.
-    // ToDo: Вынести логику визуализации из класса.
+    // ToDo: Ниже относится к визуализации. Удалить это отсюда.
+    // ToDo: Хотя-бы в GameType эти реквизиты можно было-бы переместить.
     public static final Color UNOPENED_CELL_COLOR = ORANGE;
     public static final Color OPENED_CELL_COLOR = GREEN;
 
@@ -52,7 +53,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
             return;
         }
 
-        // ToDo: Избавиться от "Warning:(56, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
+        // ToDo: Избавиться от "Warning:(57, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
         allMinesweeperObjects = levelGenerator.getLevel(width, height, percentsOfMines);
         allMinesweeperObjects.setModel(this);
 

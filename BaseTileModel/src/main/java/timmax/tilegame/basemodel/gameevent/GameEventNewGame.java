@@ -14,6 +14,7 @@ public class GameEventNewGame extends GameEvent {
     // Поля ниже нужны для визуализации. И сейчас они добавлены сюда для работы универсального клиента.
     // Но:
     // ToDo: Было-бы лучше вынести из этого класса логику визуализации.
+    // ToDo: Хотя-бы в GameType эти реквизиты можно было-бы переместить.
     private boolean isThereCellSettingDefault;
     private Color defaultCellBackgroundColor;
     private Color defaultCellTextColor;

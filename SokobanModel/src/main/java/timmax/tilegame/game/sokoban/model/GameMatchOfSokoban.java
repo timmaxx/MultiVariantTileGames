@@ -29,8 +29,10 @@ import static timmax.tilegame.basemodel.GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL
 import static timmax.tilegame.game.sokoban.model.gameobject.WhoMovableInTile.*;
 
 public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
+
     // Константы, описанные ниже, относятся к визуализации.
-    // ToDo: Вынести логику визуализации из класса.
+    // ToDo: Ниже относится к визуализации. Удалить это отсюда.
+    // ToDo: Хотя-бы в GameType эти реквизиты можно было-бы переместить.
     public static final Color WALL_CELL_COLOR = RED;
     public static final Color HOME_CELL_COLOR = WHITE;
     public static final Color EMPTY_CELL_COLOR = BLACK;

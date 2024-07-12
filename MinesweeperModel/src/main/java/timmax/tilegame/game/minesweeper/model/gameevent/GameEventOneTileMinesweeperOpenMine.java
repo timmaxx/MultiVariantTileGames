@@ -19,6 +19,7 @@ public class GameEventOneTileMinesweeperOpenMine extends GameEventOneTile {
         super(x, y);
 
         // ToDo: Ниже относится к визуализации. Удалить это отсюда.
+        // ToDo: Хотя-бы в GameType эти реквизиты можно было-бы переместить.
         cellBackgroundColor = MINE_CELL_COLOR;
         cellTextColor = Color.BLACK;
         cellText = MINE;

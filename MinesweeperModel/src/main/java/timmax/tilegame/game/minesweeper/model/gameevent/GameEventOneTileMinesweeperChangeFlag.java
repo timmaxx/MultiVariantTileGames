@@ -21,6 +21,7 @@ public class GameEventOneTileMinesweeperChangeFlag extends GameEventOneTile {
         this.isFlag = isFlag;
 
         // ToDo: Ниже относится к визуализации. Удалить это отсюда.
+        // ToDo: Хотя-бы в GameType эти реквизиты можно было-бы переместить.
         cellTextColor = Color.BLACK;
         if (isFlag) {
             this.cellBackgroundColor = FLAG_CELL_COLOR;

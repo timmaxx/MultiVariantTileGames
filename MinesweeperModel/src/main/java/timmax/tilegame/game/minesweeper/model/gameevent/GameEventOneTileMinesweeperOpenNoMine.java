@@ -21,6 +21,7 @@ public class GameEventOneTileMinesweeperOpenNoMine extends GameEventOneTile {
         this.countOfMineNeighbors = countOfMineNeighbors;
 
         // ToDo: Ниже относится к визуализации. Удалить это отсюда.
+        // ToDo: Хотя-бы в GameType эти реквизиты можно было-бы переместить.
         cellBackgroundColor = OPENED_CELL_COLOR;
         cellTextColor = Color.BLACK;
         cellText = String.valueOf(countOfMineNeighbors);
