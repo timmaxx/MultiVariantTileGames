@@ -1,7 +1,7 @@
 module timmax.tilegame.websocket.client {
     requires org.java_websocket;
     requires timmax.tilegame.basetilemodel;
-    requires CommonLibs;
+    requires timmax.common;
 
     exports timmax.tilegame.client.websocket;
 }
