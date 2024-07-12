@@ -1,3 +1,3 @@
-module CommonLibs {
+module timmax.common {
     exports timmax.common;
 }
