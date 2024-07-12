@@ -21,7 +21,6 @@ public class MultiGameClient extends Application {
     public void start(Stage primaryStage) {
         Pane root = new VBox();
 
-        // ToDo: Warning:(32, 9) Raw use of parameterized class 'ClientStateAutomaton'
         LocalClientStateAutomaton localClientStateAutomatonJfx = new LocalClientStateAutomaton(
                 new FabricOfClientStatesJfx()
         );

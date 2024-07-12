@@ -30,8 +30,6 @@ public class EventOfServer41SetGameType extends EventOfServer {
                         .orElse(null);
 
         localClientStateAutomaton.setGameType(gameType);
-        // ToDo: Разобраться, для чего нужно это?
-        // localClientStateAutomaton.getGameMatchSet();
     }
 
     @Override
