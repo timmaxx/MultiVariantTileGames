@@ -1,6 +1,6 @@
 module timmax.tilegame.basetilemodel {
-    requires javafx.graphics;
     requires org.slf4j;
+    requires javafx.graphics;
 
     exports timmax.tilegame.basemodel;
     exports timmax.tilegame.baseview;
@@ -11,10 +11,10 @@ module timmax.tilegame.basetilemodel {
     exports timmax.tilegame.basemodel.protocol;
     exports timmax.tilegame.basemodel.credential;
     exports timmax.tilegame.basemodel.protocol.exception;
-    exports timmax.tilegame.transport;
     exports timmax.tilegame.basemodel.protocol.server;
     exports timmax.tilegame.basemodel.protocol.client;
     exports timmax.tilegame.basemodel.protocol.server_client;
+    exports timmax.tilegame.transport;
 
     opens timmax.tilegame.basemodel.protocol.server;
 }

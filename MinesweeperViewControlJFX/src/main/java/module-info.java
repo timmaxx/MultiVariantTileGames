@@ -1,6 +1,7 @@
 module timmax.tilegame.game.minesweeper.jfx {
-    requires javafx.graphics;
     requires org.slf4j;
+    requires javafx.graphics;
+
     requires timmax.tilegame.basetilemodel;
     requires timmax.tilegame.guiengine.jfx;
     requires timmax.tilegame.game.minesweeper.model;

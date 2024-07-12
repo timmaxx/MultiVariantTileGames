@@ -1,10 +1,8 @@
 module timmax.tilegame.game.sokoban.model {
-    requires javafx.graphics;
-    requires timmax.tilegame.basetilemodel;
     requires org.slf4j;
+    requires javafx.graphics;
 
-    exports timmax.tilegame.game.sokoban.model;
-    exports timmax.tilegame.game.sokoban.model.gameobject;
-    exports timmax.tilegame.game.sokoban.model.route;
+    requires timmax.tilegame.basetilemodel;
+
     exports timmax.tilegame.game.sokoban.model.gameevent;
 }
