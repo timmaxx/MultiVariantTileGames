@@ -22,7 +22,7 @@ public class EventOfClient21SetUser extends EventOfClient {
     }
 
     @Override
-    public <ClientId> void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
+    public void executeOnServer(RemoteClientStateAutomaton remoteClientStateAutomaton) {
         if (Credentials.isUserAndPasswordCorrect(userName, password)) {
             password = ""; // Не будем даже хранить пароль.
             remoteClientStateAutomaton.setUser(userName);

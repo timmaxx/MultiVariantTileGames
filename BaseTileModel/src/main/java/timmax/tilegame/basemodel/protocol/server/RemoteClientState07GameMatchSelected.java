@@ -40,7 +40,7 @@ public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState0
 
     // class AbstractClientState
     @Override
-    public RemoteClientStateAutomaton<ClientId> getClientStateAutomaton() {
-        return (RemoteClientStateAutomaton<ClientId>) (super.getClientStateAutomaton());
+    public RemoteClientStateAutomaton getClientStateAutomaton() {
+        return (RemoteClientStateAutomaton) (super.getClientStateAutomaton());
     }
 }

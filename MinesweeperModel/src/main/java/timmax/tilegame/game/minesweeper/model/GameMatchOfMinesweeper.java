@@ -42,7 +42,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     //       и в
     //       - GameMatchLoader :: getCollectionOfGameType(...)
     public GameMatchOfMinesweeper(
-            RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton,
+            RemoteClientStateAutomaton remoteClientStateAutomaton,
             ClientId clientId)
             throws ClassNotFoundException, NoSuchMethodException {
         super(new GameTypeOfMinesweeper(), remoteClientStateAutomaton, clientId);

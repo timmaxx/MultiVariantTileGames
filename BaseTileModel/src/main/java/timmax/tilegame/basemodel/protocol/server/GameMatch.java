@@ -25,6 +25,13 @@ import static timmax.tilegame.basemodel.GameStatus.VICTORY;
 // ToDo: Дополнить функционалом:
 //       - по хранению перечня игровых контроллеров (от которых можно принимать сигналы управления игрой),
 //       -- при игре с более чем одним игроком, контроллеры нужно учитывать по отдельному участнику.
+// ToDo: Удалить параметр <ClientId> из класса.
+//       Сейчас этот параметр используется, что-бы помнить ид клиента (а потом и нескольких клиентов), но если
+//       ClientId здесь не запоминать, ведь он и так должен быть в какой-то мапе (возможно двусторонней) соответствовать
+//       какому-то RemoteClientStateAutomaton.
+//       Тогда, в т.ч. уйдёт предупреждение в строке:
+//       allMinesweeperObjects = levelGenerator.getLevel(width, height, percentsOfMines);
+//       в классе GameMatchOfMinesweeper.
 public abstract class GameMatch<ClientId> implements IGameMatch {
     protected static final Logger logger = LoggerFactory.getLogger(GameMatch.class);
 
@@ -39,7 +46,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     //       Но для для двух (а возможно и более игроков) или если какой-то участник игры, не являющийся игроком будет
     //       работать в отдельном клиенте, придётся создавать какую-то коллекцию, в которой и будет описание игроков
     //       или других участников.
-    protected final RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton;
+    protected final RemoteClientStateAutomaton remoteClientStateAutomaton;
     protected final ClientId clientId;
 
     private Map<String, Integer> paramsOfModelValueMap;
@@ -47,7 +54,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
 
     public GameMatch(
             GameType gameType,
-            RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton,
+            RemoteClientStateAutomaton remoteClientStateAutomaton,
             ClientId clientId) {
         this.gameType = gameType;
         this.remoteClientStateAutomaton = remoteClientStateAutomaton;

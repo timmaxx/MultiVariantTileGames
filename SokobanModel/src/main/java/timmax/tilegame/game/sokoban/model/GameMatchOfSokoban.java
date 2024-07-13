@@ -69,7 +69,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     //       и в
     //       - GameMatchLoader :: getCollectionOfGameType(...)
     public GameMatchOfSokoban(
-            RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton,
+            RemoteClientStateAutomaton remoteClientStateAutomaton,
             ClientId clientId)
             throws ClassNotFoundException, NoSuchMethodException {
         super(new GameTypeOfSokoban(), remoteClientStateAutomaton, clientId);

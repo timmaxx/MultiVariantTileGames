@@ -24,7 +24,7 @@ public class RemoteClientState08GameMatchPlaying<ClientId> extends ClientState08
 
     // class AbstractClientState
     @Override
-    public RemoteClientStateAutomaton<ClientId> getClientStateAutomaton() {
-        return (RemoteClientStateAutomaton<ClientId>) (super.getClientStateAutomaton());
+    public RemoteClientStateAutomaton getClientStateAutomaton() {
+        return (RemoteClientStateAutomaton) (super.getClientStateAutomaton());
     }
 }

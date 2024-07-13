@@ -19,11 +19,11 @@ import timmax.tilegame.basemodel.protocol.EventOfServer;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 import timmax.tilegame.transport.TransportOfServer;
 
-public class MultiGameWebSocketServer extends WebSocketServer implements TransportOfServer<WebSocket> {
+public class MultiGameWebSocketServer extends WebSocketServer implements TransportOfServer {
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketServer.class);
 
     private final ObjectMapperOfMvtg mapper;
-    private final Map<WebSocket, RemoteClientStateAutomaton<WebSocket>> webSocketAndRemoteClientStateAutomatonMap;
+    private final Map<WebSocket, RemoteClientStateAutomaton> webSocketAndRemoteClientStateAutomatonMap;
 
     public MultiGameWebSocketServer(int port) {
         super(new InetSocketAddress(port));
@@ -55,7 +55,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
                 // ToDo: Внедрить двустороннюю мапу (https://coderlessons.com/articles/java/google-guava-bimaps)
                 // ToDo: Сейчас в конструктор RemoteClientStateAutomaton передаются несколько параметров, некоторые из
                 //       них не являются необходимыми (см. комментарий перед каждым параметром):
-                new RemoteClientStateAutomaton<>(
+                new RemoteClientStateAutomaton(
                         // - webSocket(как параметр конструктора FabricOfRemoteClientStates), который понадобится тогда,
                         //   когда нужно будет отправить сообщение конкретному клиенту, но его можно было-бы получить
                         //   через двустороннюю мапу
@@ -99,10 +99,26 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
 
     // interface TransportOfServer:
     @Override
-    public void sendEventOfServer(WebSocket webSocket, EventOfServer eventOfServer) {
+    // public void sendEventOfServer(WebSocket webSocket, EventOfServer eventOfServer)
+    // ToDo: Было-бы красивее, если-бы вместо
+    //       <ClientId>
+    //       можно было-бы написать
+    //       <ClientId extends WebSocket>
+    //       Тогда не пришлось-бы делать
+    //       if (webSocket instanceof WebSocket ws)
+    // public <ClientId extends WebSocket> void sendEventOfServer(ClientId webSocket, EventOfServer eventOfServer) {
+    public <ClientId> void sendEventOfServer(ClientId webSocket, EventOfServer eventOfServer) {
         logger.info("WebSocket: {}. Outcoming message. EventOfServer: {}.", webSocket, eventOfServer);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         mapper.writeValue(byteArrayOutputStream, eventOfServer);
-        webSocket.send(byteArrayOutputStream.toByteArray());
+
+        if (webSocket instanceof WebSocket ws) {
+            ws.send(byteArrayOutputStream.toByteArray());
+        } else {
+            logger.error("Variable webSocket is not of type WebSocket!");
+            throw new RuntimeException("Variable webSocket is not of type WebSocket!");
+        }
+        // ToDo: См. выше про <ClientId extends WebSocket>
+        // webSocket.send(byteArrayOutputStream.toByteArray());
     }
 }

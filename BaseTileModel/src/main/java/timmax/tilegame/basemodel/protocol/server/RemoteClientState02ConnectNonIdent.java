@@ -21,7 +21,7 @@ public class RemoteClientState02ConnectNonIdent<ClientId> extends ClientState02C
 
     // class AbstractClientState
     @Override
-    public RemoteClientStateAutomaton<ClientId> getClientStateAutomaton() {
-        return (RemoteClientStateAutomaton<ClientId>)(super.getClientStateAutomaton());
+    public RemoteClientStateAutomaton getClientStateAutomaton() {
+        return (RemoteClientStateAutomaton)(super.getClientStateAutomaton());
     }
 }

@@ -4,7 +4,7 @@ import timmax.tilegame.basemodel.protocol.EventOfServer;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.transport.TransportOfServer;
 
-public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<IGameMatch> {
+public class RemoteClientStateAutomaton extends ClientStateAutomaton<IGameMatch> {
     // ToDo: Удалить TransportOfServer<ClientId> multiGameWebSocketServer.
     //       Вместо того, чтобы хранить переменную типа TransportOfServer здесь, нужно рассмотреть вариант по передаче
     //       её как параметра в те методы, где она нужна.
@@ -17,16 +17,16 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
     //         - В MultiGameWebSocketServer есть мапа WebSocket -> RemoteClientStateAutomaton
     //         - В RemoteClientStateAutomaton есть переменная TransportOfServer.
     //           Почему-же здесь нужна эта переменная?
-    private final TransportOfServer<ClientId> multiGameWebSocketServer;
+    private final TransportOfServer multiGameWebSocketServer;
 
-    public RemoteClientStateAutomaton(
+    public <ClientId> RemoteClientStateAutomaton(
             IFabricOfRemoteClientStates<ClientId> fabricOfClientStatesForServer,
-            TransportOfServer<ClientId> multiGameWebSocketServer) {
+            TransportOfServer multiGameWebSocketServer) {
         super(fabricOfClientStatesForServer);
         this.multiGameWebSocketServer = multiGameWebSocketServer;
     }
 
-    void sendEventOfServer(ClientId clientId, EventOfServer transportPackageOfServer) {
+    <ClientId> void sendEventOfServer(ClientId clientId, EventOfServer transportPackageOfServer) {
         multiGameWebSocketServer.sendEventOfServer(clientId, transportPackageOfServer);
     }
 }
