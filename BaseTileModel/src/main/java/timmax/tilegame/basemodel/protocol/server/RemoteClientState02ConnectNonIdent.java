@@ -3,6 +3,8 @@ package timmax.tilegame.basemodel.protocol.server;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server_client.*;
 
+import java.util.Set;
+
 public class RemoteClientState02ConnectNonIdent<ClientId> extends ClientState02ConnectNonIdent<IGameMatch> {
     private final ClientId clientId;
 
@@ -14,9 +16,9 @@ public class RemoteClientState02ConnectNonIdent<ClientId> extends ClientState02C
     // class ClientState02ConnectNonIdent
     // ---- 2 (Пользователь)
     @Override
-    public void setUser(String userName) {
-        super.setUser(userName);
-        getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer21SetUser(userName));
+    public void setUser(String userName, Set<GameType> gameTypeSet) {
+        super.setUser(userName, gameTypeSet);
+        getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer21SetUser(userName, gameTypeSet));
     }
 
     // class AbstractClientState

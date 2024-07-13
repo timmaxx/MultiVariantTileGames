@@ -30,7 +30,6 @@ public class MultiGameClient extends Application {
         root.getChildren().addAll(
                 new Pane01ServerConnect(transportOfClient),
                 new Pane02UserLogin(transportOfClient),
-                new Pane03GetGameTypeSet(transportOfClient),
                 new Pane04SelectGameType(transportOfClient),
                 new Pane05GetGameMatchSet(transportOfClient),
                 new Pane06SelectGameMatch(transportOfClient),

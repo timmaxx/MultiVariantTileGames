@@ -85,7 +85,8 @@ public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
         getParent().getScene().getWindow().setWidth(cellSize * width + 17 + 300 + 160 + 160 + 2);
         //  40 - количество пикселей сверху и снизу (высота заголовка окна приложения), что-бы главное поле влезло во внутреннее окно - PrimaryStage
         // 180 - количество пикселей в высоту, нужное для достаточного отображения четырёх текстовых выборок
-        getParent().getScene().getWindow().setHeight(cellSize * height + 40 + 11 * 30 + 2);
+        // ToDo: Константы, которые встречаются в нескольких классах, определить в базовом классе.
+        getParent().getScene().getWindow().setHeight(cellSize * height + 40 + 10 * 30 + 2);
     }
 
     protected void drawCellDuringInitMainField(GameStackPane cell, Color defaultCellBackgroundColor, Color defaultCellTextColor, String defaultCellText) {

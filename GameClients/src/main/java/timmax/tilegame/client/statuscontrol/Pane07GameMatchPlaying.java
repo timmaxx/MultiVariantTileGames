@@ -46,7 +46,7 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
             transportOfClient.forgetGameMatchPlaying();
         });
 
-        // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
+        // Вызов setListsOfControlsAndAllDisable() нужен для разделения контролов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
                 List.of(),
                 List.of(paneGameViewsAndControls)
@@ -67,23 +67,12 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
 
     // 2
     @Override
-    public void updateOnForgetUser() {
-        doOnPrevState();
-    }
-
-    @Override
-    public void updateOnSetUser() {
-        doOnPrevState();
-    }
-
-    // 3
-    @Override
     public void updateOnForgetGameTypeSet() {
         doOnPrevState();
     }
 
     @Override
-    public void updateOnSetGameTypeSet() {
+    public void updateOnSetUser() {
         doOnPrevState();
     }
 
@@ -142,7 +131,8 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         if (y > DIFFERENCE_OF_LAYOUT_Y) {
             y -= DIFFERENCE_OF_LAYOUT_Y;
         }
-        getParent().getScene().getWindow().setHeight(0 * 0 + 34 + 12 * DIFFERENCE_OF_LAYOUT_Y + y);
+        // ToDo: Константы, которые встречаются в нескольких классах, определить в базовом классе.
+        getParent().getScene().getWindow().setHeight(0 * 0 + 34 + 11 * DIFFERENCE_OF_LAYOUT_Y + y);
     }
 
     // 5
@@ -192,12 +182,13 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         panePrevState.setPrefWidth(PANE_PREV_STATE_PREF_WIDTH);
 
         // ToDo: Похожий код см. в ViewMainFieldJfx::initMainField()
+        // ToDo: Константы, которые встречаются в нескольких классах, определить в базовом классе.
 
         //  16 - количество пикселей слева и справа, что-бы главное поле влезло во внутреннее окно - PrimaryStage
         getParent().getScene().getWindow().setWidth(0 * 0 + 16 + PANE_NEXT_STATE_PREF_WIDTH + BUTTON_NEXT_STATE_PREF_WIDTH + BUTTON_PREV_STATE_PREF_WIDTH);
         //  34 - количество пикселей сверху и снизу (высота заголовка окна приложения), что-бы главное поле влезло во внутреннее окно - PrimaryStage
-        //  12 - количество "строк" элементов в панелях Pane0x... ("строк" от 1 до 7: 3 + 1 + 2 + 1 + 2 + 2 + 1)
+        //  11 - количество "строк" элементов в панелях Pane0x... ("строк" от 1 до 7: 3 + 2 + 2 + 1 + 2 + 1)
         // // 180 - количество пикселей в высоту, нужное для достаточного отображения четырёх текстовых выборок
-        getParent().getScene().getWindow().setHeight(0 * 0 + 34 + 12 * DIFFERENCE_OF_LAYOUT_Y);
+        getParent().getScene().getWindow().setHeight(0 * 0 + 34 + 11 * DIFFERENCE_OF_LAYOUT_Y);
     }
 }

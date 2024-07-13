@@ -14,6 +14,15 @@ public class HashSetOfObserverOnAbstractEvent extends HashSet<ObserverOnAbstract
 
     // 1
     @Override
+    public void updateOnClose() {
+        Platform.runLater(() -> {
+            for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
+                observerOnAbstractEvent.updateOnClose();
+            }
+        });
+    }
+
+    @Override
     public void updateOnOpen() {
         Platform.runLater(() -> {
             for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
@@ -24,10 +33,10 @@ public class HashSetOfObserverOnAbstractEvent extends HashSet<ObserverOnAbstract
 
     // 2
     @Override
-    public void updateOnClose() {
+    public void updateOnForgetGameTypeSet() {
         Platform.runLater(() -> {
             for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
-                observerOnAbstractEvent.updateOnClose();
+                observerOnAbstractEvent.updateOnForgetGameTypeSet();
             }
         });
     }
@@ -41,31 +50,12 @@ public class HashSetOfObserverOnAbstractEvent extends HashSet<ObserverOnAbstract
         });
     }
 
-    // 3
-    @Override
-    public void updateOnForgetUser() {
-        Platform.runLater(() -> {
-            for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
-                observerOnAbstractEvent.updateOnForgetUser();
-            }
-        });
-    }
-
-    @Override
-    public void updateOnSetGameTypeSet() {
-        Platform.runLater(() -> {
-            for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
-                observerOnAbstractEvent.updateOnSetGameTypeSet();
-            }
-        });
-    }
-
     // 4
     @Override
-    public void updateOnForgetGameTypeSet() {
+    public void updateOnForgetGameType() {
         Platform.runLater(() -> {
             for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
-                observerOnAbstractEvent.updateOnForgetGameTypeSet();
+                observerOnAbstractEvent.updateOnForgetGameType();
             }
         });
     }
@@ -81,10 +71,10 @@ public class HashSetOfObserverOnAbstractEvent extends HashSet<ObserverOnAbstract
 
     // 5
     @Override
-    public void updateOnForgetGameType() {
+    public void updateOnForgetGameMatchSet() {
         Platform.runLater(() -> {
             for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
-                observerOnAbstractEvent.updateOnForgetGameType();
+                observerOnAbstractEvent.updateOnForgetGameMatchSet();
             }
         });
     }
@@ -100,10 +90,10 @@ public class HashSetOfObserverOnAbstractEvent extends HashSet<ObserverOnAbstract
 
     // 6
     @Override
-    public void updateOnForgetGameMatchSet() {
+    public void updateOnForgetGameMatch() {
         Platform.runLater(() -> {
             for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
-                observerOnAbstractEvent.updateOnForgetGameMatchSet();
+                observerOnAbstractEvent.updateOnForgetGameMatch();
             }
         });
     }
@@ -119,10 +109,10 @@ public class HashSetOfObserverOnAbstractEvent extends HashSet<ObserverOnAbstract
 
     // 7
     @Override
-    public void updateOnForgetGameMatch() {
+    public void updateOnForgetGameMatchPlaying() {
         Platform.runLater(() -> {
             for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
-                observerOnAbstractEvent.updateOnForgetGameMatch();
+                observerOnAbstractEvent.updateOnForgetGameMatchPlaying();
             }
         });
     }
@@ -132,16 +122,6 @@ public class HashSetOfObserverOnAbstractEvent extends HashSet<ObserverOnAbstract
         Platform.runLater(() -> {
             for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
                 observerOnAbstractEvent.updateOnSetGameMatchPlaying();
-            }
-        });
-    }
-
-    // 8
-    @Override
-    public void updateOnForgetGameMatchPlaying() {
-        Platform.runLater(() -> {
-            for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
-                observerOnAbstractEvent.updateOnForgetGameMatchPlaying();
             }
         });
     }

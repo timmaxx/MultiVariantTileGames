@@ -26,7 +26,7 @@ public class Pane05GetGameMatchSet extends AbstractConnectStatePane {
         paneNextState.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * 1);
         paneNextState.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * 1);
 
-        // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
+        // Вызов setListsOfControlsAndAllDisable() нужен для разделения контролов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
                 List.of(),
                 List.of()
@@ -47,23 +47,12 @@ public class Pane05GetGameMatchSet extends AbstractConnectStatePane {
 
     // 2
     @Override
-    public void updateOnForgetUser() {
-        doOnPrevState();
-    }
-
-    @Override
-    public void updateOnSetUser() {
-        doOnPrevState();
-    }
-
-    // 3
-    @Override
     public void updateOnForgetGameTypeSet() {
         doOnPrevState();
     }
 
     @Override
-    public void updateOnSetGameTypeSet() {
+    public void updateOnSetUser() {
         doOnPrevState();
     }
 

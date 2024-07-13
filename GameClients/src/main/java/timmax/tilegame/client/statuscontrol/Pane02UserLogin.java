@@ -33,7 +33,7 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
         buttonPrevState.setFocusTraversable(false);
         buttonPrevState.setOnAction(event -> {
             disableAllControls();
-            transportOfClient.forgetUser();
+            transportOfClient.forgetGameMatchSet();
         });
 
         labelUser.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
@@ -49,7 +49,7 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
         paneNextState.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * 2);
         paneNextState.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * 2);
 
-        // Вызов setListsOfControlsAndAllDisable() нужен для разделения контроллов на два перечня: "вперёд" и "назад".
+        // Вызов setListsOfControlsAndAllDisable() нужен для разделения контролов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
                 List.of(labelUser, textFieldUser, labelPassword, passwordField),
                 List.of()
@@ -70,7 +70,7 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
 
     // 2
     @Override
-    public void updateOnForgetUser() {
+    public void updateOnForgetGameTypeSet() {
         doOnThisState();
     }
 

@@ -29,13 +29,9 @@ public interface TransportOfClient {
     // ---- 2 ConnectNonIdent
     void setUser(String userName, String password);                             //  22  //  2 -> 3  void setUser(String userName);
 
-    // ---- 3 ConnectAuthorized
-    // ???                                                                              //  3       String getUserName();
-    void forgetUser();                                                          //  21  //  3 -> 2  void forgetUser();
-    void setGameTypeSet();                                                      //  32  //  3 -> 4  void setGameTypeSet(Set<GameType> gameTypeSet);
-
     // ---- 4 (GameTypeSetSelected)
     // ???                                                                              //  4       Set<GameType> getGameTypeSet();
+    // ToDo: Переименовать метод.
     void forgetGameTypeSet();                                                   //  31  //  4 -> 3  void forgetGameTypeSet();
     void setGameType(GameType gameType);                                        //  42  //  4 -> 5  void setGameType(GameType gameType);
 

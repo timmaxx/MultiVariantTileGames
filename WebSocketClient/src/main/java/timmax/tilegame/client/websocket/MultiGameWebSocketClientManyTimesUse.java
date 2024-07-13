@@ -71,17 +71,6 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
         transportOfClient.setUser(userName, password);
     }
 
-    // 3
-    @Override
-    public void forgetUser() {
-        transportOfClient.forgetUser();
-    }
-
-    @Override
-    public void setGameTypeSet() {
-        transportOfClient.setGameTypeSet();
-    }
-
     // 4
     @Override
     public void forgetGameTypeSet() {
