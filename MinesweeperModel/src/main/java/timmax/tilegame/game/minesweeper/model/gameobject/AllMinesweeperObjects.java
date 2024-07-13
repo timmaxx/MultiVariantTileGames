@@ -12,13 +12,13 @@ import timmax.tilegame.game.minesweeper.model.gameevent.*;
 import static timmax.tilegame.basemodel.GameStatus.*;
 
 // Все объекты игры Сапёр
-public class AllMinesweeperObjects<T> {
+public class AllMinesweeperObjects<ClientId> {
     private final int countOfMines; // Количество мин
     private final TileOfMinesweeper[][] tileOfMinesweepers; // Все плитки поля
 
     private int countOfFlags; // Количество оставшихся флагов, допустимых к использованию
     private int countOfClosedTiles; // Количество оставшихся закрытых плиток
-    GameMatch<T> gameMatch;
+    GameMatch<ClientId> gameMatch;
 
     AllMinesweeperObjects(TileOfMinesweeper[][] tileOfMinesweepers, int countOfMines) {
         this.tileOfMinesweepers = tileOfMinesweepers;
@@ -28,7 +28,7 @@ public class AllMinesweeperObjects<T> {
         countOfFlags = countOfMines;
     }
 
-    public void setModel(GameMatch<T> gameMatch) {
+    public void setModel(GameMatch<ClientId> gameMatch) {
         this.gameMatch = gameMatch;
     }
 
