@@ -8,10 +8,13 @@ import javafx.scene.control.TextField;
 
 import timmax.tilegame.transport.TransportOfClient;
 
+import static timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx.*;
+
 public class Pane02UserLogin extends AbstractConnectStatePane {
     public Pane02UserLogin(TransportOfClient transportOfClient) {
         super(transportOfClient);
 
+        // 1 (обязательные)
         // Контролы для продвижения состояния "вперёд":
         Label labelUser = new Label("User");
         TextField textFieldUser = new TextField();
@@ -36,16 +39,19 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
             transportOfClient.forgetGameMatchSet();
         });
 
+        // 1
         labelUser.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
         labelUser.setLayoutY(LAYOUT_Y_OF_FIRST_ROW);
         textFieldUser.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
         textFieldUser.setLayoutY(LAYOUT_Y_OF_FIRST_ROW);
 
+        // 2
         labelPassword.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
         labelPassword.setLayoutY(DIFFERENCE_OF_LAYOUT_Y);
         passwordField.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
         passwordField.setLayoutY(DIFFERENCE_OF_LAYOUT_Y);
 
+        // Получилось 2 строки контролов:
         paneNextState.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * 2);
         paneNextState.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * 2);
 
@@ -56,7 +62,7 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
         );
     }
 
-    // Implemented methods of interface ObserverOnAbstractEvent
+    // interface ObserverOnAbstractEvent
     // 1
     @Override
     public void updateOnClose() {

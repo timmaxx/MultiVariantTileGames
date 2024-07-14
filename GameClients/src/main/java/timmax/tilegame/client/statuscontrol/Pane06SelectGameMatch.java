@@ -10,6 +10,8 @@ import javafx.scene.control.TextField;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
 import timmax.tilegame.transport.TransportOfClient;
 
+import static timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx.*;
+
 public class Pane06SelectGameMatch extends AbstractConnectStatePane {
     private final ComboBox<String> comboBoxGameSet;
     private final TextField textFieldSelectedGame;
@@ -17,6 +19,7 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
     public Pane06SelectGameMatch(TransportOfClient transportOfClient) {
         super(transportOfClient);
 
+        // 1 (обязательные)
         // Контролы для продвижения состояния "вперёд":
         comboBoxGameSet = new ComboBox<>();
         textFieldSelectedGame = new TextField();
@@ -36,12 +39,15 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
             transportOfClient.forgetGameMatch();
         });
 
+        // 1
         comboBoxGameSet.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
         comboBoxGameSet.setLayoutY(LAYOUT_Y_OF_FIRST_ROW);
 
+        // 2
         textFieldSelectedGame.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
         textFieldSelectedGame.setLayoutY(DIFFERENCE_OF_LAYOUT_Y);
 
+        // Получилось 3 строки контролов:
         paneNextState.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * 2);
         paneNextState.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * 2);
 
@@ -52,7 +58,7 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
         );
     }
 
-    // Implemented methods of interface ObserverOnAbstractEvent
+    // interface ObserverOnAbstractEvent
     // 1
     @Override
     public void updateOnClose() {

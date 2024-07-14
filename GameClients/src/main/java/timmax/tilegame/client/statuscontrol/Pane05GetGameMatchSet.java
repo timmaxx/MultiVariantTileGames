@@ -4,10 +4,13 @@ import java.util.List;
 
 import timmax.tilegame.transport.TransportOfClient;
 
+import static timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx.*;
+
 public class Pane05GetGameMatchSet extends AbstractConnectStatePane {
     public Pane05GetGameMatchSet(TransportOfClient transportOfClient) {
         super(transportOfClient);
 
+        // 1 (обязательные)
         // Контролы для продвижения состояния "вперёд":
         buttonNextState.setText("Get the game match set");
         buttonNextState.setOnAction(event -> {
@@ -23,6 +26,7 @@ public class Pane05GetGameMatchSet extends AbstractConnectStatePane {
             transportOfClient.forgetGameMatchSet();
         });
 
+        // Получилась 1 строка контролов:
         paneNextState.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * 1);
         paneNextState.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * 1);
 
@@ -33,7 +37,7 @@ public class Pane05GetGameMatchSet extends AbstractConnectStatePane {
         );
     }
 
-    // Implemented methods of interface ObserverOnAbstractEvent
+    // interface ObserverOnAbstractEvent
     // 1
     @Override
     public void updateOnClose() {

@@ -15,12 +15,15 @@ import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
 import timmax.tilegame.guiengine.jfx.GameClientPaneJfx;
 import timmax.tilegame.transport.TransportOfClient;
 
+import static timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx.*;
+
 public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
     private final Pane paneGameViewsAndControls;
 
     public Pane07GameMatchPlaying(TransportOfClient transportOfClient) {
         super(transportOfClient);
 
+        // 1 (обязательные)
         // Контролы для продвижения состояния "вперёд":
         buttonNextState.setText("Start the game match");
         buttonNextState.setOnAction(event -> {
@@ -46,6 +49,9 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
             transportOfClient.forgetGameMatchPlaying();
         });
 
+        // По сравнению с предыдущими Pane0X (1 - 6)
+        // Здесь нет строки "Получилось N строк контролов:"
+
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контролов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
                 List.of(),
@@ -53,7 +59,7 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         );
     }
 
-    // Implemented methods of interface ObserverOnAbstractEvent
+    // interface ObserverOnAbstractEvent
     // 1
     @Override
     public void updateOnClose() {
@@ -131,25 +137,32 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         if (y > DIFFERENCE_OF_LAYOUT_Y) {
             y -= DIFFERENCE_OF_LAYOUT_Y;
         }
-        // ToDo: Константы, которые встречаются в нескольких классах, определить в базовом классе.
-        getParent().getScene().getWindow().setHeight(0 * 0 + 34 + 11 * DIFFERENCE_OF_LAYOUT_Y + y);
+        getParent().getScene().getWindow().setHeight(
+                LAYOUT_Y_OF_FIRST_ROW
+                        + (2 * PIXELS_ON_LEFT_N_RIGHT_FOR_MAIN_FIELD_FITS_INTO_PRIMARY_STAGE)
+                        + (ROWS_OF_CONTROLS_IN_PANE0X_EXCEPT_LAST + 1) * DIFFERENCE_OF_LAYOUT_Y
+                        + y
+        );
     }
 
     // 5
     @Override
     public void updateOnForgetGameMatchSet() {
-        //doOnPrevState();
+        // ToDo: Почему закомментировано?
+        // doOnPrevState();
     }
 
     @Override
     public void updateOnSetGameMatchSet() {
-        //doOnPrevState();
+        // ToDo: Почему закомментировано?
+        // doOnPrevState();
     }
 
     // 6
     @Override
     public void updateOnForgetGameMatch() {
-        //doOnPrevState();
+        // ToDo: Почему закомментировано?
+        // doOnPrevState();
     }
 
     @Override
@@ -182,13 +195,19 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         panePrevState.setPrefWidth(PANE_PREV_STATE_PREF_WIDTH);
 
         // ToDo: Похожий код см. в ViewMainFieldJfx::initMainField()
-        // ToDo: Константы, которые встречаются в нескольких классах, определить в базовом классе.
-
-        //  16 - количество пикселей слева и справа, что-бы главное поле влезло во внутреннее окно - PrimaryStage
-        getParent().getScene().getWindow().setWidth(0 * 0 + 16 + PANE_NEXT_STATE_PREF_WIDTH + BUTTON_NEXT_STATE_PREF_WIDTH + BUTTON_PREV_STATE_PREF_WIDTH);
-        //  34 - количество пикселей сверху и снизу (высота заголовка окна приложения), что-бы главное поле влезло во внутреннее окно - PrimaryStage
-        //  11 - количество "строк" элементов в панелях Pane0x... ("строк" от 1 до 7: 3 + 2 + 2 + 1 + 2 + 1)
+        getParent().getScene().getWindow().setWidth(
+                LAYOUT_X_OF_FIRST_COLUMN
+                        + PIXELS_ON_LEFT_N_RIGHT_FOR_MAIN_FIELD_FITS_INTO_PRIMARY_STAGE
+                        + PANE_NEXT_STATE_PREF_WIDTH
+                        + BUTTON_NEXT_STATE_PREF_WIDTH
+                        + BUTTON_PREV_STATE_PREF_WIDTH
+        );
+        // ToDo: Вернуться к информационным представлениям (про 180).
         // // 180 - количество пикселей в высоту, нужное для достаточного отображения четырёх текстовых выборок
-        getParent().getScene().getWindow().setHeight(0 * 0 + 34 + 11 * DIFFERENCE_OF_LAYOUT_Y);
+        getParent().getScene().getWindow().setHeight(
+                LAYOUT_Y_OF_FIRST_ROW
+                        + 2 * PIXELS_ON_TOP_N_BOTTOM_FOR_MAIN_FIELD_FITS_INTO_PRIMARY_STAGE
+                        + (ROWS_OF_CONTROLS_IN_PANE0X_EXCEPT_LAST + 1) * DIFFERENCE_OF_LAYOUT_Y
+        );
     }
 }

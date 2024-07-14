@@ -14,6 +14,32 @@ import timmax.tilegame.guiengine.jfx.Game;
 import timmax.tilegame.guiengine.jfx.GameStackPane;
 
 public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
+    // X - составляющие
+    public final static int LAYOUT_X_OF_FIRST_COLUMN = 0;
+    public final static int LAYOUT_X_OF_SECOND_COLUMN = 100;
+
+    // Количество пикселей слева и справа, что-бы главное поле влезло во внутреннее окно - PrimaryStage
+    public final static int PIXELS_ON_LEFT_N_RIGHT_FOR_MAIN_FIELD_FITS_INTO_PRIMARY_STAGE = 17;
+
+    public final static int PANE_NEXT_STATE_PREF_WIDTH = 300;
+    public final static int PANE_PREV_STATE_PREF_WIDTH = 0;
+
+    public final static int BUTTON_NEXT_STATE_PREF_WIDTH = 160;
+    public final static int BUTTON_PREV_STATE_PREF_WIDTH = 160;
+    private final static int PIXELS_ON_RIGHT_FROM_MAIN_FIELD = 2;
+
+    // Y - составляющие
+    public final static int LAYOUT_Y_OF_FIRST_ROW = 0;
+    public final static int DIFFERENCE_OF_LAYOUT_Y = 30;
+    // Количество пикселей сверху и снизу, что-бы главное поле влезло во внутреннее окно - PrimaryStage
+    public final static int PIXELS_ON_TOP_N_BOTTOM_FOR_MAIN_FIELD_FITS_INTO_PRIMARY_STAGE = 17;
+    // Количество "строк" контролов в панелях Pane0x..., кроме последней ("строк" от 1 до 6: 3 + 2 + 2 + 1 + 2)
+    // В Pane0X (с первого по предпоследний) можно найти:
+    //   paneNextState.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * ?);
+    //   paneNextState.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * ?);
+    public final static int ROWS_OF_CONTROLS_IN_PANE0X_EXCEPT_LAST = 10;
+    private final static int PIXELS_ON_BOTTOM_FROM_MAIN_FIELD = 2;
+
     protected GameStackPane[][] cells;
     protected int cellSize;
 
@@ -80,13 +106,27 @@ public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
         //  А может ещё проще - через компоновку.
 
         // ToDo: Похожий код см. в Pane07GameMatchPlaying::doOnPrevState()
-        //       Отсюда желательно удалить, т.к. такие константы как 300, 160 определены в AbstractConnectStatePane.
-        //  17 - количество пикселей слева и справа, что-бы главное поле влезло во внутреннее окно - PrimaryStage
-        getParent().getScene().getWindow().setWidth(cellSize * width + 17 + 300 + 160 + 160 + 2);
-        //  40 - количество пикселей сверху и снизу (высота заголовка окна приложения), что-бы главное поле влезло во внутреннее окно - PrimaryStage
-        // 180 - количество пикселей в высоту, нужное для достаточного отображения четырёх текстовых выборок
-        // ToDo: Константы, которые встречаются в нескольких классах, определить в базовом классе.
-        getParent().getScene().getWindow().setHeight(cellSize * height + 40 + 10 * 30 + 2);
+        getParent().getScene().getWindow().setWidth(
+                LAYOUT_X_OF_FIRST_COLUMN
+                        + cellSize * width
+                        + PIXELS_ON_LEFT_N_RIGHT_FOR_MAIN_FIELD_FITS_INTO_PRIMARY_STAGE
+                        + PANE_NEXT_STATE_PREF_WIDTH
+                        + BUTTON_NEXT_STATE_PREF_WIDTH
+                        + BUTTON_PREV_STATE_PREF_WIDTH
+                        + PIXELS_ON_RIGHT_FROM_MAIN_FIELD
+        );
+
+        // ToDo: Вернуться к информационным представлениям (про 180).
+        // // 180 - количество пикселей в высоту, нужное для достаточного отображения четырёх текстовых выборок
+        getParent().getScene().getWindow().setHeight(
+                LAYOUT_Y_OF_FIRST_ROW
+                        + cellSize * height
+                        // ToDo: 6 непонятная мне константа. Лучше разбираться с ней после того,
+                        //       как компоновку принципиально по другому сделать.
+                        + 6 + 2 * PIXELS_ON_TOP_N_BOTTOM_FOR_MAIN_FIELD_FITS_INTO_PRIMARY_STAGE // 40
+                        + ROWS_OF_CONTROLS_IN_PANE0X_EXCEPT_LAST * DIFFERENCE_OF_LAYOUT_Y
+                        + PIXELS_ON_BOTTOM_FROM_MAIN_FIELD
+        );
     }
 
     protected void drawCellDuringInitMainField(GameStackPane cell, Color defaultCellBackgroundColor, Color defaultCellTextColor, String defaultCellText) {
