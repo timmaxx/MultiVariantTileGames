@@ -2,6 +2,7 @@ package timmax.tilegame.basemodel.protocol.server_client;
 
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public abstract class ClientState04GameTypeSetSelected<Model> extends AbstractClientState<Model> implements IClientState04GameTypeSetSelected {
@@ -17,7 +18,7 @@ public abstract class ClientState04GameTypeSetSelected<Model> extends AbstractCl
 
     @Override
     public void forgetGameTypeSet() {
-        getClientStateAutomaton().setGameTypeSet_(null);
+        getClientStateAutomaton().setGameTypeSet_(new HashSet<>());
     }
 
     @Override
