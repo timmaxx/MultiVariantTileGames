@@ -12,8 +12,7 @@ public interface IClientState06GameMatchSetSelected<GameMatchX extends IGameMatc
 
     // ---- 6 (MatchSetSelected)
     Map<String, Class<? extends View>> getViewName_ViewClassMap();
-    // ToDo: Переименовать в getGameTypeName()
-    String getGameName();
+    String getGameTypeName();
     Map<String, ParamOfModelDescription> getParamName_paramModelDescriptionMap();
 
     Set<GameMatchX> getGameMatchXSet();
