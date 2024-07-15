@@ -59,7 +59,7 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
         //              - начатые и оконченные партии - для возможности ознакомления с ними.
 
         IGameMatch iGameMatch = null;
-        Constructor<? extends IGameMatch> constructorOfGameMatch = gameType.getConstructorOfGameMatch();
+        Constructor<? extends IGameMatch> GameMatchConstructor = gameType.getGameMatchConstructor();
 
         try {
             // Создаём экземпляр модели, ранее выбранного типа.
@@ -68,18 +68,18 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
             //       1. Перечень параметров согласовывается с перечнем в
             //          GameType :: GameType(...)
             //          в строке
-            //          constructorOfGameMatch = gameMatchClass.getConstructor(...);
+            //          GameMatchConstructor = gameMatchClass.getConstructor(...);
             //          и там-же ниже в строке
-            //          iGameMatch = constructorOfGameMatch.newInstance(...);
+            //          iGameMatch = GameMatchConstructor.newInstance(...);
             //       2. Ну в т.ч. это, те-же параметры, которые поступили в executeOnServer().
             // ToDo: Здесь создаётся экземпляр матча и, как видно, ему передаётся идентификатор клиента,
             //       Но это единственный класс в котором этот идентификатор используется.
             //       Нужно сделать так, что-бы идентификатор клиента не использовался-бы, и тогда
             //       для всей иерархии классов EventOfClientХХ... можно будет удалить параметр ClientId для метода
             //       executeOnServer(...). А может и для классов.
-            iGameMatch = constructorOfGameMatch.newInstance(getClientStateAutomaton(), clientId);
+            iGameMatch = GameMatchConstructor.newInstance(getClientStateAutomaton(), clientId);
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
-            logger.error("Server cannot create object of model for {} with constructorOfGameMatch with specific parameters.", gameType, e);
+            logger.error("Server cannot create object of model for {} with GameMatchConstructor with specific parameters.", gameType, e);
             System.exit(1);
         }
         gameMatchXSet.add(iGameMatch);

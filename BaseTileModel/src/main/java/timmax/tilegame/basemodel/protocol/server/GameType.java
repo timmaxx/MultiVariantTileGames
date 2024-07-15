@@ -26,9 +26,7 @@ public abstract class GameType implements IGameType, Externalizable {
     //          А вот при передаче как-бы ссылки на тип игры, достаточно передать только gameName.
     //          И похожим образом сделано для идентификации GameMatch (см. коммент для GameMatchId)
     private String gameTypeName;
-
-    // ToDo: Переименовать
-    private Constructor<? extends IGameMatch> constructorOfGameMatch;
+    private Constructor<? extends IGameMatch> gameMatchConstructor;
     private int countOfGamers;
     // private String[] ; // тогда в этом массиве строк можно хранить имя роли каждого из игроков
     // (например для шашек: "Белые", "Черные"; для многих игр для двух игроков: "Первый", "Второй"; для одного: "Игрок").
@@ -62,7 +60,7 @@ public abstract class GameType implements IGameType, Externalizable {
         //       catch (NoSuchMethodException e)
         //       при логировании.
         // ToDo: Одним из типов параметров указан Object.class. Сделал так, т.к. не знаю как указать параметризированный тип.
-        constructorOfGameMatch = gameMatchClass.getConstructor(RemoteClientStateAutomaton.class, Object.class);
+        gameMatchConstructor = gameMatchClass.getConstructor(RemoteClientStateAutomaton.class, Object.class);
     }
 
     public Map<String, Class<? extends View>> getViewName_ViewClassMap() {
@@ -76,8 +74,8 @@ public abstract class GameType implements IGameType, Externalizable {
         return paramName_paramModelDescriptionMap;
     }
 
-    public Constructor<? extends IGameMatch> getConstructorOfGameMatch() {
-        return constructorOfGameMatch;
+    public Constructor<? extends IGameMatch> getGameMatchConstructor() {
+        return gameMatchConstructor;
     }
 
     // class Object
@@ -102,7 +100,7 @@ public abstract class GameType implements IGameType, Externalizable {
     @Override
     public String toString() {
         return "GameType{" +
-                "constructorOfGameMatch=" + constructorOfGameMatch +
+                "gameMatchConstructor=" + gameMatchConstructor +
                 ", gameTypeName='" + gameTypeName + '\'' +
                 ", countOfGamers=" + countOfGamers +
                 ", viewName_ViewClassMap=" + viewName_ViewClassMap +
@@ -136,7 +134,7 @@ public abstract class GameType implements IGameType, Externalizable {
         countOfGamers = in.readInt();
         // ToDo: Избавиться от "Warning:(139, 34) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
         viewName_ViewClassMap = (Map<String, Class<? extends View>>) in.readObject();
-        // ToDo: Избавиться от "Warning:(143, 41) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription>'"
+        // ToDo: Избавиться от "Warning:(141, 41) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription>'"
         paramName_paramModelDescriptionMap = (Map<String, ParamOfModelDescription>) in.readObject();
     }
 }

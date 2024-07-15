@@ -24,6 +24,8 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchId>
         mapOfViewName_View = new HashMap<>();
     }
 
+
+    // ToDo: Переименовать.
     public HashSetOfObserverOnAbstractEvent getHashSetOfObserverOnAbstractEvent() {
         return hashSetOfObserverOnAbstractEvent;
     }

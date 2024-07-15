@@ -50,7 +50,9 @@ public class GameClientPaneJfx extends VBox {
     // - на вход подаём базовый класс выборки,
     // - по этому классу определяем класс выборки, реализованной в JFX,
     // - для этой выборки определяем конструктор.
+    // ToDo: Переименовать параметр classOfView
     private static Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView) {
+        // ToDo: Переименовать.
         Constructor<? extends ViewJfx> constructorOfViewJfx;
         try {
             Class<? extends ViewJfx> classOfViewJfx;
