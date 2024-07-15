@@ -5,8 +5,8 @@ import timmax.tilegame.basemodel.protocol.server.GameType;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class ClientState04GameTypeSetSelected<Model> extends AbstractClientState<Model> implements IClientState04GameTypeSetSelected<Model> {
-    public ClientState04GameTypeSetSelected(ClientStateAutomaton<Model> clientStateAutomaton) {
+public abstract class ClientState04GameTypeSetSelected<GameMatchX extends IGameMatchX> extends AbstractClientState<GameMatchX> implements IClientState04GameTypeSetSelected<GameMatchX> {
+    public ClientState04GameTypeSetSelected(ClientStateAutomaton<GameMatchX> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 
@@ -22,7 +22,7 @@ public abstract class ClientState04GameTypeSetSelected<Model> extends AbstractCl
     }
 
     @Override
-    public void setGameType(GameType gameType, Set<Model> gameMatchXSet) {
+    public void setGameType(GameType gameType, Set<GameMatchX> gameMatchXSet) {
         getClientStateAutomaton().setGameType_(gameType, gameMatchXSet);
     }
 }

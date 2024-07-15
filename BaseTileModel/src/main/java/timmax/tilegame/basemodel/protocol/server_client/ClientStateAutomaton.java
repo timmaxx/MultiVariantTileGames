@@ -4,38 +4,31 @@ import timmax.tilegame.basemodel.protocol.server.GameType;
 
 import java.util.Set;
 
-// ToDo:
-//      1. Классы (см. ниже) свести в одну иерархию наследования.
-//      2. Model желательно определить жёстче (через extends).
-//      3. Переименовать Model в GameMatchX.
-// В качестве параметра Model в классах наследниках используются:
-// - IGameMatch и GameMatch для серверной стороны;
-// - GameMatchId для клиента и для передачи по сети.
-public class ClientStateAutomaton<Model> implements
+public class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
         IClientState01NoConnect,
         IClientState02ConnectNonIdent,
-        IClientState04GameTypeSetSelected<Model>,
-        IClientState06GameMatchSetSelected<Model>,
-        IClientState07GameMatchSelected<Model>,
+        IClientState04GameTypeSetSelected<GameMatchX>,
+        IClientState06GameMatchSetSelected<GameMatchX>,
+        IClientState07GameMatchSelected<GameMatchX>,
         IClientState08GameMatchPlaying {
-    final ClientState01NoConnect<Model> clientState01NoConnect;
-    final ClientState02ConnectNonIdent<Model> clientState02ConnectNonIdent;
-    final ClientState04GameTypeSetSelected<Model> clientState04GameTypeSetSelected;
-    final ClientState06GameMatchSetSelected<Model> clientState06GameMatchSetSelected;
-    final ClientState07GameMatchSelected<Model> clientState07GameMatchSelected;
-    final ClientState08GameMatchPlaying<Model> clientState08GameMatchPlaying;
+    final ClientState01NoConnect<GameMatchX> clientState01NoConnect;
+    final ClientState02ConnectNonIdent<GameMatchX> clientState02ConnectNonIdent;
+    final ClientState04GameTypeSetSelected<GameMatchX> clientState04GameTypeSetSelected;
+    final ClientState06GameMatchSetSelected<GameMatchX> clientState06GameMatchSetSelected;
+    final ClientState07GameMatchSelected<GameMatchX> clientState07GameMatchSelected;
+    final ClientState08GameMatchPlaying<GameMatchX> clientState08GameMatchPlaying;
 
     private IClientState00 currenState;
 
     private String userName; // ---- 2 (Пользователь)
     private Set<GameType> gameTypeSet; // ---- 3 (Список типов игр)
     private GameType gameType; // ---- 4 (Конкретный тип игры)
-    private Set<Model> gameMatchXSet; // ---- 5 (Набор моделей игр)
-    private Model gameMatchX; // ---- 6 (Конкретная модель игры)
+    private Set<GameMatchX> gameMatchXSet; // ---- 5 (Набор моделей игр)
+    private GameMatchX gameMatchX; // ---- 6 (Конкретная модель игры)
     private Boolean gameIsPlaying; // ---- 7 (Партия была начата)
 
     public ClientStateAutomaton(
-            IFabricOfClientStates<Model> iFabricOfClientStates) {
+            IFabricOfClientStates<GameMatchX> iFabricOfClientStates) {
         clientState01NoConnect = iFabricOfClientStates.getClientState01NoConnect(this);
         clientState02ConnectNonIdent = iFabricOfClientStates.getClientState02ConnectNonIdent(this);
         clientState04GameTypeSetSelected = iFabricOfClientStates.getClientState04GameTypeSetSelected(this);
@@ -59,24 +52,24 @@ public class ClientStateAutomaton<Model> implements
         this.gameTypeSet = gameTypeSet;
     }
 
-    void setGameType_(GameType gameType, Set<Model> gameMatchXSet) {
+    void setGameType_(GameType gameType, Set<GameMatchX> gameMatchXSet) {
         this.gameType = gameType;
         this.gameMatchXSet = gameMatchXSet;
     }
 
-    Set<Model> getGameMatchXSet_() {
+    Set<GameMatchX> getGameMatchXSet_() {
         return gameMatchXSet;
     }
 
-    void setGameMatchXSet_(Set<Model> gameMatchXSet) {
+    void setGameMatchXSet_(Set<GameMatchX> gameMatchXSet) {
         this.gameMatchXSet = gameMatchXSet;
     }
 
-    Model getGameMatchX_() {
+    GameMatchX getGameMatchX_() {
         return gameMatchX;
     }
 
-    void setGameMatchX_(Model gameMatchX) {
+    void setGameMatchX_(GameMatchX gameMatchX) {
         this.gameMatchX = gameMatchX;
     }
 
@@ -108,7 +101,7 @@ public class ClientStateAutomaton<Model> implements
     }
 
     @Override
-    public void setGameType(GameType gameType, Set<Model> gameMatchXSet) {
+    public void setGameType(GameType gameType, Set<GameMatchX> gameMatchXSet) {
         clientState04GameTypeSetSelected.setGameType(gameType, gameMatchXSet);
         currenState = clientState06GameMatchSetSelected;
     }
@@ -122,7 +115,7 @@ public class ClientStateAutomaton<Model> implements
 
     // 6 interface IClientState06GameMatchSetSelected
     @Override
-    public Set<Model> getGameMatchXSet() {
+    public Set<GameMatchX> getGameMatchXSet() {
         return clientState06GameMatchSetSelected.getGameMatchXSet();
     }
 
@@ -133,14 +126,14 @@ public class ClientStateAutomaton<Model> implements
     }
 
     @Override
-    public void setGameMatchX(Model gameMatchX) {
+    public void setGameMatchX(GameMatchX gameMatchX) {
         clientState06GameMatchSetSelected.setGameMatchX(gameMatchX);
         currenState = clientState07GameMatchSelected;
     }
 
     // 7 interface IClientState07GameMatchSelected
     @Override
-    public Model getGameMatchX() {
+    public GameMatchX getGameMatchX() {
         return clientState07GameMatchSelected.getGameMatchX();
     }
 

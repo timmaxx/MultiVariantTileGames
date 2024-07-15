@@ -1,7 +1,7 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
-public abstract class ClientState08GameMatchPlaying<Model> extends AbstractClientState<Model> implements IClientState08GameMatchPlaying {
-    public ClientState08GameMatchPlaying(ClientStateAutomaton<Model> clientStateAutomaton) {
+public abstract class ClientState08GameMatchPlaying<GameMatchX extends IGameMatchX> extends AbstractClientState<GameMatchX> implements IClientState08GameMatchPlaying {
+    public ClientState08GameMatchPlaying(ClientStateAutomaton<GameMatchX> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 

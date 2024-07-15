@@ -4,8 +4,8 @@ import timmax.tilegame.basemodel.protocol.server.GameType;
 
 import java.util.Set;
 
-public abstract class ClientState02ConnectNonIdent<Model> extends AbstractClientState<Model> implements IClientState02ConnectNonIdent {
-    public ClientState02ConnectNonIdent(ClientStateAutomaton<Model> clientStateAutomaton) {
+public abstract class ClientState02ConnectNonIdent<GameMatchX extends IGameMatchX> extends AbstractClientState<GameMatchX> implements IClientState02ConnectNonIdent {
+    public ClientState02ConnectNonIdent(ClientStateAutomaton<GameMatchX> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 

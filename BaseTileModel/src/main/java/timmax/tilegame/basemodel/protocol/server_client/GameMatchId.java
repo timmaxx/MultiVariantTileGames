@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-public class GameMatchId implements Externalizable {
+public class GameMatchId implements Externalizable, IGameMatchX {
     private String id;
 
     public GameMatchId() {
@@ -23,11 +23,7 @@ public class GameMatchId implements Externalizable {
     public boolean isNullOrEmpty() {
         return id == null || id.equals("");
     }
-
-    public boolean equalsNewGame() {
-        return id != null && id.equals("New game");
-    }
-
+    
     @Override
     public String toString() {
         return "GameMatchId{" +
