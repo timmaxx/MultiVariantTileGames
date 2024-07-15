@@ -13,15 +13,14 @@ import java.util.Map;
 public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchId> {
     // ToDo: Переименовать.
     private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
-    // ToDo: Переименовать.
-    private final Map<String, View> mapOfViewName_View;
+    private final Map<String, View> viewName_ViewMap;
 
     public LocalClientStateAutomaton(
             IFabricOfClientStates<GameMatchId> IFabricOfClientStates) {
         super(IFabricOfClientStates);
 
         hashSetOfObserverOnAbstractEvent = new HashSetOfObserverOnAbstractEvent();
-        mapOfViewName_View = new HashMap<>();
+        viewName_ViewMap = new HashMap<>();
     }
 
 
@@ -30,13 +29,13 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchId>
         return hashSetOfObserverOnAbstractEvent;
     }
 
-    // ToDo: Переименовать.
-    public Map<String, View> getMapOfViewName_View() {
-        return mapOfViewName_View;
+    // ToDo: Удалить этот метод и вместо него ввести методы, которые что-то делают с viewName_ViewMap.
+    public Map<String, View> getViewName_ViewMap() {
+        return viewName_ViewMap;
     }
 
     public void addView(View view) {
-        mapOfViewName_View.put(view.getViewName(), view);
+        viewName_ViewMap.put(view.getViewName(), view);
     }
 
     public void addCallBackOnIncomingTransportPackageEvent(ObserverOnAbstractEvent observerOnAbstractEvent) {

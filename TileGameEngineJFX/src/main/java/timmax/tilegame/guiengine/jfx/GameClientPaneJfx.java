@@ -26,7 +26,7 @@ public class GameClientPaneJfx extends VBox {
         // ToDo: В методе идёт цикл по элементам мапы mapOfVieName_View (и вставка в мапу mapOfViewName_ViewClass),
         //       а значит можно перенести код в класс мапы mapOfVieName_View (но пока этот класс не выделен в отдельную мапу...).
         // ToDo: Переименовать.
-        Map<String, View> mapOfVieName_View = localClientStateAutomaton.getMapOfViewName_View();
+        Map<String, View> mapOfVieName_View = localClientStateAutomaton.getViewName_ViewMap();
 
         for (Map.Entry<String, Class<? extends View>> entry : mapOfViewName_ViewClass.entrySet()) {
             // ToDo: Исправить

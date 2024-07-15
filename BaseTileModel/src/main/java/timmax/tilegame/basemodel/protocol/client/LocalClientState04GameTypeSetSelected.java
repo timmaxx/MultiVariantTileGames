@@ -24,7 +24,7 @@ public class LocalClientState04GameTypeSetSelected extends ClientState04GameType
     @Override
     public void setGameType(GameType gameType, Set<GameMatchId> gameMatchXSet) {
         super.setGameType(gameType, gameMatchXSet);
-        getClientStateAutomaton().getMapOfViewName_View().clear();
+        getClientStateAutomaton().getViewName_ViewMap().clear();
         getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnSetGameType();
     }
 

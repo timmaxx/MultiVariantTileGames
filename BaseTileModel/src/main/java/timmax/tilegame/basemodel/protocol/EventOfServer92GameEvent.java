@@ -24,7 +24,7 @@ public class EventOfServer92GameEvent extends EventOfServer {
 
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
-        View view = localClientStateAutomaton.getMapOfViewName_View().get(viewName);
+        View view = localClientStateAutomaton.getViewName_ViewMap().get(viewName);
         view.update(gameEvent);
     }
 
