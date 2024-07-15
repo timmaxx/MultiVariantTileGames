@@ -115,7 +115,7 @@ public class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
     }
 
     @Override
-    public String getGameName() {
+    public String getGameTypeName() {
         return gameType.getGameTypeName();
     }
 
