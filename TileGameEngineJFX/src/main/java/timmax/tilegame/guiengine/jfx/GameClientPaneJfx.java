@@ -21,27 +21,24 @@ public class GameClientPaneJfx extends VBox {
         BaseController baseController = new BaseController(transportOfClient);
 
         LocalClientStateAutomaton localClientStateAutomaton = transportOfClient.getLocalClientStateAutomaton();
-        // ToDo: Переименовать.
-        Map<String, Class<? extends View>> mapOfViewName_ViewClass = localClientStateAutomaton.getViewName_ViewClassMap();
-        // ToDo: В методе идёт цикл по элементам мапы mapOfViewName_ViewClass (и вставка в мапу viewName_ViewMap),
-        //       а значит можно перенести код в класс мапы mapOfViewName_ViewClass (но пока этот класс не выделен в отдельную мапу...).
 
+        Map<String, Class<? extends View>> viewName_ViewClassMap = localClientStateAutomaton.getViewName_ViewClassMap();
         Map<String, View> viewName_ViewMap = localClientStateAutomaton.getViewName_ViewMap();
 
-        for (Map.Entry<String, Class<? extends View>> entry : mapOfViewName_ViewClass.entrySet()) {
+        for (Map.Entry<String, Class<? extends View>> viewName_ViewClassEntry : viewName_ViewClassMap.entrySet()) {
             // ToDo: Исправить
             //       Warning:(38, 21) Unchecked cast: 'java.lang.reflect.Constructor<capture<? extends timmax.tilegame.baseview.View>>' to 'java.lang.reflect.Constructor<? extends timmax.tilegame.guiengine.jfx.view.ViewJfx>'
             Constructor<? extends ViewJfx> viewConstructor =
                     (Constructor<? extends ViewJfx>)
-                            getViewConstructor(entry.getValue())
+                            getViewConstructor(viewName_ViewClassEntry.getValue())
                     ;
             ViewJfx viewJfx;
             try {
-                viewJfx = viewConstructor.newInstance(transportOfClient, baseController, entry.getKey());
+                viewJfx = viewConstructor.newInstance(transportOfClient, baseController, viewName_ViewClassEntry.getKey());
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
                 throw new RuntimeException(e);
             }
-            viewName_ViewMap.put(entry.getKey(), viewJfx);
+            viewName_ViewMap.put(viewName_ViewClassEntry.getKey(), viewJfx);
             getChildren().add(viewJfx);
         }
     }
