@@ -14,15 +14,13 @@ import java.util.Set;
 public class ClientStateAutomaton<Model> implements
         IClientState01NoConnect,
         IClientState02ConnectNonIdent,
-        IClientState04GameTypeSetSelected,
-        IClientState05GameTypeSelected<Model>,
+        IClientState04GameTypeSetSelected<Model>,
         IClientState06GameMatchSetSelected<Model>,
         IClientState07GameMatchSelected<Model>,
         IClientState08GameMatchPlaying {
     final ClientState01NoConnect<Model> clientState01NoConnect;
     final ClientState02ConnectNonIdent<Model> clientState02ConnectNonIdent;
     final ClientState04GameTypeSetSelected<Model> clientState04GameTypeSetSelected;
-    final ClientState05GameTypeSelected<Model> clientState05GameTypeSelected;
     final ClientState06GameMatchSetSelected<Model> clientState06GameMatchSetSelected;
     final ClientState07GameMatchSelected<Model> clientState07GameMatchSelected;
     final ClientState08GameMatchPlaying<Model> clientState08GameMatchPlaying;
@@ -41,16 +39,11 @@ public class ClientStateAutomaton<Model> implements
         clientState01NoConnect = iFabricOfClientStates.getClientState01NoConnect(this);
         clientState02ConnectNonIdent = iFabricOfClientStates.getClientState02ConnectNonIdent(this);
         clientState04GameTypeSetSelected = iFabricOfClientStates.getClientState04GameTypeSetSelected(this);
-        clientState05GameTypeSelected = iFabricOfClientStates.getClientState05GameTypeSelected(this);
         clientState06GameMatchSetSelected = iFabricOfClientStates.getClientState06GameMatchSetSelected(this);
         clientState07GameMatchSelected = iFabricOfClientStates.getClientState07GameMatchSelected(this);
         clientState08GameMatchPlaying = iFabricOfClientStates.getClientState08GameMatchPlaying(this);
 
         currenState = clientState01NoConnect;
-    }
-
-    String getUserName_() {
-        return userName;
     }
 
     void setUserName_(String userName, Set<GameType> gameTypeSet) {
@@ -66,12 +59,9 @@ public class ClientStateAutomaton<Model> implements
         this.gameTypeSet = gameTypeSet;
     }
 
-    GameType getGameType_() {
-        return gameType;
-    }
-
-    void setGameType_(GameType gameType) {
+    void setGameType_(GameType gameType, Set<Model> gameMatchXSet) {
         this.gameType = gameType;
+        this.gameMatchXSet = gameMatchXSet;
     }
 
     Set<Model> getGameMatchXSet_() {
@@ -118,27 +108,16 @@ public class ClientStateAutomaton<Model> implements
     }
 
     @Override
-    public void setGameType(GameType gameType) {
-        clientState04GameTypeSetSelected.setGameType(gameType);
-        currenState = clientState05GameTypeSelected;
+    public void setGameType(GameType gameType, Set<Model> gameMatchXSet) {
+        clientState04GameTypeSetSelected.setGameType(gameType, gameMatchXSet);
+        currenState = clientState06GameMatchSetSelected;
     }
 
-    // 5 interface IClientState05GameTypeSelected
+    // ToDo: Этот метод был определён в интерфейсе IClientState05GameTypeSelected,
+    //       а сейчас в interface IClientState04GameTypeSetSelected.
     @Override
     public GameType getGameType() {
-        return clientState05GameTypeSelected.getGameType();
-    }
-
-    @Override
-    public void forgetGameType() {
-        clientState05GameTypeSelected.forgetGameType();
-        currenState = clientState02ConnectNonIdent;
-    }
-
-    @Override
-    public void setGameMatchXSet(Set<Model> gameMatchXSet) {
-        clientState05GameTypeSelected.setGameMatchXSet(gameMatchXSet);
-        currenState = clientState06GameMatchSetSelected;
+        return gameType;
     }
 
     // 6 interface IClientState06GameMatchSetSelected
@@ -150,7 +129,7 @@ public class ClientStateAutomaton<Model> implements
     @Override
     public void forgetGameMatchXSet() {
         clientState06GameMatchSetSelected.forgetGameMatchXSet();
-        currenState = clientState05GameTypeSelected;
+        currenState = clientState04GameTypeSetSelected;
     }
 
     @Override

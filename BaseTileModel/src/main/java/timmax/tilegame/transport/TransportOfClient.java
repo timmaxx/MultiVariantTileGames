@@ -35,11 +35,6 @@ public interface TransportOfClient {
     void forgetGameTypeSet();                                                   //  31  //  4 -> 3  void forgetGameTypeSet();
     void setGameType(GameType gameType);                                        //  42  //  4 -> 5  void setGameType(GameType gameType);
 
-    // ---- 5 (GameTypeSelected)
-    // ???                                                                              //  5       GameType getGameType();
-    void forgetGameType();                                                      //  41  //  5 -> 4  void forgetGameType();
-    void setGameMatchSet();                                                     //  52  //  5 -> 6  void setGameMatchSet(Set<Model> setOfServerBaseModel);
-
     // ---- 6 (MatchSetSelected)
     // ???                                                                              //  6       Set<Model> getGameMatchSet();
     void forgetGameMatchSet();                                                  //  51  //  6 -> 5  void forgetGameMatchSet();

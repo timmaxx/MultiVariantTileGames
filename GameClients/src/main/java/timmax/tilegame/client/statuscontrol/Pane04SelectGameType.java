@@ -46,7 +46,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
         buttonPrevState.setFocusTraversable(false);
         buttonPrevState.setOnAction(event -> {
             disableAllControls();
-            transportOfClient.forgetGameType();
+            transportOfClient.forgetGameMatchSet();
         });
 
         // 1
@@ -103,7 +103,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
 
     // 4
     @Override
-    public void updateOnForgetGameType() {
+    public void updateOnForgetGameMatchSet() {
         doOnThisState();
     }
 

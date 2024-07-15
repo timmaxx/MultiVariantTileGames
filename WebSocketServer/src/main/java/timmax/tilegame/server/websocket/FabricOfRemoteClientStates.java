@@ -36,11 +36,6 @@ public class FabricOfRemoteClientStates<ClientId> implements IFabricOfRemoteClie
     }
 
     @Override
-    public RemoteClientState05GameTypeSelected<ClientId> getClientState05GameTypeSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
-        return new RemoteClientState05GameTypeSelected<>(clientStateAutomaton, clientId);
-    }
-
-    @Override
     public RemoteClientState06GameMatchSetSelected<ClientId> getClientState06GameMatchSetSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
         return new RemoteClientState06GameMatchSetSelected<>(clientStateAutomaton, clientId);
     }

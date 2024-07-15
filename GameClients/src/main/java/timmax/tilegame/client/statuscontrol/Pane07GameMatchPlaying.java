@@ -84,7 +84,7 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
 
     // 4
     @Override
-    public void updateOnForgetGameType() {
+    public void updateOnForgetGameMatchSet() {
         doOnPrevState();
     }
 
@@ -143,19 +143,6 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
                         + (ROWS_OF_CONTROLS_IN_PANE0X_EXCEPT_LAST + 1) * DIFFERENCE_OF_LAYOUT_Y
                         + y
         );
-    }
-
-    // 5
-    @Override
-    public void updateOnForgetGameMatchSet() {
-        // ToDo: Почему закомментировано?
-        // doOnPrevState();
-    }
-
-    @Override
-    public void updateOnSetGameMatchSet() {
-        // ToDo: Почему закомментировано?
-        // doOnPrevState();
     }
 
     // 6

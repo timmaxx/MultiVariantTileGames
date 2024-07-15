@@ -13,12 +13,8 @@ public interface ObserverOnAbstractEvent {
     void updateOnSetUser();
 
     // 4
-    void updateOnForgetGameType();
-    void updateOnSetGameType();
-
-    // 5
     void updateOnForgetGameMatchSet();
-    void updateOnSetGameMatchSet();
+    void updateOnSetGameType();
 
     // 6
     void updateOnForgetGameMatch();

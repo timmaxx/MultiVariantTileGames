@@ -83,23 +83,12 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
 
     // 4
     @Override
-    public void updateOnForgetGameType() {
-        doOnPrevState();
-    }
-
-    @Override
-    public void updateOnSetGameType() {
-        doOnPrevState();
-    }
-
-    // 5
-    @Override
     public void updateOnForgetGameMatchSet() {
         doOnPrevState();
     }
 
     @Override
-    public void updateOnSetGameMatchSet() {
+    public void updateOnSetGameType() {
         ObservableList<GameMatchId> observableList = FXCollections.observableArrayList();
         observableList.addAll(transportOfClient.getLocalClientStateAutomaton().getGameMatchXSet());
         comboBoxGameSet.setItems(
