@@ -94,7 +94,7 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         paneNextState.getChildren().clear();
         List<Region> regionList = new ArrayList<>();
         int y = LAYOUT_Y_OF_FIRST_ROW;
-        for (String paramName : transportOfClient.getLocalClientStateAutomaton().getGameType().getMapOfParamsOfModelDescription().keySet()) {
+        for (String paramName : transportOfClient.getLocalClientStateAutomaton().getMapOfParamsOfModelDescription().keySet()) {
             Label label = new Label(paramName);
             label.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
             label.setLayoutY(y);
@@ -105,7 +105,6 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
             textField.setLayoutY(y);
             ParamOfModelDescription paramOfModelDescription = transportOfClient
                     .getLocalClientStateAutomaton()
-                    .getGameType()
                     .getMapOfParamsOfModelDescription()
                     .get(paramName);
             textField.setTextFormatter(

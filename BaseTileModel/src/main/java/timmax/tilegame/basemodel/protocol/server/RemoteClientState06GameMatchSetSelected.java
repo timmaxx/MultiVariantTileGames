@@ -13,11 +13,6 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
         this.clientId = clientId;
     }
 
-    @Override
-    public GameType getGameType() {
-        return getClientStateAutomaton().getGameType();
-    }
-
     // class ClientState06GameMatchSetSelected
     // ---- 5 Перечень партий
     @Override

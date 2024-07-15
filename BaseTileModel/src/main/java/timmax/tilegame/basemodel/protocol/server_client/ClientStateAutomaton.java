@@ -1,7 +1,10 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
 import timmax.tilegame.basemodel.protocol.server.GameType;
+import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
+import timmax.tilegame.baseview.View;
 
+import java.util.Map;
 import java.util.Set;
 
 public class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
@@ -106,11 +109,19 @@ public class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
         currenState = clientState06GameMatchSetSelected;
     }
 
-    // ToDo: Этот метод был определён в интерфейсе IClientState05GameTypeSelected,
-    //       а сейчас в interface IClientState04GameTypeSetSelected.
-    @Override
-    public GameType getGameType() {
-        return gameType;
+    // ToDo: Переименовать.
+    public Map<String, Class<? extends View>> getMapOfViewNameViewClass() {
+        return gameType.getMapOfViewNameViewClass();
+    }
+
+    // ToDo: Переименовать в getGameTypeName()
+    public String getGameName() {
+        return gameType.getGameName();
+    }
+
+    // ToDo: Переименовать.
+    public Map<String, ParamOfModelDescription> getMapOfParamsOfModelDescription() {
+        return gameType.getMapOfParamsOfModelDescription();
     }
 
     // 6 interface IClientState06GameMatchSetSelected

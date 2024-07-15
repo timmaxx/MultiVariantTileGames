@@ -21,7 +21,11 @@ public class GameClientPaneJfx extends VBox {
         BaseController baseController = new BaseController(transportOfClient);
 
         LocalClientStateAutomaton localClientStateAutomaton = transportOfClient.getLocalClientStateAutomaton();
-        Map<String, Class<? extends View>> mapOfViewName_ViewClass = localClientStateAutomaton.getGameType().getMapOfViewNameViewClass();
+        // ToDo: Переименовать.
+        Map<String, Class<? extends View>> mapOfViewName_ViewClass = localClientStateAutomaton.getMapOfViewNameViewClass();
+        // ToDo: В методе идёт цикл по элементам мапы mapOfVieName_View (и вставка в мапу mapOfViewName_ViewClass),
+        //       а значит можно перенести код в класс мапы mapOfVieName_View (но пока этот класс не выделен в отдельную мапу...).
+        // ToDo: Переименовать.
         Map<String, View> mapOfVieName_View = localClientStateAutomaton.getMapOfViewName_View();
 
         for (Map.Entry<String, Class<? extends View>> entry : mapOfViewName_ViewClass.entrySet()) {
@@ -42,6 +46,10 @@ public class GameClientPaneJfx extends VBox {
         }
     }
 
+    // Что-то похожее на фабричный метод - т.е.:
+    // - на вход подаём базовый класс выборки,
+    // - по этому классу определяем класс выборки, реализованной в JFX,
+    // - для этой выборки определяем конструктор.
     private static Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView) {
         Constructor<? extends ViewJfx> constructorOfViewJfx;
         try {
@@ -53,7 +61,7 @@ public class GameClientPaneJfx extends VBox {
             } else {
                 throw new RuntimeException("Unknown class");
             }
-            // ToDo: В скобках перечеслены типы параметров искомого конструктора.
+            // ToDo: В скобках перечислены типы параметров искомого конструктора.
             //       Соответственно, если в классах, реализующих интерфейс View, изменить перечень типов параметров
             //       конструкторов, то и здесь придётся менять его.
             //       Можно было-бы в интерфейсе View определить этот перечень как константу, и возможно там-же создать
@@ -62,7 +70,9 @@ public class GameClientPaneJfx extends VBox {
             //       Но в таком виде это не будет работать во время компиляции, да и вызов этого метода придётся делать
             //       в каждом из реализующих классов. К сожалению в интерфейсе нельзя определить сигнатуру конструктора
             //       с определённым перечнем типов параметров...
-            constructorOfViewJfx = classOfViewJfx.getConstructor(TransportOfClient.class, BaseController.class, String.class);
+            constructorOfViewJfx = classOfViewJfx.getConstructor(
+                    TransportOfClient.class, BaseController.class, String.class
+            );
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }

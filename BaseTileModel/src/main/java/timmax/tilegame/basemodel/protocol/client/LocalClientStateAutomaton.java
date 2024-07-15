@@ -11,7 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchId> {
+    // ToDo: Переименовать.
     private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
+    // ToDo: Переименовать.
     private final Map<String, View> mapOfViewName_View;
 
     public LocalClientStateAutomaton(
@@ -26,6 +28,7 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchId>
         return hashSetOfObserverOnAbstractEvent;
     }
 
+    // ToDo: Переименовать.
     public Map<String, View> getMapOfViewName_View() {
         return mapOfViewName_View;
     }

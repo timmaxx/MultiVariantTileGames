@@ -32,7 +32,9 @@ public abstract class GameType implements IGameType, Externalizable {
     // (например для шашек: "Белые", "Черные"; для многих игр для двух игроков: "Первый", "Второй"; для одного: "Игрок").
     // И количество игроков по длине массива будет определено.
 
+    // ToDo: Переименовать.
     private Map<String, Class<? extends View>> mapOfViewNameViewClass;
+    // ToDo: Переименовать.
     protected Map<String, ParamOfModelDescription> mapOfParamsOfModelDescription;
 
     public GameType() {
@@ -63,10 +65,12 @@ public abstract class GameType implements IGameType, Externalizable {
         constructorOfGameMatch = gameMatchClass.getConstructor(RemoteClientStateAutomaton.class, Object.class);
     }
 
+    // ToDo: Переименовать.
     public Map<String, Class<? extends View>> getMapOfViewNameViewClass() {
         return mapOfViewNameViewClass;
     }
 
+    // ToDo: Переименовать.
     public Map<String, ParamOfModelDescription> getMapOfParamsOfModelDescription() {
         if (mapOfParamsOfModelDescription == null) {
             mapOfParamsOfModelDescription = Map.of();
@@ -109,6 +113,7 @@ public abstract class GameType implements IGameType, Externalizable {
     }
 
     // interface IGameType
+    // ToDo: Переименовать в getGameTypeName()
     @Override
     public String getGameName() {
         return gameName;
