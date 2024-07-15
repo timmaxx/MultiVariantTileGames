@@ -34,7 +34,7 @@ public class EventOfClient41SetGameType extends EventOfClient {
                 .getGameTypeSet()
                 .stream()
                 // В том перечне ищется gameType с таким-же именем:
-                .filter(x -> x.getGameName().equals(gameTypeName))
+                .filter(x -> x.getGameTypeName().equals(gameTypeName))
                 .findAny()
                 .orElse(null);
 

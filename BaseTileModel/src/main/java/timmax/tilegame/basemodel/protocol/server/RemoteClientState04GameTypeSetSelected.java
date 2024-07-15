@@ -89,7 +89,7 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
                 new EventOfServer41SetGameType(
-                        gameType.getGameName(),
+                        gameType.getGameTypeName(),
                         gameMatchXSet
                                 .stream()
                                 .map(x -> new GameMatchId(x.toString()))

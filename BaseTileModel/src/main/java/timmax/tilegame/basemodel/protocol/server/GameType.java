@@ -17,7 +17,7 @@ import timmax.tilegame.baseview.ViewMainField;
 public abstract class GameType implements IGameType, Externalizable {
     protected static final Logger logger = LoggerFactory.getLogger(GameType.class);
 
-    // ToDo: Рассмотреть вариант выделения из этого класса "String gameName" в отдельный класс GameTypeName.
+    // ToDo: Рассмотреть вариант выделения из этого класса "String gameTypeName" в отдельный класс GameTypeName.
     //       Тогда EventOfServer31SetGameTypeSet будет передавать "Set<GameType> gameTypeSet",
     //       а EventOfClient41SetGameType будет передавать не "String gameTypeName", а "GameTypeName gameTypeName".
     //       Причины:
@@ -25,8 +25,8 @@ public abstract class GameType implements IGameType, Externalizable {
     //          Поэтому, при передаче полной информации о типе игры нужно передавать все поля.
     //          А вот при передаче как-бы ссылки на тип игры, достаточно передать только gameName.
     //          И похожим образом сделано для идентификации GameMatch (см. коммент для GameMatchId)
-    // ToDo: Переименовать в gameTypeName
-    private String gameName;
+    private String gameTypeName;
+
     // ToDo: Переименовать
     private Constructor<? extends IGameMatch> constructorOfGameMatch;
     private int countOfGamers;
@@ -42,12 +42,12 @@ public abstract class GameType implements IGameType, Externalizable {
     }
 
     public GameType(
-            String gameName,
+            String gameTypeName,
             int countOfGamers,
             Class<? extends IGameMatch> gameMatchClass)
             throws ClassNotFoundException, NoSuchMethodException {
         this();
-        this.gameName = gameName;
+        this.gameTypeName = gameTypeName;
         this.countOfGamers = countOfGamers;
 
         // ToDo: Мапу нужно инициализировать не как сейчас - константой, а в классе найти все выборки View.class, в т.ч. и ViewMainField.class.
@@ -89,12 +89,12 @@ public abstract class GameType implements IGameType, Externalizable {
         GameType that = (GameType) o;
 
         if (countOfGamers != that.countOfGamers) return false;
-        return gameName.equals(that.gameName);
+        return gameTypeName.equals(that.gameTypeName);
     }
 
     @Override
     public int hashCode() {
-        int result = gameName.hashCode();
+        int result = gameTypeName.hashCode();
         result = 31 * result + countOfGamers;
         return result;
     }
@@ -103,7 +103,7 @@ public abstract class GameType implements IGameType, Externalizable {
     public String toString() {
         return "GameType{" +
                 "constructorOfGameMatch=" + constructorOfGameMatch +
-                ", gameName='" + gameName + '\'' +
+                ", gameTypeName='" + gameTypeName + '\'' +
                 ", countOfGamers=" + countOfGamers +
                 ", viewName_ViewClassMap=" + viewName_ViewClassMap +
                 ", paramName_paramModelDescriptionMap=" + paramName_paramModelDescriptionMap +
@@ -111,10 +111,9 @@ public abstract class GameType implements IGameType, Externalizable {
     }
 
     // interface IGameType
-    // ToDo: Переименовать в getGameTypeName()
     @Override
-    public String getGameName() {
-        return gameName;
+    public String getGameTypeName() {
+        return gameTypeName;
     }
 
     @Override
@@ -125,7 +124,7 @@ public abstract class GameType implements IGameType, Externalizable {
     // interface Externalizable
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(gameName);
+        out.writeObject(gameTypeName);
         out.writeInt(countOfGamers);
         out.writeObject(viewName_ViewClassMap);
         out.writeObject(paramName_paramModelDescriptionMap);
@@ -133,9 +132,9 @@ public abstract class GameType implements IGameType, Externalizable {
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        gameName = (String) in.readObject();
+        gameTypeName = (String) in.readObject();
         countOfGamers = in.readInt();
-        // ToDo: Избавиться от "Warning:(143, 34) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
+        // ToDo: Избавиться от "Warning:(139, 34) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
         viewName_ViewClassMap = (Map<String, Class<? extends View>>) in.readObject();
         // ToDo: Избавиться от "Warning:(143, 41) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription>'"
         paramName_paramModelDescriptionMap = (Map<String, ParamOfModelDescription>) in.readObject();

@@ -29,7 +29,7 @@ public class EventOfServer41SetGameType extends EventOfServer {
                 localClientStateAutomaton
                         .getGameTypeSet()
                         .stream()
-                        .filter(x -> x.getGameName().equals(gameTypeName))
+                        .filter(x -> x.getGameTypeName().equals(gameTypeName))
                         .findAny()
                         .orElse(null);
 
@@ -53,7 +53,7 @@ public class EventOfServer41SetGameType extends EventOfServer {
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         gameTypeName = (String) in.readObject();
-        // ToDo: Исправить "Warning:(44, 26) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.protocol.server_client.GameMatchId>'"
+        // ToDo: Исправить "Warning:(58, 26) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.protocol.server_client.GameMatchId>'"
         //       Например как в readExternal в EventOfServer31SetGameTypeSet
         gameMatchIdSet = (Set<GameMatchId>) in.readObject();
     }

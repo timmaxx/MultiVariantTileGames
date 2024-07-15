@@ -109,14 +109,14 @@ public class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
         currenState = clientState06GameMatchSetSelected;
     }
 
+    @Override
     public Map<String, Class<? extends View>> getViewName_ViewClassMap() {
         return gameType.getViewName_ViewClassMap();
     }
 
-    // ToDo: Переименовать в getGameTypeName()
     @Override
     public String getGameName() {
-        return gameType.getGameName();
+        return gameType.getGameTypeName();
     }
 
     @Override

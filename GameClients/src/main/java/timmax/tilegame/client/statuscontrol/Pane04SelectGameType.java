@@ -27,14 +27,14 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
         buttonNextState.setText("Select the game type");
         buttonNextState.setOnAction(event -> {
             disableAllControls();
-            String gameName = comboBoxGameTypeSet.getValue();
+            String gameTypeName = comboBoxGameTypeSet.getValue();
 
             GameType gameType =
                     transportOfClient
                             .getLocalClientStateAutomaton()
                             .getGameTypeSet()
                             .stream()
-                            .filter(x -> x.getGameName().equals(gameName))
+                            .filter(x -> x.getGameTypeName().equals(gameTypeName))
                             .findAny()
                             .orElse(null);
 
@@ -94,7 +94,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
                                 .getLocalClientStateAutomaton()
                                 .getGameTypeSet()
                                 .stream()
-                                .map(GameType::getGameName)
+                                .map(GameType::getGameTypeName)
                                 .toList()
                 )
         );
