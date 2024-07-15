@@ -10,9 +10,9 @@ import timmax.tilegame.basecontroller.BaseController;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.baseview.ViewMainField;
-import timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx;
 import timmax.tilegame.transport.TransportOfClient;
 
+import timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx;
 import timmax.tilegame.guiengine.jfx.view.ViewJfx;
 
 public class GameClientPaneJfx extends VBox {
@@ -40,19 +40,20 @@ public class GameClientPaneJfx extends VBox {
         }
     }
 
+    // ToDo: Можно создать интерфейс ViewClass с методом
+    //       Constructor<? extends View> getViewConstructor();
+    //       И туда перенести этот метод.
     // Что-то похожее на фабричный метод - т.е.:
     // - на вход подаём базовый класс выборки,
     // - по этому классу определяем класс выборки, реализованной в JFX,
     // - для этой выборки определяем конструктор.
-    // ToDo: Переименовать параметр classOfView
-    private static Constructor<? extends View> getViewConstructor(Class<? extends View> classOfView) {
-        // ToDo: Переименовать.
-        Constructor<? extends ViewJfx> constructorOfViewJfx;
+    private static Constructor<? extends View> getViewConstructor(Class<? extends View> viewClass) {
+        Constructor<? extends ViewJfx> viewJfxConstructor;
         try {
             Class<? extends ViewJfx> classOfViewJfx;
-            if (classOfView.equals(ViewMainField.class)) {
+            if (viewClass.equals(ViewMainField.class)) {
                 classOfViewJfx = ViewMainFieldJfx.class;
-            } else if (classOfView.equals(View.class)) {
+            } else if (viewClass.equals(View.class)) {
                 classOfViewJfx = ViewJfx.class;
             } else {
                 throw new RuntimeException("Unknown class");
@@ -66,12 +67,12 @@ public class GameClientPaneJfx extends VBox {
             //       Но в таком виде это не будет работать во время компиляции, да и вызов этого метода придётся делать
             //       в каждом из реализующих классов. К сожалению в интерфейсе нельзя определить сигнатуру конструктора
             //       с определённым перечнем типов параметров...
-            constructorOfViewJfx = classOfViewJfx.getConstructor(
+            viewJfxConstructor = classOfViewJfx.getConstructor(
                     TransportOfClient.class, BaseController.class, String.class
             );
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
-        return constructorOfViewJfx;
+        return viewJfxConstructor;
     }
 }
