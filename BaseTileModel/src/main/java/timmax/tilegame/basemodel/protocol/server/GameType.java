@@ -27,7 +27,8 @@ public abstract class GameType implements IGameType, Externalizable {
     //          И похожим образом сделано для идентификации GameMatch (см. коммент для GameMatchId)
     private String gameTypeName;
     private Constructor<? extends IGameMatch> gameMatchConstructor;
-    private int countOfGamers;
+    // private int countOfGamers;
+
     // private String[] ; // тогда в этом массиве строк можно хранить имя роли каждого из игроков
     // (например для шашек: "Белые", "Черные"; для многих игр для двух игроков: "Первый", "Второй"; для одного: "Игрок").
     // И количество игроков по длине массива будет определено.
@@ -41,12 +42,12 @@ public abstract class GameType implements IGameType, Externalizable {
 
     public GameType(
             String gameTypeName,
-            int countOfGamers,
+            //int countOfGamers,
             Class<? extends IGameMatch> gameMatchClass)
             throws ClassNotFoundException, NoSuchMethodException {
         this();
         this.gameTypeName = gameTypeName;
-        this.countOfGamers = countOfGamers;
+        //this.countOfGamers = countOfGamers;
 
         // ToDo: Мапу нужно инициализировать не как сейчас - константой, а в классе найти все выборки View.class, в т.ч. и ViewMainField.class.
         viewName_ViewClassMap = Map.of("MainField", ViewMainField.class);
@@ -84,17 +85,14 @@ public abstract class GameType implements IGameType, Externalizable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GameType that = (GameType) o;
+        GameType gameType = (GameType) o;
 
-        if (countOfGamers != that.countOfGamers) return false;
-        return gameTypeName.equals(that.gameTypeName);
+        return gameTypeName.equals(gameType.gameTypeName);
     }
 
     @Override
     public int hashCode() {
-        int result = gameTypeName.hashCode();
-        result = 31 * result + countOfGamers;
-        return result;
+        return gameTypeName.hashCode();
     }
 
     @Override
@@ -102,7 +100,7 @@ public abstract class GameType implements IGameType, Externalizable {
         return "GameType{" +
                 "gameMatchConstructor=" + gameMatchConstructor +
                 ", gameTypeName='" + gameTypeName + '\'' +
-                ", countOfGamers=" + countOfGamers +
+                //", countOfGamers=" + countOfGamers +
                 ", viewName_ViewClassMap=" + viewName_ViewClassMap +
                 ", paramName_paramModelDescriptionMap=" + paramName_paramModelDescriptionMap +
                 '}';
@@ -114,16 +112,18 @@ public abstract class GameType implements IGameType, Externalizable {
         return gameTypeName;
     }
 
-    @Override
-    public int getCountOfGamers() {
-        return countOfGamers;
-    }
+    /*
+        @Override
+        public int getCountOfGamers() {
+            return countOfGamers;
+        }
+    */
 
     // interface Externalizable
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeObject(gameTypeName);
-        out.writeInt(countOfGamers);
+        // out.writeInt(countOfGamers);
         out.writeObject(viewName_ViewClassMap);
         out.writeObject(paramName_paramModelDescriptionMap);
     }
@@ -131,7 +131,7 @@ public abstract class GameType implements IGameType, Externalizable {
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         gameTypeName = (String) in.readObject();
-        countOfGamers = in.readInt();
+        // countOfGamers = in.readInt();
         // ToDo: Избавиться от "Warning:(139, 34) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
         viewName_ViewClassMap = (Map<String, Class<? extends View>>) in.readObject();
         // ToDo: Избавиться от "Warning:(141, 41) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription>'"

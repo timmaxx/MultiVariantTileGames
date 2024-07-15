@@ -11,7 +11,7 @@ import static timmax.tilegame.game.minesweeper.model.GameMatchOfMinesweeper.PARA
 
 public class GameTypeOfMinesweeper extends GameType {
     public GameTypeOfMinesweeper() throws ClassNotFoundException, NoSuchMethodException {
-        super("Minesweeper", 1, GameMatchOfMinesweeper.class);
+        super("Minesweeper", /*1,*/ GameMatchOfMinesweeper.class);
     }
 
     @Override
