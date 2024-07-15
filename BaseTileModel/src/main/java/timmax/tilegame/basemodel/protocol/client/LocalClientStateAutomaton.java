@@ -29,11 +29,6 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchId>
         return hashSetOfObserverOnAbstractEvent;
     }
 
-    // ToDo: Удалить этот метод и вместо него ввести методы, которые что-то делают с viewName_ViewMap.
-    public Map<String, View> getViewName_ViewMap() {
-        return viewName_ViewMap;
-    }
-
     public void addView(View view) {
         viewName_ViewMap.put(view.getViewName(), view);
     }

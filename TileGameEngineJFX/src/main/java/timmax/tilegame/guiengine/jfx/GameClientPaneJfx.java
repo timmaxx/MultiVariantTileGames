@@ -15,7 +15,6 @@ import timmax.tilegame.transport.TransportOfClient;
 
 import timmax.tilegame.guiengine.jfx.view.ViewJfx;
 
-// ToDo: А нужен-ли этот класс?
 public class GameClientPaneJfx extends VBox {
     public GameClientPaneJfx(TransportOfClient transportOfClient) {
         BaseController baseController = new BaseController(transportOfClient);
@@ -23,11 +22,9 @@ public class GameClientPaneJfx extends VBox {
         LocalClientStateAutomaton localClientStateAutomaton = transportOfClient.getLocalClientStateAutomaton();
 
         Map<String, Class<? extends View>> viewName_ViewClassMap = localClientStateAutomaton.getViewName_ViewClassMap();
-        Map<String, View> viewName_ViewMap = localClientStateAutomaton.getViewName_ViewMap();
-
         for (Map.Entry<String, Class<? extends View>> viewName_ViewClassEntry : viewName_ViewClassMap.entrySet()) {
             // ToDo: Исправить
-            //       Warning:(33, 21) Unchecked cast: 'java.lang.reflect.Constructor<capture<? extends timmax.tilegame.baseview.View>>' to 'java.lang.reflect.Constructor<? extends timmax.tilegame.guiengine.jfx.view.ViewJfx>'
+            //       Warning:(29, 21) Unchecked cast: 'java.lang.reflect.Constructor<capture<? extends timmax.tilegame.baseview.View>>' to 'java.lang.reflect.Constructor<? extends timmax.tilegame.guiengine.jfx.view.ViewJfx>'
             Constructor<? extends ViewJfx> viewConstructor =
                     (Constructor<? extends ViewJfx>)
                             getViewConstructor(viewName_ViewClassEntry.getValue())
@@ -38,7 +35,7 @@ public class GameClientPaneJfx extends VBox {
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
                 throw new RuntimeException(e);
             }
-            viewName_ViewMap.put(viewName_ViewClassEntry.getKey(), viewJfx);
+            localClientStateAutomaton.addView(viewJfx);
             getChildren().add(viewJfx);
         }
     }
