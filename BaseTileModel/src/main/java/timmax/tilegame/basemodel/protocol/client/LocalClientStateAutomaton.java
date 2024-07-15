@@ -38,6 +38,14 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchId>
         viewName_ViewMap.put(view.getViewName(), view);
     }
 
+    public void clearViewName_ViewMap() {
+        viewName_ViewMap.clear();
+    }
+
+    public View getView(String key) {
+        return viewName_ViewMap.get(key);
+    }
+
     public void addCallBackOnIncomingTransportPackageEvent(ObserverOnAbstractEvent observerOnAbstractEvent) {
         hashSetOfObserverOnAbstractEvent.add(observerOnAbstractEvent);
     }
