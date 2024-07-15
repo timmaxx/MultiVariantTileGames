@@ -22,7 +22,7 @@ public class GameClientPaneJfx extends VBox {
 
         LocalClientStateAutomaton localClientStateAutomaton = transportOfClient.getLocalClientStateAutomaton();
         // ToDo: Переименовать.
-        Map<String, Class<? extends View>> mapOfViewName_ViewClass = localClientStateAutomaton.getMapOfViewNameViewClass();
+        Map<String, Class<? extends View>> mapOfViewName_ViewClass = localClientStateAutomaton.getViewName_ViewClassMap();
         // ToDo: В методе идёт цикл по элементам мапы mapOfVieName_View (и вставка в мапу mapOfViewName_ViewClass),
         //       а значит можно перенести код в класс мапы mapOfVieName_View (но пока этот класс не выделен в отдельную мапу...).
         // ToDo: Переименовать.
@@ -30,7 +30,7 @@ public class GameClientPaneJfx extends VBox {
 
         for (Map.Entry<String, Class<? extends View>> entry : mapOfViewName_ViewClass.entrySet()) {
             // ToDo: Исправить
-            //       Warning:(32, 62) Unchecked cast: 'java.lang.reflect.Constructor<capture<? extends timmax.tilegame.baseview.View>>' to 'java.lang.reflect.Constructor<? extends timmax.tilegame.guiengine.jfx.view.ViewJfx>'
+            //       Warning:(37, 21) Unchecked cast: 'java.lang.reflect.Constructor<capture<? extends timmax.tilegame.baseview.View>>' to 'java.lang.reflect.Constructor<? extends timmax.tilegame.guiengine.jfx.view.ViewJfx>'
             Constructor<? extends ViewJfx> viewConstructor =
                     (Constructor<? extends ViewJfx>) getViewConstructor(
                             entry.getValue()

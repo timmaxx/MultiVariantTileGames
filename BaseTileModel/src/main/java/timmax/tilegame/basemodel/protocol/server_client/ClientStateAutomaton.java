@@ -109,9 +109,8 @@ public class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
         currenState = clientState06GameMatchSetSelected;
     }
 
-    // ToDo: Переименовать.
-    public Map<String, Class<? extends View>> getMapOfViewNameViewClass() {
-        return gameType.getMapOfViewNameViewClass();
+    public Map<String, Class<? extends View>> getViewName_ViewClassMap() {
+        return gameType.getViewName_ViewClassMap();
     }
 
     // ToDo: Переименовать в getGameTypeName()

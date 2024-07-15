@@ -25,15 +25,16 @@ public abstract class GameType implements IGameType, Externalizable {
     //          Поэтому, при передаче полной информации о типе игры нужно передавать все поля.
     //          А вот при передаче как-бы ссылки на тип игры, достаточно передать только gameName.
     //          И похожим образом сделано для идентификации GameMatch (см. коммент для GameMatchId)
+    // ToDo: Переименовать в gameTypeName
     private String gameName;
+    // ToDo: Переименовать
     private Constructor<? extends IGameMatch> constructorOfGameMatch;
     private int countOfGamers;
     // private String[] ; // тогда в этом массиве строк можно хранить имя роли каждого из игроков
     // (например для шашек: "Белые", "Черные"; для многих игр для двух игроков: "Первый", "Второй"; для одного: "Игрок").
     // И количество игроков по длине массива будет определено.
 
-    // ToDo: Переименовать.
-    private Map<String, Class<? extends View>> mapOfViewNameViewClass;
+    private Map<String, Class<? extends View>> viewName_ViewClassMap;
     // ToDo: Переименовать.
     protected Map<String, ParamOfModelDescription> mapOfParamsOfModelDescription;
 
@@ -65,9 +66,8 @@ public abstract class GameType implements IGameType, Externalizable {
         constructorOfGameMatch = gameMatchClass.getConstructor(RemoteClientStateAutomaton.class, Object.class);
     }
 
-    // ToDo: Переименовать.
-    public Map<String, Class<? extends View>> getMapOfViewNameViewClass() {
-        return mapOfViewNameViewClass;
+    public Map<String, Class<? extends View>> getViewName_ViewClassMap() {
+        return viewName_ViewClassMap;
     }
 
     // ToDo: Переименовать.
@@ -107,7 +107,7 @@ public abstract class GameType implements IGameType, Externalizable {
                 "constructorOfGameMatch=" + constructorOfGameMatch +
                 ", gameName='" + gameName + '\'' +
                 ", countOfGamers=" + countOfGamers +
-                ", mapOfViewNameViewClass=" + mapOfViewNameViewClass +
+                ", viewName_ViewClassMap=" + viewName_ViewClassMap +
                 ", mapOfParamsOfModelDescription=" + mapOfParamsOfModelDescription +
                 '}';
     }
@@ -129,7 +129,7 @@ public abstract class GameType implements IGameType, Externalizable {
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeObject(gameName);
         out.writeInt(countOfGamers);
-        out.writeObject(mapOfViewNameViewClass);
+        out.writeObject(viewName_ViewClassMap);
         out.writeObject(mapOfParamsOfModelDescription);
     }
 
@@ -137,9 +137,9 @@ public abstract class GameType implements IGameType, Externalizable {
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         gameName = (String) in.readObject();
         countOfGamers = in.readInt();
-        // ToDo: Избавиться от "Warning:(136, 34) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
-        mapOfViewNameViewClass = (Map<String, Class<? extends View>>) in.readObject();
-        // ToDo: Избавиться от "Warning:(138, 41) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription>'"
+        // ToDo: Избавиться от "Warning:(143, 34) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
+        viewName_ViewClassMap = (Map<String, Class<? extends View>>) in.readObject();
+        // ToDo: Избавиться от "Warning:(145, 41) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription>'"
         mapOfParamsOfModelDescription = (Map<String, ParamOfModelDescription>) in.readObject();
     }
 }
