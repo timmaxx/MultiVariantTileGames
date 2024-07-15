@@ -128,7 +128,7 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
 
     @Override
     protected void doOnNextState() {
-        textFieldSelectedGameType.setText(transportOfClient.getLocalClientStateAutomaton().getGameName());
+        textFieldSelectedGameType.setText(transportOfClient.getLocalClientStateAutomaton().getGameTypeName());
         super.doOnNextState();
     }
 }
