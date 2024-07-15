@@ -114,13 +114,14 @@ public class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
     }
 
     // ToDo: Переименовать в getGameTypeName()
+    @Override
     public String getGameName() {
         return gameType.getGameName();
     }
 
-    // ToDo: Переименовать.
-    public Map<String, ParamOfModelDescription> getMapOfParamsOfModelDescription() {
-        return gameType.getMapOfParamsOfModelDescription();
+    @Override
+    public Map<String, ParamOfModelDescription> getParamName_paramModelDescriptionMap() {
+        return gameType.getParamName_paramModelDescriptionMap();
     }
 
     // 6 interface IClientState06GameMatchSetSelected

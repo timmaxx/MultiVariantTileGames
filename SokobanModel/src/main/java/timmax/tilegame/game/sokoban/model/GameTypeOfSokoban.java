@@ -11,7 +11,7 @@ public class GameTypeOfSokoban extends GameType {
     }
 
     @Override
-    public Map<String, ParamOfModelDescription> getMapOfParamsOfModelDescription() {
+    public Map<String, ParamOfModelDescription> getParamName_paramModelDescriptionMap() {
         return Map.of();
     }
 }

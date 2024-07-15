@@ -15,7 +15,7 @@ public class GameTypeOfMinesweeper extends GameType {
     }
 
     @Override
-    public Map<String, ParamOfModelDescription> getMapOfParamsOfModelDescription() {
+    public Map<String, ParamOfModelDescription> getParamName_paramModelDescriptionMap() {
         return Map.of(
                 PARAM_NAME_WIDTH, new ParamOfModelDescription(8, 2, 20),
                 PARAM_NAME_HEIGHT, new ParamOfModelDescription(8, 2, 20),

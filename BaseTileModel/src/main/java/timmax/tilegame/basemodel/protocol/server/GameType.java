@@ -35,8 +35,7 @@ public abstract class GameType implements IGameType, Externalizable {
     // И количество игроков по длине массива будет определено.
 
     private Map<String, Class<? extends View>> viewName_ViewClassMap;
-    // ToDo: Переименовать.
-    protected Map<String, ParamOfModelDescription> mapOfParamsOfModelDescription;
+    protected Map<String, ParamOfModelDescription> paramName_paramModelDescriptionMap;
 
     public GameType() {
         super();
@@ -70,12 +69,11 @@ public abstract class GameType implements IGameType, Externalizable {
         return viewName_ViewClassMap;
     }
 
-    // ToDo: Переименовать.
-    public Map<String, ParamOfModelDescription> getMapOfParamsOfModelDescription() {
-        if (mapOfParamsOfModelDescription == null) {
-            mapOfParamsOfModelDescription = Map.of();
+    public Map<String, ParamOfModelDescription> getParamName_paramModelDescriptionMap() {
+        if (paramName_paramModelDescriptionMap == null) {
+            paramName_paramModelDescriptionMap = Map.of();
         }
-        return mapOfParamsOfModelDescription;
+        return paramName_paramModelDescriptionMap;
     }
 
     public Constructor<? extends IGameMatch> getConstructorOfGameMatch() {
@@ -108,7 +106,7 @@ public abstract class GameType implements IGameType, Externalizable {
                 ", gameName='" + gameName + '\'' +
                 ", countOfGamers=" + countOfGamers +
                 ", viewName_ViewClassMap=" + viewName_ViewClassMap +
-                ", mapOfParamsOfModelDescription=" + mapOfParamsOfModelDescription +
+                ", paramName_paramModelDescriptionMap=" + paramName_paramModelDescriptionMap +
                 '}';
     }
 
@@ -130,7 +128,7 @@ public abstract class GameType implements IGameType, Externalizable {
         out.writeObject(gameName);
         out.writeInt(countOfGamers);
         out.writeObject(viewName_ViewClassMap);
-        out.writeObject(mapOfParamsOfModelDescription);
+        out.writeObject(paramName_paramModelDescriptionMap);
     }
 
     @Override
@@ -139,7 +137,7 @@ public abstract class GameType implements IGameType, Externalizable {
         countOfGamers = in.readInt();
         // ToDo: Избавиться от "Warning:(143, 34) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
         viewName_ViewClassMap = (Map<String, Class<? extends View>>) in.readObject();
-        // ToDo: Избавиться от "Warning:(145, 41) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription>'"
-        mapOfParamsOfModelDescription = (Map<String, ParamOfModelDescription>) in.readObject();
+        // ToDo: Избавиться от "Warning:(143, 41) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription>'"
+        paramName_paramModelDescriptionMap = (Map<String, ParamOfModelDescription>) in.readObject();
     }
 }
