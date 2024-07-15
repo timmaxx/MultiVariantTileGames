@@ -5,7 +5,7 @@ import timmax.tilegame.basemodel.protocol.server.GameType;
 import java.util.Set;
 
 //  Выбран перечень партий (доигрываем ранее созданную или играем новую).
-public interface IClientState06GameMatchSetSelected<Model> extends IClientState00 {
+public interface IClientState06GameMatchSetSelected<GameMatchX extends IGameMatchX> extends IClientState00 {
     // Нумерация приведена соответствующая классам Pane0Х... пакета timmax.tilegame.client.statuscontrol:
 
     // ---- 6 (MatchSetSelected)
@@ -16,9 +16,9 @@ public interface IClientState06GameMatchSetSelected<Model> extends IClientState0
     //       информация о пользователе, сервер возвращает имя пользователя и перечень типов игр,
     //       который потом и используется (а не имя пользователя).
     GameType getGameType();
-    Set<Model> getGameMatchXSet();
+    Set<GameMatchX> getGameMatchXSet();
 
     void forgetGameMatchXSet();
 
-    void setGameMatchX(Model gameMatchX);
+    void setGameMatchX(GameMatchX gameMatchX);
 }
