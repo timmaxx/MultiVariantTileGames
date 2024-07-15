@@ -27,7 +27,7 @@ public class GameClientPaneJfx extends VBox {
 
         for (Map.Entry<String, Class<? extends View>> viewName_ViewClassEntry : viewName_ViewClassMap.entrySet()) {
             // ToDo: Исправить
-            //       Warning:(38, 21) Unchecked cast: 'java.lang.reflect.Constructor<capture<? extends timmax.tilegame.baseview.View>>' to 'java.lang.reflect.Constructor<? extends timmax.tilegame.guiengine.jfx.view.ViewJfx>'
+            //       Warning:(33, 21) Unchecked cast: 'java.lang.reflect.Constructor<capture<? extends timmax.tilegame.baseview.View>>' to 'java.lang.reflect.Constructor<? extends timmax.tilegame.guiengine.jfx.view.ViewJfx>'
             Constructor<? extends ViewJfx> viewConstructor =
                     (Constructor<? extends ViewJfx>)
                             getViewConstructor(viewName_ViewClassEntry.getValue())
