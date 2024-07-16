@@ -26,9 +26,7 @@ public class GameClientPaneJfx extends VBox {
             // ToDo: Исправить
             //       Warning:(29, 21) Unchecked cast: 'java.lang.reflect.Constructor<capture<? extends timmax.tilegame.baseview.View>>' to 'java.lang.reflect.Constructor<? extends timmax.tilegame.guiengine.jfx.view.ViewJfx>'
             Constructor<? extends ViewJfx> viewConstructor =
-                    (Constructor<? extends ViewJfx>)
-                            getViewConstructor(viewName_ViewClassEntry.getValue())
-                    ;
+                    new ViewJfxClass(viewName_ViewClassEntry.getValue()).getViewConstructor();
             ViewJfx viewJfx;
             try {
                 viewJfx = viewConstructor.newInstance(transportOfClient, baseController, viewName_ViewClassEntry.getKey());
@@ -38,41 +36,5 @@ public class GameClientPaneJfx extends VBox {
             localClientStateAutomaton.addView(viewJfx);
             getChildren().add(viewJfx);
         }
-    }
-
-    // ToDo: Можно создать интерфейс ViewClass с методом
-    //       Constructor<? extends View> getViewConstructor();
-    //       И туда перенести этот метод.
-    // Что-то похожее на фабричный метод - т.е.:
-    // - на вход подаём базовый класс выборки,
-    // - по этому классу определяем класс выборки, реализованной в JFX,
-    // - для этой выборки определяем конструктор.
-    private static Constructor<? extends View> getViewConstructor(Class<? extends View> viewClass) {
-        Constructor<? extends ViewJfx> viewJfxConstructor;
-        try {
-            Class<? extends ViewJfx> classOfViewJfx;
-            if (viewClass.equals(ViewMainField.class)) {
-                classOfViewJfx = ViewMainFieldJfx.class;
-            } else if (viewClass.equals(View.class)) {
-                classOfViewJfx = ViewJfx.class;
-            } else {
-                throw new RuntimeException("Unknown class");
-            }
-            // ToDo: В скобках перечислены типы параметров искомого конструктора.
-            //       Соответственно, если в классах, реализующих интерфейс View, изменить перечень типов параметров
-            //       конструкторов, то и здесь придётся менять его.
-            //       Можно было-бы в интерфейсе View определить этот перечень как константу, и возможно там-же создать
-            //       default метод, который-бы проверял у реализующих классов наличие конструктора с таким-же перечнем
-            //       типов параметров.
-            //       Но в таком виде это не будет работать во время компиляции, да и вызов этого метода придётся делать
-            //       в каждом из реализующих классов. К сожалению в интерфейсе нельзя определить сигнатуру конструктора
-            //       с определённым перечнем типов параметров...
-            viewJfxConstructor = classOfViewJfx.getConstructor(
-                    TransportOfClient.class, BaseController.class, String.class
-            );
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        }
-        return viewJfxConstructor;
     }
 }

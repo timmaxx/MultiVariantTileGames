@@ -33,6 +33,12 @@ public abstract class GameType implements IGameType, Externalizable {
     // (например для шашек: "Белые", "Черные"; для многих игр для двух игроков: "Первый", "Второй"; для одного: "Игрок").
     // И количество игроков по длине массива будет определено.
 
+    // ToDo: Выявить все использования.
+    //       Если класс не нужен, то вместо него конструктор в мапу.
+    //       Если нужен, то в мапе нужно хранить ещё и конструктор.
+    //       В любом случае конструктор сейчас добывается в классах
+    //       - GameClientPaneJfx
+    //       - ViewJfxClass.
     private Map<String, Class<? extends View>> viewName_ViewClassMap;
     protected Map<String, ParamOfModelDescription> paramName_paramModelDescriptionMap;
 
@@ -64,6 +70,7 @@ public abstract class GameType implements IGameType, Externalizable {
         gameMatchConstructor = gameMatchClass.getConstructor(RemoteClientStateAutomaton.class, Object.class);
     }
 
+    // ToDo: Выявить все использования (см. комментарий выше)
     public Map<String, Class<? extends View>> getViewName_ViewClassMap() {
         return viewName_ViewClassMap;
     }
