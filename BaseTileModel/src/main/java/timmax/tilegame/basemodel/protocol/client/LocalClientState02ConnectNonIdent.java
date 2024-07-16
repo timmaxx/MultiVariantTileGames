@@ -17,7 +17,8 @@ public class LocalClientState02ConnectNonIdent extends ClientState02ConnectNonId
     @Override
     public void setUser(String userName, Set<GameType> gameTypeSet) {
         super.setUser(userName, gameTypeSet);
-        getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnSetUser();
+        // ToDo: Сделать updateOn...() доступным напрямую?
+        getClientStateAutomaton().getObserverOnAbstractEventHashSet().updateOnSetUser();
     }
 
     // class AbstractClientState

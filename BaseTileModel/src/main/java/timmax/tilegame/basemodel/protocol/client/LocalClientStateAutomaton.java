@@ -1,6 +1,6 @@
 package timmax.tilegame.basemodel.protocol.client;
 
-import timmax.tilegame.basemodel.protocol.HashSetOfObserverOnAbstractEvent;
+import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEventHashSet;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
@@ -11,22 +11,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchId> {
-    // ToDo: Переименовать.
-    private final HashSetOfObserverOnAbstractEvent hashSetOfObserverOnAbstractEvent;
+    private final ObserverOnAbstractEventHashSet observerOnAbstractEventHashSet;
     private final Map<String, View> viewName_ViewMap;
 
     public LocalClientStateAutomaton(
             IFabricOfClientStates<GameMatchId> IFabricOfClientStates) {
         super(IFabricOfClientStates);
 
-        hashSetOfObserverOnAbstractEvent = new HashSetOfObserverOnAbstractEvent();
+        observerOnAbstractEventHashSet = new ObserverOnAbstractEventHashSet();
         viewName_ViewMap = new HashMap<>();
     }
 
-
-    // ToDo: Переименовать.
-    public HashSetOfObserverOnAbstractEvent getHashSetOfObserverOnAbstractEvent() {
-        return hashSetOfObserverOnAbstractEvent;
+    // ToDo: Проверить все применения, вероятно отказаться от доступа напрямую к
+    //       observerOnAbstractEventHashSet.
+    public ObserverOnAbstractEventHashSet getObserverOnAbstractEventHashSet() {
+        return observerOnAbstractEventHashSet;
     }
 
     public void addView(View view) {
@@ -42,6 +41,6 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchId>
     }
 
     public void addCallBackOnIncomingTransportPackageEvent(ObserverOnAbstractEvent observerOnAbstractEvent) {
-        hashSetOfObserverOnAbstractEvent.add(observerOnAbstractEvent);
+        observerOnAbstractEventHashSet.add(observerOnAbstractEvent);
     }
 }

@@ -17,7 +17,8 @@ public class LocalClientState04GameTypeSetSelected extends ClientState04GameType
     @Override
     public void forgetGameTypeSet() {
         super.forgetGameTypeSet();
-        getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnForgetGameTypeSet();
+        // ToDo: Сделать updateOn...() доступным напрямую?
+        getClientStateAutomaton().getObserverOnAbstractEventHashSet().updateOnForgetGameTypeSet();
     }
 
     // ---- 4 (Конкретный тип игры)
@@ -25,7 +26,8 @@ public class LocalClientState04GameTypeSetSelected extends ClientState04GameType
     public void setGameType(GameType gameType, Set<GameMatchId> gameMatchXSet) {
         super.setGameType(gameType, gameMatchXSet);
         getClientStateAutomaton().clearViewName_ViewMap();
-        getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnSetGameType();
+        // ToDo: Сделать updateOn...() доступным напрямую?
+        getClientStateAutomaton().getObserverOnAbstractEventHashSet().updateOnSetGameType();
     }
 
     // class AbstractClientState

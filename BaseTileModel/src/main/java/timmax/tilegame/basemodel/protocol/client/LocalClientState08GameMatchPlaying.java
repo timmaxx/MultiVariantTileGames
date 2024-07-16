@@ -14,7 +14,8 @@ public class LocalClientState08GameMatchPlaying extends ClientState08GameMatchPl
     @Override
     public void forgetGameMatchPlaying() {
         super.forgetGameMatchPlaying();
-        getClientStateAutomaton().getHashSetOfObserverOnAbstractEvent().updateOnForgetGameMatchPlaying();
+        // ToDo: Сделать updateOn...() доступным напрямую?
+        getClientStateAutomaton().getObserverOnAbstractEventHashSet().updateOnForgetGameMatchPlaying();
     }
 
     // class AbstractClientState

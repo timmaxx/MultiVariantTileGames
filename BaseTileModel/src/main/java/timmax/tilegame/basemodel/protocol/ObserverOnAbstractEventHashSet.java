@@ -4,8 +4,7 @@ import java.util.HashSet;
 
 import javafx.application.Platform;
 
-// ToDo: Переименовать.
-public class HashSetOfObserverOnAbstractEvent extends HashSet<ObserverOnAbstractEvent> implements ObserverOnAbstractEvent {
+public class ObserverOnAbstractEventHashSet extends HashSet<ObserverOnAbstractEvent> implements ObserverOnAbstractEvent {
     //  Описанное было обнаружено при работе с Pane04SelectGameType
     //  Если ранее comboBoxGameTypeSet уже было заполнено (т.е. вызывался updateOnGetGameTypeSet)
     //  и не использовать здесь Platform.runLater(), то возникнет исключение:
