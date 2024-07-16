@@ -42,7 +42,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         logger.info("Connection was closed.");
         getLocalClientStateAutomaton().forgetGameTypeSet();
         logger.info("  Main game client status: {}.", modelMultiGameWebSocketClientManyTimesUse);
-        getLocalClientStateAutomaton().getObserverOnAbstractEventHashSet().updateOnClose();
+        getLocalClientStateAutomaton().updateOnClose();
         logger.debug("  Code: {}. Reason: {}. Remote: {}.", code, reason, remote);
     }
 
@@ -50,7 +50,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     public void onOpen(ServerHandshake serverHandshake) {
         logger.info("Connection was opened. Server URI: {}.", getURI());
         getLocalClientStateAutomaton().forgetGameTypeSet();
-        getLocalClientStateAutomaton().getObserverOnAbstractEventHashSet().updateOnOpen();
+        getLocalClientStateAutomaton().updateOnOpen();
     }
 
     @Override

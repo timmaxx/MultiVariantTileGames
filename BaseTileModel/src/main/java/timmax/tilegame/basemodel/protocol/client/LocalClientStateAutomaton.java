@@ -22,10 +22,44 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchId>
         viewName_ViewMap = new HashMap<>();
     }
 
-    // ToDo: Проверить все применения, вероятно отказаться от доступа напрямую к
-    //       observerOnAbstractEventHashSet.
-    public ObserverOnAbstractEventHashSet getObserverOnAbstractEventHashSet() {
-        return observerOnAbstractEventHashSet;
+    public void updateOnClose() {
+        observerOnAbstractEventHashSet.updateOnClose();
+    }
+
+    public void updateOnOpen() {
+        observerOnAbstractEventHashSet.updateOnOpen();
+    }
+
+    public void updateOnForgetGameTypeSet() {
+        observerOnAbstractEventHashSet.updateOnForgetGameTypeSet();
+    }
+
+    public void updateOnSetUser() {
+        observerOnAbstractEventHashSet.updateOnSetUser();
+    }
+
+    public void updateOnForgetGameMatchSet() {
+        observerOnAbstractEventHashSet.updateOnForgetGameMatchSet();
+    }
+
+    public void updateOnSetGameType() {
+        observerOnAbstractEventHashSet.updateOnSetGameType();
+    }
+
+    public void updateOnForgetGameMatch() {
+        observerOnAbstractEventHashSet.updateOnForgetGameMatch();
+    }
+
+    public void updateOnSetGameMatch() {
+        observerOnAbstractEventHashSet.updateOnSetGameMatch();
+    }
+
+    public void updateOnForgetGameMatchPlaying() {
+        observerOnAbstractEventHashSet.updateOnForgetGameMatchPlaying();
+    }
+
+    public void updateOnSetGameMatchPlaying() {
+        observerOnAbstractEventHashSet.updateOnSetGameMatchPlaying();
     }
 
     public void addView(View view) {

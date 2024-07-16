@@ -14,16 +14,14 @@ public class LocalClientState07GameMatchSelected extends ClientState07GameMatchS
     @Override
     public void forgetGameMatchX() {
         super.forgetGameMatchX();
-        // ToDo: Сделать updateOn...() доступным напрямую?
-        getClientStateAutomaton().getObserverOnAbstractEventHashSet().updateOnForgetGameMatch();
+        getClientStateAutomaton().updateOnForgetGameMatch();
     }
 
     // ---- 7
     @Override
     public void setGameMatchPlaying(Boolean gameIsPlaying) {
         super.setGameMatchPlaying(gameIsPlaying);
-        // ToDo: Сделать updateOn...() доступным напрямую?
-        getClientStateAutomaton().getObserverOnAbstractEventHashSet().updateOnSetGameMatchPlaying();
+        getClientStateAutomaton().updateOnSetGameMatchPlaying();
     }
 
     // class AbstractClientState
