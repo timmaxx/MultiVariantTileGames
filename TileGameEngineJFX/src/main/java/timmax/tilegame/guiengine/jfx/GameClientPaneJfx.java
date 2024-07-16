@@ -9,10 +9,8 @@ import javafx.scene.layout.VBox;
 import timmax.tilegame.basecontroller.BaseController;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.baseview.View;
-import timmax.tilegame.baseview.ViewMainField;
 import timmax.tilegame.transport.TransportOfClient;
 
-import timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx;
 import timmax.tilegame.guiengine.jfx.view.ViewJfx;
 
 public class GameClientPaneJfx extends VBox {
