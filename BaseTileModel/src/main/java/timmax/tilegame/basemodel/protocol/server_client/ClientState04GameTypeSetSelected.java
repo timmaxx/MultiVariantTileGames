@@ -17,7 +17,7 @@ public abstract class ClientState04GameTypeSetSelected<GameMatchX extends IGameM
     }
 
     @Override
-    public void forgetGameTypeSet() {
+    public void forgetUser() {
         getClientStateAutomaton().setGameTypeSet_(new HashSet<>());
     }
 

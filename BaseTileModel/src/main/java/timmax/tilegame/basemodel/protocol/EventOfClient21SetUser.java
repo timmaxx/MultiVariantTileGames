@@ -8,7 +8,6 @@ import timmax.tilegame.basemodel.credential.Credentials;
 import timmax.tilegame.basemodel.protocol.server.GameTypeFabric;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
-// ToDo: Переименовать класс в, например, Идентификация-Аутентификация-Авторизация.
 public class EventOfClient21SetUser extends EventOfClient {
     private String userName;
     private String password;
@@ -30,7 +29,7 @@ public class EventOfClient21SetUser extends EventOfClient {
             remoteClientStateAutomaton.setUser(userName, GameTypeFabric.getGameTypeSet());
         } else {
             password = ""; // Не будем даже хранить неправильный пароль.
-            remoteClientStateAutomaton.forgetGameTypeSet();
+            remoteClientStateAutomaton.forgetUser();
         }
     }
 

@@ -98,8 +98,8 @@ public class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
     }
 
     @Override
-    public void forgetGameTypeSet() {
-        clientState04GameTypeSetSelected.forgetGameTypeSet();
+    public void forgetUser() {
+        clientState04GameTypeSetSelected.forgetUser();
         currenState = clientState02ConnectNonIdent;
     }
 

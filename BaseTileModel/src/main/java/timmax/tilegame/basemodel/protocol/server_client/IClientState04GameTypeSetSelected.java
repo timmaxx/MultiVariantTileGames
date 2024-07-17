@@ -11,7 +11,7 @@ public interface IClientState04GameTypeSetSelected<GameMatchX extends IGameMatch
     // ---- 4 (GameTypeSetSelected)
     Set<GameType> getGameTypeSet();
 
-    void forgetGameTypeSet();
+    void forgetUser();
 
     void setGameType(GameType gameType, Set<GameMatchX> gameMatchXSet);
 }

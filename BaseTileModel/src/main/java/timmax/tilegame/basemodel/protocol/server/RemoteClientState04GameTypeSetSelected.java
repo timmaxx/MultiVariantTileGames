@@ -21,11 +21,11 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
     // class ClientState04GameTypeSetSelected
     // ---- 3 (Список типов игр)
     @Override
-    public void forgetGameTypeSet() {
-        super.forgetGameTypeSet();
+    public void forgetUser() {
+        super.forgetUser();
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
-                new EventOfServer30ForgetGameTypeSet()
+                new EventOfServer20ForgetUser()
         );
     }
 
@@ -35,7 +35,7 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
         if (gameType == null) {
             getClientStateAutomaton().sendEventOfServer(
                     clientId,
-                    new EventOfServer30ForgetGameTypeSet()
+                    new EventOfServer20ForgetUser()
             );
             return;
         }

@@ -15,8 +15,8 @@ public class LocalClientState04GameTypeSetSelected extends ClientState04GameType
     // class AbstractClientState
     // ---- 3 (Список типов игр)
     @Override
-    public void forgetGameTypeSet() {
-        super.forgetGameTypeSet();
+    public void forgetUser() {
+        super.forgetUser();
         getClientStateAutomaton().updateOnForgetGameTypeSet();
     }
 
