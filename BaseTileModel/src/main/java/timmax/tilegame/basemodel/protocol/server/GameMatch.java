@@ -10,9 +10,7 @@ import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
 import timmax.tilegame.basemodel.protocol.EventOfServer;
 import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent;
-import timmax.tilegame.baseview.View;
 
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -40,6 +38,8 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
 
     protected final GameType gameType;
 
+    // ToDo: Вместо этой переменной попробовать использовать
+    //       gameType.getViewNameSet().
     private final Set<String> viewNameSet;
 
     // ToDo: Сейчас здесь одна переменная типа RemoteClientStateAutomaton и ClientId. И для одного игрока вполне норм.
@@ -59,13 +59,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         this.gameType = gameType;
         this.remoteClientStateAutomaton = remoteClientStateAutomaton;
         this.clientId = clientId;
-        this.viewNameSet = new HashSet<>();
-
-        // ToDo: Сейчас foreach работает и с ключём и со значением (аналогично как в классе LocalClientState),
-        //       Но здесь достаточно только с ключём.
-        for (Map.Entry<String, Class<? extends View>> entry : gameType.getViewName_ViewClassMap().entrySet()) {
-            viewNameSet.add(entry.getKey());
-        }
+        this.viewNameSet = gameType.getViewNameSet();
     }
 
     protected final GameStatus getGameStatus() {

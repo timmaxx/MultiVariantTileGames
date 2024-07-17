@@ -6,6 +6,7 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.lang.reflect.Constructor;
 import java.util.Map;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,6 +74,10 @@ public abstract class GameType implements IGameType, Externalizable {
     // ToDo: Выявить все использования (см. комментарий выше)
     public Map<String, Class<? extends View>> getViewName_ViewClassMap() {
         return viewName_ViewClassMap;
+    }
+
+    public Set<String> getViewNameSet() {
+        return viewName_ViewClassMap.keySet();
     }
 
     public Map<String, ParamOfModelDescription> getParamName_paramModelDescriptionMap() {
