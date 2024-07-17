@@ -12,7 +12,6 @@ import timmax.tilegame.basemodel.protocol.EventOfServer;
 import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent;
 
 import java.util.Map;
-import java.util.Set;
 
 import static timmax.tilegame.basemodel.GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
 import static timmax.tilegame.basemodel.GameStatus.VICTORY;
@@ -38,10 +37,6 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
 
     protected final GameType gameType;
 
-    // ToDo: Вместо этой переменной попробовать использовать
-    //       gameType.getViewNameSet().
-    private final Set<String> viewNameSet;
-
     // ToDo: Сейчас здесь одна переменная типа RemoteClientStateAutomaton и ClientId. И для одного игрока вполне норм.
     //       Но для для двух (а возможно и более игроков) или если какой-то участник игры, не являющийся игроком будет
     //       работать в отдельном клиенте, придётся создавать какую-то коллекцию, в которой и будет описание игроков
@@ -59,7 +54,6 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         this.gameType = gameType;
         this.remoteClientStateAutomaton = remoteClientStateAutomaton;
         this.clientId = clientId;
-        this.viewNameSet = gameType.getViewNameSet();
     }
 
     protected final GameStatus getGameStatus() {
@@ -84,11 +78,12 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
 
     // Посылает игровое событие всем выборкам.
     public void sendGameEventToAllViews(GameEvent gameEvent) {
+        // ToDo: Цикл перенести в GameType.
         // ToDo: Пробовал сразу написать так:
         //       for (String viewName : remoteClientState.getSetOfViewName())
         //       Но такой вариант даже не компилировался.
         //       Разобраться!
-        for (String viewName : viewNameSet) {
+        for (String viewName : gameType.getViewNameSet()) {
             EventOfServer eventOfServer = new EventOfServer92GameEvent(viewName, gameEvent);
             remoteClientStateAutomaton.sendEventOfServer(clientId, eventOfServer);
         }

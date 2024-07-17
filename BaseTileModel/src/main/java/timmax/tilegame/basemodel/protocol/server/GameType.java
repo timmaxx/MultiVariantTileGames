@@ -76,6 +76,7 @@ public abstract class GameType implements IGameType, Externalizable {
         return viewName_ViewClassMap;
     }
 
+    // ToDo: Выявить все использования (см. комментарий выше)
     public Set<String> getViewNameSet() {
         return viewName_ViewClassMap.keySet();
     }
@@ -144,9 +145,9 @@ public abstract class GameType implements IGameType, Externalizable {
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         gameTypeName = (String) in.readObject();
         // countOfGamers = in.readInt();
-        // ToDo: Избавиться от "Warning:(139, 34) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
+        // ToDo: Избавиться от "Warning:(152, 34) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
         viewName_ViewClassMap = (Map<String, Class<? extends View>>) in.readObject();
-        // ToDo: Избавиться от "Warning:(141, 41) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription>'"
+        // ToDo: Избавиться от "Warning:(154, 41) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription>'"
         paramName_paramModelDescriptionMap = (Map<String, ParamOfModelDescription>) in.readObject();
     }
 }
