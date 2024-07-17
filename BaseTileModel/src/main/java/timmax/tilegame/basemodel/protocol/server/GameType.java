@@ -36,12 +36,13 @@ public abstract class GameType implements IGameType, Externalizable {
     // (например для шашек: "Белые", "Черные"; для многих игр для двух игроков: "Первый", "Второй"; для одного: "Игрок").
     // И количество игроков по длине массива будет определено.
 
-    // ToDo: Выявить все использования.
-    //       Если класс не нужен, то вместо него конструктор в мапу.
-    //       Если нужен, то в мапе нужно хранить ещё и конструктор.
-    //       В любом случае конструктор сейчас добывается в классах
-    //       - GameClientPaneJfx
-    //       - ViewJfxClass.
+    // ToDo: Доступ к полю ч/з геттер - нехорошо. Было бы лучше цикл (из конструктора GameClientPaneJfx) перенести:
+    //       - либо в этот класс (GameType),
+    //       - либо в ClientStateAutomaton (но геттер сделать protected),
+    //       - либо в LocalClientStateAutomaton (но геттер сделать protected) - наверное проще сюда.
+    //       Поле (через геттеры в GameType, ClientStateAutomaton, LocalClientStateAutomaton)
+    //       используется только в конструкторе GameClientPaneJfx.
+    //       И там идёт цикл по этому множеству и генерируется множество ViewJfx.
     private Map<String, Class<? extends View>> viewName_ViewClassMap;
     protected Map<String, ParamOfModelDescription> paramName_paramModelDescriptionMap;
 
@@ -73,14 +74,8 @@ public abstract class GameType implements IGameType, Externalizable {
         gameMatchConstructor = gameMatchClass.getConstructor(RemoteClientStateAutomaton.class, Object.class);
     }
 
-    // ToDo: Выявить все использования (см. комментарий выше)
     public Map<String, Class<? extends View>> getViewName_ViewClassMap() {
         return viewName_ViewClassMap;
-    }
-
-    // ToDo: Выявить все использования (см. комментарий выше)
-    public Set<String> getViewNameSet() {
-        return viewName_ViewClassMap.keySet();
     }
 
     public Map<String, ParamOfModelDescription> getParamName_paramModelDescriptionMap() {
@@ -154,9 +149,9 @@ public abstract class GameType implements IGameType, Externalizable {
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         gameTypeName = (String) in.readObject();
         // countOfGamers = in.readInt();
-        // ToDo: Избавиться от "Warning:(152, 34) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
+        // ToDo: Избавиться от "Warning:(153, 34) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
         viewName_ViewClassMap = (Map<String, Class<? extends View>>) in.readObject();
-        // ToDo: Избавиться от "Warning:(154, 41) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription>'"
+        // ToDo: Избавиться от "Warning:(155, 41) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription>'"
         paramName_paramModelDescriptionMap = (Map<String, ParamOfModelDescription>) in.readObject();
     }
 }

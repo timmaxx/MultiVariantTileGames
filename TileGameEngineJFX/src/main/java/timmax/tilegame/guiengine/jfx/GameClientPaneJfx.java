@@ -16,10 +16,9 @@ import timmax.tilegame.guiengine.jfx.view.ViewJfx;
 public class GameClientPaneJfx extends VBox {
     public GameClientPaneJfx(TransportOfClient transportOfClient) {
         BaseController baseController = new BaseController(transportOfClient);
-
         LocalClientStateAutomaton localClientStateAutomaton = transportOfClient.getLocalClientStateAutomaton();
-
         Map<String, Class<? extends View>> viewName_ViewClassMap = localClientStateAutomaton.getViewName_ViewClassMap();
+
         for (Map.Entry<String, Class<? extends View>> viewName_ViewClassEntry : viewName_ViewClassMap.entrySet()) {
             // ToDo: Исправить
             //       Warning:(29, 21) Unchecked cast: 'java.lang.reflect.Constructor<capture<? extends timmax.tilegame.baseview.View>>' to 'java.lang.reflect.Constructor<? extends timmax.tilegame.guiengine.jfx.view.ViewJfx>'
