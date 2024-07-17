@@ -33,11 +33,11 @@ public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
     public final static int DIFFERENCE_OF_LAYOUT_Y = 30;
     // Количество пикселей сверху и снизу, что-бы главное поле влезло во внутреннее окно - PrimaryStage
     public final static int PIXELS_ON_TOP_N_BOTTOM_FOR_MAIN_FIELD_FITS_INTO_PRIMARY_STAGE = 17;
-    // Количество "строк" контролов в панелях Pane0x..., кроме последней ("строк" от 1 до 6: 3 + 2 + 1 + 2)
+    // Количество "строк" контролов в панелях Pane0x..., кроме последней ("строк" от 1 до 6: 3 + 2 + 1 + 1)
     // В Pane0X (с первого по предпоследний) можно найти:
     //   paneNextState.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * ?);
     //   paneNextState.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * ?);
-    public final static int ROWS_OF_CONTROLS_IN_PANE0X_EXCEPT_LAST = 8;
+    public final static int ROWS_OF_CONTROLS_IN_PANE0X_EXCEPT_LAST = 7;
     private final static int PIXELS_ON_BOTTOM_FROM_MAIN_FIELD = 2;
 
     protected GameStackPane[][] cells;

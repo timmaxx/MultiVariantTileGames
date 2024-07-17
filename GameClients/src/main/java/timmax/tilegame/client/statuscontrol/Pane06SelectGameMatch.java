@@ -5,7 +5,6 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
 import timmax.tilegame.transport.TransportOfClient;
@@ -14,7 +13,6 @@ import static timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx.*;
 
 public class Pane06SelectGameMatch extends AbstractConnectStatePane {
     private final ComboBox<String> comboBoxGameSet;
-    private final TextField textFieldSelectedGame;
 
     public Pane06SelectGameMatch(TransportOfClient transportOfClient) {
         super(transportOfClient);
@@ -22,8 +20,6 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
         // 1 (обязательные)
         // Контролы для продвижения состояния "вперёд":
         comboBoxGameSet = new ComboBox<>();
-        textFieldSelectedGame = new TextField();
-        textFieldSelectedGame.setEditable(false);
 
         buttonNextState.setText("Select the game match");
         buttonNextState.setOnAction(event -> {
@@ -43,17 +39,13 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
         comboBoxGameSet.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
         comboBoxGameSet.setLayoutY(LAYOUT_Y_OF_FIRST_ROW);
 
-        // 2
-        textFieldSelectedGame.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
-        textFieldSelectedGame.setLayoutY(DIFFERENCE_OF_LAYOUT_Y);
-
-        // Получилось 3 строки контролов:
-        paneNextState.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * 2);
-        paneNextState.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * 2);
+        // Получилась 1 строка контролов:
+        paneNextState.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * 1);
+        paneNextState.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * 1);
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контролов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
-                List.of(comboBoxGameSet, textFieldSelectedGame),
+                List.of(comboBoxGameSet),
                 List.of()
         );
     }
@@ -118,20 +110,5 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
     protected void doOnPrevState() {
         super.doOnPrevState();
         comboBoxGameSet.setItems(FXCollections.observableArrayList());
-        textFieldSelectedGame.setText("");
-    }
-
-    @Override
-    protected void doOnThisState() {
-        // ToDo: Эти строки всегда совпадают с последними строками предыдущего метода для всех классов Pane0x.
-        //       Ввести дополнительный приватный метод и вызывать его.
-        textFieldSelectedGame.setText("");
-        super.doOnThisState();
-    }
-
-    @Override
-    protected void doOnNextState() {
-        textFieldSelectedGame.setText(transportOfClient.getLocalClientStateAutomaton().getGameMatchX().toString());
-        super.doOnNextState();
     }
 }
