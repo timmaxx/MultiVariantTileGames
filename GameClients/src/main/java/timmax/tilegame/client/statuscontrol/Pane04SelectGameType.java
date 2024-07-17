@@ -4,7 +4,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.transport.TransportOfClient;
@@ -13,7 +12,6 @@ import static timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx.*;
 
 public class Pane04SelectGameType extends AbstractConnectStatePane {
     private final ComboBox<String> comboBoxGameTypeSet;
-    private final TextField textFieldSelectedGameType;
 
     public Pane04SelectGameType(TransportOfClient transportOfClient) {
         super(transportOfClient);
@@ -21,8 +19,6 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
         // 1 (обязательные)
         // Контролы для продвижения состояния "вперёд":
         comboBoxGameTypeSet = new ComboBox<>();
-        textFieldSelectedGameType = new TextField();
-        textFieldSelectedGameType.setEditable(false);
 
         buttonNextState.setText("Select the game type");
         buttonNextState.setOnAction(event -> {
@@ -53,17 +49,13 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
         comboBoxGameTypeSet.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
         comboBoxGameTypeSet.setLayoutY(LAYOUT_Y_OF_FIRST_ROW);
 
-        // 2
-        textFieldSelectedGameType.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
-        textFieldSelectedGameType.setLayoutY(DIFFERENCE_OF_LAYOUT_Y);
-
-        // Получилось 2 строки контролов:
-        paneNextState.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * 2);
-        paneNextState.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * 2);
+        // Получилось 1 строка контролов:
+        paneNextState.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * 1);
+        paneNextState.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * 1);
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контролов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
-                List.of(comboBoxGameTypeSet, textFieldSelectedGameType),
+                List.of(comboBoxGameTypeSet),
                 List.of()
         );
     }
@@ -117,18 +109,5 @@ public class Pane04SelectGameType extends AbstractConnectStatePane {
     protected void doOnPrevState() {
         super.doOnPrevState();
         comboBoxGameTypeSet.setItems(FXCollections.observableArrayList());
-        textFieldSelectedGameType.setText("");
-    }
-
-    @Override
-    protected void doOnThisState() {
-        textFieldSelectedGameType.setText("");
-        super.doOnThisState();
-    }
-
-    @Override
-    protected void doOnNextState() {
-        textFieldSelectedGameType.setText(transportOfClient.getLocalClientStateAutomaton().getGameTypeName());
-        super.doOnNextState();
     }
 }
