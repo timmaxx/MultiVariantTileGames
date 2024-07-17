@@ -8,7 +8,6 @@ import java.util.Set;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
-// ToDo: Переименовать класс в, например, Идентификация-Аутентификация-Авторизация.
 public class EventOfServer21SetUser extends EventOfServer {
     private String userName;
     private Set<GameType> gameTypeSet;
