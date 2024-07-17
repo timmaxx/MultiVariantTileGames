@@ -34,7 +34,7 @@ public abstract class ClientState06GameMatchSetSelected<GameMatchX extends IGame
     }
 
     @Override
-    public void forgetGameMatchXSet() {
+    public void forgetGameType() {
         getClientStateAutomaton().setGameMatchXSet_(new HashSet<>());
     }
 

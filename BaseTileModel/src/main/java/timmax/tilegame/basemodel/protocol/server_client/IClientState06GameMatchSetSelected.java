@@ -17,7 +17,7 @@ public interface IClientState06GameMatchSetSelected<GameMatchX extends IGameMatc
 
     Set<GameMatchX> getGameMatchXSet();
 
-    void forgetGameMatchXSet();
+    void forgetGameType();
 
     void setGameMatchX(GameMatchX gameMatchX);
 }

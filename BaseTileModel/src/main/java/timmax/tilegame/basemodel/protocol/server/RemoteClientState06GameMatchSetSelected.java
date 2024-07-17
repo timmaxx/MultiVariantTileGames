@@ -16,11 +16,11 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
     // class ClientState06GameMatchSetSelected
     // ---- 5 Перечень партий
     @Override
-    public void forgetGameMatchXSet() {
-        super.forgetGameMatchXSet();
+    public void forgetGameType() {
+        super.forgetGameType();
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
-                new EventOfServer50ForgetGameMatchSet()
+                new EventOfServer40ForgetGameType()
         );
     }
 

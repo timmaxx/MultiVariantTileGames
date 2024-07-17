@@ -12,8 +12,8 @@ public class LocalClientState06GameMatchSetSelected extends ClientState06GameMat
     // class AbstractClientState
     // ---- 4 (Конкретный тип игры)
     @Override
-    public void forgetGameMatchXSet() {
-        super.forgetGameMatchXSet();
+    public void forgetGameType() {
+        super.forgetGameType();
         getClientStateAutomaton().updateOnForgetGameMatchSet();
     }
 
