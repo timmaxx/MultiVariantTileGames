@@ -8,8 +8,6 @@ import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
-import timmax.tilegame.basemodel.protocol.EventOfServer;
-import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent;
 
 import java.util.Map;
 
@@ -78,15 +76,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
 
     // Посылает игровое событие всем выборкам.
     public void sendGameEventToAllViews(GameEvent gameEvent) {
-        // ToDo: Цикл перенести в GameType.
-        // ToDo: Пробовал сразу написать так:
-        //       for (String viewName : remoteClientState.getSetOfViewName())
-        //       Но такой вариант даже не компилировался.
-        //       Разобраться!
-        for (String viewName : gameType.getViewNameSet()) {
-            EventOfServer eventOfServer = new EventOfServer92GameEvent(viewName, gameEvent);
-            remoteClientStateAutomaton.sendEventOfServer(clientId, eventOfServer);
-        }
+        gameType.sendGameEventToAllViews(gameEvent, remoteClientStateAutomaton, clientId);
     }
 
     protected final boolean verifyGameStatusNotGameAndMayBeCreateNewGame() {

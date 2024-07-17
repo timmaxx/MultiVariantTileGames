@@ -11,6 +11,9 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import timmax.tilegame.basemodel.gameevent.GameEvent;
+import timmax.tilegame.basemodel.protocol.EventOfServer;
+import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent;
 import timmax.tilegame.basemodel.protocol.IGameType;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.baseview.ViewMainField;
@@ -90,6 +93,13 @@ public abstract class GameType implements IGameType, Externalizable {
 
     public Constructor<? extends IGameMatch> getGameMatchConstructor() {
         return gameMatchConstructor;
+    }
+
+    public <ClientId> void sendGameEventToAllViews(GameEvent gameEvent, RemoteClientStateAutomaton remoteClientStateAutomaton, ClientId clientId) {
+        for (String viewName : getViewNameSet()) {
+            EventOfServer eventOfServer = new EventOfServer92GameEvent(viewName, gameEvent);
+            remoteClientStateAutomaton.sendEventOfServer(clientId, eventOfServer);
+        }
     }
 
     // class Object
