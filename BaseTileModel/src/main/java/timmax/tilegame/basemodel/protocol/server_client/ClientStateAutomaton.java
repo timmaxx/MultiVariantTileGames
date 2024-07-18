@@ -45,6 +45,10 @@ public class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
         currenState = clientState02ConnectNonIdent;
     }
 
+    protected IClientState99<GameMatchX> getCurrentState() {
+        return currenState;
+    }
+
     void setUserName_(String userName, Set<GameType> gameTypeSet) {
         this.userName = userName;
         this.gameTypeSet = gameTypeSet;

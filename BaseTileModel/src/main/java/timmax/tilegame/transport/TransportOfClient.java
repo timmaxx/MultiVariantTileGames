@@ -31,12 +31,13 @@ public interface TransportOfClient {
 
     // ---- 4 (GameTypeSetSelected)
     // ???                                                                              //  4       Set<GameType> getGameTypeSet();
-    // ToDo: Переименовать метод.
+    // ToDo: Переименовать метод в forgetUser
     void forgetGameTypeSet();                                                   //  31  //  4 -> 3  void forgetGameTypeSet();
     void setGameType(GameType gameType);                                        //  42  //  4 -> 5  void setGameType(GameType gameType);
 
     // ---- 6 (MatchSetSelected)
     // ???                                                                              //  6       Set<Model> getGameMatchSet();
+    // ToDo: Переименовать метод в forgetGameType?
     void forgetGameMatchSet();                                                  //  51  //  6 -> 5  void forgetGameMatchSet();
     void setGameMatch(GameMatchId gameMatchId);                                 //  62  //  6 -> 7  void setGameMatch(Model serverBaseModel);
 
