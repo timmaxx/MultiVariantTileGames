@@ -36,7 +36,7 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
         buttonPrevState.setFocusTraversable(false);
         buttonPrevState.setOnAction(event -> {
             disableAllControls();
-            transportOfClient.forgetGameMatchSet();
+            transportOfClient.forgetUser();
         });
 
         // 1

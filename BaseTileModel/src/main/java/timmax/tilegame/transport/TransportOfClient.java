@@ -30,23 +30,18 @@ public interface TransportOfClient {
     void setUser(String userName, String password);                             //  22  //  2 -> 3  void setUser(String userName);
 
     // ---- 4 (GameTypeSetSelected)
-    // ???                                                                              //  4       Set<GameType> getGameTypeSet();
-    // ToDo: Переименовать метод в forgetUser
-    void forgetGameTypeSet();                                                   //  31  //  4 -> 3  void forgetGameTypeSet();
-    void setGameType(GameType gameType);                                        //  42  //  4 -> 5  void setGameType(GameType gameType);
+    void forgetUser();                                                          //  40  //  4 -> 2  void forgetUser();
+    void setGameType(GameType gameType);                                        //  41  //  4 -> 5  void setGameType(GameType gameType);
 
     // ---- 6 (MatchSetSelected)
-    // ???                                                                              //  6       Set<Model> getGameMatchSet();
     // ToDo: Переименовать метод в forgetGameType?
-    void forgetGameMatchSet();                                                  //  51  //  6 -> 5  void forgetGameMatchSet();
-    void setGameMatch(GameMatchId gameMatchId);                                 //  62  //  6 -> 7  void setGameMatch(Model serverBaseModel);
+    void forgetGameMatchSet();                                                  //  60  //  6 -> 5  void forgetGameMatchSet();
+    void setGameMatch(GameMatchId gameMatchId);                                 //  61  //  6 -> 7  void setGameMatch(Model serverBaseModel);
 
     // ---- 7 (MatchSelected)
-    // ???                                                                              //  7       Model getServerBaseModel();
-    void forgetGameMatch();                                                     //  61  //  7 -> 6  void forgetGameMatch();
-    void setGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue);     //  72  //  7 -> 8  void setGameMatchPlaying(Boolean gameIsPlaying);
+    void forgetGameMatch();                                                     //  70  //  7 -> 6  void forgetGameMatch();
+    void setGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue);     //  71  //  7 -> 8  void setGameMatchPlaying(Boolean gameIsPlaying);
 
     // ---- 8 (GameIsPlaying)
-    // ???                                                                              //  8       Boolean getGameIsPlaying();
-    void forgetGameMatchPlaying();                                              //  71  //  8 -> 7  void forgetGameMatchPlaying();
+    void forgetGameMatchPlaying();                                              //  80  //  8 -> 7  void forgetGameMatchPlaying();
 }
