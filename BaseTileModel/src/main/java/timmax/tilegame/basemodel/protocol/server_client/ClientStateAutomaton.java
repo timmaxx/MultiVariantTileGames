@@ -21,7 +21,7 @@ public class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
     final ClientState07GameMatchSelected<GameMatchX> clientState07GameMatchSelected;
     final ClientState08GameMatchPlaying<GameMatchX> clientState08GameMatchPlaying;
 
-    private IClientState00 currenState;
+    private IClientState99<GameMatchX> currenState;
 
     private String userName; // ---- 2 (Пользователь)
     private Set<GameType> gameTypeSet; // ---- 3 (Список типов игр)
@@ -39,7 +39,10 @@ public class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
         clientState07GameMatchSelected = iFabricOfClientStates.getClientState07GameMatchSelected(this);
         clientState08GameMatchPlaying = iFabricOfClientStates.getClientState08GameMatchPlaying(this);
 
-        currenState = clientState01NoConnect;
+        // ToDo: ...State01NoConnect или доработать или удалить.
+        //       Ранее было, как в комменте. Но вообще State01NoConnect не полностью работает.
+        // currenState = clientState01NoConnect;
+        currenState = clientState02ConnectNonIdent;
     }
 
     void setUserName_(String userName, Set<GameType> gameTypeSet) {
@@ -87,25 +90,25 @@ public class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
     // 2 interface IClientState02ConnectNonIdent
     @Override
     public void setUser(String userName, Set<GameType> gameTypeSet) {
-        clientState02ConnectNonIdent.setUser(userName, gameTypeSet);
+        currenState.setUser(userName, gameTypeSet);
         currenState = clientState04GameTypeSetSelected;
     }
 
     // 4 interface IClientState04GameTypeSetSelected
     @Override
     public Set<GameType> getGameTypeSet() {
-        return clientState04GameTypeSetSelected.getGameTypeSet();
+        return currenState.getGameTypeSet();
     }
 
     @Override
     public void forgetUser() {
-        clientState04GameTypeSetSelected.forgetUser();
+        currenState.forgetUser();
         currenState = clientState02ConnectNonIdent;
     }
 
     @Override
     public void setGameType(GameType gameType, Set<GameMatchX> gameMatchXSet) {
-        clientState04GameTypeSetSelected.setGameType(gameType, gameMatchXSet);
+        currenState.setGameType(gameType, gameMatchXSet);
         currenState = clientState06GameMatchSetSelected;
     }
 
@@ -127,48 +130,48 @@ public class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
     // 6 interface IClientState06GameMatchSetSelected
     @Override
     public Set<GameMatchX> getGameMatchXSet() {
-        return clientState06GameMatchSetSelected.getGameMatchXSet();
+        return currenState.getGameMatchXSet();
     }
 
     @Override
     public void forgetGameType() {
-        clientState06GameMatchSetSelected.forgetGameType();
+        currenState.forgetGameType();
         currenState = clientState04GameTypeSetSelected;
     }
 
     @Override
     public void setGameMatchX(GameMatchX gameMatchX) {
-        clientState06GameMatchSetSelected.setGameMatchX(gameMatchX);
+        currenState.setGameMatchX(gameMatchX);
         currenState = clientState07GameMatchSelected;
     }
 
     // 7 interface IClientState07GameMatchSelected
     @Override
     public GameMatchX getGameMatchX() {
-        return clientState07GameMatchSelected.getGameMatchX();
+        return currenState.getGameMatchX();
     }
 
     @Override
     public void forgetGameMatchX() {
-        clientState07GameMatchSelected.forgetGameMatchX();
+        currenState.forgetGameMatchX();
         currenState = clientState06GameMatchSetSelected;
     }
 
     @Override
     public void setGameMatchPlaying(Boolean gameIsPlaying) {
-        clientState07GameMatchSelected.setGameMatchPlaying(gameIsPlaying);
+        currenState.setGameMatchPlaying(gameIsPlaying);
         currenState = clientState08GameMatchPlaying;
     }
 
     // 8 interface IClientState08GameMatchPlaying
     @Override
     public Boolean getGameIsPlaying() {
-        return clientState08GameMatchPlaying.getGameIsPlaying();
+        return currenState.getGameIsPlaying();
     }
 
     @Override
     public void forgetGameMatchPlaying() {
-        clientState08GameMatchPlaying.forgetGameMatchPlaying();
+        currenState.forgetGameMatchPlaying();
         currenState = clientState07GameMatchSelected;
     }
 

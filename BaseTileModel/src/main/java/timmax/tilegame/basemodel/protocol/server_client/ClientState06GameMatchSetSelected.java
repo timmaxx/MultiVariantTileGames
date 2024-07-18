@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public abstract class ClientState06GameMatchSetSelected<GameMatchX extends IGameMatchX> extends AbstractClientState<GameMatchX> implements IClientState06GameMatchSetSelected<GameMatchX> {
+public abstract class ClientState06GameMatchSetSelected<GameMatchX extends IGameMatchX> extends ClientState04GameTypeSetSelected<GameMatchX> {
     public ClientState06GameMatchSetSelected(ClientStateAutomaton<GameMatchX> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
