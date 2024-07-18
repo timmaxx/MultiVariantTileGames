@@ -34,8 +34,7 @@ public interface TransportOfClient {
     void setGameType(GameType gameType);                                        //  41  //  4 -> 5  void setGameType(GameType gameType);
 
     // ---- 6 (MatchSetSelected)
-    // ToDo: Переименовать метод в forgetGameType?
-    void forgetGameMatchSet();                                                  //  60  //  6 -> 5  void forgetGameMatchSet();
+    void forgetGameType();                                                      //  60  //  6 -> 5  void forgetGameMatchSet();
     void setGameMatch(GameMatchId gameMatchId);                                 //  61  //  6 -> 7  void setGameMatch(Model serverBaseModel);
 
     // ---- 7 (MatchSelected)

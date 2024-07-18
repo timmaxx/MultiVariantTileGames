@@ -84,8 +84,8 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
 
     // 6
     @Override
-    public void forgetGameMatchSet() {
-        transportOfClient.forgetGameMatchSet();
+    public void forgetGameType() {
+        transportOfClient.forgetGameType();
     }
 
     @Override
