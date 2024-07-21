@@ -11,24 +11,14 @@ public class LocalClientState02ConnectNonIdent extends ClientState02ConnectNonId
 
     // interface IClientState99
     @Override
-    public void doAfterTurnOn(){
+    public void doAfterTurnOn() {
         // getClientStateAutomaton().updateOnSetUser();
         getClientStateAutomaton().updateOnOpen();
     }
 
-/*
-    // class AbstractClientState
-    // ---- 2 (Пользователь)
-    @Override
-    public void setUser(String userName, Set<GameType> gameTypeSet) {
-        super.setUser(userName, gameTypeSet);
-        // getClientStateAutomaton().updateOnSetUser();
-    }
-*/
-
     // class AbstractClientState
     @Override
     public LocalClientStateAutomaton getClientStateAutomaton() {
-        return (LocalClientStateAutomaton)(super.getClientStateAutomaton());
+        return (LocalClientStateAutomaton) (super.getClientStateAutomaton());
     }
 }

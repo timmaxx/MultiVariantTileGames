@@ -11,7 +11,7 @@ public class LocalClientState06GameMatchSetSelected extends ClientState06GameMat
 
     // interface IClientState99
     @Override
-    public void doAfterTurnOn(){
+    public void doAfterTurnOn() {
         getClientStateAutomaton().updateOnForgetGameMatch();
 
         getClientStateAutomaton().clearViewName_ViewMap();
@@ -19,25 +19,8 @@ public class LocalClientState06GameMatchSetSelected extends ClientState06GameMat
     }
 
     // class AbstractClientState
-    // ---- 4 (Конкретный тип игры)
-/*
-    @Override
-    public void forgetGameType() {
-        super.forgetGameType();
-        // getClientStateAutomaton().updateOnForgetGameMatchSet();
-    }
-*/
-    // ---- 6 (Конкретная модель игры)
-/*
-    @Override
-    public void setGameMatchX(GameMatchId gameMatchX) {
-        super.setGameMatchX(gameMatchX);
-        // getClientStateAutomaton().updateOnSetGameMatch();
-    }
-*/
-    // class AbstractClientState
     @Override
     public LocalClientStateAutomaton getClientStateAutomaton() {
-        return (LocalClientStateAutomaton)(super.getClientStateAutomaton());
+        return (LocalClientStateAutomaton) (super.getClientStateAutomaton());
     }
 }

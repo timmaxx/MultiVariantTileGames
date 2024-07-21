@@ -11,33 +11,14 @@ public class LocalClientState04GameTypeSetSelected extends ClientState04GameType
 
     // interface IClientState99
     @Override
-    public void doAfterTurnOn(){
+    public void doAfterTurnOn() {
         getClientStateAutomaton().updateOnForgetGameMatchSet();
         getClientStateAutomaton().updateOnSetUser();
     }
 
     // class AbstractClientState
-    // ---- 3 (Список типов игр)
-/*
-    @Override
-    public void forgetUser() {
-        super.forgetUser();
-        // getClientStateAutomaton().updateOnForgetGameTypeSet();
-    }
-*/
-    // ---- 4 (Конкретный тип игры)
-/*
-    @Override
-    public void setGameType(GameType gameType, Set<GameMatchId> gameMatchXSet) {
-        super.setGameType(gameType, gameMatchXSet);
-        // getClientStateAutomaton().clearViewName_ViewMap();
-        // getClientStateAutomaton().updateOnSetGameType();
-    }
-*/
-
-    // class AbstractClientState
     @Override
     public LocalClientStateAutomaton getClientStateAutomaton() {
-        return (LocalClientStateAutomaton)(super.getClientStateAutomaton());
+        return (LocalClientStateAutomaton) (super.getClientStateAutomaton());
     }
 }
