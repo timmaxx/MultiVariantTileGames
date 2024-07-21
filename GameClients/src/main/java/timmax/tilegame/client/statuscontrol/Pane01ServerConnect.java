@@ -11,6 +11,8 @@ import timmax.tilegame.transport.TransportOfClient;
 
 import static timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx.*;
 
+// ToDo: Переименовать класс.
+// Панель соответствует состоянию 01NoConnect
 public class Pane01ServerConnect extends AbstractConnectStatePane {
     private final TextField textFieldServerAddress;
     private final TextField textFieldServerPort;
@@ -73,7 +75,8 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
                 List.of(labelServerAddress, textFieldServerAddress, labelServerPort, textFieldServerPort, textFieldConnectString),
                 List.of()
         );
-        setDisableControlsNextState(false);
+        // ToDo: метод с параметром 'false' нужно вызывать, когда панель соответствует состоянию.
+        setDisableNextStateControls(false);
     }
 
     public URI getURIFromControls() {

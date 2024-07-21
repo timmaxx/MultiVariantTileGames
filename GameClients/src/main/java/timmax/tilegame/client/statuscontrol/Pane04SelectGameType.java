@@ -10,6 +10,8 @@ import timmax.tilegame.transport.TransportOfClient;
 
 import static timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx.*;
 
+// ToDo: Переименовать класс.
+// Панель соответствует состоянию 04GameTypeSetSelected
 public class Pane04SelectGameType extends AbstractConnectStatePane {
     private final ComboBox<String> comboBoxGameTypeSet;
 

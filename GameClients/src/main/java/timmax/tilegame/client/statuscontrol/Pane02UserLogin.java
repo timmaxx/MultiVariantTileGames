@@ -10,6 +10,8 @@ import timmax.tilegame.transport.TransportOfClient;
 
 import static timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx.*;
 
+// ToDo: Переименовать класс.
+// Панель соответствует состоянию 02ConnectNonIdent
 public class Pane02UserLogin extends AbstractConnectStatePane {
     public Pane02UserLogin(TransportOfClient transportOfClient) {
         super(transportOfClient);

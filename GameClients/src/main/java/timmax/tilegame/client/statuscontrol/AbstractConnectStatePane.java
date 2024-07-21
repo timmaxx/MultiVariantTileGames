@@ -71,15 +71,15 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
         buttonPrevState.setDisable(true);
     }
 
-    protected void setDisableControlsNextState(boolean disableControlsNextState) {
+    protected void setDisableNextStateControls(boolean disableNextStateControls) {
         for (Region control : listOfControlsNextState) {
-            control.setDisable(disableControlsNextState);
+            control.setDisable(disableNextStateControls);
         }
-        buttonNextState.setDisable(disableControlsNextState);
+        buttonNextState.setDisable(disableNextStateControls);
         for (Region control : listOfControlsPrevState) {
-            control.setDisable(!disableControlsNextState);
+            control.setDisable(!disableNextStateControls);
         }
-        buttonPrevState.setDisable(!disableControlsNextState);
+        buttonPrevState.setDisable(!disableNextStateControls);
     }
 
     //
@@ -88,11 +88,11 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     }
 
     protected void doOnThisState() {
-        setDisableControlsNextState(false);
+        setDisableNextStateControls(false);
     }
 
     protected void doOnNextState() {
-        setDisableControlsNextState(true);
+        setDisableNextStateControls(true);
     }
 
     // Implemented methods of interface ObserverOnAbstractEvent

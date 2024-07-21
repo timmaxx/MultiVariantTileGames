@@ -17,6 +17,8 @@ import timmax.tilegame.transport.TransportOfClient;
 
 import static timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx.*;
 
+// ToDo: Переименовать класс.
+// Панель соответствует состоянию 07GameMatchSelected
 public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
     private final Pane paneGameViewsAndControls;
 
