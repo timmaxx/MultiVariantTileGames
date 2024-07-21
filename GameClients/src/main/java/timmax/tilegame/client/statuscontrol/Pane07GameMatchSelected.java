@@ -91,6 +91,16 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
     @Override
     public void updateOnSetGameType() {
         doOnPrevState();
+    }
+
+    // 6
+    @Override
+    public void updateOnForgetGameMatch() {
+        doOnPrevState();
+    }
+
+    @Override
+    public void updateOnSetGameMatch() {
         nextStatePane.getChildren().clear();
         List<Region> regionList = new ArrayList<>();
         int y = LAYOUT_Y_OF_FIRST_ROW;
@@ -142,23 +152,65 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
                         + (ROWS_OF_CONTROLS_IN_PANE0X_EXCEPT_LAST + 1) * DIFFERENCE_OF_LAYOUT_Y
                         + y
         );
-    }
 
-    // 6
-    @Override
-    public void updateOnForgetGameMatch() {
-        // ToDo: Почему закомментировано?
-        // doOnPrevState();
-    }
-
-    @Override
-    public void updateOnSetGameMatch() {
         doOnThisState();
     }
 
     // 7
     @Override
     public void updateOnForgetGameMatchPlaying() {
+        nextStatePane.getChildren().clear();
+        List<Region> regionList = new ArrayList<>();
+        int y = LAYOUT_Y_OF_FIRST_ROW;
+        for (String paramName : transportOfClient.getLocalClientStateAutomaton().getParamName_paramModelDescriptionMap().keySet()) {
+            Label paramNameLabel = new Label(paramName);
+            paramNameLabel.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
+            paramNameLabel.setLayoutY(y);
+
+            TextField paramNameTextField = new TextField();
+            paramNameTextField.setId(paramName);
+            paramNameTextField.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
+            paramNameTextField.setLayoutY(y);
+            ParamOfModelDescription paramOfModelDescription = transportOfClient
+                    .getLocalClientStateAutomaton()
+                    .getParamName_paramModelDescriptionMap()
+                    .get(paramName);
+            paramNameTextField.setTextFormatter(
+                    new TextFormatter<>(
+                            new IntegerStringConverterWithMinAndMax(
+                                    paramOfModelDescription.getMinValue(),
+                                    paramOfModelDescription.getMaxValue()
+                            ),
+                            paramOfModelDescription.getDefaultValue(),
+                            new IntegerFilter()
+                    )
+            );
+
+            regionList.add(paramNameLabel);
+            regionList.add(paramNameTextField);
+            y += DIFFERENCE_OF_LAYOUT_Y;
+        }
+        nextStatePane.setPrefHeight(y);
+        nextStatePane.setMinHeight(y);
+
+        setListsOfControlsAndAllDisable(
+                regionList,
+                List.of(gameViewsAndControlsPane)
+        );
+
+        gameViewsAndControlsPane.getChildren().clear();
+        gameViewsAndControlsPane.getChildren().add(new GameClientPaneJfx(transportOfClient));
+
+        if (y > DIFFERENCE_OF_LAYOUT_Y) {
+            y -= DIFFERENCE_OF_LAYOUT_Y;
+        }
+        getParent().getScene().getWindow().setHeight(
+                LAYOUT_Y_OF_FIRST_ROW
+                        + (2 * PIXELS_ON_LEFT_N_RIGHT_FOR_MAIN_FIELD_FITS_INTO_PRIMARY_STAGE)
+                        + (ROWS_OF_CONTROLS_IN_PANE0X_EXCEPT_LAST + 1) * DIFFERENCE_OF_LAYOUT_Y
+                        + y
+        );
+
         doOnThisState();
     }
 
