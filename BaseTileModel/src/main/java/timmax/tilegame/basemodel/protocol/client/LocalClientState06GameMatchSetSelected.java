@@ -12,8 +12,6 @@ public class LocalClientState06GameMatchSetSelected extends ClientState06GameMat
     // interface IClientState99
     @Override
     public void doAfterTurnOn() {
-        getClientStateAutomaton().updateOnForgetGameMatch();
-
         getClientStateAutomaton().clearViewName_ViewMap();
         getClientStateAutomaton().updateOnSetGameType();
     }

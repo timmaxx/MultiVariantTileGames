@@ -10,7 +10,7 @@ import timmax.tilegame.baseview.View;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchId> {
+public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchId> implements ObserverOnAbstractEvent {
     private final ObserverOnAbstractEventHashSet observerOnAbstractEventHashSet;
     private final Map<String, View> viewName_ViewMap;
 
@@ -20,46 +20,6 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchId>
 
         observerOnAbstractEventHashSet = new ObserverOnAbstractEventHashSet();
         viewName_ViewMap = new HashMap<>();
-    }
-
-    public void updateOnClose() {
-        observerOnAbstractEventHashSet.updateOnClose();
-    }
-
-    public void updateOnOpen() {
-        observerOnAbstractEventHashSet.updateOnOpen();
-    }
-
-    public void updateOnForgetGameTypeSet() {
-        observerOnAbstractEventHashSet.updateOnForgetGameTypeSet();
-    }
-
-    public void updateOnSetUser() {
-        observerOnAbstractEventHashSet.updateOnSetUser();
-    }
-
-    public void updateOnForgetGameMatchSet() {
-        observerOnAbstractEventHashSet.updateOnForgetGameMatchSet();
-    }
-
-    public void updateOnSetGameType() {
-        observerOnAbstractEventHashSet.updateOnSetGameType();
-    }
-
-    public void updateOnForgetGameMatch() {
-        observerOnAbstractEventHashSet.updateOnForgetGameMatch();
-    }
-
-    public void updateOnSetGameMatch() {
-        observerOnAbstractEventHashSet.updateOnSetGameMatch();
-    }
-
-    public void updateOnForgetGameMatchPlaying() {
-        observerOnAbstractEventHashSet.updateOnForgetGameMatchPlaying();
-    }
-
-    public void updateOnSetGameMatchPlaying() {
-        observerOnAbstractEventHashSet.updateOnSetGameMatchPlaying();
     }
 
     public void addView(View view) {
@@ -76,5 +36,35 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchId>
 
     public void addCallBackOnIncomingTransportPackageEvent(ObserverOnAbstractEvent observerOnAbstractEvent) {
         observerOnAbstractEventHashSet.add(observerOnAbstractEvent);
+    }
+
+    @Override
+    public void updateOnClose() {
+        observerOnAbstractEventHashSet.updateOnClose();
+    }
+
+    @Override
+    public void updateOnOpen() {
+        observerOnAbstractEventHashSet.updateOnOpen();
+    }
+
+    @Override
+    public void updateOnSetUser() {
+        observerOnAbstractEventHashSet.updateOnSetUser();
+    }
+
+    @Override
+    public void updateOnSetGameType() {
+        observerOnAbstractEventHashSet.updateOnSetGameType();
+    }
+
+    @Override
+    public void updateOnSetGameMatch() {
+        observerOnAbstractEventHashSet.updateOnSetGameMatch();
+    }
+
+    @Override
+    public void updateOnSetGameMatchPlaying() {
+        observerOnAbstractEventHashSet.updateOnSetGameMatchPlaying();
     }
 }

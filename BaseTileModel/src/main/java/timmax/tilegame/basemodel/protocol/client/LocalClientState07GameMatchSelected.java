@@ -12,7 +12,6 @@ public class LocalClientState07GameMatchSelected extends ClientState07GameMatchS
     // interface IClientState99
     @Override
     public void doAfterTurnOn() {
-        getClientStateAutomaton().updateOnForgetGameMatchPlaying();
         getClientStateAutomaton().updateOnSetGameMatch();
     }
 

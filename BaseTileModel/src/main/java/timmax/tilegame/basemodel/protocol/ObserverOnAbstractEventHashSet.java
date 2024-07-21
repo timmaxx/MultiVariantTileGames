@@ -33,15 +33,6 @@ public class ObserverOnAbstractEventHashSet extends HashSet<ObserverOnAbstractEv
 
     // 2
     @Override
-    public void updateOnForgetGameTypeSet() {
-        Platform.runLater(() -> {
-            for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
-                observerOnAbstractEvent.updateOnForgetGameTypeSet();
-            }
-        });
-    }
-
-    @Override
     public void updateOnSetUser() {
         Platform.runLater(() -> {
             for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
@@ -51,15 +42,6 @@ public class ObserverOnAbstractEventHashSet extends HashSet<ObserverOnAbstractEv
     }
 
     // 4
-    @Override
-    public void updateOnForgetGameMatchSet() {
-        Platform.runLater(() -> {
-            for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
-                observerOnAbstractEvent.updateOnForgetGameMatchSet();
-            }
-        });
-    }
-
     @Override
     public void updateOnSetGameType() {
         Platform.runLater(() -> {
@@ -71,15 +53,6 @@ public class ObserverOnAbstractEventHashSet extends HashSet<ObserverOnAbstractEv
 
     // 6
     @Override
-    public void updateOnForgetGameMatch() {
-        Platform.runLater(() -> {
-            for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
-                observerOnAbstractEvent.updateOnForgetGameMatch();
-            }
-        });
-    }
-
-    @Override
     public void updateOnSetGameMatch() {
         Platform.runLater(() -> {
             for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
@@ -89,15 +62,6 @@ public class ObserverOnAbstractEventHashSet extends HashSet<ObserverOnAbstractEv
     }
 
     // 7
-    @Override
-    public void updateOnForgetGameMatchPlaying() {
-        Platform.runLater(() -> {
-            for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
-                observerOnAbstractEvent.updateOnForgetGameMatchPlaying();
-            }
-        });
-    }
-
     @Override
     public void updateOnSetGameMatchPlaying() {
         Platform.runLater(() -> {

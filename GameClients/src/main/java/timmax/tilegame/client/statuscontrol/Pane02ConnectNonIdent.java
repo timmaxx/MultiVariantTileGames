@@ -76,11 +76,6 @@ public class Pane02ConnectNonIdent extends AbstractConnectStatePane {
 
     // 2
     @Override
-    public void updateOnForgetGameTypeSet() {
-        doOnThisState();
-    }
-
-    @Override
     public void updateOnSetUser() {
         doOnNextState();
     }

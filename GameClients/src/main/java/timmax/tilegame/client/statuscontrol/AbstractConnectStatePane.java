@@ -123,36 +123,20 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
 
     // 2
     @Override
-    public void updateOnForgetGameTypeSet() {
-    }
-
-    @Override
     public void updateOnSetUser() {
     }
 
     // 4
-    @Override
-    public void updateOnForgetGameMatchSet() {
-    }
-
     @Override
     public void updateOnSetGameType() {
     }
 
     // 6
     @Override
-    public void updateOnForgetGameMatch() {
-    }
-
-    @Override
     public void updateOnSetGameMatch() {
     }
 
     // 7
-    @Override
-    public void updateOnForgetGameMatchPlaying() {
-    }
-
     @Override
     public void updateOnSetGameMatchPlaying() {
     }

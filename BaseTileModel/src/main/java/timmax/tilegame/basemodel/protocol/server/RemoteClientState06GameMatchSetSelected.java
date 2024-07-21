@@ -13,6 +13,21 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
         this.clientId = clientId;
     }
 
+    // ToDo: Устранить дублирование кода.
+    //       Этот класс является наследником ClientState06GameMatchSetSelected,
+    //       но код который хотелось-бы иметь как void forgetUser(),
+    //       находится в RemoteClientState04GameTypeSetSelected.
+    //       Поэтому пришлось сделать здесь точную копию.
+    //       - Копия метода из RemoteClientState04GameTypeSetSelected:
+    @Override
+    public void forgetUser() {
+        super.forgetUser();
+        getClientStateAutomaton().sendEventOfServer(
+                clientId,
+                new EventOfServer20ForgetUser()
+        );
+    }
+
     // class ClientState06GameMatchSetSelected
     // ---- 5 Перечень партий
     @Override
