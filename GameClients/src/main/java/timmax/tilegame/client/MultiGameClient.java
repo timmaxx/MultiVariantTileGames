@@ -28,7 +28,7 @@ public class MultiGameClient extends Application {
         TransportOfClient transportOfClient = new MultiGameWebSocketClientManyTimesUse(localClientStateAutomatonJfx);
 
         root.getChildren().addAll(
-                new Pane01ServerConnect(transportOfClient),
+                new Pane01NoConnect(transportOfClient),
                 new Pane02UserLogin(transportOfClient),
                 new Pane04SelectGameType(transportOfClient),
                 new Pane06SelectGameMatch(transportOfClient),

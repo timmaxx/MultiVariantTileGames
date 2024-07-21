@@ -11,14 +11,12 @@ import timmax.tilegame.transport.TransportOfClient;
 
 import static timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx.*;
 
-// ToDo: Переименовать класс.
-// Панель соответствует состоянию 01NoConnect
-public class Pane01ServerConnect extends AbstractConnectStatePane {
+public class Pane01NoConnect extends AbstractConnectStatePane {
     private final TextField serverAddressTextField;
     private final TextField serverPortTextField;
     private final TextField connectStringTextField;
 
-    public Pane01ServerConnect(TransportOfClient transportOfClient) {
+    public Pane01NoConnect(TransportOfClient transportOfClient) {
         super(transportOfClient);
 
         // 1 (обязательные)
