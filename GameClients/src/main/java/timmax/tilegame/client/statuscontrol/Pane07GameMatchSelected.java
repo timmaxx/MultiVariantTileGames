@@ -17,12 +17,10 @@ import timmax.tilegame.transport.TransportOfClient;
 
 import static timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx.*;
 
-// ToDo: Переименовать класс.
-// Панель соответствует состоянию 07GameMatchSelected
-public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
-    private final Pane paneGameViewsAndControls;
+public class Pane07GameMatchSelected extends AbstractConnectStatePane {
+    private final Pane gameViewsAndControlsPane;
 
-    public Pane07GameMatchPlaying(TransportOfClient transportOfClient) {
+    public Pane07GameMatchSelected(TransportOfClient transportOfClient) {
         super(transportOfClient);
 
         // 1 (обязательные)
@@ -30,19 +28,19 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         nextStateButton.setText("Start the game match");
         nextStateButton.setOnAction(event -> {
             disableAllControls();
-            Map<String, Integer> mapOfParamsOfModelValue = new HashMap<>();
+            Map<String, Integer> paramsOfModelValueMap = new HashMap<>();
             for (Region region : getNextStateControlsList()) {
                 if (region instanceof TextField textField) {
-                    mapOfParamsOfModelValue.put(
+                    paramsOfModelValueMap.put(
                             textField.getId(),
                             Integer.valueOf(textField.getText()));
                 }
             }
-            transportOfClient.setGameMatchPlaying(mapOfParamsOfModelValue);
+            transportOfClient.setGameMatchPlaying(paramsOfModelValueMap);
         });
 
         // Контролы для продвижения состояния "назад":
-        paneGameViewsAndControls = new Pane();
+        gameViewsAndControlsPane = new Pane();
 
         prevStateButton.setText("Stop the game match");
         prevStateButton.setFocusTraversable(false); // Это в любом случае д.б.
@@ -57,7 +55,7 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контролов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
                 List.of(),
-                List.of(paneGameViewsAndControls)
+                List.of(gameViewsAndControlsPane)
         );
     }
 
@@ -97,19 +95,19 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         List<Region> regionList = new ArrayList<>();
         int y = LAYOUT_Y_OF_FIRST_ROW;
         for (String paramName : transportOfClient.getLocalClientStateAutomaton().getParamName_paramModelDescriptionMap().keySet()) {
-            Label label = new Label(paramName);
-            label.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
-            label.setLayoutY(y);
+            Label paramNameLabel = new Label(paramName);
+            paramNameLabel.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
+            paramNameLabel.setLayoutY(y);
 
-            TextField textField = new TextField();
-            textField.setId(paramName);
-            textField.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
-            textField.setLayoutY(y);
+            TextField paramNameTextField = new TextField();
+            paramNameTextField.setId(paramName);
+            paramNameTextField.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
+            paramNameTextField.setLayoutY(y);
             ParamOfModelDescription paramOfModelDescription = transportOfClient
                     .getLocalClientStateAutomaton()
                     .getParamName_paramModelDescriptionMap()
                     .get(paramName);
-            textField.setTextFormatter(
+            paramNameTextField.setTextFormatter(
                     new TextFormatter<>(
                             new IntegerStringConverterWithMinAndMax(
                                     paramOfModelDescription.getMinValue(),
@@ -120,8 +118,8 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
                     )
             );
 
-            regionList.add(label);
-            regionList.add(textField);
+            regionList.add(paramNameLabel);
+            regionList.add(paramNameTextField);
             y += DIFFERENCE_OF_LAYOUT_Y;
         }
         nextStatePane.setPrefHeight(y);
@@ -129,11 +127,11 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
 
         setListsOfControlsAndAllDisable(
                 regionList,
-                List.of(paneGameViewsAndControls)
+                List.of(gameViewsAndControlsPane)
         );
 
-        paneGameViewsAndControls.getChildren().clear();
-        paneGameViewsAndControls.getChildren().add(new GameClientPaneJfx(transportOfClient));
+        gameViewsAndControlsPane.getChildren().clear();
+        gameViewsAndControlsPane.getChildren().add(new GameClientPaneJfx(transportOfClient));
 
         if (y > DIFFERENCE_OF_LAYOUT_Y) {
             y -= DIFFERENCE_OF_LAYOUT_Y;
@@ -177,9 +175,9 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         nextStatePane.setMinHeight(DIFFERENCE_OF_LAYOUT_Y);
         setListsOfControlsAndAllDisable(
                 List.of(),
-                List.of(paneGameViewsAndControls)
+                List.of(gameViewsAndControlsPane)
         );
-        paneGameViewsAndControls.getChildren().clear();
+        gameViewsAndControlsPane.getChildren().clear();
         prevStatePane.setPrefWidth(PANE_PREV_STATE_PREF_WIDTH);
 
         // ToDo: Похожий код см. в ViewMainFieldJfx::initMainField()

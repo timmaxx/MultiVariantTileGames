@@ -32,7 +32,7 @@ public class MultiGameClient extends Application {
                 new Pane02ConnectNonIdent(transportOfClient),
                 new Pane04GameTypeSetSelected(transportOfClient),
                 new Pane06GameMatchSetSelected(transportOfClient),
-                new Pane07GameMatchPlaying(transportOfClient)
+                new Pane07GameMatchSelected(transportOfClient)
         );
 
         Scene scene = new Scene(root);
