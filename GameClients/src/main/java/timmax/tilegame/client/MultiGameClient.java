@@ -30,7 +30,7 @@ public class MultiGameClient extends Application {
         root.getChildren().addAll(
                 new Pane01NoConnect(transportOfClient),
                 new Pane02ConnectNonIdent(transportOfClient),
-                new Pane04SelectGameType(transportOfClient),
+                new Pane04GameTypeSetSelected(transportOfClient),
                 new Pane06SelectGameMatch(transportOfClient),
                 new Pane07GameMatchPlaying(transportOfClient)
         );
