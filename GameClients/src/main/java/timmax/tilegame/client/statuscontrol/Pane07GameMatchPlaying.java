@@ -27,11 +27,11 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
 
         // 1 (обязательные)
         // Контролы для продвижения состояния "вперёд":
-        buttonNextState.setText("Start the game match");
-        buttonNextState.setOnAction(event -> {
+        nextStateButton.setText("Start the game match");
+        nextStateButton.setOnAction(event -> {
             disableAllControls();
             Map<String, Integer> mapOfParamsOfModelValue = new HashMap<>();
-            for (Region region : getListOfControlsNextState()) {
+            for (Region region : getNextStateControlsList()) {
                 if (region instanceof TextField textField) {
                     mapOfParamsOfModelValue.put(
                             textField.getId(),
@@ -44,9 +44,9 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
         // Контролы для продвижения состояния "назад":
         paneGameViewsAndControls = new Pane();
 
-        buttonPrevState.setText("Stop the game match");
-        buttonPrevState.setFocusTraversable(false); // Это в любом случае д.б.
-        buttonPrevState.setOnAction(event -> {
+        prevStateButton.setText("Stop the game match");
+        prevStateButton.setFocusTraversable(false); // Это в любом случае д.б.
+        prevStateButton.setOnAction(event -> {
             disableAllControls();
             transportOfClient.forgetGameMatchPlaying();
         });
@@ -93,7 +93,7 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
     @Override
     public void updateOnSetGameType() {
         doOnPrevState();
-        paneNextState.getChildren().clear();
+        nextStatePane.getChildren().clear();
         List<Region> regionList = new ArrayList<>();
         int y = LAYOUT_Y_OF_FIRST_ROW;
         for (String paramName : transportOfClient.getLocalClientStateAutomaton().getParamName_paramModelDescriptionMap().keySet()) {
@@ -124,8 +124,8 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
             regionList.add(textField);
             y += DIFFERENCE_OF_LAYOUT_Y;
         }
-        paneNextState.setPrefHeight(y);
-        paneNextState.setMinHeight(y);
+        nextStatePane.setPrefHeight(y);
+        nextStatePane.setMinHeight(y);
 
         setListsOfControlsAndAllDisable(
                 regionList,
@@ -173,14 +173,14 @@ public class Pane07GameMatchPlaying extends AbstractConnectStatePane {
     @Override
     public void doOnPrevState() {
         super.doOnPrevState();
-        paneNextState.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y);
-        paneNextState.setMinHeight(DIFFERENCE_OF_LAYOUT_Y);
+        nextStatePane.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y);
+        nextStatePane.setMinHeight(DIFFERENCE_OF_LAYOUT_Y);
         setListsOfControlsAndAllDisable(
                 List.of(),
                 List.of(paneGameViewsAndControls)
         );
         paneGameViewsAndControls.getChildren().clear();
-        panePrevState.setPrefWidth(PANE_PREV_STATE_PREF_WIDTH);
+        prevStatePane.setPrefWidth(PANE_PREV_STATE_PREF_WIDTH);
 
         // ToDo: Похожий код см. в ViewMainFieldJfx::initMainField()
         getParent().getScene().getWindow().setWidth(

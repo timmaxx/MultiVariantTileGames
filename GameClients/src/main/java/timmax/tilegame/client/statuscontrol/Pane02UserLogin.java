@@ -27,16 +27,16 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
             passwordField.setText("1");
         }
 
-        buttonNextState.setText("Login");
-        buttonNextState.setOnAction(event -> {
+        nextStateButton.setText("Login");
+        nextStateButton.setOnAction(event -> {
             disableAllControls();
             transportOfClient.setUser(textFieldUser.getText(), passwordField.getText());
         });
 
         // Контролы для продвижения состояния "назад":
-        buttonPrevState.setText("Logout");
-        buttonPrevState.setFocusTraversable(false);
-        buttonPrevState.setOnAction(event -> {
+        prevStateButton.setText("Logout");
+        prevStateButton.setFocusTraversable(false);
+        prevStateButton.setOnAction(event -> {
             disableAllControls();
             transportOfClient.forgetUser();
         });
@@ -54,8 +54,8 @@ public class Pane02UserLogin extends AbstractConnectStatePane {
         passwordField.setLayoutY(DIFFERENCE_OF_LAYOUT_Y);
 
         // Получилось 2 строки контролов:
-        paneNextState.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * 2);
-        paneNextState.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * 2);
+        nextStatePane.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * 2);
+        nextStatePane.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * 2);
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контролов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(

@@ -23,16 +23,16 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
         // Контролы для продвижения состояния "вперёд":
         comboBoxGameSet = new ComboBox<>();
 
-        buttonNextState.setText("Select the game match");
-        buttonNextState.setOnAction(event -> {
+        nextStateButton.setText("Select the game match");
+        nextStateButton.setOnAction(event -> {
             disableAllControls();
             transportOfClient.setGameMatch(new GameMatchId(comboBoxGameSet.getValue()));
         });
 
         // Контролы для продвижения состояния "назад":
-        buttonPrevState.setText("Forget the game match");
-        buttonPrevState.setFocusTraversable(false);
-        buttonPrevState.setOnAction(event -> {
+        prevStateButton.setText("Forget the game match");
+        prevStateButton.setFocusTraversable(false);
+        prevStateButton.setOnAction(event -> {
             disableAllControls();
             transportOfClient.forgetGameMatch();
         });
@@ -42,8 +42,8 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
         comboBoxGameSet.setLayoutY(LAYOUT_Y_OF_FIRST_ROW);
 
         // Получилась 1 строка контролов:
-        paneNextState.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * 1);
-        paneNextState.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * 1);
+        nextStatePane.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * 1);
+        nextStatePane.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * 1);
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контролов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(

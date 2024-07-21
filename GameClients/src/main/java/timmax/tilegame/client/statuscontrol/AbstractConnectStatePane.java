@@ -15,71 +15,71 @@ import static timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx.*;
 public abstract class AbstractConnectStatePane extends HBox implements ObserverOnAbstractEvent {
     protected final TransportOfClient transportOfClient;
 
-    protected Pane paneNextState;
-    protected Pane panePrevState;
+    protected Pane nextStatePane;
+    protected Pane prevStatePane;
 
-    protected Button buttonNextState;
-    protected Button buttonPrevState;
-    private List<Region> listOfControlsNextState;
-    private List<Region> listOfControlsPrevState;
+    protected Button nextStateButton;
+    protected Button prevStateButton;
+    private List<Region> nextStateControlsList;
+    private List<Region> prevStateControlsList;
 
     public AbstractConnectStatePane(TransportOfClient transportOfClient) {
         this.transportOfClient = transportOfClient;
 
-        paneNextState = new Pane();
-        panePrevState = new Pane();
-        buttonNextState = new Button();
-        buttonPrevState = new Button();
-        paneNextState.setPrefWidth(PANE_NEXT_STATE_PREF_WIDTH);
-        panePrevState.setPrefWidth(PANE_PREV_STATE_PREF_WIDTH);
-        buttonNextState.setPrefWidth(BUTTON_NEXT_STATE_PREF_WIDTH);
-        buttonNextState.setLayoutX(paneNextState.getPrefWidth() - buttonNextState.getPrefWidth());
-        buttonPrevState.setPrefWidth(BUTTON_PREV_STATE_PREF_WIDTH);
-        buttonPrevState.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
-        panePrevState.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN + BUTTON_PREV_STATE_PREF_WIDTH);
+        nextStatePane = new Pane();
+        prevStatePane = new Pane();
+        nextStateButton = new Button();
+        prevStateButton = new Button();
+        nextStatePane.setPrefWidth(PANE_NEXT_STATE_PREF_WIDTH);
+        prevStatePane.setPrefWidth(PANE_PREV_STATE_PREF_WIDTH);
+        nextStateButton.setPrefWidth(BUTTON_NEXT_STATE_PREF_WIDTH);
+        nextStateButton.setLayoutX(nextStatePane.getPrefWidth() - nextStateButton.getPrefWidth());
+        prevStateButton.setPrefWidth(BUTTON_PREV_STATE_PREF_WIDTH);
+        prevStateButton.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
+        prevStatePane.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN + BUTTON_PREV_STATE_PREF_WIDTH);
 
-        getChildren().addAll(paneNextState, buttonNextState, buttonPrevState, panePrevState);
+        getChildren().addAll(nextStatePane, nextStateButton, prevStateButton, prevStatePane);
     }
 
-    public List<Region> getListOfControlsNextState() {
-        return listOfControlsNextState;
+    public List<Region> getNextStateControlsList() {
+        return nextStateControlsList;
     }
 
     public void setListsOfControlsAndAllDisable(
-            List<Region> listOfControlsNextState,
-            List<Region> listOfControlsPrevState
+            List<Region> nextStateControlsList,
+            List<Region> prevStateControlsList
     ) {
-        this.listOfControlsNextState = listOfControlsNextState;
-        this.listOfControlsPrevState = listOfControlsPrevState;
-        paneNextState.getChildren().clear();
-        panePrevState.getChildren().clear();
-        paneNextState.getChildren().addAll(listOfControlsNextState);
-        panePrevState.getChildren().addAll(listOfControlsPrevState);
+        this.nextStateControlsList = nextStateControlsList;
+        this.prevStateControlsList = prevStateControlsList;
+        nextStatePane.getChildren().clear();
+        prevStatePane.getChildren().clear();
+        nextStatePane.getChildren().addAll(nextStateControlsList);
+        prevStatePane.getChildren().addAll(prevStateControlsList);
         disableAllControls();
 
         transportOfClient.getLocalClientStateAutomaton().addCallBackOnIncomingTransportPackageEvent(this);
     }
 
     protected void disableAllControls() {
-        for (Region control : listOfControlsNextState) {
+        for (Region control : nextStateControlsList) {
             control.setDisable(true);
         }
-        buttonNextState.setDisable(true);
-        for (Region control : listOfControlsPrevState) {
+        nextStateButton.setDisable(true);
+        for (Region control : prevStateControlsList) {
             control.setDisable(true);
         }
-        buttonPrevState.setDisable(true);
+        prevStateButton.setDisable(true);
     }
 
     protected void setDisableNextStateControls(boolean disableNextStateControls) {
-        for (Region control : listOfControlsNextState) {
+        for (Region control : nextStateControlsList) {
             control.setDisable(disableNextStateControls);
         }
-        buttonNextState.setDisable(disableNextStateControls);
-        for (Region control : listOfControlsPrevState) {
+        nextStateButton.setDisable(disableNextStateControls);
+        for (Region control : prevStateControlsList) {
             control.setDisable(!disableNextStateControls);
         }
-        buttonPrevState.setDisable(!disableNextStateControls);
+        prevStateButton.setDisable(!disableNextStateControls);
     }
 
     //

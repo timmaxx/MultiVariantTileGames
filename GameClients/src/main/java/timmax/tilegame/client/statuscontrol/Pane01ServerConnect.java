@@ -34,8 +34,8 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
             textFieldServerPort.setText("8887");
         }
 
-        buttonNextState.setText("Connect");
-        buttonNextState.setOnAction(event -> {
+        nextStateButton.setText("Connect");
+        nextStateButton.setOnAction(event -> {
             disableAllControls();
             // ToDo: С методом setURI() нужно разобраться - включать или не включать его в интерфейс?
             transportOfClient.setURI(getURIFromControls());
@@ -43,9 +43,9 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
         });
 
         // Контролы для продвижения состояния "назад":
-        buttonPrevState.setText("Disconnect");
-        buttonPrevState.setFocusTraversable(false);
-        buttonPrevState.setOnAction(event -> {
+        prevStateButton.setText("Disconnect");
+        prevStateButton.setFocusTraversable(false);
+        prevStateButton.setOnAction(event -> {
             disableAllControls();
             transportOfClient.close();
         });
@@ -67,8 +67,8 @@ public class Pane01ServerConnect extends AbstractConnectStatePane {
         textFieldConnectString.setLayoutY(2 * DIFFERENCE_OF_LAYOUT_Y);
 
         // Получилось 3 строки контролов:
-        paneNextState.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * 3);
-        paneNextState.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * 3);
+        nextStatePane.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * 3);
+        nextStatePane.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * 3);
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контролов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
