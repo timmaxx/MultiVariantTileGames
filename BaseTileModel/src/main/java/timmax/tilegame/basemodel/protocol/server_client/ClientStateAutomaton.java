@@ -7,7 +7,7 @@ import timmax.tilegame.baseview.View;
 import java.util.Map;
 import java.util.Set;
 
-public class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
+public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
         IClientState01NoConnect,
         IClientState02ConnectNonIdent,
         IClientState04GameTypeSetSelected<GameMatchX>,
@@ -39,14 +39,19 @@ public class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
         clientState07GameMatchSelected = iFabricOfClientStates.getClientState07GameMatchSelected(this);
         clientState08GameMatchPlaying = iFabricOfClientStates.getClientState08GameMatchPlaying(this);
 
-        // ToDo: ...State01NoConnect или доработать или удалить.
-        //       Ранее было, как в комменте. Но вообще State01NoConnect не полностью работает.
-        // currenState = clientState01NoConnect;
-        currenState = clientState02ConnectNonIdent;
+        currenState = clientState01NoConnect;
     }
 
     protected IClientState99<GameMatchX> getCurrentState() {
         return currenState;
+    }
+
+    private void setCurrentState(IClientState99<GameMatchX> currentState) {
+        this.currenState.doBeforeTurnOff();
+        // System.out.println("  currenState = " + currenState);
+        this.currenState = currentState;
+        // System.out.println("  currenState = " + currenState);
+        currentState.doAfterTurnOn();
     }
 
     void setUserName_(String userName, Set<GameType> gameTypeSet) {
@@ -91,11 +96,27 @@ public class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
         this.gameIsPlaying = gameIsPlaying;
     }
 
+    @Override
+    public void changeStateTo02ConnectNonIdent() {
+        // System.out.println("ClientStateAutomaton :: void changeStateTo02ConnectNonIdent()");
+        currenState.changeStateTo02ConnectNonIdent();
+        // ToDo: Вероятно переместить вызов этого метода в changeStateTo02ConnectNonIdent_
+        setCurrentState(clientState02ConnectNonIdent);
+    }
+
     // 2 interface IClientState02ConnectNonIdent
+    @Override
+    public void changeStateTo01NoConnect() {
+        currenState.changeStateTo01NoConnect();
+        // ToDo: Вероятно переместить вызов этого метода в changeStateTo01NoConnect_
+        setCurrentState(clientState01NoConnect);
+    }
+
     @Override
     public void setUser(String userName, Set<GameType> gameTypeSet) {
         currenState.setUser(userName, gameTypeSet);
-        currenState = clientState04GameTypeSetSelected;
+        // ToDo: Вероятно переместить вызов этого метода в setUser_
+        setCurrentState(clientState04GameTypeSetSelected);
     }
 
     // 4 interface IClientState04GameTypeSetSelected
@@ -107,13 +128,15 @@ public class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
     @Override
     public void forgetUser() {
         currenState.forgetUser();
-        currenState = clientState02ConnectNonIdent;
+        // ToDo: Вероятно переместить вызов этого метода в forgetUser_
+        setCurrentState(clientState02ConnectNonIdent);
     }
 
     @Override
     public void setGameType(GameType gameType, Set<GameMatchX> gameMatchXSet) {
         currenState.setGameType(gameType, gameMatchXSet);
-        currenState = clientState06GameMatchSetSelected;
+        // ToDo: Вероятно переместить вызов этого метода в setGameType_
+        setCurrentState(clientState06GameMatchSetSelected);
     }
 
     @Override
@@ -140,13 +163,15 @@ public class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
     @Override
     public void forgetGameType() {
         currenState.forgetGameType();
-        currenState = clientState04GameTypeSetSelected;
+        // ToDo: Вероятно переместить вызов этого метода в forgetGameType_
+        setCurrentState(clientState04GameTypeSetSelected);
     }
 
     @Override
     public void setGameMatchX(GameMatchX gameMatchX) {
         currenState.setGameMatchX(gameMatchX);
-        currenState = clientState07GameMatchSelected;
+        // ToDo: Вероятно переместить вызов этого метода в setGameMatchX_
+        setCurrentState(clientState07GameMatchSelected);
     }
 
     // 7 interface IClientState07GameMatchSelected
@@ -158,13 +183,15 @@ public class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
     @Override
     public void forgetGameMatchX() {
         currenState.forgetGameMatchX();
-        currenState = clientState06GameMatchSetSelected;
+        // ToDo: Вероятно переместить вызов этого метода в forgetGameMatchX_
+        setCurrentState(clientState06GameMatchSetSelected);
     }
 
     @Override
     public void setGameMatchPlaying(Boolean gameIsPlaying) {
         currenState.setGameMatchPlaying(gameIsPlaying);
-        currenState = clientState08GameMatchPlaying;
+        // ToDo: Вероятно переместить вызов этого метода в setGameMatchPlaying_
+        setCurrentState(clientState08GameMatchPlaying);
     }
 
     // 8 interface IClientState08GameMatchPlaying
@@ -176,7 +203,8 @@ public class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
     @Override
     public void forgetGameMatchPlaying() {
         currenState.forgetGameMatchPlaying();
-        currenState = clientState07GameMatchSelected;
+        // ToDo: Вероятно переместить вызов этого метода в forgetGameMatchPlaying_
+        setCurrentState(clientState07GameMatchSelected);
     }
 
     // class Object

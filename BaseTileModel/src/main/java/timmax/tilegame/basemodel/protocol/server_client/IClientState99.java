@@ -7,4 +7,7 @@ public interface IClientState99<GameMatchX extends IGameMatchX> extends
         IClientState06GameMatchSetSelected<GameMatchX>,
         IClientState07GameMatchSelected<GameMatchX>,
         IClientState08GameMatchPlaying {
+
+    void doBeforeTurnOff();
+    void doAfterTurnOn();
 }

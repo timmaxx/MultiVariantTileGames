@@ -24,6 +24,7 @@ public class RemoteClientStateAutomaton extends ClientStateAutomaton<IGameMatch>
             TransportOfServer multiGameWebSocketServer) {
         super(fabricOfClientStatesForServer);
         this.multiGameWebSocketServer = multiGameWebSocketServer;
+        changeStateTo02ConnectNonIdent();
     }
 
     <ClientId> void sendEventOfServer(ClientId clientId, EventOfServer transportPackageOfServer) {

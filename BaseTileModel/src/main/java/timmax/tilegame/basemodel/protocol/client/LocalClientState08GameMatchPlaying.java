@@ -9,14 +9,21 @@ public class LocalClientState08GameMatchPlaying extends ClientState08GameMatchPl
         super(clientStateAutomaton);
     }
 
+    // interface IClientState99
+    @Override
+    public void doAfterTurnOn(){
+        getClientStateAutomaton().updateOnSetGameMatchPlaying();
+    }
+
     // class AbstractClientState
     // ---- 7
+/*
     @Override
     public void forgetGameMatchPlaying() {
         super.forgetGameMatchPlaying();
-        getClientStateAutomaton().updateOnForgetGameMatchPlaying();
+        // getClientStateAutomaton().updateOnForgetGameMatchPlaying();
     }
-
+*/
     // class AbstractClientState
     @Override
     public LocalClientStateAutomaton getClientStateAutomaton() {

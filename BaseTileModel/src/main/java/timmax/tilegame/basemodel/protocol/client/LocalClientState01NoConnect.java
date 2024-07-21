@@ -8,4 +8,23 @@ public class LocalClientState01NoConnect extends ClientState01NoConnect<GameMatc
     public LocalClientState01NoConnect(ClientStateAutomaton<GameMatchId> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
+
+    @Override
+    public void doAfterTurnOn(){
+        getClientStateAutomaton().updateOnClose();
+    }
+/*
+    // 2 interface IClientState01NoConnect
+
+    @Override
+    public void changeStateTo02ConnectNonIdent() {
+        // getClientStateAutomaton().updateOnOpen();
+        super.changeStateTo02ConnectNonIdent();
+    }
+*/
+    // class AbstractClientState
+    @Override
+    public LocalClientStateAutomaton getClientStateAutomaton() {
+        return (LocalClientStateAutomaton)(super.getClientStateAutomaton());
+    }
 }

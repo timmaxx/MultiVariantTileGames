@@ -5,5 +5,5 @@ public interface IClientState01NoConnect extends IClientState00 {
     // Нумерация приведена соответствующая классам Pane0Х... пакета timmax.tilegame.client.statuscontrol:
 
     // ---- 1 NoConnect
-    // void open();
+    void changeStateTo02ConnectNonIdent(); // void open();
 }

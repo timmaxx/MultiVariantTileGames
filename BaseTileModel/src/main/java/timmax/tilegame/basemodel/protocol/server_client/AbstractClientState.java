@@ -31,10 +31,31 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     }
 
     @Override
+    public void doBeforeTurnOff() {
+    }
+
+    @Override
+    public void doAfterTurnOn() {
+    }
+
+    // interface IClientState01NoConnect
+    @Override
+    public void changeStateTo02ConnectNonIdent() {
+        wrongCallInStateAutomaton();
+    }
+
+    // interface IClientState02ConnectNonIdent
+    @Override
+    public void changeStateTo01NoConnect() {
+        wrongCallInStateAutomaton();
+    }
+
+    @Override
     public void setUser(String userName, Set<GameType> gameTypeSet) {
         wrongCallInStateAutomaton();
     }
 
+    // interface IClientState04GameTypeSetSelected
     @Override
     public Set<GameType> getGameTypeSet() {
         wrongCallInStateAutomaton();
@@ -51,6 +72,7 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
         wrongCallInStateAutomaton();
     }
 
+    // interface IClientState06GameMatchSetSelected
     @Override
     public Map<String, Class<? extends View>> getViewName_ViewClassMap() {
         wrongCallInStateAutomaton();
@@ -85,6 +107,7 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
         wrongCallInStateAutomaton();
     }
 
+    // interface IClientState07GameMatchSelected
     @Override
     public GameMatchX getGameMatchX() {
         wrongCallInStateAutomaton();
@@ -101,6 +124,7 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
         wrongCallInStateAutomaton();
     }
 
+    // interface IClientState08GameMatchPlaying
     @Override
     public Boolean getGameIsPlaying() {
         wrongCallInStateAutomaton();

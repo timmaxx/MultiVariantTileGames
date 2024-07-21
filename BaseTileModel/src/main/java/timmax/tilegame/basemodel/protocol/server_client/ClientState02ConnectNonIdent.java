@@ -17,4 +17,10 @@ public abstract class ClientState02ConnectNonIdent<GameMatchX extends IGameMatch
         }
         getClientStateAutomaton().setUserName_(userName, gameTypeSet);
     }
+
+    // Метод переопределён чтобы вызов changeStateTo02ConnectNonIdent не приводил к исключению
+    // (как это определено в классе AbstractClientState)
+    @Override
+    public void changeStateTo01NoConnect() {
+    }
 }
