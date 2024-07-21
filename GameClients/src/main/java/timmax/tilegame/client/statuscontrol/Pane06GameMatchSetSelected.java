@@ -11,22 +11,20 @@ import timmax.tilegame.transport.TransportOfClient;
 
 import static timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx.*;
 
-// ToDo: Переименовать класс.
-// Панель соответствует состоянию 06GameMatchSetSelected
-public class Pane06SelectGameMatch extends AbstractConnectStatePane {
-    private final ComboBox<String> comboBoxGameSet;
+public class Pane06GameMatchSetSelected extends AbstractConnectStatePane {
+    private final ComboBox<String> gameSetComboBox;
 
-    public Pane06SelectGameMatch(TransportOfClient transportOfClient) {
+    public Pane06GameMatchSetSelected(TransportOfClient transportOfClient) {
         super(transportOfClient);
 
         // 1 (обязательные)
         // Контролы для продвижения состояния "вперёд":
-        comboBoxGameSet = new ComboBox<>();
+        gameSetComboBox = new ComboBox<>();
 
         nextStateButton.setText("Select the game match");
         nextStateButton.setOnAction(event -> {
             disableAllControls();
-            transportOfClient.setGameMatch(new GameMatchId(comboBoxGameSet.getValue()));
+            transportOfClient.setGameMatch(new GameMatchId(gameSetComboBox.getValue()));
         });
 
         // Контролы для продвижения состояния "назад":
@@ -38,8 +36,8 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
         });
 
         // 1
-        comboBoxGameSet.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
-        comboBoxGameSet.setLayoutY(LAYOUT_Y_OF_FIRST_ROW);
+        gameSetComboBox.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
+        gameSetComboBox.setLayoutY(LAYOUT_Y_OF_FIRST_ROW);
 
         // Получилась 1 строка контролов:
         nextStatePane.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * 1);
@@ -47,7 +45,7 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контролов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
-                List.of(comboBoxGameSet),
+                List.of(gameSetComboBox),
                 List.of()
         );
     }
@@ -85,7 +83,7 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
     public void updateOnSetGameType() {
         ObservableList<GameMatchId> observableList = FXCollections.observableArrayList();
         observableList.addAll(transportOfClient.getLocalClientStateAutomaton().getGameMatchXSet());
-        comboBoxGameSet.setItems(
+        gameSetComboBox.setItems(
                 FXCollections.observableArrayList(
                         observableList
                                 .stream()
@@ -111,6 +109,6 @@ public class Pane06SelectGameMatch extends AbstractConnectStatePane {
     @Override
     protected void doOnPrevState() {
         super.doOnPrevState();
-        comboBoxGameSet.setItems(FXCollections.observableArrayList());
+        gameSetComboBox.setItems(FXCollections.observableArrayList());
     }
 }

@@ -31,7 +31,7 @@ public class MultiGameClient extends Application {
                 new Pane01NoConnect(transportOfClient),
                 new Pane02ConnectNonIdent(transportOfClient),
                 new Pane04GameTypeSetSelected(transportOfClient),
-                new Pane06SelectGameMatch(transportOfClient),
+                new Pane06GameMatchSetSelected(transportOfClient),
                 new Pane07GameMatchPlaying(transportOfClient)
         );
 
