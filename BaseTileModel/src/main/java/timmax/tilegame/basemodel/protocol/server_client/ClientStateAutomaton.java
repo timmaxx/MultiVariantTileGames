@@ -70,14 +70,17 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     void setGameType_(GameType gameType, Set<GameMatchX> gameMatchXSet) {
         this.gameType = gameType;
         this.gameMatchXSet = gameMatchXSet;
+        setCurrentState(clientState06GameMatchSetSelected);
     }
 
     Set<GameMatchX> getGameMatchXSet_() {
         return gameMatchXSet;
     }
 
+    // ToDo: Удалить. Вероятно вызывается из какого-то forget...()
     void setGameMatchXSet_(Set<GameMatchX> gameMatchXSet) {
         this.gameMatchXSet = gameMatchXSet;
+        setCurrentState(clientState06GameMatchSetSelected);
     }
 
     GameMatchX getGameMatchX_() {
@@ -121,8 +124,6 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     @Override
     public void setGameType(GameType gameType, Set<GameMatchX> gameMatchXSet) {
         currenState.setGameType(gameType, gameMatchXSet);
-        // ToDo: Вероятно переместить вызов этого метода в setGameType_
-        setCurrentState(clientState06GameMatchSetSelected);
     }
 
     @Override
