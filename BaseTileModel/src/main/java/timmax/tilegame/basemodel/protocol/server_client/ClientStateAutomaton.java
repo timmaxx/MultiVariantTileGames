@@ -46,11 +46,9 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         return currenState;
     }
 
-    private void setCurrentState(IClientState99<GameMatchX> currentState) {
+    void setCurrentState(IClientState99<GameMatchX> currentState) {
         this.currenState.doBeforeTurnOff();
-        // System.out.println("  currenState = " + currenState);
         this.currenState = currentState;
-        // System.out.println("  currenState = " + currenState);
         currentState.doAfterTurnOn();
     }
 
@@ -98,10 +96,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
     @Override
     public void changeStateTo02ConnectNonIdent() {
-        // System.out.println("ClientStateAutomaton :: void changeStateTo02ConnectNonIdent()");
         currenState.changeStateTo02ConnectNonIdent();
-        // ToDo: Вероятно переместить вызов этого метода в changeStateTo02ConnectNonIdent_
-        setCurrentState(clientState02ConnectNonIdent);
     }
 
     // 2 interface IClientState02ConnectNonIdent

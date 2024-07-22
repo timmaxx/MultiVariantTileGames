@@ -9,5 +9,6 @@ public abstract class ClientState01NoConnect<GameMatchX extends IGameMatchX> ext
     // (как это определено в классе AbstractClientState)
     @Override
     public void changeStateTo02ConnectNonIdent() {
+        getClientStateAutomaton().setCurrentState(getClientStateAutomaton().clientState02ConnectNonIdent);
     }
 }
