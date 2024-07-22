@@ -16,10 +16,13 @@ public abstract class ClientState04GameTypeSetSelected<GameMatchX extends IGameM
         return getClientStateAutomaton().getGameTypeSet_();
     }
 
+    // ToDo: Удалить метод. Вместо него нужно использовать 'changeStateTo02ConnectNonIdent()'
+    //       Метод используется только в наследниках.
     @Override
     public void forgetUser() {
         getClientStateAutomaton().setGameTypeSet_(new HashSet<>());
     }
+
 
     @Override
     public void setGameType(GameType gameType, Set<GameMatchX> gameMatchXSet) {
