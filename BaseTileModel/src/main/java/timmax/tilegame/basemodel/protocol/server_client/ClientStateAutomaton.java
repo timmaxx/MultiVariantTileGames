@@ -103,8 +103,6 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     @Override
     public void changeStateTo01NoConnect() {
         currenState.changeStateTo01NoConnect();
-        // ToDo: Вероятно переместить вызов этого метода в changeStateTo01NoConnect_
-        setCurrentState(clientState01NoConnect);
     }
 
     @Override
