@@ -13,13 +13,13 @@ public class RemoteClientState08GameMatchPlaying<ClientId> extends ClientState08
 
     // ToDo: Устранить дублирование кода.
     //       Этот класс является наследником ClientState06GameMatchSetSelected,
-    //       но код который хотелось-бы иметь как void forgetUser(),
+    //       но код который хотелось-бы иметь как void changeStateTo02ConnectNonIdent(),
     //       находится в RemoteClientState04GameTypeSetSelected.
     //       Поэтому пришлось сделать здесь точную копию.
     //       - Копия метода из RemoteClientState04GameTypeSetSelected:
     @Override
-    public void forgetUser() {
-        super.forgetUser();
+    public void changeStateTo02ConnectNonIdent() {
+        super.changeStateTo02ConnectNonIdent();
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
                 new EventOfServer20ForgetUser()

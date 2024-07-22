@@ -18,11 +18,9 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
         this.clientId = clientId;
     }
 
-    // class ClientState04GameTypeSetSelected
-    // ---- 3 (Список типов игр)
     @Override
-    public void forgetUser() {
-        super.forgetUser();
+    public void changeStateTo02ConnectNonIdent() {
+        super.changeStateTo02ConnectNonIdent();
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
                 new EventOfServer20ForgetUser()

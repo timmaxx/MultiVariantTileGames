@@ -5,7 +5,7 @@ import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 public class EventOfServer20ForgetUser extends EventOfServer {
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
-        localClientStateAutomaton.forgetUser();
+        localClientStateAutomaton.changeStateTo02ConnectNonIdent();
     }
 
     @Override

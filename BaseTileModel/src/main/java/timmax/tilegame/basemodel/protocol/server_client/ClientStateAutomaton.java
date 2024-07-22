@@ -67,16 +67,6 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         return gameTypeSet;
     }
 
-    // ToDo: Удалить метод.
-    //       Вместо него сразу вызывать
-    //       'setCurrentState(clientState02ConnectNonIdent)'
-    // Вызывается из ClientState04GameTypeSetSelected :: void forgetUser()
-    // с пустым сетом (new HashSet<>())
-    void setGameTypeSet_(Set<GameType> gameTypeSet) {
-        this.gameTypeSet = gameTypeSet;
-        setCurrentState(clientState02ConnectNonIdent);
-    }
-
     void setGameType_(GameType gameType, Set<GameMatchX> gameMatchXSet) {
         this.gameType = gameType;
         this.gameMatchXSet = gameMatchXSet;
@@ -126,12 +116,6 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     @Override
     public Set<GameType> getGameTypeSet() {
         return currenState.getGameTypeSet();
-    }
-
-    // ToDo: Удалить метод.
-    @Override
-    public void forgetUser() {
-        currenState.forgetUser();
     }
 
     @Override

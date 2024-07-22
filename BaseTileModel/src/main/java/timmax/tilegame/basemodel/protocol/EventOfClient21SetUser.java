@@ -29,7 +29,7 @@ public class EventOfClient21SetUser extends EventOfClient {
             remoteClientStateAutomaton.setUser(userName, GameTypeFabric.getGameTypeSet());
         } else {
             password = ""; // Не будем даже хранить неправильный пароль.
-            remoteClientStateAutomaton.forgetUser();
+            remoteClientStateAutomaton.changeStateTo02ConnectNonIdent();
         }
     }
 
