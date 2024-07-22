@@ -5,12 +5,27 @@ import timmax.tilegame.basemodel.protocol.server_client.ClientState06GameMatchSe
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
 
+import java.util.Set;
+
 public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientState06GameMatchSetSelected<IGameMatch> {
     private final ClientId clientId;
 
     public RemoteClientState06GameMatchSetSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton, ClientId clientId) {
         super(clientStateAutomaton);
         this.clientId = clientId;
+    }
+
+    // ToDo: Устранить дублирование кода.
+    //       Этот класс является наследником ClientState07GameMatchSelected,
+    //       но код который хотелось-бы иметь как void setUser(),
+    //   Но ещё лучше может сделать resetUser()?
+    //       находится в RemoteClientState02ConnectNonIdent.
+    //       Поэтому пришлось сделать здесь точную копию.
+    //       - Копия метода из RemoteClientState02ConnectNonIdent:
+    @Override
+    public void setUser(String userName, Set<GameType> gameTypeSet) {
+        super.setUser(userName, gameTypeSet);
+        getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer21SetUser(userName, gameTypeSet));
     }
 
     // ToDo: Устранить дублирование кода.
@@ -25,17 +40,6 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
                 new EventOfServer20ForgetUser()
-        );
-    }
-
-    // class ClientState06GameMatchSetSelected
-    // ---- 5 Перечень партий
-    @Override
-    public void forgetGameType() {
-        super.forgetGameType();
-        getClientStateAutomaton().sendEventOfServer(
-                clientId,
-                new EventOfServer40ForgetGameType()
         );
     }
 

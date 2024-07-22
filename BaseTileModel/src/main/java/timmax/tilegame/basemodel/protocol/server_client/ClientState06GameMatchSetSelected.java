@@ -3,7 +3,6 @@ package timmax.tilegame.basemodel.protocol.server_client;
 import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
 import timmax.tilegame.baseview.View;
 
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -31,11 +30,6 @@ public abstract class ClientState06GameMatchSetSelected<GameMatchX extends IGame
     @Override
     public Set<GameMatchX> getGameMatchXSet() {
         return getClientStateAutomaton().getGameMatchXSet_();
-    }
-
-    @Override
-    public void forgetGameType() {
-        getClientStateAutomaton().setGameMatchXSet_(new HashSet<>());
     }
 
     @Override

@@ -77,16 +77,6 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         return gameMatchXSet;
     }
 
-    // ToDo: Удалить. Вероятно вызывается из какого-то forget...()
-    void setGameMatchXSet_(Set<GameMatchX> gameMatchXSet) {
-        this.gameMatchXSet = gameMatchXSet;
-        if (gameMatchXSet == null || gameMatchXSet.isEmpty()) {
-            setCurrentState(clientState02ConnectNonIdent);
-            return;
-        }
-        setCurrentState(clientState06GameMatchSetSelected);
-    }
-
     GameMatchX getGameMatchX_() {
         return gameMatchX;
     }
@@ -149,12 +139,6 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     @Override
     public Set<GameMatchX> getGameMatchXSet() {
         return currenState.getGameMatchXSet();
-    }
-
-    // ToDo: Удалить метод.
-    @Override
-    public void forgetGameType() {
-        currenState.forgetGameType();
     }
 
     @Override

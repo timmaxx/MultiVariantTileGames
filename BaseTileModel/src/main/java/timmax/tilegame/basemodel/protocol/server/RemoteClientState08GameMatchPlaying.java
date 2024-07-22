@@ -3,12 +3,27 @@ package timmax.tilegame.basemodel.protocol.server;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server_client.*;
 
+import java.util.Set;
+
 public class RemoteClientState08GameMatchPlaying<ClientId> extends ClientState08GameMatchPlaying<IGameMatch> {
     private final ClientId clientId;
 
     public RemoteClientState08GameMatchPlaying(ClientStateAutomaton<IGameMatch> clientStateAutomaton, ClientId clientId) {
         super(clientStateAutomaton);
         this.clientId = clientId;
+    }
+
+    // ToDo: Устранить дублирование кода.
+    //       Этот класс является наследником ClientState07GameMatchSelected,
+    //       но код который хотелось-бы иметь как void setUser(),
+    //   Но ещё лучше может сделать resetUser()?
+    //       находится в RemoteClientState02ConnectNonIdent.
+    //       Поэтому пришлось сделать здесь точную копию.
+    //       - Копия метода из RemoteClientState02ConnectNonIdent:
+    @Override
+    public void setUser(String userName, Set<GameType> gameTypeSet) {
+        super.setUser(userName, gameTypeSet);
+        getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer21SetUser(userName, gameTypeSet));
     }
 
     // ToDo: Устранить дублирование кода.
@@ -23,21 +38,6 @@ public class RemoteClientState08GameMatchPlaying<ClientId> extends ClientState08
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
                 new EventOfServer20ForgetUser()
-        );
-    }
-
-    // ToDo: Устранить дублирование кода.
-    //       Этот класс является наследником ClientState07GameMatchSelected,
-    //       но код который хотелось-бы иметь как void forgetGameType(),
-    //       находится в RemoteClientState06GameMatchSetSelected.
-    //       Поэтому пришлось сделать здесь точную копию.
-    //       - Копия метода из RemoteClientState06GameMatchSetSelected:
-    @Override
-    public void forgetGameType() {
-        super.forgetGameType();
-        getClientStateAutomaton().sendEventOfServer(
-                clientId,
-                new EventOfServer40ForgetGameType()
         );
     }
 

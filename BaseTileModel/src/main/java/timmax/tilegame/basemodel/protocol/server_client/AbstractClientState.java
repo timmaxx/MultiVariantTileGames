@@ -94,11 +94,6 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     }
 
     @Override
-    public void forgetGameType() {
-        wrongCallInStateAutomaton();
-    }
-
-    @Override
     public void setGameMatchX(GameMatchX gameMatchX) {
         wrongCallInStateAutomaton();
     }

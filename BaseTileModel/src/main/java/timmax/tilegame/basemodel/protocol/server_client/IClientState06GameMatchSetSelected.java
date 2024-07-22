@@ -16,6 +16,5 @@ public interface IClientState06GameMatchSetSelected<GameMatchX extends IGameMatc
     Map<String, ParamOfModelDescription> getParamName_paramModelDescriptionMap();
 
     Set<GameMatchX> getGameMatchXSet();
-    void forgetGameType();
     void setGameMatchX(GameMatchX gameMatchX);
 }
