@@ -23,6 +23,9 @@ public class Pane06GameMatchSetSelected extends AbstractConnectStatePane {
 
         nextStateButton.setText("Select the game match");
         nextStateButton.setOnAction(event -> {
+            if (gameSetComboBox.getValue() == null || gameSetComboBox.getValue().isEmpty()) {
+                return;
+            }
             disableAllControls();
             transportOfClient.setGameMatch(new GameMatchId(gameSetComboBox.getValue()));
         });
