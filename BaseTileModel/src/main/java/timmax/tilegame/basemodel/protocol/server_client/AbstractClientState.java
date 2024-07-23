@@ -46,7 +46,7 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
 
     // interface IClientState02ConnectNonIdent
     @Override
-    public void changeStateTo01NoConnect() {
+    public void closeConnect() {
         // Нет кода, т.к. переход в состояние 01NoConnect пусть будет доступен всегда
         // (в т.ч. и из 01NoConnect)
     }

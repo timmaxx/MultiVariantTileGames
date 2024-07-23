@@ -10,5 +10,5 @@ public interface IClientState02ConnectNonIdent extends IClientState00 {
 
     // ---- 2 ConnectNonIdent
     void identifyAuthenticateAuthorizeUser(String userName, Set<GameType> gameTypeSet); // logIn
-    void changeStateTo01NoConnect(); // void close();
+    void closeConnect(); // void close();
 }

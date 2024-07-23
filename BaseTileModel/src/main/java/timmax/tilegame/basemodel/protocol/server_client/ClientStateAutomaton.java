@@ -104,8 +104,8 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
     // 2 interface IClientState02ConnectNonIdent
     @Override
-    public void changeStateTo01NoConnect() {
-        currenState.changeStateTo01NoConnect();
+    public void closeConnect() {
+        currenState.closeConnect();
     }
 
     @Override
