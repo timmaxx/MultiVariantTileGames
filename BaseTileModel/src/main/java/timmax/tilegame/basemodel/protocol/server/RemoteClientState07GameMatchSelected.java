@@ -37,7 +37,7 @@ public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState0
         super.openConnectWithoutUserIdentify();
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
-                new EventOfServer40ForgetUser()
+                new EventOfServer11OpenConnectWithoutUserIdentify()
         );
     }
 
