@@ -37,7 +37,7 @@ public class RemoteClientState08GameMatchPlaying<ClientId> extends ClientState08
         super.changeStateTo02ConnectNonIdent();
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
-                new EventOfServer20ForgetUser()
+                new EventOfServer40ForgetUser()
         );
     }
 

@@ -23,7 +23,7 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
         super.changeStateTo02ConnectNonIdent();
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
-                new EventOfServer20ForgetUser()
+                new EventOfServer40ForgetUser()
         );
     }
 
@@ -33,7 +33,7 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
         if (gameType == null) {
             getClientStateAutomaton().sendEventOfServer(
                     clientId,
-                    new EventOfServer20ForgetUser()
+                    new EventOfServer40ForgetUser()
             );
             return;
         }

@@ -39,7 +39,7 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
         super.changeStateTo02ConnectNonIdent();
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
-                new EventOfServer20ForgetUser()
+                new EventOfServer40ForgetUser()
         );
     }
 
