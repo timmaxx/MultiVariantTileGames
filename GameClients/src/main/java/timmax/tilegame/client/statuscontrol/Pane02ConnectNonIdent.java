@@ -28,7 +28,7 @@ public class Pane02ConnectNonIdent extends AbstractConnectStatePane {
         nextStateButton.setText("Login");
         nextStateButton.setOnAction(event -> {
             disableAllControls();
-            transportOfClient.setUser(userNameTextField.getText(), userPasswordField.getText());
+            transportOfClient.identifyAuthenticateAuthorizeUser(userNameTextField.getText(), userPasswordField.getText());
         });
 
         // Контролы для продвижения состояния "назад":

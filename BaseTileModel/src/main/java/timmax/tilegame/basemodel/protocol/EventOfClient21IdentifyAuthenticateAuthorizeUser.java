@@ -8,15 +8,15 @@ import timmax.tilegame.basemodel.credential.Credentials;
 import timmax.tilegame.basemodel.protocol.server.GameTypeFabric;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
-public class EventOfClient21SetUser extends EventOfClient {
+public class EventOfClient21IdentifyAuthenticateAuthorizeUser extends EventOfClient {
     private String userName;
     private String password;
 
-    public EventOfClient21SetUser() {
+    public EventOfClient21IdentifyAuthenticateAuthorizeUser() {
         super();
     }
 
-    public EventOfClient21SetUser(String userName, String password) {
+    public EventOfClient21IdentifyAuthenticateAuthorizeUser(String userName, String password) {
         this();
         this.userName = userName;
         this.password = password;
@@ -26,7 +26,7 @@ public class EventOfClient21SetUser extends EventOfClient {
     public void executeOnServer(RemoteClientStateAutomaton remoteClientStateAutomaton) {
         if (Credentials.isUserAndPasswordCorrect(userName, password)) {
             password = ""; // Не будем даже хранить пароль.
-            remoteClientStateAutomaton.setUser(userName, GameTypeFabric.getGameTypeSet());
+            remoteClientStateAutomaton.identifyAuthenticateAuthorizeUser(userName, GameTypeFabric.getGameTypeSet());
         } else {
             password = ""; // Не будем даже хранить неправильный пароль.
             remoteClientStateAutomaton.changeStateTo02ConnectNonIdent();

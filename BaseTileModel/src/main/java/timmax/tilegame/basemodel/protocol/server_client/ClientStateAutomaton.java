@@ -109,8 +109,8 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     }
 
     @Override
-    public void setUser(String userName, Set<GameType> gameTypeSet) {
-        currenState.setUser(userName, gameTypeSet);
+    public void identifyAuthenticateAuthorizeUser(String userName, Set<GameType> gameTypeSet) {
+        currenState.identifyAuthenticateAuthorizeUser(userName, gameTypeSet);
     }
 
     @Override

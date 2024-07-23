@@ -28,7 +28,7 @@ public interface TransportOfClient {
     
     // 02ConnectNonIdent
     void close();                                                               //  2 -> 1  void changeStateTo01NoConnect();
-    void setUser(String userName, String password); /* logIn */                 //  2 -> 4  void setUser(String userName, Set<GameType> gameTypeSet);
+    void identifyAuthenticateAuthorizeUser(String userName, String password); /* logIn */                 //  2 -> 4  void setUser(String userName, Set<GameType> gameTypeSet);
 
     // 04GameTypeSetSelected
     void resetUser();

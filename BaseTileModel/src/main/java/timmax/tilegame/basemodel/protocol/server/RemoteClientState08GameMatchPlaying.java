@@ -16,13 +16,12 @@ public class RemoteClientState08GameMatchPlaying<ClientId> extends ClientState08
     // ToDo: Устранить дублирование кода.
     //       Этот класс является наследником ClientState08GameMatchPlaying,
     //       но код который хотелось-бы иметь как void setUser(),
-    //   Но ещё лучше может сделать resetUser()?
     //       находится в RemoteClientState02ConnectNonIdent.
     //       Поэтому пришлось сделать здесь точную копию.
     //       - Копия метода из RemoteClientState02ConnectNonIdent:
     @Override
-    public void setUser(String userName, Set<GameType> gameTypeSet) {
-        super.setUser(userName, gameTypeSet);
+    public void identifyAuthenticateAuthorizeUser(String userName, Set<GameType> gameTypeSet) {
+        super.identifyAuthenticateAuthorizeUser(userName, gameTypeSet);
         getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer21SetUser(userName, gameTypeSet));
     }
 
@@ -51,7 +50,7 @@ public class RemoteClientState08GameMatchPlaying<ClientId> extends ClientState08
     public void reauthorizeUser() {
         String userName = getClientStateAutomaton().getUserName();
         Set<GameType> gameTypeSet = getClientStateAutomaton().getGameTypeSet();
-        super.setUser(userName, gameTypeSet);
+        super.identifyAuthenticateAuthorizeUser(userName, gameTypeSet);
         getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer21SetUser(userName, gameTypeSet));
     }
 
