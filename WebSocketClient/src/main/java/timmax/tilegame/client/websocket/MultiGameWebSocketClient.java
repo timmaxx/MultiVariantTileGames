@@ -104,7 +104,14 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         sendEventOfClient(new EventOfClient21SetUser(userName, password));
     }
 
+    @Override
+    public void resetUser() {
+        logger.debug("resetUser()");
+        sendEventOfClient(new EventOfClient22resetUser());
+    }
+
     // 4
+    // ToDo: Удалить. Вместо неё вызывать changeStateTo02ConnectNonIdent
     @Override
     public void forgetUser() {
         logger.debug("forgetGameTypeSet()");

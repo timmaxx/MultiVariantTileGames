@@ -56,6 +56,11 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
         wrongCallInStateAutomaton();
     }
 
+    @Override
+    public void resetUser() {
+        wrongCallInStateAutomaton();
+    }
+
     // interface IClientState04GameTypeSetSelected
     @Override
     public Set<GameType> getGameTypeSet() {

@@ -52,6 +52,10 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         currentState.doAfterTurnOn();
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
     void setUserName_(String userName, Set<GameType> gameTypeSet) {
         if (userName == null || userName.isEmpty()) {
             setCurrentState(clientState01NoConnect);
@@ -107,6 +111,11 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     @Override
     public void setUser(String userName, Set<GameType> gameTypeSet) {
         currenState.setUser(userName, gameTypeSet);
+    }
+
+    @Override
+    public void resetUser() {
+        currenState.resetUser();
     }
 
     // 4 interface IClientState04GameTypeSetSelected

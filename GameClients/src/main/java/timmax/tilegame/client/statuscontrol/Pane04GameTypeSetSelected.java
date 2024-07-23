@@ -42,10 +42,7 @@ public class Pane04GameTypeSetSelected extends AbstractConnectStatePane {
         prevStateButton.setFocusTraversable(false);
         prevStateButton.setOnAction(event -> {
             disableAllControls();
-            // ToDo: Прочесть имя пользователя и пароль, вместо использования констант.
-            String userName = "u1"; // transportOfClient.getUserName();
-            String userPassword = "1"; // transportOfClient.getUserPassword();
-            transportOfClient.setUser(userName, userPassword);
+            transportOfClient.resetUser();
         });
 
         // 1

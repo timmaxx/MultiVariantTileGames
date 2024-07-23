@@ -72,9 +72,16 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
     }
 
     // 4
+    // ToDo: Удалить. Вместо неё вызывать changeStateTo02ConnectNonIdent
     @Override
     public void forgetUser() {
         transportOfClient.forgetUser();
+        // transportOfClient.changeStateTo02ConnectNonIdent(); // reOpen
+    }
+
+    @Override
+    public void resetUser() {
+        transportOfClient.resetUser();
     }
 
     @Override
@@ -89,6 +96,7 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
     }
 
     // 7
+    // ToDo: удалить или переименовать.
     @Override
     public void forgetGameMatch() {
         transportOfClient.forgetGameMatch();
@@ -100,6 +108,7 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
     }
 
     // 8
+    // ToDo: удалить или переименовать.
     @Override
     public void forgetGameMatchPlaying() {
         transportOfClient.forgetGameMatchPlaying();

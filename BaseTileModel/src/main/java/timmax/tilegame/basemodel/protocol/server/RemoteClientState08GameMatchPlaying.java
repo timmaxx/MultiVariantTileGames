@@ -14,7 +14,7 @@ public class RemoteClientState08GameMatchPlaying<ClientId> extends ClientState08
     }
 
     // ToDo: Устранить дублирование кода.
-    //       Этот класс является наследником ClientState07GameMatchSelected,
+    //       Этот класс является наследником ClientState08GameMatchPlaying,
     //       но код который хотелось-бы иметь как void setUser(),
     //   Но ещё лучше может сделать resetUser()?
     //       находится в RemoteClientState02ConnectNonIdent.
@@ -27,7 +27,7 @@ public class RemoteClientState08GameMatchPlaying<ClientId> extends ClientState08
     }
 
     // ToDo: Устранить дублирование кода.
-    //       Этот класс является наследником ClientState06GameMatchSetSelected,
+    //       Этот класс является наследником ClientState08GameMatchPlaying,
     //       но код который хотелось-бы иметь как void changeStateTo02ConnectNonIdent(),
     //       находится в RemoteClientState04GameTypeSetSelected.
     //       Поэтому пришлось сделать здесь точную копию.
@@ -42,7 +42,21 @@ public class RemoteClientState08GameMatchPlaying<ClientId> extends ClientState08
     }
 
     // ToDo: Устранить дублирование кода.
-    //       Этот класс является наследником ClientState07GameMatchSelected,
+    //       Этот класс является наследником ClientState08GameMatchPlaying,
+    //       но код который хотелось-бы иметь как void resetUser(),
+    //       находится в RemoteClientState06GameMatchSetSelected.
+    //       Поэтому пришлось сделать здесь точную копию.
+    //       - Копия метода из RemoteClientState06GameMatchSetSelected:
+    @Override
+    public void resetUser() {
+        String userName = getClientStateAutomaton().getUserName();
+        Set<GameType> gameTypeSet = getClientStateAutomaton().getGameTypeSet();
+        super.setUser(userName, gameTypeSet);
+        getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer21SetUser(userName, gameTypeSet));
+    }
+
+    // ToDo: Устранить дублирование кода.
+    //       Этот класс является наследником ClientState08GameMatchPlaying,
     //       но код который хотелось-бы иметь как void forgetGameMatchX(),
     //       находится в RemoteClientState07GameMatchSelected.
     //       Поэтому пришлось сделать здесь точную копию.

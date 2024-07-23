@@ -16,7 +16,7 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
     }
 
     // ToDo: Устранить дублирование кода.
-    //       Этот класс является наследником ClientState07GameMatchSelected,
+    //       Этот класс является наследником ClientState06GameMatchSetSelected,
     //       но код который хотелось-бы иметь как void setUser(),
     //   Но ещё лучше может сделать resetUser()?
     //       находится в RemoteClientState02ConnectNonIdent.
@@ -41,6 +41,14 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
                 clientId,
                 new EventOfServer20ForgetUser()
         );
+    }
+
+    @Override
+    public void resetUser() {
+        String userName = getClientStateAutomaton().getUserName();
+        Set<GameType> gameTypeSet = getClientStateAutomaton().getGameTypeSet();
+        super.setUser(userName, gameTypeSet);
+        getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer21SetUser(userName, gameTypeSet));
     }
 
     // ---- 6 Конкретная партия игры

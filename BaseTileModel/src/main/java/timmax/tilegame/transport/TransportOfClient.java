@@ -31,11 +31,11 @@ public interface TransportOfClient {
     void setUser(String userName, String password); /* logIn */                 //  2 -> 4  void setUser(String userName, Set<GameType> gameTypeSet);
 
     // 04GameTypeSetSelected
+    void resetUser();
     void forgetUser();                              /* logOff */                //  4 -> 2  void forgetUser();
     void setGameType(GameType gameType);                                        //  4 -> 5  void setGameType(GameType gameType, Set<GameMatchX> gameMatchXSet);
 
     // 06GameMatchSetSelected
-//  void forgetGameType();                                                      //  6 -> 5  void forgetGameType();
     void setGameMatch(GameMatchId gameMatchId);                                 //  6 -> 7  void setGameMatchX(GameMatchX gameMatchX);
 
     // 07GameMatchSelected
