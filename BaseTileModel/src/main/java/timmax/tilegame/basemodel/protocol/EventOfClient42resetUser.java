@@ -2,8 +2,8 @@ package timmax.tilegame.basemodel.protocol;
 
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
-public class EventOfClient22resetUser extends EventOfClient {
-    public EventOfClient22resetUser() {
+public class EventOfClient42resetUser extends EventOfClient {
+    public EventOfClient42resetUser() {
         super();
     }
 
