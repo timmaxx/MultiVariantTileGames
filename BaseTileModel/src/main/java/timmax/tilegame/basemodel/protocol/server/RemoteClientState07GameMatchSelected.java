@@ -63,7 +63,7 @@ public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState0
         super.forgetGameMatchX();
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
-                new EventOfServer60ForgetGameMatch()
+                new EventOfServer70ForgetGameMatch()
         );
     }
 
