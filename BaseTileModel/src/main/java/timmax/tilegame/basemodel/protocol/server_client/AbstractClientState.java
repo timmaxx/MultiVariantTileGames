@@ -57,7 +57,7 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     }
 
     @Override
-    public void resetUser() {
+    public void reauthorizeUser() {
         wrongCallInStateAutomaton();
     }
 

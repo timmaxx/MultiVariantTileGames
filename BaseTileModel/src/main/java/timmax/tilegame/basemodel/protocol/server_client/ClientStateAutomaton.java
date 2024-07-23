@@ -114,8 +114,8 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     }
 
     @Override
-    public void resetUser() {
-        currenState.resetUser();
+    public void reauthorizeUser() {
+        currenState.reauthorizeUser();
     }
 
     // 4 interface IClientState04GameTypeSetSelected

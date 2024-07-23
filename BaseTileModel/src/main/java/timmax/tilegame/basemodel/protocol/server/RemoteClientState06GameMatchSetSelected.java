@@ -44,7 +44,7 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
     }
 
     @Override
-    public void resetUser() {
+    public void reauthorizeUser() {
         String userName = getClientStateAutomaton().getUserName();
         Set<GameType> gameTypeSet = getClientStateAutomaton().getGameTypeSet();
         super.setUser(userName, gameTypeSet);

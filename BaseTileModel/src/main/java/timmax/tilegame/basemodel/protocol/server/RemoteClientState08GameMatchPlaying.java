@@ -48,7 +48,7 @@ public class RemoteClientState08GameMatchPlaying<ClientId> extends ClientState08
     //       Поэтому пришлось сделать здесь точную копию.
     //       - Копия метода из RemoteClientState06GameMatchSetSelected:
     @Override
-    public void resetUser() {
+    public void reauthorizeUser() {
         String userName = getClientStateAutomaton().getUserName();
         Set<GameType> gameTypeSet = getClientStateAutomaton().getGameTypeSet();
         super.setUser(userName, gameTypeSet);
