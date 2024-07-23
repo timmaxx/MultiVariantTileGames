@@ -22,9 +22,10 @@ public class Pane04GameTypeSetSelected extends AbstractConnectStatePane {
 
         nextStateButton.setText("Select the game type");
         nextStateButton.setOnAction(event -> {
-            disableAllControls();
             String gameTypeName = gameTypeSetComboBox.getValue();
-
+            if(gameTypeName == null || gameTypeName.isEmpty()) {
+                return;
+            }
             GameType gameType =
                     transportOfClient
                             .getLocalClientStateAutomaton()
@@ -33,7 +34,10 @@ public class Pane04GameTypeSetSelected extends AbstractConnectStatePane {
                             .filter(x -> x.getGameTypeName().equals(gameTypeName))
                             .findAny()
                             .orElse(null);
-
+            if (gameType == null) {
+                return;
+            }
+            disableAllControls();
             transportOfClient.setGameType(gameType);
         });
 
