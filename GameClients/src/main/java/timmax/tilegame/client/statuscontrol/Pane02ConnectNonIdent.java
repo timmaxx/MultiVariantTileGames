@@ -36,7 +36,7 @@ public class Pane02ConnectNonIdent extends AbstractConnectStatePane {
         prevStateButton.setFocusTraversable(false);
         prevStateButton.setOnAction(event -> {
             disableAllControls();
-            transportOfClient.forgetUser();
+            transportOfClient.openConnectWithoutUserIdentify();
         });
 
         // 1

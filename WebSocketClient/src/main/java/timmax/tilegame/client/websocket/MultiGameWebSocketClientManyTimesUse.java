@@ -65,6 +65,12 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
     }
 
     // interface TransportOfClient:
+    // 1
+    @Override
+    public void openConnectWithoutUserIdentify() {
+        transportOfClient.openConnectWithoutUserIdentify();
+    }
+
     // 2
     @Override
     public void identifyAuthenticateAuthorizeUser(String userName, String password) {
@@ -72,13 +78,6 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
     }
 
     // 4
-    // ToDo: Удалить. Вместо неё вызывать changeStateTo02ConnectNonIdent
-    @Override
-    public void forgetUser() {
-        transportOfClient.forgetUser();
-        // transportOfClient.changeStateTo02ConnectNonIdent(); // reOpen
-    }
-
     @Override
     public void resetUser() {
         transportOfClient.resetUser();

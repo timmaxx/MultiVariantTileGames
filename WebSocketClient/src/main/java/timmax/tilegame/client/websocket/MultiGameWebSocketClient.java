@@ -97,6 +97,13 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     }
 
     // interface TransportOfClient:
+    // 1
+    @Override
+    public void openConnectWithoutUserIdentify() {
+        logger.debug("openConnectWithoutUserIdentify()");
+        sendEventOfClient(new EventOfClient11OpenConnectWithoutUserIdentify());
+    }
+
     // 2
     @Override
     public void identifyAuthenticateAuthorizeUser(String userName, String password) {
@@ -105,12 +112,6 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     }
 
     // 4
-    @Override
-    public void forgetUser() {
-        logger.debug("forgetUser()");
-        sendEventOfClient(new EventOfClient11OpenConnectWithoutUserIdentify());
-    }
-
     @Override
     public void resetUser() {
         logger.debug("resetUser()");
