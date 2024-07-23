@@ -22,7 +22,7 @@ public class RemoteClientState08GameMatchPlaying<ClientId> extends ClientState08
     @Override
     public void identifyAuthenticateAuthorizeUser(String userName, Set<GameType> gameTypeSet) {
         super.identifyAuthenticateAuthorizeUser(userName, gameTypeSet);
-        getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer21SetUser(userName, gameTypeSet));
+        getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer21IdentifyAuthenticateAuthorizeUser(userName, gameTypeSet));
     }
 
     // ToDo: Устранить дублирование кода.
@@ -51,7 +51,7 @@ public class RemoteClientState08GameMatchPlaying<ClientId> extends ClientState08
         String userName = getClientStateAutomaton().getUserName();
         Set<GameType> gameTypeSet = getClientStateAutomaton().getGameTypeSet();
         super.identifyAuthenticateAuthorizeUser(userName, gameTypeSet);
-        getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer21SetUser(userName, gameTypeSet));
+        getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer21IdentifyAuthenticateAuthorizeUser(userName, gameTypeSet));
     }
 
     // ToDo: Устранить дублирование кода.

@@ -18,7 +18,7 @@ public class RemoteClientState02ConnectNonIdent<ClientId> extends ClientState02C
     @Override
     public void identifyAuthenticateAuthorizeUser(String userName, Set<GameType> gameTypeSet) {
         super.identifyAuthenticateAuthorizeUser(userName, gameTypeSet);
-        getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer21SetUser(userName, gameTypeSet));
+        getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer21IdentifyAuthenticateAuthorizeUser(userName, gameTypeSet));
     }
 
     // class AbstractClientState

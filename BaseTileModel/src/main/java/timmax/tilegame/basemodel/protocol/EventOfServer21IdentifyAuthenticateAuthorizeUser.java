@@ -8,15 +8,15 @@ import java.util.Set;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
-public class EventOfServer21SetUser extends EventOfServer {
+public class EventOfServer21IdentifyAuthenticateAuthorizeUser extends EventOfServer {
     private String userName;
     private Set<GameType> gameTypeSet;
 
-    public EventOfServer21SetUser() {
+    public EventOfServer21IdentifyAuthenticateAuthorizeUser() {
         super();
     }
 
-    public EventOfServer21SetUser(String userName, Set<GameType> gameTypeSet) {
+    public EventOfServer21IdentifyAuthenticateAuthorizeUser(String userName, Set<GameType> gameTypeSet) {
         this();
         if (userName == null || userName.equals("")) {
             throw new NullPointerException("UserName is null. UserName must not be null.");

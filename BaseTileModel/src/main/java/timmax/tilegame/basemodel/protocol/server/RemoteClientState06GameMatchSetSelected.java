@@ -24,7 +24,7 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
     @Override
     public void identifyAuthenticateAuthorizeUser(String userName, Set<GameType> gameTypeSet) {
         super.identifyAuthenticateAuthorizeUser(userName, gameTypeSet);
-        getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer21SetUser(userName, gameTypeSet));
+        getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer21IdentifyAuthenticateAuthorizeUser(userName, gameTypeSet));
     }
 
     // ToDo: Устранить дублирование кода.
@@ -47,7 +47,7 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
         String userName = getClientStateAutomaton().getUserName();
         Set<GameType> gameTypeSet = getClientStateAutomaton().getGameTypeSet();
         super.identifyAuthenticateAuthorizeUser(userName, gameTypeSet);
-        getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer21SetUser(userName, gameTypeSet));
+        getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer21IdentifyAuthenticateAuthorizeUser(userName, gameTypeSet));
     }
 
     // ---- 6 Конкретная партия игры
