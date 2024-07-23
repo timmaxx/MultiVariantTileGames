@@ -40,7 +40,7 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
 
     // interface IClientState01NoConnect
     @Override
-    public void changeStateTo02ConnectNonIdent() {
+    public void openConnectWithoutUserIdentify() {
         wrongCallInStateAutomaton();
     }
 

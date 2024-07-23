@@ -98,8 +98,8 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     }
 
     @Override
-    public void changeStateTo02ConnectNonIdent() {
-        currenState.changeStateTo02ConnectNonIdent();
+    public void openConnectWithoutUserIdentify() {
+        currenState.openConnectWithoutUserIdentify();
     }
 
     // 2 interface IClientState02ConnectNonIdent

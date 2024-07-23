@@ -29,13 +29,13 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
 
     // ToDo: Устранить дублирование кода.
     //       Этот класс является наследником ClientState06GameMatchSetSelected,
-    //       но код который хотелось-бы иметь как void changeStateTo02ConnectNonIdent(),
+    //       но код который хотелось-бы иметь как void openConnectWithoutUserIdentify(),
     //       находится в RemoteClientState04GameTypeSetSelected.
     //       Поэтому пришлось сделать здесь точную копию.
     //       - Копия метода из RemoteClientState04GameTypeSetSelected:
     @Override
-    public void changeStateTo02ConnectNonIdent() {
-        super.changeStateTo02ConnectNonIdent();
+    public void openConnectWithoutUserIdentify() {
+        super.openConnectWithoutUserIdentify();
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
                 new EventOfServer40ForgetUser()

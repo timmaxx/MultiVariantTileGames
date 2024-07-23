@@ -19,8 +19,8 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
     }
 
     @Override
-    public void changeStateTo02ConnectNonIdent() {
-        super.changeStateTo02ConnectNonIdent();
+    public void openConnectWithoutUserIdentify() {
+        super.openConnectWithoutUserIdentify();
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
                 new EventOfServer40ForgetUser()
