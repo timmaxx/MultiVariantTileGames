@@ -77,7 +77,7 @@ public class RemoteClientState08GameMatchPlaying<ClientId> extends ClientState08
         super.forgetGameMatchPlaying();
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
-                new EventOfServer70ForgetGameMatchPlaying()
+                new EventOfServer80ForgetGameMatchPlaying()
         );
     }
 
