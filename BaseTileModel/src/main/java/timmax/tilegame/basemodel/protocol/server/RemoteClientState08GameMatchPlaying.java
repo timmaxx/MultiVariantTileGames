@@ -37,7 +37,7 @@ public class RemoteClientState08GameMatchPlaying<ClientId> extends ClientState08
         super.openConnectWithoutUserIdentify();
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
-                new EventOfServer11OpenConnectWithoutUserIdentify()
+                new EventOfServer11ConnectWithoutUserIdentify()
         );
     }
 

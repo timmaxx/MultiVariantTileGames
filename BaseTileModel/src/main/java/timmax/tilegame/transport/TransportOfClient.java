@@ -27,8 +27,7 @@ public interface TransportOfClient {
     void connect();                                                             //  1 -> 2  void changeStateTo02ConnectNonIdent();
     
     // 02ConnectNonIdent
-    // ToDo: Переименовать в connectWithoutUserIdentify
-    void openConnectWithoutUserIdentify();          /* logOff */                //  2 -> 2  void forgetUser();
+    void connectWithoutUserIdentify();          /* logOff */                    //  2 -> 2  void forgetUser();
     void close();                                                               //  2 -> 1  void changeStateTo01NoConnect();
     void identifyAuthenticateAuthorizeUser(String userName, String password); /* logIn */                 //  2 -> 4  void setUser(String userName, Set<GameType> gameTypeSet);
 

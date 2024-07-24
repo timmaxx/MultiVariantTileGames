@@ -67,8 +67,8 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
     // interface TransportOfClient:
     // 1
     @Override
-    public void openConnectWithoutUserIdentify() {
-        transportOfClient.openConnectWithoutUserIdentify();
+    public void connectWithoutUserIdentify() {
+        transportOfClient.connectWithoutUserIdentify();
     }
 
     // 2
