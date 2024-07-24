@@ -46,7 +46,7 @@ public class Pane04GameTypeSetSelected extends AbstractConnectStatePane {
         prevStateButton.setFocusTraversable(false);
         prevStateButton.setOnAction(event -> {
             disableAllControls();
-            transportOfClient.resetUser();
+            transportOfClient.reauthorizeUser();
         });
 
         // 1

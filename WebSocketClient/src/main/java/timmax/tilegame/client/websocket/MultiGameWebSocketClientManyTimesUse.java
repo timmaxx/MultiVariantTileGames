@@ -79,8 +79,8 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
 
     // 4
     @Override
-    public void resetUser() {
-        transportOfClient.resetUser();
+    public void reauthorizeUser() {
+        transportOfClient.reauthorizeUser();
     }
 
     @Override

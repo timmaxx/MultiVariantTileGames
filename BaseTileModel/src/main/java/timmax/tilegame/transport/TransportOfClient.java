@@ -32,8 +32,7 @@ public interface TransportOfClient {
     void identifyAuthenticateAuthorizeUser(String userName, String password); /* logIn */                 //  2 -> 4  void setUser(String userName, Set<GameType> gameTypeSet);
 
     // 04GameTypeSetSelected
-    // ToDo: Переименовать в reauthorizeUser
-    void resetUser();                                                           //  4 -> 4
+    void reauthorizeUser();                                                     //  4 -> 4
     void setGameType(GameType gameType);                                        //  4 -> 5  void setGameType(GameType gameType, Set<GameMatchX> gameMatchXSet);
 
     // 06GameMatchSetSelected
