@@ -102,28 +102,28 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         return gameType;
     }
 
+    // 2 interface IClientState02ConnectNonIdent
     @Override
     public void openConnectWithoutUserIdentify() {
         currenState.openConnectWithoutUserIdentify();
     }
 
-    // 2 interface IClientState02ConnectNonIdent
     @Override
     public void closeConnect() {
         currenState.closeConnect();
     }
 
     @Override
-    public void identifyAuthenticateAuthorizeUser(String userName, Set<GameType> gameTypeSet) {
-        currenState.identifyAuthenticateAuthorizeUser(userName, gameTypeSet);
+    public void authorizeUser(String userName, Set<GameType> gameTypeSet) {
+        currenState.authorizeUser(userName, gameTypeSet);
     }
 
+    // 4 interface IClientState04GameTypeSetSelected
     @Override
     public void reauthorizeUser() {
         currenState.reauthorizeUser();
     }
 
-    // 4 interface IClientState04GameTypeSetSelected
     @Override
     public Set<GameType> getGameTypeSet() {
         return currenState.getGameTypeSet();

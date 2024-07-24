@@ -52,7 +52,7 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     }
 
     @Override
-    public void identifyAuthenticateAuthorizeUser(String userName, Set<GameType> gameTypeSet) {
+    public void authorizeUser(String userName, Set<GameType> gameTypeSet) {
         wrongCallInStateAutomaton();
     }
 

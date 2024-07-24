@@ -11,7 +11,7 @@ public abstract class ClientState02ConnectNonIdent<GameMatchX extends IGameMatch
 
     // interface IClientState02ConnectNonIdent
     @Override
-    public void identifyAuthenticateAuthorizeUser(String userName, Set<GameType> gameTypeSet) {
+    public void authorizeUser(String userName, Set<GameType> gameTypeSet) {
         getClientStateAutomaton().setUserName_(userName, gameTypeSet);
     }
 

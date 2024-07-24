@@ -26,7 +26,7 @@ public class EventOfClient21IdentifyAuthenticateAuthorizeUser extends EventOfCli
     public void executeOnServer(RemoteClientStateAutomaton remoteClientStateAutomaton) {
         if (Credentials.isUserAndPasswordCorrect(userName, password)) {
             password = ""; // Не будем даже хранить пароль.
-            remoteClientStateAutomaton.identifyAuthenticateAuthorizeUser(userName, GameTypeFabric.getGameTypeSet());
+            remoteClientStateAutomaton.authorizeUser(userName, GameTypeFabric.getGameTypeSet());
         } else {
             password = ""; // Не будем даже хранить неправильный пароль.
             remoteClientStateAutomaton.openConnectWithoutUserIdentify();

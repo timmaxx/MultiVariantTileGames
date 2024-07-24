@@ -23,8 +23,8 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
     //       Поэтому пришлось сделать здесь точную копию.
     //       - Копия метода из RemoteClientState02ConnectNonIdent:
     @Override
-    public void identifyAuthenticateAuthorizeUser(String userName, Set<GameType> gameTypeSet) {
-        super.identifyAuthenticateAuthorizeUser(userName, gameTypeSet);
+    public void authorizeUser(String userName, Set<GameType> gameTypeSet) {
+        super.authorizeUser(userName, gameTypeSet);
         getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer21IdentifyAuthenticateAuthorizeUser(userName, gameTypeSet));
     }
 
@@ -47,7 +47,7 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
     public void reauthorizeUser() {
         String userName = getClientStateAutomaton().getUserName();
         Set<GameType> gameTypeSet = getClientStateAutomaton().getGameTypeSet();
-        identifyAuthenticateAuthorizeUser(userName, gameTypeSet);
+        authorizeUser(userName, gameTypeSet);
     }
 
     // ---- 6 Конкретная партия игры

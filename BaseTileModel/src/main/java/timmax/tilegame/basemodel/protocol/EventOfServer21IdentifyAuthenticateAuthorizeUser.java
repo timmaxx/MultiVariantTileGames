@@ -27,7 +27,7 @@ public class EventOfServer21IdentifyAuthenticateAuthorizeUser extends EventOfSer
 
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
-        localClientStateAutomaton.identifyAuthenticateAuthorizeUser(userName, gameTypeSet);
+        localClientStateAutomaton.authorizeUser(userName, gameTypeSet);
     }
 
     @Override
