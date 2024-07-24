@@ -56,8 +56,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         return userName;
     }
 
-    // ToDo: Переименовать в авторизовать
-    void setUserName_(String userName, Set<GameType> gameTypeSet) {
+    void authorizeUser_(String userName, Set<GameType> gameTypeSet) {
         if (userName == null || userName.isEmpty()) {
             setCurrentState(clientState01NoConnect);
             return;
