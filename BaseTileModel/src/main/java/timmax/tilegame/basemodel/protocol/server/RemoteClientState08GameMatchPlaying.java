@@ -51,8 +51,7 @@ public class RemoteClientState08GameMatchPlaying<ClientId> extends ClientState08
     public void reauthorizeUser() {
         String userName = getClientStateAutomaton().getUserName();
         Set<GameType> gameTypeSet = getClientStateAutomaton().getGameTypeSet();
-        super.identifyAuthenticateAuthorizeUser(userName, gameTypeSet);
-        getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer21IdentifyAuthenticateAuthorizeUser(userName, gameTypeSet));
+        identifyAuthenticateAuthorizeUser(userName, gameTypeSet);
     }
 
     // ToDo: Устранить дублирование кода.

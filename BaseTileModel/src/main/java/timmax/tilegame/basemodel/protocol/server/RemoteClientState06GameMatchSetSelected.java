@@ -47,8 +47,7 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
     public void reauthorizeUser() {
         String userName = getClientStateAutomaton().getUserName();
         Set<GameType> gameTypeSet = getClientStateAutomaton().getGameTypeSet();
-        super.identifyAuthenticateAuthorizeUser(userName, gameTypeSet);
-        getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer21IdentifyAuthenticateAuthorizeUser(userName, gameTypeSet));
+        identifyAuthenticateAuthorizeUser(userName, gameTypeSet);
     }
 
     // ---- 6 Конкретная партия игры

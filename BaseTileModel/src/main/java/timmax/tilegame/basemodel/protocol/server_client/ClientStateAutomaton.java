@@ -153,7 +153,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     @Override
     public void resetGameType() {
         currenState.resetGameType();
-        // ToDo: Вероятно переместить вызов этого метода в forgetGameMatchX_
+        // ToDo: Вероятно переместить вызов этого метода в resetGameType_
         setCurrentState(clientState06GameMatchSetSelected);
     }
 

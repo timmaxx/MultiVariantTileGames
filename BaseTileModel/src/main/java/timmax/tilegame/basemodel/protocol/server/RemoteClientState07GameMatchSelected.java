@@ -53,8 +53,7 @@ public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState0
     public void reauthorizeUser() {
         String userName = getClientStateAutomaton().getUserName();
         Set<GameType> gameTypeSet = getClientStateAutomaton().getGameTypeSet();
-        super.identifyAuthenticateAuthorizeUser(userName, gameTypeSet);
-        getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer21IdentifyAuthenticateAuthorizeUser(userName, gameTypeSet));
+        identifyAuthenticateAuthorizeUser(userName, gameTypeSet);
     }
 
     // class ClientState07GameMatchSelected
