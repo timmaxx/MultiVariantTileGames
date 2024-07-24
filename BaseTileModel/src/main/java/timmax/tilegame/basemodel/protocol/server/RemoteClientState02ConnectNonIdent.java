@@ -15,6 +15,7 @@ public class RemoteClientState02ConnectNonIdent<ClientId> extends ClientState02C
 
     // class ClientState02ConnectNonIdent
     // ---- 2 (Пользователь)
+    // ToDo: Также см. копия кода в RemoteClientState04, 06, 07, 08.
     @Override
     public void authorizeUser(String userName, Set<GameType> gameTypeSet) {
         super.authorizeUser(userName, gameTypeSet);

@@ -28,12 +28,6 @@ public abstract class ClientState06GameMatchSetSelected<GameMatchX extends IGame
     }
 
     @Override
-    public void resetGameType() {
-        // ToDo: Должен быть вызов getClientStateAutomaton().resetGameType_();
-        getClientStateAutomaton().resetGameType();
-    }
-
-    @Override
     public Set<GameMatchX> getGameMatchXSet() {
         return getClientStateAutomaton().getGameMatchXSet_();
     }

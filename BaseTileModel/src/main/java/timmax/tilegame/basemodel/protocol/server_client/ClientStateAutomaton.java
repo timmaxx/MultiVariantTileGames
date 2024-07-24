@@ -56,14 +56,15 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         return userName;
     }
 
+    // ToDo: Переименовать в авторизовать
     void setUserName_(String userName, Set<GameType> gameTypeSet) {
         if (userName == null || userName.isEmpty()) {
             setCurrentState(clientState01NoConnect);
             return;
         }
-
         this.userName = userName;
         this.gameTypeSet = gameTypeSet;
+
         setCurrentState(clientState04GameTypeSetSelected);
     }
 
@@ -153,8 +154,6 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     @Override
     public void resetGameType() {
         currenState.resetGameType();
-        // ToDo: Вероятно переместить вызов этого метода в resetGameType_
-        setCurrentState(clientState06GameMatchSetSelected);
     }
 
     @Override

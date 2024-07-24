@@ -50,12 +50,35 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
         authorizeUser(userName, gameTypeSet);
     }
 
-    // ---- 6 Конкретная партия игры
+    // ToDo: Устранить дублирование кода.
+    //       Этот класс является наследником ClientState06GameMatchSetSelected,
+    //       но код который хотелось-бы иметь как void setGameType(),
+    //       находится в RemoteClientState04GameTypeSetSelected.
+    //       Поэтому пришлось сделать здесь точную копию.
+    //       - Копия метода из RemoteClientState04GameTypeSetSelected:
     @Override
-    public void resetGameType() {
-        GameType gameType = getClientStateAutomaton().getGameType();
-        Set<IGameMatch> gameMatchXSet = getClientStateAutomaton().getGameMatchXSet();
+    public void setGameType(GameType gameType, Set<IGameMatch> gameMatchXSet) {
+        if (gameType == null) {
+            getClientStateAutomaton().sendEventOfServer(
+                    clientId,
+                    new EventOfServer11ConnectWithoutUserIdentify()
+            );
+            return;
+        }
+
+        IGameMatch iGameMatch = null;
+        Constructor<? extends IGameMatch> GameMatchConstructor = gameType.getGameMatchConstructor();
+
+        try {
+            iGameMatch = GameMatchConstructor.newInstance(getClientStateAutomaton(), clientId);
+        } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
+            logger.error("Server cannot create object of model for {} with GameMatchConstructor with specific parameters.", gameType, e);
+            System.exit(1);
+        }
+        gameMatchXSet.add(iGameMatch);
+
         super.setGameType(gameType, gameMatchXSet);
+
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
                 new EventOfServer41SetGameType(
@@ -68,6 +91,17 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
         );
     }
 
+    // ---- 6 Конкретная партия игры
+    // ToDo: Также см. копия кода в RemoteClientState07, 08.
+    @Override
+    public void resetGameType() {
+        GameType gameType = getClientStateAutomaton().getGameType();
+        Set<IGameMatch> gameMatchXSet = getClientStateAutomaton().getGameMatchXSet();
+
+        setGameType(gameType, gameMatchXSet);
+    }
+
+    // ToDo: Также см. копия кода в RemoteClientState07, 08.
     @Override
     public void setGameMatchX(IGameMatch gameMatchX) {
         super.setGameMatchX(gameMatchX);

@@ -28,6 +28,7 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
     }
 
     // ---- 4 (Конкретный тип игры)
+    // ToDo: Также см. копия кода в RemoteClientState06, 07, 08.
     @Override
     public void setGameType(GameType gameType, Set<IGameMatch> gameMatchXSet) {
         if (gameType == null) {
