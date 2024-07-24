@@ -41,7 +41,7 @@ public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState0
         super.openConnectWithoutUserIdentify();
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
-                new EventOfServer11ConnectWithoutUserIdentify()
+                new EventOfServer11OpenConnectWithoutUserIdentify()
         );
     }
 
@@ -69,7 +69,7 @@ public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState0
         if (gameType == null) {
             getClientStateAutomaton().sendEventOfServer(
                     clientId,
-                    new EventOfServer11ConnectWithoutUserIdentify()
+                    new EventOfServer11OpenConnectWithoutUserIdentify()
             );
             return;
         }
