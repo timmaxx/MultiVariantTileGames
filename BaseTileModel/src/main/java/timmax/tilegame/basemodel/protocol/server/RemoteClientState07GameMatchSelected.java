@@ -3,8 +3,10 @@ package timmax.tilegame.basemodel.protocol.server;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server_client.ClientState07GameMatchSelected;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
+import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState07GameMatchSelected<IGameMatch> {
     private final ClientId clientId;
@@ -58,11 +60,36 @@ public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState0
     // class ClientState07GameMatchSelected
     // ---- 6 Конкретная партия игры
     @Override
-    public void forgetGameMatchX() {
-        super.forgetGameMatchX();
+    public void setGameMatchX(IGameMatch gameMatchX) {
+        super.setGameMatchX(gameMatchX);
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
-                new EventOfServer70ForgetGameMatch()
+                new EventOfServer61SetGameMatch(
+                        new GameMatchId(gameMatchX.toString())
+                )
+        );
+    }
+
+    // ToDo: Устранить дублирование кода.
+    //       Этот класс является наследником ClientState07GameMatchSelected,
+    //       но код который хотелось-бы иметь как void resetGameType(),
+    //       находится в RemoteClientState06GameMatchSetSelected.
+    //       Поэтому пришлось сделать здесь точную копию.
+    //       - Копия метода из RemoteClientState06GameMatchSetSelected:
+    @Override
+    public void resetGameType() {
+        GameType gameType = getClientStateAutomaton().getGameType();
+        Set<IGameMatch> gameMatchXSet = getClientStateAutomaton().getGameMatchXSet();
+        super.setGameType(gameType, gameMatchXSet);
+        getClientStateAutomaton().sendEventOfServer(
+                clientId,
+                new EventOfServer41SetGameType(
+                        gameType.getGameTypeName(),
+                        gameMatchXSet
+                                .stream()
+                                .map(x -> new GameMatchId(x.toString()))
+                                .collect(Collectors.toSet())
+                )
         );
     }
 

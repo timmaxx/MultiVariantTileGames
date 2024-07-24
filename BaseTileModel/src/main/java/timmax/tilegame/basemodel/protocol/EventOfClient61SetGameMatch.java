@@ -23,7 +23,7 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
     @Override
     public void executeOnServer(RemoteClientStateAutomaton remoteClientStateAutomaton) {
         if (gameMatchId.isNullOrEmpty()) {
-            remoteClientStateAutomaton.forgetGameMatchX();
+            remoteClientStateAutomaton.resetGameType();
             return;
         }
 
@@ -39,7 +39,7 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
 
         if (iGameMatch == null) {
             logger.error("There is not match '" + gameMatchId.getId() + "'");
-            remoteClientStateAutomaton.forgetGameMatchX();
+            remoteClientStateAutomaton.resetGameType();
             return;
         }
 

@@ -35,7 +35,7 @@ public class Pane06GameMatchSetSelected extends AbstractConnectStatePane {
         prevStateButton.setFocusTraversable(false);
         prevStateButton.setOnAction(event -> {
             disableAllControls();
-            transportOfClient.forgetGameMatch();
+            transportOfClient.resetGameType();
         });
 
         // 1

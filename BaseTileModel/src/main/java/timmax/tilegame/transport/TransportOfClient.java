@@ -27,19 +27,21 @@ public interface TransportOfClient {
     void connect();                                                             //  1 -> 2  void changeStateTo02ConnectNonIdent();
     
     // 02ConnectNonIdent
+    // ToDo: Переименовать в connectWithoutUserIdentify
     void openConnectWithoutUserIdentify();          /* logOff */                //  2 -> 2  void forgetUser();
     void close();                                                               //  2 -> 1  void changeStateTo01NoConnect();
     void identifyAuthenticateAuthorizeUser(String userName, String password); /* logIn */                 //  2 -> 4  void setUser(String userName, Set<GameType> gameTypeSet);
 
     // 04GameTypeSetSelected
+    // ToDo: Переименовать в reauthorizeUser
     void resetUser();                                                           //  4 -> 4
     void setGameType(GameType gameType);                                        //  4 -> 5  void setGameType(GameType gameType, Set<GameMatchX> gameMatchXSet);
 
     // 06GameMatchSetSelected
+    void resetGameType();                                                       //  6 -> 6  void forgetGameMatchX();
     void setGameMatch(GameMatchId gameMatchId);                                 //  6 -> 7  void setGameMatchX(GameMatchX gameMatchX);
 
     // 07GameMatchSelected
-    void forgetGameMatch();                                                     //  7 -> 6  void forgetGameMatchX();
     void setGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue);     //  7 -> 8  void setGameMatchPlaying(Boolean gameIsPlaying);
 
     // 08GameMatchIsPlaying

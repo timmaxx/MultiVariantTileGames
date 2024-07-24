@@ -12,11 +12,6 @@ public abstract class ClientState07GameMatchSelected<GameMatchX extends IGameMat
     }
 
     @Override
-    public void forgetGameMatchX() {
-        getClientStateAutomaton().setGameMatchX_(null);
-    }
-
-    @Override
     public void setGameMatchPlaying(Boolean gameIsPlaying) {
         getClientStateAutomaton().setGameIsPlaying_(gameIsPlaying);
     }

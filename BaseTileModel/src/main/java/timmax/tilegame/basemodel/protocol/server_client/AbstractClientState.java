@@ -93,6 +93,11 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     }
 
     @Override
+    public void resetGameType() {
+        wrongCallInStateAutomaton();
+    }
+
+    @Override
     public Set<GameMatchX> getGameMatchXSet() {
         wrongCallInStateAutomaton();
         return null;
@@ -108,11 +113,6 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     public GameMatchX getGameMatchX() {
         wrongCallInStateAutomaton();
         return null;
-    }
-
-    @Override
-    public void forgetGameMatchX() {
-        wrongCallInStateAutomaton();
     }
 
     @Override

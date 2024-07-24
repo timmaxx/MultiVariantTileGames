@@ -97,6 +97,11 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         this.gameIsPlaying = gameIsPlaying;
     }
 
+    // ToDo: public?
+    public GameType getGameType() {
+        return gameType;
+    }
+
     @Override
     public void openConnectWithoutUserIdentify() {
         currenState.openConnectWithoutUserIdentify();
@@ -146,6 +151,13 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
     // 6 interface IClientState06GameMatchSetSelected
     @Override
+    public void resetGameType() {
+        currenState.resetGameType();
+        // ToDo: Вероятно переместить вызов этого метода в forgetGameMatchX_
+        setCurrentState(clientState06GameMatchSetSelected);
+    }
+
+    @Override
     public Set<GameMatchX> getGameMatchXSet() {
         return currenState.getGameMatchXSet();
     }
@@ -161,13 +173,6 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     @Override
     public GameMatchX getGameMatchX() {
         return currenState.getGameMatchX();
-    }
-
-    @Override
-    public void forgetGameMatchX() {
-        currenState.forgetGameMatchX();
-        // ToDo: Вероятно переместить вызов этого метода в forgetGameMatchX_
-        setCurrentState(clientState06GameMatchSetSelected);
     }
 
     @Override
