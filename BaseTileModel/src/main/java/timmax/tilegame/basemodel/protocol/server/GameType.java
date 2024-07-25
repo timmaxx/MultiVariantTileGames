@@ -44,7 +44,7 @@ public abstract class GameType implements IGameType, Externalizable {
     //       используется только в конструкторе GameClientPaneJfx.
     //       И там идёт цикл по этому множеству и генерируется множество ViewJfx.
     private Map<String, Class<? extends View>> viewName_ViewClassMap;
-    protected Map<String, ParamOfModelDescription> paramName_paramModelDescriptionMap;
+    protected ParamName_paramModelDescriptionMap paramName_paramModelDescriptionMap;
 
     public GameType() {
         super();
@@ -72,16 +72,17 @@ public abstract class GameType implements IGameType, Externalizable {
         //       при логировании.
         // ToDo: Одним из типов параметров указан Object.class. Сделал так, т.к. не знаю как указать параметризированный тип.
         gameMatchConstructor = gameMatchClass.getConstructor(RemoteClientStateAutomaton.class, Object.class);
+
+        paramName_paramModelDescriptionMap = new ParamName_paramModelDescriptionMap();
     }
 
+    // ToDo: Отказаться от прямого доступа к viewName_ViewClassMap из вне класса.
     public Map<String, Class<? extends View>> getViewName_ViewClassMap() {
         return viewName_ViewClassMap;
     }
 
-    public Map<String, ParamOfModelDescription> getParamName_paramModelDescriptionMap() {
-        if (paramName_paramModelDescriptionMap == null) {
-            paramName_paramModelDescriptionMap = Map.of();
-        }
+    // ToDo: Отказаться от прямого доступа к paramName_paramModelDescriptionMap из вне класса.
+    public final ParamName_paramModelDescriptionMap getParamName_paramModelDescriptionMap() {
         return paramName_paramModelDescriptionMap;
     }
 
@@ -152,6 +153,6 @@ public abstract class GameType implements IGameType, Externalizable {
         // ToDo: Избавиться от "Warning:(153, 34) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
         viewName_ViewClassMap = (Map<String, Class<? extends View>>) in.readObject();
         // ToDo: Избавиться от "Warning:(155, 41) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription>'"
-        paramName_paramModelDescriptionMap = (Map<String, ParamOfModelDescription>) in.readObject();
+        paramName_paramModelDescriptionMap = (ParamName_paramModelDescriptionMap) in.readObject();
     }
 }
