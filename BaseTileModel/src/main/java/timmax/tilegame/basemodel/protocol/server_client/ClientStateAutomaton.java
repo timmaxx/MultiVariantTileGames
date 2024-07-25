@@ -89,13 +89,12 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         setCurrentState(clientState08GameMatchPlaying);
     }
 
-    // геттерам тоже достаточно быть private-package, но есть исключение:
-    String getUserName() {
+    // Геттерам, имеющим прямой доступ к полям(..._), тоже достаточно быть private-package:
+    String getUserName_() {
         return userName;
     }
 
-    // ToDo: Почему public, а не private-package?
-    public GameType getGameType() {
+    GameType getGameType_() {
         return gameType;
     }
 

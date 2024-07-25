@@ -86,20 +86,6 @@ public class RemoteClientState08GameMatchPlaying<ClientId> extends ClientState08
 
     // ToDo: Устранить дублирование кода.
     //       Этот класс является наследником ClientState08GameMatchPlaying,
-    //       но код который хотелось-бы иметь как void resetGameType(),
-    //       находится в RemoteClientState06GameMatchSetSelected.
-    //       Поэтому пришлось сделать здесь точную копию.
-    //       - Копия метода из RemoteClientState06GameMatchSetSelected:
-    @Override
-    public void resetGameType() {
-        GameType gameType = getClientStateAutomaton().getGameType();
-        Set<IGameMatch> gameMatchXSet = getClientStateAutomaton().getGameMatchXSet();
-
-        setGameType(gameType, gameMatchXSet);
-    }
-
-    // ToDo: Устранить дублирование кода.
-    //       Этот класс является наследником ClientState08GameMatchPlaying,
     //       но код который хотелось-бы иметь как void setGameMatchX(),
     //       находится в RemoteClientState06GameMatchSetSelected.
     //       Поэтому пришлось сделать здесь точную копию.
