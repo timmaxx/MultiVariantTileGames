@@ -46,7 +46,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         return currenState;
     }
 
-    void setCurrentState(IClientState99<GameMatchX> currentState) {
+    private void setCurrentState(IClientState99<GameMatchX> currentState) {
         this.currenState.doBeforeTurnOff();
         this.currenState = currentState;
         currentState.doAfterTurnOn();
@@ -55,6 +55,14 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     // Все методы с именами такими-же, как есть public, но:
     // 1. они private-package
     // 2. последняя строка делает изменение состояния.
+    void openConnectWithoutUserIdentify_() {
+        setCurrentState(clientState02ConnectNonIdent);
+    }
+
+    void closeConnect_() {
+        setCurrentState(clientState01NoConnect);
+    }
+
     void authorizeUser_(String userName, Set<GameType> gameTypeSet) {
         if (userName == null || userName.isEmpty()) {
             setCurrentState(clientState01NoConnect);
