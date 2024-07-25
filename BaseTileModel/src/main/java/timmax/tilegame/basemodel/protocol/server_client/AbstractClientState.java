@@ -3,9 +3,7 @@ package timmax.tilegame.basemodel.protocol.server_client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
 
-import java.util.Map;
 import java.util.Set;
 
 public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implements IClientState99<GameMatchX> {
@@ -73,12 +71,6 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     }
 
     // interface IClientState06GameMatchSetSelected
-    @Override
-    public Map<String, ParamOfModelDescription> getParamName_paramModelDescriptionMap() {
-        wrongCallInStateAutomaton();
-        return null;
-    }
-
     @Override
     public void resetGameType() {
         wrongCallInStateAutomaton();

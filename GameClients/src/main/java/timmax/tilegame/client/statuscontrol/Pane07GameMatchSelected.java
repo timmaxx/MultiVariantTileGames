@@ -89,6 +89,9 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
         nextStatePane.getChildren().clear();
         List<Region> regionList = new ArrayList<>();
         int y = LAYOUT_Y_OF_FIRST_ROW;
+        // ToDo: Отказаться от прямого доступа к getParamName_paramModelDescriptionMap().
+        //       Здесь используется
+        //       LocalClientStateAutomaton :: Map<String, ParamOfModelDescription> getParamName_paramModelDescriptionMap()
         for (String paramName : transportOfClient.getLocalClientStateAutomaton().getParamName_paramModelDescriptionMap().keySet()) {
             Label paramNameLabel = new Label(paramName);
             paramNameLabel.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);

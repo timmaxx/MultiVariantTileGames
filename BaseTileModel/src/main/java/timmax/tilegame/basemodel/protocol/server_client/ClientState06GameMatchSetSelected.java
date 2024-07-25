@@ -1,9 +1,7 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
 
-import java.util.Map;
 import java.util.Set;
 
 public abstract class ClientState06GameMatchSetSelected<GameMatchX extends IGameMatchX> extends ClientState04GameTypeSetSelected<GameMatchX> {
@@ -12,11 +10,6 @@ public abstract class ClientState06GameMatchSetSelected<GameMatchX extends IGame
     }
 
     // interface IClientState06GameMatchSetSelected
-    @Override
-    public Map<String, ParamOfModelDescription> getParamName_paramModelDescriptionMap() {
-        return getClientStateAutomaton().getParamName_paramModelDescriptionMap();
-    }
-
     @Override
     public void resetGameType() {
         GameType gameType = getClientStateAutomaton().getGameType_();

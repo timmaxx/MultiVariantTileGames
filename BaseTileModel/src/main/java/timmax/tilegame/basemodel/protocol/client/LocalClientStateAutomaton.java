@@ -2,6 +2,7 @@ package timmax.tilegame.basemodel.protocol.client;
 
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEventHashSet;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
+import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
 import timmax.tilegame.basemodel.protocol.server_client.IFabricOfClientStates;
@@ -39,11 +40,17 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchId>
     }
 
     // ToDo: Вместо прямого доступа к getViewName_ViewClassMap(), лучше что-бы нужное действие
-    //       (см. класс GameClientPaneJfx), выполнялось в мапе viewName_ViewClassMap.
-    //       Метод используется в конструкторе GameClientPaneJfx,
-    //       поэтому пришлось сделать его public. Но это не хорошо!
+    //       (см. конструктор класса GameClientPaneJfx), выполнялось в мапе viewName_ViewClassMap.
+    //       Поэтому пришлось сделать его public. Но это не хорошо!
     public Map<String, Class<? extends View>> getViewName_ViewClassMap() {
         return getGameType_().getViewName_ViewClassMap();
+    }
+
+    // ToDo: Вместо прямого доступа к getParamName_paramModelDescriptionMap(), лучше что-бы нужное действие
+    //       (см. Pane07GameMatchSelected :: void updateOnSetGameMatch()), выполнялось в мапе paramName_paramModelDescriptionMap.
+    //       Поэтому пришлось сделать его public. Но это не хорошо!
+    public Map<String, ParamOfModelDescription> getParamName_paramModelDescriptionMap() {
+        return getGameType_().getParamName_paramModelDescriptionMap();
     }
 
     @Override
