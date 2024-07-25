@@ -74,12 +74,6 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
 
     // interface IClientState06GameMatchSetSelected
     @Override
-    public String getGameTypeName() {
-        wrongCallInStateAutomaton();
-        return null;
-    }
-
-    @Override
     public Map<String, ParamOfModelDescription> getParamName_paramModelDescriptionMap() {
         wrongCallInStateAutomaton();
         return null;

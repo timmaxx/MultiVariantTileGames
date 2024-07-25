@@ -147,11 +147,6 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     }
 
     @Override
-    public String getGameTypeName() {
-        return gameType.getGameTypeName();
-    }
-
-    @Override
     public Map<String, ParamOfModelDescription> getParamName_paramModelDescriptionMap() {
         return gameType.getParamName_paramModelDescriptionMap();
     }

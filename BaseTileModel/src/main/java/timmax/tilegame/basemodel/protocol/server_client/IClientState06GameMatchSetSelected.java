@@ -10,7 +10,6 @@ public interface IClientState06GameMatchSetSelected<GameMatchX extends IGameMatc
     // Нумерация приведена соответствующая классам Pane0Х... пакета timmax.tilegame.client.statuscontrol:
 
     // ---- 6 (MatchSetSelected)
-    String getGameTypeName();
     Map<String, ParamOfModelDescription> getParamName_paramModelDescriptionMap();
 
     void resetGameType();

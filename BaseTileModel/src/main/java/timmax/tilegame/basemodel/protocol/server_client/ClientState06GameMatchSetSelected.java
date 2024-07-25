@@ -13,11 +13,6 @@ public abstract class ClientState06GameMatchSetSelected<GameMatchX extends IGame
 
     // interface IClientState06GameMatchSetSelected
     @Override
-    public String getGameTypeName() {
-        return getClientStateAutomaton().getGameTypeName();
-    }
-
-    @Override
     public Map<String, ParamOfModelDescription> getParamName_paramModelDescriptionMap() {
         return getClientStateAutomaton().getParamName_paramModelDescriptionMap();
     }
