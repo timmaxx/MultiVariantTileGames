@@ -87,6 +87,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
     void setGameMatchX_(GameMatchX gameMatchX) {
         this.gameMatchX = gameMatchX;
+        setCurrentState(clientState07GameMatchSelected);
     }
 
     Boolean getGameIsPlaying_() {
@@ -163,8 +164,6 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     @Override
     public void setGameMatchX(GameMatchX gameMatchX) {
         currenState.setGameMatchX(gameMatchX);
-        // ToDo: Вероятно переместить вызов этого метода в setGameMatchX_
-        setCurrentState(clientState07GameMatchSelected);
     }
 
     // 7 interface IClientState07GameMatchSelected
