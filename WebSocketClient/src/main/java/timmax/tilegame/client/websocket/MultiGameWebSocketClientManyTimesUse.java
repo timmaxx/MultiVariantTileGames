@@ -105,12 +105,12 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
         transportOfClient.setGameMatchPlaying(mapOfParamsOfModelValue);
     }
 
-    // 8
-    // ToDo: удалить или переименовать.
     @Override
-    public void forgetGameMatchPlaying() {
-        transportOfClient.forgetGameMatchPlaying();
+    public void resetGameMatch() {
+        transportOfClient.resetGameMatch();
     }
+
+    // 8
 
     // class Object
     @Override

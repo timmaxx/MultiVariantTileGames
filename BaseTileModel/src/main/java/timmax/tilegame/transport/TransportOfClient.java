@@ -29,7 +29,7 @@ public interface TransportOfClient {
     // 02ConnectNonIdent
     void connectWithoutUserIdentify();          /* logOff */                    //  2 -> 2  void forgetUser();
     void close();                                                               //  2 -> 1  void changeStateTo01NoConnect();
-    void identifyAuthenticateAuthorizeUser(String userName, String password); /* logIn */                 //  2 -> 4  void setUser(String userName, Set<GameType> gameTypeSet);
+    void identifyAuthenticateAuthorizeUser(String userName, String password); /* logIn */   //  2 -> 4  void setUser(String userName, Set<GameType> gameTypeSet);
 
     // 04GameTypeSetSelected
     void reauthorizeUser();                                                     //  4 -> 4
@@ -40,8 +40,8 @@ public interface TransportOfClient {
     void setGameMatch(GameMatchId gameMatchId);                                 //  6 -> 7  void setGameMatchX(GameMatchX gameMatchX);
 
     // 07GameMatchSelected
+    void resetGameMatch();                                                      //  7 -> 7  void forgetGameMatchPlaying();
     void setGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue);     //  7 -> 8  void setGameMatchPlaying(Boolean gameIsPlaying);
 
     // 08GameMatchIsPlaying
-    void forgetGameMatchPlaying();                                              //  8 -> 7  void forgetGameMatchPlaying();
 }
