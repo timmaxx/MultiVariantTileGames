@@ -10,9 +10,4 @@ public abstract class ClientState08GameMatchPlaying<GameMatchX extends IGameMatc
     public Boolean getGameIsPlaying() {
         return getClientStateAutomaton().getGameIsPlaying_();
     }
-
-    @Override
-    public void forgetGameMatchPlaying() {
-        getClientStateAutomaton().setGameIsPlaying_(null);
-    }
 }

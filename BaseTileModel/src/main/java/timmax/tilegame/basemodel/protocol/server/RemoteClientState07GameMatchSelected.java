@@ -133,6 +133,12 @@ public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState0
 
     // ---- 7
     @Override
+    public void resetGameMatchX() {
+        IGameMatch gameMatchX = getClientStateAutomaton().getGameMatchX();
+        setGameMatchX(gameMatchX);
+    }
+
+    @Override
     public void setGameMatchPlaying(Boolean gameIsPlaying) {
         super.setGameMatchPlaying(gameIsPlaying);
         getClientStateAutomaton().sendEventOfServer(

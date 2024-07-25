@@ -169,6 +169,11 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
     // 7 interface IClientState07GameMatchSelected
     @Override
+    public void resetGameMatchX() {
+        currenState.resetGameMatchX();
+    }
+
+    @Override
     public GameMatchX getGameMatchX() {
         return currenState.getGameMatchX();
     }
@@ -182,13 +187,6 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     @Override
     public Boolean getGameIsPlaying() {
         return currenState.getGameIsPlaying();
-    }
-
-    @Override
-    public void forgetGameMatchPlaying() {
-        currenState.forgetGameMatchPlaying();
-        // ToDo: Вероятно переместить вызов этого метода в forgetGameMatchPlaying_
-        setCurrentState(clientState07GameMatchSelected);
     }
 
     // class Object

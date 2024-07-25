@@ -149,6 +149,6 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     // ToDo: Переименовать в resetGameMatchPlaying
     public void forgetGameMatchPlaying() {
         logger.debug("forgetGameMatchPlaying()");
-        sendEventOfClient(new EventOfClient80ForgetGameMatchPlaying());
+        sendEventOfClient(new EventOfClient72ResetGameMatchPlaying());
     }
 }

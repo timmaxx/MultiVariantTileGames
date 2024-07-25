@@ -110,6 +110,11 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
 
     // interface IClientState07GameMatchSelected
     @Override
+    public void resetGameMatchX() {
+        wrongCallInStateAutomaton();
+    }
+
+    @Override
     public GameMatchX getGameMatchX() {
         wrongCallInStateAutomaton();
         return null;
@@ -125,10 +130,5 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     public Boolean getGameIsPlaying() {
         wrongCallInStateAutomaton();
         return false;
-    }
-
-    @Override
-    public void forgetGameMatchPlaying() {
-        wrongCallInStateAutomaton();
     }
 }

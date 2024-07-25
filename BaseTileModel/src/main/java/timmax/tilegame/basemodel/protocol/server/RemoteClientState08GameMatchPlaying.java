@@ -131,12 +131,9 @@ public class RemoteClientState08GameMatchPlaying<ClientId> extends ClientState08
     // class ClientState08GameMatchPlaying
     // ---- 7
     @Override
-    public void forgetGameMatchPlaying() {
-        super.forgetGameMatchPlaying();
-        getClientStateAutomaton().sendEventOfServer(
-                clientId,
-                new EventOfServer80ForgetGameMatchPlaying()
-        );
+    public void resetGameMatchX() {
+        IGameMatch gameMatchX = getClientStateAutomaton().getGameMatchX();
+        setGameMatchX(gameMatchX);
     }
 
     // class AbstractClientState
