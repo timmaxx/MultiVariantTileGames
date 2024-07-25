@@ -89,9 +89,8 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         setCurrentState(clientState08GameMatchPlaying);
     }
 
-    // геттерам тоже достаточно быть private-package, но есть пару исключений:
-    // ToDo: Почему public, а не private-package?
-    public String getUserName() {
+    // геттерам тоже достаточно быть private-package, но есть исключение:
+    String getUserName() {
         return userName;
     }
 
