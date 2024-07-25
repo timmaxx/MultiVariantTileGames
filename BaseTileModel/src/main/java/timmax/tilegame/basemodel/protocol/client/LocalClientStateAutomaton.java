@@ -38,6 +38,14 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchId>
         observerOnAbstractEventHashSet.add(observerOnAbstractEvent);
     }
 
+    // ToDo: Вместо прямого доступа к getViewName_ViewClassMap(), лучше что-бы нужное действие
+    //       (см. класс GameClientPaneJfx), выполнялось в мапе viewName_ViewClassMap.
+    //       Метод используется в конструкторе GameClientPaneJfx,
+    //       поэтому пришлось сделать его public. Но это не хорошо!
+    public Map<String, Class<? extends View>> getViewName_ViewClassMap() {
+        return getGameType_().getViewName_ViewClassMap();
+    }
+
     @Override
     public void updateOnClose() {
         observerOnAbstractEventHashSet.updateOnClose();
