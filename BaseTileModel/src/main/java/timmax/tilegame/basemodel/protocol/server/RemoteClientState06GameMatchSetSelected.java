@@ -45,13 +45,6 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
         );
     }
 
-    @Override
-    public void reauthorizeUser() {
-        String userName = getClientStateAutomaton().getUserName();
-        Set<GameType> gameTypeSet = getClientStateAutomaton().getGameTypeSet();
-        authorizeUser(userName, gameTypeSet);
-    }
-
     // ToDo: Устранить дублирование кода.
     //       Этот класс является наследником ClientState06GameMatchSetSelected,
     //       но код который хотелось-бы иметь как void setGameType(),

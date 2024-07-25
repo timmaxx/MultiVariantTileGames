@@ -47,19 +47,6 @@ public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState0
 
     // ToDo: Устранить дублирование кода.
     //       Этот класс является наследником ClientState07GameMatchSelected,
-    //       но код который хотелось-бы иметь как void resetUser(),
-    //       находится в RemoteClientState06GameMatchSetSelected.
-    //       Поэтому пришлось сделать здесь точную копию.
-    //       - Копия метода из RemoteClientState06GameMatchSetSelected:
-    @Override
-    public void reauthorizeUser() {
-        String userName = getClientStateAutomaton().getUserName();
-        Set<GameType> gameTypeSet = getClientStateAutomaton().getGameTypeSet();
-        authorizeUser(userName, gameTypeSet);
-    }
-
-    // ToDo: Устранить дублирование кода.
-    //       Этот класс является наследником ClientState07GameMatchSelected,
     //       но код который хотелось-бы иметь как void setGameType(),
     //       находится в RemoteClientState04GameTypeSetSelected.
     //       Поэтому пришлось сделать здесь точную копию.
