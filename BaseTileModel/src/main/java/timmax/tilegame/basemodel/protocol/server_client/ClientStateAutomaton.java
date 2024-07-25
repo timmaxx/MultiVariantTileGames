@@ -2,7 +2,6 @@ package timmax.tilegame.basemodel.protocol.server_client;
 
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
-import timmax.tilegame.baseview.View;
 
 import java.util.Map;
 import java.util.Set;
@@ -90,7 +89,10 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         return userName;
     }
 
-    GameType getGameType_() {
+    // ToDo: Может обойтись без protected?
+    //       Используется как protected в
+    //       LocalClientStateAutomaton :: Map<String, Class<? extends View>> getViewName_ViewClassMap()
+    protected GameType getGameType_() {
         return gameType;
     }
 
@@ -142,11 +144,6 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     @Override
     public void setGameType(GameType gameType, Set<GameMatchX> gameMatchXSet) {
         currenState.setGameType(gameType, gameMatchXSet);
-    }
-
-    @Override
-    public Map<String, Class<? extends View>> getViewName_ViewClassMap() {
-        return gameType.getViewName_ViewClassMap();
     }
 
     @Override

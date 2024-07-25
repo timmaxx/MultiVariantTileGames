@@ -1,7 +1,6 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
 import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
-import timmax.tilegame.baseview.View;
 
 import java.util.Map;
 import java.util.Set;
@@ -11,7 +10,6 @@ public interface IClientState06GameMatchSetSelected<GameMatchX extends IGameMatc
     // Нумерация приведена соответствующая классам Pane0Х... пакета timmax.tilegame.client.statuscontrol:
 
     // ---- 6 (MatchSetSelected)
-    Map<String, Class<? extends View>> getViewName_ViewClassMap();
     String getGameTypeName();
     Map<String, ParamOfModelDescription> getParamName_paramModelDescriptionMap();
 

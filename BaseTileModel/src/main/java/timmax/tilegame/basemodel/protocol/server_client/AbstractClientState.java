@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
-import timmax.tilegame.baseview.View;
 
 import java.util.Map;
 import java.util.Set;
@@ -74,12 +73,6 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     }
 
     // interface IClientState06GameMatchSetSelected
-    @Override
-    public Map<String, Class<? extends View>> getViewName_ViewClassMap() {
-        wrongCallInStateAutomaton();
-        return null;
-    }
-
     @Override
     public String getGameTypeName() {
         wrongCallInStateAutomaton();
