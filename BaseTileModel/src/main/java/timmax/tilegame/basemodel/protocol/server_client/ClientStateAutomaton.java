@@ -52,10 +52,9 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         currentState.doAfterTurnOn();
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
+    // Все методы с именами такими-же, как есть public, но:
+    // 1. они private-package
+    // 2. последняя строка делает изменение состояния.
     void authorizeUser_(String userName, Set<GameType> gameTypeSet) {
         if (userName == null || userName.isEmpty()) {
             setCurrentState(clientState01NoConnect);
@@ -63,18 +62,38 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         }
         this.userName = userName;
         this.gameTypeSet = gameTypeSet;
-
         setCurrentState(clientState04GameTypeSetSelected);
-    }
-
-    Set<GameType> getGameTypeSet_() {
-        return gameTypeSet;
     }
 
     void setGameType_(GameType gameType, Set<GameMatchX> gameMatchXSet) {
         this.gameType = gameType;
         this.gameMatchXSet = gameMatchXSet;
         setCurrentState(clientState06GameMatchSetSelected);
+    }
+
+    void setGameMatchX_(GameMatchX gameMatchX) {
+        this.gameMatchX = gameMatchX;
+        setCurrentState(clientState07GameMatchSelected);
+    }
+
+    void setGameIsPlaying_(Boolean gameIsPlaying) {
+        this.gameIsPlaying = gameIsPlaying;
+        setCurrentState(clientState08GameMatchPlaying);
+    }
+
+    // геттерам тоже достаточно быть private-package, но есть пару исключений:
+    // ToDo: Почему public, а не private-package?
+    public String getUserName() {
+        return userName;
+    }
+
+    // ToDo: Почему public, а не private-package?
+    public GameType getGameType() {
+        return gameType;
+    }
+
+    Set<GameType> getGameTypeSet_() {
+        return gameTypeSet;
     }
 
     Set<GameMatchX> getGameMatchXSet_() {
@@ -85,31 +104,18 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         return gameMatchX;
     }
 
-    void setGameMatchX_(GameMatchX gameMatchX) {
-        this.gameMatchX = gameMatchX;
-        setCurrentState(clientState07GameMatchSelected);
-    }
-
     Boolean getGameIsPlaying_() {
         return gameIsPlaying;
     }
 
-    void setGameIsPlaying_(Boolean gameIsPlaying) {
-        this.gameIsPlaying = gameIsPlaying;
-        setCurrentState(clientState08GameMatchPlaying);
-    }
-
-    // ToDo: public?
-    public GameType getGameType() {
-        return gameType;
-    }
-
-    // 2 interface IClientState02ConnectNonIdent
+    // Публичные методы класса, вызов которых будет в т.ч. приводить к смене состояния.
+    // 1 interface IClientState01NoConnect
     @Override
     public void openConnectWithoutUserIdentify() {
         currenState.openConnectWithoutUserIdentify();
     }
 
+    // 2 interface IClientState02ConnectNonIdent
     @Override
     public void closeConnect() {
         currenState.closeConnect();
