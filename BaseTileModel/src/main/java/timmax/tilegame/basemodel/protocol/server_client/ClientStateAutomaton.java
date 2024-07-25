@@ -96,6 +96,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
     void setGameIsPlaying_(Boolean gameIsPlaying) {
         this.gameIsPlaying = gameIsPlaying;
+        setCurrentState(clientState08GameMatchPlaying);
     }
 
     // ToDo: public?
@@ -175,8 +176,6 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     @Override
     public void setGameMatchPlaying(Boolean gameIsPlaying) {
         currenState.setGameMatchPlaying(gameIsPlaying);
-        // ToDo: Вероятно переместить вызов этого метода в setGameMatchPlaying_
-        setCurrentState(clientState08GameMatchPlaying);
     }
 
     // 8 interface IClientState08GameMatchPlaying
