@@ -23,7 +23,7 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     }
 
     private void wrongCallInStateAutomaton() {
-        logger.error("Current state is '{}'", getClientStateAutomaton().getCurrentState());
+        logger.error("Current state is '{}'", getClientStateAutomaton().toString());
         logger.error("  In this state you cannot use method '{}()'!",
                 Thread.currentThread().getStackTrace()[3].getMethodName()
         );

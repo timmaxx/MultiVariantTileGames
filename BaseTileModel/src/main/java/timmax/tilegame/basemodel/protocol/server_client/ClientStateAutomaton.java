@@ -42,10 +42,6 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         currenState = clientState01NoConnect;
     }
 
-    protected IClientState99<GameMatchX> getCurrentState() {
-        return currenState;
-    }
-
     private void setCurrentState(IClientState99<GameMatchX> currentState) {
         this.currenState.doBeforeTurnOff();
         this.currenState = currentState;
