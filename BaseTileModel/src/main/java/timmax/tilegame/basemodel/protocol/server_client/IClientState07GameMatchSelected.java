@@ -7,5 +7,5 @@ public interface IClientState07GameMatchSelected<GameMatchX extends IGameMatchX>
     // ---- 7 (MatchSelected)
     void resetGameMatchX();
     GameMatchX getGameMatchX();
-    void setGameMatchPlaying(Boolean gameIsPlaying);
+    void setGameMatchIsPlaying(Boolean gameMatchIsPlaying);
 }

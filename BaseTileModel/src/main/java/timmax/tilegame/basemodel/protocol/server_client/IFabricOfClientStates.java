@@ -13,5 +13,5 @@ public interface IFabricOfClientStates<GameMatchX extends IGameMatchX> {
     ClientState04GameTypeSetSelected<GameMatchX> getClientState04GameTypeSetSelected(ClientStateAutomaton<GameMatchX> clientStateAutomaton);
     ClientState06GameMatchSetSelected<GameMatchX> getClientState06GameMatchSetSelected(ClientStateAutomaton<GameMatchX> clientStateAutomaton);
     ClientState07GameMatchSelected<GameMatchX> getClientState07GameMatchSelected(ClientStateAutomaton<GameMatchX> clientStateAutomaton);
-    ClientState08GameMatchPlaying<GameMatchX> getClientState08GameMatchPlaying(ClientStateAutomaton<GameMatchX> clientStateAutomaton);
+    ClientState08GameMatchIsPlaying<GameMatchX> getClientState08GameMatchIsPlaying(ClientStateAutomaton<GameMatchX> clientStateAutomaton);
 }

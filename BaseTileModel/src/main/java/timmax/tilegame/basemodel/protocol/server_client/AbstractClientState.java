@@ -100,13 +100,13 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     }
 
     @Override
-    public void setGameMatchPlaying(Boolean gameIsPlaying) {
+    public void setGameMatchIsPlaying(Boolean gameMatchIsPlaying) {
         wrongCallInStateAutomaton();
     }
 
     // interface IClientState08GameMatchPlaying
     @Override
-    public Boolean getGameIsPlaying() {
+    public Boolean getGameMatchIsPlaying() {
         wrongCallInStateAutomaton();
         return false;
     }

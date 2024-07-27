@@ -25,7 +25,7 @@ public class EventOfClient71SetGameMatchPlaying extends EventOfClient {
     @Override
     public void executeOnServer(RemoteClientStateAutomaton remoteClientStateAutomaton) {
         remoteClientStateAutomaton.getGameMatchX().setParamsOfModelValueMap(paramsOfModelValueMap);
-        remoteClientStateAutomaton.setGameMatchPlaying(true);
+        remoteClientStateAutomaton.setGameMatchIsPlaying(true);
     }
 
     @Override

@@ -10,13 +10,13 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         IClientState04GameTypeSetSelected<GameMatchX>,
         IClientState06GameMatchSetSelected<GameMatchX>,
         IClientState07GameMatchSelected<GameMatchX>,
-        IClientState08GameMatchPlaying {
+        IClientState08GameMatchIsPlaying {
     final ClientState01NoConnect<GameMatchX> clientState01NoConnect;
     final ClientState02ConnectNonIdent<GameMatchX> clientState02ConnectNonIdent;
     final ClientState04GameTypeSetSelected<GameMatchX> clientState04GameTypeSetSelected;
     final ClientState06GameMatchSetSelected<GameMatchX> clientState06GameMatchSetSelected;
     final ClientState07GameMatchSelected<GameMatchX> clientState07GameMatchSelected;
-    final ClientState08GameMatchPlaying<GameMatchX> clientState08GameMatchPlaying;
+    final ClientState08GameMatchIsPlaying<GameMatchX> clientState08GameMatchIsPlaying;
 
     private IClientState99<GameMatchX> currenState;
 
@@ -25,7 +25,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     private GameType gameType; // ---- 4 (Конкретный тип игры)
     private Set<GameMatchX> gameMatchXSet; // ---- 5 (Набор моделей игр)
     private GameMatchX gameMatchX; // ---- 6 (Конкретная модель игры)
-    private Boolean gameIsPlaying; // ---- 7 (Партия была начата)
+    private Boolean gameMatchIsPlaying; // ---- 7 (Партия была начата)
 
     public ClientStateAutomaton(
             IFabricOfClientStates<GameMatchX> iFabricOfClientStates) {
@@ -34,7 +34,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         clientState04GameTypeSetSelected = iFabricOfClientStates.getClientState04GameTypeSetSelected(this);
         clientState06GameMatchSetSelected = iFabricOfClientStates.getClientState06GameMatchSetSelected(this);
         clientState07GameMatchSelected = iFabricOfClientStates.getClientState07GameMatchSelected(this);
-        clientState08GameMatchPlaying = iFabricOfClientStates.getClientState08GameMatchPlaying(this);
+        clientState08GameMatchIsPlaying = iFabricOfClientStates.getClientState08GameMatchIsPlaying(this);
 
         currenState = clientState01NoConnect;
     }
@@ -74,8 +74,8 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         this.gameMatchX = gameMatchX;
     }
 
-    void setGameIsPlaying_(Boolean gameIsPlaying) {
-        this.gameIsPlaying = gameIsPlaying;
+    void setGameMatchIsPlaying_(Boolean gameMatchIsPlaying) {
+        this.gameMatchIsPlaying = gameMatchIsPlaying;
     }
 
     // Геттерам, имеющим прямой доступ к полям(..._), тоже достаточно быть private-package:
@@ -104,7 +104,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     }
 
     Boolean getGameIsPlaying_() {
-        return gameIsPlaying;
+        return gameMatchIsPlaying;
     }
 
     // Публичные методы класса, вызов которых будет в т.ч. приводить к смене состояния.
@@ -176,17 +176,16 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         return currenState.getGameMatchX();
     }
 
-    // ToDo: Проверить имя метода ..._().
     @Override
-    public void setGameMatchPlaying(Boolean gameIsPlaying) {
-        setCurrentState(clientState08GameMatchPlaying);
-        currenState.setGameMatchPlaying(gameIsPlaying);
+    public void setGameMatchIsPlaying(Boolean gameMatchIsPlaying) {
+        setCurrentState(clientState08GameMatchIsPlaying);
+        currenState.setGameMatchIsPlaying(gameMatchIsPlaying);
     }
 
-    // 8 interface IClientState08GameMatchPlaying
+    // 8 interface IClientState08GameMatchIsPlaying
     @Override
-    public Boolean getGameIsPlaying() {
-        return currenState.getGameIsPlaying();
+    public Boolean getGameMatchIsPlaying() {
+        return currenState.getGameMatchIsPlaying();
     }
 
     // class Object
