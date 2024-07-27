@@ -13,7 +13,7 @@ public abstract class ClientState04GameTypeSetSelected<GameMatchX extends IGameM
     @Override
     public void reauthorizeUser() {
         String userName = getClientStateAutomaton().getUserName_();
-        Set<GameType> gameTypeSet = getClientStateAutomaton().getGameTypeSet();
+        Set<GameType> gameTypeSet = getClientStateAutomaton().getGameTypeSet_();
         authorizeUser(userName, gameTypeSet);
     }
 
