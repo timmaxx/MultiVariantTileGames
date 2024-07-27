@@ -89,9 +89,6 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
         nextStatePane.getChildren().clear();
         List<Region> regionList = new ArrayList<>();
 
-//  Пытался перенести код в блоке в наследника класса ParamName_paramModelDescriptionMap.
-//  Называл его ParamName_paramModelDescriptionMapJfx.
-//  {
         int y = LAYOUT_Y_OF_FIRST_ROW;
         // ToDo: Отказаться от прямого доступа к getParamName_paramModelDescriptionMap().
         //       Здесь используется
@@ -124,23 +121,7 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
             regionList.add(paramNameTextField);
             y += DIFFERENCE_OF_LAYOUT_Y;
         }
-//  }
-/*
-//  Тогда здесь был-бы такой код:
-//  {
-//      Но не получилось нормально преобразовать переменную
-//      paramName_paramModelDescriptionMap
-//      к типу
-//      ParamName_paramModelDescriptionMapJfx
-//      И поэтому
-        ControlSetJfx controlSetJfx = (ControlSetJfx) transportOfClient.getLocalClientStateAutomaton().getParamName_paramModelDescriptionMap().getIControlSet(transportOfClient);
-        for (ControlJfx controlJfx : controlSetJfx) {
-            regionList.add(controlJfx.getParamNameLabel());
-            regionList.add(controlJfx.getParamNameTextField());
-        }
-        int y = LAYOUT_Y_OF_FIRST_ROW + controlSetJfx.size() * DIFFERENCE_OF_LAYOUT_Y;
-//  }
-*/
+
         nextStatePane.setPrefHeight(y);
         nextStatePane.setMinHeight(y);
 
