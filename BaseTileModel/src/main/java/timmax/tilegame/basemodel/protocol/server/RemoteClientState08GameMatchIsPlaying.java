@@ -16,7 +16,7 @@ public class RemoteClientState08GameMatchIsPlaying<ClientId> extends ClientState
         super.setGameMatchIsPlaying(gameMatchIsPlaying);
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
-                new EventOfServer71SetGameMatchPlaying()
+                new EventOfServer71SetGameMatchIsPlaying()
         );
 
         // ToDo: Вызов этого метода может быть как для модели:

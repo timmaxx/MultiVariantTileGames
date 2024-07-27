@@ -7,14 +7,14 @@ import java.util.Map;
 
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
-public class EventOfClient71SetGameMatchPlaying extends EventOfClient {
+public class EventOfClient71SetGameMatchIsPlaying extends EventOfClient {
     private Map<String, Integer> paramsOfModelValueMap;
 
-    public EventOfClient71SetGameMatchPlaying() {
+    public EventOfClient71SetGameMatchIsPlaying() {
         super();
     }
 
-    public EventOfClient71SetGameMatchPlaying(Map<String, Integer> paramsOfModelValueMap) {
+    public EventOfClient71SetGameMatchIsPlaying(Map<String, Integer> paramsOfModelValueMap) {
         this();
         this.paramsOfModelValueMap = paramsOfModelValueMap;
     }
