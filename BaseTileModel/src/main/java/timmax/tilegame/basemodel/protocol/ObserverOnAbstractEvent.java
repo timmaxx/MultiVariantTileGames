@@ -19,5 +19,5 @@ public interface ObserverOnAbstractEvent {
     void updateOnSetGameMatch();
 
     // 7
-    void updateOnSetGameMatchPlaying();
+    void updateOnSetGameMatchIsPlaying();
 }

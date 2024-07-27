@@ -80,7 +80,7 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchId>
     }
 
     @Override
-    public void updateOnSetGameMatchPlaying() {
-        observerOnAbstractEventHashSet.updateOnSetGameMatchPlaying();
+    public void updateOnSetGameMatchIsPlaying() {
+        observerOnAbstractEventHashSet.updateOnSetGameMatchIsPlaying();
     }
 }

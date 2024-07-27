@@ -148,7 +148,7 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
 
     // 7
     @Override
-    public void updateOnSetGameMatchPlaying() {
+    public void updateOnSetGameMatchIsPlaying() {
         doOnNextState();
     }
 
