@@ -110,4 +110,19 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
         wrongCallInStateAutomaton();
         return false;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AbstractClientState<?> that = (AbstractClientState<?>) o;
+
+        return clientStateAutomaton.equals(that.clientStateAutomaton) /*&& getClass().equals(that.getClass())*/;
+    }
+
+    @Override
+    public int hashCode() {
+        return clientStateAutomaton.hashCode() /*+ getClass().hashCode()*/;
+    }
 }

@@ -2,6 +2,7 @@ package timmax.tilegame.basemodel.protocol.server_client;
 
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
@@ -11,7 +12,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         IClientState06GameMatchSetSelected<GameMatchX>,
         IClientState07GameMatchSelected<GameMatchX>,
         IClientState08GameMatchIsPlaying {
-    // private final Set<StateToState> stateToStateSet;
+    private final Set<StateToState<GameMatchX>> stateToStateSet;
 
     final ClientState01NoConnect<GameMatchX> clientState01NoConnect;
     final ClientState02ConnectNonIdent<GameMatchX> clientState02ConnectNonIdent;
@@ -39,66 +40,57 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         clientState08GameMatchIsPlaying = iFabricOfClientStates.getClientState08GameMatchIsPlaying(this);
 
         currentState = clientState01NoConnect;
-/*
+
         stateToStateSet = new HashSet<>();
 
-        stateToStateSet.add(new StateToState(clientState01NoConnect, clientState01NoConnect)); //
-        stateToStateSet.add(new StateToState(clientState01NoConnect, clientState02ConnectNonIdent));
+        // ToDo: Переход в тоже состояние, что и было, как-бы не должно быть, но таки есть пока.
+        stateToStateSet.add(new StateToState<>(clientState01NoConnect, clientState01NoConnect)); //
+        stateToStateSet.add(new StateToState<>(clientState01NoConnect, clientState02ConnectNonIdent));
 
-        stateToStateSet.add(new StateToState(clientState02ConnectNonIdent, clientState01NoConnect));
-        stateToStateSet.add(new StateToState(clientState02ConnectNonIdent, clientState02ConnectNonIdent)); //
-        stateToStateSet.add(new StateToState(clientState02ConnectNonIdent, clientState04GameTypeSetSelected));
+        stateToStateSet.add(new StateToState<>(clientState02ConnectNonIdent, clientState01NoConnect));
+        // ToDo: Переход в тоже состояние, что и было, как-бы не должно быть, но таки есть пока.
+        stateToStateSet.add(new StateToState<>(clientState02ConnectNonIdent, clientState02ConnectNonIdent)); //
+        stateToStateSet.add(new StateToState<>(clientState02ConnectNonIdent, clientState04GameTypeSetSelected));
 
-        stateToStateSet.add(new StateToState(clientState04GameTypeSetSelected, clientState01NoConnect));
-        stateToStateSet.add(new StateToState(clientState04GameTypeSetSelected, clientState02ConnectNonIdent));
-        stateToStateSet.add(new StateToState(clientState04GameTypeSetSelected, clientState06GameMatchSetSelected));
+        stateToStateSet.add(new StateToState<>(clientState04GameTypeSetSelected, clientState01NoConnect));
+        stateToStateSet.add(new StateToState<>(clientState04GameTypeSetSelected, clientState02ConnectNonIdent));
+        stateToStateSet.add(new StateToState<>(clientState04GameTypeSetSelected, clientState06GameMatchSetSelected));
 
-        stateToStateSet.add(new StateToState(clientState06GameMatchSetSelected, clientState01NoConnect));
-        stateToStateSet.add(new StateToState(clientState06GameMatchSetSelected, clientState02ConnectNonIdent));
-        stateToStateSet.add(new StateToState(clientState06GameMatchSetSelected, clientState04GameTypeSetSelected));
-        stateToStateSet.add(new StateToState(clientState06GameMatchSetSelected, clientState07GameMatchSelected));
+        stateToStateSet.add(new StateToState<>(clientState06GameMatchSetSelected, clientState01NoConnect));
+        stateToStateSet.add(new StateToState<>(clientState06GameMatchSetSelected, clientState02ConnectNonIdent));
+        stateToStateSet.add(new StateToState<>(clientState06GameMatchSetSelected, clientState04GameTypeSetSelected));
+        stateToStateSet.add(new StateToState<>(clientState06GameMatchSetSelected, clientState07GameMatchSelected));
 
-        stateToStateSet.add(new StateToState(clientState07GameMatchSelected, clientState01NoConnect));
-        stateToStateSet.add(new StateToState(clientState07GameMatchSelected, clientState02ConnectNonIdent));
-        stateToStateSet.add(new StateToState(clientState07GameMatchSelected, clientState04GameTypeSetSelected));
-        stateToStateSet.add(new StateToState(clientState07GameMatchSelected, clientState06GameMatchSetSelected));
-        stateToStateSet.add(new StateToState(clientState07GameMatchSelected, clientState08GameMatchIsPlaying));
+        stateToStateSet.add(new StateToState<>(clientState07GameMatchSelected, clientState01NoConnect));
+        stateToStateSet.add(new StateToState<>(clientState07GameMatchSelected, clientState02ConnectNonIdent));
+        stateToStateSet.add(new StateToState<>(clientState07GameMatchSelected, clientState04GameTypeSetSelected));
+        stateToStateSet.add(new StateToState<>(clientState07GameMatchSelected, clientState06GameMatchSetSelected));
+        stateToStateSet.add(new StateToState<>(clientState07GameMatchSelected, clientState08GameMatchIsPlaying));
 
-        stateToStateSet.add(new StateToState(clientState08GameMatchIsPlaying, clientState01NoConnect));
-        stateToStateSet.add(new StateToState(clientState08GameMatchIsPlaying, clientState02ConnectNonIdent));
-        stateToStateSet.add(new StateToState(clientState08GameMatchIsPlaying, clientState04GameTypeSetSelected));
-        stateToStateSet.add(new StateToState(clientState08GameMatchIsPlaying, clientState06GameMatchSetSelected));
-        stateToStateSet.add(new StateToState(clientState08GameMatchIsPlaying, clientState07GameMatchSelected));
-*/
+        stateToStateSet.add(new StateToState<>(clientState08GameMatchIsPlaying, clientState01NoConnect));
+        stateToStateSet.add(new StateToState<>(clientState08GameMatchIsPlaying, clientState02ConnectNonIdent));
+        stateToStateSet.add(new StateToState<>(clientState08GameMatchIsPlaying, clientState04GameTypeSetSelected));
+        stateToStateSet.add(new StateToState<>(clientState08GameMatchIsPlaying, clientState06GameMatchSetSelected));
+        stateToStateSet.add(new StateToState<>(clientState08GameMatchIsPlaying, clientState07GameMatchSelected));
     }
 
-    // ToDo: Сделать контроль возможности перехода в состояние в начале метода.
-    //       Если нельзя - возбуждать исключение.
     private void setCurrentState(IClientState99<GameMatchX> currentState) {
-        System.out.println("this.currenState = '" + this.currentState + "'. currentState = '" + currentState + "'");
-/*
         boolean success = false;
-        if (this.currentState.equals(currentState)) {
-            // success = true;
-        } else {
-            for (StateToState stateToState : stateToStateSet) {
-                if (stateToState.getState1().equals(this.currentState) &&
-                        stateToState.getState2().equals(currentState)) {
-                    success = true;
-                    break;
-                }
+        for (StateToState<GameMatchX> stateToState : stateToStateSet) {
+            if (stateToState.getState1().equals(this.currentState) &&
+                    stateToState.getState2().equals(currentState)) {
+                success = true;
+                break;
             }
         }
 
         if (!success) {
             throw new RuntimeException("You cannot change state from '" + this.currentState + "' to '" + currentState + "'!");
         }
-*/
 
         this.currentState.doBeforeTurnOff();
         this.currentState = currentState;
         currentState.doAfterTurnOn();
-
     }
 
     // Все методы с именами такими-же, как есть public, но:
