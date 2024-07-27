@@ -125,4 +125,9 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     public int hashCode() {
         return clientStateAutomaton.hashCode() /*+ getClass().hashCode()*/;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName();
+    }
 }
