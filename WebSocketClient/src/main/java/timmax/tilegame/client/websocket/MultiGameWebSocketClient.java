@@ -147,7 +147,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     @Override
     public void resetGameMatch() {
         logger.debug("resetGameMatch()");
-        sendEventOfClient(new EventOfClient72ResetGameMatchPlaying());
+        sendEventOfClient(new EventOfClient72ResetGameMatch());
     }
 
     // 8
