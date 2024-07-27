@@ -11,6 +11,8 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         IClientState06GameMatchSetSelected<GameMatchX>,
         IClientState07GameMatchSelected<GameMatchX>,
         IClientState08GameMatchIsPlaying {
+    // private final Set<StateToState> stateToStateSet;
+
     final ClientState01NoConnect<GameMatchX> clientState01NoConnect;
     final ClientState02ConnectNonIdent<GameMatchX> clientState02ConnectNonIdent;
     final ClientState04GameTypeSetSelected<GameMatchX> clientState04GameTypeSetSelected;
@@ -18,7 +20,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     final ClientState07GameMatchSelected<GameMatchX> clientState07GameMatchSelected;
     final ClientState08GameMatchIsPlaying<GameMatchX> clientState08GameMatchIsPlaying;
 
-    private IClientState99<GameMatchX> currenState;
+    private IClientState99<GameMatchX> currentState;
 
     private String userName; // ---- 2 (Пользователь)
     private Set<GameType> gameTypeSet; // ---- 3 (Список типов игр)
@@ -36,15 +38,67 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         clientState07GameMatchSelected = iFabricOfClientStates.getClientState07GameMatchSelected(this);
         clientState08GameMatchIsPlaying = iFabricOfClientStates.getClientState08GameMatchIsPlaying(this);
 
-        currenState = clientState01NoConnect;
+        currentState = clientState01NoConnect;
+/*
+        stateToStateSet = new HashSet<>();
+
+        stateToStateSet.add(new StateToState(clientState01NoConnect, clientState01NoConnect)); //
+        stateToStateSet.add(new StateToState(clientState01NoConnect, clientState02ConnectNonIdent));
+
+        stateToStateSet.add(new StateToState(clientState02ConnectNonIdent, clientState01NoConnect));
+        stateToStateSet.add(new StateToState(clientState02ConnectNonIdent, clientState02ConnectNonIdent)); //
+        stateToStateSet.add(new StateToState(clientState02ConnectNonIdent, clientState04GameTypeSetSelected));
+
+        stateToStateSet.add(new StateToState(clientState04GameTypeSetSelected, clientState01NoConnect));
+        stateToStateSet.add(new StateToState(clientState04GameTypeSetSelected, clientState02ConnectNonIdent));
+        stateToStateSet.add(new StateToState(clientState04GameTypeSetSelected, clientState06GameMatchSetSelected));
+
+        stateToStateSet.add(new StateToState(clientState06GameMatchSetSelected, clientState01NoConnect));
+        stateToStateSet.add(new StateToState(clientState06GameMatchSetSelected, clientState02ConnectNonIdent));
+        stateToStateSet.add(new StateToState(clientState06GameMatchSetSelected, clientState04GameTypeSetSelected));
+        stateToStateSet.add(new StateToState(clientState06GameMatchSetSelected, clientState07GameMatchSelected));
+
+        stateToStateSet.add(new StateToState(clientState07GameMatchSelected, clientState01NoConnect));
+        stateToStateSet.add(new StateToState(clientState07GameMatchSelected, clientState02ConnectNonIdent));
+        stateToStateSet.add(new StateToState(clientState07GameMatchSelected, clientState04GameTypeSetSelected));
+        stateToStateSet.add(new StateToState(clientState07GameMatchSelected, clientState06GameMatchSetSelected));
+        stateToStateSet.add(new StateToState(clientState07GameMatchSelected, clientState08GameMatchIsPlaying));
+
+        stateToStateSet.add(new StateToState(clientState08GameMatchIsPlaying, clientState01NoConnect));
+        stateToStateSet.add(new StateToState(clientState08GameMatchIsPlaying, clientState02ConnectNonIdent));
+        stateToStateSet.add(new StateToState(clientState08GameMatchIsPlaying, clientState04GameTypeSetSelected));
+        stateToStateSet.add(new StateToState(clientState08GameMatchIsPlaying, clientState06GameMatchSetSelected));
+        stateToStateSet.add(new StateToState(clientState08GameMatchIsPlaying, clientState07GameMatchSelected));
+*/
     }
 
     // ToDo: Сделать контроль возможности перехода в состояние в начале метода.
     //       Если нельзя - возбуждать исключение.
     private void setCurrentState(IClientState99<GameMatchX> currentState) {
-        this.currenState.doBeforeTurnOff();
-        this.currenState = currentState;
+        System.out.println("this.currenState = '" + this.currentState + "'. currentState = '" + currentState + "'");
+/*
+        boolean success = false;
+        if (this.currentState.equals(currentState)) {
+            // success = true;
+        } else {
+            for (StateToState stateToState : stateToStateSet) {
+                if (stateToState.getState1().equals(this.currentState) &&
+                        stateToState.getState2().equals(currentState)) {
+                    success = true;
+                    break;
+                }
+            }
+        }
+
+        if (!success) {
+            throw new RuntimeException("You cannot change state from '" + this.currentState + "' to '" + currentState + "'!");
+        }
+*/
+
+        this.currentState.doBeforeTurnOff();
+        this.currentState = currentState;
         currentState.doAfterTurnOn();
+
     }
 
     // Все методы с именами такими-же, как есть public, но:
@@ -112,85 +166,85 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     @Override
     public void openConnectWithoutUserIdentify() {
         setCurrentState(clientState02ConnectNonIdent);
-        currenState.openConnectWithoutUserIdentify();
+        currentState.openConnectWithoutUserIdentify();
     }
 
     // 2 interface IClientState02ConnectNonIdent
     @Override
     public void closeConnect() {
         setCurrentState(clientState01NoConnect);
-        currenState.closeConnect();
+        currentState.closeConnect();
     }
 
     @Override
     public void authorizeUser(String userName, Set<GameType> gameTypeSet) {
         setCurrentState(clientState04GameTypeSetSelected);
-        currenState.authorizeUser(userName, gameTypeSet);
+        currentState.authorizeUser(userName, gameTypeSet);
     }
 
     // 4 interface IClientState04GameTypeSetSelected
     @Override
     public void reauthorizeUser() {
         setCurrentState(clientState04GameTypeSetSelected);
-        currenState.reauthorizeUser();
+        currentState.reauthorizeUser();
     }
 
     @Override
     public Set<GameType> getGameTypeSet() {
-        return currenState.getGameTypeSet();
+        return currentState.getGameTypeSet();
     }
 
     @Override
     public void setGameType(GameType gameType, Set<GameMatchX> gameMatchXSet) {
         setCurrentState(clientState06GameMatchSetSelected);
-        currenState.setGameType(gameType, gameMatchXSet);
+        currentState.setGameType(gameType, gameMatchXSet);
     }
 
     // 6 interface IClientState06GameMatchSetSelected
     @Override
     public void resetGameType() {
         setCurrentState(clientState06GameMatchSetSelected);
-        currenState.resetGameType();
+        currentState.resetGameType();
     }
 
     @Override
     public Set<GameMatchX> getGameMatchXSet() {
-        return currenState.getGameMatchXSet();
+        return currentState.getGameMatchXSet();
     }
 
     @Override
     public void setGameMatchX(GameMatchX gameMatchX) {
         setCurrentState(clientState07GameMatchSelected);
-        currenState.setGameMatchX(gameMatchX);
+        currentState.setGameMatchX(gameMatchX);
     }
 
     // 7 interface IClientState07GameMatchSelected
     @Override
     public void resetGameMatchX() {
         setCurrentState(clientState07GameMatchSelected);
-        currenState.resetGameMatchX();
+        currentState.resetGameMatchX();
     }
 
     @Override
     public GameMatchX getGameMatchX() {
-        return currenState.getGameMatchX();
+        return currentState.getGameMatchX();
     }
 
     @Override
     public void setGameMatchIsPlaying(Boolean gameMatchIsPlaying) {
         setCurrentState(clientState08GameMatchIsPlaying);
-        currenState.setGameMatchIsPlaying(gameMatchIsPlaying);
+        currentState.setGameMatchIsPlaying(gameMatchIsPlaying);
     }
 
     // 8 interface IClientState08GameMatchIsPlaying
     @Override
     public Boolean getGameMatchIsPlaying() {
-        return currenState.getGameMatchIsPlaying();
+        return currentState.getGameMatchIsPlaying();
     }
 
     // class Object
     @Override
     public String toString() {
-        return currenState.getClass().getSimpleName();
+        return currentState.getClass().getSimpleName();
     }
 }
