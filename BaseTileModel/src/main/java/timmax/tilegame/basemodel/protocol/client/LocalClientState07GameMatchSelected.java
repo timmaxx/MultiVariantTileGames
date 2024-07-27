@@ -9,10 +9,10 @@ public class LocalClientState07GameMatchSelected extends ClientState07GameMatchS
         super(clientStateAutomaton);
     }
 
-    // interface IClientState99
     @Override
-    public void doAfterTurnOn() {
-        getClientStateAutomaton().updateOnSetGameMatch();
+    public void resetGameMatchX() {
+        GameMatchId gameMatchX = getClientStateAutomaton().getGameMatchX();
+        setGameMatchX(gameMatchX);
     }
 
     // class AbstractClientState

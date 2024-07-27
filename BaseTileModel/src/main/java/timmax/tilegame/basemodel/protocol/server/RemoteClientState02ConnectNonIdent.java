@@ -3,8 +3,6 @@ package timmax.tilegame.basemodel.protocol.server;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server_client.*;
 
-import java.util.Set;
-
 public class RemoteClientState02ConnectNonIdent<ClientId> extends ClientState02ConnectNonIdent<IGameMatch> {
     private final ClientId clientId;
 
@@ -13,13 +11,13 @@ public class RemoteClientState02ConnectNonIdent<ClientId> extends ClientState02C
         this.clientId = clientId;
     }
 
-    // class ClientState02ConnectNonIdent
-    // ---- 2 (Пользователь)
-    // ToDo: Также см. копия кода в RemoteClientState04, 06, 07, 08.
     @Override
-    public void authorizeUser(String userName, Set<GameType> gameTypeSet) {
-        super.authorizeUser(userName, gameTypeSet);
-        getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer21IdentifyAuthenticateAuthorizeUser(userName, gameTypeSet));
+    public void openConnectWithoutUserIdentify() {
+        super.openConnectWithoutUserIdentify();
+        getClientStateAutomaton().sendEventOfServer(
+                clientId,
+                new EventOfServer11OpenConnectWithoutUserIdentify()
+        );
     }
 
     // class AbstractClientState

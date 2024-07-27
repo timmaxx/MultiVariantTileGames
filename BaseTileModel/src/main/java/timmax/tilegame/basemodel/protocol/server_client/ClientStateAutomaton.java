@@ -39,6 +39,8 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         currenState = clientState01NoConnect;
     }
 
+    // ToDo: Сделать контроль возможности перехода в состояние в начале метода.
+    //       Если нельзя - возбуждать исключение.
     private void setCurrentState(IClientState99<GameMatchX> currentState) {
         this.currenState.doBeforeTurnOff();
         this.currenState = currentState;
@@ -47,13 +49,11 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
     // Все методы с именами такими-же, как есть public, но:
     // 1. они private-package
-    // 2. последняя строка делает изменение состояния.
+    // 2. делают целевое действие в уже установленном состоянии.
     void openConnectWithoutUserIdentify_() {
-        setCurrentState(clientState02ConnectNonIdent);
     }
 
     void closeConnect_() {
-        setCurrentState(clientState01NoConnect);
     }
 
     void authorizeUser_(String userName, Set<GameType> gameTypeSet) {
@@ -63,23 +63,19 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         }
         this.userName = userName;
         this.gameTypeSet = gameTypeSet;
-        setCurrentState(clientState04GameTypeSetSelected);
     }
 
     void setGameType_(GameType gameType, Set<GameMatchX> gameMatchXSet) {
         this.gameType = gameType;
         this.gameMatchXSet = gameMatchXSet;
-        setCurrentState(clientState06GameMatchSetSelected);
     }
 
     void setGameMatchX_(GameMatchX gameMatchX) {
         this.gameMatchX = gameMatchX;
-        setCurrentState(clientState07GameMatchSelected);
     }
 
     void setGameIsPlaying_(Boolean gameIsPlaying) {
         this.gameIsPlaying = gameIsPlaying;
-        setCurrentState(clientState08GameMatchPlaying);
     }
 
     // Геттерам, имеющим прямой доступ к полям(..._), тоже достаточно быть private-package:
@@ -115,23 +111,27 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     // 1 interface IClientState01NoConnect
     @Override
     public void openConnectWithoutUserIdentify() {
+        setCurrentState(clientState02ConnectNonIdent);
         currenState.openConnectWithoutUserIdentify();
     }
 
     // 2 interface IClientState02ConnectNonIdent
     @Override
     public void closeConnect() {
+        setCurrentState(clientState01NoConnect);
         currenState.closeConnect();
     }
 
     @Override
     public void authorizeUser(String userName, Set<GameType> gameTypeSet) {
+        setCurrentState(clientState04GameTypeSetSelected);
         currenState.authorizeUser(userName, gameTypeSet);
     }
 
     // 4 interface IClientState04GameTypeSetSelected
     @Override
     public void reauthorizeUser() {
+        setCurrentState(clientState04GameTypeSetSelected);
         currenState.reauthorizeUser();
     }
 
@@ -142,12 +142,14 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
     @Override
     public void setGameType(GameType gameType, Set<GameMatchX> gameMatchXSet) {
+        setCurrentState(clientState06GameMatchSetSelected);
         currenState.setGameType(gameType, gameMatchXSet);
     }
 
     // 6 interface IClientState06GameMatchSetSelected
     @Override
     public void resetGameType() {
+        setCurrentState(clientState06GameMatchSetSelected);
         currenState.resetGameType();
     }
 
@@ -158,12 +160,14 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
     @Override
     public void setGameMatchX(GameMatchX gameMatchX) {
+        setCurrentState(clientState07GameMatchSelected);
         currenState.setGameMatchX(gameMatchX);
     }
 
     // 7 interface IClientState07GameMatchSelected
     @Override
     public void resetGameMatchX() {
+        setCurrentState(clientState07GameMatchSelected);
         currenState.resetGameMatchX();
     }
 
@@ -172,8 +176,10 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         return currenState.getGameMatchX();
     }
 
+    // ToDo: Проверить имя метода ..._().
     @Override
     public void setGameMatchPlaying(Boolean gameIsPlaying) {
+        setCurrentState(clientState08GameMatchPlaying);
         currenState.setGameMatchPlaying(gameIsPlaying);
     }
 
