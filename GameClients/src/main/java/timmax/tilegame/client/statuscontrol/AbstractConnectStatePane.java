@@ -96,46 +96,37 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     }
 
     // Implemented methods of interface ObserverOnAbstractEvent
-
-    //  ToDo: Пока не сильно красиво сделано с большим перечнем разнообразных updateXXX().
-    //        Пересмотреть архитектуру, внести изменения в код.
-
-    // Все методы здесь для единообразия расположены в порядке:
-    // - от 1 к 7 (и далее),
-    // - внутри этого "к предыдущему состоянию (x.0)", "к следующему (x.1)".
-    // ToDo: уменьшить количество методов. Их можно разложить на группы:
-    // 1. Все, кроме п. 2 и п. 3. Закрывает все контролы.
-    // 2. Два предпоследних
-    //   1. Инициализирует контрол(ы) и открывает контролы перехода к следующему состоянию.
-    //   2. Открывает контролы перехода к следующему состоянию.
-    // 3. Последний метод. Открывает контролы перехода к предыдующему состоянию.
-
-    // 1
     @Override
     public void updateOnClose() {
+        doOnPrevState();
     }
 
     @Override
     public void updateOnOpen() {
+        doOnPrevState();
     }
 
     // 2
     @Override
     public void updateOnAuthorizeUser() {
+        doOnPrevState();
     }
 
     // 4
     @Override
     public void updateOnSetGameType() {
+        doOnPrevState();
     }
 
     // 6
     @Override
     public void updateOnSetGameMatch() {
+        doOnPrevState();
     }
 
     // 7
     @Override
     public void updateOnSetGameMatchIsPlaying() {
+        doOnPrevState();
     }
 }
