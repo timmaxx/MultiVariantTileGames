@@ -14,12 +14,6 @@ public class LocalClientState07GameMatchSelected extends ClientState07GameMatchS
         getClientStateAutomaton().updateOnSetGameMatch();
     }
 
-    @Override
-    public void resetGameMatchX() {
-        GameMatchId gameMatchX = getClientStateAutomaton().getGameMatchX();
-        setGameMatchX(gameMatchX);
-    }
-
     // class AbstractClientState
     @Override
     public LocalClientStateAutomaton getClientStateAutomaton() {
