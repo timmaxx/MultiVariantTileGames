@@ -93,6 +93,13 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         currentState.doAfterTurnOn();
     }
 
+    protected final void changeStateFrom01To02_() {
+        if (!currentState.equals(clientState01NoConnect)) {
+            throw new RuntimeException("This method allowed only for changing state from 01 to 02");
+        }
+        currentState = clientState02ConnectNonIdent;
+    }
+
     // Все методы с именами такими-же, как есть public, но:
     // 1. они private-package
     // 2. делают целевое действие в уже установленном состоянии.
