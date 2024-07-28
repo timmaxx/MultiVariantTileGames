@@ -36,7 +36,7 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
                             Integer.valueOf(textField.getText()));
                 }
             }
-            transportOfClient.setGameMatchPlaying(paramsOfModelValueMap);
+            transportOfClient.setGameMatchIsPlaying(paramsOfModelValueMap);
         });
 
         // Контролы для продвижения состояния "назад":

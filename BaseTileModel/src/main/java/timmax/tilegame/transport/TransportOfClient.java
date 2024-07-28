@@ -41,7 +41,7 @@ public interface TransportOfClient {
 
     // 07GameMatchSelected
     void resetGameMatch();                                                      //  7 -> 7  void forgetGameMatchPlaying();
-    void setGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue);     //  7 -> 8  void setGameMatchPlaying(Boolean gameIsPlaying);
+    void setGameMatchIsPlaying(Map<String, Integer> mapOfParamsOfModelValue);   //  7 -> 8  void setGameMatchPlaying(Boolean gameIsPlaying);
 
     // 08GameMatchIsPlaying
 }

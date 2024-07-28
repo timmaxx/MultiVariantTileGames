@@ -101,8 +101,8 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
 
     // 7
     @Override
-    public void setGameMatchPlaying(Map<String, Integer> mapOfParamsOfModelValue) {
-        transportOfClient.setGameMatchPlaying(mapOfParamsOfModelValue);
+    public void setGameMatchIsPlaying(Map<String, Integer> mapOfParamsOfModelValue) {
+        transportOfClient.setGameMatchIsPlaying(mapOfParamsOfModelValue);
     }
 
     @Override
