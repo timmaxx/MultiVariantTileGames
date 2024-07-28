@@ -115,8 +115,6 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     public void updateOnClose() {
     }
 
-    // ToDo: методы 1.1 и 2.0 (и вообще x.1 и x+1.0) это почти одно и тоже.
-    //       Отличие только в инициализации в методах. Это нужно как-то свернуть.
     @Override
     public void updateOnOpen() {
     }
