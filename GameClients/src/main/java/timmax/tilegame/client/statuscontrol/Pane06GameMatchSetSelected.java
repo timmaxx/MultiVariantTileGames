@@ -54,12 +54,6 @@ public class Pane06GameMatchSetSelected extends AbstractConnectStatePane {
     }
 
     // interface ObserverOnAbstractEvent
-    // 2
-    @Override
-    public void updateOnAuthorizeUser() {
-        doOnPrevState();
-    }
-
     // 4
     @Override
     public void updateOnSetGameType() {

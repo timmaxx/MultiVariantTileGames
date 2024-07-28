@@ -65,11 +65,6 @@ public class Pane02ConnectNonIdent extends AbstractConnectStatePane {
     // interface ObserverOnAbstractEvent
     // 1
     @Override
-    public void updateOnClose() {
-        doOnPrevState();
-    }
-
-    @Override
     public void updateOnOpen() {
         doOnThisState();
     }
