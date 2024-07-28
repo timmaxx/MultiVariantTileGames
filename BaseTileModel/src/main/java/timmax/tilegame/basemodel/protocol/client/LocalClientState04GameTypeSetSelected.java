@@ -12,7 +12,7 @@ public class LocalClientState04GameTypeSetSelected extends ClientState04GameType
     // interface IClientState99
     @Override
     public void doAfterTurnOn() {
-        getClientStateAutomaton().updateOnSetUser();
+        getClientStateAutomaton().updateOnAuthorizeUser();
     }
 
     // class AbstractClientState

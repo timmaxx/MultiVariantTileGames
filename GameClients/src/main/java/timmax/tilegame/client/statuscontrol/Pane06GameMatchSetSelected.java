@@ -67,7 +67,7 @@ public class Pane06GameMatchSetSelected extends AbstractConnectStatePane {
 
     // 2
     @Override
-    public void updateOnSetUser() {
+    public void updateOnAuthorizeUser() {
         doOnPrevState();
     }
 

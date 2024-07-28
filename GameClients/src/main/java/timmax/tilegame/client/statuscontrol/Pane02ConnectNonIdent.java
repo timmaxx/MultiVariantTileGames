@@ -76,7 +76,7 @@ public class Pane02ConnectNonIdent extends AbstractConnectStatePane {
 
     // 2
     @Override
-    public void updateOnSetUser() {
+    public void updateOnAuthorizeUser() {
         doOnNextState();
     }
 }

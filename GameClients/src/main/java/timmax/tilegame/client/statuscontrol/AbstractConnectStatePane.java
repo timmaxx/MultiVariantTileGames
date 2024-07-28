@@ -123,7 +123,7 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
 
     // 2
     @Override
-    public void updateOnSetUser() {
+    public void updateOnAuthorizeUser() {
     }
 
     // 4

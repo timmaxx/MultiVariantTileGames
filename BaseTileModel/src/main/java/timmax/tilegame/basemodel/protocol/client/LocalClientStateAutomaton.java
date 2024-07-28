@@ -65,8 +65,8 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchId>
     }
 
     @Override
-    public void updateOnSetUser() {
-        observerOnAbstractEventHashSet.updateOnSetUser();
+    public void updateOnAuthorizeUser() {
+        observerOnAbstractEventHashSet.updateOnAuthorizeUser();
     }
 
     @Override
