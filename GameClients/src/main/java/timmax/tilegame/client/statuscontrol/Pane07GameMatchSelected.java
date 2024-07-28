@@ -113,6 +113,20 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
         if (y > DIFFERENCE_OF_LAYOUT_Y) {
             y -= DIFFERENCE_OF_LAYOUT_Y;
         }
+
+        // ToDo: Похожий код см. в ViewMainFieldJfx::initMainField()
+        // System.out.println("getParent().getScene().getWindow().getWidth() = " + getParent().getScene().getWindow().getWidth());
+        int widthTmp = LAYOUT_X_OF_FIRST_COLUMN
+                + PIXELS_ON_LEFT_N_RIGHT_FOR_MAIN_FIELD_FITS_INTO_PRIMARY_STAGE
+                + PANE_NEXT_STATE_PREF_WIDTH
+                + BUTTON_NEXT_STATE_PREF_WIDTH
+                + BUTTON_PREV_STATE_PREF_WIDTH
+                - 1;
+        // System.out.println( "getParent().getScene().getWindow().setWidth( " + widthTmp + " )");
+        getParent().getScene().getWindow().setWidth(widthTmp);
+
+        // ToDo: Вернуться к информационным представлениям (про 180).
+        // // 180 - количество пикселей в высоту, нужное для достаточного отображения четырёх текстовых выборок
         getParent().getScene().getWindow().setHeight(
                 LAYOUT_Y_OF_FIRST_ROW
                         + (2 * PIXELS_ON_LEFT_N_RIGHT_FOR_MAIN_FIELD_FITS_INTO_PRIMARY_STAGE)
@@ -143,16 +157,6 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
         gameViewsAndControlsPane.getChildren().clear();
         prevStatePane.setPrefWidth(PANE_PREV_STATE_PREF_WIDTH);
 
-        // ToDo: Похожий код см. в ViewMainFieldJfx::initMainField()
-        getParent().getScene().getWindow().setWidth(
-                LAYOUT_X_OF_FIRST_COLUMN
-                        + PIXELS_ON_LEFT_N_RIGHT_FOR_MAIN_FIELD_FITS_INTO_PRIMARY_STAGE
-                        + PANE_NEXT_STATE_PREF_WIDTH
-                        + BUTTON_NEXT_STATE_PREF_WIDTH
-                        + BUTTON_PREV_STATE_PREF_WIDTH
-        );
-        // ToDo: Вернуться к информационным представлениям (про 180).
-        // // 180 - количество пикселей в высоту, нужное для достаточного отображения четырёх текстовых выборок
         getParent().getScene().getWindow().setHeight(
                 LAYOUT_Y_OF_FIRST_ROW
                         + 2 * PIXELS_ON_TOP_N_BOTTOM_FOR_MAIN_FIELD_FITS_INTO_PRIMARY_STAGE
