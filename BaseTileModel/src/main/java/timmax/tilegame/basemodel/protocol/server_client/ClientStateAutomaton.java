@@ -43,13 +43,9 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
         stateToStateSet = new HashSet<>();
 
-        // ToDo: Переход в тоже состояние, что и было, как-бы не должно быть, но таки есть пока.
-        stateToStateSet.add(new StateToState<>(clientState01NoConnect, clientState01NoConnect)); //
         stateToStateSet.add(new StateToState<>(clientState01NoConnect, clientState02ConnectNonIdent));
 
         stateToStateSet.add(new StateToState<>(clientState02ConnectNonIdent, clientState01NoConnect));
-        // ToDo: Переход в тоже состояние, что и было, как-бы не должно быть, но таки есть пока.
-        stateToStateSet.add(new StateToState<>(clientState02ConnectNonIdent, clientState02ConnectNonIdent)); //
         stateToStateSet.add(new StateToState<>(clientState02ConnectNonIdent, clientState04GameTypeSetSelected));
 
         stateToStateSet.add(new StateToState<>(clientState04GameTypeSetSelected, clientState01NoConnect));
