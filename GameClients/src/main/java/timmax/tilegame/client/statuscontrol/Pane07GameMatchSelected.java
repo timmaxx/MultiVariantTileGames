@@ -156,6 +156,7 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
     @Override
     public void doOnPrevState() {
         super.doOnPrevState();
+/*
         nextStatePane.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y);
         nextStatePane.setMinHeight(DIFFERENCE_OF_LAYOUT_Y);
         setListsOfControlsAndAllDisable(
@@ -180,5 +181,6 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
                         + 2 * PIXELS_ON_TOP_N_BOTTOM_FOR_MAIN_FIELD_FITS_INTO_PRIMARY_STAGE
                         + (ROWS_OF_CONTROLS_IN_PANE0X_EXCEPT_LAST + 1) * DIFFERENCE_OF_LAYOUT_Y
         );
+*/
     }
 }
