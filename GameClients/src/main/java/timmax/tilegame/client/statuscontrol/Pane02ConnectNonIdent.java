@@ -8,8 +8,6 @@ import javafx.scene.control.TextField;
 
 import timmax.tilegame.transport.TransportOfClient;
 
-import static timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx.*;
-
 public class Pane02ConnectNonIdent extends AbstractConnectStatePane {
     public Pane02ConnectNonIdent(TransportOfClient transportOfClient) {
         super(transportOfClient);

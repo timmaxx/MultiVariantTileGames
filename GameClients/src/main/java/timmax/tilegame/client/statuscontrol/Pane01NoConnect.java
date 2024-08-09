@@ -9,8 +9,6 @@ import javafx.scene.control.TextField;
 
 import timmax.tilegame.transport.TransportOfClient;
 
-import static timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx.*;
-
 public class Pane01NoConnect extends AbstractConnectStatePane {
     private final TextField serverAddressTextField;
     private final TextField serverPortTextField;

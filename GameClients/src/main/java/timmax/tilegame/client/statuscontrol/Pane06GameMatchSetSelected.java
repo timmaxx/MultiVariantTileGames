@@ -9,8 +9,6 @@ import javafx.scene.control.ComboBox;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
 import timmax.tilegame.transport.TransportOfClient;
 
-import static timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx.*;
-
 public class Pane06GameMatchSetSelected extends AbstractConnectStatePane {
     private final ComboBox<String> gameMatchSetComboBox;
 

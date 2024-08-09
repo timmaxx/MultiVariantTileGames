@@ -10,9 +10,20 @@ import javafx.scene.layout.HBox;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.transport.TransportOfClient;
 
-import static timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx.*;
-
 public abstract class AbstractConnectStatePane extends HBox implements ObserverOnAbstractEvent {
+    // X - составляющие
+    public final static int LAYOUT_X_OF_FIRST_COLUMN = 0;
+    public final static int LAYOUT_X_OF_SECOND_COLUMN = 100;
+
+    public final static int PANE_NEXT_STATE_PREF_WIDTH = 300;
+
+    public final static int BUTTON_NEXT_STATE_PREF_WIDTH = 160;
+    public final static int BUTTON_PREV_STATE_PREF_WIDTH = 160;
+
+    // Y - составляющие
+    public final static int LAYOUT_Y_OF_FIRST_ROW = 0;
+    public final static int DIFFERENCE_OF_LAYOUT_Y = 30;
+
     protected final TransportOfClient transportOfClient;
 
     protected Pane nextStatePane;
