@@ -8,7 +8,6 @@ import java.util.Map;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 
 import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
@@ -18,7 +17,7 @@ import timmax.tilegame.transport.TransportOfClient;
 import static timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx.*;
 
 public class Pane07GameMatchSelected extends AbstractConnectStatePane {
-    private final Pane gameViewsAndControlsPane;
+    private GameClientPaneJfx gameClientPaneJfx;
 
     public Pane07GameMatchSelected(TransportOfClient transportOfClient) {
         super(transportOfClient);
@@ -37,25 +36,32 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
                 }
             }
             transportOfClient.setGameMatchIsPlaying(paramsOfModelValueMap);
+            gameClientPaneJfx.createViews(transportOfClient);
+            getScene().getWindow().sizeToScene();
         });
 
         // Контролы для продвижения состояния "назад":
-        gameViewsAndControlsPane = new Pane();
+        gameClientPaneJfx = new GameClientPaneJfx();
 
         prevStateButton.setText("Stop the game match");
         prevStateButton.setFocusTraversable(false); // Это в любом случае д.б.
         prevStateButton.setOnAction(event -> {
             disableAllControls();
             transportOfClient.resetGameMatch();
+            gameClientPaneJfx.clearChildren();
+            prevStatePane.setPrefWidth(0);
+            getScene().getWindow().sizeToScene();
         });
 
         // По сравнению с предыдущими Pane0X (1 - 6)
         // Здесь нет строки "Получилось N строк контролов:"
+        // Получилась 1 строка контролов:
+        // nextStatePane.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * 1);
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контролов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
                 List.of(),
-                List.of(gameViewsAndControlsPane)
+                List.of(gameClientPaneJfx)
         );
     }
 
@@ -102,36 +108,11 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
         nextStatePane.setPrefHeight(y);
         nextStatePane.setMinHeight(y);
 
+        gameClientPaneJfx.clearChildren();
+
         setListsOfControlsAndAllDisable(
                 regionList,
-                List.of(gameViewsAndControlsPane)
-        );
-
-        gameViewsAndControlsPane.getChildren().clear();
-        gameViewsAndControlsPane.getChildren().add(new GameClientPaneJfx(transportOfClient));
-
-        if (y > DIFFERENCE_OF_LAYOUT_Y) {
-            y -= DIFFERENCE_OF_LAYOUT_Y;
-        }
-
-        // ToDo: Похожий код см. в ViewMainFieldJfx::initMainField()
-        // System.out.println("getParent().getScene().getWindow().getWidth() = " + getParent().getScene().getWindow().getWidth());
-        int widthTmp = LAYOUT_X_OF_FIRST_COLUMN
-                + PIXELS_ON_LEFT_N_RIGHT_FOR_MAIN_FIELD_FITS_INTO_PRIMARY_STAGE
-                + PANE_NEXT_STATE_PREF_WIDTH
-                + BUTTON_NEXT_STATE_PREF_WIDTH
-                + BUTTON_PREV_STATE_PREF_WIDTH
-                - 1;
-        // System.out.println( "getParent().getScene().getWindow().setWidth( " + widthTmp + " )");
-        getParent().getScene().getWindow().setWidth(widthTmp);
-
-        // ToDo: Вернуться к информационным представлениям (про 180).
-        // // 180 - количество пикселей в высоту, нужное для достаточного отображения четырёх текстовых выборок
-        getParent().getScene().getWindow().setHeight(
-                LAYOUT_Y_OF_FIRST_ROW
-                        + (2 * PIXELS_ON_LEFT_N_RIGHT_FOR_MAIN_FIELD_FITS_INTO_PRIMARY_STAGE)
-                        + (ROWS_OF_CONTROLS_IN_PANE0X_EXCEPT_LAST + 1) * DIFFERENCE_OF_LAYOUT_Y
-                        + y
+                List.of(gameClientPaneJfx)
         );
 
         doOnThisState();
@@ -149,18 +130,9 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
         super.doOnPrevState();
 
         nextStatePane.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y);
-        nextStatePane.setMinHeight(DIFFERENCE_OF_LAYOUT_Y);
         setListsOfControlsAndAllDisable(
                 List.of(),
-                List.of(gameViewsAndControlsPane)
-        );
-        gameViewsAndControlsPane.getChildren().clear();
-        prevStatePane.setPrefWidth(PANE_PREV_STATE_PREF_WIDTH);
-
-        getParent().getScene().getWindow().setHeight(
-                LAYOUT_Y_OF_FIRST_ROW
-                        + 2 * PIXELS_ON_TOP_N_BOTTOM_FOR_MAIN_FIELD_FITS_INTO_PRIMARY_STAGE
-                        + (ROWS_OF_CONTROLS_IN_PANE0X_EXCEPT_LAST + 1) * DIFFERENCE_OF_LAYOUT_Y
+                List.of(gameClientPaneJfx)
         );
     }
 }

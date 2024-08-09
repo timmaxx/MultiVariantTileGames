@@ -14,7 +14,7 @@ import timmax.tilegame.transport.TransportOfClient;
 import timmax.tilegame.guiengine.jfx.view.ViewJfx;
 
 public class GameClientPaneJfx extends VBox {
-    public GameClientPaneJfx(TransportOfClient transportOfClient) {
+    public void createViews(TransportOfClient transportOfClient) {
         BaseController baseController = new BaseController(transportOfClient);
         LocalClientStateAutomaton localClientStateAutomaton = transportOfClient.getLocalClientStateAutomaton();
 
@@ -36,5 +36,9 @@ public class GameClientPaneJfx extends VBox {
             localClientStateAutomaton.addView(viewJfx);
             getChildren().add(viewJfx);
         }
+    }
+
+    public void clearChildren() {
+        getChildren().clear();
     }
 }

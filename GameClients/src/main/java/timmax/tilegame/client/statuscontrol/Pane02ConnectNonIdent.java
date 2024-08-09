@@ -40,20 +40,22 @@ public class Pane02ConnectNonIdent extends AbstractConnectStatePane {
         });
 
         // 1
+        int y = LAYOUT_Y_OF_FIRST_ROW;
         userLabel.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
-        userLabel.setLayoutY(LAYOUT_Y_OF_FIRST_ROW);
+        userLabel.setLayoutY(y);
         userNameTextField.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
-        userNameTextField.setLayoutY(LAYOUT_Y_OF_FIRST_ROW);
+        userNameTextField.setLayoutY(y);
 
         // 2
+        y += DIFFERENCE_OF_LAYOUT_Y;
         passwordLabel.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
-        passwordLabel.setLayoutY(DIFFERENCE_OF_LAYOUT_Y);
+        passwordLabel.setLayoutY(y);
         userPasswordField.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
-        userPasswordField.setLayoutY(DIFFERENCE_OF_LAYOUT_Y);
+        userPasswordField.setLayoutY(y);
 
         // Получилось 2 строки контролов:
-        nextStatePane.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * 2);
-        nextStatePane.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * 2);
+        y += DIFFERENCE_OF_LAYOUT_Y;
+        nextStatePane.setMinHeight(y);
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контролов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(

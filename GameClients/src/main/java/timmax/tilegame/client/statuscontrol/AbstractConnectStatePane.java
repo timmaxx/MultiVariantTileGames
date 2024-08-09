@@ -27,15 +27,17 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
         this.transportOfClient = transportOfClient;
 
         nextStatePane = new Pane();
-        prevStatePane = new Pane();
-        nextStateButton = new Button();
-        prevStateButton = new Button();
         nextStatePane.setPrefWidth(PANE_NEXT_STATE_PREF_WIDTH);
-        prevStatePane.setPrefWidth(PANE_PREV_STATE_PREF_WIDTH);
+
+        nextStateButton = new Button();
         nextStateButton.setPrefWidth(BUTTON_NEXT_STATE_PREF_WIDTH);
         nextStateButton.setLayoutX(nextStatePane.getPrefWidth() - nextStateButton.getPrefWidth());
+
+        prevStateButton = new Button();
         prevStateButton.setPrefWidth(BUTTON_PREV_STATE_PREF_WIDTH);
         prevStateButton.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
+
+        prevStatePane = new Pane();
         prevStatePane.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN + BUTTON_PREV_STATE_PREF_WIDTH);
 
         getChildren().addAll(nextStatePane, nextStateButton, prevStateButton, prevStatePane);

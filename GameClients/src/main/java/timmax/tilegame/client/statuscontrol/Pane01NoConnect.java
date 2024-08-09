@@ -49,24 +49,27 @@ public class Pane01NoConnect extends AbstractConnectStatePane {
         });
 
         // 1
+        int y = LAYOUT_Y_OF_FIRST_ROW;
         serverAddressLabel.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
-        serverAddressLabel.setLayoutY(LAYOUT_Y_OF_FIRST_ROW);
+        serverAddressLabel.setLayoutY(y);
         serverAddressTextField.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
-        serverAddressTextField.setLayoutY(LAYOUT_Y_OF_FIRST_ROW);
+        serverAddressTextField.setLayoutY(y);
 
         // 2
+        y += DIFFERENCE_OF_LAYOUT_Y;
         serverPortLabel.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
-        serverPortLabel.setLayoutY(DIFFERENCE_OF_LAYOUT_Y);
+        serverPortLabel.setLayoutY(y);
         serverPortTextField.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
-        serverPortTextField.setLayoutY(DIFFERENCE_OF_LAYOUT_Y);
+        serverPortTextField.setLayoutY(y);
 
         // 3
+        y += DIFFERENCE_OF_LAYOUT_Y;
         connectStringTextField.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
-        connectStringTextField.setLayoutY(2 * DIFFERENCE_OF_LAYOUT_Y);
+        connectStringTextField.setLayoutY(y);
 
         // Получилось 3 строки контролов:
-        nextStatePane.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * 3);
-        nextStatePane.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * 3);
+        y += DIFFERENCE_OF_LAYOUT_Y;
+        nextStatePane.setMinHeight(y);
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контролов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(

@@ -39,12 +39,13 @@ public class Pane06GameMatchSetSelected extends AbstractConnectStatePane {
         });
 
         // 1
+        int y = LAYOUT_Y_OF_FIRST_ROW;
         gameMatchSetComboBox.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
-        gameMatchSetComboBox.setLayoutY(LAYOUT_Y_OF_FIRST_ROW);
+        gameMatchSetComboBox.setLayoutY(y);
 
         // Получилась 1 строка контролов:
-        nextStatePane.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y * 1);
-        nextStatePane.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * 1);
+        y += DIFFERENCE_OF_LAYOUT_Y;
+        nextStatePane.setMinHeight(y);
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контролов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
