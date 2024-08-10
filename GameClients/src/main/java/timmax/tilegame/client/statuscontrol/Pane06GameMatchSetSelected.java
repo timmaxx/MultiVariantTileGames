@@ -44,6 +44,7 @@ public class Pane06GameMatchSetSelected extends AbstractConnectStatePane {
         // Получилась 1 строка контролов:
         y += DIFFERENCE_OF_LAYOUT_Y;
         nextStatePane.setMinHeight(y);
+        nextStatePane.setMaxHeight(y);
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контролов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(

@@ -68,6 +68,7 @@ public class Pane01NoConnect extends AbstractConnectStatePane {
         // Получилось 3 строки контролов:
         y += DIFFERENCE_OF_LAYOUT_Y;
         nextStatePane.setMinHeight(y);
+        nextStatePane.setMaxHeight(y);
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контролов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(

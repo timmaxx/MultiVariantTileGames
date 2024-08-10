@@ -83,7 +83,8 @@ public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
         //         и соответственно, GameClientPaneJfx тоже должна быть:
         //         - в высоту, как сумма высот всех View,
         //         - в ширину, как максимум из ширин всех View.
-        prevStatePane.setPrefWidth(cellSize * width);
+        prevStatePane.setMinWidth(cellSize * width);
+        prevStatePane.setMaxWidth(cellSize * width);
 
         getScene().getWindow().sizeToScene();
     }

@@ -27,10 +27,10 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     protected final TransportOfClient transportOfClient;
 
     protected Pane nextStatePane;
-    protected Pane prevStatePane;
-
     protected Button nextStateButton;
     protected Button prevStateButton;
+    protected Pane prevStatePane;
+
     private List<Region> nextStateControlsList;
     private List<Region> prevStateControlsList;
 
@@ -38,14 +38,17 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
         this.transportOfClient = transportOfClient;
 
         nextStatePane = new Pane();
-        nextStatePane.setPrefWidth(PANE_NEXT_STATE_PREF_WIDTH);
+        nextStatePane.setMinWidth(PANE_NEXT_STATE_PREF_WIDTH);
+        nextStatePane.setMaxWidth(PANE_NEXT_STATE_PREF_WIDTH);
 
         nextStateButton = new Button();
-        nextStateButton.setPrefWidth(BUTTON_NEXT_STATE_PREF_WIDTH);
-        nextStateButton.setLayoutX(nextStatePane.getPrefWidth() - nextStateButton.getPrefWidth());
+        nextStateButton.setMinWidth(BUTTON_NEXT_STATE_PREF_WIDTH);
+        nextStateButton.setMaxWidth(BUTTON_NEXT_STATE_PREF_WIDTH);
+        nextStateButton.setLayoutX(nextStatePane.getWidth() - nextStateButton.getWidth());
 
         prevStateButton = new Button();
-        prevStateButton.setPrefWidth(BUTTON_PREV_STATE_PREF_WIDTH);
+        prevStateButton.setMinWidth(BUTTON_PREV_STATE_PREF_WIDTH);
+        prevStateButton.setMaxWidth(BUTTON_PREV_STATE_PREF_WIDTH);
         prevStateButton.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
 
         prevStatePane = new Pane();

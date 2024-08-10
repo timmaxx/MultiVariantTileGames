@@ -53,8 +53,6 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
 
         // По сравнению с предыдущими Pane0X (1 - 6)
         // Здесь нет строки "Получилось N строк контролов:"
-        // Получилась 1 строка контролов:
-        // nextStatePane.setMinHeight(DIFFERENCE_OF_LAYOUT_Y * 1);
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контролов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
@@ -103,16 +101,14 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
             y += DIFFERENCE_OF_LAYOUT_Y;
         }
 
-        nextStatePane.setPrefHeight(y);
         nextStatePane.setMinHeight(y);
-
+        nextStatePane.setMaxHeight(y);
         gameClientPaneJfx.clearChildren();
-
         setListsOfControlsAndAllDisable(
                 regionList,
                 List.of(gameClientPaneJfx)
         );
-
+        getScene().getWindow().sizeToScene();
         doOnThisState();
     }
 
@@ -127,10 +123,12 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
     public void doOnPrevState() {
         super.doOnPrevState();
 
-        nextStatePane.setPrefHeight(DIFFERENCE_OF_LAYOUT_Y);
+        nextStatePane.setMinHeight(DIFFERENCE_OF_LAYOUT_Y);
+        nextStatePane.setMaxHeight(DIFFERENCE_OF_LAYOUT_Y);
         setListsOfControlsAndAllDisable(
                 List.of(),
                 List.of(gameClientPaneJfx)
         );
+        getScene().getWindow().sizeToScene();
     }
 }

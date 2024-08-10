@@ -38,7 +38,7 @@ public class MultiGameClient extends Application {
         Scene scene = new Scene(root);
         primaryStage.setTitle("Multi tile game client");
         primaryStage.setScene(scene);
-        // primaryStage.setResizable(false);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
