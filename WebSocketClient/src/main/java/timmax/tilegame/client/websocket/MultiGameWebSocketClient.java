@@ -64,6 +64,9 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         //       Тогда нужно обрабатывать исключение и выводить в лог.
         EventOfServer eventOfServer = mapper.readValue(byteArrayInputStream);
         logger.info("Incoming message. EventOfServer: {}.", eventOfServer);
+        // ToDo: События, поступающие от сервера для разных выборок, нужно складывать в очередь и обрабатывать после
+        //       того, как будут обработаны предыдущие.
+        //       Также см. комментарий в EventOfServer92GameEvent :: void executeOnClient(...).
         eventOfServer.executeOnClient(modelMultiGameWebSocketClientManyTimesUse.getLocalClientStateAutomaton());
         logger.debug("  Main game client status: {}.", modelMultiGameWebSocketClientManyTimesUse);
     }

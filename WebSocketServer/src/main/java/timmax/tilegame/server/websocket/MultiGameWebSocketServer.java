@@ -56,7 +56,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
                 // ToDo: Сейчас в конструктор RemoteClientStateAutomaton передаются несколько параметров, некоторые из
                 //       них не являются необходимыми (см. комментарий перед каждым параметром):
                 new RemoteClientStateAutomaton(
-                        // - webSocket(как параметр конструктора FabricOfRemoteClientStates), который понадобится тогда,
+                        // - webSocket (как параметр конструктора FabricOfRemoteClientStates), который понадобится тогда,
                         //   когда нужно будет отправить сообщение конкретному клиенту, но его можно было-бы получить
                         //   через двустороннюю мапу
                         //   WebSocket <-> RemoteClientStateAutomaton
@@ -85,6 +85,9 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         //       Тогда нужно обрабатывать исключение и выводить в лог.
         EventOfClient eventOfClient = mapper.readValue(byteArrayInputStream);
         logger.info("WebSocket: {}. Incoming message. EventOfClient: {}.", webSocket, eventOfClient);
+        // ToDo: События, поступающие от разных клиентов (webSocket) нужно складывать в очередь и обрабатывать после
+        //       того, как будут обработаны предыдущие.
+        //       Также см. комментарий в EventOfServer92GameEvent :: void executeOnClient(...).
         Thread thread = new Thread(() -> eventOfClient.executeOnServer(webSocketAndRemoteClientStateAutomatonMap.get(webSocket)));
         thread.start();
     }
