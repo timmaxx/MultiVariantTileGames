@@ -47,6 +47,7 @@ public class Pane04GameTypeSetSelected extends AbstractConnectStatePane {
             transportOfClient.reauthorizeUser();
         });
 
+
         // 1
         int y = LAYOUT_Y_OF_FIRST_ROW;
         gameTypeSetComboBox.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
@@ -65,6 +66,13 @@ public class Pane04GameTypeSetSelected extends AbstractConnectStatePane {
     }
 
     // interface ObserverOnAbstractEvent
+    // 1
+    @Override
+    public void updateOnOpen() {
+        super.updateOnOpen();
+        doOnPrevState();
+    }
+
     // 2
     @Override
     public void updateOnAuthorizeUser() {

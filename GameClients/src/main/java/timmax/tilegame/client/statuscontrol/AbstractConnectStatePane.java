@@ -87,15 +87,15 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
         prevStateButton.setDisable(true);
     }
 
-    protected void setDisableNextStateControls(boolean disableNextStateControls) {
+    private void setDisableNextStateControls(boolean disableNextStateControls) {
         for (Region control : nextStateControlsList) {
             control.setDisable(disableNextStateControls);
         }
         nextStateButton.setDisable(disableNextStateControls);
+        prevStateButton.setDisable(!disableNextStateControls);
         for (Region control : prevStateControlsList) {
             control.setDisable(!disableNextStateControls);
         }
-        prevStateButton.setDisable(!disableNextStateControls);
     }
 
     //
@@ -114,35 +114,35 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     // Implemented methods of interface ObserverOnAbstractEvent
     @Override
     public void updateOnClose() {
-        doOnPrevState();
+        disableAllControls();
     }
 
     @Override
     public void updateOnOpen() {
-        doOnPrevState();
+        disableAllControls();
     }
 
     // 2
     @Override
     public void updateOnAuthorizeUser() {
-        doOnPrevState();
+        disableAllControls();
     }
 
     // 4
     @Override
     public void updateOnSetGameType() {
-        doOnPrevState();
+        disableAllControls();
     }
 
     // 6
     @Override
     public void updateOnSetGameMatch() {
-        doOnPrevState();
+        disableAllControls();
     }
 
     // 7
     @Override
     public void updateOnSetGameMatchIsPlaying() {
-        doOnPrevState();
+        disableAllControls();
     }
 }

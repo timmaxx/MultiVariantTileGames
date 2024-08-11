@@ -75,8 +75,8 @@ public class Pane01NoConnect extends AbstractConnectStatePane {
                 List.of(serverAddressLabel, serverAddressTextField, serverPortLabel, serverPortTextField, connectStringTextField),
                 List.of()
         );
-        // ToDo: метод с параметром 'false' нужно вызывать, когда панель соответствует состоянию.
-        setDisableNextStateControls(false);
+
+        doOnThisState();
     }
 
     public URI getURIFromControls() {

@@ -47,7 +47,8 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
             disableAllControls();
             transportOfClient.resetGameMatch();
             gameClientPaneJfx.clearChildren();
-            prevStatePane.setPrefWidth(0);
+            prevStatePane.setMinWidth(0);
+            prevStatePane.setMaxWidth(0);
             getScene().getWindow().sizeToScene();
         });
 
@@ -62,6 +63,13 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
     }
 
     // interface ObserverOnAbstractEvent
+    // 4
+    @Override
+    public void updateOnSetGameType() {
+        super.updateOnSetGameType();
+        doOnPrevState();
+    }
+
     // 6
     @Override
     public void updateOnSetGameMatch() {
