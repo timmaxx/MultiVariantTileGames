@@ -4,19 +4,19 @@ import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEventHashSet;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.server.ParamName_paramModelDescriptionMap;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
+import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 import timmax.tilegame.basemodel.protocol.server_client.IFabricOfClientStates;
 import timmax.tilegame.baseview.View;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchId> implements ObserverOnAbstractEvent {
+public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchDto> implements ObserverOnAbstractEvent {
     private final ObserverOnAbstractEventHashSet observerOnAbstractEventHashSet;
     private final Map<String, View> viewName_ViewMap;
 
     public LocalClientStateAutomaton(
-            IFabricOfClientStates<GameMatchId> IFabricOfClientStates) {
+            IFabricOfClientStates<GameMatchDto> IFabricOfClientStates) {
         super(IFabricOfClientStates);
 
         observerOnAbstractEventHashSet = new ObserverOnAbstractEventHashSet();

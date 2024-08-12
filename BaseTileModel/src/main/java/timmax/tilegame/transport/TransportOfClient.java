@@ -6,7 +6,7 @@ import java.util.Map;
 import timmax.tilegame.basemodel.protocol.EventOfClient;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
+import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 
 public interface TransportOfClient {
     //  setURI(URI uriFromControls) Нужен в обоих классах, но в
@@ -37,7 +37,7 @@ public interface TransportOfClient {
 
     // 06GameMatchSetSelected
     void resetGameType();                                                       //  6 -> 6  void forgetGameMatchX();
-    void setGameMatch(GameMatchId gameMatchId);                                 //  6 -> 7  void setGameMatchX(GameMatchX gameMatchX);
+    void setGameMatch(GameMatchDto gameMatchDto);                                 //  6 -> 7  void setGameMatchX(GameMatchX gameMatchX);
 
     // 07GameMatchSelected
     void resetGameMatch();                                                      //  7 -> 7  void forgetGameMatchPlaying();

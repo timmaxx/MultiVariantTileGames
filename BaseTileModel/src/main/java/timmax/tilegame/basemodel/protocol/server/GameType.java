@@ -27,7 +27,7 @@ public abstract class GameType implements IGameType, Externalizable {
     //          Среди реквизитов класса, идентифицирующим (типа первичным ключём) является gameName.
     //          Поэтому, при передаче полной информации о типе игры нужно передавать все поля.
     //          А вот при передаче как-бы ссылки на тип игры, достаточно передать только gameName.
-    //          И похожим образом сделано для идентификации GameMatch (см. коммент для GameMatchId)
+    //          И похожим образом сделано для идентификации GameMatch (см. коммент для GameMatchDto)
     private String gameTypeName;
     private Constructor<? extends IGameMatch> gameMatchConstructor;
     // private int countOfGamers;
@@ -150,9 +150,8 @@ public abstract class GameType implements IGameType, Externalizable {
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         gameTypeName = (String) in.readObject();
         // countOfGamers = in.readInt();
-        // ToDo: Избавиться от "Warning:(153, 34) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
+        // ToDo: Избавиться от "Warning:(154, 34) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
         viewName_ViewClassMap = (Map<String, Class<? extends View>>) in.readObject();
-        // ToDo: Избавиться от "Warning:(155, 41) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription>'"
         paramName_paramModelDescriptionMap = (ParamName_paramModelDescriptionMap) in.readObject();
     }
 }

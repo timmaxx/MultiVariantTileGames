@@ -6,20 +6,18 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.Map;
 
-// ToDo: Сделать промежуточный абстрактый класс, реализующий interface IGameMatchX. А Классы GameMatch и GameMatchId
-//       сделать его наследниками.
-//       Классы GameMatch и GameMatchId имеют несколько одинаковых переменных и методов (в т.ч. см interface IGameMatchX)
-public class GameMatchId implements Externalizable, IGameMatchX {
+// DTO - Data Transfer Object
+public class GameMatchDto implements Externalizable, IGameMatchX {
     private String id;
     private boolean isPlaying;
     private Map<String, Integer> paramsOfModelValueMap;
 
     // Нужен только потому, что implements Externalizable
-    public GameMatchId() {
+    public GameMatchDto() {
         super();
     }
 
-    public GameMatchId(String id, boolean isPlaying, Map<String, Integer> paramsOfModelValueMap) {
+    public GameMatchDto(String id, boolean isPlaying, Map<String, Integer> paramsOfModelValueMap) {
         this();
         this.id = id;
         this.isPlaying = isPlaying;
@@ -33,7 +31,7 @@ public class GameMatchId implements Externalizable, IGameMatchX {
     // class Object
     @Override
     public String toString() {
-        return "GameMatchId{" +
+        return "GameMatchDto{" +
                 "id='" + id + '\'' +
                 ", gameIsPlaying=" + isPlaying +
                 '}';
@@ -51,6 +49,7 @@ public class GameMatchId implements Externalizable, IGameMatchX {
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         id = (String) in.readObject();
         isPlaying = in.readBoolean();
+        // ToDo: Избавиться от "Warning:(53, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Integer>'"
         paramsOfModelValueMap = (Map<String, Integer>) in.readObject();
     }
 
@@ -62,16 +61,17 @@ public class GameMatchId implements Externalizable, IGameMatchX {
 
     @Override
     public boolean isPlaying() {
-        // throw new RuntimeException("GameMatchId :: boolean getGameMatchIsPlaying()");
-        // System.out.println("throw new RuntimeException(\"GameMatchId :: boolean getGameMatchIsPlaying()\");");
-        System.out.println("GameMatchId :: boolean getGameMatchIsPlaying()");
+        // throw new RuntimeException("GameMatchDto :: boolean getGameMatchIsPlaying()");
+        // System.out.println("throw new RuntimeException(\"GameMatchDto :: boolean getGameMatchIsPlaying()\");");
+        System.out.println("GameMatchDto :: boolean getGameMatchIsPlaying()");
         return isPlaying;
     }
 
+    // ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.
     @Override
     public void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue) {
-        // throw new RuntimeException("GameMatchId :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue)");
-        System.out.println("throw new RuntimeException(\"GameMatchId :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue)\");");
+        // throw new RuntimeException("GameMatchDto :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue)");
+        System.out.println("throw new RuntimeException(\"GameMatchDto :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue)\");");
     }
 
     @Override

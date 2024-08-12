@@ -6,23 +6,24 @@ import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.protocol.server.IGameMatch;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
+import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 
 public class EventOfClient61SetGameMatch extends EventOfClient {
-    private GameMatchId gameMatchId;
+    private GameMatchDto gameMatchDto;
 
     public EventOfClient61SetGameMatch() {
         super();
     }
 
-    public EventOfClient61SetGameMatch(GameMatchId gameMatchId) {
+    public EventOfClient61SetGameMatch(GameMatchDto gameMatchDto) {
         this();
-        this.gameMatchId = gameMatchId;
+        this.gameMatchDto = gameMatchDto;
     }
 
+    // class EventOfClient
     @Override
     public void executeOnServer(RemoteClientStateAutomaton remoteClientStateAutomaton) {
-        if (gameMatchId.isNullOrEmpty()) {
+        if (gameMatchDto.isNullOrEmpty()) {
             remoteClientStateAutomaton.resetGameType();
             return;
         }
@@ -32,13 +33,13 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
         iGameMatch = remoteClientStateAutomaton
                 .getGameMatchXSet()
                 .stream()
-                .filter(x -> x.toString().equals(gameMatchId.getId()))
+                .filter(x -> x.toString().equals(gameMatchDto.getId()))
                 .findAny()
                 .orElse(null)
         ;
 
         if (iGameMatch == null) {
-            logger.error("There is not match '" + gameMatchId.getId() + "'");
+            logger.error("There is not match '" + gameMatchDto.getId() + "'");
             remoteClientStateAutomaton.resetGameType();
             return;
         }
@@ -47,21 +48,22 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
         remoteClientStateAutomaton.setGameMatchX(iGameMatch);
     }
 
+    // class Object
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{" +
-                "gameMatchId=" + gameMatchId +
+                "gameMatchDto=" + gameMatchDto +
                 '}';
     }
 
     // interface Externalizable
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(gameMatchId);
+        out.writeObject(gameMatchDto);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        gameMatchId = (GameMatchId) in.readObject();
+        gameMatchDto = (GameMatchDto) in.readObject();
     }
 }

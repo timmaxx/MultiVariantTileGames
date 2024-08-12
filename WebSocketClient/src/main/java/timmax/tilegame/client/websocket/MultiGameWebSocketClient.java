@@ -15,7 +15,7 @@ import timmax.common.ObjectMapperOfMvtg;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
+import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 import timmax.tilegame.transport.TransportOfClient;
 
 // Этот класс, к сожалению, я не смог использовать "многоразово".
@@ -135,9 +135,9 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     }
 
     @Override
-    public void setGameMatch(GameMatchId gameMatchId) {
-        logger.debug("setGameMatch(GameMatchId gameMatchId)");
-        sendEventOfClient(new EventOfClient61SetGameMatch(gameMatchId));
+    public void setGameMatch(GameMatchDto gameMatchDto) {
+        logger.debug("setGameMatch(GameMatchDto gameMatchDto)");
+        sendEventOfClient(new EventOfClient61SetGameMatch(gameMatchDto));
     }
 
     // 7

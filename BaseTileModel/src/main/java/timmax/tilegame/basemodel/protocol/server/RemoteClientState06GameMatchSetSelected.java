@@ -3,7 +3,7 @@ package timmax.tilegame.basemodel.protocol.server;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server_client.ClientState06GameMatchSetSelected;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
+import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -80,7 +80,7 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
                         gameType.getGameTypeName(),
                         gameMatchXSet
                                 .stream()
-                                .map(x -> new GameMatchId(x.getId(), x.isPlaying(), x.getParamsOfModelValueMap()))
+                                .map(x -> new GameMatchDto(x.getId(), x.isPlaying(), x.getParamsOfModelValueMap()))
                                 .collect(Collectors.toSet())
                 )
         );

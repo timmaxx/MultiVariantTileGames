@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import timmax.tilegame.basemodel.protocol.EventOfClient;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchId;
+import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 import timmax.tilegame.transport.TransportOfClient;
 
 // WebSocket клиент многоразовый
@@ -95,8 +95,8 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
     }
 
     @Override
-    public void setGameMatch(GameMatchId gameMatchId) {
-        transportOfClient.setGameMatch(gameMatchId);
+    public void setGameMatch(GameMatchDto gameMatchDto) {
+        transportOfClient.setGameMatch(gameMatchDto);
     }
 
     // 7

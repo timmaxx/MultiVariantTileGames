@@ -27,9 +27,6 @@ import static timmax.tilegame.basemodel.GameStatus.VICTORY;
 //       Тогда, в т.ч. уйдёт предупреждение в строке:
 //       allMinesweeperObjects = levelGenerator.getLevel(width, height, percentsOfMines);
 //       в классе GameMatchOfMinesweeper.
-// ToDo: Сделать промежуточный абстрактый класс, реализующий interface IGameMatchX. А Классы GameMatch и GameMatchId
-//       сделать его наследниками.
-//       Классы GameMatch и GameMatchId имеют несколько одинаковых переменных и методов (в т.ч. см interface IGameMatchX)
 public abstract class GameMatch<ClientId> implements IGameMatch {
     protected static final Logger logger = LoggerFactory.getLogger(GameMatch.class);
 
@@ -74,6 +71,8 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         sendGameEventToAllViews(gameEventNewGame);
     }
 
+    // ToDo: Избавиться от "Warning:(76, 87) Actual value of parameter 'defaultTextColor' is always 'Color.BLACK'"
+    // ToDo: Избавиться от "Warning:(76, 112) Actual value of parameter 'defaultCellValue' is always ''"
     protected void createNewGame(int width, int height, Color defaultCellColor, Color defaultTextColor, String defaultCellValue) {
         verifyGameMatchIsPlaying();
         gameStatus = GameStatus.GAME;
