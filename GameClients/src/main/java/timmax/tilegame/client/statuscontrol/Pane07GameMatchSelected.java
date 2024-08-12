@@ -33,7 +33,7 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
                             Integer.valueOf(textField.getText()));
                 }
             }
-            transportOfClient.setGameMatchIsPlaying(paramsOfModelValueMap);
+            transportOfClient.startGameMatch(paramsOfModelValueMap);
             gameClientPaneJfx.createViews(transportOfClient);
             getScene().getWindow().sizeToScene();
         });
@@ -93,17 +93,36 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
                     .getLocalClientStateAutomaton()
                     .getParamName_paramModelDescriptionMap()
                     .get(paramName);
+            // !!! transportOfClient.getLocalClientStateAutomaton().getGameMatchIsPlaying() == true
+            // ToDo: Если
+            //       transportOfClient.getLocalClientStateAutomaton().getGameMatchIsPlaying() == true
+            //       то вместо
+            //       paramOfModelDescription.getDefaultValue()
+            //       нужно взять значение из текущего матча.
+            int paramValue;
+            if (transportOfClient.getLocalClientStateAutomaton().getGameMatchIsPlaying()) {
+                // Если матч уже был начат.
+                // Достаём параметр из матча.
+                paramValue = transportOfClient
+                        .getLocalClientStateAutomaton()
+                        .getGameMatchX()
+                        .getParamsOfModelValueMap()
+                        .get(paramName);
+            } else {
+                // Если матч ещё не был начат.
+                // Достаём параметр из описания типа игры.
+                paramValue = paramOfModelDescription.getDefaultValue();
+            }
             paramNameTextField.setTextFormatter(
                     new TextFormatter<>(
                             new IntegerStringConverterWithMinAndMax(
                                     paramOfModelDescription.getMinValue(),
                                     paramOfModelDescription.getMaxValue()
                             ),
-                            paramOfModelDescription.getDefaultValue(),
+                            paramValue,
                             new IntegerFilter()
                     )
             );
-
             regionList.add(paramNameLabel);
             regionList.add(paramNameTextField);
             y += DIFFERENCE_OF_LAYOUT_Y;
@@ -118,6 +137,13 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
         );
         getScene().getWindow().sizeToScene();
         doOnThisState();
+
+        // !!! transportOfClient.getLocalClientStateAutomaton().getGameMatchIsPlaying() == true
+        // Запретим для редактирования параметры матча, если матч уже был начат.
+        // Этот цикл нужно сделать после вызова 'doOnThisState()', т.к. там
+        for (Region region : regionList) {
+            region.setDisable(transportOfClient.getLocalClientStateAutomaton().getGameMatchIsPlaying());
+        }
     }
 
     // 7

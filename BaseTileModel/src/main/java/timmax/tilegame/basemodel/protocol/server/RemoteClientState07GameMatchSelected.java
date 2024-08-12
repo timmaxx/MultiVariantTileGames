@@ -19,7 +19,7 @@ public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState0
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
                 new EventOfServer61SetGameMatch(
-                        new GameMatchId(gameMatchX.toString())
+                        new GameMatchId(gameMatchX.getId(), gameMatchX.isPlaying(), gameMatchX.getParamsOfModelValueMap())
                 )
         );
     }

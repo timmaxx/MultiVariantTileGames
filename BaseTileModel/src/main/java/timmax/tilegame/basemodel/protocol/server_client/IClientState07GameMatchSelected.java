@@ -1,5 +1,7 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
+import java.util.Map;
+
 //  Выбрана партия (создан экземпляр класса модели и он в состоянии настройка).
 public interface IClientState07GameMatchSelected<GameMatchX extends IGameMatchX> extends IClientState00 {
     // Нумерация приведена соответствующая классам Pane0Х... пакета timmax.tilegame.client.statuscontrol:
@@ -7,5 +9,6 @@ public interface IClientState07GameMatchSelected<GameMatchX extends IGameMatchX>
     // ---- 7 (MatchSelected)
     void resetGameMatchX();
     GameMatchX getGameMatchX();
-    void setGameMatchIsPlaying(Boolean gameMatchIsPlaying);
+    void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue);
+    Boolean getGameMatchIsPlaying();
 }

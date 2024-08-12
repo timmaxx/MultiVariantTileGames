@@ -11,6 +11,11 @@ public abstract class ClientState06GameMatchSetSelected<GameMatchX extends IGame
 
     // interface IClientState06GameMatchSetSelected
     @Override
+    public GameType getGameType() {
+        return getClientStateAutomaton().getGameType_();
+    }
+
+    @Override
     public void resetGameType() {
         GameType gameType = getClientStateAutomaton().getGameType_();
         Set<GameMatchX> gameMatchXSet = getClientStateAutomaton().getGameMatchXSet_();

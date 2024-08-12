@@ -3,6 +3,8 @@ package timmax.tilegame.basemodel.protocol.server;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server_client.*;
 
+import java.util.Map;
+
 public class RemoteClientState08GameMatchIsPlaying<ClientId> extends ClientState08GameMatchIsPlaying<IGameMatch> {
     private final ClientId clientId;
 
@@ -12,11 +14,11 @@ public class RemoteClientState08GameMatchIsPlaying<ClientId> extends ClientState
     }
 
     @Override
-    public void setGameMatchIsPlaying(Boolean gameMatchIsPlaying) {
-        super.setGameMatchIsPlaying(gameMatchIsPlaying);
+    public void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue) {
+        super.startGameMatch(mapOfParamsOfModelValue);
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
-                new EventOfServer71SetGameMatchIsPlaying()
+                new EventOfServer71StartGameMatch(mapOfParamsOfModelValue)
         );
 
         // ToDo: Вызов этого метода может быть как для модели:

@@ -1,6 +1,7 @@
 package timmax.tilegame.client.statuscontrol;
 
 import java.util.List;
+import java.util.Map;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,7 +26,39 @@ public class Pane06GameMatchSetSelected extends AbstractConnectStatePane {
                 return;
             }
             disableAllControls();
-            transportOfClient.setGameMatch(new GameMatchId(gameMatchSetComboBox.getValue()));
+
+            String gameMatchId = gameMatchSetComboBox.getValue();
+            boolean gameMatchIsPlaying = transportOfClient
+                    .getLocalClientStateAutomaton()
+                    .getGameMatchXSet()
+                    .stream()
+                    .filter(x -> x.getId().equals(gameMatchId))
+                    .findAny()
+                    .map(GameMatchId::isPlaying)
+                    .orElse(null);
+
+            Map<String, Integer> paramsOfModelValueMap;
+            if (gameMatchIsPlaying) {
+                // Если матч уже был начат.
+                // Достаём параметры из матча.
+                paramsOfModelValueMap = transportOfClient
+                        .getLocalClientStateAutomaton()
+                        .getGameMatchXSet()
+                        .stream()
+                        .filter(x -> x.getId().equals(gameMatchId))
+                        .findAny()
+                        .map(GameMatchId::getParamsOfModelValueMap)
+                        .orElse(null);
+            } else {
+                // Если матч ещё не был начат.
+                // Достаём параметры из описания типа игры.
+                paramsOfModelValueMap = transportOfClient
+                        .getLocalClientStateAutomaton()
+                        .getGameType()
+                        .getParamName_paramModelDescriptionMap()
+                        .getParamsOfModelValueMap();
+            }
+            transportOfClient.setGameMatch(new GameMatchId(gameMatchId, gameMatchIsPlaying, paramsOfModelValueMap));
         });
 
         // Контролы для продвижения состояния "назад":

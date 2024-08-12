@@ -6,8 +6,4 @@ public abstract class ClientState08GameMatchIsPlaying<GameMatchX extends IGameMa
     }
 
     // interface IClientState08GameMatchPlaying
-    @Override
-    public Boolean getGameMatchIsPlaying() {
-        return getClientStateAutomaton().getGameIsPlaying_();
-    }
 }

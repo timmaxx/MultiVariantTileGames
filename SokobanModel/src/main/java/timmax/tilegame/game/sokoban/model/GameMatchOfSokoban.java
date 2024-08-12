@@ -125,6 +125,8 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         }
         movePlayerIfPossible(direction, false);
         routeRedo = new Route();
+
+        setGameMatchIsPlayingTrue();
     }
 
     private void moveRedo() {
@@ -268,6 +270,8 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     // interface IGameMatch:
     @Override
     public void createNewGame() {
+        verifyGameMatchIsPlaying();
+
         if (allSokobanObjects != null && getGameStatus() == GameStatus.GAME) {
             return;
         }

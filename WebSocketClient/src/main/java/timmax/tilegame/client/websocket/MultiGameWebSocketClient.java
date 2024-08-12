@@ -142,9 +142,9 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
 
     // 7
     @Override
-    public void setGameMatchIsPlaying(Map<String, Integer> mapOfParamsOfModelValue) {
+    public void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue) {
         logger.debug("setGameMatchIsPlaying(Map<String, Integer> mapOfParamsOfModelValue)");
-        sendEventOfClient(new EventOfClient71SetGameMatchIsPlaying(mapOfParamsOfModelValue));
+        sendEventOfClient(new EventOfClient71StartGameMatch(mapOfParamsOfModelValue));
     }
 
     @Override

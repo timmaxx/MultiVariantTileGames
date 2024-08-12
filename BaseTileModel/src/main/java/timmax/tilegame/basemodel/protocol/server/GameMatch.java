@@ -27,6 +27,9 @@ import static timmax.tilegame.basemodel.GameStatus.VICTORY;
 //       Тогда, в т.ч. уйдёт предупреждение в строке:
 //       allMinesweeperObjects = levelGenerator.getLevel(width, height, percentsOfMines);
 //       в классе GameMatchOfMinesweeper.
+// ToDo: Сделать промежуточный абстрактый класс, реализующий interface IGameMatchX. А Классы GameMatch и GameMatchId
+//       сделать его наследниками.
+//       Классы GameMatch и GameMatchId имеют несколько одинаковых переменных и методов (в т.ч. см interface IGameMatchX)
 public abstract class GameMatch<ClientId> implements IGameMatch {
     protected static final Logger logger = LoggerFactory.getLogger(GameMatch.class);
 
@@ -44,6 +47,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
 
     private Map<String, Integer> paramsOfModelValueMap;
     private GameStatus gameStatus;
+    private boolean isPlaying;
 
     public GameMatch(
             GameType gameType,
@@ -63,15 +67,29 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     }
 
     protected void createNewGame(int width, int height) {
+        verifyGameMatchIsPlaying();
         gameStatus = GameStatus.GAME;
         GameEventNewGame gameEventNewGame = new GameEventNewGame(width, height);
+        isPlaying = false;
         sendGameEventToAllViews(gameEventNewGame);
     }
 
     protected void createNewGame(int width, int height, Color defaultCellColor, Color defaultTextColor, String defaultCellValue) {
+        verifyGameMatchIsPlaying();
         gameStatus = GameStatus.GAME;
         GameEventNewGame gameEventNewGame = new GameEventNewGame(width, height, defaultCellColor, defaultTextColor, defaultCellValue);
+        isPlaying = false;
         sendGameEventToAllViews(gameEventNewGame);
+    }
+
+    protected void verifyGameMatchIsPlaying() {
+        if (isPlaying) {
+            throw new RuntimeException("You cannot create new game because the match is in state 'gameMatchIsPlaing'!");
+        }
+    }
+
+    public boolean isPlaying() {
+        return isPlaying;
     }
 
     // Посылает игровое событие всем выборкам.
@@ -107,6 +125,15 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         return paramsOfModelValueMap.get(paramName);
     }
 
+    protected void setGameMatchIsPlayingTrue() {
+        isPlaying = true;
+    }
+
+    @Override
+    public String getId() {
+        return super.toString();
+    }
+
     // interface IGameMatch:
     @Override
     public void win() {
@@ -121,5 +148,20 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         }
         setGameStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
         sendGameEventToAllViews(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
+    }
+
+    @Override
+    public void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue) {
+        System.out.println("GameMatch :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue). Begin");
+        for (Map.Entry<String, Integer> entry : mapOfParamsOfModelValue.entrySet()){
+            System.out.println("  entry.getKey() = " + entry.getKey() + ". entry.getValue() = " + entry.getValue());
+        }
+        // throw new RuntimeException("GameMatch :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue)");
+        System.out.println("GameMatch :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue). End");
+    }
+
+    @Override
+    public Map<String, Integer> getParamsOfModelValueMap() {
+        return paramsOfModelValueMap;
     }
 }

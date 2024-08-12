@@ -3,6 +3,7 @@ package timmax.tilegame.basemodel.protocol.server_client;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
@@ -28,7 +29,6 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     private GameType gameType; // ---- 4 (Конкретный тип игры)
     private Set<GameMatchX> gameMatchXSet; // ---- 5 (Набор моделей игр)
     private GameMatchX gameMatchX; // ---- 6 (Конкретная модель игры)
-    private Boolean gameMatchIsPlaying; // ---- 7 (Партия была начата)
 
     public ClientStateAutomaton(
             IFabricOfClientStates<GameMatchX> iFabricOfClientStates) {
@@ -123,8 +123,8 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         this.gameMatchX = gameMatchX;
     }
 
-    void setGameMatchIsPlaying_(Boolean gameMatchIsPlaying) {
-        this.gameMatchIsPlaying = gameMatchIsPlaying;
+    void startGameMatch_(Map<String, Integer> mapOfParamsOfModelValue) {
+        getGameMatchX_().startGameMatch(mapOfParamsOfModelValue);
     }
 
     // Геттерам, имеющим прямой доступ к полям(..._), тоже достаточно быть private-package:
@@ -152,8 +152,8 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         return gameMatchX;
     }
 
-    Boolean getGameIsPlaying_() {
-        return gameMatchIsPlaying;
+    boolean getGameMatchIsPlaying_() {
+        return getGameMatchX_().isPlaying();
     }
 
     // Публичные методы класса, вызов которых будет в т.ч. приводить к смене состояния.
@@ -187,6 +187,11 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     @Override
     public Set<GameType> getGameTypeSet() {
         return currentState.getGameTypeSet();
+    }
+
+    @Override
+    public GameType getGameType() {
+        return currentState.getGameType();
     }
 
     @Override
@@ -226,9 +231,9 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     }
 
     @Override
-    public void setGameMatchIsPlaying(Boolean gameMatchIsPlaying) {
+    public void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue) {
         setCurrentState(clientState08GameMatchIsPlaying);
-        currentState.setGameMatchIsPlaying(gameMatchIsPlaying);
+        currentState.startGameMatch(mapOfParamsOfModelValue);
     }
 
     // 8 interface IClientState08GameMatchIsPlaying

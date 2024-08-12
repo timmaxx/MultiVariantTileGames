@@ -49,11 +49,12 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     }
 
     public void createNewGame(int width, int height, int percentsOfMines) {
+        verifyGameMatchIsPlaying();
         if (allMinesweeperObjects != null && getGameStatus() == GameStatus.GAME) {
             return;
         }
 
-        // ToDo: Избавиться от "Warning:(57, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
+        // ToDo: Избавиться от "Warning:(58, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
         allMinesweeperObjects = levelGenerator.getLevel(width, height, percentsOfMines);
         allMinesweeperObjects.setModel(this);
 
@@ -68,6 +69,8 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
             return;
         }
         allMinesweeperObjects.tryInverseFlag(allMinesweeperObjects.getTileByXY(x, y));
+        // Т.к. пометка флагом не раскрывает карту и не может привести к проигрышу, то вызов
+        // setGameMatchIsPlayingTrue() делать не нужно.
     }
 
     private void open(int x, int y) {
@@ -75,6 +78,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
             return;
         }
         setGameStatus(allMinesweeperObjects.open(allMinesweeperObjects.getTileByXY(x, y)));
+        setGameMatchIsPlayingTrue();
     }
 
     // interface IGameMatch:
