@@ -22,8 +22,8 @@ public class RemoteClientState08GameMatchIsPlaying<ClientId> extends ClientState
         );
 
         // ToDo: Вызов этого метода для модели:
-        //       - для которой ранее ещё не было вызвано createNewGame().
-        getClientStateAutomaton().getGameMatchX().createNewGame();
+        //       - для которой ранее ещё не было вызвано start().
+        getClientStateAutomaton().getGameMatchX().start();
     }
 
     @Override
@@ -35,7 +35,7 @@ public class RemoteClientState08GameMatchIsPlaying<ClientId> extends ClientState
         );
 
         // ToDo: Вызов этого метода для модели:
-        //       - у которой был ранее вызов createNewGame(), потом было хотя-бы одно игровое событие, но потом она была поставлена на паузу.
+        //       - у которой был ранее вызов start(), потом было хотя-бы одно игровое событие, но потом она была поставлена на паузу.
         getClientStateAutomaton().getGameMatchX().resume();
     }
 

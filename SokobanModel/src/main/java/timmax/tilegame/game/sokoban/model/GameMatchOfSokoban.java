@@ -253,7 +253,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
 
     // interface IGameMatch:
     @Override
-    public void createNewGame() {
+    public void start() {
         verifyGameMatchIsPlaying();
 
         if (allSokobanObjects != null && getGameStatus() == GameStatus.GAME) {
@@ -261,7 +261,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         }
 
         allSokobanObjects = levelLoader.getLevel(currentLevel.getValue());
-        super.createNewGame(allSokobanObjects.getWidth(), allSokobanObjects.getHeight());
+        super.start(allSokobanObjects.getWidth(), allSokobanObjects.getHeight());
         for (int y = 0; y < allSokobanObjects.getHeight(); y++) {
             for (int x = 0; x < allSokobanObjects.getWidth(); x++) {
                 WhoPersistentInTile whoPersistentInTile = allSokobanObjects.getWhoPersistentInTile(x, y);

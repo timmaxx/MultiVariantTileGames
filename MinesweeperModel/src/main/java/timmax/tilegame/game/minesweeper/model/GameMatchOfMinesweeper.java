@@ -33,7 +33,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
         super(new GameTypeOfMinesweeper(), remoteClientStateAutomaton, clientId);
     }
 
-    public void createNewGame(int width, int height, int percentsOfMines) {
+    public void start(int width, int height, int percentsOfMines) {
         verifyGameMatchIsPlaying();
         if (allMinesweeperObjects != null && getGameStatus() == GameStatus.GAME) {
             return;
@@ -46,7 +46,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
         sendGameEventToAllViews(new GameEventMinesweeperVariableParamsOpenClose(0, width * height));
         sendGameEventToAllViews(new GameEventMinesweeperVariableParamsFlag(0, allMinesweeperObjects.getCountOfMines()));
 
-        super.createNewGame(width, height);
+        super.start(width, height);
     }
 
     private void tryInverseFlag(int x, int y) {
@@ -71,8 +71,8 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
 
     // interface IGameMatch:
     @Override
-    public void createNewGame() {
-        createNewGame(
+    public void start() {
+        start(
                 paramsOfModelValueMapGet(PARAM_NAME_WIDTH),
                 paramsOfModelValueMapGet(PARAM_NAME_HEIGHT),
                 paramsOfModelValueMapGet(PARAM_NAME_PERCENTS_OF_MINES)

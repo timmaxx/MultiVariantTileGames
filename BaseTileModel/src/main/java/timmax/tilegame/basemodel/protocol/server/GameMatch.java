@@ -62,9 +62,8 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         this.gameStatus = gameStatus;
     }
 
-    // ToDo: Переименовать все "createNewGame" в "start"
     @Override
-    public void createNewGame(int width, int height) {
+    public void start(int width, int height) {
         verifyGameMatchIsPlaying();
         gameStatus = GameStatus.GAME;
         GameEventNewGame gameEventNewGame = new GameEventNewGame(width, height);
@@ -111,7 +110,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         */
         // Для Сокобан restart и newGame - видимо работает одинаково.
         if (getGameStatus() != GameStatus.GAME) {
-            createNewGame();
+            start();
             return true;
         }
         return false;
