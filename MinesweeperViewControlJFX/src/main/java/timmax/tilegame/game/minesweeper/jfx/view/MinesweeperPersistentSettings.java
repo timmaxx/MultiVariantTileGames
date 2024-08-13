@@ -1,6 +1,7 @@
 package timmax.tilegame.game.minesweeper.jfx.view;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
+import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.transport.TransportOfClient;
 import timmax.tilegame.guiengine.jfx.view.ViewTextFieldsJfx;
 
@@ -10,11 +11,12 @@ import static timmax.tilegame.game.minesweeper.model.gameevent.GameEventMineswee
 import static timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperPersistentParams.COUNT_OF_MINES;
 
 public class MinesweeperPersistentSettings extends ViewTextFieldsJfx {
-    public MinesweeperPersistentSettings(TransportOfClient transportOfClient, String viewName) {
+    public MinesweeperPersistentSettings(TransportOfClient transportOfClient, String viewName, GameType gameType) {
         super(transportOfClient
                 , GameEventMinesweeperPersistentParams.class
                 , COMMON_LABEL_OF_PERSISTENT_PARAMS
-                , viewName);
+                , viewName
+                , gameType);
     }
 
     @Override

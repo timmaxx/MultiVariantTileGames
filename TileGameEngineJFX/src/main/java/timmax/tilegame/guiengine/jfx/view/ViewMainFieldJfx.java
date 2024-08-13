@@ -8,6 +8,7 @@ import timmax.tilegame.basecontroller.BaseController;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
+import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.guiengine.jfx.GameClientPaneJfx;
 import timmax.tilegame.transport.TransportOfClient;
 
@@ -22,8 +23,9 @@ public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
     public ViewMainFieldJfx(
             TransportOfClient transportOfClient,
             BaseController baseController,
-            String viewName) {
-        super(transportOfClient, baseController, viewName);
+            String viewName,
+            GameType gameType) {
+        super(transportOfClient, baseController, viewName, gameType);
 
         setOnMouseClicked(event ->
                 baseController.onMouseClick(event.getButton(), (int) (event.getX() / cellSize), (int) (event.getY() / cellSize))
@@ -52,9 +54,9 @@ public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
         int height = gameEventNewGame.getHeight();
         cellSize = Math.min(Game.APP_WIDTH / width, Game.APP_HEIGHT / height) * 2 / 3;
 
-        Color defaultCellBackgroundColor = gameEventNewGame.getDefaultCellBackgroundColor();
-        Color defaultCellTextColor = gameEventNewGame.getDefaultCellTextColor();
-        String defaultCellText = gameEventNewGame.getDefaultCellText();
+        Color defaultCellBackgroundColor = gameType.getDefaultCellBackgroundColor();
+        Color defaultCellTextColor = gameType.getDefaultCellTextColor();
+        String defaultCellText = gameType.getDefaultCellTextValue();
 
         cells = new GameStackPane[height][width];
         for (int y = 0; y < height; y++) {
@@ -63,17 +65,22 @@ public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
                 boolean showCoordinates = false;
                 GameStackPane cell = new GameStackPane(x, y, cellSize, showGrid, showCoordinates);
                 cells[y][x] = cell;
-                if (gameEventNewGame.isThereCellSettingDefault()) {
-                    drawCellDuringInitMainField(cell, defaultCellBackgroundColor, defaultCellTextColor, defaultCellText);
-                }
+                // ToDo: Возможно как-то по другому сделать.
+                //       Ранее здесь drawCellDuringInitMainField(...) вызывался только если для типа игры были
+                //       определены значения по умолчанию. Сейчас-же вызов будет сделан в любом случае.
+                //       Но вроде для всех игр это и не нужно.
+                //       Например:
+                //       - для Сапёра значения по умолчанию нужны.
+                //       - для Сокобана значения по умолчанию НЕ нужны.
+                drawCellDuringInitMainField(cell, defaultCellBackgroundColor, defaultCellTextColor, defaultCellText);
                 getChildren().add(cell);
             }
         }
 
         setFocusTraversable(true);
 
-        GameClientPaneJfx gameClientPaneJfx = (GameClientPaneJfx)(getParent());
-        Pane prevStatePane = (Pane)(gameClientPaneJfx.getParent());
+        GameClientPaneJfx gameClientPaneJfx = (GameClientPaneJfx) (getParent());
+        Pane prevStatePane = (Pane) (gameClientPaneJfx.getParent());
         // ToDo: Удалить вызов prevStatePane.setPrefWidth().
         //       Сейчас без этого вызова не будет автоматической ширины для prevStatePane.
         //       Но я надеялся, что она должна быть, т.к.:

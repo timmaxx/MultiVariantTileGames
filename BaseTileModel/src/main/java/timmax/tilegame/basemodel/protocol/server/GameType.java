@@ -7,6 +7,7 @@ import java.io.ObjectOutput;
 import java.lang.reflect.Constructor;
 import java.util.Map;
 
+import javafx.scene.paint.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,6 +47,10 @@ public abstract class GameType implements IGameType, Externalizable {
     private Map<String, Class<? extends View>> viewName_ViewClassMap;
     protected ParamName_paramModelDescriptionMap paramName_paramModelDescriptionMap;
 
+    private Color defaultCellBackgroundColor;
+    private Color defaultCellTextColor;
+    private String defaultCellTextValue;
+
     public GameType() {
         super();
     }
@@ -53,11 +58,18 @@ public abstract class GameType implements IGameType, Externalizable {
     public GameType(
             String gameTypeName,
             //int countOfGamers,
-            Class<? extends IGameMatch> gameMatchClass)
+            Class<? extends IGameMatch> gameMatchClass,
+            Color defaultCellBackgroundColor,
+            Color defaultCellTextColor,
+            String defaultCellTextValue)
             throws ClassNotFoundException, NoSuchMethodException {
         this();
         this.gameTypeName = gameTypeName;
-        //this.countOfGamers = countOfGamers;
+        this.defaultCellBackgroundColor = defaultCellBackgroundColor;
+        this.defaultCellTextColor = defaultCellTextColor;
+        this.defaultCellTextValue = defaultCellTextValue;
+
+        // this.countOfGamers = countOfGamers;
 
         // ToDo: Мапу нужно инициализировать не как сейчас - константой, а в классе найти все выборки View.class, в т.ч. и ViewMainField.class.
         viewName_ViewClassMap = Map.of("MainField", ViewMainField.class);
@@ -74,6 +86,18 @@ public abstract class GameType implements IGameType, Externalizable {
         gameMatchConstructor = gameMatchClass.getConstructor(RemoteClientStateAutomaton.class, Object.class);
 
         paramName_paramModelDescriptionMap = new ParamName_paramModelDescriptionMap();
+    }
+
+    public Color getDefaultCellBackgroundColor() {
+        return defaultCellBackgroundColor;
+    }
+
+    public Color getDefaultCellTextColor() {
+        return defaultCellTextColor;
+    }
+
+    public String getDefaultCellTextValue() {
+        return defaultCellTextValue;
     }
 
     // ToDo: Отказаться от прямого доступа к viewName_ViewClassMap из вне класса.
@@ -144,6 +168,28 @@ public abstract class GameType implements IGameType, Externalizable {
         // out.writeInt(countOfGamers);
         out.writeObject(viewName_ViewClassMap);
         out.writeObject(paramName_paramModelDescriptionMap);
+
+        // Тип Color не сереализуемый, поэтому сериализуем четыре его составляющих:
+        // ToDo: Лучше было-бы сделать надстройку над Color с сериализацией.
+/*
+        out.writeObject(defaultCellColor);
+        out.writeObject(defaultTextColor);
+        out.writeObject(defaultCellValue);
+*/
+        // out.writeObject(defaultCellColor);
+        out.writeDouble(defaultCellBackgroundColor.getRed());
+        out.writeDouble(defaultCellBackgroundColor.getGreen());
+        out.writeDouble(defaultCellBackgroundColor.getBlue());
+        out.writeDouble(defaultCellBackgroundColor.getOpacity());
+
+        // out.writeObject(defaultTextColor);
+        out.writeDouble(defaultCellTextColor.getRed());
+        out.writeDouble(defaultCellTextColor.getGreen());
+        out.writeDouble(defaultCellTextColor.getBlue());
+        out.writeDouble(defaultCellTextColor.getOpacity());
+
+        out.writeObject(defaultCellTextValue);
+
     }
 
     @Override
@@ -153,5 +199,18 @@ public abstract class GameType implements IGameType, Externalizable {
         // ToDo: Избавиться от "Warning:(154, 34) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
         viewName_ViewClassMap = (Map<String, Class<? extends View>>) in.readObject();
         paramName_paramModelDescriptionMap = (ParamName_paramModelDescriptionMap) in.readObject();
+
+        // Тип Color не сереализуемый, поэтому десериализуем четыре его составляющих и вызовем конструктор:
+/*
+        defaultCellColor = (Color) in.readObject();
+        defaultTextColor = (Color) in.readObject();
+        defaultCellValue = (String) in.readObject();
+*/
+        // defaultCellColor = (Color) in.readObject();
+        defaultCellBackgroundColor = new Color(in.readDouble(), in.readDouble(), in.readDouble(), in.readDouble());
+        // defaultTextColor = (Color) in.readObject();
+        defaultCellTextColor = new Color(in.readDouble(), in.readDouble(), in.readDouble(), in.readDouble());
+
+        defaultCellTextValue = (String) in.readObject();
     }
 }

@@ -6,7 +6,6 @@ import java.util.Objects;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
-import javafx.scene.paint.Color;
 
 import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
@@ -24,25 +23,10 @@ import timmax.tilegame.game.sokoban.model.route.Route;
 import timmax.tilegame.game.sokoban.model.route.Step;
 
 // import static timmax.tilegame.basemodel.GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
-import static javafx.scene.paint.Color.*;
 import static timmax.tilegame.basemodel.GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
 import static timmax.tilegame.game.sokoban.model.gameobject.WhoMovableInTile.*;
 
 public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
-
-    // Константы, описанные ниже, относятся к визуализации.
-    // ToDo: Ниже относится к визуализации. Удалить это отсюда.
-    // ToDo: Хотя-бы в GameType эти реквизиты можно было-бы переместить.
-    public static final Color WALL_CELL_COLOR = RED;
-    public static final Color HOME_CELL_COLOR = WHITE;
-    public static final Color EMPTY_CELL_COLOR = BLACK;
-
-    public static final String PLAYER = "😀"; // "\uF9CD"; // "&";
-    public static final Color PLAYER_TEXT_COLOR = GREEN;
-
-    public static final String BOX = "█"; // "❐"; // "▉"; // "[]";
-    public static final Color BOX_TEXT_COLOR = BLUE;
-
     private static LevelLoader levelLoader;
 
     private final CurrentLevel currentLevel = new CurrentLevel();

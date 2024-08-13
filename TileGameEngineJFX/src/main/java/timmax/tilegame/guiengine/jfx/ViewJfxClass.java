@@ -1,6 +1,7 @@
 package timmax.tilegame.guiengine.jfx;
 
 import timmax.tilegame.basecontroller.BaseController;
+import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.baseview.ViewClass;
 import timmax.tilegame.baseview.ViewMainField;
@@ -36,8 +37,12 @@ public class ViewJfxClass extends ViewClass {
             //       Но в таком виде это не будет работать во время компиляции, да и вызов этого метода придётся делать
             //       в каждом из реализующих классов. К сожалению в интерфейсе нельзя определить сигнатуру конструктора
             //       с определённым перечнем типов параметров...
+            // ToDo: Код сделать так, что-бы увязать:
+            //       - перечень параметров конструктора ViewJfx
+            //       - с перечнями типов параметров в ViewJfxClass
+            //       - и с перечнем параметров в GameClientPaneJfx.
             viewJfxConstructor = classOfViewJfx.getConstructor(
-                    TransportOfClient.class, BaseController.class, String.class
+                    TransportOfClient.class, BaseController.class, String.class, GameType.class
             );
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);

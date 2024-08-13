@@ -2,7 +2,6 @@ package timmax.tilegame.game.minesweeper.model;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
-import javafx.scene.paint.Color;
 
 import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
@@ -16,22 +15,8 @@ import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVari
 import timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects;
 import timmax.tilegame.game.minesweeper.model.gameobject.LevelGenerator;
 
-import static javafx.scene.paint.Color.*;
-
 public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     public static final String PARAM_NAME_PERCENTS_OF_MINES = "Percents of mines";
-
-    // Константы, описанные ниже относятся к визуализации.
-    // ToDo: Ниже относится к визуализации. Удалить это отсюда.
-    // ToDo: Хотя-бы в GameType эти реквизиты можно было-бы переместить.
-    public static final Color UNOPENED_CELL_COLOR = ORANGE;
-    public static final Color OPENED_CELL_COLOR = GREEN;
-
-    public static final String FLAG = "🚩"; // "\uD83D\uDEA9";
-    public static final Color FLAG_CELL_COLOR = YELLOW;
-
-    public static final String MINE = "💣"; // "\uD83D\uDCA3";
-    public static final Color MINE_CELL_COLOR = RED;
 
     private final LevelGenerator levelGenerator = new LevelGenerator();
 
@@ -60,7 +45,8 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
 
         sendGameEventToAllViews(new GameEventMinesweeperVariableParamsOpenClose(0, width * height));
         sendGameEventToAllViews(new GameEventMinesweeperVariableParamsFlag(0, allMinesweeperObjects.getCountOfMines()));
-        super.createNewGame(width, height, UNOPENED_CELL_COLOR, BLACK, "");
+
+        super.createNewGame(width, height);
     }
 
     private void tryInverseFlag(int x, int y) {

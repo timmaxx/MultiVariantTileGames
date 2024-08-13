@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.scene.text.Text;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
+import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.transport.TransportOfClient;
 
 abstract public class ViewTextFieldsJfx extends ViewJfx {
@@ -15,9 +16,10 @@ abstract public class ViewTextFieldsJfx extends ViewJfx {
             TransportOfClient transportOfClient,
             Class<? extends GameEvent> clazz,
             String commonLabel,
-            String viewName) {
+            String viewName,
+            GameType gameType) {
         // ToDo: убрать отсюда null. См. ToDo от 02.10.2023.
-        super(transportOfClient, null, viewName);
+        super(transportOfClient, null, viewName, gameType);
 
         this.clazz = clazz;
         this.commonLabel = commonLabel;

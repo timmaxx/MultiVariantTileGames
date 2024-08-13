@@ -11,8 +11,6 @@ public interface IGameMatch extends IGameMatchX {
     // ToDo: Переименовать все "createNewGame" в "start"
     void createNewGame();
     void createNewGame(int width, int height);
-    // ToDo: Умолчательные значение нужно перенести в GameType.
-    void createNewGame(int width, int height, Color defaultCellColor, Color defaultTextColor, String defaultCellValue);
     void resume();
 
     void executeMouseCommand(GameCommandMouseClick gameCommandMouseClick);

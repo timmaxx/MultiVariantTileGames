@@ -29,7 +29,11 @@ public class GameClientPaneJfx extends VBox {
                     new ViewJfxClass(viewName_ViewClassEntry.getValue()).getViewConstructor();
             ViewJfx viewJfx;
             try {
-                viewJfx = viewConstructor.newInstance(transportOfClient, baseController, viewName_ViewClassEntry.getKey());
+                // ToDo: Код сделать так, что-бы увязать:
+                //       - перечень параметров конструктора ViewJfx
+                //       - с перечнями типов параметров в ViewJfxClass
+                //       - и с перечнем параметров в GameClientPaneJfx.
+                viewJfx = viewConstructor.newInstance(transportOfClient, baseController, viewName_ViewClassEntry.getKey(), localClientStateAutomaton.getGameType());
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
                 throw new RuntimeException(e);
             }

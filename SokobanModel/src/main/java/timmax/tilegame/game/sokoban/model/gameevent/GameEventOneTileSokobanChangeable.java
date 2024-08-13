@@ -11,7 +11,7 @@ import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.game.sokoban.model.gameobject.WhoMovableInTile;
 import timmax.tilegame.game.sokoban.model.gameobject.WhoPersistentInTile;
 
-import static timmax.tilegame.game.sokoban.model.GameMatchOfSokoban.*;
+import static timmax.tilegame.game.sokoban.model.GameTypeOfSokoban.*;
 import static timmax.tilegame.game.sokoban.model.gameobject.WhoMovableInTile.*;
 import static timmax.tilegame.game.sokoban.model.gameobject.WhoPersistentInTile.*;
 
@@ -26,7 +26,9 @@ public class GameEventOneTileSokobanChangeable extends GameEventOneTile {
     public GameEventOneTileSokobanChangeable(
             int x,
             int y,
+            // ToDo: Избавиться от "Warning:(30, 13) Class 'WhoPersistentInTile' is not exported from module 'timmax.tilegame.game.sokoban.model'"
             WhoPersistentInTile whoPersistentInTile,
+            // ToDo: Избавиться от "Warning:(32, 13) Class 'WhoMovableInTile' is not exported from module 'timmax.tilegame.game.sokoban.model'"
             WhoMovableInTile whoMovableInTile) {
         super(x, y);
         this.whoPersistentInTile = whoPersistentInTile;

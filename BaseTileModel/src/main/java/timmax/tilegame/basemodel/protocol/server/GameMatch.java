@@ -1,6 +1,5 @@
 package timmax.tilegame.basemodel.protocol.server;
 
-import javafx.scene.paint.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,17 +68,6 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         verifyGameMatchIsPlaying();
         gameStatus = GameStatus.GAME;
         GameEventNewGame gameEventNewGame = new GameEventNewGame(width, height);
-        isPlaying = false;
-        sendGameEventToAllViews(gameEventNewGame);
-    }
-
-    // ToDo: Избавиться от "Warning:(76, 87) Actual value of parameter 'defaultTextColor' is always 'Color.BLACK'"
-    // ToDo: Избавиться от "Warning:(76, 112) Actual value of parameter 'defaultCellValue' is always ''"
-    @Override
-    public void createNewGame(int width, int height, Color defaultCellColor, Color defaultTextColor, String defaultCellValue) {
-        verifyGameMatchIsPlaying();
-        gameStatus = GameStatus.GAME;
-        GameEventNewGame gameEventNewGame = new GameEventNewGame(width, height, defaultCellColor, defaultTextColor, defaultCellValue);
         isPlaying = false;
         sendGameEventToAllViews(gameEventNewGame);
     }
