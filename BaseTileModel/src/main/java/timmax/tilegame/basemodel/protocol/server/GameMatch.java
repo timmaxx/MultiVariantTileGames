@@ -150,7 +150,8 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         sendGameEventToAllViews(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
     }
 
-    // ToDo: Согласовать / соединить с createNewGame(...)
+    // ToDo: Согласовать / соединить с start(...)
+
     @Override
     public void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue) {
         System.out.println("GameMatch :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue). Begin");

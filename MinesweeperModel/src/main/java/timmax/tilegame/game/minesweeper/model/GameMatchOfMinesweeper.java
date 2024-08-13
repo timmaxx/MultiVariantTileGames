@@ -39,7 +39,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
             return;
         }
 
-        // ToDo: Избавиться от "Warning:(58, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
+        // ToDo: Избавиться от "Warning:(43, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
         allMinesweeperObjects = levelGenerator.getLevel(width, height, percentsOfMines);
         allMinesweeperObjects.setModel(this);
 
