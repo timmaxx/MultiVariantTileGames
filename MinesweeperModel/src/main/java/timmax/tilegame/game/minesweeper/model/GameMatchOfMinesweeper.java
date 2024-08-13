@@ -71,6 +71,8 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
         allMinesweeperObjects.tryInverseFlag(allMinesweeperObjects.getTileByXY(x, y));
         // Т.к. пометка флагом не раскрывает карту и не может привести к проигрышу, то вызов
         // setGameMatchIsPlayingTrue() делать не нужно.
+        // Но пока, для отладки, оставлен этот вызов.
+        setGameMatchIsPlayingTrue();
     }
 
     private void open(int x, int y) {
@@ -90,6 +92,18 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
                 paramsOfModelValueMapGet(PARAM_NAME_PERCENTS_OF_MINES)
         );
         sendGameEventToAllViews(new GameEventMinesweeperPersistentParams(allMinesweeperObjects.getCountOfMines()));
+    }
+
+    @Override
+    public void resume() {
+        // ToDo: Что-то из описанного ниже ToDo сделать здесь, что-то в родительском классе.
+        // ToDo: Отправить клиенту:
+        //       1. Размеры главной выборки матча и умолчательные характеристики для построение пустого поля
+        //          (но возможно, это в более раннем событии следует передать) для построения пустой выборки главного поля.
+        //       2. Объекты матча статические (например для Сокобана: стены или дома).
+        //       3. Объекты матча динамические. Например:
+        //          - для Сокобана: игрок, ящики.
+        //          - для Сапёра: флаги и количество мин на открытых плитках.
     }
 
     @Override

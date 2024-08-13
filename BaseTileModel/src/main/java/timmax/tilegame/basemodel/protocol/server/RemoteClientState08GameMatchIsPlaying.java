@@ -21,10 +21,22 @@ public class RemoteClientState08GameMatchIsPlaying<ClientId> extends ClientState
                 new EventOfServer71StartGameMatch(mapOfParamsOfModelValue)
         );
 
-        // ToDo: Вызов этого метода может быть как для модели:
-        //       - для которой ранее ещё не было вызвано createNewGame()
-        //       - так и для той, у которой был вызов createNewGame(), но потом она была поставлена на паузу.
+        // ToDo: Вызов этого метода для модели:
+        //       - для которой ранее ещё не было вызвано createNewGame().
         getClientStateAutomaton().getGameMatchX().createNewGame();
+    }
+
+    @Override
+    public void resumeGameMatch() {
+        super.resumeGameMatch();
+        getClientStateAutomaton().sendEventOfServer(
+                clientId,
+                new EventOfServer73ResumeGameMatch()
+        );
+
+        // ToDo: Вызов этого метода для модели:
+        //       - у которой был ранее вызов createNewGame(), потом было хотя-бы одно игровое событие, но потом она была поставлена на паузу.
+        getClientStateAutomaton().getGameMatchX().resume();
     }
 
     // class AbstractClientState

@@ -10,5 +10,6 @@ public interface IClientState07GameMatchSelected<GameMatchX extends IGameMatchX>
     void resetGameMatchX();
     GameMatchX getGameMatchX();
     void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue);
+    void resumeGameMatch();
     Boolean getGameMatchIsPlaying();
 }

@@ -111,6 +111,11 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
         wrongCallInStateAutomaton();
     }
 
+    @Override
+    public void resumeGameMatch() {
+        wrongCallInStateAutomaton();
+    }
+
     // interface IClientState08GameMatchPlaying
     @Override
     public Boolean getGameMatchIsPlaying() {

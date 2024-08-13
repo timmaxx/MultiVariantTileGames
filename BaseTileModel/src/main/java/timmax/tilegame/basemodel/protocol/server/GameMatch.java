@@ -63,7 +63,9 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         this.gameStatus = gameStatus;
     }
 
-    protected void createNewGame(int width, int height) {
+    // ToDo: Переименовать все "createNewGame" в "start"
+    @Override
+    public void createNewGame(int width, int height) {
         verifyGameMatchIsPlaying();
         gameStatus = GameStatus.GAME;
         GameEventNewGame gameEventNewGame = new GameEventNewGame(width, height);
@@ -73,12 +75,24 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
 
     // ToDo: Избавиться от "Warning:(76, 87) Actual value of parameter 'defaultTextColor' is always 'Color.BLACK'"
     // ToDo: Избавиться от "Warning:(76, 112) Actual value of parameter 'defaultCellValue' is always ''"
-    protected void createNewGame(int width, int height, Color defaultCellColor, Color defaultTextColor, String defaultCellValue) {
+    @Override
+    public void createNewGame(int width, int height, Color defaultCellColor, Color defaultTextColor, String defaultCellValue) {
         verifyGameMatchIsPlaying();
         gameStatus = GameStatus.GAME;
         GameEventNewGame gameEventNewGame = new GameEventNewGame(width, height, defaultCellColor, defaultTextColor, defaultCellValue);
         isPlaying = false;
         sendGameEventToAllViews(gameEventNewGame);
+    }
+
+    @Override
+    public void resume() {
+        // ToDo: Отправить клиенту:
+        //       1. Размеры главной выборки матча и умолчательные характеристики для построение пустого поля
+        //          (но возможно, это в более раннем событии следует передать) для построения пустой выборки главного поля.
+        //       2. Объекты матча статические (например для Сокобана: стены или дома).
+        //       3. Объекты матча динамические. Например:
+        //          1. Для Сокобана: игрок, ящики.
+        //          2. Для Сапёра: флаги и количество мин на открытых плитках.
     }
 
     protected void verifyGameMatchIsPlaying() {
@@ -149,6 +163,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         sendGameEventToAllViews(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
     }
 
+    // ToDo: Согласовать / соединить с createNewGame(...)
     @Override
     public void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue) {
         System.out.println("GameMatch :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue). Begin");
@@ -157,6 +172,12 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         }
         // throw new RuntimeException("GameMatch :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue)");
         System.out.println("GameMatch :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue). End");
+    }
+
+    // ToDo: Согласовать / соединить с resume()
+    @Override
+    public void resumeGameMatch() {
+        System.out.println("GameMatch :: void resumeGameMatch(). Begin");
     }
 
     @Override

@@ -13,6 +13,7 @@ public class EventOfServer71StartGameMatch extends EventOfServer {
     public EventOfServer71StartGameMatch() {
         super();
     }
+
     public EventOfServer71StartGameMatch(Map<String, Integer> paramsOfModelValueMap) {
         this();
         this.paramsOfModelValueMap = paramsOfModelValueMap;

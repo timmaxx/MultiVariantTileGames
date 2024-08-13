@@ -127,6 +127,10 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         getGameMatchX_().startGameMatch(mapOfParamsOfModelValue);
     }
 
+    void resumeGameMatch_() {
+        getGameMatchX_().resumeGameMatch();
+    }
+
     // Геттерам, имеющим прямой доступ к полям(..._), тоже достаточно быть private-package:
     String getUserName_() {
         return userName;
@@ -234,6 +238,12 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     public void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue) {
         setCurrentState(clientState08GameMatchIsPlaying);
         currentState.startGameMatch(mapOfParamsOfModelValue);
+    }
+
+    @Override
+    public void resumeGameMatch() {
+        setCurrentState(clientState08GameMatchIsPlaying);
+        currentState.resumeGameMatch();
     }
 
     // 8 interface IClientState08GameMatchIsPlaying

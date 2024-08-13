@@ -71,7 +71,15 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
     @Override
     public void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue) {
         // throw new RuntimeException("GameMatchDto :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue)");
-        System.out.println("throw new RuntimeException(\"GameMatchDto :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue)\");");
+        System.out.println("GameMatchDto :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue)");
+        System.out.println("ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.");
+    }
+
+    // ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.
+    @Override
+    public void resumeGameMatch() {
+        System.out.println("GameMatchDto:: void resumeGameMatch()");
+        System.out.println("ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.");
     }
 
     @Override

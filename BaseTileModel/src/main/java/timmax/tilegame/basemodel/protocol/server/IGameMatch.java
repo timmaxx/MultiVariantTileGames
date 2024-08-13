@@ -1,5 +1,6 @@
 package timmax.tilegame.basemodel.protocol.server;
 
+import javafx.scene.paint.Color;
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
@@ -7,7 +8,12 @@ import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 import java.util.Map;
 
 public interface IGameMatch extends IGameMatchX {
+    // ToDo: Переименовать все "createNewGame" в "start"
     void createNewGame();
+    void createNewGame(int width, int height);
+    // ToDo: Умолчательные значение нужно перенести в GameType.
+    void createNewGame(int width, int height, Color defaultCellColor, Color defaultTextColor, String defaultCellValue);
+    void resume();
 
     void executeMouseCommand(GameCommandMouseClick gameCommandMouseClick);
     void executeKeyboardCommand(GameCommandKeyPressed gameCommandKeyPressed);

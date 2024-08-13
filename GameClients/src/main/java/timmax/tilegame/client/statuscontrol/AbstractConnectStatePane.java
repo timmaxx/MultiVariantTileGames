@@ -17,8 +17,8 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
 
     public final static int PANE_NEXT_STATE_PREF_WIDTH = 300;
 
-    public final static int BUTTON_NEXT_STATE_PREF_WIDTH = 160;
-    public final static int BUTTON_PREV_STATE_PREF_WIDTH = 160;
+    public final static int BUTTON_NEXT_STATE_PREF_WIDTH = 200;
+    public final static int BUTTON_PREV_STATE_PREF_WIDTH = 200;
 
     // Y - составляющие
     public final static int LAYOUT_Y_OF_FIRST_ROW = 0;

@@ -22,7 +22,7 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
 
         // 1 (обязательные)
         // Контролы для продвижения состояния "вперёд":
-        nextStateButton.setText("Start the game match");
+        nextStateButton.setText("Start / resume the game match");
         nextStateButton.setOnAction(event -> {
             disableAllControls();
             Map<String, Integer> paramsOfModelValueMap = new HashMap<>();
@@ -33,7 +33,13 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
                             Integer.valueOf(textField.getText()));
                 }
             }
-            transportOfClient.startGameMatch(paramsOfModelValueMap);
+
+            if (transportOfClient.getLocalClientStateAutomaton().getGameMatchX().isPlaying()) {
+                transportOfClient.resumeGameMatch();
+            } else {
+                transportOfClient.startGameMatch(paramsOfModelValueMap);
+            }
+
             gameClientPaneJfx.createViews(transportOfClient);
             getScene().getWindow().sizeToScene();
         });
