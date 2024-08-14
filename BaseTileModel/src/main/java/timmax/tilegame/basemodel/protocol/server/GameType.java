@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import timmax.common.JFXColorWithExternalizable;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.EventOfServer;
 import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent;
@@ -169,47 +170,24 @@ public abstract class GameType implements IGameType, Externalizable {
         out.writeObject(viewName_ViewClassMap);
         out.writeObject(paramName_paramModelDescriptionMap);
 
-        // Тип Color не сереализуемый, поэтому сериализуем четыре его составляющих:
-        // ToDo: Лучше было-бы сделать надстройку над Color с сериализацией.
-/*
-        out.writeObject(defaultCellColor);
-        out.writeObject(defaultTextColor);
-        out.writeObject(defaultCellValue);
-*/
-        // out.writeObject(defaultCellColor);
-        out.writeDouble(defaultCellBackgroundColor.getRed());
-        out.writeDouble(defaultCellBackgroundColor.getGreen());
-        out.writeDouble(defaultCellBackgroundColor.getBlue());
-        out.writeDouble(defaultCellBackgroundColor.getOpacity());
-
-        // out.writeObject(defaultTextColor);
-        out.writeDouble(defaultCellTextColor.getRed());
-        out.writeDouble(defaultCellTextColor.getGreen());
-        out.writeDouble(defaultCellTextColor.getBlue());
-        out.writeDouble(defaultCellTextColor.getOpacity());
+        // Тип Color не сереализуемый, поэтому сериализуем его через дополнительный класс:
+        out.writeObject(new JFXColorWithExternalizable(defaultCellBackgroundColor));
+        out.writeObject(new JFXColorWithExternalizable(defaultCellTextColor));
 
         out.writeObject(defaultCellTextValue);
-
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         gameTypeName = (String) in.readObject();
         // countOfGamers = in.readInt();
-        // ToDo: Избавиться от "Warning:(201, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
+        // ToDo: Избавиться от "Warning:(185, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
         viewName_ViewClassMap = (Map<String, Class<? extends View>>) in.readObject();
         paramName_paramModelDescriptionMap = (ParamName_paramModelDescriptionMap) in.readObject();
 
-        // Тип Color не сереализуемый, поэтому десериализуем четыре его составляющих и вызовем конструктор:
-/*
-        defaultCellColor = (Color) in.readObject();
-        defaultTextColor = (Color) in.readObject();
-        defaultCellValue = (String) in.readObject();
-*/
-        // defaultCellColor = (Color) in.readObject();
-        defaultCellBackgroundColor = new Color(in.readDouble(), in.readDouble(), in.readDouble(), in.readDouble());
-        // defaultTextColor = (Color) in.readObject();
-        defaultCellTextColor = new Color(in.readDouble(), in.readDouble(), in.readDouble(), in.readDouble());
+        // Тип Color не сереализуемый, поэтому десериализуем его через дополнительный класс:
+        defaultCellBackgroundColor = ((JFXColorWithExternalizable) in.readObject()).getColor();
+        defaultCellTextColor = ((JFXColorWithExternalizable) in.readObject()).getColor();
 
         defaultCellTextValue = (String) in.readObject();
     }

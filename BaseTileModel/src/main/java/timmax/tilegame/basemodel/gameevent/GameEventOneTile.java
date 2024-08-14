@@ -6,6 +6,8 @@ import java.io.ObjectOutput;
 
 import javafx.scene.paint.Color;
 
+import timmax.common.JFXColorWithExternalizable;
+
 public abstract class GameEventOneTile extends GameEvent {
     private int x;
     private int y;
@@ -62,19 +64,9 @@ public abstract class GameEventOneTile extends GameEvent {
         out.writeInt(x);
         out.writeInt(y);
 
-        // Тип Color не сереализуемый, поэтому сериализуем четыре его составляющих.
-        // ToDo: Лучше было-бы сделать надстройку над Color с сериализацией.
-        // out.writeObject(cellColor);
-        out.writeDouble(cellBackgroundColor.getRed());
-        out.writeDouble(cellBackgroundColor.getGreen());
-        out.writeDouble(cellBackgroundColor.getBlue());
-        out.writeDouble(cellBackgroundColor.getOpacity());
-
-        // out.writeObject(textColor);
-        out.writeDouble(cellTextColor.getRed());
-        out.writeDouble(cellTextColor.getGreen());
-        out.writeDouble(cellTextColor.getBlue());
-        out.writeDouble(cellTextColor.getOpacity());
+        // Тип Color не сереализуемый, поэтому сериализуем его через дополнительный класс:
+        out.writeObject(new JFXColorWithExternalizable(cellBackgroundColor));
+        out.writeObject(new JFXColorWithExternalizable(cellTextColor));
 
         out.writeObject(cellText);
     }
@@ -84,11 +76,9 @@ public abstract class GameEventOneTile extends GameEvent {
         x = in.readInt();
         y = in.readInt();
 
-        // Тип Color не сереализуемый, поэтому десериализуем четыре его составляющих и вызовем конструктор:
-        // cellColor = (Color) in.readObject();
-        cellBackgroundColor = new Color(in.readDouble(), in.readDouble(), in.readDouble(), in.readDouble());
-        // textColor = (Color) in.readObject();
-        cellTextColor = new Color(in.readDouble(), in.readDouble(), in.readDouble(), in.readDouble());
+        // Тип Color не сереализуемый, поэтому десериализуем его через дополнительный класс:
+        cellBackgroundColor = ((JFXColorWithExternalizable) in.readObject()).getColor();
+        cellTextColor = ((JFXColorWithExternalizable) in.readObject()).getColor();
 
         cellText = (String) in.readObject();
     }
