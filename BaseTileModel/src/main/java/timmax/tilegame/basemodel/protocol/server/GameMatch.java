@@ -62,34 +62,10 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         this.gameStatus = gameStatus;
     }
 
-    @Override
-    public void start(int width, int height) {
-        verifyGameMatchIsPlaying();
-        gameStatus = GameStatus.GAME;
-        GameEventNewGame gameEventNewGame = new GameEventNewGame(width, height);
-        isPlaying = false;
-        sendGameEventToAllViews(gameEventNewGame);
-    }
-
-    @Override
-    public void resume() {
-        // ToDo: Отправить клиенту:
-        //       1. Размеры главной выборки матча и умолчательные характеристики для построение пустого поля
-        //          (но возможно, это в более раннем событии следует передать) для построения пустой выборки главного поля.
-        //       2. Объекты матча статические (например для Сокобана: стены или дома).
-        //       3. Объекты матча динамические. Например:
-        //          1. Для Сокобана: игрок, ящики.
-        //          2. Для Сапёра: флаги и количество мин на открытых плитках.
-    }
-
     protected void verifyGameMatchIsPlaying() {
         if (isPlaying) {
             throw new RuntimeException("You cannot create new game because the match is in state 'gameMatchIsPlaing'!");
         }
-    }
-
-    public boolean isPlaying() {
-        return isPlaying;
     }
 
     // Посылает игровое событие всем выборкам.
@@ -116,25 +92,11 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         return false;
     }
 
-    // ToDo: Сеттер вероятно совсем не нужен, т.к. пусть лучше конструктор инициализирует.
-    public void setParamsOfModelValueMap(Map<String, Integer> mapOfParamsOfModelValue) {
-        this.paramsOfModelValueMap = mapOfParamsOfModelValue;
-    }
-
-    public int paramsOfModelValueMapGet(String paramName) {
-        return paramsOfModelValueMap.get(paramName);
-    }
-
     protected void setGameMatchIsPlayingTrue() {
         isPlaying = true;
     }
 
-    @Override
-    public String getId() {
-        return super.toString();
-    }
-
-    // interface IGameMatch:
+    // interface IGameMatch
     @Override
     public void win() {
         setGameStatus(GameStatus.VICTORY);
@@ -150,22 +112,49 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         sendGameEventToAllViews(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
     }
 
-    // ToDo: Согласовать / соединить с start(...)
-
+    // ToDo: Сеттер вероятно совсем не нужен, т.к. пусть лучше конструктор инициализирует.
     @Override
-    public void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue) {
-        System.out.println("GameMatch :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue). Begin");
-        for (Map.Entry<String, Integer> entry : mapOfParamsOfModelValue.entrySet()){
-            System.out.println("  entry.getKey() = " + entry.getKey() + ". entry.getValue() = " + entry.getValue());
-        }
-        // throw new RuntimeException("GameMatch :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue)");
-        System.out.println("GameMatch :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue). End");
+    public void setParamsOfModelValueMap(Map<String, Integer> mapOfParamsOfModelValue) {
+        this.paramsOfModelValueMap = mapOfParamsOfModelValue;
     }
 
-    // ToDo: Согласовать / соединить с resume()
     @Override
-    public void resumeGameMatch() {
-        System.out.println("GameMatch :: void resumeGameMatch(). Begin");
+    public int paramsOfModelValueMapGet(String paramName) {
+        return paramsOfModelValueMap.get(paramName);
+    }
+
+    // interface IGameMatchX
+    @Override
+    public void start(int width, int height) {
+        verifyGameMatchIsPlaying();
+        gameStatus = GameStatus.GAME;
+        GameEventNewGame gameEventNewGame = new GameEventNewGame(width, height);
+        isPlaying = false;
+        sendGameEventToAllViews(gameEventNewGame);
+    }
+
+    @Override
+    public void resume() {
+        // ToDo: Отправить клиенту:
+        //       1. Размеры главной выборки матча и умолчательные характеристики для построение пустого поля
+        //          (но возможно, это в более раннем событии следует передать) для построения пустой выборки главного поля.
+        //       2. Объекты матча статические (например для Сокобана: стены или дома).
+        //       3. Объекты матча динамические. Например:
+        //          1. Для Сокобана: игрок, ящики.
+        //          2. Для Сапёра: флаги и количество мин на открытых плитках.
+        System.out.println("GameMatch :: void resumeGameMatch()");
+        System.out.println("Не реализован...");
+    }
+
+    // interface IGameMatchXDto
+    @Override
+    public String getId() {
+        return super.toString();
+    }
+
+    @Override
+    public boolean isPlaying() {
+        return isPlaying;
     }
 
     @Override
