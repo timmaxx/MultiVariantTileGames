@@ -12,8 +12,15 @@ public interface IClientState06GameMatchSetSelected<GameMatchX extends IGameMatc
     // ToDo: Метод был добавлен, что-бы добраться до описания типа,
     //       но если нужно только описание, то м.б. другой метод сделать?
     GameType getGameType();
+    Set<GameMatchX> getGameMatchXSet();
+
 
     void reselectGameType();
-    Set<GameMatchX> getGameMatchXSet();
+    //  interface TransportOfClient
+    //      void reselectGameType();
+
+
     void setGameMatchX(GameMatchX gameMatchX);
+    //  interface TransportOfClient
+    //      void setGameMatch(GameMatchDto gameMatchDto);
 }

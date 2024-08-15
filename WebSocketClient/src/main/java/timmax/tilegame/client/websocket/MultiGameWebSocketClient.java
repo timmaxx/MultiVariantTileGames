@@ -110,7 +110,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     // 2
     @Override
     public void identifyAuthenticateAuthorizeUser(String userName, String password) {
-        logger.debug("setUser(String, String)");
+        logger.debug("identifyAuthenticateAuthorizeUser(String, String)");
         sendEventOfClient(new EventOfClient21IdentifyAuthenticateAuthorizeUser(userName, password));
     }
 
@@ -142,6 +142,12 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
 
     // 7
     @Override
+    public void reselectGameMatch() {
+        logger.debug("reselectGameMatch()");
+        sendEventOfClient(new EventOfClient72ReselectGameMatch());
+    }
+
+    @Override
     public void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue) {
         logger.debug("startGameMatch(Map<String, Integer> mapOfParamsOfModelValue)");
         sendEventOfClient(new EventOfClient71StartGameMatch(mapOfParamsOfModelValue));
@@ -151,12 +157,6 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     public void resumeGameMatch() {
         logger.debug("resumeGameMatch()");
         sendEventOfClient(new EventOfClient73ResumeGameMatch());
-    }
-
-    @Override
-    public void reselectGameMatch() {
-        logger.debug("reselectGameMatch()");
-        sendEventOfClient(new EventOfClient72ReselectGameMatch());
     }
 
     // 8

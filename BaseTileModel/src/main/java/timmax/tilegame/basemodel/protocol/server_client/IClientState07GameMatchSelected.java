@@ -7,9 +7,21 @@ public interface IClientState07GameMatchSelected<GameMatchX extends IGameMatchX>
     // Нумерация приведена соответствующая классам Pane0Х... пакета timmax.tilegame.client.statuscontrol:
 
     // ---- 7 (MatchSelected)
-    void reselectGameMatch();
     GameMatchX getGameMatchX();
-    void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue);
-    void resumeGameMatch();
     Boolean getGameMatchIsPlaying();
+
+
+    void reselectGameMatch();
+    //  interface TransportOfClient
+    //      void reselectGameMatch();
+
+
+    void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue);
+    //  interface TransportOfClient
+    //      void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue);
+
+
+    void resumeGameMatch();
+    //  interface TransportOfClient
+    //      void resumeGameMatch();
 }

@@ -10,6 +10,14 @@ public interface IClientState04GameTypeSetSelected<GameMatchX extends IGameMatch
 
     // ---- 4 (GameTypeSetSelected)
     Set<GameType> getGameTypeSet();
+
+
     void setGameType(GameType gameType, Set<GameMatchX> gameMatchXSet);
+    //  interface TransportOfClient
+    //      void setGameType(GameType gameType);
+
+
     void reauthorizeUser();
+    //  interface TransportOfClient
+    //      void reauthorizeUser();
 }

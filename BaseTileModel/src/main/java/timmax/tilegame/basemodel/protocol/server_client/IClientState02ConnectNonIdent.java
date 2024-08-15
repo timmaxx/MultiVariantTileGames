@@ -9,6 +9,11 @@ public interface IClientState02ConnectNonIdent extends IClientState00 {
     // Нумерация приведена соответствующая классам Pane0Х... пакета timmax.tilegame.client.statuscontrol:
 
     // ---- 2 ConnectNonIdent
-    void authorizeUser(String userName, Set<GameType> gameTypeSet); // logIn
-    void closeConnect(); // void close();
+    void authorizeUser(String userName, Set<GameType> gameTypeSet);
+    //  interface TransportOfClient
+    //      void identifyAuthenticateAuthorizeUser(String userName, String password);
+
+    void closeConnect();
+    //  interface TransportOfClient
+    //      void close();
 }
