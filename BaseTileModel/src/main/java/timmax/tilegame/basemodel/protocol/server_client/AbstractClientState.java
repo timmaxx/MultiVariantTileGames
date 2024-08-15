@@ -79,7 +79,7 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     }
 
     @Override
-    public void resetGameType() {
+    public void reselectGameType() {
         wrongCallInStateAutomaton();
     }
 
