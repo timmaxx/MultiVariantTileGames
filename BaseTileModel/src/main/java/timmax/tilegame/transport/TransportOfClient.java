@@ -36,10 +36,11 @@ public interface TransportOfClient {
     void setGameType(GameType gameType);                                        //  4 -> 5  void setGameType(GameType gameType, Set<GameMatchX> gameMatchXSet);
 
     // 06GameMatchSetSelected
-    void resetGameType();                                                       //  6 -> 6  void forgetGameMatchX();
+    void reselectGameType();                                                    //  6 -> 6  void reselectGameType();
     void setGameMatch(GameMatchDto gameMatchDto);                               //  6 -> 7  void setGameMatchX(GameMatchX gameMatchX);
 
     // 07GameMatchSelected
+    // ToDo: Переименовать в reselectGameMatch()
     void resetGameMatch();                                                      //  7 -> 7  void forgetGameMatchPlaying();
     void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue);          //  7 -> 8  void setGameMatchPlaying();
     void resumeGameMatch();                                                     //  7 -> 8  void setGameMatchPlaying();

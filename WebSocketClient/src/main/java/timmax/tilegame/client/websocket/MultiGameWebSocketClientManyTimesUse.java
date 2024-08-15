@@ -90,8 +90,8 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
 
     // 6
     @Override
-    public void resetGameType() {
-        transportOfClient.resetGameType();
+    public void reselectGameType() {
+        transportOfClient.reselectGameType();
     }
 
     @Override
