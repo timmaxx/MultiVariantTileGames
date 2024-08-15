@@ -16,8 +16,8 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchDto
     private final Map<String, View> viewName_ViewMap;
 
     public LocalClientStateAutomaton(
-            IFabricOfClientStates<GameMatchDto> IFabricOfClientStates) {
-        super(IFabricOfClientStates);
+            IFabricOfClientStates<GameMatchDto> iFabricOfClientStates) {
+        super(iFabricOfClientStates);
 
         observerOnAbstractEventHashSet = new ObserverOnAbstractEventHashSet();
         viewName_ViewMap = new HashMap<>();
@@ -49,8 +49,7 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchDto
     // ToDo: Вместо прямого доступа к getParamName_paramModelDescriptionMap(), лучше что-бы нужное действие
     //       (см. Pane07GameMatchSelected :: void updateOnSetGameMatch()), выполнялось в мапе paramName_paramModelDescriptionMap.
     //       Поэтому пришлось сделать его public. Но это не хорошо!
-    public ParamName_paramModelDescriptionMap getParamName_paramModelDescriptionMap()
-    {
+    public ParamName_paramModelDescriptionMap getParamName_paramModelDescriptionMap() {
         return getGameType_().getParamName_paramModelDescriptionMap();
     }
 

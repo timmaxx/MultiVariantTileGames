@@ -48,7 +48,7 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         id = (String) in.readObject();
         isPlaying = in.readBoolean();
-        // ToDo: Избавиться от "Warning:(53, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Integer>'"
+        // ToDo: Избавиться от "Warning:(52, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Integer>'"
         paramsOfModelValueMap = (Map<String, Integer>) in.readObject();
     }
 
