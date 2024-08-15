@@ -12,7 +12,6 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
     private boolean isPlaying;
     private Map<String, Integer> paramsOfModelValueMap;
 
-    // Нужен только потому, что implements Externalizable
     public GameMatchDto() {
         super();
     }
@@ -53,7 +52,7 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
         paramsOfModelValueMap = (Map<String, Integer>) in.readObject();
     }
 
-    // interface IGameMatchX
+    // interface IGameMatchXDto
     @Override
     public String getId() {
         return id;
@@ -63,27 +62,41 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
     public boolean isPlaying() {
         // throw new RuntimeException("GameMatchDto :: boolean getGameMatchIsPlaying()");
         // System.out.println("throw new RuntimeException(\"GameMatchDto :: boolean getGameMatchIsPlaying()\");");
-        System.out.println("GameMatchDto :: boolean getGameMatchIsPlaying()");
+        // System.out.println("GameMatchDto :: boolean getGameMatchIsPlaying()");
         return isPlaying;
-    }
-
-    // ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.
-    @Override
-    public void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue) {
-        // throw new RuntimeException("GameMatchDto :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue)");
-        System.out.println("GameMatchDto :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue)");
-        System.out.println("ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.");
-    }
-
-    // ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.
-    @Override
-    public void resumeGameMatch() {
-        System.out.println("GameMatchDto:: void resumeGameMatch()");
-        System.out.println("ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.");
     }
 
     @Override
     public Map<String, Integer> getParamsOfModelValueMap() {
         return paramsOfModelValueMap;
     }
+
+    // interface IGameMatchX
+    // ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.
+    @Override
+    public void start() {
+        System.out.println("GameMatchDto :: void start()");
+        System.out.println("ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.");
+    }
+
+    @Override
+    public void start(int width, int height) {
+        System.out.println("GameMatchDto :: void start(int width, int height)");
+        System.out.println("ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.");
+    }
+
+    @Override
+    public void start(Map<String, Integer> mapOfParamsOfModelValue) {
+        // throw new RuntimeException("GameMatchDto :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue)");
+        System.out.println("GameMatchDto :: void start(Map<String, Integer> mapOfParamsOfModelValue)");
+        System.out.println("ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.");
+    }
+
+    // ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.
+    @Override
+    public void resume() {
+        System.out.println("GameMatchDto:: void resume()");
+        System.out.println("ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.");
+    }
+
 }

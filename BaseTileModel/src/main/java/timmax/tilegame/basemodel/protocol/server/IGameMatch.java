@@ -7,10 +7,6 @@ import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 import java.util.Map;
 
 public interface IGameMatch extends IGameMatchX {
-    void start();
-    void start(int width, int height);
-    void resume();
-
     void executeMouseCommand(GameCommandMouseClick gameCommandMouseClick);
     void executeKeyboardCommand(GameCommandKeyPressed gameCommandKeyPressed);
 

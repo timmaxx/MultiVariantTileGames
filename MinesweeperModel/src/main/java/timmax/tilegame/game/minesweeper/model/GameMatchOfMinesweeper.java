@@ -15,6 +15,8 @@ import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVari
 import timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects;
 import timmax.tilegame.game.minesweeper.model.gameobject.LevelGenerator;
 
+import java.util.Map;
+
 public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     public static final String PARAM_NAME_PERCENTS_OF_MINES = "Percents of mines";
 
@@ -72,12 +74,27 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     // interface IGameMatch:
     @Override
     public void start() {
+        System.out.println("GameMatchOfMinesweeper :: void start()");
         start(
                 paramsOfModelValueMapGet(PARAM_NAME_WIDTH),
                 paramsOfModelValueMapGet(PARAM_NAME_HEIGHT),
                 paramsOfModelValueMapGet(PARAM_NAME_PERCENTS_OF_MINES)
         );
         sendGameEventToAllViews(new GameEventMinesweeperPersistentParams(allMinesweeperObjects.getCountOfMines()));
+    }
+
+    @Override
+    public void start(Map<String, Integer> mapOfParamsOfModelValue) {
+        System.out.println("GameMatchOfMinesweeper :: void start(Map<String, Integer> mapOfParamsOfModelValue)");
+        System.out.println("Не реализован...");
+/*
+        System.out.println("GameMatch :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue). Begin");
+        for (Map.Entry<String, Integer> entry : mapOfParamsOfModelValue.entrySet()){
+            System.out.println("  entry.getKey() = " + entry.getKey() + ". entry.getValue() = " + entry.getValue());
+        }
+        // throw new RuntimeException("GameMatch :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue)");
+        System.out.println("GameMatch :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue). End");
+*/
     }
 
     @Override

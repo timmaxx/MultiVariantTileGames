@@ -2,6 +2,7 @@ package timmax.tilegame.game.sokoban.model;
 
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
+import java.util.Map;
 import java.util.Objects;
 
 import javafx.scene.input.KeyCode;
@@ -254,6 +255,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     // interface IGameMatch:
     @Override
     public void start() {
+        System.out.println("GameMatchOfSokoban :: void start()");
         verifyGameMatchIsPlaying();
 
         if (allSokobanObjects != null && getGameStatus() == GameStatus.GAME) {
@@ -276,6 +278,12 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         // sendGameEvent(new GameEventSokobanVariableParamsCountOfSteps(0));
         calcCountOfBoxesInHomes();
         // sendGameEvent(new GameEventSokobanVariableParamsCountOfBoxesInHouses(countOfBoxesInHomes));
+    }
+
+    @Override
+    public void start(Map<String, Integer> mapOfParamsOfModelValue) {
+        System.out.println("GameMatchOfSokoban :: void start(Map<String, Integer> mapOfParamsOfModelValue)");
+        System.out.println("Не реализован...");
     }
 
     @Override

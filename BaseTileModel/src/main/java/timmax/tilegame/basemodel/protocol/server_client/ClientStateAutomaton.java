@@ -124,11 +124,11 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     }
 
     void startGameMatch_(Map<String, Integer> mapOfParamsOfModelValue) {
-        getGameMatchX_().startGameMatch(mapOfParamsOfModelValue);
+        getGameMatchX_().start(mapOfParamsOfModelValue);
     }
 
     void resumeGameMatch_() {
-        getGameMatchX_().resumeGameMatch();
+        getGameMatchX_().resume();
     }
 
     // Геттерам, имеющим прямой доступ к полям(..._), тоже достаточно быть private-package:
