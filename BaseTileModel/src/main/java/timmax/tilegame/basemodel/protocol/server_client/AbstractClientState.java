@@ -96,7 +96,7 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
 
     // interface IClientState07GameMatchSelected
     @Override
-    public void resetGameMatchX() {
+    public void reselectGameMatch() {
         wrongCallInStateAutomaton();
     }
 

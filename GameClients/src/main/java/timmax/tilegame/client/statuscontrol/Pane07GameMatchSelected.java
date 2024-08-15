@@ -51,7 +51,7 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
         prevStateButton.setFocusTraversable(false); // Это в любом случае д.б.
         prevStateButton.setOnAction(event -> {
             disableAllControls();
-            transportOfClient.resetGameMatch();
+            transportOfClient.reselectGameMatch();
             gameClientPaneJfx.clearChildren();
             prevStatePane.setMinWidth(0);
             prevStatePane.setMaxWidth(0);

@@ -111,8 +111,8 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
     }
 
     @Override
-    public void resetGameMatch() {
-        transportOfClient.resetGameMatch();
+    public void reselectGameMatch() {
+        transportOfClient.reselectGameMatch();
     }
 
     // 8

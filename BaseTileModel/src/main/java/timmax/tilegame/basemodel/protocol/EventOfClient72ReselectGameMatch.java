@@ -2,10 +2,10 @@ package timmax.tilegame.basemodel.protocol;
 
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
-public class EventOfClient72ResetGameMatch extends EventOfClient {
+public class EventOfClient72ReselectGameMatch extends EventOfClient {
     @Override
     public void executeOnServer(RemoteClientStateAutomaton remoteClientStateAutomaton) {
-        remoteClientStateAutomaton.resetGameMatchX();
+        remoteClientStateAutomaton.reselectGameMatch();
     }
 
     @Override

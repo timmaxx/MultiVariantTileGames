@@ -224,9 +224,9 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
     // 7 interface IClientState07GameMatchSelected
     @Override
-    public void resetGameMatchX() {
+    public void reselectGameMatch() {
         setCurrentState(clientState07GameMatchSelected);
-        currentState.resetGameMatchX();
+        currentState.reselectGameMatch();
     }
 
     @Override
