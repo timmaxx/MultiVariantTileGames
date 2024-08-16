@@ -67,7 +67,7 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     }
 
     @Override
-    public void setGameType(GameType gameType, Set<GameMatchX> gameMatchXES) {
+    public void setGameType(GameType gameType, Set<GameMatchX> gameMatchXSet) {
         wrongCallInStateAutomaton();
     }
 
