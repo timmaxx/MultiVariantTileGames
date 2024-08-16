@@ -281,7 +281,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     }
 
     @Override
-    public void start(Map<String, Integer> mapOfParamsOfModelValue) {
+    public void start(Map<String, Integer> paramsOfModelValueMap) {
         System.out.println("GameMatchOfSokoban :: void start(Map<String, Integer> mapOfParamsOfModelValue)");
         System.out.println("Не реализован...");
     }
