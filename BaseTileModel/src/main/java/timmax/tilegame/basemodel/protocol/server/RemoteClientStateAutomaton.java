@@ -17,6 +17,11 @@ public class RemoteClientStateAutomaton extends ClientStateAutomaton<IGameMatch>
     //         - В MultiGameWebSocketServer есть мапа WebSocket -> RemoteClientStateAutomaton
     //         - В RemoteClientStateAutomaton есть переменная TransportOfServer.
     //           Почему-же здесь нужна эта переменная?
+    // ToDo: Привести к единому виду взаимоиспользование:
+    //       - на клиенте переменных типов TransportOfClient и LocalClientStateAutomaton,
+    //       - на сервере переменных типов TransportOfServer и RemoteClientStateAutomaton.
+    //       Переменные типов TransportOfClient и LocalClientStateAutomaton здесь (на клиенте) на одном уровне.
+    //       А для сервера переменная типа TransportOfServer входит в состав RemoteClientStateAutomaton.
     private final TransportOfServer multiGameWebSocketServer;
 
     public <ClientId> RemoteClientStateAutomaton(

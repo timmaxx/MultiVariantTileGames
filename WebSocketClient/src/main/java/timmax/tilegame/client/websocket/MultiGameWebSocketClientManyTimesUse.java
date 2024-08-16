@@ -16,9 +16,13 @@ import timmax.tilegame.transport.TransportOfClient;
 public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketClientManyTimesUse.class);
 
-    private TransportOfClient transportOfClient;
     private URI uri;
-
+    // ToDo: Привести к единому виду взаимоиспользование:
+    //       - на клиенте переменных типов TransportOfClient и LocalClientStateAutomaton,
+    //       - на сервере переменных типов TransportOfServer и RemoteClientStateAutomaton.
+    //       Переменные типов TransportOfClient и LocalClientStateAutomaton здесь (на клиенте) на одном уровне.
+    //       А для сервера переменная типа TransportOfServer входит в состав RemoteClientStateAutomaton.
+    private TransportOfClient transportOfClient;
     LocalClientStateAutomaton localClientStateAutomatonJfx;
 
     public MultiGameWebSocketClientManyTimesUse(LocalClientStateAutomaton localClientStateAutomatonJfx) {
@@ -26,7 +30,7 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
         this.localClientStateAutomatonJfx = localClientStateAutomatonJfx;
         // ToDo: Возможно, что-бы не использовать null, стоит реализовать класс, реализующий IClientState01NoConnect
         //       и здесь им инициализировать.
-        logger.info("  Main game client status: {}.", "NO_CONNECT");
+        logger.info("  Main game client status: {}.", localClientStateAutomatonJfx);
     }
 
     // interface TransportOfClient
