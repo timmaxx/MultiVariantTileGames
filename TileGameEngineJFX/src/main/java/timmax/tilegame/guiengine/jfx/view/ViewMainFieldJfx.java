@@ -6,7 +6,6 @@ import javafx.scene.paint.Color;
 
 import timmax.tilegame.basecontroller.BaseController;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
-import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.guiengine.jfx.GameClientPaneJfx;

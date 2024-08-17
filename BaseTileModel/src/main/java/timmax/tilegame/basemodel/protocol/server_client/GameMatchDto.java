@@ -59,7 +59,7 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
         width = in.readInt();
         height = in.readInt();
         isPlaying = in.readBoolean();
-        // ToDo: Избавиться от "Warning:(52, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Integer>'"
+        // ToDo: Избавиться от "Warning:(63, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Integer>'"
         paramsOfModelValueMap = (Map<String, Integer>) in.readObject();
     }
 

@@ -15,7 +15,7 @@ import timmax.tilegame.guiengine.jfx.GameClientPaneJfx;
 import timmax.tilegame.transport.TransportOfClient;
 
 public class Pane07GameMatchSelected extends AbstractConnectStatePane {
-    private GameClientPaneJfx gameClientPaneJfx;
+    private final GameClientPaneJfx gameClientPaneJfx;
 
     public Pane07GameMatchSelected(TransportOfClient transportOfClient) {
         super(transportOfClient);
