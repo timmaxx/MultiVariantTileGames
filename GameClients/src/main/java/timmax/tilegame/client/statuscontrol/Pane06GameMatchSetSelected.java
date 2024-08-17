@@ -39,10 +39,19 @@ public class Pane06GameMatchSetSelected extends AbstractConnectStatePane {
                     .map(GameMatchDto::isPlaying)
                     .orElse(null);
 
+            int width = 0;
+            int height = 0;
             Map<String, Integer> paramsOfModelValueMap;
             if (gameMatchIsPlaying) {
                 // Если матч уже был начат.
                 // Достаём параметры из матча.
+                width = transportOfClient
+                        .getLocalClientStateAutomaton()
+                        .getGameMatchX().getWidth();
+                height = transportOfClient
+                        .getLocalClientStateAutomaton()
+                        .getGameMatchX().getHeight();
+
                 paramsOfModelValueMap = transportOfClient
                         .getLocalClientStateAutomaton()
                         .getGameMatchXSet()
@@ -54,13 +63,25 @@ public class Pane06GameMatchSetSelected extends AbstractConnectStatePane {
             } else {
                 // Если матч ещё не был начат.
                 // Достаём параметры из описания типа игры.
+
+                System.out.println("  transportOfClient.getLocalClientStateAutomaton().getGameType().getParamName_paramModelDescriptionMap() = " + transportOfClient.getLocalClientStateAutomaton().getGameType().getParamName_paramModelDescriptionMap());
+/*
+                width = ...;
+                height = ...;
+
+                transportOfClient
+                        .getLocalClientStateAutomaton()
+                        .getGameType()
+                        .getParamName_paramModelDescriptionMap().get("Width");
+*/
                 paramsOfModelValueMap = transportOfClient
                         .getLocalClientStateAutomaton()
                         .getGameType()
                         .getParamName_paramModelDescriptionMap()
                         .getParamsOfModelValueMap();
             }
-            transportOfClient.setGameMatch(new GameMatchDto(gameMatchId, gameMatchIsPlaying, paramsOfModelValueMap));
+            System.out.println("  !!! width = " + width + ", height = " + height);
+            transportOfClient.setGameMatch(new GameMatchDto(gameMatchId, width, height, gameMatchIsPlaying, paramsOfModelValueMap));
         });
 
         // Контролы для продвижения состояния "назад":

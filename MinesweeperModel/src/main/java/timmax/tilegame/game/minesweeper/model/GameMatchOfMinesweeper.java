@@ -35,7 +35,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
         super(new GameTypeOfMinesweeper(), remoteClientStateAutomaton, clientId);
     }
 
-    public void start(int width, int height, int percentsOfMines) {
+    public void start(int percentsOfMines) {
         verifyGameMatchIsPlaying();
         if (allMinesweeperObjects != null && getGameStatus() == GameStatus.GAME) {
             return;
@@ -48,7 +48,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
         sendGameEventToAllViews(new GameEventMinesweeperVariableParamsOpenClose(0, width * height));
         sendGameEventToAllViews(new GameEventMinesweeperVariableParamsFlag(0, allMinesweeperObjects.getCountOfMines()));
 
-        super.start(width, height);
+        super.start(width, height, Map.of());
     }
 
     private void tryInverseFlag(int x, int y) {
@@ -76,20 +76,21 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     public void start() {
         System.out.println("GameMatchOfMinesweeper :: void start()");
         start(
-                paramsOfModelValueMapGet(PARAM_NAME_WIDTH),
-                paramsOfModelValueMapGet(PARAM_NAME_HEIGHT),
+                // paramsOfModelValueMapGet(PARAM_NAME_WIDTH),
+                // paramsOfModelValueMapGet(PARAM_NAME_HEIGHT),
                 paramsOfModelValueMapGet(PARAM_NAME_PERCENTS_OF_MINES)
         );
         sendGameEventToAllViews(new GameEventMinesweeperPersistentParams(allMinesweeperObjects.getCountOfMines()));
     }
 
+    // ToDo: Вероятно удалить.
     @Override
-    public void start(Map<String, Integer> paramsOfModelValueMap) {
-        System.out.println("GameMatchOfMinesweeper :: void start(Map<String, Integer> mapOfParamsOfModelValue)");
+    public void start(int width, int height, Map<String, Integer> paramsOfModelValueMap) {
+        System.out.println("GameMatchOfMinesweeper :: void start(int width, int height, Map<String, Integer> paramsOfModelValueMap)");
         System.out.println("Не реализован...");
 /*
         System.out.println("GameMatch :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue). Begin");
-        for (Map.Entry<String, Integer> entry : mapOfParamsOfModelValue.entrySet()){
+        for (Map.Entry<String, Integer> entry : paramsOfModelValueMap.entrySet()){
             System.out.println("  entry.getKey() = " + entry.getKey() + ". entry.getValue() = " + entry.getValue());
         }
         // throw new RuntimeException("GameMatch :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue)");

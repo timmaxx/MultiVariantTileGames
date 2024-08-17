@@ -123,8 +123,9 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         this.gameMatchX = gameMatchX;
     }
 
-    void startGameMatch_(Map<String, Integer> mapOfParamsOfModelValue) {
-        getGameMatchX_().start(mapOfParamsOfModelValue);
+    // ToDo: Избавиться от protected (см. коммент к LocalClientStateAutomaton)
+    protected void startGameMatch_(int width, int height, Map<String, Integer> mapOfParamsOfModelValue) {
+        getGameMatchX_().start(width, height, mapOfParamsOfModelValue);
     }
 
     void resumeGameMatch_() {
@@ -235,9 +236,9 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     }
 
     @Override
-    public void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue) {
+    public void startGameMatch(int width, int height, Map<String, Integer> mapOfParamsOfModelValue) {
         setCurrentState(clientState08GameMatchIsPlaying);
-        currentState.startGameMatch(mapOfParamsOfModelValue);
+        currentState.startGameMatch(width, height, mapOfParamsOfModelValue);
     }
 
     @Override

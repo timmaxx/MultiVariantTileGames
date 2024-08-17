@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
-import timmax.tilegame.basemodel.gameevent.GameEventNewGame;
 
 import java.util.Map;
 
@@ -41,6 +40,8 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     protected final RemoteClientStateAutomaton remoteClientStateAutomaton;
     protected final ClientId clientId;
 
+    protected int width;
+    protected int height;
     private Map<String, Integer> paramsOfModelValueMap;
     private GameStatus gameStatus;
     private boolean isPlaying;
@@ -112,9 +113,10 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         sendGameEventToAllViews(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
     }
 
-    // ToDo: Сеттер вероятно совсем не нужен, т.к. пусть лучше конструктор инициализирует.
     @Override
-    public void setParamsOfModelValueMap(Map<String, Integer> mapOfParamsOfModelValue) {
+    public void setParamsOfModelValueMap(int width, int height, Map<String, Integer> mapOfParamsOfModelValue) {
+        this.width = width;
+        this.height = height;
         this.paramsOfModelValueMap = mapOfParamsOfModelValue;
     }
 
@@ -125,12 +127,10 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
 
     // interface IGameMatchX
     @Override
-    public void start(int width, int height) {
+    public void start(int width, int height, Map<String, Integer> paramsOfModelValueMap) {
         verifyGameMatchIsPlaying();
         gameStatus = GameStatus.GAME;
-        GameEventNewGame gameEventNewGame = new GameEventNewGame(width, height);
         isPlaying = false;
-        sendGameEventToAllViews(gameEventNewGame);
     }
 
     @Override
@@ -150,6 +150,16 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     @Override
     public String getId() {
         return super.toString();
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
     }
 
     @Override

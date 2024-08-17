@@ -37,21 +37,19 @@ public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
     }
 
     @Override
+    // ToDo: Возможно объявить этот метод как "public void update(GameEventOneTile gameEvent)"
     public void update(GameEvent gameEvent) {
         Platform.runLater(() -> {
-            if (gameEvent instanceof GameEventNewGame gameEventNewGame) {
-                initMainField(gameEventNewGame);
-            } else if (gameEvent instanceof GameEventOneTile gameEventOneTile) {
+            if (gameEvent instanceof GameEventOneTile gameEventOneTile) {
                 drawCellDuringGame(gameEventOneTile);
             }
         });
     }
 
-    private void initMainField(GameEventNewGame gameEventNewGame) {
+    @Override
+    public void initMainField(int width, int height) {
         getChildren().removeAll(getChildren());
 
-        int width = gameEventNewGame.getWidth();
-        int height = gameEventNewGame.getHeight();
         cellSize = Math.min(Game.APP_WIDTH / width, Game.APP_HEIGHT / height) * 2 / 3;
 
         Color defaultCellBackgroundColor = gameType.getDefaultCellBackgroundColor();

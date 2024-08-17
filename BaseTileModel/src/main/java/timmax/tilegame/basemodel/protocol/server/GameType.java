@@ -46,6 +46,10 @@ public abstract class GameType implements IGameType, Externalizable {
     //       используется только в конструкторе GameClientPaneJfx.
     //       И там идёт цикл по этому множеству и генерируется множество ViewJfx.
     private Map<String, Class<? extends View>> viewName_ViewClassMap;
+    // ToDo: Разложить мапу на три составляющие:
+    //       - width,
+    //       - height,
+    //       - всё остальное, что не width и не height.
     protected ParamName_paramModelDescriptionMap paramName_paramModelDescriptionMap;
 
     private Color defaultCellBackgroundColor;

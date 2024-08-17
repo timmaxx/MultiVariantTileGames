@@ -43,7 +43,7 @@ public interface TransportOfClient {
 
     // 07GameMatchSelected
     void reselectGameMatch();                                                   //  7 -> 7  void reselectGameMatch();
-    void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue);          //  7 -> 8  void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue);
+    void startGameMatch(int width, int height, Map<String, Integer> mapOfParamsOfModelValue);          //  7 -> 8  void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue);
     void resumeGameMatch();                                                     //  7 -> 8  void resumeGameMatch();
 
     // 08GameMatchIsPlaying

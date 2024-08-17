@@ -13,7 +13,6 @@ public interface IGameMatch extends IGameMatchX {
     void win();
     void restart();
 
-    // ToDo: Сеттер вероятно совсем не нужен, т.к. пусть лучше конструктор инициализирует.
-    void setParamsOfModelValueMap(Map<String, Integer> mapOfParamsOfModelValue);
+    void setParamsOfModelValueMap(int width, int height, Map<String, Integer> mapOfParamsOfModelValue);
     int paramsOfModelValueMapGet(String paramName);
 }
