@@ -14,8 +14,9 @@ public class RemoteClientState08GameMatchIsPlaying<ClientId> extends ClientState
     }
 
     @Override
-    public void startGameMatch(int width, int height, Map<String, Integer> mapOfParamsOfModelValue) {
-        super.startGameMatch(width, height, mapOfParamsOfModelValue);
+    public void startGameMatch(Map<String, Integer> paramsOfModelValueMap) {
+        super.startGameMatch(paramsOfModelValueMap);
+
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
                 new EventOfServer71StartGameMatch(width, height, mapOfParamsOfModelValue)
