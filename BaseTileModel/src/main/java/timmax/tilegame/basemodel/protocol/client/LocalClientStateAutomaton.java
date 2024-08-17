@@ -59,10 +59,8 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchDto
     protected void startGameMatch_(int width, int height, Map<String, Integer> mapOfParamsOfModelValue) {
         super.startGameMatch_(width, height, mapOfParamsOfModelValue);
 
-        // ToDo: Блок кода попробовать перемемтить отсюда, что-бы сделать метод package-private.
-        //       Из-за блока кода ниже пришлось объявить этот метод как protected в этом классе и в родительском.
-        // ToDo: Вместо использования зесь явно "MainField", нужно использовать константу.
-        View view = getView("MainField");
+        // ToDo: Блок кода ниже попробовать переместить отсюда, что-бы сделать этот м родительский метод package-private.
+        View view = getView(ViewMainField.class.getSimpleName());
         if (view instanceof ViewMainField viewMainField) {
             Platform.runLater(() -> viewMainField.initMainField(width, height)
             );

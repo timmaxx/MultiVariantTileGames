@@ -76,8 +76,9 @@ public abstract class GameType implements IGameType, Externalizable {
 
         // this.countOfGamers = countOfGamers;
 
-        // ToDo: Мапу нужно инициализировать не как сейчас - константой, а в классе найти все выборки View.class, в т.ч. и ViewMainField.class.
-        viewName_ViewClassMap = Map.of("MainField", ViewMainField.class);
+        // ToDo: Мапу нужно инициализировать не как сейчас - константой, а в классе (или пакете...) найти все выборки,
+        //       реализующие View.class, в т.ч. и ViewMainField.class.
+        viewName_ViewClassMap = Map.of(ViewMainField.class.getSimpleName(), ViewMainField.class);
 
         // ToDo: Нужно минимизировать количество согласований в методах и между классами.
         //       Параметры, которые передаются в getConstructor() и ниже newInstance(), также согласуются с параметрами в
