@@ -35,22 +35,6 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
         super(new GameTypeOfMinesweeper(), remoteClientStateAutomaton, clientId);
     }
 
-    public void start(int percentsOfMines) {
-        verifyGameMatchIsPlaying();
-        if (allMinesweeperObjects != null && getGameStatus() == GameStatus.GAME) {
-            return;
-        }
-
-        // ToDo: Избавиться от "Warning:(45, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
-        allMinesweeperObjects = levelGenerator.getLevel(width, height, percentsOfMines);
-        allMinesweeperObjects.setModel(this);
-
-        sendGameEventToAllViews(new GameEventMinesweeperVariableParamsOpenClose(0, width * height));
-        sendGameEventToAllViews(new GameEventMinesweeperVariableParamsFlag(0, allMinesweeperObjects.getCountOfMines()));
-
-        super.start(width, height, Map.of());
-    }
-
     private void tryInverseFlag(int x, int y) {
         if (verifyGameStatusNotGameAndMayBeCreateNewGame() ||
                 allMinesweeperObjects.getTileByXY(x, y).isOpen()) {
