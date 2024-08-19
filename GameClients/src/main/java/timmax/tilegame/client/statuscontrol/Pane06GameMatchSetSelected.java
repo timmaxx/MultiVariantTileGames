@@ -55,8 +55,6 @@ public class Pane06GameMatchSetSelected extends AbstractConnectStatePane {
                 // Если матч ещё не был начат.
                 // Достаём параметры из описания типа игры.
 
-                System.out.println("  transportOfClient.getLocalClientStateAutomaton().getGameType().getParamName_paramModelDescriptionMap() = " + transportOfClient.getLocalClientStateAutomaton().getGameType().getParamName_paramModelDescriptionMap());
-
                 paramsOfModelValueMap = transportOfClient
                         .getLocalClientStateAutomaton()
                         .getGameType()

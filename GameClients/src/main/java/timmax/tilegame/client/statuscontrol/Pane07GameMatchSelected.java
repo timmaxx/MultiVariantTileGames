@@ -84,8 +84,6 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
         // ToDo: Отказаться от прямого доступа к getParamName_paramModelDescriptionMap().
         //       Здесь используется
         //       LocalClientStateAutomaton :: Map<String, ParamOfModelDescription> getParamName_paramModelDescriptionMap()
-        System.out.println("  transportOfClient.getLocalClientStateAutomaton().getParamName_paramModelDescriptionMap().keySet() = " + transportOfClient.getLocalClientStateAutomaton().getParamName_paramModelDescriptionMap().keySet());
-        System.out.println("  transportOfClient.getLocalClientStateAutomaton().getGameMatchX().getParamsOfModelValueMap() = " + transportOfClient.getLocalClientStateAutomaton().getGameMatchX().getParamsOfModelValueMap());
 
         for (String paramName : transportOfClient.getLocalClientStateAutomaton().getParamName_paramModelDescriptionMap().keySet()) {
             Label paramNameLabel = new Label(paramName);
@@ -110,8 +108,6 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
             if (transportOfClient.getLocalClientStateAutomaton().getGameMatchIsPlaying()) {
                 // Если матч уже был начат.
                 // Достаём параметр из матча.
-                System.out.println("  3");
-
                 paramValue = transportOfClient
                         .getLocalClientStateAutomaton()
                         .getGameMatchX()
