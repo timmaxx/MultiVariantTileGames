@@ -35,7 +35,7 @@ public interface TransportOfClient {
 
     // 04GameTypeSetSelected
     void reauthorizeUser();                                                     //  4 -> 4  void reauthorizeUser();
-    void setGameType(GameType gameType);                                        //  4 -> 5  void setGameType(GameType gameType, Set<GameMatchX> gameMatchXSet);
+    void selectGameType(GameType gameType);                                     //  4 -> 5  void selectGameType(GameType gameType, Set<GameMatchX> gameMatchXSet);
 
     // 06GameMatchSetSelected
     void reselectGameType();                                                    //  6 -> 6  void reselectGameType();

@@ -8,15 +8,15 @@ import java.util.HashSet;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
-public class EventOfClient41SetGameType extends EventOfClient {
+public class EventOfClient41SelectGameType extends EventOfClient {
     // ToDo: См. комментарий к GameType.
     private String gameTypeName;
 
-    public EventOfClient41SetGameType() {
+    public EventOfClient41SelectGameType() {
         super();
     }
 
-    public EventOfClient41SetGameType(String gameTypeName) {
+    public EventOfClient41SelectGameType(String gameTypeName) {
         this();
         this.gameTypeName = gameTypeName;
     }
@@ -45,7 +45,7 @@ public class EventOfClient41SetGameType extends EventOfClient {
         //       Т.е. удовлетворяющих условиям:
         //         1. Игра для 2-х и более игроков.
         //         2. Есть хотя-бы одна не занятая роль.
-        remoteClientStateAutomaton.setGameType(gameType, new HashSet<>());
+        remoteClientStateAutomaton.selectGameType(gameType, new HashSet<>());
     }
 
     @Override

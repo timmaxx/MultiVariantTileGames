@@ -114,7 +114,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         this.gameTypeSet = gameTypeSet;
     }
 
-    void setGameType_(GameType gameType, Set<GameMatchX> gameMatchXSet) {
+    void selectGameType_(GameType gameType, Set<GameMatchX> gameMatchXSet) {
         this.gameType = gameType;
         this.gameMatchXSet = gameMatchXSet;
     }
@@ -200,9 +200,9 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     }
 
     @Override
-    public void setGameType(GameType gameType, Set<GameMatchX> gameMatchXSet) {
+    public void selectGameType(GameType gameType, Set<GameMatchX> gameMatchXSet) {
         setCurrentState(clientState06GameMatchSetSelected);
-        currentState.setGameType(gameType, gameMatchXSet);
+        currentState.selectGameType(gameType, gameMatchXSet);
     }
 
     // 6 interface IClientState06GameMatchSetSelected

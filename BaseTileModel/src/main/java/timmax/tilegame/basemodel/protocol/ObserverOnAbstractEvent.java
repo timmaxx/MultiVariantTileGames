@@ -13,7 +13,7 @@ public interface ObserverOnAbstractEvent {
     void updateOnAuthorizeUser();
 
     // 4
-    void updateOnSetGameType();
+    void updateOnSelectGameType();
 
     // 6
     void updateOnSelectGameMatch();

@@ -19,7 +19,7 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
     }
 
     @Override
-    public void setGameType(GameType gameType, Set<IGameMatch> gameMatchXSet) {
+    public void selectGameType(GameType gameType, Set<IGameMatch> gameMatchXSet) {
         if (gameType == null) {
             getClientStateAutomaton().sendEventOfServer(
                     clientId,
