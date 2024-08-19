@@ -72,11 +72,11 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
         }
         gameMatchXSet.add(iGameMatch);
 
-        super.setGameType(gameType, gameMatchXSet);
+        super.selectGameType(gameType, gameMatchXSet);
 
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
-                new EventOfServer41SetGameType(
+                new EventOfServer41SelectGameType(
                         gameType.getGameTypeName(),
                         gameMatchXSet
                                 .stream()
