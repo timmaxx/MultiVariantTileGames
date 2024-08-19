@@ -53,10 +53,10 @@ public class ObserverOnAbstractEventHashSet extends HashSet<ObserverOnAbstractEv
 
     // 6
     @Override
-    public void updateOnSetGameMatch() {
+    public void updateOnSelectGameMatch() {
         Platform.runLater(() -> {
             for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
-                observerOnAbstractEvent.updateOnSetGameMatch();
+                observerOnAbstractEvent.updateOnSelectGameMatch();
             }
         });
     }

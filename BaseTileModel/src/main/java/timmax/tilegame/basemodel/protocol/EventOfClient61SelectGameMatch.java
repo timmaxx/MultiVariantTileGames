@@ -8,14 +8,14 @@ import timmax.tilegame.basemodel.protocol.server.IGameMatch;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 
-public class EventOfClient61SetGameMatch extends EventOfClient {
+public class EventOfClient61SelectGameMatch extends EventOfClient {
     private GameMatchDto gameMatchDto;
 
-    public EventOfClient61SetGameMatch() {
+    public EventOfClient61SelectGameMatch() {
         super();
     }
 
-    public EventOfClient61SetGameMatch(GameMatchDto gameMatchDto) {
+    public EventOfClient61SelectGameMatch(GameMatchDto gameMatchDto) {
         this();
         this.gameMatchDto = gameMatchDto;
     }
@@ -45,7 +45,7 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
         }
 
         // ToDo: Исправить Warning:(72, 87) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IGameMatch' to 'timmax.tilegame.basemodel.protocol.server.IGameMatch<ClientId>'
-        remoteClientStateAutomaton.setGameMatchX(iGameMatch);
+        remoteClientStateAutomaton.selectGameMatchX(iGameMatch);
     }
 
     // class Object

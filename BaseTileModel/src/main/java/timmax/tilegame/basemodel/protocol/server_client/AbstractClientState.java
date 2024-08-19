@@ -90,7 +90,7 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     }
 
     @Override
-    public void setGameMatchX(GameMatchX gameMatchX) {
+    public void selectGameMatchX(GameMatchX gameMatchX) {
         wrongCallInStateAutomaton();
     }
 

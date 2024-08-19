@@ -76,7 +76,7 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
 
     // 6
     @Override
-    public void updateOnSetGameMatch() {
+    public void updateOnSelectGameMatch() {
         nextStatePane.getChildren().clear();
         List<Region> regionList = new ArrayList<>();
 

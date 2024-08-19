@@ -119,7 +119,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         this.gameMatchXSet = gameMatchXSet;
     }
 
-    void setGameMatchX_(GameMatchX gameMatchX) {
+    void selectGameMatchX_(GameMatchX gameMatchX) {
         this.gameMatchX = gameMatchX;
     }
 
@@ -218,9 +218,9 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     }
 
     @Override
-    public void setGameMatchX(GameMatchX gameMatchX) {
+    public void selectGameMatchX(GameMatchX gameMatchX) {
         setCurrentState(clientState07GameMatchSelected);
-        currentState.setGameMatchX(gameMatchX);
+        currentState.selectGameMatchX(gameMatchX);
     }
 
     // 7 interface IClientState07GameMatchSelected

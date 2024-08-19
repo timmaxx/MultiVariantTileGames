@@ -39,7 +39,7 @@ public interface TransportOfClient {
 
     // 06GameMatchSetSelected
     void reselectGameType();                                                    //  6 -> 6  void reselectGameType();
-    void setGameMatch(GameMatchDto gameMatchDto);                               //  6 -> 7  void setGameMatchX(GameMatchX gameMatchX);
+    void selectGameMatch(GameMatchDto gameMatchDto);                            //  6 -> 7  void selectGameMatchX(GameMatchX gameMatchX);
 
     // 07GameMatchSelected
     void reselectGameMatch();                                                   //  7 -> 7  void reselectGameMatch();
