@@ -46,10 +46,6 @@ public abstract class GameType implements IGameType, Externalizable {
     //       используется только в конструкторе GameClientPaneJfx.
     //       И там идёт цикл по этому множеству и генерируется множество ViewJfx.
     private Map<String, Class<? extends View>> viewName_ViewClassMap;
-    // ToDo: Разложить мапу на три составляющие:
-    //       - width,
-    //       - height,
-    //       - всё остальное, что не width и не height.
     protected ParamName_paramModelDescriptionMap paramName_paramModelDescriptionMap;
 
     private Color defaultCellBackgroundColor;
@@ -186,7 +182,7 @@ public abstract class GameType implements IGameType, Externalizable {
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         gameTypeName = (String) in.readObject();
         // countOfGamers = in.readInt();
-        // ToDo: Избавиться от "Warning:(190, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
+        // ToDo: Избавиться от "Warning:(186, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
         viewName_ViewClassMap = (Map<String, Class<? extends View>>) in.readObject();
         paramName_paramModelDescriptionMap = (ParamName_paramModelDescriptionMap) in.readObject();
 

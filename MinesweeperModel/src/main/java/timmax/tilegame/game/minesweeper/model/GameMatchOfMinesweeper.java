@@ -73,29 +73,30 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
 
     // interface IGameMatch:
     @Override
-    public void start() {
-        System.out.println("GameMatchOfMinesweeper :: void start()");
-        start(
-                // paramsOfModelValueMapGet(PARAM_NAME_WIDTH),
-                // paramsOfModelValueMapGet(PARAM_NAME_HEIGHT),
-                paramsOfModelValueMapGet(PARAM_NAME_PERCENTS_OF_MINES)
-        );
-        sendGameEventToAllViews(new GameEventMinesweeperPersistentParams(allMinesweeperObjects.getCountOfMines()));
+    public void setParamsOfModelValueMap(Map<String, Integer> paramsOfModelValueMap) {
+        verifyGameMatchIsPlaying();
+        if (getGameStatus() == GameStatus.GAME) {
+            throw new RuntimeException("Wrong situation: getGameStatus() == GameStatus.GAME");
+        }
+
+        super.setParamsOfModelValueMap(paramsOfModelValueMap);
+
+        // ToDo: Избавиться от "Warning:(69, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
+        allMinesweeperObjects = levelGenerator.getLevel(getWidth(), getHeight(), paramsOfModelValueMap.get(PARAM_NAME_PERCENTS_OF_MINES));
+        allMinesweeperObjects.setModel(this);
     }
 
-    // ToDo: Вероятно удалить.
     @Override
-    public void start(int width, int height, Map<String, Integer> paramsOfModelValueMap) {
-        System.out.println("GameMatchOfMinesweeper :: void start(int width, int height, Map<String, Integer> paramsOfModelValueMap)");
-        System.out.println("Не реализован...");
-/*
-        System.out.println("GameMatch :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue). Begin");
-        for (Map.Entry<String, Integer> entry : paramsOfModelValueMap.entrySet()){
-            System.out.println("  entry.getKey() = " + entry.getKey() + ". entry.getValue() = " + entry.getValue());
+    public void start() {
+        verifyGameMatchIsPlaying();
+        if (allMinesweeperObjects != null && getGameStatus() == GameStatus.GAME) {
+            return;
         }
-        // throw new RuntimeException("GameMatch :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue)");
-        System.out.println("GameMatch :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue). End");
-*/
+
+        sendGameEventToAllViews(new GameEventMinesweeperVariableParamsOpenClose(0, getWidth() * getHeight()));
+        sendGameEventToAllViews(new GameEventMinesweeperVariableParamsFlag(0, allMinesweeperObjects.getCountOfMines()));
+
+        super.start();
     }
 
     @Override

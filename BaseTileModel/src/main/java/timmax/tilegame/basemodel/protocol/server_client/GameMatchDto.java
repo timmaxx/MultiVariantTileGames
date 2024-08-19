@@ -9,8 +9,6 @@ import java.util.Map;
 // DTO - Data Transfer Object
 public class GameMatchDto implements Externalizable, IGameMatchX {
     private String id;
-    private int width;
-    private int height;
     private boolean isPlaying;
     private Map<String, Integer> paramsOfModelValueMap;
 
@@ -18,13 +16,11 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
         super();
     }
 
-    public GameMatchDto(String id, int width, int height, boolean isPlaying, Map<String, Integer> paramsOfModelValueMap) {
+    public GameMatchDto(String id, boolean isPlaying, Map<String, Integer> paramsOfModelValueMap) {
         this();
         this.id = id;
-        this.width = width;
-        this.height = height;
         this.isPlaying = isPlaying;
-        this.paramsOfModelValueMap = paramsOfModelValueMap;
+        setParamsOfModelValueMap(paramsOfModelValueMap);
     }
 
     public boolean isNullOrEmpty() {
@@ -36,8 +32,6 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
     public String toString() {
         return "GameMatchDto{" +
                 "id='" + id + '\'' +
-                ", width=" + width +
-                ", height=" + height +
                 ", isPlaying=" + isPlaying +
                 ", paramsOfModelValueMap=" + paramsOfModelValueMap +
                 '}';
@@ -47,8 +41,6 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeObject(id);
-        out.writeInt(width);
-        out.writeInt(height);
         out.writeBoolean(isPlaying);
         out.writeObject(paramsOfModelValueMap);
     }
@@ -56,10 +48,8 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         id = (String) in.readObject();
-        width = in.readInt();
-        height = in.readInt();
         isPlaying = in.readBoolean();
-        // ToDo: Избавиться от "Warning:(63, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Integer>'"
+        // ToDo: Избавиться от "Warning:(53, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Integer>'"
         paramsOfModelValueMap = (Map<String, Integer>) in.readObject();
     }
 
@@ -71,12 +61,17 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
 
     @Override
     public int getWidth() {
-        return width;
+        return paramsOfModelValueMap.get(PARAM_NAME_WIDTH);
     }
 
     @Override
     public int getHeight() {
-        return height;
+        return paramsOfModelValueMap.get(PARAM_NAME_HEIGHT);
+    }
+
+    @Override
+    public void setParamsOfModelValueMap(Map<String, Integer> paramsOfModelValueMap) {
+        this.paramsOfModelValueMap = paramsOfModelValueMap;
     }
 
     @Override
@@ -98,14 +93,7 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
     }
 
     // ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.
-    @Override
-    public void start(int width, int height, Map<String, Integer> paramsOfModelValueMap) {
-        // throw new RuntimeException("GameMatchDto :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue)");
-        System.out.println("GameMatchDto :: void start(Map<String, Integer> mapOfParamsOfModelValue)");
-        System.out.println("ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.");
-    }
 
-    // ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.
     @Override
     public void resume() {
         System.out.println("GameMatchDto:: void resume()");

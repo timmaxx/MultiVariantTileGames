@@ -15,6 +15,11 @@ import timmax.tilegame.baseview.ViewMainField;
 import timmax.tilegame.guiengine.jfx.Game;
 import timmax.tilegame.guiengine.jfx.GameStackPane;
 
+import java.util.Map;
+
+import static timmax.tilegame.basemodel.protocol.server_client.IGameMatchXDto.PARAM_NAME_HEIGHT;
+import static timmax.tilegame.basemodel.protocol.server_client.IGameMatchXDto.PARAM_NAME_WIDTH;
+
 public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
     protected GameStackPane[][] cells;
     protected int cellSize;
@@ -46,8 +51,11 @@ public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
     }
 
     @Override
-    public void initMainField(int width, int height) {
+    public void initMainField(Map<String, Integer> paramsOfModelValueMap) {
         getChildren().removeAll(getChildren());
+
+        int width = paramsOfModelValueMap.get(PARAM_NAME_WIDTH);
+        int height = paramsOfModelValueMap.get(PARAM_NAME_HEIGHT);
 
         cellSize = Math.min(Game.APP_WIDTH / width, Game.APP_HEIGHT / height) * 2 / 3;
 

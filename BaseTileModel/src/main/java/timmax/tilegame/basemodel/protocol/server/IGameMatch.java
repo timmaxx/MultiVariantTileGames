@@ -13,6 +13,8 @@ public interface IGameMatch extends IGameMatchX {
     void win();
     void restart();
 
-    void setParamsOfModelValueMap(int width, int height, Map<String, Integer> mapOfParamsOfModelValue);
-    int paramsOfModelValueMapGet(String paramName);
+    void setParamsOfModelValueMap(Map<String, Integer> mapOfParamsOfModelValue);
+    // ToDo: Избавиться от "Warning:(19, 9) Method 'getFromParamsOfModelValueMap(java.lang.String)' is never used"
+    //       Однако метод всё-таки используется...
+    int getFromParamsOfModelValueMap(String paramName);
 }

@@ -28,9 +28,6 @@ import static timmax.tilegame.basemodel.GameStatus.VICTORY;
 public abstract class GameMatch<ClientId> implements IGameMatch {
     protected static final Logger logger = LoggerFactory.getLogger(GameMatch.class);
 
-    public static final String PARAM_NAME_WIDTH = "Width";
-    public static final String PARAM_NAME_HEIGHT = "Height";
-
     protected final GameType gameType;
 
     // ToDo: Сейчас здесь одна переменная типа RemoteClientStateAutomaton и ClientId. И для одного игрока вполне норм.
@@ -40,9 +37,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     protected final RemoteClientStateAutomaton remoteClientStateAutomaton;
     protected final ClientId clientId;
 
-    protected int width;
-    protected int height;
-    private Map<String, Integer> paramsOfModelValueMap;
+    protected Map<String, Integer> paramsOfModelValueMap;
     private GameStatus gameStatus;
     private boolean isPlaying;
 
@@ -114,20 +109,18 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     }
 
     @Override
-    public void setParamsOfModelValueMap(int width, int height, Map<String, Integer> mapOfParamsOfModelValue) {
-        this.width = width;
-        this.height = height;
-        this.paramsOfModelValueMap = mapOfParamsOfModelValue;
+    public void setParamsOfModelValueMap(Map<String, Integer> paramsOfModelValueMap) {
+        this.paramsOfModelValueMap = paramsOfModelValueMap;
     }
 
     @Override
-    public int paramsOfModelValueMapGet(String paramName) {
+    public int getFromParamsOfModelValueMap(String paramName) {
         return paramsOfModelValueMap.get(paramName);
     }
 
     // interface IGameMatchX
     @Override
-    public void start(int width, int height, Map<String, Integer> paramsOfModelValueMap) {
+    public void start() {
         verifyGameMatchIsPlaying();
         gameStatus = GameStatus.GAME;
         isPlaying = false;
@@ -154,12 +147,12 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
 
     @Override
     public int getWidth() {
-        return width;
+        return paramsOfModelValueMap.get(PARAM_NAME_WIDTH);
     }
 
     @Override
     public int getHeight() {
-        return height;
+        return paramsOfModelValueMap.get(PARAM_NAME_HEIGHT);
     }
 
     @Override

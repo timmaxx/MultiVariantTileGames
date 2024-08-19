@@ -26,26 +26,18 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
         nextStateButton.setOnAction(event -> {
             disableAllControls();
             Map<String, Integer> paramsOfModelValueMap = new HashMap<>();
-            int width = 0;
-            int height = 0;
             for (Region region : getNextStateControlsList()) {
                 if (region instanceof TextField textField) {
-                    if (textField.getId().equalsIgnoreCase("width")) {
-                        width = Integer.parseInt(textField.getText());
-                    } else if (textField.getId().equalsIgnoreCase("height")) {
-                        height = Integer.parseInt(textField.getText());
-                    } else {
-                        paramsOfModelValueMap.put(
-                                textField.getId(),
-                                Integer.valueOf(textField.getText()));
-                    }
+                    paramsOfModelValueMap.put(
+                            textField.getId(),
+                            Integer.valueOf(textField.getText()));
                 }
             }
 
             if (transportOfClient.getLocalClientStateAutomaton().getGameMatchX().isPlaying()) {
                 transportOfClient.resumeGameMatch();
             } else {
-                transportOfClient.startGameMatch(width, height, paramsOfModelValueMap);
+                transportOfClient.startGameMatch(paramsOfModelValueMap);
             }
             getScene().getWindow().sizeToScene();
         });
@@ -119,23 +111,12 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
                 // Если матч уже был начат.
                 // Достаём параметр из матча.
                 System.out.println("  3");
-                System.out.println("  paramName = " + paramName);
 
-                if (paramName.equalsIgnoreCase("width")) {
-                    paramValue = transportOfClient
-                            .getLocalClientStateAutomaton()
-                            .getGameMatchX().getWidth();
-                } else if (paramName.equalsIgnoreCase("height")) {
-                    paramValue = transportOfClient
-                            .getLocalClientStateAutomaton()
-                            .getGameMatchX().getHeight();
-                } else {
-                    paramValue = transportOfClient
-                            .getLocalClientStateAutomaton()
-                            .getGameMatchX()
-                            .getParamsOfModelValueMap()
-                            .get(paramName);
-                }
+                paramValue = transportOfClient
+                        .getLocalClientStateAutomaton()
+                        .getGameMatchX()
+                        .getParamsOfModelValueMap()
+                        .get(paramName);
             } else {
                 // Если матч ещё не был начат.
                 // Достаём параметр из описания типа игры.

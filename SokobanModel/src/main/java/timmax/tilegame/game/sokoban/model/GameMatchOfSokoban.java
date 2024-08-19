@@ -252,18 +252,24 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         sendGameEventToAllViews(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
     }
 
+    @Override
+    public void setParamsOfModelValueMap(Map<String, Integer> paramsOfModelValueMap) {
+        verifyGameMatchIsPlaying();
+        if (allSokobanObjects != null && getGameStatus() == GameStatus.GAME) {
+            throw new RuntimeException("Wrong situation: allSokobanObjects != null && getGameStatus() == GameStatus.GAME");
+        }
+        allSokobanObjects = levelLoader.getLevel(currentLevel.getValue());
+        super.setParamsOfModelValueMap(Map.of(PARAM_NAME_WIDTH, allSokobanObjects.getWidth(), PARAM_NAME_HEIGHT, allSokobanObjects.getHeight()));
+    }
+
     // interface IGameMatch:
     @Override
     public void start() {
-        System.out.println("GameMatchOfSokoban :: void start()");
         verifyGameMatchIsPlaying();
-
-        if (allSokobanObjects != null && getGameStatus() == GameStatus.GAME) {
+        if (paramsOfModelValueMap == null || paramsOfModelValueMap.isEmpty()) {
             return;
         }
 
-        allSokobanObjects = levelLoader.getLevel(currentLevel.getValue());
-        super.start(allSokobanObjects.getWidth(), allSokobanObjects.getHeight(), Map.of());
         for (int y = 0; y < allSokobanObjects.getHeight(); y++) {
             for (int x = 0; x < allSokobanObjects.getWidth(); x++) {
                 WhoPersistentInTile whoPersistentInTile = allSokobanObjects.getWhoPersistentInTile(x, y);
@@ -278,21 +284,8 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         // sendGameEvent(new GameEventSokobanVariableParamsCountOfSteps(0));
         calcCountOfBoxesInHomes();
         // sendGameEvent(new GameEventSokobanVariableParamsCountOfBoxesInHouses(countOfBoxesInHomes));
-    }
 
-    // ToDo: Вероятно удалить.
-    @Override
-    public void start(int width, int height, Map<String, Integer> paramsOfModelValueMap) {
-        System.out.println("GameMatchOfSokoban :: void start(Map<String, Integer> mapOfParamsOfModelValue)");
-        System.out.println("Не реализован...");
-/*
-        System.out.println("GameMatch :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue). Begin");
-        for (Map.Entry<String, Integer> entry : paramsOfModelValueMap.entrySet()){
-            System.out.println("  entry.getKey() = " + entry.getKey() + ". entry.getValue() = " + entry.getValue());
-        }
-        // throw new RuntimeException("GameMatch :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue)");
-        System.out.println("GameMatch :: void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue). End");
-*/
+        super.start();
     }
 
     @Override

@@ -56,13 +56,13 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchDto
     }
 
     @Override
-    protected void startGameMatch_(int width, int height, Map<String, Integer> mapOfParamsOfModelValue) {
-        super.startGameMatch_(width, height, mapOfParamsOfModelValue);
+    protected void setParamsOfModelValueMapOfGameMatch_(Map<String, Integer> mapOfParamsOfModelValue) {
+        super.setParamsOfModelValueMapOfGameMatch_(mapOfParamsOfModelValue);
 
-        // ToDo: Блок кода ниже попробовать переместить отсюда, что-бы сделать этот м родительский метод package-private.
+        // ToDo: Блок кода ниже попробовать переместить отсюда, что-бы сделать этот и родительский метод package-private.
         View view = getView(ViewMainField.class.getSimpleName());
         if (view instanceof ViewMainField viewMainField) {
-            Platform.runLater(() -> viewMainField.initMainField(width, height)
+            Platform.runLater(() -> viewMainField.initMainField(mapOfParamsOfModelValue)
             );
         }
     }

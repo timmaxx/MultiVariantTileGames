@@ -6,8 +6,8 @@ public interface IGameMatchX extends IGameMatchXDto {
     int getWidth();
     int getHeight();
 
-    void start();
-    void start(int width, int height, Map<String, Integer> paramsOfModelValueMap);
+    void setParamsOfModelValueMap(Map<String, Integer> paramsOfModelValueMap);
 
+    void start();
     void resume();
 }
