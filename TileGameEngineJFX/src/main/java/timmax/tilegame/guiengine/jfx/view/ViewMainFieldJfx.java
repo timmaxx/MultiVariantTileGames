@@ -41,7 +41,6 @@ public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
     }
 
     @Override
-    // ToDo: Возможно объявить этот метод как "public void update(GameEventOneTile gameEvent)"
     public void update(GameEvent gameEvent) {
         Platform.runLater(() -> {
             if (gameEvent instanceof GameEventOneTile gameEventOneTile) {
