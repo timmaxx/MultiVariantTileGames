@@ -14,16 +14,44 @@ public class RemoteClientState08GameMatchIsPlaying<ClientId> extends ClientState
     }
 
     @Override
-    public void setParamsOfModelValueMapOfGameMatch(Map<String, Integer> paramsOfModelValueMap) {
-        super.setParamsOfModelValueMapOfGameMatch(paramsOfModelValueMap);
+    public void setParamsOfModelValueMapOfGameMatchAndStart(Map<String, Integer> paramsOfModelValueMap) {
+        // ToDo: Внести изменения в событие, отправляемые при старте / возбоновлении игры. А именно:
+        //       отправлять не только ширину и высоту, но и все плитки, отличающиеся от умолчательного значения.
+        //       Тогда отпралять нужно будет не getGameMatchX().getParamsOfModelValueMap() (т.е. только параметры),
+        //       весь getGameMatchX() (т.е. параметры, все плитки, отличающиеся от умолчательных, и для
+        //       многопользовательских игр - признак хода определённого игрока).
+        //       Сейчас EventOfServer71StartGameMatch отправляет только ширину и высоту.
+        //
+        //       Структура метода и имена вызываемых методов отличаются от других подобных в классах
+        //       RemoteClientState0X..., а именно в тех методах такая структура:
+        //       1. Что-то вычисляется для следующего шага.
+        //       2. super.ЭтотМетод(ЭтиЖеПараметры).
+        //       3. getClientStateAutomaton().sendEventOfServer(clientId, new EventOfServer0X...()).
+        //       Здесь имя класса
+        //       ...GameMatchIsPlaying
+        //       не соответствует именам методов
+        //       - setParamsOfModelValueMapOfGameMatchAndStart(...) и
+        //       - start().
+        //       И здесь ещё вызывается "getClientStateAutomaton().getGameMatchX().start()".
+        //       Так здесь сделано потому, что EventOfServer71StartGameMatch несёт в себе width и height,
+        //       а в start() будет отправлено множество игровых событий:
+        //       - одниплиточных - для отрисовки в главной выборке,
+        //       - текстовых для отрисовки в других выборках сопроводительную информацию (очки, и прочая промежуточная статистика)
 
+        // В метод передаётся, поступившая от клиента мапа с параметрами матча, но внутри метода будет проверка на
+        // соответствие: если мапа будет признана неподходящей, то внутри матча будет сформирована мапа с другим содержанием.
+        super.setParamsOfModelValueMapOfGameMatchAndStart(paramsOfModelValueMap);
+
+        // Именно из-за того, что мапа могла быть сформирована не такая, какая пришла, клиенту будет отправлена мапа,
+        // которая была сформирована при вызове предыдущего метода.
+        // Клиент, после получения этого события только строит главную выборку (пустую доску).
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
                 new EventOfServer71StartGameMatch(getGameMatchX().getParamsOfModelValueMap())
         );
 
-        // ToDo: Вызов этого метода для модели:
-        //       - для которой ранее ещё не было вызвано start().
+        // Метод вызывается для модели, для которой ранее ещё не был вызван start().
+        // Сервер отправляет клиенту одноплиточные игровые события - расстановку игровых объектов.
         getClientStateAutomaton().getGameMatchX().start();
     }
 
@@ -33,6 +61,7 @@ public class RemoteClientState08GameMatchIsPlaying<ClientId> extends ClientState
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
                 new EventOfServer73ResumeGameMatch()
+                // new EventOfServer73ResumeGameMatch(getGameMatchX().getParamsOfModelValueMap())
         );
 
         // ToDo: Вызов этого метода для модели:

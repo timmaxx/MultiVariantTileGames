@@ -107,7 +107,7 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     }
 
     @Override
-    public void setParamsOfModelValueMapOfGameMatch(Map<String, Integer> paramsOfModelValueMap) {
+    public void setParamsOfModelValueMapOfGameMatchAndStart(Map<String, Integer> paramsOfModelValueMap) {
         wrongCallInStateAutomaton();
     }
 

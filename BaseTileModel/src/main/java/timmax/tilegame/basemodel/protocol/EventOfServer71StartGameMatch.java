@@ -22,7 +22,7 @@ public class EventOfServer71StartGameMatch extends EventOfServer {
     // class EventOfServer
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
-        localClientStateAutomaton.setParamsOfModelValueMapOfGameMatch(paramsOfModelValueMap);
+        localClientStateAutomaton.setParamsOfModelValueMapOfGameMatchAndStart(paramsOfModelValueMap);
     }
 
     // class Object

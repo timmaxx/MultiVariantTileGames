@@ -124,7 +124,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     }
 
     // ToDo: Избавиться от protected (см. коммент к LocalClientStateAutomaton)
-    protected void setParamsOfModelValueMapOfGameMatch_(Map<String, Integer> mapOfParamsOfModelValue) {
+    protected void setParamsOfModelValueMapOfGameMatchAndStart_(Map<String, Integer> mapOfParamsOfModelValue) {
         getGameMatchX_().setParamsOfModelValueMap(mapOfParamsOfModelValue);
     }
 
@@ -236,9 +236,9 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     }
 
     @Override
-    public void setParamsOfModelValueMapOfGameMatch(Map<String, Integer> mapOfParamsOfModelValue) {
+    public void setParamsOfModelValueMapOfGameMatchAndStart(Map<String, Integer> mapOfParamsOfModelValue) {
         setCurrentState(clientState08GameMatchIsPlaying);
-        currentState.setParamsOfModelValueMapOfGameMatch(mapOfParamsOfModelValue);
+        currentState.setParamsOfModelValueMapOfGameMatchAndStart(mapOfParamsOfModelValue);
     }
 
     @Override

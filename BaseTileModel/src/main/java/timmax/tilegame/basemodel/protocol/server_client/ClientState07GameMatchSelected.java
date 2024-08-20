@@ -20,8 +20,8 @@ public abstract class ClientState07GameMatchSelected<GameMatchX extends IGameMat
     }
 
     @Override
-    public void setParamsOfModelValueMapOfGameMatch(Map<String, Integer> paramsOfModelValueMap) {
-        getClientStateAutomaton().setParamsOfModelValueMapOfGameMatch_(paramsOfModelValueMap);
+    public void setParamsOfModelValueMapOfGameMatchAndStart(Map<String, Integer> paramsOfModelValueMap) {
+        getClientStateAutomaton().setParamsOfModelValueMapOfGameMatchAndStart_(paramsOfModelValueMap);
     }
 
     @Override
