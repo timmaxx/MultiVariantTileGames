@@ -44,7 +44,7 @@ public class EventOfClient71StartGameMatch extends EventOfClient {
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        // ToDo: Избавиться от "Warning:(48, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Integer>'"
+        // ToDo: Избавиться от "Warning:(49, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Integer>'"
         paramsOfModelValueMap = (Map<String, Integer>) in.readObject();
 /*
         // Так не работает...
