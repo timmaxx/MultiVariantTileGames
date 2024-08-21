@@ -70,6 +70,11 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     }
 
     @Override
+    public void startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
+        // !!!
+    }
+
+    @Override
     public void start() {
         verifyGameMatchIsPlaying();
         if (allMinesweeperObjects != null && getGameStatus() == GameStatus.GAME) {

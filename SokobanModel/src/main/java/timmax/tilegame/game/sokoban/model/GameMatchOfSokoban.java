@@ -262,6 +262,11 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         super.setParamsOfModelValueMap(Map.of(PARAM_NAME_WIDTH, allSokobanObjects.getWidth(), PARAM_NAME_HEIGHT, allSokobanObjects.getHeight()));
     }
 
+    @Override
+    public void startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
+
+    }
+
     // interface IGameMatch:
     @Override
     public void start() {

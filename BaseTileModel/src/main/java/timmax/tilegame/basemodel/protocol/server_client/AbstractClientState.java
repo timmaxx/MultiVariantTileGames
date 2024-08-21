@@ -112,6 +112,11 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     }
 
     @Override
+    public void startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
+        wrongCallInStateAutomaton();
+    }
+
+    @Override
     public void resumeGameMatch() {
         wrongCallInStateAutomaton();
     }

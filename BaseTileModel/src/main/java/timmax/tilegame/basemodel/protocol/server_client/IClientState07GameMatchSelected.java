@@ -21,6 +21,9 @@ public interface IClientState07GameMatchSelected<GameMatchX extends IGameMatchX>
     //      void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue);
 
 
+
+    void startGameMatch(GameMatchExtendedDto gameMatchExtendedDto);
+
     void resumeGameMatch();
     //  interface TransportOfClient
     //      void resumeGameMatch();

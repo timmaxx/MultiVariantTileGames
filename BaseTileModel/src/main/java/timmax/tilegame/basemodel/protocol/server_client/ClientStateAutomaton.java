@@ -128,6 +128,10 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         getGameMatchX_().setParamsOfModelValueMap(mapOfParamsOfModelValue);
     }
 
+    void startGameMatch_(GameMatchExtendedDto gameMatchExtendedDto) {
+        getGameMatchX_().startGameMatch(gameMatchExtendedDto);
+    }
+
     void resumeGameMatch_() {
         getGameMatchX_().resume();
     }

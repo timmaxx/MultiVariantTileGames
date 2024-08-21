@@ -72,6 +72,12 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
         }
         gameMatchXSet.add(iGameMatch);
 
+        //  ToDo:   Требует переделки, т.к. второй параметр (gameMatchXSet):
+        //          - в принципе не должен поступать в этот метод, т.к. это зависимое значение.
+        //          - и соответственно определаять его нужно до вызова этого метода внутри gameType.
+        //          Как пример (в части не вычисления внутри метода), видно, что в
+        //          RemoteClientState04GameTypeSetSelected :: authorizeUser(String userName, Set<GameType> gameTypeSet)
+        //          второй параметр не вычисляется внутри authorizeUser(...). Но он всё-же передаётся в него...
         super.selectGameType(gameType, gameMatchXSet);
 
         getClientStateAutomaton().sendEventOfServer(

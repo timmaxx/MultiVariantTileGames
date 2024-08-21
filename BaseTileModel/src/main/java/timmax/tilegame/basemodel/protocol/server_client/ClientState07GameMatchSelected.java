@@ -25,6 +25,11 @@ public abstract class ClientState07GameMatchSelected<GameMatchX extends IGameMat
     }
 
     @Override
+    public void startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
+        // !!!!
+    }
+
+    @Override
     public void resumeGameMatch() {
         getClientStateAutomaton().resumeGameMatch_();
     }

@@ -75,6 +75,11 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
     }
 
     @Override
+    public void startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
+        // !!!!
+    }
+
+    @Override
     public boolean isPlaying() {
         return isPlaying;
     }
