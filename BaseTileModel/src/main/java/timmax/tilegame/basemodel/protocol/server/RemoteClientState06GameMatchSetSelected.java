@@ -80,6 +80,12 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
         //          второй параметр не вычисляется внутри authorizeUser(...). Но он всё-же передаётся в него...
         super.selectGameType(gameType, gameMatchXSet);
 
+
+        //  ToDo:   Ниже, использовать входящий параметр (здесь это gameMatchX) не рекомендуется, т.к.
+        //          в методе super он может быть не принят полностью или в какой-то части, но в целевом экземпляре
+        //          (здесь это GameMatchXSet) будет либо принят, либо сформирован свой (здесь это gameMatchX).
+        //          Вот его и нужно упаковать в EventOfServer (здесь это EventOfServer61SelectGameMatch) и
+        //          отправить клиенту.
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
                 new EventOfServer41SelectGameType(
