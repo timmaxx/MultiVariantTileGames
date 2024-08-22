@@ -6,7 +6,5 @@ public interface IGameMatchX extends IGameMatchXDto {
 
     GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto);
     // ToDo: Вероятно возвращаемый параметр должен быть GameMatchExtendedDto
-    void start();
-    // ToDo: Вероятно возвращаемый параметр должен быть GameMatchExtendedDto
     void resume();
 }

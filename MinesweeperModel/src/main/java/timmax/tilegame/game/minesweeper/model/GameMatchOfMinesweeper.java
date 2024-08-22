@@ -3,7 +3,6 @@ package timmax.tilegame.game.minesweeper.model;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 
-import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.protocol.server.GameMatch;
@@ -43,7 +42,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
         // Т.к. пометка флагом не раскрывает карту и не может привести к проигрышу, то вызов
         // setGameMatchIsPlayingTrue() делать не нужно.
         // Но пока, для отладки, оставлен этот вызов.
-        setGameMatchIsPlayingTrue();
+        setIsPlayingTrue();
     }
 
     private void open(int x, int y) {
@@ -51,16 +50,13 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
             return;
         }
         setGameStatus(allMinesweeperObjects.open(allMinesweeperObjects.getTileByXY(x, y)));
-        setGameMatchIsPlayingTrue();
+        setIsPlayingTrue();
     }
 
     // interface IGameMatch:
     @Override
     public void setParamsOfModelValueMap(Map<String, Integer> paramsOfModelValueMap) {
-        verifyGameMatchIsPlaying();
-        if (getGameStatus() == GameStatus.GAME) {
-            throw new RuntimeException("Wrong situation: getGameStatus() == GameStatus.GAME");
-        }
+        throwExceptionIfIsPlaying();
 
         super.setParamsOfModelValueMap(paramsOfModelValueMap);
 
@@ -71,41 +67,19 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
 
     @Override
     public GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto) {
-        verifyGameMatchIsPlaying();
-        if (getGameStatus() == GameStatus.GAME) {
-            throw new RuntimeException("Wrong situation: getGameStatus() == GameStatus.GAME");
-        }
+        throwExceptionIfIsPlaying();
 
         super.start(gameMatchExtendedDto);
 
-        // ToDo: Избавиться от "Warning:(82, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
-        allMinesweeperObjects = levelGenerator.getLevel(gameMatchExtendedDto.getWidth(), gameMatchExtendedDto.getHeight(), gameMatchExtendedDto.getParamsOfModelValueMap().get(PARAM_NAME_PERCENTS_OF_MINES));
+        // ToDo: Избавиться от "Warning:(75, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
+        allMinesweeperObjects = levelGenerator.getLevel(
+                getWidth(),
+                getHeight(),
+                getFromParamsOfModelValueMap(PARAM_NAME_PERCENTS_OF_MINES)
+        );
         allMinesweeperObjects.setModel(this);
 
-        return new GameMatchExtendedDto(
-                gameMatchExtendedDto.getId(),
-                gameMatchExtendedDto.isPlaying(),
-                this.paramsOfModelValueMap,
-                new HashSet<>());
-    }
-
-    //  ToDo:   start() (т.е. без параметров) должен вызывать start(...)
-    //          И удалить дублирующийся код.
-    @Override
-    public void start() {
-        System.out.println("GameMatchOfMinesweeper :: void start(). B");
-        verifyGameMatchIsPlaying();
-        if (allMinesweeperObjects != null && getGameStatus() == GameStatus.GAME) {
-            return;
-        }
-/*
-        sendGameEventToAllViews(new GameEventMinesweeperVariableParamsOpenClose(0, getWidth() * getHeight()));
-        System.out.println("GameMatchOfMinesweeper :: void start(). 3");
-        sendGameEventToAllViews(new GameEventMinesweeperVariableParamsFlag(0, allMinesweeperObjects.getCountOfMines()));
-        System.out.println("GameMatchOfMinesweeper :: void start(). 4");
-*/
-        super.start();
-        System.out.println("GameMatchOfMinesweeper :: void start(). E");
+        return newGameMatchExtendedDto(new HashSet<>());
     }
 
     @Override

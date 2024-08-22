@@ -6,9 +6,11 @@ import org.slf4j.LoggerFactory;
 import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
+import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
 
 import java.util.Map;
+import java.util.Set;
 
 import static timmax.tilegame.basemodel.GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
 import static timmax.tilegame.basemodel.GameStatus.VICTORY;
@@ -38,7 +40,8 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     protected final RemoteClientStateAutomaton remoteClientStateAutomaton;
     protected final ClientId clientId;
 
-    protected Map<String, Integer> paramsOfModelValueMap;
+    private Map<String, Integer> paramsOfModelValueMap;
+    //  ToDo:   Оставить только одну переменную.
     private GameStatus gameStatus;
     private boolean isPlaying;
 
@@ -59,9 +62,13 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         this.gameStatus = gameStatus;
     }
 
-    protected void verifyGameMatchIsPlaying() {
+    protected void throwExceptionIfIsPlaying() {
+        //  ToDo:   Свести к одной переменной статус матча.
         if (isPlaying) {
             throw new RuntimeException("You cannot create new game because the match is in state 'gameMatchIsPlaing'!");
+        }
+        if (getGameStatus() == GameStatus.GAME) {
+            throw new RuntimeException("Wrong situation: getGameStatus() == GameStatus.GAME");
         }
     }
 
@@ -83,14 +90,23 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         */
         // Для Сокобан restart и newGame - видимо работает одинаково.
         if (getGameStatus() != GameStatus.GAME) {
-            start();
+            // start();
             return true;
         }
         return false;
     }
 
-    protected void setGameMatchIsPlayingTrue() {
+    protected void setIsPlayingTrue() {
         isPlaying = true;
+    }
+
+    public GameMatchExtendedDto newGameMatchExtendedDto(Set<GameEventOneTile> gameEventOneTileSet) {
+        return new GameMatchExtendedDto(
+                getId(),
+                isPlaying(),
+                paramsOfModelValueMap,
+                gameEventOneTileSet
+        );
     }
 
     // interface IGameMatch
@@ -112,19 +128,14 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     @Override
     public void setParamsOfModelValueMap(Map<String, Integer> paramsOfModelValueMap) {
         this.paramsOfModelValueMap = paramsOfModelValueMap;
+        gameStatus = GameStatus.GAME;
     }
 
     // interface IGameMatchX
     // ToDo: start() (т.е. без параметров) должен вызывать start(...)
     @Override
-    public void start() {
-        verifyGameMatchIsPlaying();
-        gameStatus = GameStatus.GAME;
-        isPlaying = false;
-    }
-
-    @Override
     public GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto) {
+        throwExceptionIfIsPlaying();
         this.paramsOfModelValueMap = gameMatchExtendedDto.getParamsOfModelValueMap();
         gameStatus = GameStatus.GAME;
         return gameMatchExtendedDto;

@@ -87,16 +87,8 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
 
     // ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.
     @Override
-    public void start() {
-        System.out.println("GameMatchDto :: void start()");
-        System.out.println("ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.");
-    }
-
-    // ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.
-    @Override
     public void resume() {
         System.out.println("GameMatchDto:: void resume()");
         System.out.println("ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.");
     }
-
 }

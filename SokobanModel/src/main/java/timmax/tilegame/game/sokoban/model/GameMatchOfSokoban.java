@@ -10,7 +10,6 @@ import java.util.Set;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 
-import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
@@ -116,7 +115,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         movePlayerIfPossible(direction, false);
         routeRedo = new Route();
 
-        setGameMatchIsPlayingTrue();
+        setIsPlayingTrue();
     }
 
     private void moveRedo() {
@@ -259,28 +258,28 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
 
     @Override
     public void setParamsOfModelValueMap(Map<String, Integer> paramsOfModelValueMap) {
-        verifyGameMatchIsPlaying();
-        if (allSokobanObjects != null && getGameStatus() == GameStatus.GAME) {
-            throw new RuntimeException("Wrong situation: allSokobanObjects != null && getGameStatus() == GameStatus.GAME");
-        }
+        throwExceptionIfIsPlaying();
+
         allSokobanObjects = levelLoader.getLevel(currentLevel.getValue());
         super.setParamsOfModelValueMap(Map.of(PARAM_NAME_WIDTH, allSokobanObjects.getWidth(), PARAM_NAME_HEIGHT, allSokobanObjects.getHeight()));
     }
 
     @Override
     public GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto) {
-        verifyGameMatchIsPlaying();
-        if (allSokobanObjects != null && getGameStatus() == GameStatus.GAME) {
-            throw new RuntimeException("Wrong situation: allSokobanObjects != null && getGameStatus() == GameStatus.GAME");
-        }
+        throwExceptionIfIsPlaying();
+
+        // В этой реализации Сокобан не обращаем внимание на gameMatchExtendedDto - просто загружаем следующий уровень.
         allSokobanObjects = levelLoader.getLevel(currentLevel.getValue());
-        paramsOfModelValueMap = Map.of(PARAM_NAME_WIDTH, allSokobanObjects.getWidth(), PARAM_NAME_HEIGHT, allSokobanObjects.getHeight());
+        // paramsOfModelValueMap = Map.of(PARAM_NAME_WIDTH, allSokobanObjects.getWidth(), PARAM_NAME_HEIGHT, allSokobanObjects.getHeight());
+        super.setParamsOfModelValueMap(Map.of(PARAM_NAME_WIDTH, allSokobanObjects.getWidth(), PARAM_NAME_HEIGHT, allSokobanObjects.getHeight()));
+        // super.start(Map.of(PARAM_NAME_WIDTH, allSokobanObjects.getWidth(), PARAM_NAME_HEIGHT, allSokobanObjects.getHeight()));
 
         Set<GameEventOneTile> gameEventOneTileSet = new HashSet<>();
         for (int y = 0; y < allSokobanObjects.getHeight(); y++) {
             for (int x = 0; x < allSokobanObjects.getWidth(); x++) {
                 WhoPersistentInTile whoPersistentInTile = allSokobanObjects.getWhoPersistentInTile(x, y);
                 WhoMovableInTile whoMovableInTile = allSokobanObjects.getWhoMovableInTile(x, y);
+                // Это чтобы меньше было событий - про пустые плитки не делаем события.
                 if (whoPersistentInTile == IS_EMPTY && whoMovableInTile == IS_NOBODY) {
                     continue;
                 }
@@ -290,48 +289,12 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         }
         route = new Route();
         routeRedo = new Route();
-        // Инициализация информационных выборок.
-        // sendGameEvent(new GameEventSokobanPersistentParams(allSokobanObjects.getCountOfHomesBoxes()));
-        // sendGameEvent(new GameEventSokobanVariableParamsCountOfSteps(0));
         calcCountOfBoxesInHomes();
-        // sendGameEvent(new GameEventSokobanVariableParamsCountOfBoxesInHouses(countOfBoxesInHomes));
 
-        return super.start(new GameMatchExtendedDto(
-                gameMatchExtendedDto.getId(),
-                gameMatchExtendedDto.isPlaying(),
-                paramsOfModelValueMap,
-                gameEventOneTileSet
-        ));
+        return newGameMatchExtendedDto(gameEventOneTileSet);
     }
 
     // interface IGameMatch:
-    //  ToDo:   start() (т.е. без параметров) должен вызывать start(...)
-    //          И удалить дублирующийся код.
-    @Override
-    public void start() {
-        verifyGameMatchIsPlaying();
-        if (paramsOfModelValueMap == null || paramsOfModelValueMap.isEmpty()) {
-            return;
-        }
-
-        for (int y = 0; y < allSokobanObjects.getHeight(); y++) {
-            for (int x = 0; x < allSokobanObjects.getWidth(); x++) {
-                WhoPersistentInTile whoPersistentInTile = allSokobanObjects.getWhoPersistentInTile(x, y);
-                WhoMovableInTile whoMovableInTile = allSokobanObjects.getWhoMovableInTile(x, y);
-                sendGameEventToAllViews(new GameEventOneTileSokobanChangeable(x, y, whoPersistentInTile, whoMovableInTile));
-            }
-        }
-        route = new Route();
-        routeRedo = new Route();
-        // Инициализация информационных выборок.
-        // sendGameEvent(new GameEventSokobanPersistentParams(allSokobanObjects.getCountOfHomesBoxes()));
-        // sendGameEvent(new GameEventSokobanVariableParamsCountOfSteps(0));
-        calcCountOfBoxesInHomes();
-        // sendGameEvent(new GameEventSokobanVariableParamsCountOfBoxesInHouses(countOfBoxesInHomes));
-
-        super.start();
-    }
-
     @Override
     public void resume() {
         // ToDo: Что-то из описанного ниже ToDo сделать здесь, что-то в родительском классе.
