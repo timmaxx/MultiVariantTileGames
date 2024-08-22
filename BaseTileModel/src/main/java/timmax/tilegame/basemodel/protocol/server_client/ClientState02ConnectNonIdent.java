@@ -16,7 +16,7 @@ public abstract class ClientState02ConnectNonIdent<GameMatchX extends IGameMatch
     }
 
     @Override
-    public void closeConnect() {
-        getClientStateAutomaton().closeConnect_();
+    public void close() {
+        getClientStateAutomaton().close_();
     }
 }

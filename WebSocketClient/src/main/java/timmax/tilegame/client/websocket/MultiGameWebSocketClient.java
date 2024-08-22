@@ -40,7 +40,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     @Override
     public void onClose(int code, String reason, boolean remote) {
         logger.info("Connection was closed.");
-        getLocalClientStateAutomaton().closeConnect();
+        getLocalClientStateAutomaton().close();
         logger.info("  Main game client status: {}.", modelMultiGameWebSocketClientManyTimesUse);
         logger.debug("  Code: {}. Reason: {}. Remote: {}.", code, reason, remote);
     }

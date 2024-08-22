@@ -102,7 +102,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     void connect_() {
     }
 
-    void closeConnect_() {
+    void close_() {
     }
 
     void authorizeUser_(String userName, Set<GameType> gameTypeSet) {
@@ -171,9 +171,9 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
     // 2 interface IClientState02ConnectNonIdent
     @Override
-    public void closeConnect() {
+    public void close() {
         setCurrentState(clientState01NoConnect);
-        currentState.closeConnect();
+        currentState.close();
     }
 
     @Override

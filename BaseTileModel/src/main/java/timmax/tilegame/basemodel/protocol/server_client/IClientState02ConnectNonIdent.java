@@ -13,7 +13,7 @@ public interface IClientState02ConnectNonIdent extends IClientState00 {
     //  interface TransportOfClient
     //      void identifyAuthenticateAuthorizeUser(String userName, String password);
 
-    void closeConnect();
+    void close();
     //  interface TransportOfClient
     //      void close();
 }

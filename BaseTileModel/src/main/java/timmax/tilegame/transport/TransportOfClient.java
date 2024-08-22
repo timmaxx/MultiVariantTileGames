@@ -27,10 +27,10 @@ public interface TransportOfClient {
 
     // 01NoConnect
     void connect();                                                             //  1 -> 2  нет соответствия
-    
+
     // 02ConnectNonIdent
     void connectWithoutUserIdentify();                                          //  2 -> 2  void openConnectWithoutUserIdentify();
-    void close();                                                               //  2 -> 1  void closeConnect();
+    void close();                                                               //  2 -> 1  void close();
     void identifyAuthenticateAuthorizeUser(String userName, String password);   //  2 -> 4  void authorizeUser(String userName, Set<GameType> gameTypeSet);
 
     // 04GameTypeSetSelected
