@@ -25,7 +25,7 @@ public class EventOfClient41SelectGameType extends EventOfClient {
     public void executeOnServer(RemoteClientStateAutomaton remoteClientStateAutomaton) {
         if (gameTypeName == null || gameTypeName.equals("")) {
             logger.error("Client sent empty name of game type.");
-            remoteClientStateAutomaton.openConnectWithoutUserIdentify();
+            remoteClientStateAutomaton.connect();
             return;
         }
         // От клиента поступило символическое имя типа игры (оно должно быть одно из тех, которые ему направлялись множеством).

@@ -48,7 +48,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     @Override
     public void onOpen(ServerHandshake serverHandshake) {
         logger.info("Connection was opened. Server URI: {}.", getURI());
-        getLocalClientStateAutomaton().openConnectWithoutUserIdentify();
+        getLocalClientStateAutomaton().connect();
     }
 
     @Override

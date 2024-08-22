@@ -5,7 +5,7 @@ import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 public class EventOfClient11OpenConnectWithoutUserIdentify extends EventOfClient {
     @Override
     public void executeOnServer(RemoteClientStateAutomaton remoteClientStateAutomaton) {
-        remoteClientStateAutomaton.openConnectWithoutUserIdentify();
+        remoteClientStateAutomaton.connect();
     }
 
     @Override

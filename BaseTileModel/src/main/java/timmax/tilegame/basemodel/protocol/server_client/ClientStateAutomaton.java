@@ -99,7 +99,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     // Все методы с именами такими-же, как есть public, но:
     // 1. они private-package
     // 2. делают целевое действие в уже установленном состоянии.
-    void openConnectWithoutUserIdentify_() {
+    void connect_() {
     }
 
     void closeConnect_() {
@@ -164,9 +164,9 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     // Публичные методы класса, вызов которых будет в т.ч. приводить к смене состояния.
     // 1 interface IClientState01NoConnect
     @Override
-    public void openConnectWithoutUserIdentify() {
+    public void connect() {
         setCurrentState(clientState02ConnectNonIdent);
-        currentState.openConnectWithoutUserIdentify();
+        currentState.connect();
     }
 
     // 2 interface IClientState02ConnectNonIdent

@@ -12,8 +12,8 @@ public class RemoteClientState02ConnectNonIdent<ClientId> extends ClientState02C
     }
 
     @Override
-    public void openConnectWithoutUserIdentify() {
-        super.openConnectWithoutUserIdentify();
+    public void connect() {
+        super.connect();
         getClientStateAutomaton().sendEventOfServer(
                 clientId,
                 new EventOfServer11OpenConnectWithoutUserIdentify()

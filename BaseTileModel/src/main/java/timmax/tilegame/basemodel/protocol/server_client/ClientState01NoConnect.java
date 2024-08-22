@@ -6,7 +6,7 @@ public abstract class ClientState01NoConnect<GameMatchX extends IGameMatchX> ext
     }
 
     @Override
-    public void openConnectWithoutUserIdentify() {
-        getClientStateAutomaton().openConnectWithoutUserIdentify_();
+    public void connect() {
+        getClientStateAutomaton().connect_();
     }
 }

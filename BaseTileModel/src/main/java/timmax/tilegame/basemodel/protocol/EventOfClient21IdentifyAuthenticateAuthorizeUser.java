@@ -29,7 +29,7 @@ public class EventOfClient21IdentifyAuthenticateAuthorizeUser extends EventOfCli
             remoteClientStateAutomaton.authorizeUser(userName, GameTypeFabric.getGameTypeSet());
         } else {
             password = ""; // Не будем даже хранить неправильный пароль.
-            remoteClientStateAutomaton.openConnectWithoutUserIdentify();
+            remoteClientStateAutomaton.connect();
         }
     }
 
