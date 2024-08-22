@@ -1,5 +1,6 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
+import timmax.tilegame.basemodel.GameMatchStatus;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 
 import java.io.IOException;
@@ -14,8 +15,8 @@ public class GameMatchExtendedDto extends GameMatchDto {
     public GameMatchExtendedDto() {
     }
 
-    public GameMatchExtendedDto(String id, boolean isPlaying, Map<String, Integer> paramsOfModelValueMap, Set<GameEventOneTile> gameEventOneTileSet) {
-        super(id, isPlaying, paramsOfModelValueMap);
+    public GameMatchExtendedDto(String id, GameMatchStatus gameMatchStatus, Map<String, Integer> paramsOfModelValueMap, Set<GameEventOneTile> gameEventOneTileSet) {
+        super(id, gameMatchStatus, paramsOfModelValueMap);
         this.gameEventOneTileSet = gameEventOneTileSet;
     }
 
@@ -34,7 +35,7 @@ public class GameMatchExtendedDto extends GameMatchDto {
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         super.readExternal(in);
-        // ToDo: Избавиться от "Warning:(38, 31) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.gameevent.GameEventOneTile>'"
+        // ToDo: Избавиться от "Warning:(39, 31) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.gameevent.GameEventOneTile>'"
         gameEventOneTileSet = (Set<GameEventOneTile>) in.readObject();
     }
 

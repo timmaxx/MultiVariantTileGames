@@ -26,8 +26,7 @@ import timmax.tilegame.game.sokoban.model.gameobject.*;
 import timmax.tilegame.game.sokoban.model.route.Route;
 import timmax.tilegame.game.sokoban.model.route.Step;
 
-// import static timmax.tilegame.basemodel.GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
-import static timmax.tilegame.basemodel.GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
+import static timmax.tilegame.basemodel.GameMatchStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
 import static timmax.tilegame.game.sokoban.model.gameobject.WhoMovableInTile.*;
 import static timmax.tilegame.game.sokoban.model.gameobject.WhoPersistentInTile.IS_EMPTY;
 
@@ -115,7 +114,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         movePlayerIfPossible(direction, false);
         routeRedo = new Route();
 
-        setIsPlayingTrue();
+        setStatusIsGame();
     }
 
     private void moveRedo() {
@@ -242,7 +241,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
             return;
         }
-        setGameStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
+        setStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
         currentLevel.incValue();
         sendGameEventToAllViews(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
     }
@@ -251,7 +250,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
             return;
         }
-        setGameStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
+        setStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
         currentLevel.decValue();
         sendGameEventToAllViews(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
     }
@@ -275,6 +274,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         // super.start(Map.of(PARAM_NAME_WIDTH, allSokobanObjects.getWidth(), PARAM_NAME_HEIGHT, allSokobanObjects.getHeight()));
 
         Set<GameEventOneTile> gameEventOneTileSet = new HashSet<>();
+
         for (int y = 0; y < allSokobanObjects.getHeight(); y++) {
             for (int x = 0; x < allSokobanObjects.getWidth(); x++) {
                 WhoPersistentInTile whoPersistentInTile = allSokobanObjects.getWhoPersistentInTile(x, y);
@@ -297,6 +297,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     // interface IGameMatch:
     @Override
     public void resume() {
+
         // ToDo: Что-то из описанного ниже ToDo сделать здесь, что-то в родительском классе.
         // ToDo: Отправить клиенту:
         //       1. Размеры главной выборки матча и умолчательные характеристики для построение пустого поля

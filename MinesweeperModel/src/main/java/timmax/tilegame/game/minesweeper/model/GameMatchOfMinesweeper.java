@@ -42,15 +42,16 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
         // Т.к. пометка флагом не раскрывает карту и не может привести к проигрышу, то вызов
         // setGameMatchIsPlayingTrue() делать не нужно.
         // Но пока, для отладки, оставлен этот вызов.
-        setIsPlayingTrue();
+        setStatusIsGame();
     }
 
     private void open(int x, int y) {
         if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
             return;
         }
-        setGameStatus(allMinesweeperObjects.open(allMinesweeperObjects.getTileByXY(x, y)));
-        setIsPlayingTrue();
+        setStatus(allMinesweeperObjects.open(allMinesweeperObjects.getTileByXY(x, y)));
+        //  ToDo:   Переделать. Как так, что сначала вызывается setStatus(...), а потом ещё setGameStatusIsGame()?
+        setStatusIsGame();
     }
 
     // interface IGameMatch:
@@ -60,7 +61,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
 
         super.setParamsOfModelValueMap(paramsOfModelValueMap);
 
-        // ToDo: Избавиться от "Warning:(68, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
+        // ToDo: Избавиться от "Warning:(65, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
         allMinesweeperObjects = levelGenerator.getLevel(getWidth(), getHeight(), paramsOfModelValueMap.get(PARAM_NAME_PERCENTS_OF_MINES));
         allMinesweeperObjects.setModel(this);
     }
@@ -71,7 +72,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
 
         super.start(gameMatchExtendedDto);
 
-        // ToDo: Избавиться от "Warning:(75, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
+        // ToDo: Избавиться от "Warning:(76, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
         allMinesweeperObjects = levelGenerator.getLevel(
                 getWidth(),
                 getHeight(),
@@ -84,6 +85,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
 
     @Override
     public void resume() {
+
         // ToDo: Что-то из описанного ниже ToDo сделать здесь, что-то в родительском классе.
         // ToDo: Отправить клиенту:
         //       1. Размеры главной выборки матча и умолчательные характеристики для построение пустого поля

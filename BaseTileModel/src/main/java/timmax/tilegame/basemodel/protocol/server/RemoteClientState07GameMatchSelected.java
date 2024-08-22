@@ -27,7 +27,7 @@ public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState0
                 new EventOfServer61SelectGameMatch(
                         new GameMatchDto(
                                 gameMatchX.getId(),
-                                gameMatchX.isPlaying(),
+                                gameMatchX.getStatus(),
                                 gameMatchX.getParamsOfModelValueMap()
                         )
                 )

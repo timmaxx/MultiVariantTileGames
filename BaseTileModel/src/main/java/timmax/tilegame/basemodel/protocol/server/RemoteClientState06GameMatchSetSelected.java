@@ -92,7 +92,7 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
                         gameType.getGameTypeName(),
                         gameMatchXSet
                                 .stream()
-                                .map(x -> new GameMatchDto(x.getId(), x.isPlaying(), x.getParamsOfModelValueMap()))
+                                .map(x -> new GameMatchDto(x.getId(), x.getStatus(), x.getParamsOfModelValueMap()))
                                 .collect(Collectors.toSet())
                 )
         );

@@ -1,5 +1,7 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
+import timmax.tilegame.basemodel.GameMatchStatus;
+
 import java.util.Map;
 
 public interface IGameMatchXDto {
@@ -7,6 +9,6 @@ public interface IGameMatchXDto {
     String PARAM_NAME_HEIGHT = "Height";
 
     String getId();
-    boolean isPlaying();
+    GameMatchStatus getStatus();
     Map<String, Integer> getParamsOfModelValueMap();
 }

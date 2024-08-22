@@ -29,7 +29,7 @@ public class EventOfClient71StartGameMatch extends EventOfClient {
     public void executeOnServer(RemoteClientStateAutomaton remoteClientStateAutomaton) {
         GameMatchExtendedDto gameMatchExtendedDto = new GameMatchExtendedDto(
                 remoteClientStateAutomaton.getGameMatchX().getId(),
-                remoteClientStateAutomaton.getGameMatchIsPlaying(),
+                remoteClientStateAutomaton.getGameMatchX().getStatus(),
                 paramsOfModelValueMap,
                 new HashSet<>()
         );

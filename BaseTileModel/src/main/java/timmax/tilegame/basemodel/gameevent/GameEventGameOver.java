@@ -4,33 +4,26 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import timmax.tilegame.basemodel.GameStatus;
+import timmax.tilegame.basemodel.GameMatchStatus;
 
 public class GameEventGameOver extends GameEvent {
-    private GameStatus gameStatus;
+    private GameMatchStatus gameMatchStatus;
 
     public GameEventGameOver() {
     }
 
-    public GameEventGameOver(GameStatus gameStatus) {
-        this.gameStatus = gameStatus;
+    public GameEventGameOver(GameMatchStatus gameMatchStatus) {
+        this.gameMatchStatus = gameMatchStatus;
     }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(gameStatus);
+        out.writeObject(gameMatchStatus);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        gameStatus = (GameStatus) in.readObject();
-    }
-
-    @Override
-    public String toString() {
-        return "GameEventGameOver{" +
-                "gameStatus=" + gameStatus +
-                '}';
+        gameMatchStatus = (GameMatchStatus) in.readObject();
     }
 
     @Override
@@ -40,11 +33,18 @@ public class GameEventGameOver extends GameEvent {
 
         GameEventGameOver that = (GameEventGameOver) o;
 
-        return gameStatus == that.gameStatus;
+        return gameMatchStatus == that.gameMatchStatus;
     }
 
     @Override
     public int hashCode() {
-        return gameStatus.hashCode();
+        return gameMatchStatus.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "GameEventGameOver{" +
+                "gameMatchStatus=" + gameMatchStatus +
+                '}';
     }
 }

@@ -3,13 +3,13 @@ package timmax.tilegame.game.minesweeper.model.gameobject;
 import java.util.HashSet;
 import java.util.Set;
 
-import timmax.tilegame.basemodel.GameStatus;
+import timmax.tilegame.basemodel.GameMatchStatus;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.protocol.server.GameMatch;
 
 import timmax.tilegame.game.minesweeper.model.gameevent.*;
 
-import static timmax.tilegame.basemodel.GameStatus.*;
+import static timmax.tilegame.basemodel.GameMatchStatus.*;
 
 // Все объекты игры Сапёр
 public class AllMinesweeperObjects<ClientId> {
@@ -31,11 +31,11 @@ public class AllMinesweeperObjects<ClientId> {
     public void setModel(GameMatch<ClientId> gameMatch) {
         this.gameMatch = gameMatch;
     }
-
+/*
     public int getCountOfMines() {
         return countOfMines;
     }
-
+*/
     // Попробовать инвертировать флаг
     public void tryInverseFlag(TileOfMinesweeper tileOfMinesweeper) {
         // Если плитка уже открыта или (флагов больше нет и на плитке нет флага)
@@ -58,16 +58,18 @@ public class AllMinesweeperObjects<ClientId> {
     }
 
     // Открыть плитку и узнать, продолжена-ли будет игра или закончена (выигрышем или проигрышем).
-    public GameStatus open(TileOfMinesweeper tileOfMinesweeper) {
+    public GameMatchStatus open(TileOfMinesweeper tileOfMinesweeper) {
         if (!tileOfMinesweeper.isOpen() && tileOfMinesweeper.isFlag()) {
             return GAME;
         }
-        GameStatus gameStatus = openRecursive(tileOfMinesweeper);
-        gameMatch.sendGameEventToAllViews(new GameEventMinesweeperVariableParamsOpenClose(
-                getWidth() * getHeight() - countOfClosedTiles,
-                countOfClosedTiles
-        ));
-        return gameStatus;
+        GameMatchStatus gameMatchStatus = openRecursive(tileOfMinesweeper);
+        gameMatch.sendGameEventToAllViews(
+                new GameEventMinesweeperVariableParamsOpenClose(
+                        getWidth() * getHeight() - countOfClosedTiles,
+                        countOfClosedTiles
+                )
+        );
+        return gameMatchStatus;
     }
 
     public TileOfMinesweeper getTileByXY(int x, int y) {
@@ -78,7 +80,7 @@ public class AllMinesweeperObjects<ClientId> {
     // Private --------------------------------------------------------------------------------------------------------
 
     // Открыть заданную плитку, и возможно, рекурсивно ещё несколько.
-    private GameStatus openRecursive(TileOfMinesweeper tileOfMinesweeper) {
+    private GameMatchStatus openRecursive(TileOfMinesweeper tileOfMinesweeper) {
         if (tileOfMinesweeper.isOpen() || tileOfMinesweeper.isFlag()) {
             return GAME;
         }

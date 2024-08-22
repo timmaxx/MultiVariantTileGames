@@ -3,7 +3,7 @@ package timmax.tilegame.basemodel.protocol.server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import timmax.tilegame.basemodel.GameStatus;
+import timmax.tilegame.basemodel.GameMatchStatus;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
@@ -12,8 +12,7 @@ import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
 import java.util.Map;
 import java.util.Set;
 
-import static timmax.tilegame.basemodel.GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
-import static timmax.tilegame.basemodel.GameStatus.VICTORY;
+import static timmax.tilegame.basemodel.GameMatchStatus.*;
 
 // Абстрактная модель. Она уже может:
 // - хранить перечень удалённых выборок (которым нужно отправлять сообщения об игровых событиях),
@@ -41,34 +40,26 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     protected final ClientId clientId;
 
     private Map<String, Integer> paramsOfModelValueMap;
-    //  ToDo:   Оставить только одну переменную.
-    private GameStatus gameStatus;
-    private boolean isPlaying;
+    private GameMatchStatus status;
 
     public GameMatch(
             GameType gameType,
             RemoteClientStateAutomaton remoteClientStateAutomaton,
             ClientId clientId) {
         this.gameType = gameType;
+        this.status = NOT_STARTED;
         this.remoteClientStateAutomaton = remoteClientStateAutomaton;
         this.clientId = clientId;
     }
 
-    protected final GameStatus getGameStatus() {
-        return gameStatus;
+    protected final void setStatus(GameMatchStatus status) {
+        this.status = status;
     }
 
-    protected final void setGameStatus(GameStatus gameStatus) {
-        this.gameStatus = gameStatus;
-    }
 
     protected void throwExceptionIfIsPlaying() {
-        //  ToDo:   Свести к одной переменной статус матча.
-        if (isPlaying) {
-            throw new RuntimeException("You cannot create new game because the match is in state 'gameMatchIsPlaing'!");
-        }
-        if (getGameStatus() == GameStatus.GAME) {
-            throw new RuntimeException("Wrong situation: getGameStatus() == GameStatus.GAME");
+        if (getStatus() == GameMatchStatus.GAME) {
+            throw new RuntimeException("Wrong situation: getStatus() == GameMatchStatus.GAME");
         }
     }
 
@@ -89,21 +80,24 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         }
         */
         // Для Сокобан restart и newGame - видимо работает одинаково.
-        if (getGameStatus() != GameStatus.GAME) {
+        if (getStatus() != GameMatchStatus.GAME) {
             // start();
             return true;
         }
         return false;
     }
 
-    protected void setIsPlayingTrue() {
-        isPlaying = true;
+    protected void setStatusIsGame() {
+        if (status != PAUSE && status != GAME) {
+            throw new RuntimeException("You cannot set game satus to GAME! (gameMatchStatus = " + status + ")");
+        }
+        status = GAME;
     }
 
     public GameMatchExtendedDto newGameMatchExtendedDto(Set<GameEventOneTile> gameEventOneTileSet) {
         return new GameMatchExtendedDto(
                 getId(),
-                isPlaying(),
+                getStatus(),
                 paramsOfModelValueMap,
                 gameEventOneTileSet
         );
@@ -112,7 +106,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     // interface IGameMatch
     @Override
     public void win() {
-        setGameStatus(GameStatus.VICTORY);
+        setStatus(GameMatchStatus.VICTORY);
         sendGameEventToAllViews(new GameEventGameOver(VICTORY));
     }
 
@@ -121,14 +115,14 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
             return;
         }
-        setGameStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
+        setStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
         sendGameEventToAllViews(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
     }
 
     @Override
     public void setParamsOfModelValueMap(Map<String, Integer> paramsOfModelValueMap) {
         this.paramsOfModelValueMap = paramsOfModelValueMap;
-        gameStatus = GameStatus.GAME;
+        status = GameMatchStatus.GAME;
     }
 
     // interface IGameMatchX
@@ -137,7 +131,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     public GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto) {
         throwExceptionIfIsPlaying();
         this.paramsOfModelValueMap = gameMatchExtendedDto.getParamsOfModelValueMap();
-        gameStatus = GameStatus.GAME;
+        status = GameMatchStatus.GAME;
         return gameMatchExtendedDto;
     }
 
@@ -176,8 +170,8 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     }
 
     @Override
-    public boolean isPlaying() {
-        return isPlaying;
+    public GameMatchStatus getStatus() {
+        return status;
     }
 
     @Override

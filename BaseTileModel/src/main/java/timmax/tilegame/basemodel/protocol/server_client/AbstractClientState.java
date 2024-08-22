@@ -2,6 +2,7 @@ package timmax.tilegame.basemodel.protocol.server_client;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import timmax.tilegame.basemodel.GameMatchStatus;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
 import java.util.Set;
@@ -118,9 +119,9 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
 
     // interface IClientState08GameMatchPlaying
     @Override
-    public Boolean getGameMatchIsPlaying() {
+    public GameMatchStatus getGameMatchStatus() {
         wrongCallInStateAutomaton();
-        return false;
+        return null;
     }
 
     // class Object

@@ -1,5 +1,6 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
+import timmax.tilegame.basemodel.GameMatchStatus;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
 import java.util.HashSet;
@@ -156,8 +157,8 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         return gameMatchX;
     }
 
-    boolean getGameMatchIsPlaying_() {
-        return getGameMatchX_().isPlaying();
+    GameMatchStatus getGameMatchStatus_() {
+        return getGameMatchX_().getStatus();
     }
 
     // Публичные методы класса, вызов которых будет в т.ч. приводить к смене состояния.
@@ -247,8 +248,8 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
     // 8 interface IClientState08GameMatchIsPlaying
     @Override
-    public Boolean getGameMatchIsPlaying() {
-        return currentState.getGameMatchIsPlaying();
+    public GameMatchStatus getGameMatchStatus() {
+        return currentState.getGameMatchStatus();
     }
 
     // class Object

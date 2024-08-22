@@ -2,9 +2,7 @@ package timmax.tilegame.basemodel.gameevent;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-// import timmax.tilegame.basemodel.GameStatus;
 
-// import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @DisplayName("GameEventGameOver Test")
@@ -18,9 +16,9 @@ public class GameEventGameOverTest {
 /*
     @Test
     public void constructor() {
-        GameEventGameOver gameEvent = new GameEventGameOver(GameStatus.DEFEAT);
+        GameEventGameOver gameEvent = new GameEventGameOver(GameMatchStatus.DEFEAT);
         assertEquals(gameEvent.toString(),"GameEventGameOver{gameStatus=DEFEAT}");
-        //assertEquals(gameEvent.getGameStatus(), GameStatus.DEFEAT);
+        //assertEquals(gameEvent.getGameStatus(), GameMatchStatus.DEFEAT);
     }
 */
 }

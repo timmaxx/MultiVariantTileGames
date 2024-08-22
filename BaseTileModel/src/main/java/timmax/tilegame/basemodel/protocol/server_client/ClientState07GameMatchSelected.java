@@ -1,5 +1,7 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
+import timmax.tilegame.basemodel.GameMatchStatus;
+
 public abstract class ClientState07GameMatchSelected<GameMatchX extends IGameMatchX> extends ClientState06GameMatchSetSelected<GameMatchX> {
     public ClientState07GameMatchSelected(ClientStateAutomaton<GameMatchX> clientStateAutomaton) {
         super(clientStateAutomaton);
@@ -28,7 +30,7 @@ public abstract class ClientState07GameMatchSelected<GameMatchX extends IGameMat
     }
 
     @Override
-    public Boolean getGameMatchIsPlaying() {
-        return getClientStateAutomaton().getGameMatchIsPlaying_();
+    public GameMatchStatus getGameMatchStatus() {
+        return getClientStateAutomaton().getGameMatchStatus_();
     }
 }

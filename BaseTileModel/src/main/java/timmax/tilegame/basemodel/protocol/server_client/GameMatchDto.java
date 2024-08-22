@@ -1,5 +1,7 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
+import timmax.tilegame.basemodel.GameMatchStatus;
+
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
@@ -9,17 +11,17 @@ import java.util.Map;
 // DTO - Data Transfer Object
 public class GameMatchDto implements Externalizable, IGameMatchX {
     private String id;
-    private boolean isPlaying;
+    private GameMatchStatus status;
     private Map<String, Integer> paramsOfModelValueMap;
 
     public GameMatchDto() {
         super();
     }
 
-    public GameMatchDto(String id, boolean isPlaying, Map<String, Integer> paramsOfModelValueMap) {
+    public GameMatchDto(String id, GameMatchStatus status, Map<String, Integer> paramsOfModelValueMap) {
         this();
         this.id = id;
-        this.isPlaying = isPlaying;
+        this.status = status;
         this.paramsOfModelValueMap = paramsOfModelValueMap;
     }
 
@@ -32,7 +34,7 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
     public String toString() {
         return "GameMatchDto{" +
                 "id='" + id + '\'' +
-                ", isPlaying=" + isPlaying +
+                ", status=" + status +
                 ", paramsOfModelValueMap=" + paramsOfModelValueMap +
                 '}';
     }
@@ -41,15 +43,15 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeObject(id);
-        out.writeBoolean(isPlaying);
+        out.writeObject(status);
         out.writeObject(paramsOfModelValueMap);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         id = (String) in.readObject();
-        isPlaying = in.readBoolean();
-        // ToDo: Избавиться от "Warning:(53, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Integer>'"
+        status = (GameMatchStatus) in.readObject();
+        // ToDo: Избавиться от "Warning:(55, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Integer>'"
         paramsOfModelValueMap = (Map<String, Integer>) in.readObject();
     }
 
@@ -60,8 +62,8 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
     }
 
     @Override
-    public boolean isPlaying() {
-        return isPlaying;
+    public GameMatchStatus getStatus() {
+        return status;
     }
 
     @Override
@@ -88,7 +90,7 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
     // ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.
     @Override
     public void resume() {
-        System.out.println("GameMatchDto:: void resume()");
+        System.out.println("GameMatchDto :: void resume()");
         System.out.println("ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.");
     }
 }
