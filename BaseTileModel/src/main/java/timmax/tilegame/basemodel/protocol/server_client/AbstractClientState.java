@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
-import java.util.Map;
 import java.util.Set;
 
 public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implements IClientState99<GameMatchX> {
@@ -107,13 +106,9 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     }
 
     @Override
-    public void setParamsOfModelValueMapOfGameMatchAndStart(Map<String, Integer> paramsOfModelValueMap) {
+    public GameMatchExtendedDto startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
         wrongCallInStateAutomaton();
-    }
-
-    @Override
-    public void startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
-        wrongCallInStateAutomaton();
+        return null;
     }
 
     @Override

@@ -74,4 +74,17 @@ public class AllSokobanObjects {
         }
         return WhoMovableInTile.IS_NOBODY;
     }
+
+    @Override
+    public String toString() {
+        return "AllSokobanObjects{" +
+                "width=" + width +
+                ", height=" + height +
+                ", walls=" + walls +
+                ", boxes=" + boxes +
+                ", homes=" + homes +
+                ", player=" + player +
+                ", countOfHomesBoxes=" + countOfHomesBoxes +
+                '}';
+    }
 }

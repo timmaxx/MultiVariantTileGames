@@ -9,11 +9,11 @@ import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.protocol.server.GameMatch;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
-import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsFlag;
-import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsOpenClose;
+import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
 import timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects;
 import timmax.tilegame.game.minesweeper.model.gameobject.LevelGenerator;
 
+import java.util.HashSet;
 import java.util.Map;
 
 public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
@@ -64,27 +64,48 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
 
         super.setParamsOfModelValueMap(paramsOfModelValueMap);
 
-        // ToDo: Избавиться от "Warning:(69, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
+        // ToDo: Избавиться от "Warning:(68, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
         allMinesweeperObjects = levelGenerator.getLevel(getWidth(), getHeight(), paramsOfModelValueMap.get(PARAM_NAME_PERCENTS_OF_MINES));
         allMinesweeperObjects.setModel(this);
     }
 
     @Override
-    public void startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
-        // !!!
+    public GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto) {
+        verifyGameMatchIsPlaying();
+        if (getGameStatus() == GameStatus.GAME) {
+            throw new RuntimeException("Wrong situation: getGameStatus() == GameStatus.GAME");
+        }
+
+        super.start(gameMatchExtendedDto);
+
+        // ToDo: Избавиться от "Warning:(82, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
+        allMinesweeperObjects = levelGenerator.getLevel(gameMatchExtendedDto.getWidth(), gameMatchExtendedDto.getHeight(), gameMatchExtendedDto.getParamsOfModelValueMap().get(PARAM_NAME_PERCENTS_OF_MINES));
+        allMinesweeperObjects.setModel(this);
+
+        return new GameMatchExtendedDto(
+                gameMatchExtendedDto.getId(),
+                gameMatchExtendedDto.isPlaying(),
+                this.paramsOfModelValueMap,
+                new HashSet<>());
     }
 
+    //  ToDo:   start() (т.е. без параметров) должен вызывать start(...)
+    //          И удалить дублирующийся код.
     @Override
     public void start() {
+        System.out.println("GameMatchOfMinesweeper :: void start(). B");
         verifyGameMatchIsPlaying();
         if (allMinesweeperObjects != null && getGameStatus() == GameStatus.GAME) {
             return;
         }
-
+/*
         sendGameEventToAllViews(new GameEventMinesweeperVariableParamsOpenClose(0, getWidth() * getHeight()));
+        System.out.println("GameMatchOfMinesweeper :: void start(). 3");
         sendGameEventToAllViews(new GameEventMinesweeperVariableParamsFlag(0, allMinesweeperObjects.getCountOfMines()));
-
+        System.out.println("GameMatchOfMinesweeper :: void start(). 4");
+*/
         super.start();
+        System.out.println("GameMatchOfMinesweeper :: void start(). E");
     }
 
     @Override

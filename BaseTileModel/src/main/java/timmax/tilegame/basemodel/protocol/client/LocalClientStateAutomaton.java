@@ -1,11 +1,13 @@
 package timmax.tilegame.basemodel.protocol.client;
 
 import javafx.application.Platform;
+import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEventHashSet;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.server.ParamName_paramModelDescriptionMap;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
+import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
 import timmax.tilegame.basemodel.protocol.server_client.IFabricOfClientStates;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.baseview.ViewMainField;
@@ -56,15 +58,20 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchDto
     }
 
     @Override
-    protected void setParamsOfModelValueMapOfGameMatchAndStart_(Map<String, Integer> mapOfParamsOfModelValue) {
-        super.setParamsOfModelValueMapOfGameMatchAndStart_(mapOfParamsOfModelValue);
-
+    protected GameMatchExtendedDto startGameMatch_(GameMatchExtendedDto gameMatchExtendedDto) {
         // ToDo: Блок кода ниже попробовать переместить отсюда, что-бы сделать этот и родительский метод package-private.
         View view = getView(ViewMainField.class.getSimpleName());
         if (view instanceof ViewMainField viewMainField) {
-            Platform.runLater(() -> viewMainField.initMainField(mapOfParamsOfModelValue)
-            );
+            Platform.runLater(() -> {
+                viewMainField.initMainField(gameMatchExtendedDto.getParamsOfModelValueMap());
+                System.out.println("  gameMatchExtendedDto.getGameEventOneTileSet() = " + gameMatchExtendedDto.getGameEventOneTileSet());
+
+                for (GameEventOneTile gameEventOneTile : gameMatchExtendedDto.getGameEventOneTileSet()) {
+                    viewMainField.update(gameEventOneTile);
+                }
+            });
         }
+        return gameMatchExtendedDto;
     }
 
     @Override

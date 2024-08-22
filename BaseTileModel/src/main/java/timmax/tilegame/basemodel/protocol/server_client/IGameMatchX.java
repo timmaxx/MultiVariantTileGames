@@ -1,15 +1,12 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
-import java.util.Map;
-
 public interface IGameMatchX extends IGameMatchXDto {
     int getWidth();
     int getHeight();
 
-    void setParamsOfModelValueMap(Map<String, Integer> paramsOfModelValueMap);
-    void startGameMatch(GameMatchExtendedDto gameMatchExtendedDto);
-    // GameMatchExtendedDto getGameMatchExtendedDto();
-
+    GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto);
+    // ToDo: Вероятно возвращаемый параметр должен быть GameMatchExtendedDto
     void start();
+    // ToDo: Вероятно возвращаемый параметр должен быть GameMatchExtendedDto
     void resume();
 }

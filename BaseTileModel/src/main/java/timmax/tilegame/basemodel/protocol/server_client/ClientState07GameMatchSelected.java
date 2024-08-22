@@ -1,7 +1,5 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
-import java.util.Map;
-
 public abstract class ClientState07GameMatchSelected<GameMatchX extends IGameMatchX> extends ClientState06GameMatchSetSelected<GameMatchX> {
     public ClientState07GameMatchSelected(ClientStateAutomaton<GameMatchX> clientStateAutomaton) {
         super(clientStateAutomaton);
@@ -20,13 +18,8 @@ public abstract class ClientState07GameMatchSelected<GameMatchX extends IGameMat
     }
 
     @Override
-    public void setParamsOfModelValueMapOfGameMatchAndStart(Map<String, Integer> paramsOfModelValueMap) {
-        getClientStateAutomaton().setParamsOfModelValueMapOfGameMatchAndStart_(paramsOfModelValueMap);
-    }
-
-    @Override
-    public void startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
-        // !!!!
+    public GameMatchExtendedDto startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
+        return getClientStateAutomaton().startGameMatch_(gameMatchExtendedDto);
     }
 
     @Override

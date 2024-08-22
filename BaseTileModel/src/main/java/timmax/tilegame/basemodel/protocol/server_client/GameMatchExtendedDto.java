@@ -37,4 +37,11 @@ public class GameMatchExtendedDto extends GameMatchDto {
         // ToDo: Избавиться от "Warning:(38, 31) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.gameevent.GameEventOneTile>'"
         gameEventOneTileSet = (Set<GameEventOneTile>) in.readObject();
     }
+
+    @Override
+    public String toString() {
+        return "GameMatchExtendedDto{" +
+                "gameEventOneTileSet=" + gameEventOneTileSet +
+                '}';
+    }
 }

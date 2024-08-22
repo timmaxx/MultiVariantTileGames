@@ -2,8 +2,10 @@ package timmax.tilegame.game.sokoban.model;
 
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
@@ -12,8 +14,10 @@ import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
+import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.protocol.server.GameMatch;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
+import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
 import timmax.tilegame.basemodel.tile.Direction;
 
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventOneTileSokobanChangeable;
@@ -26,6 +30,7 @@ import timmax.tilegame.game.sokoban.model.route.Step;
 // import static timmax.tilegame.basemodel.GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
 import static timmax.tilegame.basemodel.GameStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
 import static timmax.tilegame.game.sokoban.model.gameobject.WhoMovableInTile.*;
+import static timmax.tilegame.game.sokoban.model.gameobject.WhoPersistentInTile.IS_EMPTY;
 
 public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     private static LevelLoader levelLoader;
@@ -263,11 +268,45 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     }
 
     @Override
-    public void startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
+    public GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto) {
+        verifyGameMatchIsPlaying();
+        if (allSokobanObjects != null && getGameStatus() == GameStatus.GAME) {
+            throw new RuntimeException("Wrong situation: allSokobanObjects != null && getGameStatus() == GameStatus.GAME");
+        }
+        allSokobanObjects = levelLoader.getLevel(currentLevel.getValue());
+        paramsOfModelValueMap = Map.of(PARAM_NAME_WIDTH, allSokobanObjects.getWidth(), PARAM_NAME_HEIGHT, allSokobanObjects.getHeight());
 
+        Set<GameEventOneTile> gameEventOneTileSet = new HashSet<>();
+        for (int y = 0; y < allSokobanObjects.getHeight(); y++) {
+            for (int x = 0; x < allSokobanObjects.getWidth(); x++) {
+                WhoPersistentInTile whoPersistentInTile = allSokobanObjects.getWhoPersistentInTile(x, y);
+                WhoMovableInTile whoMovableInTile = allSokobanObjects.getWhoMovableInTile(x, y);
+                if (whoPersistentInTile == IS_EMPTY && whoMovableInTile == IS_NOBODY) {
+                    continue;
+                }
+                GameEventOneTile gameEventOneTile = new GameEventOneTileSokobanChangeable(x, y, whoPersistentInTile, whoMovableInTile);
+                gameEventOneTileSet.add(gameEventOneTile);
+            }
+        }
+        route = new Route();
+        routeRedo = new Route();
+        // Инициализация информационных выборок.
+        // sendGameEvent(new GameEventSokobanPersistentParams(allSokobanObjects.getCountOfHomesBoxes()));
+        // sendGameEvent(new GameEventSokobanVariableParamsCountOfSteps(0));
+        calcCountOfBoxesInHomes();
+        // sendGameEvent(new GameEventSokobanVariableParamsCountOfBoxesInHouses(countOfBoxesInHomes));
+
+        return super.start(new GameMatchExtendedDto(
+                gameMatchExtendedDto.getId(),
+                gameMatchExtendedDto.isPlaying(),
+                paramsOfModelValueMap,
+                gameEventOneTileSet
+        ));
     }
 
     // interface IGameMatch:
+    //  ToDo:   start() (т.е. без параметров) должен вызывать start(...)
+    //          И удалить дублирующийся код.
     @Override
     public void start() {
         verifyGameMatchIsPlaying();

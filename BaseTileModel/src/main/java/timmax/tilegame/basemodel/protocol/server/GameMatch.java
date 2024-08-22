@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import timmax.tilegame.basemodel.GameStatus;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
+import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
 
 import java.util.Map;
 
@@ -113,17 +114,25 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         this.paramsOfModelValueMap = paramsOfModelValueMap;
     }
 
-    @Override
-    public int getFromParamsOfModelValueMap(String paramName) {
-        return paramsOfModelValueMap.get(paramName);
-    }
-
     // interface IGameMatchX
+    // ToDo: start() (т.е. без параметров) должен вызывать start(...)
     @Override
     public void start() {
         verifyGameMatchIsPlaying();
         gameStatus = GameStatus.GAME;
         isPlaying = false;
+    }
+
+    @Override
+    public GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto) {
+        this.paramsOfModelValueMap = gameMatchExtendedDto.getParamsOfModelValueMap();
+        gameStatus = GameStatus.GAME;
+        return gameMatchExtendedDto;
+    }
+
+    @Override
+    public int getFromParamsOfModelValueMap(String paramName) {
+        return paramsOfModelValueMap.get(paramName);
     }
 
     @Override

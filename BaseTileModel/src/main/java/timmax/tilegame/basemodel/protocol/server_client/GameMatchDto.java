@@ -20,7 +20,7 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
         this();
         this.id = id;
         this.isPlaying = isPlaying;
-        setParamsOfModelValueMap(paramsOfModelValueMap);
+        this.paramsOfModelValueMap = paramsOfModelValueMap;
     }
 
     public boolean isNullOrEmpty() {
@@ -60,26 +60,6 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
     }
 
     @Override
-    public int getWidth() {
-        return paramsOfModelValueMap.get(PARAM_NAME_WIDTH);
-    }
-
-    @Override
-    public int getHeight() {
-        return paramsOfModelValueMap.get(PARAM_NAME_HEIGHT);
-    }
-
-    @Override
-    public void setParamsOfModelValueMap(Map<String, Integer> paramsOfModelValueMap) {
-        this.paramsOfModelValueMap = paramsOfModelValueMap;
-    }
-
-    @Override
-    public void startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
-        // !!!!
-    }
-
-    @Override
     public boolean isPlaying() {
         return isPlaying;
     }
@@ -90,6 +70,21 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
     }
 
     // interface IGameMatchX
+    @Override
+    public int getWidth() {
+        return paramsOfModelValueMap.get(PARAM_NAME_WIDTH);
+    }
+
+    @Override
+    public int getHeight() {
+        return paramsOfModelValueMap.get(PARAM_NAME_HEIGHT);
+    }
+
+    @Override
+    public GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto) {
+        return gameMatchExtendedDto;
+    }
+
     // ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.
     @Override
     public void start() {
@@ -98,7 +93,6 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
     }
 
     // ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.
-
     @Override
     public void resume() {
         System.out.println("GameMatchDto:: void resume()");

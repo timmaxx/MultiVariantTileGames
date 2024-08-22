@@ -21,10 +21,6 @@ public class EventOfServer74StartGameMatch extends EventOfServer {
     // class EventOfServer
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
-        /*
-        // localClientStateAutomaton.setParamsOfModelValueMapOfGameMatchAndStart(paramsOfModelValueMap);
-        localClientStateAutomaton.StartGameMatch(gameMatchExtendedDto);
-        */
         localClientStateAutomaton.startGameMatch(gameMatchExtendedDto);
     }
 

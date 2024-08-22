@@ -3,7 +3,6 @@ package timmax.tilegame.basemodel.protocol.server_client;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
@@ -124,12 +123,8 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     }
 
     // ToDo: Избавиться от protected (см. коммент к LocalClientStateAutomaton)
-    protected void setParamsOfModelValueMapOfGameMatchAndStart_(Map<String, Integer> mapOfParamsOfModelValue) {
-        getGameMatchX_().setParamsOfModelValueMap(mapOfParamsOfModelValue);
-    }
-
-    void startGameMatch_(GameMatchExtendedDto gameMatchExtendedDto) {
-        getGameMatchX_().startGameMatch(gameMatchExtendedDto);
+    protected GameMatchExtendedDto startGameMatch_(GameMatchExtendedDto gameMatchExtendedDto) {
+        return getGameMatchX_().start(gameMatchExtendedDto);
     }
 
     void resumeGameMatch_() {
@@ -239,10 +234,9 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         return currentState.getGameMatchX();
     }
 
-    @Override
-    public void setParamsOfModelValueMapOfGameMatchAndStart(Map<String, Integer> mapOfParamsOfModelValue) {
+    public GameMatchExtendedDto startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
         setCurrentState(clientState08GameMatchIsPlaying);
-        currentState.setParamsOfModelValueMapOfGameMatchAndStart(mapOfParamsOfModelValue);
+        return currentState.startGameMatch(gameMatchExtendedDto);
     }
 
     @Override

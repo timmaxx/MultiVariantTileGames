@@ -3,9 +3,11 @@ package timmax.tilegame.basemodel.protocol;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import java.util.HashSet;
 import java.util.Map;
 
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
+import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
 
 public class EventOfClient71StartGameMatch extends EventOfClient {
     private Map<String, Integer> paramsOfModelValueMap;
@@ -25,15 +27,13 @@ public class EventOfClient71StartGameMatch extends EventOfClient {
     // class EventOfClient
     @Override
     public void executeOnServer(RemoteClientStateAutomaton remoteClientStateAutomaton) {
-        remoteClientStateAutomaton.setParamsOfModelValueMapOfGameMatchAndStart(paramsOfModelValueMap);
-    }
-
-    // class Object
-    @Override
-    public String toString() {
-        return "EventOfClient71StartGameMatch{" +
-                "paramsOfModelValueMap=" + paramsOfModelValueMap +
-                '}';
+        GameMatchExtendedDto gameMatchExtendedDto = new GameMatchExtendedDto(
+                remoteClientStateAutomaton.getGameMatchX().getId(),
+                remoteClientStateAutomaton.getGameMatchIsPlaying(),
+                paramsOfModelValueMap,
+                new HashSet<>()
+        );
+        remoteClientStateAutomaton.startGameMatch(gameMatchExtendedDto);
     }
 
     // interface Externalizable
@@ -44,7 +44,7 @@ public class EventOfClient71StartGameMatch extends EventOfClient {
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        // ToDo: Избавиться от "Warning:(49, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Integer>'"
+        // ToDo: Избавиться от "Warning:(48, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Integer>'"
         paramsOfModelValueMap = (Map<String, Integer>) in.readObject();
 /*
         // Так не работает...
@@ -55,5 +55,13 @@ public class EventOfClient71StartGameMatch extends EventOfClient {
             throw new RuntimeException("In ObjectInput there is no Map. But must be Map<String, Integer>.");
         }
 */
+    }
+
+    // class Object
+    @Override
+    public String toString() {
+        return "EventOfClient71StartGameMatch{" +
+                "paramsOfModelValueMap=" + paramsOfModelValueMap +
+                '}';
     }
 }
