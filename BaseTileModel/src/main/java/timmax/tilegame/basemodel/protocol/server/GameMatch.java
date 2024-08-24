@@ -45,7 +45,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
 
     public GameMatch(
             GameType gameType,
-            RemoteClientStateAutomaton remoteClientStateAutomaton,
+            RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton,
             ClientId clientId) {
         this.gameType = gameType;
         this.status = NOT_STARTED;
