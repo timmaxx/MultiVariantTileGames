@@ -32,25 +32,26 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
 
     protected final GameType gameType;
 
-    // ToDo: Сейчас здесь одна переменная типа RemoteClientStateAutomaton и ClientId. И для одного игрока вполне норм.
+    // ToDo: Сейчас здесь одна переменная типа RemoteClientStateAutomaton. И для одного игрока вполне норм.
     //       Но для для двух (а возможно и более игроков) или если какой-то участник игры, не являющийся игроком будет
     //       работать в отдельном клиенте, придётся создавать какую-то коллекцию, в которой и будет описание игроков
     //       или других участников.
     protected final RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton;
-    //  ToDo:   Удалить, т.к. в RemoteClientStateAutomaton уже есть ClientId!
-    protected final ClientId clientId;
 
     private Map<String, Integer> paramsOfModelValueMap;
     private GameMatchStatus status;
 
+    //  ToDo:   Перечень параметров согласовывать также и в
+    //          - GameType,
+    //          - RemoteClientState06GameMatchSetSelected :: void selectGameType(GameType gameType, Set<IGameMatch> gameMatchXSet).
+    //            Там создаётся конструктор через рекурсию. Но после рефакторинга, создание конструктора должно уйти в
+    //            GameType.
     public GameMatch(
             GameType gameType,
-            RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton,
-            ClientId clientId) {
+            RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
         this.gameType = gameType;
         this.status = NOT_STARTED;
         this.remoteClientStateAutomaton = remoteClientStateAutomaton;
-        this.clientId = clientId;
     }
 
     protected final void setStatus(GameMatchStatus status) {
@@ -66,7 +67,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
 
     // Посылает игровое событие всем выборкам.
     public void sendGameEventToAllViews(GameEvent gameEvent) {
-        gameType.sendGameEventToAllViews(gameEvent, remoteClientStateAutomaton, clientId);
+        gameType.sendGameEventToAllViews(gameEvent, remoteClientStateAutomaton);
     }
 
     protected final boolean verifyGameStatusNotGameAndMayBeCreateNewGame() {

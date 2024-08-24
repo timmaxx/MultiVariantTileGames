@@ -56,11 +56,9 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     //       - GameType :: GameType(...)
     //       и в
     //       - GameMatchLoader :: getCollectionOfGameType(...)
-    public GameMatchOfSokoban(
-            RemoteClientStateAutomaton remoteClientStateAutomaton,
-            ClientId clientId)
+    public GameMatchOfSokoban(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton)
             throws ClassNotFoundException, NoSuchMethodException {
-        super(new GameTypeOfSokoban(), remoteClientStateAutomaton, clientId);
+        super(new GameTypeOfSokoban(), remoteClientStateAutomaton);
     }
 
     private void moveUndo() {

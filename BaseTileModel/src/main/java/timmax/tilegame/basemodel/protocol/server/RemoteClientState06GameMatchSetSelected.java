@@ -57,15 +57,7 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
             //          и там-же ниже в строке
             //          iGameMatch = GameMatchConstructor.newInstance(...);
             //       2. Ну в т.ч. это, те-же параметры, которые поступили в executeOnServer().
-            // ToDo: Здесь создаётся экземпляр матча и, как видно, ему передаётся идентификатор клиента,
-            //       Но это единственный класс в котором этот идентификатор используется.
-            //       Нужно сделать так, что-бы идентификатор клиента не использовался-бы, и тогда
-            //       для всей иерархии классов EventOfClientХХ... можно будет удалить параметр ClientId для метода
-            //       executeOnServer(...). А может и для классов.
-            iGameMatch = GameMatchConstructor.newInstance(
-                    getClientStateAutomaton(),
-                    getClientStateAutomaton().getClientId()
-            );
+            iGameMatch = GameMatchConstructor.newInstance(getClientStateAutomaton());
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
             logger.error("Server cannot create object of model for {} with GameMatchConstructor with specific parameters.", gameType, e);
             System.exit(1);

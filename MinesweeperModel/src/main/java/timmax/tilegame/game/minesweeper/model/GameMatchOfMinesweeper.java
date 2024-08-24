@@ -26,11 +26,9 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     //       - GameType :: GameType(...)
     //       и в
     //       - GameMatchLoader :: getCollectionOfGameType(...)
-    public GameMatchOfMinesweeper(
-            RemoteClientStateAutomaton remoteClientStateAutomaton,
-            ClientId clientId)
+    public GameMatchOfMinesweeper(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton)
             throws ClassNotFoundException, NoSuchMethodException {
-        super(new GameTypeOfMinesweeper(), remoteClientStateAutomaton, clientId);
+        super(new GameTypeOfMinesweeper(), remoteClientStateAutomaton);
     }
 
     private void tryInverseFlag(int x, int y) {
@@ -61,7 +59,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
 
         super.setParamsOfModelValueMap(paramsOfModelValueMap);
 
-        // ToDo: Избавиться от "Warning:(65, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
+        // ToDo: Избавиться от "Warning:(63, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
         allMinesweeperObjects = levelGenerator.getLevel(getWidth(), getHeight(), paramsOfModelValueMap.get(PARAM_NAME_PERCENTS_OF_MINES));
         allMinesweeperObjects.setModel(this);
     }
@@ -72,7 +70,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
 
         super.start(gameMatchExtendedDto);
 
-        // ToDo: Избавиться от "Warning:(76, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
+        // ToDo: Избавиться от "Warning:(74, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
         allMinesweeperObjects = levelGenerator.getLevel(
                 getWidth(),
                 getHeight(),

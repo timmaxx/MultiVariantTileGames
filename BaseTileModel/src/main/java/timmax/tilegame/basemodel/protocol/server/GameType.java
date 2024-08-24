@@ -84,8 +84,7 @@ public abstract class GameType implements IGameType, Externalizable {
         //       и там же ниже в ветке
         //       catch (NoSuchMethodException e)
         //       при логировании.
-        // ToDo: Одним из типов параметров указан Object.class. Сделал так, т.к. не знаю как указать параметризированный тип.
-        gameMatchConstructor = gameMatchClass.getConstructor(RemoteClientStateAutomaton.class, Object.class);
+        gameMatchConstructor = gameMatchClass.getConstructor(RemoteClientStateAutomaton.class);
 
         paramName_paramModelDescriptionMap = new ParamName_paramModelDescriptionMap();
     }
@@ -116,10 +115,10 @@ public abstract class GameType implements IGameType, Externalizable {
         return gameMatchConstructor;
     }
 
-    public <ClientId> void sendGameEventToAllViews(GameEvent gameEvent, RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
+    public <ClientId> void sendGameEventToAllViews(GameEvent gameEvent, RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
         for (String viewName : viewName_ViewClassMap.keySet()) {
             EventOfServer eventOfServer = new EventOfServer92GameEvent(viewName, gameEvent);
-            remoteClientStateAutomaton.sendEventOfServer(clientId, eventOfServer);
+            remoteClientStateAutomaton.sendEventOfServer(remoteClientStateAutomaton.getClientId(), eventOfServer);
         }
     }
 
@@ -182,7 +181,7 @@ public abstract class GameType implements IGameType, Externalizable {
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         gameTypeName = (String) in.readObject();
         // countOfGamers = in.readInt();
-        // ToDo: Избавиться от "Warning:(186, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
+        // ToDo: Избавиться от "Warning:(185, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
         viewName_ViewClassMap = (Map<String, Class<? extends View>>) in.readObject();
         paramName_paramModelDescriptionMap = (ParamName_paramModelDescriptionMap) in.readObject();
 
