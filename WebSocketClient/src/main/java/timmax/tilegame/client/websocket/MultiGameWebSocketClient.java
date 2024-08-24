@@ -104,7 +104,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     @Override
     public void connectWithoutUserIdentify() {
         logger.debug("connectWithoutUserIdentify()");
-        sendEventOfClient(new EventOfClient11OpenConnectWithoutUserIdentify());
+        sendEventOfClient(new EventOfClient11ConnectWithoutUserIdentify());
     }
 
     // 2

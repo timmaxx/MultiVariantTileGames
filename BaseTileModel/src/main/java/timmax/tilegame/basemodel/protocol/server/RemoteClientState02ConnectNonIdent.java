@@ -13,7 +13,7 @@ public class RemoteClientState02ConnectNonIdent<ClientId> extends ClientState02C
         super.connect();
         getClientStateAutomaton().sendEventOfServer(
                 getClientStateAutomaton().getClientId(),
-                new EventOfServer11OpenConnectWithoutUserIdentify()
+                new EventOfServer11ConnectWithoutUserIdentify()
         );
     }
 

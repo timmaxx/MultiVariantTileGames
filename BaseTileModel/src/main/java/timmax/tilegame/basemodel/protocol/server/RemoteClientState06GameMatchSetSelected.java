@@ -20,7 +20,7 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
         if (gameType == null) {
             getClientStateAutomaton().sendEventOfServer(
                     getClientStateAutomaton().getClientId(),
-                    new EventOfServer11OpenConnectWithoutUserIdentify()
+                    new EventOfServer11ConnectWithoutUserIdentify()
             );
             return;
         }
