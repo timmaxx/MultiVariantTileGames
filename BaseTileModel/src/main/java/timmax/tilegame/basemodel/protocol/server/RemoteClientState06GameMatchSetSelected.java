@@ -11,18 +11,15 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientState06GameMatchSetSelected<IGameMatch> {
-    private final ClientId clientId;
-
-    public RemoteClientState06GameMatchSetSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton, ClientId clientId) {
+    public RemoteClientState06GameMatchSetSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
         super(clientStateAutomaton);
-        this.clientId = clientId;
     }
 
     @Override
     public void selectGameType(GameType gameType, Set<IGameMatch> gameMatchXSet) {
         if (gameType == null) {
             getClientStateAutomaton().sendEventOfServer(
-                    clientId,
+                    getClientStateAutomaton().getClientId(),
                     new EventOfServer11OpenConnectWithoutUserIdentify()
             );
             return;
@@ -65,7 +62,10 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
             //       Нужно сделать так, что-бы идентификатор клиента не использовался-бы, и тогда
             //       для всей иерархии классов EventOfClientХХ... можно будет удалить параметр ClientId для метода
             //       executeOnServer(...). А может и для классов.
-            iGameMatch = GameMatchConstructor.newInstance(getClientStateAutomaton(), clientId);
+            iGameMatch = GameMatchConstructor.newInstance(
+                    getClientStateAutomaton(),
+                    getClientStateAutomaton().getClientId()
+            );
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
             logger.error("Server cannot create object of model for {} with GameMatchConstructor with specific parameters.", gameType, e);
             System.exit(1);
@@ -87,7 +87,7 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
         //          Вот его и нужно упаковать в EventOfServer (здесь это EventOfServer61SelectGameMatch) и
         //          отправить клиенту.
         getClientStateAutomaton().sendEventOfServer(
-                clientId,
+                getClientStateAutomaton().getClientId(),
                 new EventOfServer41SelectGameType(
                         gameType.getGameTypeName(),
                         gameMatchXSet
@@ -100,7 +100,7 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
 
     // class AbstractClientState
     @Override
-    public RemoteClientStateAutomaton getClientStateAutomaton() {
-        return (RemoteClientStateAutomaton) (super.getClientStateAutomaton());
+    public RemoteClientStateAutomaton<ClientId> getClientStateAutomaton() {
+        return (RemoteClientStateAutomaton<ClientId>) (super.getClientStateAutomaton());
     }
 }

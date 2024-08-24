@@ -24,9 +24,12 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
     private IClientState99<GameMatchX> currentState;
 
+    //  ToDo:   Создать тип User и в т.ч. в его составе должен быть Set<GameType> gameTypeSet
     private String userName; // ---- 2 (Пользователь)
+    //  ToDo:   Удалить, т.к. в User должен быть Set<GameType>.
     private Set<GameType> gameTypeSet; // ---- 3 (Список типов игр)
     private GameType gameType; // ---- 4 (Конкретный тип игры)
+    //  ToDo:   Удалить, т.к. в GameType должен быть Set<GameMatchX>.
     private Set<GameMatchX> gameMatchXSet; // ---- 5 (Набор моделей игр)
     private GameMatchX gameMatchX; // ---- 6 (Конкретная модель игры)
 

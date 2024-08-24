@@ -12,7 +12,9 @@ public class EventOfClient73ResumeGameMatch extends EventOfClient {
     //       Нужно пересмотреть архитектуру и передавать сюда GameMatch.
     // class EventOfClient
     @Override
-    public void executeOnServer(RemoteClientStateAutomaton remoteClientStateAutomaton) {
+    public <ClientId> void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
+        // Map<String, Integer> paramsOfModelValueMap = remoteClientStateAutomaton.getGameMatchX().getParamsOfModelValueMap();
+        // remoteClientStateAutomaton.getGameMatchX().setParamsOfModelValueMap(paramsOfModelValueMap);
         remoteClientStateAutomaton.resumeGameMatch();
     }
 

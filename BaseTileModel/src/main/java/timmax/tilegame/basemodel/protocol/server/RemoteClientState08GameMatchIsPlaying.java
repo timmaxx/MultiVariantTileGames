@@ -4,11 +4,8 @@ import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server_client.*;
 
 public class RemoteClientState08GameMatchIsPlaying<ClientId> extends ClientState08GameMatchIsPlaying<IGameMatch> {
-    private final ClientId clientId;
-
-    public RemoteClientState08GameMatchIsPlaying(ClientStateAutomaton<IGameMatch> clientStateAutomaton, ClientId clientId) {
+    public RemoteClientState08GameMatchIsPlaying(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
         super(clientStateAutomaton);
-        this.clientId = clientId;
     }
 
     @Override
@@ -22,7 +19,7 @@ public class RemoteClientState08GameMatchIsPlaying<ClientId> extends ClientState
         //  клиенту будет отправлена информация, которая была сформирована при вызове предыдущего метода.
         //  (Клиент, после получения этого события только строит главную выборку (пустую доску)).
         getClientStateAutomaton().sendEventOfServer(
-                clientId,
+                getClientStateAutomaton().getClientId(),
                 new EventOfServer74StartGameMatch(gameMatchExtendedDto2)
         );
         return gameMatchExtendedDto2;
@@ -32,7 +29,7 @@ public class RemoteClientState08GameMatchIsPlaying<ClientId> extends ClientState
     public void resumeGameMatch() {
         super.resumeGameMatch();
         getClientStateAutomaton().sendEventOfServer(
-                clientId,
+                getClientStateAutomaton().getClientId(),
                 new EventOfServer73ResumeGameMatch()
                 // new EventOfServer73ResumeGameMatch(getGameMatchX().getParamsOfModelValueMap())
         );
@@ -44,7 +41,7 @@ public class RemoteClientState08GameMatchIsPlaying<ClientId> extends ClientState
 
     // class AbstractClientState
     @Override
-    public RemoteClientStateAutomaton getClientStateAutomaton() {
-        return (RemoteClientStateAutomaton) (super.getClientStateAutomaton());
+    public RemoteClientStateAutomaton<ClientId> getClientStateAutomaton() {
+        return (RemoteClientStateAutomaton<ClientId>) (super.getClientStateAutomaton());
     }
 }

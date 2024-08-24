@@ -23,7 +23,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketServer.class);
 
     private final ObjectMapperOfMvtg mapper;
-    private final Map<WebSocket, RemoteClientStateAutomaton> webSocketAndRemoteClientStateAutomatonMap;
+    private final Map<WebSocket, RemoteClientStateAutomaton<WebSocket>> webSocketAndRemoteClientStateAutomatonMap;
 
     public MultiGameWebSocketServer(int port) {
         super(new InetSocketAddress(port));
@@ -55,19 +55,9 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
                 // ToDo: Внедрить двустороннюю мапу (https://coderlessons.com/articles/java/google-guava-bimaps)
                 // ToDo: Сейчас в конструктор RemoteClientStateAutomaton передаются несколько параметров, некоторые из
                 //       них не являются необходимыми (см. комментарий перед каждым параметром):
-                new RemoteClientStateAutomaton(
-                        // - webSocket (как параметр конструктора FabricOfRemoteClientStates), который понадобится тогда,
-                        //   когда нужно будет отправить сообщение конкретному клиенту, но его можно было-бы получить
-                        //   через двустороннюю мапу
-                        //   WebSocket <-> RemoteClientStateAutomaton
-                        //   (но сейчас обычная мапа ->
-                        //   Map<WebSocket, RemoteClientStateAutomaton<WebSocket>> mapOfWebSocketAndRemoteClientState.
-                        //   )
-                        //   webSocket стоит убрать из параметра (после внедрения двусторонней мапы).
-                        new FabricOfRemoteClientStates<>(webSocket),
-                        // - ссылка на текущий класс
-                        //   class MultiGameWebSocketServer extends WebSocketServer implements TransportOfServer<WebSocket>,
-                        //   которую также можно получить через двустороннюю мапу.
+                new RemoteClientStateAutomaton<>(
+                        webSocket,
+                        new FabricOfRemoteClientStates<>(),
                         this
                 )
         );

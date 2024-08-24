@@ -116,7 +116,7 @@ public abstract class GameType implements IGameType, Externalizable {
         return gameMatchConstructor;
     }
 
-    public <ClientId> void sendGameEventToAllViews(GameEvent gameEvent, RemoteClientStateAutomaton remoteClientStateAutomaton, ClientId clientId) {
+    public <ClientId> void sendGameEventToAllViews(GameEvent gameEvent, RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton, ClientId clientId) {
         for (String viewName : viewName_ViewClassMap.keySet()) {
             EventOfServer eventOfServer = new EventOfServer92GameEvent(viewName, gameEvent);
             remoteClientStateAutomaton.sendEventOfServer(clientId, eventOfServer);

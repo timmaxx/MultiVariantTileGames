@@ -36,7 +36,8 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     //       Но для для двух (а возможно и более игроков) или если какой-то участник игры, не являющийся игроком будет
     //       работать в отдельном клиенте, придётся создавать какую-то коллекцию, в которой и будет описание игроков
     //       или других участников.
-    protected final RemoteClientStateAutomaton remoteClientStateAutomaton;
+    protected final RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton;
+    //  ToDo:   Удалить, т.к. в RemoteClientStateAutomaton уже есть ClientId!
     protected final ClientId clientId;
 
     private Map<String, Integer> paramsOfModelValueMap;

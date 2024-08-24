@@ -6,11 +6,8 @@ import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 
 public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState07GameMatchSelected<IGameMatch> {
-    private final ClientId clientId;
-
-    public RemoteClientState07GameMatchSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton, ClientId clientId) {
+    public RemoteClientState07GameMatchSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
         super(clientStateAutomaton);
-        this.clientId = clientId;
     }
 
     @Override
@@ -23,7 +20,7 @@ public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState0
         //          Вот его и нужно упаковать в EventOfServer (здесь это EventOfServer61SelectGameMatch) и
         //          отправить клиенту.
         getClientStateAutomaton().sendEventOfServer(
-                clientId,
+                getClientStateAutomaton().getClientId(),
                 new EventOfServer61SelectGameMatch(
                         new GameMatchDto(
                                 gameMatchX.getId(),
@@ -36,7 +33,7 @@ public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState0
 
     // class AbstractClientState
     @Override
-    public RemoteClientStateAutomaton getClientStateAutomaton() {
-        return (RemoteClientStateAutomaton) (super.getClientStateAutomaton());
+    public RemoteClientStateAutomaton<ClientId> getClientStateAutomaton() {
+        return (RemoteClientStateAutomaton<ClientId>) (super.getClientStateAutomaton());
     }
 }

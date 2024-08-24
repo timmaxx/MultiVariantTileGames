@@ -22,7 +22,7 @@ public class EventOfClient61SelectGameMatch extends EventOfClient {
 
     // class EventOfClient
     @Override
-    public void executeOnServer(RemoteClientStateAutomaton remoteClientStateAutomaton) {
+    public <ClientId> void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
         if (gameMatchDto.isNullOrEmpty()) {
             remoteClientStateAutomaton.reselectGameType();
             return;
@@ -44,7 +44,6 @@ public class EventOfClient61SelectGameMatch extends EventOfClient {
             return;
         }
 
-        // ToDo: Исправить Warning:(72, 87) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.IGameMatch' to 'timmax.tilegame.basemodel.protocol.server.IGameMatch<ClientId>'
         remoteClientStateAutomaton.selectGameMatchX(iGameMatch);
     }
 

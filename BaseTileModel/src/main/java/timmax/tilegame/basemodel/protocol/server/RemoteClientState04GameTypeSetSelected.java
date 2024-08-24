@@ -7,11 +7,8 @@ import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import java.util.Set;
 
 public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientState04GameTypeSetSelected<IGameMatch> {
-    private final ClientId clientId;
-
-    public RemoteClientState04GameTypeSetSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton, ClientId clientId) {
+    public RemoteClientState04GameTypeSetSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
         super(clientStateAutomaton);
-        this.clientId = clientId;
     }
 
     @Override
@@ -30,14 +27,14 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
         //          Вот его и нужно упаковать в EventOfServer (здесь это EventOfServer21IdentifyAuthenticateAuthorizeUser) и
         //          отправить клиенту.
         getClientStateAutomaton().sendEventOfServer(
-                clientId,
+                getClientStateAutomaton().getClientId(),
                 new EventOfServer21IdentifyAuthenticateAuthorizeUser(userName, gameTypeSet)
         );
     }
 
     // class AbstractClientState
     @Override
-    public RemoteClientStateAutomaton getClientStateAutomaton() {
-        return (RemoteClientStateAutomaton) (super.getClientStateAutomaton());
+    public RemoteClientStateAutomaton<ClientId> getClientStateAutomaton() {
+        return (RemoteClientStateAutomaton<ClientId>) (super.getClientStateAutomaton());
     }
 }

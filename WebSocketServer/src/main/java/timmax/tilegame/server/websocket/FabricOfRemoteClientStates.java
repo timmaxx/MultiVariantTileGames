@@ -4,12 +4,6 @@ import timmax.tilegame.basemodel.protocol.server.*;
 import timmax.tilegame.basemodel.protocol.server_client.*;
 
 public class FabricOfRemoteClientStates<ClientId> implements IFabricOfRemoteClientStates<ClientId> {
-    private final ClientId clientId;
-
-    public FabricOfRemoteClientStates(ClientId clientId) {
-        this.clientId = clientId;
-    }
-
     // ToDo: Сейчас есть параметр
     //       ClientStateAutomaton<IGameMatch> clientStateAutomaton
     //       но когда пришлось добавлять параметр clientId, то я сделал это ч/з конструктор - и сигнатуру методов
@@ -21,32 +15,32 @@ public class FabricOfRemoteClientStates<ClientId> implements IFabricOfRemoteClie
     //  Классы получались взаимозависимы и поэтому такой приём не привёл к хорошему варианту.
 
     @Override
-    public RemoteClientState01NoConnect<ClientId> getClientState01NoConnect(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
-        return new RemoteClientState01NoConnect<>(clientStateAutomaton, clientId);
+    public RemoteClientState01NoConnect getClientState01NoConnect(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
+        return new RemoteClientState01NoConnect(clientStateAutomaton);
     }
 
     @Override
     public RemoteClientState02ConnectNonIdent<ClientId> getClientState02ConnectNonIdent(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
-        return new RemoteClientState02ConnectNonIdent<>(clientStateAutomaton, clientId);
+        return new RemoteClientState02ConnectNonIdent<>(clientStateAutomaton);
     }
 
     @Override
     public RemoteClientState04GameTypeSetSelected<ClientId> getClientState04GameTypeSetSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
-        return new RemoteClientState04GameTypeSetSelected<>(clientStateAutomaton, clientId);
+        return new RemoteClientState04GameTypeSetSelected<>(clientStateAutomaton);
     }
 
     @Override
     public RemoteClientState06GameMatchSetSelected<ClientId> getClientState06GameMatchSetSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
-        return new RemoteClientState06GameMatchSetSelected<>(clientStateAutomaton, clientId);
+        return new RemoteClientState06GameMatchSetSelected<>(clientStateAutomaton);
     }
 
     @Override
     public RemoteClientState07GameMatchSelected<ClientId> getClientState07GameMatchSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
-        return new RemoteClientState07GameMatchSelected<>(clientStateAutomaton, clientId);
+        return new RemoteClientState07GameMatchSelected<>(clientStateAutomaton);
     }
 
     @Override
     public RemoteClientState08GameMatchIsPlaying<ClientId> getClientState08GameMatchIsPlaying(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
-        return new RemoteClientState08GameMatchIsPlaying<>(clientStateAutomaton, clientId);
+        return new RemoteClientState08GameMatchIsPlaying<>(clientStateAutomaton);
     }
 }
