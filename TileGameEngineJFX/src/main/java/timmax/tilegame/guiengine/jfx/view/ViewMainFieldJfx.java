@@ -17,8 +17,8 @@ import timmax.tilegame.guiengine.jfx.GameStackPane;
 
 import java.util.Map;
 
-import static timmax.tilegame.basemodel.protocol.server_client.IGameMatchXDto.PARAM_NAME_HEIGHT;
-import static timmax.tilegame.basemodel.protocol.server_client.IGameMatchXDto.PARAM_NAME_WIDTH;
+import static timmax.tilegame.basemodel.protocol.server_client.IGameMatchX.PARAM_NAME_HEIGHT;
+import static timmax.tilegame.basemodel.protocol.server_client.IGameMatchX.PARAM_NAME_WIDTH;
 
 public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
     protected GameStackPane[][] cells;
