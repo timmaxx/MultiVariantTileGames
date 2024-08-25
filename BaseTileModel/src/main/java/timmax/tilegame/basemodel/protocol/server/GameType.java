@@ -19,6 +19,10 @@ import timmax.tilegame.basemodel.protocol.IGameType;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.baseview.ViewMainField;
 
+//  ToDo:   Создать
+//          private Set<? extends IGameMatchX> gameMatchXSet;
+//          геттер
+//          инициализатор или сеттер
 public abstract class GameType implements IGameType, Externalizable {
     protected static final Logger logger = LoggerFactory.getLogger(GameType.class);
 
@@ -181,7 +185,8 @@ public abstract class GameType implements IGameType, Externalizable {
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         gameTypeName = (String) in.readObject();
         // countOfGamers = in.readInt();
-        // ToDo: Избавиться от "Warning:(185, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
+        //  ToDo:   Избавиться от "Warning:(185, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
+        //          https://sky.pro/wiki/java/reshaem-preduprezhdenie-unchecked-cast-v-java-spring/
         viewName_ViewClassMap = (Map<String, Class<? extends View>>) in.readObject();
         paramName_paramModelDescriptionMap = (ParamName_paramModelDescriptionMap) in.readObject();
 
