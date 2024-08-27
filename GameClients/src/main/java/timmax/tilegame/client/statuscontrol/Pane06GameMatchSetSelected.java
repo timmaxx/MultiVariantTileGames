@@ -7,7 +7,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 
-import timmax.tilegame.basemodel.GameMatchStatus;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 import timmax.tilegame.transport.TransportOfClient;
 
@@ -31,31 +30,28 @@ public class Pane06GameMatchSetSelected extends AbstractConnectStatePane {
             }
             disableAllControls();
 
-            //  ToDo:   Упростить код ниже по определению gameMatchId, gameMatchIsPlaying, paramsOfModelValueMap.
             String gameMatchId = gameMatchSetComboBox.getValue();
-            //  ToDo:   Избавиться от "Warning:(33, 42) Unboxing of 'transportOfClient .getLocalClientStateAutomaton() .getGameMa...' may produce 'NullPointerException'"
-            GameMatchStatus gameMatchStatus = transportOfClient
+
+            //  ToDo:   Приведение типа? Два раза?
+            //  Warning:(36, 56) Unchecked call to 'filter(Predicate<? super T>)' as a member of raw type 'java.util.stream.Stream'
+            //  Warning:(36, 56) Unchecked call to 'orElse(T)' as a member of raw type 'java.util.Optional'
+            //  Warning:(107, 31) Unchecked assignment: 'java.util.Set' to 'java.util.Collection<? extends timmax.tilegame.basemodel.protocol.server_client.GameMatchDto>'. Reason: 'transportOfClient.getLocalClientStateAutomaton().getGameType()' has raw type, so result of getGameMatchDtoSet is erased
+            GameMatchDto gameMatchDto = (GameMatchDto) transportOfClient
                     .getLocalClientStateAutomaton()
-                    .getGameMatchXSet()
+                    .getGameType()
+                    .getGameMatchDtoSet()
                     .stream()
-                    .filter(x -> x.getId().equals(gameMatchId))
+                    .filter(x -> ((GameMatchDto) x).getId().equals(gameMatchId))
                     .findAny()
-                    .map(GameMatchDto::getStatus)
                     .orElse(null);
 
             Map<String, Integer> paramsOfModelValueMap;
-            if (gameMatchStatus == PAUSE) {
+            if (gameMatchDto.getStatus() == PAUSE) {
                 // Если матч уже был начат.
                 // Достаём параметры из матча.
-                paramsOfModelValueMap = transportOfClient
-                        .getLocalClientStateAutomaton()
-                        .getGameMatchXSet()
-                        .stream()
-                        .filter(x -> x.getId().equals(gameMatchId))
-                        .findAny()
-                        .map(GameMatchDto::getParamsOfModelValueMap)
-                        .orElse(null);
-            } else if (gameMatchStatus == NOT_STARTED) {
+                paramsOfModelValueMap = gameMatchDto.getParamsOfModelValueMap();
+
+            } else if (gameMatchDto.getStatus() == NOT_STARTED) {
                 // Если матч ещё не был начат.
                 // Достаём параметры из описания типа игры.
                 paramsOfModelValueMap = transportOfClient
@@ -65,10 +61,11 @@ public class Pane06GameMatchSetSelected extends AbstractConnectStatePane {
                         .getParamsOfModelValueMap();
             } else {
                 throw new RuntimeException(
-                        "Pane06GameMatchSetSelected :: Pane06GameMatchSetSelected(TransportOfClient transportOfClient). nextStateButton.setOnAction. gameMatchStatus = " + gameMatchStatus
+                        "Pane06GameMatchSetSelected :: Pane06GameMatchSetSelected(TransportOfClient transportOfClient). nextStateButton.setOnAction. gameMatchStatus = " + gameMatchDto.getStatus()
                 );
             }
-            transportOfClient.selectGameMatch(new GameMatchDto(gameMatchId, gameMatchStatus, paramsOfModelValueMap));
+            gameMatchDto.setParamsOfModelValueMap(paramsOfModelValueMap);
+            transportOfClient.selectGameMatch(gameMatchDto);
         });
 
         // Контролы для продвижения состояния "назад":
@@ -108,7 +105,9 @@ public class Pane06GameMatchSetSelected extends AbstractConnectStatePane {
     @Override
     public void updateOnSelectGameType() {
         ObservableList<GameMatchDto> observableList = FXCollections.observableArrayList();
-        observableList.addAll(transportOfClient.getLocalClientStateAutomaton().getGameMatchXSet());
+        //  ToDo:   Надо делать, как в закомментированном блоке.
+        // observableList.addAll(transportOfClient.getLocalClientStateAutomaton().getGameMatchDtoSet());
+        observableList.addAll(transportOfClient.getLocalClientStateAutomaton().getGameType().getGameMatchDtoSet());
         gameMatchSetComboBox.setItems(
                 FXCollections.observableArrayList(
                         observableList

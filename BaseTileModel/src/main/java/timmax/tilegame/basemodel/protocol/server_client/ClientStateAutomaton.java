@@ -28,13 +28,10 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     private String userName; // ---- 2 (Пользователь)
 
     //  ToDo:   Удалить, т.к. в User должен быть Set<GameType>.
+    //      Warning:(31, 17) Raw use of parameterized class 'GameType'
     private Set<GameType> gameTypeSet; // ---- 3 (Список типов игр)
 
-    private GameType gameType; // ---- 4 (Конкретный тип игры)
-
-    //  ToDo:   Удалить, т.к. в GameType должен быть Set<GameMatchX>.
-    private Set<GameMatchX> gameMatchXSet; // ---- 5 (Набор моделей игр)
-
+    private GameType<GameMatchX> gameType; // ---- 4 (Конкретный тип игры)
     private GameMatchX gameMatchX; // ---- 6 (Конкретная модель игры)
 
     public ClientStateAutomaton(
@@ -121,9 +118,9 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         this.gameTypeSet = gameTypeSet;
     }
 
-    void selectGameType_(GameType gameType, Set<GameMatchX> gameMatchXSet) {
+    void selectGameType_(GameType gameType) {
+        //  Warning:(121, 25) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.GameType' to 'timmax.tilegame.basemodel.protocol.server.GameType<GameMatchX>'
         this.gameType = gameType;
-        this.gameMatchXSet = gameMatchXSet;
     }
 
     void selectGameMatchX_(GameMatchX gameMatchX) {
@@ -157,7 +154,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     }
 
     Set<GameMatchX> getGameMatchXSet_() {
-        return gameMatchXSet;
+        return gameType.getGameMatchXSet();
     }
 
     GameMatchX getGameMatchX_() {
@@ -207,9 +204,10 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     }
 
     @Override
-    public void selectGameType(GameType gameType, Set<GameMatchX> gameMatchXSet) {
+    public void selectGameType(GameType gameType) {
         setCurrentState(clientState06GameMatchSetSelected);
-        currentState.selectGameType(gameType, gameMatchXSet);
+        //  Warning:(209, 37) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.GameType' to 'timmax.tilegame.basemodel.protocol.server.GameType<GameMatchX>'
+        currentState.selectGameType(gameType);
     }
 
     // 6 interface IClientState06GameMatchSetSelected

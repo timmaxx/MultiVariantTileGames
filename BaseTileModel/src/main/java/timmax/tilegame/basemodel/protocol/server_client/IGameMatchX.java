@@ -11,6 +11,7 @@ public interface IGameMatchX {
     String getId();
     GameMatchStatus getStatus();
     Map<String, Integer> getParamsOfModelValueMap();
+    GameMatchDto getGameMatchDto();
 
     int getWidth();
     int getHeight();

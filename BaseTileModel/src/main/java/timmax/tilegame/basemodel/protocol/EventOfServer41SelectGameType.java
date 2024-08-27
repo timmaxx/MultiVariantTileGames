@@ -23,25 +23,18 @@ public class EventOfServer41SelectGameType extends EventOfServer {
         this.gameMatchDtoSet = gameMatchDtoSet;
     }
 
+    // class EventOfServer
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
         GameType gameType =
                 localClientStateAutomaton
                         .getGameTypeSet()
                         .stream()
-                        .filter(x -> x.getGameTypeName().equals(gameTypeName))
+                        .filter(x -> x.getId().equals(gameTypeName))
                         .findAny()
                         .orElse(null);
-
-        localClientStateAutomaton.selectGameType(gameType, gameMatchDtoSet);
-    }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{" +
-                "gameTypeName='" + gameTypeName + '\'' +
-                ", gameMatchDtoSet=" + gameMatchDtoSet +
-                '}';
+        gameType.setGameMatchDtoSet(gameMatchDtoSet);
+        localClientStateAutomaton.selectGameType(gameType);
     }
 
     @Override
@@ -56,5 +49,14 @@ public class EventOfServer41SelectGameType extends EventOfServer {
         // ToDo: Избавиться от "Warning:(58, 27) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.protocol.server_client.GameMatchDto>'"
         //       Например как в readExternal в EventOfServer41SelectGameTypeSet
         gameMatchDtoSet = (Set<GameMatchDto>) in.readObject();
+    }
+
+    // class Object
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "gameTypeName='" + gameTypeName + '\'' +
+                ", gameMatchDtoSet=" + gameMatchDtoSet +
+                '}';
     }
 }

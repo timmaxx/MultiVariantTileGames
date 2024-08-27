@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javafx.scene.paint.Color;
 import org.slf4j.Logger;
@@ -16,14 +19,12 @@ import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.EventOfServer;
 import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent;
 import timmax.tilegame.basemodel.protocol.IGameType;
+import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
+import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.baseview.ViewMainField;
 
-//  ToDo:   Создать
-//          private Set<? extends IGameMatchX> gameMatchXSet;
-//          геттер
-//          инициализатор или сеттер
-public abstract class GameType implements IGameType, Externalizable {
+public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameType, Externalizable {
     protected static final Logger logger = LoggerFactory.getLogger(GameType.class);
 
     // ToDo: Рассмотреть вариант выделения из этого класса "String gameTypeName" в отдельный класс GameTypeName.
@@ -34,7 +35,13 @@ public abstract class GameType implements IGameType, Externalizable {
     //          Поэтому, при передаче полной информации о типе игры нужно передавать все поля.
     //          А вот при передаче как-бы ссылки на тип игры, достаточно передать только gameName.
     //          И похожим образом сделано для идентификации GameMatch (см. коммент для GameMatchDto)
-    private String gameTypeName;
+    private String id;
+
+    private Set<GameMatchX> gameMatchXSet;
+    //  ToDo:   При наличии предыдущего - этот лишний.
+    private Set<GameMatchDto> gameMatchDtoSet;
+
+    //  ToDo:   Может тоже <GameMatchX>?
     private Constructor<? extends IGameMatch> gameMatchConstructor;
     // private int countOfGamers;
 
@@ -61,7 +68,7 @@ public abstract class GameType implements IGameType, Externalizable {
     }
 
     public GameType(
-            String gameTypeName,
+            String id,
             //int countOfGamers,
             Class<? extends IGameMatch> gameMatchClass,
             Color defaultCellBackgroundColor,
@@ -69,7 +76,7 @@ public abstract class GameType implements IGameType, Externalizable {
             String defaultCellTextValue)
             throws ClassNotFoundException, NoSuchMethodException {
         this();
-        this.gameTypeName = gameTypeName;
+        this.id = id;
         this.defaultCellBackgroundColor = defaultCellBackgroundColor;
         this.defaultCellTextColor = defaultCellTextColor;
         this.defaultCellTextValue = defaultCellTextValue;
@@ -91,6 +98,10 @@ public abstract class GameType implements IGameType, Externalizable {
         gameMatchConstructor = gameMatchClass.getConstructor(RemoteClientStateAutomaton.class);
 
         paramName_paramModelDescriptionMap = new ParamName_paramModelDescriptionMap();
+    }
+
+    public Set<GameMatchX> getGameMatchXSet() {
+        return gameMatchXSet;
     }
 
     public Color getDefaultCellBackgroundColor() {
@@ -126,37 +137,62 @@ public abstract class GameType implements IGameType, Externalizable {
         }
     }
 
-    // class Object
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public <ClientId> void initGameMatchXSet(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
+        gameMatchXSet = new HashSet<>();
+        // Done:
+        //       1.1. При создании перечня матчей на сервере,
+        //            если список не содержит ни одного матча в состоянии "Не начат",
+        //            то сервер сам создаёт такой матч.
+        //            В этом случае на клиент всегда будет отправляться перечень как минимум с одним матчем.
+        //            Т.е. и логика в этом методе уйдёт большей частью в более ранний класс.
+        //       1.2. Клиент должен работать только с таким списком, который поступил от сервера
+        //            (т.е. не создавать новую запись, а только выбирать).
+        //            И только для не игранного матча должна быть доступна возможность редактировать параметры матча.
+        //            А для игранного (матч на паузе):
+        //            - на клиенте опционально: не давать возможность редактировать в принципе.
+        //            - на сервере обязательно: проверять попытку изменить параметры матча и возвращать актуальные
+        //                значения на клиент.
+        // ToDo:
+        //       1.2.1. Однако потом нужно будет вернуться к возможности удалять или как-то скидывать в архив
+        //              - начатые, но не оконченные (на паузе) партии.
+        //              - начатые и оконченные партии - для возможности ознакомления с ними.
 
-        GameType gameType = (GameType) o;
+        GameMatchX gameMatchX = null;
+        Constructor<? extends IGameMatch> GameMatchConstructor = getGameMatchConstructor();
 
-        return gameTypeName.equals(gameType.gameTypeName);
+        try {
+            // Создаём экземпляр модели, ранее выбранного типа.
+            // ToDo: Нужно минимизировать количество согласований между классами.
+            //       Параметры, которые передаются в newInstance():
+            //       1. Перечень параметров согласовывается с перечнем в
+            //          GameType :: GameType(...)
+            //          в строке
+            //          GameMatchConstructor = gameMatchClass.getConstructor(...);
+            //          и там-же ниже в строке
+            //          iGameMatch = GameMatchConstructor.newInstance(...);
+            //       2. Ну в т.ч. это, те-же параметры, которые поступили в executeOnServer().
+            //  ToDo:   Приведение типа?
+            //  Warning:(175, 26) Unchecked cast: 'capture<? extends timmax.tilegame.basemodel.protocol.server.IGameMatch>' to 'GameMatchX'
+            gameMatchX = (GameMatchX) GameMatchConstructor.newInstance(remoteClientStateAutomaton);
+        } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
+            logger.error("Server cannot create object of model for {} with GameMatchConstructor with specific parameters.", this, e);
+            System.exit(1);
+        }
+        gameMatchXSet.add(gameMatchX);
     }
 
-    @Override
-    public int hashCode() {
-        return gameTypeName.hashCode();
+    public Set<GameMatchDto> getGameMatchDtoSet() {
+        return gameMatchDtoSet;
     }
 
-    @Override
-    public String toString() {
-        return "GameType{" +
-                "gameMatchConstructor=" + gameMatchConstructor +
-                ", gameTypeName='" + gameTypeName + '\'' +
-                //", countOfGamers=" + countOfGamers +
-                ", viewName_ViewClassMap=" + viewName_ViewClassMap +
-                ", paramName_paramModelDescriptionMap=" + paramName_paramModelDescriptionMap +
-                '}';
+    public void setGameMatchDtoSet(Set<GameMatchDto> gameMatchDtoSet) {
+        this.gameMatchDtoSet = gameMatchDtoSet;
     }
 
     // interface IGameType
     @Override
-    public String getGameTypeName() {
-        return gameTypeName;
+    public String getId() {
+        return id;
     }
 
     /*
@@ -169,8 +205,9 @@ public abstract class GameType implements IGameType, Externalizable {
     // interface Externalizable
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(gameTypeName);
+        out.writeObject(id);
         // out.writeInt(countOfGamers);
+        out.writeObject(gameMatchDtoSet);
         out.writeObject(viewName_ViewClassMap);
         out.writeObject(paramName_paramModelDescriptionMap);
 
@@ -183,8 +220,10 @@ public abstract class GameType implements IGameType, Externalizable {
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        gameTypeName = (String) in.readObject();
+        id = (String) in.readObject();
         // countOfGamers = in.readInt();
+        //          Warning:(224, 27) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.protocol.server_client.GameMatchDto>'
+        gameMatchDtoSet = (Set<GameMatchDto>) in.readObject();
         //  ToDo:   Избавиться от "Warning:(185, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
         //          https://sky.pro/wiki/java/reshaem-preduprezhdenie-unchecked-cast-v-java-spring/
         viewName_ViewClassMap = (Map<String, Class<? extends View>>) in.readObject();
@@ -195,5 +234,35 @@ public abstract class GameType implements IGameType, Externalizable {
         defaultCellTextColor = ((JFXColorWithExternalizable) in.readObject()).getColor();
 
         defaultCellTextValue = (String) in.readObject();
+    }
+
+    // class Object
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        //  Warning:(243, 9) Raw use of parameterized class 'GameType'
+        GameType gameType = (GameType) o;
+
+        return id.equals(gameType.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "GameType{" +
+                "gameMatchConstructor=" + gameMatchConstructor +
+                ", gameTypeName='" + id + '\'' +
+                ", gameMatchXSet=" + gameMatchXSet +
+                ", gameMatchDtoSet=" + gameMatchDtoSet +
+                //", countOfGamers=" + countOfGamers +
+                ", viewName_ViewClassMap=" + viewName_ViewClassMap +
+                ", paramName_paramModelDescriptionMap=" + paramName_paramModelDescriptionMap +
+                '}';
     }
 }

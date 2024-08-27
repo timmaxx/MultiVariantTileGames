@@ -7,6 +7,7 @@ import timmax.tilegame.basemodel.GameMatchStatus;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
+import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
 
 import java.util.Map;
@@ -30,6 +31,7 @@ import static timmax.tilegame.basemodel.GameMatchStatus.*;
 public abstract class GameMatch<ClientId> implements IGameMatch {
     protected static final Logger logger = LoggerFactory.getLogger(GameMatch.class);
 
+    //  Warning:(34, 21) Raw use of parameterized class 'GameType'
     protected final GameType gameType;
 
     // ToDo: Сейчас здесь одна переменная типа RemoteClientStateAutomaton. И для одного игрока вполне норм.
@@ -58,7 +60,6 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         this.status = status;
     }
 
-
     protected void throwExceptionIfIsPlaying() {
         if (getStatus() == GameMatchStatus.GAME) {
             throw new RuntimeException("Wrong situation: getStatus() == GameMatchStatus.GAME");
@@ -67,6 +68,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
 
     // Посылает игровое событие всем выборкам.
     public void sendGameEventToAllViews(GameEvent gameEvent) {
+        //  Warning:(70, 9) Unchecked call to 'sendGameEventToAllViews(GameEvent, RemoteClientStateAutomaton<ClientId>)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.GameType'
         gameType.sendGameEventToAllViews(gameEvent, remoteClientStateAutomaton);
     }
 
@@ -103,6 +105,10 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
                 paramsOfModelValueMap,
                 gameEventOneTileSet
         );
+    }
+
+    public GameMatchDto getGameMatchDto() {
+        return new GameMatchDto(getId(), getStatus(), paramsOfModelValueMap);
     }
 
     // interface IGameMatch

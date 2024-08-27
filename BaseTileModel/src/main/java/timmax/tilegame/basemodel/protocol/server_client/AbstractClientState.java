@@ -50,6 +50,7 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     }
 
     @Override
+    //  Warning:(53, 52) Raw use of parameterized class 'GameType'
     public void authorizeUser(String userName, Set<GameType> gameTypeSet) {
         wrongCallInStateAutomaton();
     }
@@ -67,7 +68,7 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     }
 
     @Override
-    public void selectGameType(GameType gameType, Set<GameMatchX> gameMatchXSet) {
+    public void selectGameType(GameType gameType) {
         wrongCallInStateAutomaton();
     }
 

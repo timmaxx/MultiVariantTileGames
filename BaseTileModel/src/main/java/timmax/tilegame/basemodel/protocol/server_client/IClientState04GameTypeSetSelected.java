@@ -9,10 +9,11 @@ public interface IClientState04GameTypeSetSelected<GameMatchX extends IGameMatch
     // Нумерация приведена соответствующая классам Pane0Х... пакета timmax.tilegame.client.statuscontrol:
 
     // ---- 4 (GameTypeSetSelected)
+    //  Warning:(12, 9) Raw use of parameterized class 'GameType'
     Set<GameType> getGameTypeSet();
 
 
-    void selectGameType(GameType gameType, Set<GameMatchX> gameMatchXSet);
+    void selectGameType(GameType<GameMatchX> gameType);
     //  interface TransportOfClient
     //      void selectGameType(GameType gameType);
 

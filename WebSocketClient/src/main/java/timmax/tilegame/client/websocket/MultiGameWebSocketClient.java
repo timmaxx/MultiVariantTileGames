@@ -122,9 +122,10 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     }
 
     @Override
+    //  Warning:(125, 32) Raw use of parameterized class 'GameType'
     public void selectGameType(GameType gameType) {
         logger.debug("selectGameType(GameType)");
-        sendEventOfClient(new EventOfClient41SelectGameType(gameType.getGameTypeName()));
+        sendEventOfClient(new EventOfClient41SelectGameType(gameType.getId()));
     }
 
     // 6

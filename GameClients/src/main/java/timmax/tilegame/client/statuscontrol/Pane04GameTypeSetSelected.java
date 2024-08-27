@@ -24,12 +24,13 @@ public class Pane04GameTypeSetSelected extends AbstractConnectStatePane {
             if(gameTypeName == null || gameTypeName.isEmpty()) {
                 return;
             }
+            //  Warning:(27, 13) Raw use of parameterized class 'GameType'
             GameType gameType =
                     transportOfClient
                             .getLocalClientStateAutomaton()
                             .getGameTypeSet()
                             .stream()
-                            .filter(x -> x.getGameTypeName().equals(gameTypeName))
+                            .filter(x -> x.getId().equals(gameTypeName))
                             .findAny()
                             .orElse(null);
             if (gameType == null) {
@@ -82,7 +83,7 @@ public class Pane04GameTypeSetSelected extends AbstractConnectStatePane {
                                 .getLocalClientStateAutomaton()
                                 .getGameTypeSet()
                                 .stream()
-                                .map(GameType::getGameTypeName)
+                                .map(GameType::getId)
                                 .toList()
                 )
         );
