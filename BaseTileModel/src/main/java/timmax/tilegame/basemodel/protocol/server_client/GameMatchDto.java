@@ -49,12 +49,6 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
         return paramsOfModelValueMap;
     }
 
-    //  ToDo:   Удалить. Этот класс реализует интерфейс, но этот метод не будет вызываться.
-    @Override
-    public GameMatchDto getGameMatchDto() {
-        return this;
-    }
-
     // interface IGameMatchX
     @Override
     public int getWidth() {
@@ -90,7 +84,7 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         id = (String) in.readObject();
         status = (GameMatchStatus) in.readObject();
-        // ToDo: Избавиться от "Warning:(55, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Integer>'"
+        // ToDo: Избавиться от "Warning:(88, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Integer>'"
         paramsOfModelValueMap = (Map<String, Integer>) in.readObject();
     }
 

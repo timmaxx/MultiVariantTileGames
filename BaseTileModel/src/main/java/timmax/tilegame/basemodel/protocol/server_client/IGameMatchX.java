@@ -4,6 +4,7 @@ import timmax.tilegame.basemodel.GameMatchStatus;
 
 import java.util.Map;
 
+//  Интерфейс должен быть реализован как для серверных матчей, так и для клиентских (X в имени).
 public interface IGameMatchX {
     String PARAM_NAME_WIDTH = "Width";
     String PARAM_NAME_HEIGHT = "Height";
@@ -11,7 +12,6 @@ public interface IGameMatchX {
     String getId();
     GameMatchStatus getStatus();
     Map<String, Integer> getParamsOfModelValueMap();
-    GameMatchDto getGameMatchDto();
 
     int getWidth();
     int getHeight();
