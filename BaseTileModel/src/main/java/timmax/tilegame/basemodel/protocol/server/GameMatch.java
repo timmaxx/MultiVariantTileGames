@@ -137,6 +137,14 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     // ToDo: start() (т.е. без параметров) должен вызывать start(...)
     @Override
     public GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto) {
+        // ToDo: Отправить клиенту:
+        //       1. Размеры главной выборки матча и умолчательные характеристики для построение пустого поля
+        //          (но возможно, это в более раннем событии следует передать) для построения пустой выборки главного поля.
+        //       2. Объекты матча статические (например для Сокобана: стены или дома).
+        //       3. Объекты матча динамические. Например:
+        //          1. Для Сокобана: игрок, ящики.
+        //          2. Для Сапёра: флаги и количество мин на открытых плитках.
+
         throwExceptionIfIsPlaying();
         this.paramsOfModelValueMap = gameMatchExtendedDto.getParamsOfModelValueMap();
         status = GameMatchStatus.GAME;
@@ -146,19 +154,6 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     @Override
     public int getFromParamsOfModelValueMap(String paramName) {
         return paramsOfModelValueMap.get(paramName);
-    }
-
-    @Override
-    public void resume() {
-        // ToDo: Отправить клиенту:
-        //       1. Размеры главной выборки матча и умолчательные характеристики для построение пустого поля
-        //          (но возможно, это в более раннем событии следует передать) для построения пустой выборки главного поля.
-        //       2. Объекты матча статические (например для Сокобана: стены или дома).
-        //       3. Объекты матча динамические. Например:
-        //          1. Для Сокобана: игрок, ящики.
-        //          2. Для Сапёра: флаги и количество мин на открытых плитках.
-        System.out.println("GameMatch :: void resumeGameMatch()");
-        System.out.println("Не реализован...");
     }
 
     // interface IGameMatchXDto

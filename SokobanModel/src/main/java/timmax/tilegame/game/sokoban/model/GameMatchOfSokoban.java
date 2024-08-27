@@ -253,6 +253,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         sendGameEventToAllViews(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
     }
 
+    // interface IGameMatchX
     @Override
     public void setParamsOfModelValueMap(Map<String, Integer> paramsOfModelValueMap) {
         throwExceptionIfIsPlaying();
@@ -263,6 +264,15 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
 
     @Override
     public GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto) {
+        // ToDo: Что-то из описанного ниже ToDo сделать здесь, что-то в родительском классе.
+        // ToDo: Отправить клиенту:
+        //       1. Размеры главной выборки матча и умолчательные характеристики для построение пустого поля
+        //          (но возможно, это в более раннем событии следует передать) для построения пустой выборки главного поля.
+        //       2. Объекты матча статические (например для Сокобана: стены или дома).
+        //       3. Объекты матча динамические. Например:
+        //          - для Сокобана: игрок, ящики.
+        //          - для Сапёра: флаги и количество мин на открытых плитках.
+
         throwExceptionIfIsPlaying();
 
         // В этой реализации Сокобан не обращаем внимание на gameMatchExtendedDto - просто загружаем следующий уровень.
@@ -292,20 +302,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         return newGameMatchExtendedDto(gameEventOneTileSet);
     }
 
-    // interface IGameMatch:
-    @Override
-    public void resume() {
-
-        // ToDo: Что-то из описанного ниже ToDo сделать здесь, что-то в родительском классе.
-        // ToDo: Отправить клиенту:
-        //       1. Размеры главной выборки матча и умолчательные характеристики для построение пустого поля
-        //          (но возможно, это в более раннем событии следует передать) для построения пустой выборки главного поля.
-        //       2. Объекты матча статические (например для Сокобана: стены или дома).
-        //       3. Объекты матча динамические. Например:
-        //          - для Сокобана: игрок, ящики.
-        //          - для Сапёра: флаги и количество мин на открытых плитках.
-    }
-
+    // interface IGameMatch
     @Override
     public void executeMouseCommand(GameCommandMouseClick gameCommandMouseClick) {
         if (gameCommandMouseClick.getMouseButton() == MouseButton.PRIMARY) {

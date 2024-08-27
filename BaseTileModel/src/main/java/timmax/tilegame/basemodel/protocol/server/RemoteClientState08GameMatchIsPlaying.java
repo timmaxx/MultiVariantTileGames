@@ -25,20 +25,6 @@ public class RemoteClientState08GameMatchIsPlaying<ClientId> extends ClientState
         return gameMatchExtendedDto2;
     }
 
-    @Override
-    public void resumeGameMatch() {
-        super.resumeGameMatch();
-        getClientStateAutomaton().sendEventOfServer(
-                getClientStateAutomaton().getClientId(),
-                new EventOfServer73ResumeGameMatch()
-                // new EventOfServer73ResumeGameMatch(getGameMatchX().getParamsOfModelValueMap())
-        );
-
-        // ToDo: Вызов этого метода для модели:
-        //       - у которой был ранее вызов start(), потом было хотя-бы одно игровое событие, но потом она была поставлена на паузу.
-        getClientStateAutomaton().getGameMatchX().resume();
-    }
-
     // class AbstractClientState
     @Override
     public RemoteClientStateAutomaton<ClientId> getClientStateAutomaton() {

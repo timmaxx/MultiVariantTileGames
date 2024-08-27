@@ -16,8 +16,4 @@ public interface IClientState07GameMatchSelected<GameMatchX extends IGameMatchX>
     //      void reselectGameMatch();
 
     GameMatchExtendedDto startGameMatch(GameMatchExtendedDto gameMatchExtendedDto);
-
-    void resumeGameMatch();
-    //  interface TransportOfClient
-    //      void resumeGameMatch();
 }

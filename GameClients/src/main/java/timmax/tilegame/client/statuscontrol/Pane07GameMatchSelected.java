@@ -38,7 +38,7 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
             }
 
             if (transportOfClient.getLocalClientStateAutomaton().getGameMatchX().getStatus() == GAME) {
-                transportOfClient.resumeGameMatch();
+                throw new RuntimeException("Resume is not realised yet!");
             } else if (transportOfClient.getLocalClientStateAutomaton().getGameMatchX().getStatus() == NOT_STARTED) {
                 transportOfClient.startGameMatch(paramsOfModelValueMap);
             } else {

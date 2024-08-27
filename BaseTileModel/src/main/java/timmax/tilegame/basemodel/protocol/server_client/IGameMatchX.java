@@ -17,6 +17,4 @@ public interface IGameMatchX {
     int getHeight();
 
     GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto);
-    // ToDo: Вероятно возвращаемый параметр должен быть GameMatchExtendedDto
-    void resume();
 }

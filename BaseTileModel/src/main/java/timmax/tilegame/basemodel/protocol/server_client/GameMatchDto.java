@@ -33,7 +33,7 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
         this.paramsOfModelValueMap = paramsOfModelValueMap;
     }
 
-    // interface IGameMatchXDto
+    // interface IGameMatchX
     @Override
     public String getId() {
         return id;
@@ -49,7 +49,6 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
         return paramsOfModelValueMap;
     }
 
-    // interface IGameMatchX
     @Override
     public int getWidth() {
         return paramsOfModelValueMap.get(PARAM_NAME_WIDTH);
@@ -63,13 +62,6 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
     @Override
     public GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto) {
         return gameMatchExtendedDto;
-    }
-
-    // ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.
-    @Override
-    public void resume() {
-        System.out.println("GameMatchDto :: void resume()");
-        System.out.println("ToDo: Удалить, т.к. вероятно метод не нужен. Да и этот метод противоречит концепции DTO.");
     }
 
     // interface Externalizable

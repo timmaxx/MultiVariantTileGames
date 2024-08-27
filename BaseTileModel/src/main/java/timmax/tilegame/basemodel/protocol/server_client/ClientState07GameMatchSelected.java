@@ -25,11 +25,6 @@ public abstract class ClientState07GameMatchSelected<GameMatchX extends IGameMat
     }
 
     @Override
-    public void resumeGameMatch() {
-        getClientStateAutomaton().resumeGameMatch_();
-    }
-
-    @Override
     public GameMatchStatus getGameMatchStatus() {
         return getClientStateAutomaton().getGameMatchStatus_();
     }

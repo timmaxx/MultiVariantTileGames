@@ -132,10 +132,6 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         return getGameMatchX_().start(gameMatchExtendedDto);
     }
 
-    void resumeGameMatch_() {
-        getGameMatchX_().resume();
-    }
-
     // Геттерам, имеющим прямой доступ к полям(..._), тоже достаточно быть private-package:
     String getUserName_() {
         return userName;
@@ -243,12 +239,6 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     public GameMatchExtendedDto startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
         setCurrentState(clientState08GameMatchIsPlaying);
         return currentState.startGameMatch(gameMatchExtendedDto);
-    }
-
-    @Override
-    public void resumeGameMatch() {
-        setCurrentState(clientState08GameMatchIsPlaying);
-        currentState.resumeGameMatch();
     }
 
     // 8 interface IClientState08GameMatchIsPlaying
