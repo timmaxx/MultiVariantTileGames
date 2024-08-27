@@ -2,16 +2,16 @@ package timmax.tilegame.basemodel.protocol.client;
 
 import timmax.tilegame.basemodel.protocol.server_client.ClientState06GameMatchSetSelected;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 
-public class LocalClientState06GameMatchSetSelected extends ClientState06GameMatchSetSelected<GameMatchDto> {
-    public LocalClientState06GameMatchSetSelected(ClientStateAutomaton<GameMatchDto> clientStateAutomaton) {
+public class LocalClientState06GameMatchSetSelected extends ClientState06GameMatchSetSelected {
+    public LocalClientState06GameMatchSetSelected(ClientStateAutomaton clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 
     // interface IClientState99
     @Override
     public void doAfterTurnOn() {
+        //  ToDo:   Может перенести во внутрь getClientStateAutomaton().updateOnSelectGameType()?...
         getClientStateAutomaton().clearViewName_ViewMap();
         getClientStateAutomaton().updateOnSelectGameType();
     }

@@ -5,15 +5,16 @@ import javafx.scene.input.MouseButton;
 
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
+import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.protocol.server.GameMatch;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
 import timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects;
 import timmax.tilegame.game.minesweeper.model.gameobject.LevelGenerator;
 
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     public static final String PARAM_NAME_PERCENTS_OF_MINES = "Percents of mines";
@@ -21,6 +22,11 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     private final LevelGenerator levelGenerator = new LevelGenerator();
 
     private AllMinesweeperObjects<ClientId> allMinesweeperObjects;
+
+    public GameMatchOfMinesweeper()
+            throws ClassNotFoundException, NoSuchMethodException {
+        super();
+    }
 
     // ToDo: См. комментарии о согласовании параметров в
     //       - GameType :: GameType(...)
@@ -65,10 +71,10 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     }
 
     @Override
-    public GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto) {
+    public GameMatch start(GameMatch gameMatch) {
         throwExceptionIfIsPlaying();
 
-        super.start(gameMatchExtendedDto);
+        super.start(gameMatch);
 
         // ToDo: Избавиться от "Warning:(74, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
         allMinesweeperObjects = levelGenerator.getLevel(
@@ -77,8 +83,9 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
                 getFromParamsOfModelValueMap(PARAM_NAME_PERCENTS_OF_MINES)
         );
         allMinesweeperObjects.setModel(this);
-
-        return newGameMatchExtendedDto(new HashSet<>());
+        Set<GameEventOneTile> gameEventOneTileSet = new HashSet<>();
+        setGameEventOneTileSet(gameEventOneTileSet);
+        return this;
     }
 
     @Override

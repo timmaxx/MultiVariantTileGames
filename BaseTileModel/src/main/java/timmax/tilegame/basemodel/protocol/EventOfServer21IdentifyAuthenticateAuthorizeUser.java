@@ -25,19 +25,13 @@ public class EventOfServer21IdentifyAuthenticateAuthorizeUser extends EventOfSer
         this.gameTypeSet = gameTypeSet;
     }
 
+    // class EventOfServer
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
         localClientStateAutomaton.authorizeUser(userName, gameTypeSet);
     }
 
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{" +
-                "userName='" + userName + '\'' +
-                ", gameTypeSet=" + gameTypeSet +
-                '}';
-    }
-
+    // interface Externalizable
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeObject(userName);
@@ -47,6 +41,7 @@ public class EventOfServer21IdentifyAuthenticateAuthorizeUser extends EventOfSer
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         userName = (String) in.readObject();
+
 
         Object obj = in.readObject();
         if (obj instanceof Set<?> setOfObj) {
@@ -63,5 +58,14 @@ public class EventOfServer21IdentifyAuthenticateAuthorizeUser extends EventOfSer
             logger.error("readExternal(ObjectInput in)\n  in.readObject() is not instance of Set.");
             System.exit(1);
         }
+    }
+
+    // class Object
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "userName='" + userName + '\'' +
+                ", gameTypeSet=" + gameTypeSet +
+                '}';
     }
 }

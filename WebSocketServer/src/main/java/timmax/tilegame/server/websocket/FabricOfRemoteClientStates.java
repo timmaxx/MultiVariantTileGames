@@ -15,32 +15,32 @@ public class FabricOfRemoteClientStates<ClientId> implements IFabricOfRemoteClie
     //  Классы получались взаимозависимы и поэтому такой приём не привёл к хорошему варианту.
 
     @Override
-    public RemoteClientState01NoConnect getClientState01NoConnect(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
+    public RemoteClientState01NoConnect getClientState01NoConnect(ClientStateAutomaton clientStateAutomaton) {
         return new RemoteClientState01NoConnect(clientStateAutomaton);
     }
 
     @Override
-    public RemoteClientState02ConnectNonIdent<ClientId> getClientState02ConnectNonIdent(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
+    public RemoteClientState02ConnectNonIdent<ClientId> getClientState02ConnectNonIdent(ClientStateAutomaton clientStateAutomaton) {
         return new RemoteClientState02ConnectNonIdent<>(clientStateAutomaton);
     }
 
     @Override
-    public RemoteClientState04GameTypeSetSelected<ClientId> getClientState04GameTypeSetSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
+    public RemoteClientState04GameTypeSetSelected<ClientId> getClientState04GameTypeSetSelected(ClientStateAutomaton clientStateAutomaton) {
         return new RemoteClientState04GameTypeSetSelected<>(clientStateAutomaton);
     }
 
     @Override
-    public RemoteClientState06GameMatchSetSelected<ClientId> getClientState06GameMatchSetSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
+    public RemoteClientState06GameMatchSetSelected<ClientId> getClientState06GameMatchSetSelected(ClientStateAutomaton clientStateAutomaton) {
         return new RemoteClientState06GameMatchSetSelected<>(clientStateAutomaton);
     }
 
     @Override
-    public RemoteClientState07GameMatchSelected<ClientId> getClientState07GameMatchSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
+    public RemoteClientState07GameMatchSelected<ClientId> getClientState07GameMatchSelected(ClientStateAutomaton clientStateAutomaton) {
         return new RemoteClientState07GameMatchSelected<>(clientStateAutomaton);
     }
 
     @Override
-    public RemoteClientState08GameMatchIsPlaying<ClientId> getClientState08GameMatchIsPlaying(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
+    public RemoteClientState08GameMatchIsPlaying<ClientId> getClientState08GameMatchIsPlaying(ClientStateAutomaton clientStateAutomaton) {
         return new RemoteClientState08GameMatchIsPlaying<>(clientStateAutomaton);
     }
 }

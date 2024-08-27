@@ -19,16 +19,10 @@ public class EventOfClient92GameCommand extends EventOfClient {
         this.gameCommand = gameCommand;
     }
 
+    // class EventOfClient
     @Override
     public <ClientId> void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
-        gameCommand.executeOnServer(remoteClientStateAutomaton.getGameMatchX());
-    }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{" +
-                "gameCommand=" + gameCommand +
-                '}';
+        gameCommand.executeOnServer(remoteClientStateAutomaton.getGameMatch());
     }
 
     // interface Externalizable
@@ -40,5 +34,13 @@ public class EventOfClient92GameCommand extends EventOfClient {
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         gameCommand = (GameCommand) in.readObject();
+    }
+
+    // class Object
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "gameCommand=" + gameCommand +
+                '}';
     }
 }

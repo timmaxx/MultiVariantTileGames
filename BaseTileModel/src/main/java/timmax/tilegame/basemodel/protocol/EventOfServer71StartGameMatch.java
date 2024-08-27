@@ -1,48 +1,48 @@
 package timmax.tilegame.basemodel.protocol;
 
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
+import timmax.tilegame.basemodel.protocol.server.GameMatch;
 
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-public class EventOfServer71StartGameMatch extends EventOfServer {
-    private GameMatchExtendedDto gameMatchExtendedDto;
+public class EventOfServer71StartGameMatch<ClientId> extends EventOfServer {
+    private GameMatch<ClientId> gameMatch;
 
     public EventOfServer71StartGameMatch() {
         super();
     }
 
-    public EventOfServer71StartGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
+    public EventOfServer71StartGameMatch(GameMatch<ClientId> gameMatch) {
         this();
-        this.gameMatchExtendedDto = gameMatchExtendedDto;
+        this.gameMatch = gameMatch;
     }
 
     // class EventOfServer
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
-        localClientStateAutomaton.startGameMatch(gameMatchExtendedDto);
-    }
-
-    // class Object
-    @Override
-    public String toString() {
-        return "EventOfServer71StartGameMatch{" +
-                "gameMatchExtendedDto=" + gameMatchExtendedDto +
-                '}';
+        localClientStateAutomaton.startGameMatch(gameMatch);
     }
 
     // interface Externalizable
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         super.writeExternal(out);
-        out.writeObject(gameMatchExtendedDto);
+        out.writeObject(gameMatch);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         super.readExternal(in);
-        gameMatchExtendedDto = (GameMatchExtendedDto) in.readObject();
+        gameMatch = (GameMatch<ClientId>) in.readObject();
+    }
+
+    // class Object
+    @Override
+    public String toString() {
+        return "EventOfServer71StartGameMatch{" +
+                "gameMatch=" + gameMatch +
+                '}';
     }
 }

@@ -1,6 +1,7 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
 import timmax.tilegame.basemodel.GameMatchStatus;
+import timmax.tilegame.basemodel.protocol.server.GameMatch;
 
 import java.util.Map;
 
@@ -15,7 +16,7 @@ public interface IGameMatchX {
     int getWidth();
     int getHeight();
 
-    GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto);
-    // ToDo: Вероятно возвращаемый параметр должен быть GameMatchExtendedDto
+    <ClientId> GameMatch<ClientId> start(GameMatch<ClientId> gameMatch);
+    // ToDo: Вероятно возвращаемый параметр должен быть GameMatch
     void resume();
 }

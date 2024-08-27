@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.net.URI;
 import java.nio.ByteBuffer;
-import java.util.Map;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
@@ -14,8 +13,8 @@ import org.slf4j.LoggerFactory;
 import timmax.common.ObjectMapperOfMvtg;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
+import timmax.tilegame.basemodel.protocol.server.GameMatch;
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 import timmax.tilegame.transport.TransportOfClient;
 
 // Этот класс, к сожалению, я не смог использовать "многоразово".
@@ -124,7 +123,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     @Override
     public void selectGameType(GameType gameType) {
         logger.debug("selectGameType(GameType)");
-        sendEventOfClient(new EventOfClient41SelectGameType(gameType.getGameTypeName()));
+        sendEventOfClient(new EventOfClient41SelectGameType(gameType));
     }
 
     // 6
@@ -135,9 +134,9 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     }
 
     @Override
-    public void selectGameMatch(GameMatchDto gameMatchDto) {
+    public void selectGameMatch(GameMatch gameMatch) {
         logger.debug("selectGameMatch(GameMatchDto gameMatchDto)");
-        sendEventOfClient(new EventOfClient61SelectGameMatch(gameMatchDto));
+        sendEventOfClient(new EventOfClient61SelectGameMatch(gameMatch));
     }
 
     // 7
@@ -148,9 +147,9 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     }
 
     @Override
-    public void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue) {
-        logger.debug("startGameMatch(Map<String, Integer> mapOfParamsOfModelValue)");
-        sendEventOfClient(new EventOfClient71StartGameMatch(mapOfParamsOfModelValue));
+    public void startGameMatch(GameMatch gameMatch) {
+        logger.debug("startGameMatch(GameMatch gameMatch)");
+        sendEventOfClient(new EventOfClient71StartGameMatch(gameMatch));
     }
 
     @Override

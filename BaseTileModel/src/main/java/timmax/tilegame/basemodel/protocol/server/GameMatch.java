@@ -7,8 +7,11 @@ import timmax.tilegame.basemodel.GameMatchStatus;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
 
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.Map;
 import java.util.Set;
 
@@ -27,37 +30,42 @@ import static timmax.tilegame.basemodel.GameMatchStatus.*;
 //       Тогда, в т.ч. уйдёт предупреждение в строке:
 //       allMinesweeperObjects = levelGenerator.getLevel(width, height, percentsOfMines);
 //       в классе GameMatchOfMinesweeper.
-public abstract class GameMatch<ClientId> implements IGameMatch {
+public abstract class GameMatch<ClientId> implements IGameMatch, Externalizable {
     protected static final Logger logger = LoggerFactory.getLogger(GameMatch.class);
 
-    protected final GameType gameType;
+    protected GameType gameType;
+    private String id;
 
     // ToDo: Сейчас здесь одна переменная типа RemoteClientStateAutomaton. И для одного игрока вполне норм.
     //       Но для для двух (а возможно и более игроков) или если какой-то участник игры, не являющийся игроком будет
     //       работать в отдельном клиенте, придётся создавать какую-то коллекцию, в которой и будет описание игроков
     //       или других участников.
-    protected final RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton;
+    protected RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton;
 
     private Map<String, Integer> paramsOfModelValueMap;
     private GameMatchStatus status;
+    private Set<GameEventOneTile> gameEventOneTileSet;
+
+    public GameMatch() {
+    }
 
     //  ToDo:   Перечень параметров согласовывать также и в
     //          - GameType,
-    //          - RemoteClientState06GameMatchSetSelected :: void selectGameType(GameType gameType, Set<IGameMatch> gameMatchXSet).
+    //          - RemoteClientState06GameMatchSetSelected :: void selectGameType(GameType gameType, Set<IGameMatch> gameMatchSet).
     //            Там создаётся конструктор через рекурсию. Но после рефакторинга, создание конструктора должно уйти в
     //            GameType.
     public GameMatch(
             GameType gameType,
             RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
         this.gameType = gameType;
-        this.status = NOT_STARTED;
+        this.id = super.toString();
+        setStatus(NOT_STARTED);
         this.remoteClientStateAutomaton = remoteClientStateAutomaton;
     }
 
     protected final void setStatus(GameMatchStatus status) {
         this.status = status;
     }
-
 
     protected void throwExceptionIfIsPlaying() {
         if (getStatus() == GameMatchStatus.GAME) {
@@ -71,6 +79,9 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     }
 
     protected final boolean verifyGameStatusNotGameAndMayBeCreateNewGame() {
+        if (getStatus() == NOT_STARTED) {
+            setStatusIsGame();
+        }
         /*
         // Для Сапёра:
         //   newGame - генерация поля с тем-же количеством мин, но вновь применяя ГПСЧ.
@@ -90,19 +101,20 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     }
 
     protected void setStatusIsGame() {
-        if (status != PAUSE && status != GAME) {
+        if (status != NOT_STARTED && status != PAUSE && status != GAME) {
             throw new RuntimeException("You cannot set game satus to GAME! (gameMatchStatus = " + status + ")");
         }
-        status = GAME;
+        setStatus(GAME);
     }
 
-    public GameMatchExtendedDto newGameMatchExtendedDto(Set<GameEventOneTile> gameEventOneTileSet) {
-        return new GameMatchExtendedDto(
-                getId(),
-                getStatus(),
-                paramsOfModelValueMap,
-                gameEventOneTileSet
-        );
+    //  ToDo:   Вместо предоставления доступа через геттер, лучше чтобы внутри класса была деятельность по обработке
+    //          множества gameEventOneTileSet.
+    public Set<GameEventOneTile> getGameEventOneTileSet() {
+        return gameEventOneTileSet;
+    }
+
+    public void setGameEventOneTileSet(Set<GameEventOneTile> gameEventOneTileSet) {
+        this.gameEventOneTileSet = gameEventOneTileSet;
     }
 
     // interface IGameMatch
@@ -124,17 +136,15 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     @Override
     public void setParamsOfModelValueMap(Map<String, Integer> paramsOfModelValueMap) {
         this.paramsOfModelValueMap = paramsOfModelValueMap;
-        status = GameMatchStatus.GAME;
     }
 
-    // interface IGameMatchX
     // ToDo: start() (т.е. без параметров) должен вызывать start(...)
     @Override
-    public GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto) {
+    public GameMatch start(GameMatch gameMatch) {
         throwExceptionIfIsPlaying();
-        this.paramsOfModelValueMap = gameMatchExtendedDto.getParamsOfModelValueMap();
-        status = GameMatchStatus.GAME;
-        return gameMatchExtendedDto;
+        this.paramsOfModelValueMap = gameMatch.getParamsOfModelValueMap();
+        setStatus(GAME);
+        return gameMatch;
     }
 
     @Override
@@ -155,10 +165,10 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         System.out.println("Не реализован...");
     }
 
-    // interface IGameMatchXDto
+    // interface IGameMatchX
     @Override
     public String getId() {
-        return super.toString();
+        return id;
     }
 
     @Override
@@ -179,5 +189,37 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     @Override
     public Map<String, Integer> getParamsOfModelValueMap() {
         return paramsOfModelValueMap;
+    }
+
+    // interface Externalizable
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeObject(gameType);
+        out.writeObject(id);
+        out.writeObject(paramsOfModelValueMap);
+        out.writeObject(status);
+        out.writeObject(gameEventOneTileSet);
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        gameType = (GameType) in.readObject();
+        id = (String) in.readObject();
+        paramsOfModelValueMap = (Map<String, Integer>) in.readObject();
+        setStatus((GameMatchStatus) in.readObject());
+        gameEventOneTileSet = (Set<GameEventOneTile>) in.readObject();
+    }
+
+    // class Object
+    @Override
+    public String toString() {
+        return "GameMatch{" +
+                "gameType.getGameTypeName()=" + gameType.getGameTypeName() +
+                ", id=" + id +
+                // ", remoteClientStateAutomaton=" + remoteClientStateAutomaton +
+                ", paramsOfModelValueMap=" + paramsOfModelValueMap +
+                ", status=" + status +
+                ", gameEventOneTileSet=" + gameEventOneTileSet +
+                '}';
     }
 }

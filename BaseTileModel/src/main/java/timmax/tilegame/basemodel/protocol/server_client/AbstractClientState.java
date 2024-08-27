@@ -3,20 +3,21 @@ package timmax.tilegame.basemodel.protocol.server_client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import timmax.tilegame.basemodel.GameMatchStatus;
+import timmax.tilegame.basemodel.protocol.server.GameMatch;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
 import java.util.Set;
 
-public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implements IClientState99<GameMatchX> {
+public abstract class AbstractClientState implements IClientState99 {
     protected static final Logger logger = LoggerFactory.getLogger(AbstractClientState.class);
 
-    private final ClientStateAutomaton<GameMatchX> clientStateAutomaton;
+    private final ClientStateAutomaton clientStateAutomaton;
 
-    public AbstractClientState(ClientStateAutomaton<GameMatchX> clientStateAutomaton) {
+    public AbstractClientState(ClientStateAutomaton clientStateAutomaton) {
         this.clientStateAutomaton = clientStateAutomaton;
     }
 
-    protected ClientStateAutomaton<GameMatchX> getClientStateAutomaton() {
+    protected ClientStateAutomaton getClientStateAutomaton() {
         return clientStateAutomaton;
     }
 
@@ -67,7 +68,7 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     }
 
     @Override
-    public void selectGameType(GameType gameType, Set<GameMatchX> gameMatchXSet) {
+    public void selectGameType(GameType gameType) {
         wrongCallInStateAutomaton();
     }
 
@@ -84,13 +85,13 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     }
 
     @Override
-    public Set<GameMatchX> getGameMatchXSet() {
+    public Set<GameMatch> getGameMatchSet() {
         wrongCallInStateAutomaton();
         return null;
     }
 
     @Override
-    public void selectGameMatchX(GameMatchX gameMatchX) {
+    public void selectGameMatch(GameMatch gameMatch) {
         wrongCallInStateAutomaton();
     }
 
@@ -101,13 +102,13 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     }
 
     @Override
-    public GameMatchX getGameMatchX() {
+    public GameMatch getGameMatch() {
         wrongCallInStateAutomaton();
         return null;
     }
 
     @Override
-    public GameMatchExtendedDto startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
+    public GameMatch startGameMatch(GameMatch gameMatch) {
         wrongCallInStateAutomaton();
         return null;
     }
@@ -130,7 +131,7 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        AbstractClientState<?> that = (AbstractClientState<?>) o;
+        AbstractClientState that = (AbstractClientState) o;
 
         return clientStateAutomaton.equals(that.clientStateAutomaton) /*&& getClass().equals(that.getClass())*/;
     }

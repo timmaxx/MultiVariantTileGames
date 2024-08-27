@@ -6,8 +6,8 @@ import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 
 import java.util.Set;
 
-public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientState04GameTypeSetSelected<IGameMatch> {
-    public RemoteClientState04GameTypeSetSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
+public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientState04GameTypeSetSelected {
+    public RemoteClientState04GameTypeSetSelected(ClientStateAutomaton clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 
@@ -18,7 +18,7 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
         //          - и соответственно определаять его нужно до вызова этого метода внутри userName (т.е. создать
         //            отдельный класс User, в котором должен быть переменная Set<GameType> gameTypeSet).
         //          Также см. комментарий к
-        //          RemoteClientState06GameMatchSetSelected :: void selectGameType(GameType gameType, Set<IGameMatch> gameMatchXSet)
+        //          RemoteClientState06GameMatchSetSelected :: void selectGameType(GameType gameType, Set<IGameMatch> gameMatchSet)
         super.authorizeUser(userName, gameTypeSet);
 
         //  ToDo:   Ниже, использовать входящий параметр (здесь это userName) не рекомендуется, т.к.

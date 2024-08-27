@@ -1,15 +1,14 @@
 package timmax.tilegame.client.websocket;
 
 import java.net.URI;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import timmax.tilegame.basemodel.protocol.EventOfClient;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
+import timmax.tilegame.basemodel.protocol.server.GameMatch;
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 import timmax.tilegame.transport.TransportOfClient;
 
 // WebSocket клиент многоразовый
@@ -99,14 +98,14 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
     }
 
     @Override
-    public void selectGameMatch(GameMatchDto gameMatchDto) {
-        transportOfClient.selectGameMatch(gameMatchDto);
+    public void selectGameMatch(GameMatch gameMatch) {
+        transportOfClient.selectGameMatch(gameMatch);
     }
 
     // 7
     @Override
-    public void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue) {
-        transportOfClient.startGameMatch(mapOfParamsOfModelValue);
+    public void startGameMatch(GameMatch gameMatch) {
+        transportOfClient.startGameMatch(gameMatch);
     }
 
     @Override

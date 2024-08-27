@@ -3,30 +3,36 @@ package timmax.tilegame.basemodel.protocol.server;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server_client.ClientState07GameMatchSelected;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 
-public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState07GameMatchSelected<IGameMatch> {
-    public RemoteClientState07GameMatchSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
+public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState07GameMatchSelected {
+    public RemoteClientState07GameMatchSelected(ClientStateAutomaton clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 
     @Override
-    public void selectGameMatchX(IGameMatch gameMatchX) {
-        super.selectGameMatchX(gameMatchX);
+    public void selectGameMatch(GameMatch gameMatch) {
+        //  ToDo:   Обработать если получится null.
+        //          Если будет передан матч, которого нет во множестве, то в gameMatch2 будет null.
+        //  ToDo:   Приведение типа??? Два раза???
+        GameMatch<ClientId> gameMatch2 = (GameMatch<ClientId>) getClientStateAutomaton()
+                .getGameMatchSet()
+                .stream()
+                .filter(x -> ((GameMatch)x).getId().equals(gameMatch.getId()))
+                .findAny()
+                .orElse(null);
 
-        //  ToDo:   Ниже, использовать входящий параметр (здесь это gameMatchX) не рекомендуется, т.к.
+        super.selectGameMatch(gameMatch2);
+
+        //  Done:   Ниже, использовать входящий параметр (здесь это gameMatch) не рекомендуется, т.к.
         //          в методе super он может быть не принят полностью или в какой-то части, но в целевом экземпляре
-        //          (здесь это GameMatchXSet) будет либо принят, либо сформирован свой (здесь это gameMatchX).
+        //          (здесь это GameMatchSet) будет либо принят, либо сформирован свой (здесь это gameMatch).
         //          Вот его и нужно упаковать в EventOfServer (здесь это EventOfServer61SelectGameMatch) и
         //          отправить клиенту.
         getClientStateAutomaton().sendEventOfServer(
                 getClientStateAutomaton().getClientId(),
                 new EventOfServer61SelectGameMatch(
-                        new GameMatchDto(
-                                gameMatchX.getId(),
-                                gameMatchX.getStatus(),
-                                gameMatchX.getParamsOfModelValueMap()
-                        )
+                        // gameMatch2
+                        getClientStateAutomaton().getGameMatch()
                 )
         );
     }

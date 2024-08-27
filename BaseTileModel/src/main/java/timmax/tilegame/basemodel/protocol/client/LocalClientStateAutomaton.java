@@ -4,10 +4,9 @@ import javafx.application.Platform;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEventHashSet;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
+import timmax.tilegame.basemodel.protocol.server.GameMatch;
 import timmax.tilegame.basemodel.protocol.server.ParamName_paramModelDescriptionMap;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
 import timmax.tilegame.basemodel.protocol.server_client.IFabricOfClientStates;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.baseview.ViewMainField;
@@ -15,12 +14,12 @@ import timmax.tilegame.baseview.ViewMainField;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchDto> implements ObserverOnAbstractEvent {
+public class LocalClientStateAutomaton extends ClientStateAutomaton implements ObserverOnAbstractEvent {
     private final ObserverOnAbstractEventHashSet observerOnAbstractEventHashSet;
     private final Map<String, View> viewName_ViewMap;
 
     public LocalClientStateAutomaton(
-            IFabricOfClientStates<GameMatchDto> iFabricOfClientStates) {
+            IFabricOfClientStates iFabricOfClientStates) {
         super(iFabricOfClientStates);
 
         observerOnAbstractEventHashSet = new ObserverOnAbstractEventHashSet();
@@ -58,20 +57,23 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchDto
     }
 
     @Override
-    protected GameMatchExtendedDto startGameMatch_(GameMatchExtendedDto gameMatchExtendedDto) {
+    protected GameMatch startGameMatch_(GameMatch gameMatch) {
         // ToDo: Блок кода ниже попробовать переместить отсюда, что-бы сделать этот и родительский метод package-private.
         View view = getView(ViewMainField.class.getSimpleName());
         if (view instanceof ViewMainField viewMainField) {
             Platform.runLater(() -> {
-                viewMainField.initMainField(gameMatchExtendedDto.getParamsOfModelValueMap());
-                System.out.println("  gameMatchExtendedDto.getGameEventOneTileSet() = " + gameMatchExtendedDto.getGameEventOneTileSet());
+                viewMainField.initMainField(gameMatch.getParamsOfModelValueMap());
+                System.out.println("  gameMatch.getGameEventOneTileSet() = " + gameMatch.getGameEventOneTileSet());
 
-                for (GameEventOneTile gameEventOneTile : gameMatchExtendedDto.getGameEventOneTileSet()) {
-                    viewMainField.update(gameEventOneTile);
+                //  ToDo: Почему Object, а не GameEventOneTile?
+                for (Object obj : gameMatch.getGameEventOneTileSet()) {
+                    if (obj instanceof GameEventOneTile gameEventOneTile) {
+                        viewMainField.update(gameEventOneTile);
+                    }
                 }
             });
         }
-        return gameMatchExtendedDto;
+        return gameMatch;
     }
 
     @Override

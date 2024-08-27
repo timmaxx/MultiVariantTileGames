@@ -37,12 +37,13 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
                 }
             }
 
-            if (transportOfClient.getLocalClientStateAutomaton().getGameMatchX().getStatus() == GAME) {
+            if (transportOfClient.getLocalClientStateAutomaton().getGameMatch().getStatus() == GAME) {
                 transportOfClient.resumeGameMatch();
-            } else if (transportOfClient.getLocalClientStateAutomaton().getGameMatchX().getStatus() == NOT_STARTED) {
-                transportOfClient.startGameMatch(paramsOfModelValueMap);
+            } else if (transportOfClient.getLocalClientStateAutomaton().getGameMatch().getStatus() == NOT_STARTED) {
+                transportOfClient.getLocalClientStateAutomaton().getGameMatch().setParamsOfModelValueMap(paramsOfModelValueMap);
+                transportOfClient.startGameMatch(transportOfClient.getLocalClientStateAutomaton().getGameMatch());
             } else {
-                throw new RuntimeException("Pane07GameMatchSelected :: Pane07GameMatchSelected(TransportOfClient transportOfClient). nextStateButton.setOnAction. transportOfClient.getLocalClientStateAutomaton().getGameMatchX().getStatus() = " + transportOfClient.getLocalClientStateAutomaton().getGameMatchX().getStatus());
+                throw new RuntimeException("Pane07GameMatchSelected :: Pane07GameMatchSelected(TransportOfClient transportOfClient). nextStateButton.setOnAction. transportOfClient.getLocalClientStateAutomaton().getGameMatch().getStatus() = " + transportOfClient.getLocalClientStateAutomaton().getGameMatch().getStatus());
             }
             getScene().getWindow().sizeToScene();
         });
@@ -113,9 +114,10 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
             if (transportOfClient.getLocalClientStateAutomaton().getGameMatchStatus() == GAME) {
                 // Если матч уже был начат.
                 // Достаём параметр из матча.
-                paramValue = transportOfClient
+                //  ToDo:   Приведение типа?
+                paramValue = (int) transportOfClient
                         .getLocalClientStateAutomaton()
-                        .getGameMatchX()
+                        .getGameMatch()
                         .getParamsOfModelValueMap()
                         .get(paramName);
             } else if (transportOfClient.getLocalClientStateAutomaton().getGameMatchStatus() == NOT_STARTED) {

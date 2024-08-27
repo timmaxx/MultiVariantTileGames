@@ -4,7 +4,7 @@ import timmax.tilegame.basemodel.protocol.EventOfServer;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.transport.TransportOfServer;
 
-public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<IGameMatch> {
+public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton {
     private final ClientId clientId;
 
     // ToDo: Удалить TransportOfServer<ClientId> multiGameWebSocketServer.

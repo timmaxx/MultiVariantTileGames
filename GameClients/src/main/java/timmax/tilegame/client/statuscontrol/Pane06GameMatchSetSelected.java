@@ -8,7 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 
 import timmax.tilegame.basemodel.GameMatchStatus;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
+import timmax.tilegame.basemodel.protocol.server.GameMatch;
 import timmax.tilegame.transport.TransportOfClient;
 
 import static timmax.tilegame.basemodel.GameMatchStatus.NOT_STARTED;
@@ -31,30 +31,22 @@ public class Pane06GameMatchSetSelected extends AbstractConnectStatePane {
             }
             disableAllControls();
 
-            //  ToDo:   Упростить код ниже по определению gameMatchId, gameMatchIsPlaying, paramsOfModelValueMap.
             String gameMatchId = gameMatchSetComboBox.getValue();
-            //  ToDo:   Избавиться от "Warning:(33, 42) Unboxing of 'transportOfClient .getLocalClientStateAutomaton() .getGameMa...' may produce 'NullPointerException'"
-            GameMatchStatus gameMatchStatus = transportOfClient
+            //  ToDo:   Приведение типа??? Два раза???
+            GameMatch gameMatch = (GameMatch) transportOfClient
                     .getLocalClientStateAutomaton()
-                    .getGameMatchXSet()
+                    .getGameMatchSet()
                     .stream()
-                    .filter(x -> x.getId().equals(gameMatchId))
+                    .filter(x -> ((GameMatch)x).getId().equals(gameMatchId))
                     .findAny()
-                    .map(GameMatchDto::getStatus)
                     .orElse(null);
+            GameMatchStatus gameMatchStatus = gameMatch.getStatus();
 
             Map<String, Integer> paramsOfModelValueMap;
             if (gameMatchStatus == PAUSE) {
                 // Если матч уже был начат.
                 // Достаём параметры из матча.
-                paramsOfModelValueMap = transportOfClient
-                        .getLocalClientStateAutomaton()
-                        .getGameMatchXSet()
-                        .stream()
-                        .filter(x -> x.getId().equals(gameMatchId))
-                        .findAny()
-                        .map(GameMatchDto::getParamsOfModelValueMap)
-                        .orElse(null);
+                paramsOfModelValueMap = gameMatch.getParamsOfModelValueMap();
             } else if (gameMatchStatus == NOT_STARTED) {
                 // Если матч ещё не был начат.
                 // Достаём параметры из описания типа игры.
@@ -68,7 +60,8 @@ public class Pane06GameMatchSetSelected extends AbstractConnectStatePane {
                         "Pane06GameMatchSetSelected :: Pane06GameMatchSetSelected(TransportOfClient transportOfClient). nextStateButton.setOnAction. gameMatchStatus = " + gameMatchStatus
                 );
             }
-            transportOfClient.selectGameMatch(new GameMatchDto(gameMatchId, gameMatchStatus, paramsOfModelValueMap));
+            gameMatch.setParamsOfModelValueMap(paramsOfModelValueMap);
+            transportOfClient.selectGameMatch(gameMatch);
         });
 
         // Контролы для продвижения состояния "назад":
@@ -107,13 +100,13 @@ public class Pane06GameMatchSetSelected extends AbstractConnectStatePane {
     // 4
     @Override
     public void updateOnSelectGameType() {
-        ObservableList<GameMatchDto> observableList = FXCollections.observableArrayList();
-        observableList.addAll(transportOfClient.getLocalClientStateAutomaton().getGameMatchXSet());
+        ObservableList<GameMatch> observableList = FXCollections.observableArrayList();
+        observableList.addAll(transportOfClient.getLocalClientStateAutomaton().getGameMatchSet());
         gameMatchSetComboBox.setItems(
                 FXCollections.observableArrayList(
                         observableList
                                 .stream()
-                                .map(GameMatchDto::getId)
+                                .map(GameMatch::getId)
                                 .toList()
                 )
         );

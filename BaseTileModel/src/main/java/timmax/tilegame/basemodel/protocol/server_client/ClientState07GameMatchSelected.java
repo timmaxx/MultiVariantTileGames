@@ -1,27 +1,28 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
 import timmax.tilegame.basemodel.GameMatchStatus;
+import timmax.tilegame.basemodel.protocol.server.GameMatch;
 
-public abstract class ClientState07GameMatchSelected<GameMatchX extends IGameMatchX> extends ClientState06GameMatchSetSelected<GameMatchX> {
-    public ClientState07GameMatchSelected(ClientStateAutomaton<GameMatchX> clientStateAutomaton) {
+public abstract class ClientState07GameMatchSelected extends ClientState06GameMatchSetSelected {
+    public ClientState07GameMatchSelected(ClientStateAutomaton clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 
     // interface IClientState07GameMatchSelected
     @Override
     public void reselectGameMatch() {
-        GameMatchX gameMatchX = getClientStateAutomaton().getGameMatchX_();
-        selectGameMatchX(gameMatchX);
+        GameMatch gameMatch = getClientStateAutomaton().getGameMatch_();
+        this.selectGameMatch(gameMatch);
     }
 
     @Override
-    public GameMatchX getGameMatchX() {
-        return getClientStateAutomaton().getGameMatchX_();
+    public GameMatch getGameMatch() {
+        return getClientStateAutomaton().getGameMatch_();
     }
 
     @Override
-    public GameMatchExtendedDto startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
-        return getClientStateAutomaton().startGameMatch_(gameMatchExtendedDto);
+    public GameMatch startGameMatch(GameMatch gameMatch) {
+        return getClientStateAutomaton().startGameMatch_(gameMatch);
     }
 
     @Override

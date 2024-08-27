@@ -5,39 +5,42 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
+import timmax.tilegame.basemodel.protocol.server.GameMatch;
 
-public class EventOfServer61SelectGameMatch extends EventOfServer {
-    GameMatchDto gameMatchDto;
+public class EventOfServer61SelectGameMatch<ClientId> extends EventOfServer {
+    GameMatch<ClientId> gameMatch;
 
     public EventOfServer61SelectGameMatch() {
         super();
     }
 
-    public EventOfServer61SelectGameMatch(GameMatchDto gameMatchDto) {
+    public EventOfServer61SelectGameMatch(GameMatch<ClientId> gameMatch) {
         this();
-        this.gameMatchDto = gameMatchDto;
+        this.gameMatch = gameMatch;
     }
 
+    // class EventOfServer
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
-        localClientStateAutomaton.selectGameMatchX(gameMatchDto);
+        localClientStateAutomaton.selectGameMatch(gameMatch);
     }
 
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{" +
-                "gameMatchDto=" + gameMatchDto +
-                '}';
-    }
-
+    // interface Externalizable
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(gameMatchDto);
+        out.writeObject(gameMatch);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        gameMatchDto = (GameMatchDto) in.readObject();
+        gameMatch = (GameMatch) in.readObject();
+    }
+
+    // class Object
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "gameMatchDto=" + gameMatch +
+                '}';
     }
 }

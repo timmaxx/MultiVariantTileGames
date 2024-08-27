@@ -1,12 +1,11 @@
 package timmax.tilegame.transport;
 
 import java.net.URI;
-import java.util.Map;
 
 import timmax.tilegame.basemodel.protocol.EventOfClient;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
+import timmax.tilegame.basemodel.protocol.server.GameMatch;
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 
 public interface TransportOfClient {
     //  setURI(URI uriFromControls) Нужен в обоих классах, но в
@@ -35,15 +34,15 @@ public interface TransportOfClient {
 
     // 04GameTypeSetSelected
     void reauthorizeUser();                                                     //  4 -> 4  void reauthorizeUser();
-    void selectGameType(GameType gameType);                                     //  4 -> 5  void selectGameType(GameType gameType, Set<GameMatchX> gameMatchXSet);
+    void selectGameType(GameType gameType);                                     //  4 -> 5  void selectGameType(GameType gameType, Set<GameMatch> gameMatchSet);
 
     // 06GameMatchSetSelected
     void reselectGameType();                                                    //  6 -> 6  void reselectGameType();
-    void selectGameMatch(GameMatchDto gameMatchDto);                            //  6 -> 7  void selectGameMatchX(GameMatchX gameMatchX);
+    void selectGameMatch(GameMatch gameMatch);                                  //  6 -> 7  void selectGameMatch(GameMatch gameMatch);
 
     // 07GameMatchSelected
     void reselectGameMatch();                                                   //  7 -> 7  void reselectGameMatch();
-    void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue);          //  7 -> 8  void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue);
+    void startGameMatch(GameMatch gameMatch);                                   //  7 -> 8  void startGameMatch(GameMatch gameMatch);
     void resumeGameMatch();                                                     //  7 -> 8  void resumeGameMatch();
 
     // 08GameMatchIsPlaying

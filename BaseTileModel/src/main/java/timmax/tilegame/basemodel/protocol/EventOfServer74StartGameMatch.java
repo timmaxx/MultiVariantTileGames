@@ -1,47 +1,47 @@
 package timmax.tilegame.basemodel.protocol;
 
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
+import timmax.tilegame.basemodel.protocol.server.GameMatch;
 
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-public class EventOfServer74StartGameMatch extends EventOfServer {
-    private GameMatchExtendedDto gameMatchExtendedDto;
+public class EventOfServer74StartGameMatch<ClientId> extends EventOfServer {
+    private GameMatch<ClientId> gameMatch;
 
     public EventOfServer74StartGameMatch() {
         super();
     }
 
-    public EventOfServer74StartGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
-        this.gameMatchExtendedDto = gameMatchExtendedDto;
+    public EventOfServer74StartGameMatch(GameMatch<ClientId> gameMatch) {
+        this.gameMatch = gameMatch;
     }
 
     // class EventOfServer
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
-        localClientStateAutomaton.startGameMatch(gameMatchExtendedDto);
-    }
-
-    // class Object
-    @Override
-    public String toString() {
-        return "EventOfServer74StartGameMatch{" +
-                "gameMatchExtendedDto=" + gameMatchExtendedDto +
-                '}';
+        localClientStateAutomaton.startGameMatch(gameMatch);
     }
 
     // interface Externalizable
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         super.writeExternal(out);
-        out.writeObject(gameMatchExtendedDto);
+        out.writeObject(gameMatch);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         super.readExternal(in);
-        gameMatchExtendedDto = (GameMatchExtendedDto) in.readObject();
+        gameMatch = (GameMatch) in.readObject();
+    }
+
+    // class Object
+    @Override
+    public String toString() {
+        return "EventOfServer74StartGameMatch{" +
+                "gameMatch=" + gameMatch +
+                '}';
     }
 }

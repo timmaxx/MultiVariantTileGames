@@ -16,7 +16,6 @@ import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.protocol.server.GameMatch;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
 import timmax.tilegame.basemodel.tile.Direction;
 
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventOneTileSokobanChangeable;
@@ -50,6 +49,10 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
             //       без этой игры.
             System.exit(1);
         }
+    }
+
+    public GameMatchOfSokoban() throws ClassNotFoundException, NoSuchMethodException {
+        super();
     }
 
     // ToDo: См. комментарии о согласовании параметров в
@@ -262,10 +265,10 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     }
 
     @Override
-    public GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto) {
+    public GameMatch start(GameMatch gameMatch) {
         throwExceptionIfIsPlaying();
 
-        // В этой реализации Сокобан не обращаем внимание на gameMatchExtendedDto - просто загружаем следующий уровень.
+        // В этой реализации Сокобан не обращаем внимание на gameMatch - просто загружаем следующий уровень.
         allSokobanObjects = levelLoader.getLevel(currentLevel.getValue());
         // paramsOfModelValueMap = Map.of(PARAM_NAME_WIDTH, allSokobanObjects.getWidth(), PARAM_NAME_HEIGHT, allSokobanObjects.getHeight());
         super.setParamsOfModelValueMap(Map.of(PARAM_NAME_WIDTH, allSokobanObjects.getWidth(), PARAM_NAME_HEIGHT, allSokobanObjects.getHeight()));
@@ -288,8 +291,9 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         route = new Route();
         routeRedo = new Route();
         calcCountOfBoxesInHomes();
+        setGameEventOneTileSet(gameEventOneTileSet);
 
-        return newGameMatchExtendedDto(gameEventOneTileSet);
+        return this;
     }
 
     // interface IGameMatch:
