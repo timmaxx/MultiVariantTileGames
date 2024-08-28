@@ -40,7 +40,7 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
         return clientId;
     }
 
-    void sendEventOfServer(ClientId clientId, EventOfServer transportPackageOfServer) {
-        multiGameWebSocketServer.sendEventOfServer(clientId, transportPackageOfServer);
+    void sendEventOfServer(ClientId clientId, EventOfServer eventOfServer) {
+        multiGameWebSocketServer.sendEventOfServer(clientId, eventOfServer);
     }
 }
