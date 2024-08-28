@@ -6,6 +6,5 @@ import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
 
 public interface IGameType {
     String getId();
-    // int getCountOfGamers();
     Map<String, ParamOfModelDescription> getParamName_paramModelDescriptionMap();
 }

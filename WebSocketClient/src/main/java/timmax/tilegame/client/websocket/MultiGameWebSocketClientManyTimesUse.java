@@ -20,7 +20,7 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
     // ToDo: Привести к единому виду взаимоиспользование:
     //       - на клиенте переменных типов TransportOfClient и LocalClientStateAutomaton,
     //       - на сервере переменных типов TransportOfServer и RemoteClientStateAutomaton.
-    //       Переменные типов TransportOfClient и LocalClientStateAutomaton здесь (на клиенте) на одном уровне.
+    //       Переменные типов TransportOfClient и LocalClientStateAutomaton на клиенте на одном уровне.
     //       А для сервера переменная типа TransportOfServer входит в состав RemoteClientStateAutomaton.
     private TransportOfClient transportOfClient;
     LocalClientStateAutomaton localClientStateAutomatonJfx;

@@ -43,7 +43,6 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
 
     //  ToDo:   Может тоже <GameMatchX>?
     private Constructor<? extends IGameMatch> gameMatchConstructor;
-    // private int countOfGamers;
 
     // private String[] ; // тогда в этом массиве строк можно хранить имя роли каждого из игроков
     // (например для шашек: "Белые", "Черные"; для многих игр для двух игроков: "Первый", "Второй"; для одного: "Игрок").
@@ -69,7 +68,6 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
 
     public GameType(
             String id,
-            //int countOfGamers,
             Class<? extends IGameMatch> gameMatchClass,
             Color defaultCellBackgroundColor,
             Color defaultCellTextColor,
@@ -80,8 +78,6 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
         this.defaultCellBackgroundColor = defaultCellBackgroundColor;
         this.defaultCellTextColor = defaultCellTextColor;
         this.defaultCellTextValue = defaultCellTextValue;
-
-        // this.countOfGamers = countOfGamers;
 
         // ToDo: Мапу нужно инициализировать не как сейчас - константой, а в классе (или пакете...) найти все выборки,
         //       реализующие View.class, в т.ч. и ViewMainField.class.
@@ -195,18 +191,10 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
         return id;
     }
 
-    /*
-        @Override
-        public int getCountOfGamers() {
-            return countOfGamers;
-        }
-    */
-
     // interface Externalizable
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeObject(id);
-        // out.writeInt(countOfGamers);
         out.writeObject(gameMatchDtoSet);
         out.writeObject(viewName_ViewClassMap);
         out.writeObject(paramName_paramModelDescriptionMap);
@@ -221,7 +209,6 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         id = (String) in.readObject();
-        // countOfGamers = in.readInt();
         //          Warning:(224, 27) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.protocol.server_client.GameMatchDto>'
         gameMatchDtoSet = (Set<GameMatchDto>) in.readObject();
         //  ToDo:   Избавиться от "Warning:(185, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
@@ -260,7 +247,6 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
                 ", gameTypeName='" + id + '\'' +
                 ", gameMatchXSet=" + gameMatchXSet +
                 ", gameMatchDtoSet=" + gameMatchDtoSet +
-                //", countOfGamers=" + countOfGamers +
                 ", viewName_ViewClassMap=" + viewName_ViewClassMap +
                 ", paramName_paramModelDescriptionMap=" + paramName_paramModelDescriptionMap +
                 '}';
