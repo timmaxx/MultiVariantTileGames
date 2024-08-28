@@ -58,6 +58,7 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
     private Map<String, Class<? extends View>> viewName_ViewClassMap;
     protected ParamName_paramModelDescriptionMap paramName_paramModelDescriptionMap;
 
+    //  ToDo:   Поля ниже относятся к визуализации. Их нужно абстрагировать и визуальную часть вынести отсюда.
     private Color defaultCellBackgroundColor;
     private Color defaultCellTextColor;
     private String defaultCellTextValue;
