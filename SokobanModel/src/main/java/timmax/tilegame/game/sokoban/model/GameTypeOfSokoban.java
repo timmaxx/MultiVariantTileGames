@@ -5,6 +5,7 @@ import timmax.tilegame.basemodel.protocol.server.GameType;
 
 import static javafx.scene.paint.Color.*;
 
+//  Warning:(9, 40) Raw use of parameterized class 'GameType'
 public class GameTypeOfSokoban extends GameType {
     // ToDo: Ниже относится к визуализации. Удалить это отсюда.
     //       Константы, описанные ниже, относятся к визуализации.
@@ -19,6 +20,7 @@ public class GameTypeOfSokoban extends GameType {
     public static final Color BOX_TEXT_COLOR = BLUE;
 
     public GameTypeOfSokoban() throws ClassNotFoundException, NoSuchMethodException {
-        super("Sokoban", /*1,*/ GameMatchOfSokoban.class, BLACK, BLACK, "");
+        //  ToDo:   Warning:(24, 9) Unchecked call to 'GameType(String, int, Class<? extends IGameMatch>, Color, Color, String)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.GameType'
+        super("Sokoban", 1, GameMatchOfSokoban.class, BLACK, BLACK, "");
     }
 }

@@ -9,6 +9,7 @@ import static timmax.tilegame.basemodel.protocol.server.GameMatch.PARAM_NAME_HEI
 import static timmax.tilegame.basemodel.protocol.server.GameMatch.PARAM_NAME_WIDTH;
 import static timmax.tilegame.game.minesweeper.model.GameMatchOfMinesweeper.PARAM_NAME_PERCENTS_OF_MINES;
 
+//  Warning:(13, 44) Raw use of parameterized class 'GameType'
 public class GameTypeOfMinesweeper extends GameType {
 
     // ToDo: Ниже относится к визуализации. Удалить это отсюда.
@@ -23,7 +24,8 @@ public class GameTypeOfMinesweeper extends GameType {
     public static final Color MINE_CELL_COLOR = RED;
 
     public GameTypeOfMinesweeper() throws ClassNotFoundException, NoSuchMethodException {
-        super("Minesweeper", /*1,*/ GameMatchOfMinesweeper.class, UNOPENED_CELL_COLOR, BLACK, "");
+        //  ToDo:   Warning:(28, 9) Unchecked call to 'GameType(String, int, Class<? extends IGameMatch>, Color, Color, String)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.GameType'
+        super("Minesweeper", 1, GameMatchOfMinesweeper.class, UNOPENED_CELL_COLOR, BLACK, "");
         paramName_paramModelDescriptionMap.put(PARAM_NAME_WIDTH, new ParamOfModelDescription(8, 2, 20));
         paramName_paramModelDescriptionMap.put(PARAM_NAME_HEIGHT, new ParamOfModelDescription(8, 2, 20));
         paramName_paramModelDescriptionMap.put(PARAM_NAME_PERCENTS_OF_MINES, new ParamOfModelDescription(10, 1, 99));
