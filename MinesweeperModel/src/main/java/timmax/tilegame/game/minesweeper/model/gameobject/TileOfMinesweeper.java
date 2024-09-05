@@ -4,6 +4,18 @@ import java.util.Set;
 
 import timmax.tilegame.basemodel.tile.Tile;
 
+//  ToDo:   Изменить структуру наследования классов для одноплиточных игровых объектов. Сделать базовым класс
+//              timmax.tilegame.basemodel.gameobject.OneTileGameObject
+//          Сейчас-же в корне стоит класс
+//              timmax.tilegame.basemodel.tile.Tile
+//  ToDo:   После отказа от класса Tile в этой модели и в других моделях - удалить Tile.
+//  ToDo:   Разложить класс TileOfMinesweeper на несколько и в т.ч. перенести часть его функционала в классы:
+//          - MinesweeperGameObject,
+//          - Flag,
+//          - Mine,
+//          - OpenedTile.
+//  ToDo:   После полного отказа от класса TileOfMinesweeper, удалить его.
+
 // Плитка игры Сапёр
 public class TileOfMinesweeper extends Tile {
     private final boolean isMine; // Есть-ли мина на плитке

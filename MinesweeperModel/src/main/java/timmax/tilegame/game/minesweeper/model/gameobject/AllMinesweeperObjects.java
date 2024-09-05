@@ -31,11 +31,7 @@ public class AllMinesweeperObjects<ClientId> {
     public void setModel(GameMatch<ClientId> gameMatch) {
         this.gameMatch = gameMatch;
     }
-/*
-    public int getCountOfMines() {
-        return countOfMines;
-    }
-*/
+
     // Попробовать инвертировать флаг
     public void tryInverseFlag(TileOfMinesweeper tileOfMinesweeper) {
         // Если плитка уже открыта или (флагов больше нет и на плитке нет флага)

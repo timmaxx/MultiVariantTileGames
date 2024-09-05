@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import timmax.common.JFXColorWithExternalizable;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
+import timmax.tilegame.basemodel.gameobject.OneTileGameObject;
 import timmax.tilegame.basemodel.protocol.EventOfServer;
 import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent;
 import timmax.tilegame.basemodel.protocol.IGameType;
@@ -37,6 +38,16 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
     //          И похожим образом сделано для идентификации GameMatch (см. коммент для GameMatchDto)
     private String id;
     private int countOfGamers;
+    //  ToDo:   Элементами Set должны быть только классы, являющиеся наследниками класса
+    //          OneTileGameObject.
+    //          Сейчас это соответствие не отслеживается в классах-наследниках GameType.
+    //          Смотри конструкторы в GameTypeOfMinesweeper и в GameTypeOfSokoban.
+    //          Это пример того, как хотелось-бы что-бы компилятор отреагировал при компиляции в этих конструкторах:
+    //              - компилятор возражает и это хорошо:
+    //                  Set<Class<? extends OneTileGameObject>> abcClassSet1 = Set.of(Object.class);
+    //              - компилятор не возражает и это тоже хорошо:
+    //                  Set<Class<? extends OneTileGameObject>> abcClassSet2 = Set.of(OneTileGameObject.class);
+    private Set<Class<? extends OneTileGameObject>> oneTileGameObjectClassSet;
 
     private Set<GameMatchX> gameMatchXSet;
     //  ToDo:   При наличии предыдущего - этот лишний.
@@ -71,6 +82,7 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
     public GameType(
             String id,
             int countOfGamers,
+            Set<Class<? extends OneTileGameObject>> oneTileGameObjectClassSet,
             Class<? extends IGameMatch> gameMatchClass,
             Color defaultCellBackgroundColor,
             Color defaultCellTextColor,
@@ -79,6 +91,7 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
         this();
         this.id = id;
         this.countOfGamers = countOfGamers;
+        this.oneTileGameObjectClassSet = oneTileGameObjectClassSet;
         this.defaultCellBackgroundColor = defaultCellBackgroundColor;
         this.defaultCellTextColor = defaultCellTextColor;
         this.defaultCellTextValue = defaultCellTextValue;
@@ -176,7 +189,7 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
             //          iGameMatch = GameMatchConstructor.newInstance(...);
             //       2. Ну в т.ч. это, те-же параметры, которые поступили в executeOnServer().
             //  ToDo:   Приведение типа?
-            //  Warning:(180, 26) Unchecked cast: 'capture<? extends timmax.tilegame.basemodel.protocol.server.IGameMatch>' to 'GameMatchX'
+            //  Warning:(193, 26) Unchecked cast: 'capture<? extends timmax.tilegame.basemodel.protocol.server.IGameMatch>' to 'GameMatchX'
             gameMatchX = (GameMatchX) GameMatchConstructor.newInstance(remoteClientStateAutomaton);
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
             logger.error("Server cannot create object of model for {} with GameMatchConstructor with specific parameters.", this, e);
@@ -219,9 +232,9 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         id = (String) in.readObject();
         countOfGamers = in.readInt();
-        //          Warning:(223, 27) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.protocol.server_client.GameMatchDto>'
+        //          Warning:(236, 27) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.protocol.server_client.GameMatchDto>'
         gameMatchDtoSet = (Set<GameMatchDto>) in.readObject();
-        //  ToDo:   Избавиться от "Warning:(226, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
+        //  ToDo:   Избавиться от "Warning:(239, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
         //          https://sky.pro/wiki/java/reshaem-preduprezhdenie-unchecked-cast-v-java-spring/
         viewName_ViewClassMap = (Map<String, Class<? extends View>>) in.readObject();
         paramName_paramModelDescriptionMap = (ParamName_paramModelDescriptionMap) in.readObject();
