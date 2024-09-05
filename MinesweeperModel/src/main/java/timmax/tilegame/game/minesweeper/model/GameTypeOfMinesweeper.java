@@ -6,6 +6,7 @@ import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
 import timmax.tilegame.game.minesweeper.model.gameobject.Flag;
 import timmax.tilegame.game.minesweeper.model.gameobject.Mine;
 import timmax.tilegame.game.minesweeper.model.gameobject.OpenedTile;
+import timmax.tilegame.game.minesweeper.model.gameobject.UnOpenedTile;
 
 import java.util.Set;
 
@@ -29,7 +30,7 @@ public class GameTypeOfMinesweeper extends GameType {
     public static final Color MINE_CELL_COLOR = RED;
 
     public GameTypeOfMinesweeper() throws ClassNotFoundException, NoSuchMethodException {
-        //  ToDo:   Warning:(33, 9) Unchecked call to 'GameType(String, int, Class<? extends IGameMatch>, Color, Color, String)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.GameType'
+        //  ToDo:   Warning:(34, 9) Unchecked call to 'GameType(String, int, Class<? extends IGameMatch>, Color, Color, String)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.GameType'
         super("Minesweeper",
                 1,
                 //  ToDo:   Переписать GameMatchOfMinesweeper так, что-бы вместо
@@ -45,15 +46,15 @@ public class GameTypeOfMinesweeper extends GameType {
                 //          Сейчас это соответствие не отслеживается, например можно написать так:
                 //              Set.of(Object.class),
                 //          и компилятор ничего не скажет.
-                Set.of(Mine.class, Flag.class, OpenedTile.class),
+                Set.of(Mine.class, Flag.class, UnOpenedTile.class, OpenedTile.class),
                 GameMatchOfMinesweeper.class,
                 UNOPENED_CELL_COLOR, BLACK, ""
         );
         //  Это пример того, как хотелось-бы что-бы компилятор отреагировал в предыдущих строках:
         //      - компилятор возражает и это хорошо:
-        //  Set<Class<? extends MinesweeperGameObject>> abcClassSet1 = Set.of(Mine.class, Flag.class, OpenedTile.class, Object.class);
+        //  Set<Class<? extends MinesweeperGameObject>> abcClassSet1 = Set.of(Mine.class, Flag.class, UnOpenedTile.class, OpenedTile.class, Object.class);
         //      - компилятор не возражает и это тоже хорошо:
-        //  Set<Class<? extends MinesweeperGameObject>> abcClassSet2 = Set.of(Mine.class, Flag.class, OpenedTile.class);
+        //  Set<Class<? extends MinesweeperGameObject>> abcClassSet2 = Set.of(Mine.class, Flag.class, UnOpenedTile.class, OpenedTile.class);
         paramName_paramModelDescriptionMap.put(PARAM_NAME_WIDTH, new ParamOfModelDescription(8, 2, 20));
         paramName_paramModelDescriptionMap.put(PARAM_NAME_HEIGHT, new ParamOfModelDescription(8, 2, 20));
         paramName_paramModelDescriptionMap.put(PARAM_NAME_PERCENTS_OF_MINES, new ParamOfModelDescription(10, 1, 99));
