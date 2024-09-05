@@ -14,7 +14,7 @@ public class OneTileGameObjectsPlacement {
     private final WidthHeightSizes widthHeightSizes;
     private final int playerIndexOfCurrentMove;
     //  ToDo:   Сделать четыре разных конструктора, у которых был-бы различный четвертый параметр.
-    //          Но лучше не четыре, а хотя-бы два: 1 и 3. Но минимально и одного из четырёх будет достаточно.
+    //          Но можно не четыре, а хотя-бы два: 1 и 3. Но минимально и одного из четырёх будет достаточно.
     private final Map<Class<OneTileGameObject>, Set<XYCoordinates>> oneTileGameObjectClassXYCoordinatesSet_Map; // 1
     private final Map<OneTileGameObject, XYCoordinates> oneTileGameObjectXYCoordinatesMap;                      // 2
     private final Map<XYCoordinates, Set<Class<OneTileGameObject>>> xyCoordinates_OneTileGameObjectClassSet_Map;// 3
@@ -100,7 +100,7 @@ public class OneTileGameObjectsPlacement {
         );
     }
 
-    //  Реализация варианта 2:
+    //  Реализация конструктора по варианту 2:
     public OneTileGameObjectsPlacement(
             GameType gameType,
             WidthHeightSizes widthHeightSizes,
@@ -119,11 +119,13 @@ public class OneTileGameObjectsPlacement {
         for (Map.Entry<OneTileGameObject, XYCoordinates> entry : oneTileGameObjectXYCoordinatesMap.entrySet()) {
             OneTileGameObject oneTileGameObject = entry.getKey();
             XYCoordinates xyCoordinates = entry.getValue();
+            //  Warning:(123, 63) Unchecked cast: 'java.lang.Class<capture<? extends timmax.tilegame.basemodel.gameobject.OneTileGameObject>>' to 'java.lang.Class<timmax.tilegame.basemodel.gameobject.OneTileGameObject>'
             Class<OneTileGameObject> oneTileGameObjectClass = (Class<OneTileGameObject>) oneTileGameObject.getClass();
 
             //  ToDo:   Для проверки целостности всей расстановки можно сделать предварительное заполнение 1-й мапы
             //              Map<Class<OneTileGameObject>, Set<XYCoordinates>> oneTileGameObjectClassXYСoordinatesSet_Map
-            //          А именно первично заполнить всеми возможными типами объектов
+            //          А именно первично заполнить всеми возможными типами объектов.
+            //          Сейчас такой Set уже есть в GameType.
             //          И потом уже добавлять в Set те координаты, которые поступили в конструкторе,
             //          даже если их изначально не подали в конструктор.
             //          Например для Шахмат:
@@ -147,11 +149,10 @@ public class OneTileGameObjectsPlacement {
             //                  Король, Set<>
             //                  Пешка, Set<a2, b2>
             //                Тогда становится видно, что короля-то и нет - возбудить исключение.
-            //          Тогда нужно как-то подать множество всех типов объектов, из которых и создать первичную мапу 1-го
-            //          вида.
-
 
             //  1   this.oneTileGameObjectClassXYСoordinatesSet_Map
+            //  ToDo:   Проверить, что строка сразу под комментом, работает также, как и то, что закомментировано.
+            //          И удалить.
 /*
             Set<XYCoordinates> xyCoordinatesSet = this.oneTileGameObjectClassXYCoordinatesSet_Map.get(oneTileGameObjectClass);
             if (xyCoordinatesSet == null) {
@@ -167,6 +168,8 @@ public class OneTileGameObjectsPlacement {
             this.oneTileGameObjectXYCoordinatesMap.put(oneTileGameObject, xyCoordinates);
 
             //  3   this.xyСoordinates_OneTileGameObjectClassSet_Map
+            //  ToDo:   Проверить, что строка сразу под комментом, работает также, как и то, что закомментировано.
+            //          И удалить.
 /*
             Set<Class<OneTileGameObject>> oneTileGameObjectClassSet = this.xyCoordinates_OneTileGameObjectClassSet_Map.get(xyCoordinates);
             if (oneTileGameObjectClassSet == null) {
@@ -179,6 +182,8 @@ public class OneTileGameObjectsPlacement {
             oneTileGameObjectClassSet.add(oneTileGameObjectClass);
 
             //  4   this.xyСoordinates_OneTileGameObjectSet_Map
+            //  ToDo:   Проверить, что строка сразу под комментом, работает также, как и то, что закомментировано.
+            //          И удалить.
 /*
             Set<OneTileGameObject> oneTileGameObjectSet = this.xyCoordinates_OneTileGameObjectSet_Map.get(xyCoordinates);
             if (oneTileGameObjectSet == null) {
@@ -194,56 +199,29 @@ public class OneTileGameObjectsPlacement {
         for (Map.Entry<Class<OneTileGameObject>, Set<XYCoordinates>> entry : this.oneTileGameObjectClassXYCoordinatesSet_Map.entrySet()) {
             Class<OneTileGameObject> oneTileGameObjectClass = entry.getKey();
             Set<XYCoordinates> xyCoordinatesSet = entry.getValue();
-/*
-    //              - ограничение на количество объектов определённого типа на всей доске и их расположение:
-    //                  Например, для Шахмат не может быть, что-бы:
-    //                  - хотя-бы у одной из сторон не было-бы короля или королей было-бы несколько,
-    //                  - пешки (хоть белых, хоть чёрных) были-бы на горизонталях 1 или 8.
-*/
-            //  Class<OneTileGameObject> oneTileGameObjectClass
-            //  Set<XYCoordinates> xyCoordinatesSet
-            verify1(oneTileGameObjectClass, xyCoordinatesSet);
+            verifyOneTileGameObjectClass_XYCoordinatesSet(oneTileGameObjectClass, xyCoordinatesSet);
         }
 
         for (Map.Entry<XYCoordinates, Set<Class<OneTileGameObject>>> entry : this.xyCoordinates_OneTileGameObjectClassSet_Map.entrySet()) {
             XYCoordinates xyCoordinates = entry.getKey();
             Set<Class<OneTileGameObject>> oneTileGameObjectClassSet = entry.getValue();
-/*
-    //              - ограничение на перечень объектов, которые могут находиться на одних координатах
-    //                  Например, для Шахмат не может быть, что-бы:
-    //                  - на одной плитке был бы больше чем один объект.
-    //                  Например, для Сокобан не может быть, что-бы:
-    //                  - на одной клетке был-бы:
-    //                      - стена и стена,
-    //                      - стена и дом,
-    //                      - стена и ящик,
-    //                      - стена и игрок,
-    //                      - дом и дом,
-    //                      - ящик и ящик,
-    //                      - ящик и игрок,
-    //                      - игрок и игрок.
-*/
-/*
-    //              - ограничение на количество объектов определённого типа на одной плитке:
-    //                  Например, для Сокобан не может быть, что-бы:
-    //                  - на одной плитке был-бы и дом и стена,
-    //                  - на одной плитке был-бы и игрок и ящик.
-    //                  Например, для Шахмат не может быть, что-бы:
-    //                  - на одной плитке было-бы более одного объекта.
-*/
-            verify3(xyCoordinates, oneTileGameObjectClassSet);
+            verifyXYCoordinatesSet_OneTileGameObjectClassSet(xyCoordinates, oneTileGameObjectClassSet);
         }
 
         //  ToDo:   Нужно реализовать проверку на:
         //          - полный обзор всех объектов, относительно других объектов,
         //          - учитывать индекс игрока, чей ход следующий.
-        // verify5();
-
         //  ToDo:   Не забыть и проверку на возможно обязательное наличие каких-либо типов объектов - особенно,
         //          если в расстановке их нет.
-        // verify6();
+        matchStatus = verifyAllGameObjects();
     }
 
+
+    //  ToDo:   Вероятно пробовать каждую из вариантов мап сделать отдельным классом и тогда уже делать конструкторы
+    //          с другими вариантами.
+    //          Реализация конструктора по варианту 4:
+    //          В такой сигнатуре не получается объявить, т.к. отличие только в четвёртом параматре,
+    //          а во всех вариантах там мапа и компилятор не считает такие сигнатуры разными.
     /*
         public OneTileGameObjectsPlacement(
                 GameType gameType,
@@ -318,30 +296,36 @@ public class OneTileGameObjectsPlacement {
     }
 
 
-    //          - расстановка всех элементов должна удовлетворять правилам типа игры.
+    //  Расстановка всех элементов должна удовлетворять правилам типа игры.
 
-    //              - ограниечение на наличие/количество/взаимное расположение объектов определённого типа как
-    //                  на всей доске, так и на определённых координатах.
-    //                  Например, для Шахмат не может быть, что-бы:
-    //                  - хотя-бы у одной из сторон не было-бы короля или королей было-бы несколько,
-    protected void verify1(Class<OneTileGameObject> oneTileGameObjectClass, Set<XYCoordinates> xyCoordinatesSet) {
+    //      - ограниечение на наличие/количество/взаимное расположение объектов определённого типа как
+    //        на всей доске, так и на определённых координатах.
+    //        Например, для Шахмат не может быть, что-бы:
+    //          - хотя-бы у одной из сторон не было-бы короля или королей было-бы несколько,
+    protected void verifyOneTileGameObjectClass_XYCoordinatesSet(Class<OneTileGameObject> oneTileGameObjectClass, Set<XYCoordinates> xyCoordinatesSet) {
     }
 
-    //              - ограничение на нахождение на произвольных координатах комбинаций типов объектов.
-    //                  Например, для Сокобан не может быть, что-бы:
-    //                  - на одной плитке был-бы и дом и стена,
-    //                  - на одной плитке был-бы и игрок и ящик.
-    //                  Например, для Шахмат не может быть, что-бы:
-    //                  - на одной плитке было-бы более одного объекта.
-    protected void verify3(XYCoordinates xyCoordinates, Set<Class<OneTileGameObject>> oneTileGameObjectClassSet) {
+    //      - ограничение на перечень типов объектов, которые могут находиться на одних координатах.
+    //          Например, для Шахмат не может быть, что-бы:
+    //              - на одной плитке был бы больше чем один объект.
+    //          Например, для Сокобан не может быть, что-бы:
+    //              - на одной клетке был-бы:
+    //                  - стена и стена,
+    //                  - стена и дом,
+    //                  - стена и ящик,
+    //                  - стена и игрок,
+    //                  - дом и дом,
+    //                  - ящик и ящик,
+    //                  - ящик и игрок,
+    //                  - игрок и игрок.
+    protected void verifyXYCoordinatesSet_OneTileGameObjectClassSet(XYCoordinates xyCoordinates, Set<Class<OneTileGameObject>> oneTileGameObjectClassSet) {
     }
 
-    //              - ограничения на взаимное расположение объектов:
-    //                  Например, для Шахмат не может быть, что-бы:
-    //                  - короли обоих противников были-бы одновременно под боем.
-    protected MatchStatus verifyAllGameObjects(
-            int playerIndexOfCurrentMove,
-            Map<Class<OneTileGameObject>, Set<XYCoordinates>> gameObjectClass_XYSet_Map) {
+    //      - ограничения на взаимное расположение всех объектов:
+    //          Например, для Шахмат не может быть, что-бы:
+    //              - короли обоих противников были-бы одновременно под боем.
+    //          И в т.ч. нужно вычислить статус матча и вернуть его.
+    protected MatchStatus verifyAllGameObjects() {
         return new MatchStatus0Undefined();
     }
 }
