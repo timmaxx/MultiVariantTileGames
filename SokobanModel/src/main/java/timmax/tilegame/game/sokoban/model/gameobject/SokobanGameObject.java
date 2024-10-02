@@ -1,6 +1,7 @@
 package timmax.tilegame.game.sokoban.model.gameobject;
 
 import timmax.tilegame.basemodel.gameobject.OneTileGameObject;
+import timmax.tilegame.basemodel.gameobject.OneTileGameObjectsPlacement;
 
 //  ToDo:   Изменить структуру наследования классов для одноплиточных игровых объектов. Сделать базовым класс
 //              timmax.tilegame.basemodel.gameobject.OneTileGameObject
@@ -11,7 +12,7 @@ import timmax.tilegame.basemodel.gameobject.OneTileGameObject;
 
 //  ToDo:   Разложить класс TileOfMinesweeper на несколько и в т.ч. перенести сюда часть его функционала.
 public class SokobanGameObject extends OneTileGameObject {
-    public SokobanGameObject(String id) {
-        super(id);
+    public SokobanGameObject(String id, OneTileGameObjectsPlacement oneTileGameObjectsPlacement) {
+        super(id, oneTileGameObjectsPlacement);
     }
 }
