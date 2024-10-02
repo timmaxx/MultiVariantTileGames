@@ -139,7 +139,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
 
     protected void setStatusIsGame() {
         if (status != PAUSE && status != GAME) {
-            throw new RuntimeException("You cannot set game satus to GAME! (gameMatchStatus = " + status + ")");
+            throw new RuntimeException("You cannot set game status to GAME! (gameMatchStatus = " + status + ")");
         }
         status = GAME;
     }
