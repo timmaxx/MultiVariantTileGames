@@ -43,8 +43,8 @@ public class GameTypeOfMinesweeper extends GameType {
                 //          Сейчас это соответствие не отслеживается, например можно написать так:
                 //              Set.of(Object.class),
                 //          и компилятор ничего не скажет.
-                Set.of(MGOMineIsNotOpenedWithFlag.class, MGOMineIsNotOpenedWithoutFlag.class, MGOMineIsOpened.class,
-                        MGONoMineIsNotOpenedWithFlag.class, MGONoMineIsNotOpenedWithoutFlag.class, MGONoMineIsOpened.class
+                Set.of(MGOSMineIsNotOpenedWithFlag.class, MGOSMineIsNotOpenedWithoutFlag.class, MGOSMineIsOpened.class,
+                        MGOSNoMineIsNotOpenedWithFlag.class, MGOSNoMineIsNotOpenedWithoutFlag.class, MGOSNoMineIsOpened.class
                 ),
                 GameMatchOfMinesweeper.class,
                 UNOPENED_CELL_COLOR, BLACK, ""

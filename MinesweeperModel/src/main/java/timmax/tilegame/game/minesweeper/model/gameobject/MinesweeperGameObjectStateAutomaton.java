@@ -16,22 +16,22 @@ public class MinesweeperGameObjectStateAutomaton extends OneTileGameObjectStateA
     protected Set<MinesweeperGameObjectStateAutomaton> neighbourSet; // Соседние плитки
     protected int countOfMinesInNeighbours;
 
-    final MGOMineIsNotOpenedWithFlag mineIsNotOpenedWithFlag;
-    final MGOMineIsNotOpenedWithoutFlag mineIsNotOpenedWithoutFlag;
-    final MGOMineIsOpened mineIsOpened;
-    final MGONoMineIsNotOpenedWithFlag noMineIsNotOpenedWithFlag;
-    final MGONoMineIsNotOpenedWithoutFlag noMineIsNotOpenedWithoutFlag;
-    final MGONoMineIsOpened noMineIsOpened;
+    final MGOSMineIsNotOpenedWithFlag mineIsNotOpenedWithFlag;
+    final MGOSMineIsNotOpenedWithoutFlag mineIsNotOpenedWithoutFlag;
+    final MGOSMineIsOpened mineIsOpened;
+    final MGOSNoMineIsNotOpenedWithFlag noMineIsNotOpenedWithFlag;
+    final MGOSNoMineIsNotOpenedWithoutFlag noMineIsNotOpenedWithoutFlag;
+    final MGOSNoMineIsOpened noMineIsOpened;
 
     private MinesweeperGameObjectStateAutomaton(OneTileGameObject oneTileGameObject) {
         super(oneTileGameObject);
 
-        mineIsNotOpenedWithFlag = new MGOMineIsNotOpenedWithFlag(this);
-        mineIsNotOpenedWithoutFlag = new MGOMineIsNotOpenedWithoutFlag(this);
-        mineIsOpened = new MGOMineIsOpened(this);
-        noMineIsNotOpenedWithFlag = new MGONoMineIsNotOpenedWithFlag(this);
-        noMineIsNotOpenedWithoutFlag = new MGONoMineIsNotOpenedWithoutFlag(this);
-        noMineIsOpened = new MGONoMineIsOpened(this);
+        mineIsNotOpenedWithFlag = new MGOSMineIsNotOpenedWithFlag(this);
+        mineIsNotOpenedWithoutFlag = new MGOSMineIsNotOpenedWithoutFlag(this);
+        mineIsOpened = new MGOSMineIsOpened(this);
+        noMineIsNotOpenedWithFlag = new MGOSNoMineIsNotOpenedWithFlag(this);
+        noMineIsNotOpenedWithoutFlag = new MGOSNoMineIsNotOpenedWithoutFlag(this);
+        noMineIsOpened = new MGOSNoMineIsOpened(this);
     }
 
     public MinesweeperGameObjectStateAutomaton(OneTileGameObject oneTileGameObject, boolean isMine) {

@@ -4,8 +4,8 @@ import timmax.tilegame.game.minesweeper.model.gameevent.GameEventOneTileMineswee
 
 //  ToDo:   Разложить класс TileOfMinesweeper на несколько и в т.ч. перенести сюда часть его функционала.
 //  ToDo:   После полного отказа от класса TileOfMinesweeper, удалить его.
-public class MGOMineIsNotOpenedWithFlag extends MGOMine {
-    public MGOMineIsNotOpenedWithFlag(MinesweeperGameObjectStateAutomaton minesweeperGameObjectStateAutomaton) {
+public class MGOSMineIsNotOpenedWithFlag extends MGOSMine {
+    public MGOSMineIsNotOpenedWithFlag(MinesweeperGameObjectStateAutomaton minesweeperGameObjectStateAutomaton) {
         super(minesweeperGameObjectStateAutomaton);
     }
 

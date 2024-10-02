@@ -1,49 +1,45 @@
 package timmax.tilegame.game.minesweeper.model.gameobject;
 
+import timmax.tilegame.basemodel.exception.GameOverException;
+import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.game.minesweeper.model.gameevent.GameEventOneTileMinesweeperChangeFlag;
-import timmax.tilegame.game.minesweeper.model.gameevent.GameEventOneTileMinesweeperOpenNoMine;
+import timmax.tilegame.game.minesweeper.model.gameevent.GameEventOneTileMinesweeperOpenMine;
+
+import static timmax.tilegame.basemodel.GameMatchStatus.DEFEAT;
 
 //  ToDo:   Разложить класс TileOfMinesweeper на несколько и в т.ч. перенести сюда часть его функционала.
 //  ToDo:   После полного отказа от класса TileOfMinesweeper, удалить его.
-public class MGONoMineIsNotOpenedWithoutFlag extends MGONoMine {
-    public MGONoMineIsNotOpenedWithoutFlag(MinesweeperGameObjectStateAutomaton minesweeperGameObjectStateAutomaton) {
+public class MGOSMineIsNotOpenedWithoutFlag extends MGOSMine {
+    public MGOSMineIsNotOpenedWithoutFlag(MinesweeperGameObjectStateAutomaton minesweeperGameObjectStateAutomaton) {
         super(minesweeperGameObjectStateAutomaton);
     }
 
     @Override
     public void open() {
-        getOneTileGameObjectStateAutomaton().setCurrentState(getOneTileGameObjectStateAutomaton().noMineIsOpened);
-
-        getOneTileGameObjectStateAutomaton().initNeighbourSet();
+        getOneTileGameObjectStateAutomaton().setCurrentState(getOneTileGameObjectStateAutomaton().mineIsOpened);
 
         getOneTileGameObjectStateAutomaton()
                 .getOneTileGameObject()
                 .getOneTileGameObjectsPlacement()
                 .getGameMatch()
                 .sendGameEventToAllViews(
-                        new GameEventOneTileMinesweeperOpenNoMine(
+                        new GameEventOneTileMinesweeperOpenMine(
                                 getOneTileGameObjectStateAutomaton().getXyCoordinate().getX(),
-                                getOneTileGameObjectStateAutomaton().getXyCoordinate().getY(),
-                                getOneTileGameObjectStateAutomaton().countOfMinesInNeighbours
+                                getOneTileGameObjectStateAutomaton().getXyCoordinate().getY()
                         )
-                )
-        ;
+                );
+        getOneTileGameObjectStateAutomaton()
+                .getOneTileGameObject()
+                .getOneTileGameObjectsPlacement()
+                .getGameMatch()
+                .sendGameEventToAllViews(new GameEventGameOver(DEFEAT));
 
-        if (getOneTileGameObjectStateAutomaton().countOfMinesInNeighbours > 0) {
-            return;
-        }
-        for (MinesweeperGameObjectStateAutomaton neighbour : getOneTileGameObjectStateAutomaton().getNeighbourSet()) {
-            if (neighbour.getOneTileGameObjectState() instanceof MGONoMineIsNotOpenedWithoutFlag) {
-                //  Если соседняя плитка ещё не была открыта и там нет мины
-                //      Откроем соседнюю плитку
-                neighbour.open();
-            }
-        }
+        throw new GameOverException();
     }
 
     @Override
     public void inverseFlag() {
-        getOneTileGameObjectStateAutomaton().setCurrentState(getOneTileGameObjectStateAutomaton().noMineIsNotOpenedWithFlag);
+        getOneTileGameObjectStateAutomaton().setCurrentState(getOneTileGameObjectStateAutomaton().mineIsNotOpenedWithFlag);
 
         getOneTileGameObjectStateAutomaton()
                 .getOneTileGameObject()
