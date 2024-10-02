@@ -24,4 +24,20 @@ public class Classes {
         }
         return false;
     }
+
+/*
+    public static Class<?> throwExceptionIfNotInstanceOf(Object value, Class<?> clazz) {
+        if (!isInstanceOf(value, clazz)) {
+            throw new ClassCastException("value = " + value + " is class of " + value.getClass() + ". But is not instance of " + clazz + ".");
+        }
+        return clazz.getClass().cast(value);
+    }
+*/
+
+    public static void throwExceptionIfNotInstanceOf(Object value, Class<?> clazz) {
+        if (!isInstanceOf(value, clazz)) {
+            throw new ClassCastException("value = " + value + " is class of " + value.getClass() + ". But is not instance of " + clazz + ".");
+        }
+    }
+
 }
