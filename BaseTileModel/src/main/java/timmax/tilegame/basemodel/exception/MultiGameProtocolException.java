@@ -1,4 +1,4 @@
-package timmax.tilegame.basemodel.protocol.exception;
+package timmax.tilegame.basemodel.exception;
 
 public class MultiGameProtocolException extends RuntimeException {
     public MultiGameProtocolException(String toString) {

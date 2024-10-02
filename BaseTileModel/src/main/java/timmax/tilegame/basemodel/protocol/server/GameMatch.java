@@ -7,6 +7,7 @@ import timmax.tilegame.basemodel.GameMatchStatus;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
+import timmax.tilegame.basemodel.gameobject.OneTileGameObjectsPlacement;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
 
@@ -70,6 +71,8 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
 
     //  Warning:(34, 21) Raw use of parameterized class 'GameType'
     protected final GameType gameType;
+
+    protected /*final*/ OneTileGameObjectsPlacement oneTileGameObjectsPlacement;
 
     //  ToDo:   Сейчас здесь одна переменная типа RemoteClientStateAutomaton. И для одного игрока вполне норм.
     //          Но для для двух (а возможно и более игроков) или если какой-то участник игры, не являющийся игроком

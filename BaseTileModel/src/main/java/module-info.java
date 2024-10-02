@@ -11,7 +11,7 @@ module timmax.tilegame.basetilemodel {
     exports timmax.tilegame.basemodel.gamecommand;
     exports timmax.tilegame.basemodel.protocol;
     exports timmax.tilegame.basemodel.credential;
-    exports timmax.tilegame.basemodel.protocol.exception;
+    exports timmax.tilegame.basemodel.exception;
     exports timmax.tilegame.basemodel.protocol.server;
     exports timmax.tilegame.basemodel.protocol.client;
     exports timmax.tilegame.basemodel.protocol.server_client;

@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import timmax.common.JFXColorWithExternalizable;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
-import timmax.tilegame.basemodel.gameobject.OneTileGameObject;
+import timmax.tilegame.basemodel.gameobject.OneTileGameObjectStateAutomaton;
 import timmax.tilegame.basemodel.protocol.EventOfServer;
 import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent;
 import timmax.tilegame.basemodel.protocol.IGameType;
@@ -38,6 +38,16 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
     //          И похожим образом сделано для идентификации GameMatch (см. коммент для GameMatchDto)
     private String id;
     private int countOfGamers;
+
+    //  Множество классов объектов. (Возможно убрать это в GameType)
+    //      Например, для Шахмат:
+    //          Король, ферзь, слон, конь, ладья, пешка.
+    //      Например, для Шашек:
+    //          Шашка, дамка.
+    //      Например, для Сапёра:
+    //          Закрытое поле, флаг, открытое поле (без мины), мина.
+    //      Например, для Сокобан:
+    //          Игрок, коробка, стена, дом.
     //  ToDo:   Элементами Set должны быть только классы, являющиеся наследниками класса
     //          OneTileGameObject.
     //          Сейчас это соответствие не отслеживается в классах-наследниках GameType.
@@ -47,9 +57,10 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
     //                  Set<Class<? extends OneTileGameObject>> abcClassSet1 = Set.of(Object.class);
     //              - компилятор не возражает и это тоже хорошо:
     //                  Set<Class<? extends OneTileGameObject>> abcClassSet2 = Set.of(OneTileGameObject.class);
-    private Set<Class<? extends OneTileGameObject>> oneTileGameObjectClassSet;
+    private Set<Class<OneTileGameObjectStateAutomaton>> oneTileGameObjectStateAutomaton_Class_Set;
 
     private Set<GameMatchX> gameMatchXSet;
+
     //  ToDo:   При наличии предыдущего - этот лишний.
     private Set<GameMatchDto> gameMatchDtoSet;
 
@@ -82,7 +93,7 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
     public GameType(
             String id,
             int countOfGamers,
-            Set<Class<? extends OneTileGameObject>> oneTileGameObjectClassSet,
+            Set<Class<OneTileGameObjectStateAutomaton>> oneTileGameObjectStateAutomaton_Class_Set,
             Class<? extends IGameMatch> gameMatchClass,
             Color defaultCellBackgroundColor,
             Color defaultCellTextColor,
@@ -91,7 +102,7 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
         this();
         this.id = id;
         this.countOfGamers = countOfGamers;
-        this.oneTileGameObjectClassSet = oneTileGameObjectClassSet;
+        this.oneTileGameObjectStateAutomaton_Class_Set = oneTileGameObjectStateAutomaton_Class_Set;
         this.defaultCellBackgroundColor = defaultCellBackgroundColor;
         this.defaultCellTextColor = defaultCellTextColor;
         this.defaultCellTextValue = defaultCellTextValue;
