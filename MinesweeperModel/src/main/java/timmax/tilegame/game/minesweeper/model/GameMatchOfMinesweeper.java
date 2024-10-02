@@ -5,22 +5,24 @@ import javafx.scene.input.MouseButton;
 
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
+import timmax.tilegame.basemodel.gameobject.OneTileGameObjectStateAutomaton;
+import timmax.tilegame.basemodel.gameobject.WidthHeightSizes;
+import timmax.tilegame.basemodel.gameobject.XYCoordinate;
 import timmax.tilegame.basemodel.protocol.server.GameMatch;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
-import timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects;
 import timmax.tilegame.game.minesweeper.model.gameobject.LevelGenerator;
+import timmax.tilegame.game.minesweeper.model.gameobject.MinesweeperGameObjectStateAutomaton;
 
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     public static final String PARAM_NAME_PERCENTS_OF_MINES = "Percents of mines";
 
-    private final LevelGenerator levelGenerator = new LevelGenerator();
-
-    private AllMinesweeperObjects<ClientId> allMinesweeperObjects;
+    private final LevelGenerator levelGenerator; // = new LevelGenerator((GameTypeOfMinesweeper) gameType);
 
     // ToDo: См. комментарии о согласовании параметров в
     //       - GameType :: GameType(...)
@@ -29,27 +31,8 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     public GameMatchOfMinesweeper(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton)
             throws ClassNotFoundException, NoSuchMethodException {
         super(new GameTypeOfMinesweeper(), remoteClientStateAutomaton);
-    }
 
-    private void tryInverseFlag(int x, int y) {
-        if (verifyGameStatusNotGameAndMayBeCreateNewGame() ||
-                allMinesweeperObjects.getTileByXY(x, y).isOpen()) {
-            return;
-        }
-        allMinesweeperObjects.tryInverseFlag(allMinesweeperObjects.getTileByXY(x, y));
-        // Т.к. пометка флагом не раскрывает карту и не может привести к проигрышу, то вызов
-        // setGameMatchIsPlayingTrue() делать не нужно.
-        // Но пока, для отладки, оставлен этот вызов.
-        setStatusIsGame();
-    }
-
-    private void open(int x, int y) {
-        if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
-            return;
-        }
-        setStatus(allMinesweeperObjects.open(allMinesweeperObjects.getTileByXY(x, y)));
-        //  ToDo:   Переделать. Как так, что сначала вызывается setStatus(...), а потом ещё setGameStatusIsGame()?
-        setStatusIsGame();
+        levelGenerator = new LevelGenerator((GameTypeOfMinesweeper) gameType);
     }
 
     // interface IGameMatchX:
@@ -58,10 +41,13 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
         throwExceptionIfIsPlaying();
 
         super.setParamsOfModelValueMap(paramsOfModelValueMap);
-
-        // ToDo: Избавиться от "Warning:(63, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
-        allMinesweeperObjects = levelGenerator.getLevel(getWidth(), getHeight(), paramsOfModelValueMap.get(PARAM_NAME_PERCENTS_OF_MINES));
-        allMinesweeperObjects.setModel(this);
+        oneTileGameObjectsPlacement = levelGenerator.getLevel(
+                //  ToDo:   Переделать getWidth(), getHeight() в родительском классе.
+                //          Пусть там будет переменная WidthHeightSizes.
+                new WidthHeightSizes(getWidth(), getHeight()),
+                paramsOfModelValueMap.get(PARAM_NAME_PERCENTS_OF_MINES)
+        );
+        oneTileGameObjectsPlacement.setGameMatch(this);
     }
 
     @Override
@@ -78,14 +64,13 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
         throwExceptionIfIsPlaying();
 
         super.start(gameMatchExtendedDto);
-
-        // ToDo: Избавиться от "Warning:(74, 33) Unchecked assignment: 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects' to 'timmax.tilegame.game.minesweeper.model.gameobject.AllMinesweeperObjects<ClientId>'"
-        allMinesweeperObjects = levelGenerator.getLevel(
-                getWidth(),
-                getHeight(),
+        oneTileGameObjectsPlacement = levelGenerator.getLevel(
+                //  ToDo:   Переделать getWidth(), getHeight() в родительском классе.
+                //          Пусть там будет переменная WidthHeightSizes.
+                new WidthHeightSizes(getWidth(), getHeight()),
                 getFromParamsOfModelValueMap(PARAM_NAME_PERCENTS_OF_MINES)
         );
-        allMinesweeperObjects.setModel(this);
+        oneTileGameObjectsPlacement.setGameMatch(this);
 
         return newGameMatchExtendedDto(new HashSet<>());
     }
@@ -95,10 +80,23 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     public void executeMouseCommand(GameCommandMouseClick gameCommandMouseClick) {
         int x = gameCommandMouseClick.getX();
         int y = gameCommandMouseClick.getY();
+        XYCoordinate xyCoordinate = new XYCoordinate(x, y);
+        //  Найдём объект по координатам
+        Set<OneTileGameObjectStateAutomaton> oneTileGameObjectStateAutomatonSet =
+                oneTileGameObjectsPlacement
+                        .getOneTileGameObjectStateAutomatonSetInXYCoordinate(xyCoordinate);
+        OneTileGameObjectStateAutomaton oneTileGameObjectStateAutomaton = oneTileGameObjectStateAutomatonSet
+                .stream()
+                .findFirst()
+                .orElse(null);
+        MinesweeperGameObjectStateAutomaton minesweeperGameObjectStateAutomaton =
+                (MinesweeperGameObjectStateAutomaton) oneTileGameObjectStateAutomaton;
         if (gameCommandMouseClick.getMouseButton() == MouseButton.PRIMARY) {
-            open(x, y);
+            //  Откроем объект
+            minesweeperGameObjectStateAutomaton.open();
         } else if (gameCommandMouseClick.getMouseButton() == MouseButton.SECONDARY) {
-            tryInverseFlag(x, y);
+            //  Инвертируем флаг объекту
+            minesweeperGameObjectStateAutomaton.inverseFlag();
         }
     }
 

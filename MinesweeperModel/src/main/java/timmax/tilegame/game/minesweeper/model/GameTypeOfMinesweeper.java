@@ -3,10 +3,7 @@ package timmax.tilegame.game.minesweeper.model;
 import javafx.scene.paint.Color;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
-import timmax.tilegame.game.minesweeper.model.gameobject.Flag;
-import timmax.tilegame.game.minesweeper.model.gameobject.Mine;
-import timmax.tilegame.game.minesweeper.model.gameobject.OpenedTile;
-import timmax.tilegame.game.minesweeper.model.gameobject.UnOpenedTile;
+import timmax.tilegame.game.minesweeper.model.gameobject.*;
 
 import java.util.Set;
 
@@ -36,25 +33,27 @@ public class GameTypeOfMinesweeper extends GameType {
                 //  ToDo:   Переписать GameMatchOfMinesweeper так, что-бы вместо
                 //              class TileOfMinesweeper extends Tile
                 //          использовались классы
-                //              class Mine extends MinesweeperGameObject,
+                //              class MGOMine extends MinesweeperGameObject,
                 //              class Flag extends MinesweeperGameObject,
                 //              class OpenedTile extends MinesweeperGameObject.
-                //          04.09.2024 Создано три класса (Mine, Flag, OpenedTile), но они не задействованы в модели.
+                //          04.09.2024 Создано три класса (MGOMine, Flag, OpenedTile), но они не задействованы в модели.
                 //  ToDo:   Удалить класс Tile после решения предыдущего ToDo (и подобного в другой игре).
                 //  ToDo:   Элементами Set должны быть только классы, являющиеся наследниками класса
                 //          MinesweeperGameObject (который уже наследник OneTileGameObject).
                 //          Сейчас это соответствие не отслеживается, например можно написать так:
                 //              Set.of(Object.class),
                 //          и компилятор ничего не скажет.
-                Set.of(Mine.class, Flag.class, UnOpenedTile.class, OpenedTile.class),
+                Set.of(MGOMineIsNotOpenedWithFlag.class, MGOMineIsNotOpenedWithoutFlag.class, MGOMineIsOpened.class,
+                        MGONoMineIsNotOpenedWithFlag.class, MGONoMineIsNotOpenedWithoutFlag.class, MGONoMineIsOpened.class
+                ),
                 GameMatchOfMinesweeper.class,
                 UNOPENED_CELL_COLOR, BLACK, ""
         );
         //  Это пример того, как хотелось-бы что-бы компилятор отреагировал в предыдущих строках:
         //      - компилятор возражает и это хорошо:
-        //  Set<Class<? extends MinesweeperGameObject>> abcClassSet1 = Set.of(Mine.class, Flag.class, UnOpenedTile.class, OpenedTile.class, Object.class);
+        //  Set<Class<? extends MinesweeperGameObject>> abcClassSet1 = Set.of(MGOMine.class, Flag.class, UnOpenedTile.class, OpenedTile.class, Object.class);
         //      - компилятор не возражает и это тоже хорошо:
-        //  Set<Class<? extends MinesweeperGameObject>> abcClassSet2 = Set.of(Mine.class, Flag.class, UnOpenedTile.class, OpenedTile.class);
+        //  Set<Class<? extends MinesweeperGameObject>> abcClassSet2 = Set.of(MGOMine.class, Flag.class, UnOpenedTile.class, OpenedTile.class);
         paramName_paramModelDescriptionMap.put(PARAM_NAME_WIDTH, new ParamOfModelDescription(8, 2, 20));
         paramName_paramModelDescriptionMap.put(PARAM_NAME_HEIGHT, new ParamOfModelDescription(8, 2, 20));
         paramName_paramModelDescriptionMap.put(PARAM_NAME_PERCENTS_OF_MINES, new ParamOfModelDescription(10, 1, 99));

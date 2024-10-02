@@ -1,42 +1,73 @@
 package timmax.tilegame.game.minesweeper.model.gameobject;
 
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import timmax.tilegame.basemodel.gameobject.OneTileGameObject;
+import timmax.tilegame.basemodel.gameobject.WidthHeightSizes;
+import timmax.tilegame.basemodel.gameobject.XYCoordinate;
+import timmax.tilegame.game.minesweeper.model.GameTypeOfMinesweeper;
 
 public class LevelGenerator {
-    private static final Random random = new Random();
+    private final GameTypeOfMinesweeper gameTypeOfMinesweeper;
 
-    public AllMinesweeperObjects getLevel(int width, int height, int restOfMineInstallationInPercents) {
-        Set<TileOfMinesweeper> mines = new HashSet<>();
-        TileOfMinesweeper[][] tileOfMinesweepers = new TileOfMinesweeper[height][width];
+    public LevelGenerator(GameTypeOfMinesweeper gameTypeOfMinesweeper) {
+        this.gameTypeOfMinesweeper = gameTypeOfMinesweeper;
+    }
+
+    public OneTileGameObjectsPlacementOfMinesweeper getLevel(
+            WidthHeightSizes widthHeightSizes,
+            int restOfMineInstallationInPercents) {
+
+        //  Создаём новую пустую расстановку для Сапёра
+        OneTileGameObjectsPlacementOfMinesweeper oneTileGameObjectsPlacementOfMinesweeper =
+                new OneTileGameObjectsPlacementOfMinesweeper(
+                        gameTypeOfMinesweeper,
+                        widthHeightSizes,
+                        0
+                );
+
         int countMinesOnField = 0;
 
+        //  Расставим мины
         do {
-            int x = random.nextInt(width);
-            int y = random.nextInt(height);
-            TileOfMinesweeper tileOfMinesweeper = new TileOfMinesweeper(x, y, true);
-            if (mines.add(tileOfMinesweeper)) {
-                countMinesOnField++;
-                tileOfMinesweepers[y][x] = tileOfMinesweeper;
+            XYCoordinate xyCoordinate = XYCoordinate.getRandom(widthHeightSizes);
+            if (oneTileGameObjectsPlacementOfMinesweeper.getOneTileGameObjectStateAutomatonSetInXYCoordinate(xyCoordinate).size() == 1) {
+                continue;
             }
-        } while (countMinesOnField < height * width * restOfMineInstallationInPercents / 100);
+            MinesweeperGameObjectStateAutomaton mine =
+                    new MinesweeperGameObjectStateAutomaton(
+                            new OneTileGameObject(xyCoordinate.toString(), oneTileGameObjectsPlacementOfMinesweeper, xyCoordinate),
+                            true
+                    );
+            try {
+                oneTileGameObjectsPlacementOfMinesweeper.add(mine);
+            } catch (RuntimeException rte) {
+            }
+            System.out.println("OneTileGameObjectsPlacementOfMinesweeper :: OneTileGameObjectsPlacementOfMinesweeper getLevel2(WidthHeightSizes widthHeightSizes, int restOfMineInstallationInPercents)");
+            System.out.println("  mine = " + xyCoordinate);
+            countMinesOnField++;
+        } while (countMinesOnField < widthHeightSizes.getSquare() * restOfMineInstallationInPercents / 100);
 
-        /*
-        MinesweeperObject minesweeperObject;
-        minesweeperObject = new MinesweeperObject( 0, 9, true); mines.add( minesweeperObject); minesweeperObjects[ 9][ 0] = minesweeperObject; countMinesOnField++;
-        minesweeperObject = new MinesweeperObject( 9, 0, true); mines.add( minesweeperObject); minesweeperObjects[ 0][ 9] = minesweeperObject; countMinesOnField++;
-        minesweeperObject = new MinesweeperObject( 9, 9, true); mines.add( minesweeperObject); minesweeperObjects[ 9][ 9] = minesweeperObject; countMinesOnField++;
-        */
+        //  Расставим не мины
+        for (int y = 0; y < widthHeightSizes.height(); y++) {
+            for (int x = 0; x < widthHeightSizes.width(); x++) {
+                XYCoordinate xyCoordinate = new XYCoordinate(x, y);
+                if (oneTileGameObjectsPlacementOfMinesweeper.getOneTileGameObjectStateAutomatonSetInXYCoordinate(xyCoordinate).size() == 1) {
+                    continue;
+                }
 
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                if (tileOfMinesweepers[y][x] == null) {
-                    tileOfMinesweepers[y][x] = new TileOfMinesweeper(x, y, false);
+                MinesweeperGameObjectStateAutomaton noMine =
+                        new MinesweeperGameObjectStateAutomaton(
+                                new OneTileGameObject(xyCoordinate.toString(), oneTileGameObjectsPlacementOfMinesweeper, xyCoordinate),
+                                false
+                        );
+                try {
+                    oneTileGameObjectsPlacementOfMinesweeper.add(noMine);
+                } catch (RuntimeException rte) {
+                    System.out.println("LevelGenerator :: OneTileGameObjectsPlacementOfMinesweeper getLevel2(WidthHeightSizes widthHeightSizes, int restOfMineInstallationInPercents). Before 'Расставим не мины'");
+                    System.out.println("  catch (RuntimeException rte)");
                 }
             }
         }
 
-        return new AllMinesweeperObjects(tileOfMinesweepers, countMinesOnField);
+        return oneTileGameObjectsPlacementOfMinesweeper;
     }
 }
