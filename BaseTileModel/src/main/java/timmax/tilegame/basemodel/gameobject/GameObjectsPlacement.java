@@ -41,6 +41,12 @@ public class GameObjectsPlacement {
         */
     }
 
+    public GameObjectsPlacement(GameObjectsPlacement gameObjectsPlacement) {
+        this.gameObjectsPlacementNotVerified = gameObjectsPlacement.gameObjectsPlacementNotVerified;
+        this.playerIndexOfCurrentMove = gameObjectsPlacement.playerIndexOfCurrentMove;
+        this.matchStatus = gameObjectsPlacement.matchStatus;
+    }
+
     public WidthHeightSizes getWidthHeightSizes() {
         return gameObjectsPlacementNotVerified.getWidthHeightSizes();
     }
