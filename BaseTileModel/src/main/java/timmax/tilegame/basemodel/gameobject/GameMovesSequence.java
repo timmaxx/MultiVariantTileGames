@@ -17,25 +17,25 @@ import java.util.ArrayList;
 //  Последовательность игровых ходов (матча) (с приложением к начальной расстановке)
 public abstract class GameMovesSequence extends GameMovesSequenceNotVerified {
     //  Расстановка начальная, т.е. на пустой доске.
-    private final OneTileGameObjectsPlacement oneTileGameObjectsPlacementAtBegining;
+    private final GameObjectsPlacement gameObjectsPlacementAtBegining;
 
     //  Расстановка после последнего хода, т.е. после того, как:
     //  1. на пустую доску расставили начальную расстановку,
     //  2. последовательно сделаны все ходы.
-    private OneTileGameObjectsPlacement oneTileGameObjectsPlacementAfterLastMove;
+    private GameObjectsPlacement gameObjectsPlacementAfterLastMove;
 
     public GameMovesSequence(
             GameType gameType,
             ArrayList<GameMove[]> gameMoveArray_ListArray,
             int playerIndexOfFirstMove,
             int playerIndexOfLasstMove,
-            OneTileGameObjectsPlacement oneTileGameObjectsPlacementAtBegining) {
+            GameObjectsPlacement gameObjectsPlacementAtBegining) {
         super(gameType, gameMoveArray_ListArray, playerIndexOfFirstMove, playerIndexOfLasstMove);
 
-        this.oneTileGameObjectsPlacementAtBegining = oneTileGameObjectsPlacementAtBegining;
-        this.oneTileGameObjectsPlacementAfterLastMove = new OneTileGameObjectsPlacement(oneTileGameObjectsPlacementAtBegining);
+        this.gameObjectsPlacementAtBegining = gameObjectsPlacementAtBegining;
+        this.gameObjectsPlacementAfterLastMove = new GameObjectsPlacement(gameObjectsPlacementAtBegining);
 
-        MatchStatus matchStatus = oneTileGameObjectsPlacementAfterLastMove.getMatchStatus();
+        MatchStatus matchStatus = gameObjectsPlacementAfterLastMove.getMatchStatus();
         int indexOfGameCycle = 0;
         int indexOfPlayer = 0;
         //  ToDo:   Проверить входящий gameMoveArray_ListArray на правильность и в т.ч. "прошагать все ходы".
@@ -57,7 +57,7 @@ public abstract class GameMovesSequence extends GameMovesSequenceNotVerified {
                 //                  - нельзя переместить игрока более чем на одну плитку по горизонтали или вертикали.
                 //              Например, для Шахмат:
                 //                  - нельзя переместить слона как коня или перепрыгнув ч/з фигуру.
-                matchStatus = oneTileGameObjectsPlacementAfterLastMove.applyGameMove(gameMove);
+                matchStatus = gameObjectsPlacementAfterLastMove.applyGameMove(gameMove);
                 if (matchStatus instanceof MatchStatus2GameOver) {
                     indexOfGameCycle = i;
                     indexOfPlayer = j;

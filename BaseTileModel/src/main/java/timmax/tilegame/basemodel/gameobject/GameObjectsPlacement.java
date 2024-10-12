@@ -1,45 +1,28 @@
 package timmax.tilegame.basemodel.gameobject;
 
-import timmax.tilegame.basemodel.protocol.server.GameMatch;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
-import java.util.HashSet;
 import java.util.Set;
 
 //  Расположение игровых объектов (матча)
-public class OneTileGameObjectsPlacement {
-    //  Тип игры
-    private final GameType gameType;
 
-    //  Ширина и высота поля.
-    private final WidthHeightSizes widthHeightSizes;
-
-    //  Множество всех конкретных объектов расстановки как состояний этих объектов.
-    //      Например, для Шахмат:
-    //          Король, ферзь1, слон1, слон2, конь1, конь2, ладья1, ладья2, пешка1, ... пешка8.
-    //      Например, для Шашек:
-    //          Шашка1, ... шашка12, дамка1, ... дамкаN.
-    //      Например, для Сапёра:
-    //          Закрытое поле1, флаг1, открытое поле 1 (без мины), мина1.
-    //      Например, для Сокобан:
-    //          Игрок, коробка1, стена1, дом1.
-    private final Set<OneTileGameObjectStateAutomaton> oneTileGameObjectStateAutomatonSet;
+//  ToDo:   Вынести отсюда некоторые поля в GameObjectsPlacementNotVerified,
+//          а здесь внести переменную этого типа и сделать её финальной.
+//          И при вызове конструктора сначала проверить её на целостность и потом только инициализировать.
+//  ToDo:   Тогда и добавление объекта здесь не должно быть без игрового хода.
+public class GameObjectsPlacement {
+    private final GameObjectsPlacementNotVerified gameObjectsPlacementNotVerified;
 
     private final int playerIndexOfCurrentMove;
-    private GameMatch gameMatch;
 
     private MatchStatus matchStatus;
 
-    public OneTileGameObjectsPlacement(
-            GameType gameType,
-            WidthHeightSizes widthHeightSizes,
-            int playerIndexOfCurrentMove,
-            Set<OneTileGameObjectStateAutomaton> oneTileGameObjectStateAutomatonSet
+    public GameObjectsPlacement(
+            GameObjectsPlacementNotVerified gameObjectsPlacementNotVerified,
+            int playerIndexOfCurrentMove
     ) {
-        //  ToDo:   Нужно проверить, а соответствует-ли WidthHeightSizes и GameType.
-        this.gameType = gameType;
-        this.widthHeightSizes = widthHeightSizes;
-        this.oneTileGameObjectStateAutomatonSet = new HashSet<>();
+        //  ToDo:   Нужно проверить, а соответствует-ли WidthHeightSizes и GameType?
+        this.gameObjectsPlacementNotVerified = gameObjectsPlacementNotVerified;
 
         if (playerIndexOfCurrentMove < 0 || playerIndexOfCurrentMove >= gameTypeCountOfGamers()) {
             //  ToDo:   Отдельный класс исключения сделать?
@@ -58,37 +41,12 @@ public class OneTileGameObjectsPlacement {
         */
     }
 
-    public OneTileGameObjectsPlacement(
-            GameType gameType,
-            WidthHeightSizes widthHeightSizes,
-            int playerIndexOfCurrentMove
-    ) {
-        this(gameType, widthHeightSizes, playerIndexOfCurrentMove, new HashSet<>());
-    }
-
-    //  Warning:(69, 12) Copy constructor does not copy field 'gameMatch'
-    public OneTileGameObjectsPlacement(OneTileGameObjectsPlacement oneTileGameObjectsPlacement) {
-        this(oneTileGameObjectsPlacement.gameType,
-                oneTileGameObjectsPlacement.widthHeightSizes,
-                oneTileGameObjectsPlacement.playerIndexOfCurrentMove,
-                oneTileGameObjectsPlacement.oneTileGameObjectStateAutomatonSet
-        );
-    }
-
-    public GameMatch getGameMatch() {
-        return gameMatch;
-    }
-
-    public void setGameMatch(GameMatch gameMatch) {
-        this.gameMatch = gameMatch;
-    }
-
     public WidthHeightSizes getWidthHeightSizes() {
-        return widthHeightSizes;
+        return gameObjectsPlacementNotVerified.getWidthHeightSizes();
     }
 
     protected GameType getGameType() {
-        return gameType;
+        return gameObjectsPlacementNotVerified.getGameType();
     }
 
     protected int getPlayerIndexOfCurrentMove() {
@@ -104,24 +62,21 @@ public class OneTileGameObjectsPlacement {
     }
 
     public int gameTypeCountOfGamers() {
-        return gameType.getCountOfGamers();
+        return getGameType().getCountOfGamers();
     }
 
-    public Set<OneTileGameObjectStateAutomaton> getOneTileGameObjectStateAutomatonSetInXYCoordinate(XYCoordinate xyCoordinate) {
-        Set<OneTileGameObjectStateAutomaton> result = new HashSet<>();
-        for (OneTileGameObjectStateAutomaton oneTileGameObjectStateAutomaton : oneTileGameObjectStateAutomatonSet) {
-            if (oneTileGameObjectStateAutomaton.getXyCoordinate().equals(xyCoordinate)) {
-                result.add(oneTileGameObjectStateAutomaton);
+/*
+    public Set<GameObjectStateAutomaton> getGameObjectStateAutomatonSetInXYCoordinate(XYCoordinate xyCoordinate) {
+        Set<GameObjectStateAutomaton> result = new HashSet<>();
+        for (GameObjectStateAutomaton gameObjectStateAutomaton : gameObjectStateAutomatonSet) {
+            if (gameObjectStateAutomaton.getXyCoordinate().equals(xyCoordinate)) {
+                result.add(gameObjectStateAutomaton);
             }
         }
         return result;
     }
+*/
 
-    public void add(OneTileGameObjectStateAutomaton oneTileGameObjectStateAutomaton) {
-        if (!oneTileGameObjectStateAutomatonSet.add(oneTileGameObjectStateAutomaton)) {
-            throw new RuntimeException("You cannot add oneTileGameObjectStateAutomaton if there is the same one.");
-        }
-    }
 
     //  Применить один игровой ход:
     //  - проверить, что статус == MatchStatus1Running, если нет создать исключение, если да, то:
@@ -144,7 +99,7 @@ public class OneTileGameObjectsPlacement {
     //        на всей доске, так и на определённых координатах.
     //        Например, для Шахмат не может быть, что-бы:
     //          - хотя-бы у одной из сторон не было-бы короля или королей было-бы несколько,
-    protected void verifyOneTileGameObjectClass_XYCoordinateSet(Class<OneTileGameObject> oneTileGameObjectClass, Set<XYCoordinate> xyCoordinateSet) {
+    protected void verifyGameObjectClass_XYCoordinateSet(Class<GameObject> gameObjectClass, Set<XYCoordinate> xyCoordinateSet) {
     }
 
     //      - ограничение на перечень типов объектов, которые могут находиться на одних координатах.
@@ -160,7 +115,7 @@ public class OneTileGameObjectsPlacement {
     //                  - ящик и ящик,
     //                  - ящик и игрок,
     //                  - игрок и игрок.
-    protected void verifyXYCoordinateSet_OneTileGameObjectClassSet(XYCoordinate xyCoordinate, Set<Class<OneTileGameObject>> oneTileGameObjectClassSet) {
+    protected void verifyXYCoordinateSet_GameObjectClassSet(XYCoordinate xyCoordinate, Set<Class<GameObject>> gameObjectClassSet) {
     }
 
     //      - ограничения на взаимное расположение всех объектов:
@@ -171,25 +126,12 @@ public class OneTileGameObjectsPlacement {
         return new MatchStatus0Undefined();
     }
 
-    /*
     @Override
     public String toString() {
-        return "OneTileGameObjectsPlacement{" +
-                super.toString() +
-                "gameType=" + gameType +
-                ", widthHeightSizes=" + widthHeightSizes +
-                ", playerIndexOfCurrentMove=" + playerIndexOfCurrentMove +
-                ", matchStatus=" + matchStatus +
-                '}';
-    }
-    */
-
-    @Override
-    public String toString() {
-        return "OneTileGameObjectsPlacement{" +
+        return "GameObjectsPlacement{" +
                 // "gameType=" + gameType +
                 // ", widthHeightSizes=" + widthHeightSizes +
-                ", oneTileGameObjectStateAutomatonSet=" + oneTileGameObjectStateAutomatonSet +
+//                ", gameObjectStateAutomatonSet=" + gameObjectStateAutomatonSet +
                 // ", playerIndexOfCurrentMove=" + playerIndexOfCurrentMove +
                 // ", matchStatus=" + matchStatus +
                 '}';

@@ -1,6 +1,7 @@
 package timmax.tilegame.basemodel.tile;
 
 // Направление смещения
+//  ToDo    Удалить, т.к. есть класс XYOffset.
 public enum Direction {
     UNKNOWN,
     LEFT,

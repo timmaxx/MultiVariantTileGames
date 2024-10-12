@@ -1,7 +1,7 @@
 package timmax.tilegame.basemodel.tile;
 
 //  ToDo:   Изменить структуру наследования классов для одноплиточных игровых объектов. Сделать базовым класс
-//              timmax.tilegame.basemodel.gameobject.OneTileGameObject
+//              timmax.tilegame.basemodel.gameobject.GameObject
 //          Сейчас-же в корне стоит класс
 //              timmax.tilegame.basemodel.tile.Tile
 //  ToDo:   После отказа от класса Tile в этой модели и в других моделях - удалить Tile.
@@ -29,7 +29,7 @@ public class Tile {
     }
 
     public Tile add(DxDy dxDy) {
-        return new Tile(x + dxDy.x, y + dxDy.y);
+        return new Tile(x + dxDy.dx, y + dxDy.dy);
     }
 
     @Override

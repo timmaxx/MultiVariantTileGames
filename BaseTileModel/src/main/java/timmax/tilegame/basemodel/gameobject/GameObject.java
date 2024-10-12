@@ -1,13 +1,16 @@
 package timmax.tilegame.basemodel.gameobject;
 
 //  ToDo:   Изменить структуру наследования классов для одноплиточных игровых объектов. Сделать базовым класс
-//              timmax.tilegame.basemodel.gameobject.OneTileGameObject
+//              timmax.tilegame.basemodel.gameobject.GameObject
 //          Сейчас-же в корне стоит класс
 //              timmax.tilegame.basemodel.tile.Tile
 //  ToDo:   После отказа от класса Tile в этой модели и в других моделях - удалить Tile.
 
-//  Одноплиточный игровой объект
-public class OneTileGameObject {
+//  Одноплиточный игровой объект.
+//  Ранее назывался OneTileGameObject.
+//  Предполагалость, что потом будет многоплиточный игровой объект (типа падающей фигурки у Тетриса).
+//  Но такого ещё и нет, но, а если он и появится, то и пусть он называется, например, MultiTileGameObject.
+public class GameObject {
     //  Идентификатор объекта для отличия двух и более объектов одного типа.
     //  Например, для Шахмат:
     //      У каждой из сторон может быть по нескольку пешек, тогда здесь можно было-бы написать:
@@ -15,18 +18,18 @@ public class OneTileGameObject {
     private final String id;
 
     //  Расстановка, которой принадлежит объект.
-    protected final OneTileGameObjectsPlacement oneTileGameObjectsPlacement;
+    protected final GameObjectsPlacement gameObjectsPlacement;
 
     protected XYCoordinate xyCoordinate;
 
 
-    public OneTileGameObject(String id, OneTileGameObjectsPlacement oneTileGameObjectsPlacement) {
+    public GameObject(String id, GameObjectsPlacement gameObjectsPlacement) {
         this.id = id;
-        this.oneTileGameObjectsPlacement = oneTileGameObjectsPlacement;
+        this.gameObjectsPlacement = gameObjectsPlacement;
     }
 
-    public OneTileGameObject(String id, OneTileGameObjectsPlacement oneTileGameObjectsPlacement, XYCoordinate xyCoordinate) {
-        this(id, oneTileGameObjectsPlacement);
+    public GameObject(String id, GameObjectsPlacement gameObjectsPlacement, XYCoordinate xyCoordinate) {
+        this(id, gameObjectsPlacement);
         setXyCoordinate(xyCoordinate);
     }
 
@@ -43,12 +46,12 @@ public class OneTileGameObject {
             throw new NullPointerException("xyCoordinate must be not null.");
         }
         //  ToDo:   Проверить координаты на допустимость (минимум и максимум)
-        oneTileGameObjectsPlacement.getWidthHeightSizes().validateXYCoordinate(xyCoordinate);
+        gameObjectsPlacement.getWidthHeightSizes().validateXYCoordinate(xyCoordinate);
         this.xyCoordinate = xyCoordinate;
     }
 
-    public OneTileGameObjectsPlacement getOneTileGameObjectsPlacement() {
-        return oneTileGameObjectsPlacement;
+    public GameObjectsPlacement getGameObjectsPlacement() {
+        return gameObjectsPlacement;
     }
 
     @Override
@@ -56,24 +59,24 @@ public class OneTileGameObject {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        OneTileGameObject that = (OneTileGameObject) o;
+        GameObject that = (GameObject) o;
 
-        if (!oneTileGameObjectsPlacement.equals(that.oneTileGameObjectsPlacement)) return false;
+        if (!gameObjectsPlacement.equals(that.gameObjectsPlacement)) return false;
         return xyCoordinate.equals(that.xyCoordinate);
     }
 
     @Override
     public int hashCode() {
-        int result = oneTileGameObjectsPlacement.hashCode();
+        int result = gameObjectsPlacement.hashCode();
         result = 31 * result + xyCoordinate.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        return "OneTileGameObject{" +
+        return "GameObject{" +
                 "id='" + id + '\'' +
-//              ", oneTileGameObjectsPlacement=" + oneTileGameObjectsPlacement +
+//              ", gameObjectsPlacement=" + gameObjectsPlacement +
                 ", xyCoordinate=" + xyCoordinate +
                 '}';
     }

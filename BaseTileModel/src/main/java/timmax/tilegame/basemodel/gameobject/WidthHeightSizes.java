@@ -23,7 +23,6 @@ public final class WidthHeightSizes {
     private final int width;
     private final int height;
 
-
     public WidthHeightSizes(int width, int height) {
         if (width < MIN_WIDTH || width > MAX_WIDTH ||
                 height < MIN_HEIGHT || height > MAX_HEIGHT) {

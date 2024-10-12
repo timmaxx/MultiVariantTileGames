@@ -1,20 +1,21 @@
 package timmax.tilegame.basemodel.tile;
 
 // Смещение для объекта игры за один шаг.
+//  ToDo    Удалить, т.к. есть класс XYOffset.
 public class DxDy {
-    protected int x;
-    protected int y;
+    protected int dx;
+    protected int dy;
 
-    public DxDy(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public DxDy(int dx, int dy) {
+        this.dx = dx;
+        this.dy = dy;
     }
 
-    public int getX() {
-        return x;
+    public int getDx() {
+        return dx;
     }
 
-    public int getY() {
-        return y;
+    public int getDy() {
+        return dy;
     }
 }
