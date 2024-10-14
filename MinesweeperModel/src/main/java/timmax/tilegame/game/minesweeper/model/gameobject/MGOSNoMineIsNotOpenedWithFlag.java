@@ -2,11 +2,9 @@ package timmax.tilegame.game.minesweeper.model.gameobject;
 
 import timmax.tilegame.game.minesweeper.model.gameevent.GameEventOneTileMinesweeperChangeFlag;
 
-//  ToDo:   Разложить класс TileOfMinesweeper на несколько и в т.ч. перенести сюда часть его функционала.
-//  ToDo:   После полного отказа от класса TileOfMinesweeper, удалить его.
 public class MGOSNoMineIsNotOpenedWithFlag extends MGOSNoMine {
-    public MGOSNoMineIsNotOpenedWithFlag(MinesweeperGameObjectStateAutomaton minesweeperGameObjectStateAutomaton) {
-        super(minesweeperGameObjectStateAutomaton);
+    public MGOSNoMineIsNotOpenedWithFlag(MGOStateAutomaton MGOStateAutomaton) {
+        super(MGOStateAutomaton);
     }
 
     @Override
@@ -16,16 +14,16 @@ public class MGOSNoMineIsNotOpenedWithFlag extends MGOSNoMine {
 
     @Override
     public void inverseFlag() {
-        getOneTileGameObjectStateAutomaton().setCurrentState(getOneTileGameObjectStateAutomaton().noMineIsNotOpenedWithoutFlag);
+        getGameObjectStateAutomaton().setCurrentState(getGameObjectStateAutomaton().noMineIsNotOpenedWithoutFlag);
 
-        getOneTileGameObjectStateAutomaton()
-                .getOneTileGameObject()
-                .getOneTileGameObjectsPlacement()
+        getGameObjectStateAutomaton()
+                .getGameObject()
+                .getGameObjectsPlacementNotVerified()
                 .getGameMatch()
                 .sendGameEventToAllViews(
                         new GameEventOneTileMinesweeperChangeFlag(
-                                getOneTileGameObjectStateAutomaton().getXyCoordinate().getX(),
-                                getOneTileGameObjectStateAutomaton().getXyCoordinate().getY(),
+                                getGameObjectStateAutomaton().getXyCoordinate().getX(),
+                                getGameObjectStateAutomaton().getXyCoordinate().getY(),
                                 false
                         )
                 )

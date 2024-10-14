@@ -1,8 +1,8 @@
 package timmax.tilegame.game.minesweeper.model.gameobject;
 
 import timmax.tilegame.basemodel.exception.XYCoordinateIsOutOfRangeException;
-import timmax.tilegame.basemodel.gameobject.OneTileGameObject;
-import timmax.tilegame.basemodel.gameobject.OneTileGameObjectStateAutomaton;
+import timmax.tilegame.basemodel.gameobject.GameObject;
+import timmax.tilegame.basemodel.gameobject.GameObjectStateAutomaton;
 import timmax.tilegame.basemodel.gameobject.XYCoordinate;
 import timmax.tilegame.basemodel.gameobject.XYOffset;
 
@@ -12,8 +12,8 @@ import java.util.Set;
 //  ToDo:   Разложить класс TileOfMinesweeper на несколько и в т.ч. перенести сюда часть его функционала.
 //          А для этой модели базовым должен стать этот класс.
 //  ToDo:   После полного отказа от класса TileOfMinesweeper, удалить его.
-public class MinesweeperGameObjectStateAutomaton extends OneTileGameObjectStateAutomaton implements IMinesweeperGameObjectState {
-    protected Set<MinesweeperGameObjectStateAutomaton> neighbourSet; // Соседние плитки
+public class MGOStateAutomaton extends GameObjectStateAutomaton implements IMGOState {
+    protected Set<MGOStateAutomaton> neighbourSet; // Соседние плитки
     protected int countOfMinesInNeighbours;
 
     final MGOSMineIsNotOpenedWithFlag mineIsNotOpenedWithFlag;
@@ -23,8 +23,8 @@ public class MinesweeperGameObjectStateAutomaton extends OneTileGameObjectStateA
     final MGOSNoMineIsNotOpenedWithoutFlag noMineIsNotOpenedWithoutFlag;
     final MGOSNoMineIsOpened noMineIsOpened;
 
-    private MinesweeperGameObjectStateAutomaton(OneTileGameObject oneTileGameObject) {
-        super(oneTileGameObject);
+    private MGOStateAutomaton(GameObject gameObject) {
+        super(gameObject);
 
         mineIsNotOpenedWithFlag = new MGOSMineIsNotOpenedWithFlag(this);
         mineIsNotOpenedWithoutFlag = new MGOSMineIsNotOpenedWithoutFlag(this);
@@ -34,8 +34,8 @@ public class MinesweeperGameObjectStateAutomaton extends OneTileGameObjectStateA
         noMineIsOpened = new MGOSNoMineIsOpened(this);
     }
 
-    public MinesweeperGameObjectStateAutomaton(OneTileGameObject oneTileGameObject, boolean isMine) {
-        this(oneTileGameObject);
+    public MGOStateAutomaton(GameObject gameObject, boolean isMine) {
+        this(gameObject);
         if (isMine) {
             setCurrentState(mineIsNotOpenedWithoutFlag);
         } else {
@@ -57,25 +57,23 @@ public class MinesweeperGameObjectStateAutomaton extends OneTileGameObjectStateA
                             getXyCoordinate()
                                     .getXYCoordinateByOffset(
                                             new XYOffset(dx, dy),
-                                            getOneTileGameObject()
-                                                    .getOneTileGameObjectsPlacement()
+                                            getGameObject()
+                                                    .getGameObjectsPlacementNotVerified()
                                                     .getWidthHeightSizes()
                                     )
                     ;
                 } catch (XYCoordinateIsOutOfRangeException e) {
                     continue;
                 }
-                //  ToDo:   По координатам "соседа" (xyCoordinateOfNeighbour) нужно найти объект
-                //          (т.е. Set с одним элементом)
-                Set<OneTileGameObjectStateAutomaton> oneTileGameObjectStateAutomatonSet =
-                        getOneTileGameObject()
-                                .getOneTileGameObjectsPlacement()
-                                .getOneTileGameObjectStateAutomatonSetInXYCoordinate(xyCoordinateOfNeighbour);
-                if (oneTileGameObjectStateAutomatonSet.size() != 1) {
-                    throw new RuntimeException("Должен быть один элемент во множестве oneTileGameObjectStateAutomatonSet, но oneTileGameObjectStateAutomatonSet = " + oneTileGameObjectStateAutomatonSet);
+                Set<GameObjectStateAutomaton> gameObjectStateAutomatonSet =
+                        getGameObject()
+                                .getGameObjectsPlacementNotVerified()
+                                .getGameObjectStateAutomatonSetInXYCoordinate(xyCoordinateOfNeighbour);
+                if (gameObjectStateAutomatonSet.size() != 1) {
+                    throw new RuntimeException("Должен быть один элемент во множестве gameObjectStateAutomatonSet, но gameObjectStateAutomatonSet = " + gameObjectStateAutomatonSet);
                 }
 
-                MinesweeperGameObjectStateAutomaton neighbour = (MinesweeperGameObjectStateAutomaton) (oneTileGameObjectStateAutomatonSet.stream().findFirst().orElse(null));
+                MGOStateAutomaton neighbour = (MGOStateAutomaton) (gameObjectStateAutomatonSet.stream().findFirst().orElse(null));
 
                 neighbourSet.add(neighbour);
                 countOfMinesInNeighbours += neighbour.getOneOrZeroMines();
@@ -83,7 +81,7 @@ public class MinesweeperGameObjectStateAutomaton extends OneTileGameObjectStateA
         }
     }
 
-    protected Set<MinesweeperGameObjectStateAutomaton> getNeighbourSet() {
+    protected Set<MGOStateAutomaton> getNeighbourSet() {
         if (neighbourSet == null) {
             initNeighbourSet();
         }
@@ -91,22 +89,22 @@ public class MinesweeperGameObjectStateAutomaton extends OneTileGameObjectStateA
     }
 
     @Override
-    public MinesweeperGameObjectState getOneTileGameObjectState() {
-        return (MinesweeperGameObjectState) super.getOneTileGameObjectState();
+    public MGOState getGameObjectState() {
+        return (MGOState) super.getGameObjectState();
     }
 
     @Override
     public int getOneOrZeroMines() {
-        return getOneTileGameObjectState().getOneOrZeroMines();
+        return getGameObjectState().getOneOrZeroMines();
     }
 
     @Override
     public void open() {
-        getOneTileGameObjectState().open();
+        getGameObjectState().open();
     }
 
     @Override
     public void inverseFlag() {
-        getOneTileGameObjectState().inverseFlag();
+        getGameObjectState().inverseFlag();
     }
 }

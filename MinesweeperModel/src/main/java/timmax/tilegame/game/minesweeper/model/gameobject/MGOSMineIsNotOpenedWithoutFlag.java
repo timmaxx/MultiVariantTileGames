@@ -7,30 +7,28 @@ import timmax.tilegame.game.minesweeper.model.gameevent.GameEventOneTileMineswee
 
 import static timmax.tilegame.basemodel.GameMatchStatus.DEFEAT;
 
-//  ToDo:   Разложить класс TileOfMinesweeper на несколько и в т.ч. перенести сюда часть его функционала.
-//  ToDo:   После полного отказа от класса TileOfMinesweeper, удалить его.
 public class MGOSMineIsNotOpenedWithoutFlag extends MGOSMine {
-    public MGOSMineIsNotOpenedWithoutFlag(MinesweeperGameObjectStateAutomaton minesweeperGameObjectStateAutomaton) {
-        super(minesweeperGameObjectStateAutomaton);
+    public MGOSMineIsNotOpenedWithoutFlag(MGOStateAutomaton MGOStateAutomaton) {
+        super(MGOStateAutomaton);
     }
 
     @Override
     public void open() {
-        getOneTileGameObjectStateAutomaton().setCurrentState(getOneTileGameObjectStateAutomaton().mineIsOpened);
+        getGameObjectStateAutomaton().setCurrentState(getGameObjectStateAutomaton().mineIsOpened);
 
-        getOneTileGameObjectStateAutomaton()
-                .getOneTileGameObject()
-                .getOneTileGameObjectsPlacement()
+        getGameObjectStateAutomaton()
+                .getGameObject()
+                .getGameObjectsPlacementNotVerified()
                 .getGameMatch()
                 .sendGameEventToAllViews(
                         new GameEventOneTileMinesweeperOpenMine(
-                                getOneTileGameObjectStateAutomaton().getXyCoordinate().getX(),
-                                getOneTileGameObjectStateAutomaton().getXyCoordinate().getY()
+                                getGameObjectStateAutomaton().getXyCoordinate().getX(),
+                                getGameObjectStateAutomaton().getXyCoordinate().getY()
                         )
                 );
-        getOneTileGameObjectStateAutomaton()
-                .getOneTileGameObject()
-                .getOneTileGameObjectsPlacement()
+        getGameObjectStateAutomaton()
+                .getGameObject()
+                .getGameObjectsPlacementNotVerified()
                 .getGameMatch()
                 .sendGameEventToAllViews(new GameEventGameOver(DEFEAT));
 
@@ -39,16 +37,16 @@ public class MGOSMineIsNotOpenedWithoutFlag extends MGOSMine {
 
     @Override
     public void inverseFlag() {
-        getOneTileGameObjectStateAutomaton().setCurrentState(getOneTileGameObjectStateAutomaton().mineIsNotOpenedWithFlag);
+        getGameObjectStateAutomaton().setCurrentState(getGameObjectStateAutomaton().mineIsNotOpenedWithFlag);
 
-        getOneTileGameObjectStateAutomaton()
-                .getOneTileGameObject()
-                .getOneTileGameObjectsPlacement()
+        getGameObjectStateAutomaton()
+                .getGameObject()
+                .getGameObjectsPlacementNotVerified()
                 .getGameMatch()
                 .sendGameEventToAllViews(
                         new GameEventOneTileMinesweeperChangeFlag(
-                                getOneTileGameObjectStateAutomaton().getXyCoordinate().getX(),
-                                getOneTileGameObjectStateAutomaton().getXyCoordinate().getY(),
+                                getGameObjectStateAutomaton().getXyCoordinate().getX(),
+                                getGameObjectStateAutomaton().getXyCoordinate().getY(),
                                 true
                         )
                 )

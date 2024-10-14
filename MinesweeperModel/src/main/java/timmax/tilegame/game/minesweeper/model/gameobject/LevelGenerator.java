@@ -1,27 +1,27 @@
 package timmax.tilegame.game.minesweeper.model.gameobject;
 
-import timmax.tilegame.basemodel.gameobject.OneTileGameObject;
+import timmax.tilegame.basemodel.gameobject.GameObject;
 import timmax.tilegame.basemodel.gameobject.WidthHeightSizes;
 import timmax.tilegame.basemodel.gameobject.XYCoordinate;
-import timmax.tilegame.game.minesweeper.model.GameTypeOfMinesweeper;
+import timmax.tilegame.basemodel.protocol.server.GameMatch;
 
+//  ToDo:   Классы LevelLoader для Сокобан и LevelGenerator для Сапёра увязать в одну иерархию.
+//          Т.к. они имеют метод getLevel, который возвращает размещение.
+//          Но с другой стороны, один из них генерирует размещение, а другой считывает его из файла.
+//          Нужно учесть и это!
+//  ToDo:   А может перенести функционал getLevel() в MinesweeperPlacement в конструктор или в статический метод?
 public class LevelGenerator {
-    private final GameTypeOfMinesweeper gameTypeOfMinesweeper;
-
-    public LevelGenerator(GameTypeOfMinesweeper gameTypeOfMinesweeper) {
-        this.gameTypeOfMinesweeper = gameTypeOfMinesweeper;
-    }
-
-    public OneTileGameObjectsPlacementOfMinesweeper getLevel(
+    //  ToDo:   GameMatch gameMatch удалить, т.к. он нужен только для вызова конструктора.
+    public MinesweeperPlacement getLevel(
+            GameMatch gameMatch,
             WidthHeightSizes widthHeightSizes,
             int restOfMineInstallationInPercents) {
 
-        //  Создаём новую пустую расстановку для Сапёра
-        OneTileGameObjectsPlacementOfMinesweeper oneTileGameObjectsPlacementOfMinesweeper =
-                new OneTileGameObjectsPlacementOfMinesweeper(
-                        gameTypeOfMinesweeper,
-                        widthHeightSizes,
-                        0
+        //  Создаём новую пустую не верифицированную расстановку для Сапёра
+        MinesweeperPlacementNotVerified minesweeperPlacementNotVerified =
+                new MinesweeperPlacementNotVerified(
+                        gameMatch,
+                        widthHeightSizes
                 );
 
         int countMinesOnField = 0;
@@ -29,20 +29,18 @@ public class LevelGenerator {
         //  Расставим мины
         do {
             XYCoordinate xyCoordinate = XYCoordinate.getRandom(widthHeightSizes);
-            if (oneTileGameObjectsPlacementOfMinesweeper.getOneTileGameObjectStateAutomatonSetInXYCoordinate(xyCoordinate).size() == 1) {
+            if (minesweeperPlacementNotVerified.getGameObjectStateAutomatonSetInXYCoordinate(xyCoordinate).size() == 1) {
                 continue;
             }
-            MinesweeperGameObjectStateAutomaton mine =
-                    new MinesweeperGameObjectStateAutomaton(
-                            new OneTileGameObject(xyCoordinate.toString(), oneTileGameObjectsPlacementOfMinesweeper, xyCoordinate),
+            MGOStateAutomaton mine =
+                    new MGOStateAutomaton(
+                            new GameObject(xyCoordinate.toString(), minesweeperPlacementNotVerified, xyCoordinate),
                             true
                     );
             try {
-                oneTileGameObjectsPlacementOfMinesweeper.add(mine);
+                minesweeperPlacementNotVerified.add(mine);
             } catch (RuntimeException rte) {
             }
-            System.out.println("OneTileGameObjectsPlacementOfMinesweeper :: OneTileGameObjectsPlacementOfMinesweeper getLevel2(WidthHeightSizes widthHeightSizes, int restOfMineInstallationInPercents)");
-            System.out.println("  mine = " + xyCoordinate);
             countMinesOnField++;
         } while (countMinesOnField < widthHeightSizes.getSquare() * restOfMineInstallationInPercents / 100);
 
@@ -50,24 +48,22 @@ public class LevelGenerator {
         for (int y = 0; y < widthHeightSizes.height(); y++) {
             for (int x = 0; x < widthHeightSizes.width(); x++) {
                 XYCoordinate xyCoordinate = new XYCoordinate(x, y);
-                if (oneTileGameObjectsPlacementOfMinesweeper.getOneTileGameObjectStateAutomatonSetInXYCoordinate(xyCoordinate).size() == 1) {
+                if (minesweeperPlacementNotVerified.getGameObjectStateAutomatonSetInXYCoordinate(xyCoordinate).size() == 1) {
                     continue;
                 }
 
-                MinesweeperGameObjectStateAutomaton noMine =
-                        new MinesweeperGameObjectStateAutomaton(
-                                new OneTileGameObject(xyCoordinate.toString(), oneTileGameObjectsPlacementOfMinesweeper, xyCoordinate),
+                MGOStateAutomaton noMine =
+                        new MGOStateAutomaton(
+                                new GameObject(xyCoordinate.toString(), minesweeperPlacementNotVerified, xyCoordinate),
                                 false
                         );
                 try {
-                    oneTileGameObjectsPlacementOfMinesweeper.add(noMine);
+                    minesweeperPlacementNotVerified.add(noMine);
                 } catch (RuntimeException rte) {
-                    System.out.println("LevelGenerator :: OneTileGameObjectsPlacementOfMinesweeper getLevel2(WidthHeightSizes widthHeightSizes, int restOfMineInstallationInPercents). Before 'Расставим не мины'");
-                    System.out.println("  catch (RuntimeException rte)");
                 }
             }
         }
 
-        return oneTileGameObjectsPlacementOfMinesweeper;
+        return new MinesweeperPlacement(minesweeperPlacementNotVerified);
     }
 }

@@ -3,39 +3,35 @@ package timmax.tilegame.game.minesweeper.model.gameobject;
 import timmax.tilegame.game.minesweeper.model.gameevent.GameEventOneTileMinesweeperChangeFlag;
 import timmax.tilegame.game.minesweeper.model.gameevent.GameEventOneTileMinesweeperOpenNoMine;
 
-//  ToDo:   Разложить класс TileOfMinesweeper на несколько и в т.ч. перенести сюда часть его функционала.
-//  ToDo:   После полного отказа от класса TileOfMinesweeper, удалить его.
 public class MGOSNoMineIsNotOpenedWithoutFlag extends MGOSNoMine {
-    public MGOSNoMineIsNotOpenedWithoutFlag(MinesweeperGameObjectStateAutomaton minesweeperGameObjectStateAutomaton) {
-        super(minesweeperGameObjectStateAutomaton);
+    public MGOSNoMineIsNotOpenedWithoutFlag(MGOStateAutomaton MGOStateAutomaton) {
+        super(MGOStateAutomaton);
     }
 
     @Override
     public void open() {
-        getOneTileGameObjectStateAutomaton().setCurrentState(getOneTileGameObjectStateAutomaton().noMineIsOpened);
+        getGameObjectStateAutomaton().setCurrentState(getGameObjectStateAutomaton().noMineIsOpened);
 
-        getOneTileGameObjectStateAutomaton().initNeighbourSet();
+        getGameObjectStateAutomaton().initNeighbourSet();
 
-        getOneTileGameObjectStateAutomaton()
-                .getOneTileGameObject()
-                .getOneTileGameObjectsPlacement()
+        getGameObjectStateAutomaton()
+                .getGameObject()
+                .getGameObjectsPlacementNotVerified()
                 .getGameMatch()
                 .sendGameEventToAllViews(
                         new GameEventOneTileMinesweeperOpenNoMine(
-                                getOneTileGameObjectStateAutomaton().getXyCoordinate().getX(),
-                                getOneTileGameObjectStateAutomaton().getXyCoordinate().getY(),
-                                getOneTileGameObjectStateAutomaton().countOfMinesInNeighbours
+                                getGameObjectStateAutomaton().getXyCoordinate().getX(),
+                                getGameObjectStateAutomaton().getXyCoordinate().getY(),
+                                getGameObjectStateAutomaton().countOfMinesInNeighbours
                         )
                 )
         ;
 
-        if (getOneTileGameObjectStateAutomaton().countOfMinesInNeighbours > 0) {
+        if (getGameObjectStateAutomaton().countOfMinesInNeighbours > 0) {
             return;
         }
-        for (MinesweeperGameObjectStateAutomaton neighbour : getOneTileGameObjectStateAutomaton().getNeighbourSet()) {
-            if (neighbour.getOneTileGameObjectState() instanceof MGOSNoMineIsNotOpenedWithoutFlag) {
-                //  Если соседняя плитка ещё не была открыта и там нет мины
-                //      Откроем соседнюю плитку
+        for (MGOStateAutomaton neighbour : getGameObjectStateAutomaton().getNeighbourSet()) {
+            if (neighbour.getGameObjectState() instanceof MGOSNoMineIsNotOpenedWithoutFlag) {
                 neighbour.open();
             }
         }
@@ -43,16 +39,16 @@ public class MGOSNoMineIsNotOpenedWithoutFlag extends MGOSNoMine {
 
     @Override
     public void inverseFlag() {
-        getOneTileGameObjectStateAutomaton().setCurrentState(getOneTileGameObjectStateAutomaton().noMineIsNotOpenedWithFlag);
+        getGameObjectStateAutomaton().setCurrentState(getGameObjectStateAutomaton().noMineIsNotOpenedWithFlag);
 
-        getOneTileGameObjectStateAutomaton()
-                .getOneTileGameObject()
-                .getOneTileGameObjectsPlacement()
+        getGameObjectStateAutomaton()
+                .getGameObject()
+                .getGameObjectsPlacementNotVerified()
                 .getGameMatch()
                 .sendGameEventToAllViews(
                         new GameEventOneTileMinesweeperChangeFlag(
-                                getOneTileGameObjectStateAutomaton().getXyCoordinate().getX(),
-                                getOneTileGameObjectStateAutomaton().getXyCoordinate().getY(),
+                                getGameObjectStateAutomaton().getXyCoordinate().getX(),
+                                getGameObjectStateAutomaton().getXyCoordinate().getY(),
                                 true
                         )
                 )

@@ -15,8 +15,7 @@ import static timmax.tilegame.game.minesweeper.model.GameMatchOfMinesweeper.PARA
 //  Warning:(13, 44) Raw use of parameterized class 'GameType'
 public class GameTypeOfMinesweeper extends GameType {
 
-    // ToDo: Ниже относится к визуализации. Удалить это отсюда.
-    //       Константы, описанные ниже относятся к визуализации.
+    // ToDo: Удалить это отсюда константы, описанные ниже, т.к. они относятся к визуализации.
     public static final Color UNOPENED_CELL_COLOR = ORANGE;
     public static final Color OPENED_CELL_COLOR = GREEN;
 
@@ -30,16 +29,8 @@ public class GameTypeOfMinesweeper extends GameType {
         //  ToDo:   Warning:(34, 9) Unchecked call to 'GameType(String, int, Class<? extends IGameMatch>, Color, Color, String)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.GameType'
         super("Minesweeper",
                 1,
-                //  ToDo:   Переписать GameMatchOfMinesweeper так, что-бы вместо
-                //              class TileOfMinesweeper extends Tile
-                //          использовались классы
-                //              class MGOMine extends MinesweeperGameObject,
-                //              class Flag extends MinesweeperGameObject,
-                //              class OpenedTile extends MinesweeperGameObject.
-                //          04.09.2024 Создано три класса (MGOMine, Flag, OpenedTile), но они не задействованы в модели.
-                //  ToDo:   Удалить класс Tile после решения предыдущего ToDo (и подобного в другой игре).
                 //  ToDo:   Элементами Set должны быть только классы, являющиеся наследниками класса
-                //          MinesweeperGameObject (который уже наследник OneTileGameObject).
+                //          MinesweeperGameObject (который уже наследник GameObject).
                 //          Сейчас это соответствие не отслеживается, например можно написать так:
                 //              Set.of(Object.class),
                 //          и компилятор ничего не скажет.
