@@ -20,8 +20,7 @@ public class MGOSNoMineIsNotOpenedWithoutFlag extends MGOSNoMine {
                 .getGameMatch()
                 .sendGameEventToAllViews(
                         new GameEventOneTileMinesweeperOpenNoMine(
-                                getGameObjectStateAutomaton().getXyCoordinate().getX(),
-                                getGameObjectStateAutomaton().getXyCoordinate().getY(),
+                                getGameObjectStateAutomaton().getXyCoordinate(),
                                 getGameObjectStateAutomaton().countOfMinesInNeighbours
                         )
                 )
@@ -47,8 +46,7 @@ public class MGOSNoMineIsNotOpenedWithoutFlag extends MGOSNoMine {
                 .getGameMatch()
                 .sendGameEventToAllViews(
                         new GameEventOneTileMinesweeperChangeFlag(
-                                getGameObjectStateAutomaton().getXyCoordinate().getX(),
-                                getGameObjectStateAutomaton().getXyCoordinate().getY(),
+                                getGameObjectStateAutomaton().getXyCoordinate(),
                                 true
                         )
                 )

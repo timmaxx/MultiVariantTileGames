@@ -1,22 +1,36 @@
 package timmax.tilegame.basemodel.gameobject;
 
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.Random;
 
 //  xy-координаты
-public final class XYCoordinate {
+public final class XYCoordinate implements Externalizable {
     private static final Random random = new Random();
-    private final int x;
-    private final int y;
+
+    private int x;
+    private int y;
+
+    public XYCoordinate() {
+    }
 
     public XYCoordinate(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
+    //  В методе
+    //  ViewMainFieldJfx :: GameStackPane getCellByGameEventOneTile(GameEventOneTile gameEventOneTile)
+    //  используется метод, поэтому public.
     public int getX() {
         return x;
     }
 
+    //  В методе
+    //  ViewMainFieldJfx :: GameStackPane getCellByGameEventOneTile(GameEventOneTile gameEventOneTile)
+    //  используется метод, поэтому public.
     public int getY() {
         return y;
     }
@@ -30,11 +44,32 @@ public final class XYCoordinate {
         return xyCoordinate;
     }
 
-    public static XYCoordinate getRandom(WidthHeightSizes widthHeightSizes)
-    {
-        int x = random.nextInt(widthHeightSizes.width());
-        int y = random.nextInt(widthHeightSizes.height());
-        return new XYCoordinate(x, y);
+    public static XYCoordinate getRandom(WidthHeightSizes widthHeightSizes) {
+        return new XYCoordinate(random.nextInt(widthHeightSizes.width()), random.nextInt(widthHeightSizes.height()));
+    }
+
+    public boolean hasEqualX(XYCoordinate xyCoordinate) {
+        return x == xyCoordinate.x;
+    }
+
+    public boolean hasEqualY(XYCoordinate xyCoordinate) {
+        return y == xyCoordinate.y;
+    }
+
+    public boolean hasXLess(XYCoordinate xyCoordinate) {
+        return x < xyCoordinate.x;
+    }
+
+    public boolean hasXMore(XYCoordinate xyCoordinate) {
+        return x > xyCoordinate.x;
+    }
+
+    public boolean hasYLess(XYCoordinate xyCoordinate) {
+        return y < xyCoordinate.y;
+    }
+
+    public boolean hasYMore(XYCoordinate xyCoordinate) {
+        return y > xyCoordinate.y;
     }
 
     @Override
@@ -61,5 +96,17 @@ public final class XYCoordinate {
                 "x=" + x +
                 ", y=" + y +
                 '}';
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeInt(x);
+        out.writeInt(y);
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        x = in.readInt();
+        y = in.readInt();
     }
 }

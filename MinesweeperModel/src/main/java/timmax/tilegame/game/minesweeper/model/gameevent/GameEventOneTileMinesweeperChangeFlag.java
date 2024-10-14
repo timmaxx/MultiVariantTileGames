@@ -7,6 +7,7 @@ import java.io.ObjectOutput;
 import javafx.scene.paint.Color;
 
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
+import timmax.tilegame.basemodel.gameobject.XYCoordinate;
 
 import static timmax.tilegame.game.minesweeper.model.GameTypeOfMinesweeper.*;
 
@@ -16,8 +17,8 @@ public class GameEventOneTileMinesweeperChangeFlag extends GameEventOneTile {
     public GameEventOneTileMinesweeperChangeFlag() {
     }
 
-    public GameEventOneTileMinesweeperChangeFlag(int x, int y, boolean isFlag) {
-        super(x, y);
+    public GameEventOneTileMinesweeperChangeFlag(XYCoordinate xyCoordinate, boolean isFlag) {
+        super(xyCoordinate);
         this.isFlag = isFlag;
 
         // ToDo: Ниже относится к визуализации. Удалить это отсюда.

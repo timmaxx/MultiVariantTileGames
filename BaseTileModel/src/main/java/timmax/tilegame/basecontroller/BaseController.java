@@ -6,6 +6,7 @@ import javafx.scene.input.MouseButton;
 import timmax.tilegame.basemodel.gamecommand.GameCommand;
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
+import timmax.tilegame.basemodel.gameobject.XYCoordinate;
 import timmax.tilegame.basemodel.protocol.EventOfClient;
 import timmax.tilegame.basemodel.protocol.EventOfClient92GameCommand;
 import timmax.tilegame.transport.TransportOfClient;
@@ -23,8 +24,8 @@ public class BaseController {
         sendEventOfClient(eventOfClient);
     }
 
-    public final void onMouseClick(MouseButton mouseButton, int x, int y) {
-        GameCommand gameCommand = new GameCommandMouseClick(x, y, mouseButton);
+    public final void onMouseClick(MouseButton mouseButton, XYCoordinate xyCoordinate) {
+        GameCommand gameCommand = new GameCommandMouseClick(xyCoordinate, mouseButton);
         EventOfClient eventOfClient = new EventOfClient92GameCommand(gameCommand);
         sendEventOfClient(eventOfClient);
     }

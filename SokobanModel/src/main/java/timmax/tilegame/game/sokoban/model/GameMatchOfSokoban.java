@@ -28,6 +28,7 @@ import timmax.tilegame.game.sokoban.model.route.Route;
 import timmax.tilegame.game.sokoban.model.route.Step;
 
 import static timmax.tilegame.basemodel.GameMatchStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
+import static timmax.tilegame.basemodel.gameobject.XYOffset.*;
 import static timmax.tilegame.game.sokoban.model.gameobject.WhoMovableInTile.*;
 import static timmax.tilegame.game.sokoban.model.gameobject.WhoPersistentInTile.IS_EMPTY;
 
@@ -78,18 +79,15 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         Step step = route.pop();
         SGOPlayer player = getGameObjectsPlacement().getPlayer();
 
-        int oldBoxX;
-        int oldBoxY;
         WhoMovableInTile oldWhoMovableInTile;
         if (step.isBoxMoved()) {
             for (SGOBox box : getGameObjectsPlacement().getBoxes()) {
                 if (box.isCollision(player, step.oppositeStepDirection())) {
-                    oldBoxX = box.getXyCoordinate().getX();
-                    oldBoxY = box.getXyCoordinate().getY();
+                    XYCoordinate xyCoordinateOld = box.getXyCoordinate();
                     box.move(step.oppositeStepDirection());
 
-                    WhoPersistentInTile oldWhoPersistentInTile = getGameObjectsPlacement().getWhoPersistentInTile(new XYCoordinate(oldBoxX, oldBoxY));
-                    sendGameEventToAllViews(new GameEventOneTileSokobanChangeable(oldBoxX, oldBoxY, oldWhoPersistentInTile, IS_NOBODY));
+                    WhoPersistentInTile oldWhoPersistentInTile = getGameObjectsPlacement().getWhoPersistentInTile(xyCoordinateOld);
+                    sendGameEventToAllViews(new GameEventOneTileSokobanChangeable(xyCoordinateOld, oldWhoPersistentInTile, IS_NOBODY));
 
                     break;
                 }
@@ -161,8 +159,6 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
             }
         }
         boolean isBoxMoved = false;
-        int newBoxX;
-        int newBoxY;
 
         for (SGOBox box : getGameObjectsPlacement().getBoxes()) {
             if (player.isCollision(box, xyOffset)) {
@@ -179,11 +175,8 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
                 }
                 box.move(xyOffset);
 
-                newBoxX = box.getXyCoordinate().getX();
-                newBoxY = box.getXyCoordinate().getY();
-
-                WhoPersistentInTile newWhoPersistentInTile = getGameObjectsPlacement().getWhoPersistentInTile(new XYCoordinate(newBoxX, newBoxY));
-                sendGameEventToAllViews(new GameEventOneTileSokobanChangeable(newBoxX, newBoxY, newWhoPersistentInTile, IS_BOX));
+                WhoPersistentInTile newWhoPersistentInTile = getGameObjectsPlacement().getWhoPersistentInTile(box.getXyCoordinate());
+                sendGameEventToAllViews(new GameEventOneTileSokobanChangeable(box.getXyCoordinate(), newWhoPersistentInTile, IS_BOX));
 
                 isBoxMoved = true;
                 break;
@@ -203,21 +196,13 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     }
 
     private void addGameEventAboutPlayer(XYOffset xyOffset, SGOPlayer player, WhoMovableInTile whoMovableInTile) {
-        int x;
-        int y;
-        WhoPersistentInTile whoPersistentInTile;
-
-        x = player.getXyCoordinate().getX();
-        y = player.getXyCoordinate().getY();
-        whoPersistentInTile = getGameObjectsPlacement().getWhoPersistentInTile(new XYCoordinate(x, y));
-        sendGameEventToAllViews(new GameEventOneTileSokobanChangeable(x, y, whoPersistentInTile, whoMovableInTile));
+        WhoPersistentInTile whoPersistentInTileBefore = getGameObjectsPlacement().getWhoPersistentInTile(player.getXyCoordinate());
+        sendGameEventToAllViews(new GameEventOneTileSokobanChangeable(player.getXyCoordinate(), whoPersistentInTileBefore, whoMovableInTile));
 
         player.move(xyOffset);
 
-        x = player.getXyCoordinate().getX();
-        y = player.getXyCoordinate().getY();
-        whoPersistentInTile = getGameObjectsPlacement().getWhoPersistentInTile(new XYCoordinate(x, y));
-        sendGameEventToAllViews(new GameEventOneTileSokobanChangeable(x, y, whoPersistentInTile, IS_PLAYER));
+        WhoPersistentInTile whoPersistentInTileAfter = getGameObjectsPlacement().getWhoPersistentInTile(player.getXyCoordinate());
+        sendGameEventToAllViews(new GameEventOneTileSokobanChangeable(player.getXyCoordinate(), whoPersistentInTileAfter, IS_PLAYER));
     }
 
     private void calcCountOfBoxesInHomes() {
@@ -302,13 +287,14 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
 
         for (int y = 0; y < getGameObjectsPlacement().getWidthHeightSizes().height(); y++) {
             for (int x = 0; x < getGameObjectsPlacement().getWidthHeightSizes().width(); x++) {
-                WhoPersistentInTile whoPersistentInTile = getGameObjectsPlacement().getWhoPersistentInTile(new XYCoordinate(x, y));
-                WhoMovableInTile whoMovableInTile = getGameObjectsPlacement().getWhoMovableInTile(new XYCoordinate(x, y));
+                XYCoordinate xyCoordinate = new XYCoordinate(x, y);
+                WhoPersistentInTile whoPersistentInTile = getGameObjectsPlacement().getWhoPersistentInTile(xyCoordinate);
+                WhoMovableInTile whoMovableInTile = getGameObjectsPlacement().getWhoMovableInTile(xyCoordinate);
                 // Это чтобы меньше было событий - про пустые плитки не делаем события.
                 if (whoPersistentInTile == IS_EMPTY && whoMovableInTile == IS_NOBODY) {
                     continue;
                 }
-                GameEventOneTile gameEventOneTile = new GameEventOneTileSokobanChangeable(x, y, whoPersistentInTile, whoMovableInTile);
+                GameEventOneTile gameEventOneTile = new GameEventOneTileSokobanChangeable(xyCoordinate, whoPersistentInTile, whoMovableInTile);
                 gameEventOneTileSet.add(gameEventOneTile);
             }
         }
@@ -323,19 +309,24 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     @Override
     public void executeMouseCommand(GameCommandMouseClick gameCommandMouseClick) {
         if (gameCommandMouseClick.getMouseButton() == MouseButton.PRIMARY) {
-            if (gameCommandMouseClick.getY() == getGameObjectsPlacement().getPlayer().getXyCoordinate().getY()) {
-                if (gameCommandMouseClick.getX() < getGameObjectsPlacement().getPlayer().getXyCoordinate().getX()) {
-                    move(XYOffset.TO_LEFT);
-                } else if (gameCommandMouseClick.getX() > getGameObjectsPlacement().getPlayer().getXyCoordinate().getX()) {
-                    move(XYOffset.TO_RIGHT);
+            XYCoordinate xyCoordinateOfMouseClick = gameCommandMouseClick.getXYCoordinate();
+            XYCoordinate xyCoordinateOfPlayer = getGameObjectsPlacement().getPlayer().getXyCoordinate();
+            if (xyCoordinateOfMouseClick.hasEqualY(xyCoordinateOfPlayer)) {
+                if (xyCoordinateOfMouseClick.hasXLess(xyCoordinateOfPlayer)) {
+                    move(TO_LEFT);
+                } else
+                    if (xyCoordinateOfMouseClick.hasXMore(xyCoordinateOfPlayer)) {
+                        move(TO_RIGHT);
+                    }
+            } else
+                if ((xyCoordinateOfMouseClick.hasEqualX(xyCoordinateOfPlayer))) {
+                    if (xyCoordinateOfMouseClick.hasYLess(xyCoordinateOfPlayer)) {
+                        move(TO_UP);
+                    } else
+                        if (xyCoordinateOfMouseClick.hasYMore(xyCoordinateOfPlayer)) {
+                            move(TO_DOWN);
+                        }
                 }
-            } else if ((gameCommandMouseClick.getX() == getGameObjectsPlacement().getPlayer().getXyCoordinate().getX())) {
-                if (gameCommandMouseClick.getY() < getGameObjectsPlacement().getPlayer().getXyCoordinate().getY()) {
-                    move(XYOffset.TO_UP);
-                } else if (gameCommandMouseClick.getY() > getGameObjectsPlacement().getPlayer().getXyCoordinate().getY()) {
-                    move(XYOffset.TO_DOWN);
-                }
-            }
         } else if (gameCommandMouseClick.getMouseButton() == MouseButton.SECONDARY) {
             moveUndo();
         } else if (gameCommandMouseClick.getMouseButton() == MouseButton.MIDDLE) {
@@ -346,13 +337,13 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     @Override
     public void executeKeyboardCommand(GameCommandKeyPressed gameCommandKeyPressed) {
         if (gameCommandKeyPressed.getKeyCode() == KeyCode.LEFT) {
-            move(XYOffset.TO_LEFT);
+            move(TO_LEFT);
         } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.RIGHT) {
-            move(XYOffset.TO_RIGHT);
+            move(TO_RIGHT);
         } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.UP) {
-            move(XYOffset.TO_UP);
+            move(TO_UP);
         } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.DOWN) {
-            move(XYOffset.TO_DOWN);
+            move(TO_DOWN);
         } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.Q) {
             moveUndo();
         } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.P) {

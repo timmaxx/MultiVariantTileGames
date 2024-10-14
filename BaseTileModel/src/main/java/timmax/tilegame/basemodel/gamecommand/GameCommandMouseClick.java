@@ -6,6 +6,7 @@ import java.io.ObjectOutput;
 
 import javafx.scene.input.MouseButton;
 
+import timmax.tilegame.basemodel.gameobject.XYCoordinate;
 import timmax.tilegame.basemodel.protocol.server.IGameMatch;
 
 public class GameCommandMouseClick extends GameCommandOneTile {
@@ -15,8 +16,8 @@ public class GameCommandMouseClick extends GameCommandOneTile {
         super();
     }
 
-    public GameCommandMouseClick(int x, int y, MouseButton mouseButton) {
-        super(x, y);
+    public GameCommandMouseClick(XYCoordinate xyCoordinate, MouseButton mouseButton) {
+        super(xyCoordinate);
         this.mouseButton = mouseButton;
     }
 

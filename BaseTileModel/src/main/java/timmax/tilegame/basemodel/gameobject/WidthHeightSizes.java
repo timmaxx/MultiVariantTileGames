@@ -9,7 +9,7 @@ public final class WidthHeightSizes {
     //  ToDo:   Вероятно эти переменные лучше переместить в GameType - что-бы у разных типов игр
     //          было можно по разному выставлять ограничения на размеры досок.
     //  ToDo:   Также рассмотреть и возможность хранения для типа игры перечня допустимых размеров.
-    //              Например, для Го есть три основных варианта размеров (из википедии):
+    //              Например, для Го есть три основных варианта размеров (из Википедии):
     //              Стандартная доска имеет разлиновку 19×19 линий. Для обучения и коротких неофициальных игр могут
     //              применяться доски меньших размеров: обычно 13×13 или 9×9 линий, намного реже — 11×11, 15×15, 17×17
     //              линий, но, теоретически, ничто не мешает использовать произвольную прямоугольную доску.
@@ -50,7 +50,7 @@ public final class WidthHeightSizes {
                 || xyCoordinate.getY() < 0
                 || xyCoordinate.getY() >= height
         ) {
-            throw new XYCoordinateIsOutOfRangeException(); //("xyCoordinate is wrong. xyCoordinate = " + xyCoordinate + ". WidthHeightSizes = " + this + ".");
+            throw new XYCoordinateIsOutOfRangeException(); // ("xyCoordinate is wrong. xyCoordinate = " + xyCoordinate + ". WidthHeightSizes = " + this + ".");
         }
     }
 

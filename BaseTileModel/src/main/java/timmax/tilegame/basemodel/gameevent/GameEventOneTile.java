@@ -7,10 +7,10 @@ import java.io.ObjectOutput;
 import javafx.scene.paint.Color;
 
 import timmax.common.JFXColorWithExternalizable;
+import timmax.tilegame.basemodel.gameobject.XYCoordinate;
 
 public abstract class GameEventOneTile extends GameEvent {
-    private int x;
-    private int y;
+    private XYCoordinate xyCoordinate;
 
     // Поля ниже нужны для визуализации. И сейчас они добавлены сюда для работы универсального клиента.
     // Но:
@@ -23,17 +23,12 @@ public abstract class GameEventOneTile extends GameEvent {
     public GameEventOneTile() {
     }
 
-    public GameEventOneTile(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public GameEventOneTile(XYCoordinate xyCoordinate) {
+        this.xyCoordinate = xyCoordinate;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
+    public XYCoordinate getXyCoordinate() {
+        return xyCoordinate;
     }
 
     public Color getCellBackgroundColor() {
@@ -51,8 +46,7 @@ public abstract class GameEventOneTile extends GameEvent {
     @Override
     public String toString() {
         return "GameEventOneTile{" +
-                "x=" + x +
-                ", y=" + y +
+                "xyCoordinate=" + xyCoordinate +
                 ", cellBackgroundColor=" + cellBackgroundColor +
                 ", cellTextColor=" + cellTextColor +
                 ", cellText='" + cellText + '\'' +
@@ -61,8 +55,7 @@ public abstract class GameEventOneTile extends GameEvent {
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeInt(x);
-        out.writeInt(y);
+        out.writeObject(xyCoordinate);
 
         // Тип Color не сереализуемый, поэтому сериализуем его через дополнительный класс:
         out.writeObject(new JFXColorWithExternalizable(cellBackgroundColor));
@@ -73,8 +66,7 @@ public abstract class GameEventOneTile extends GameEvent {
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        x = in.readInt();
-        y = in.readInt();
+        xyCoordinate = (XYCoordinate) in.readObject();
 
         // Тип Color не сереализуемый, поэтому десериализуем его через дополнительный класс:
         cellBackgroundColor = ((JFXColorWithExternalizable) in.readObject()).getColor();

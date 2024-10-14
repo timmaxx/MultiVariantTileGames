@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import timmax.tilegame.basecontroller.BaseController;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
+import timmax.tilegame.basemodel.gameobject.XYCoordinate;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.guiengine.jfx.GameClientPaneJfx;
 import timmax.tilegame.transport.TransportOfClient;
@@ -32,7 +33,10 @@ public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
         super(transportOfClient, baseController, viewName, gameType);
 
         setOnMouseClicked(event ->
-                baseController.onMouseClick(event.getButton(), (int) (event.getX() / cellSize), (int) (event.getY() / cellSize))
+                baseController.onMouseClick(
+                        event.getButton(),
+                        new XYCoordinate((int) (event.getX() / cellSize), (int) (event.getY() / cellSize))
+                )
         );
 
         setOnKeyPressed(event ->
@@ -67,7 +71,7 @@ public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
             for (int x = 0; x < width; x++) {
                 boolean showGrid = true;
                 boolean showCoordinates = false;
-                GameStackPane cell = new GameStackPane(x, y, cellSize, showGrid, showCoordinates);
+                GameStackPane cell = new GameStackPane(new XYCoordinate(x, y), cellSize, showGrid, showCoordinates);
                 cells[y][x] = cell;
                 // ToDo: Возможно как-то по другому сделать.
                 //       Ранее здесь drawCellDuringInitMainField(...) вызывался только если для типа игры были
@@ -115,8 +119,9 @@ public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
     }
 
     private GameStackPane getCellByGameEventOneTile(GameEventOneTile gameEventOneTile) {
-        int x = gameEventOneTile.getX();
-        int y = gameEventOneTile.getY();
-        return cells[y][x];
+        XYCoordinate xyCoordinate = gameEventOneTile.getXyCoordinate();
+        //  ToDo:   Что-то сделать с тем, что приходится вытаскивать из XYCoordinate отдельно x и y.
+        //          Из-за этого пришлось сделать getX() и getY() публичными. Нехорошо!
+        return cells[xyCoordinate.getY()][xyCoordinate.getX()];
     }
 }

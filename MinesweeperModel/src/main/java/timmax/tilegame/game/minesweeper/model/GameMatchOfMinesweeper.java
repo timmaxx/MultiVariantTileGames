@@ -79,9 +79,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     // interface IGameMatch
     @Override
     public void executeMouseCommand(GameCommandMouseClick gameCommandMouseClick) {
-        int x = gameCommandMouseClick.getX();
-        int y = gameCommandMouseClick.getY();
-        XYCoordinate xyCoordinate = new XYCoordinate(x, y);
+        XYCoordinate xyCoordinate = gameCommandMouseClick.getXYCoordinate();
         //  Найдём объект по координатам
         Set<GameObjectStateAutomaton> gameObjectStateAutomatonSet =
                 getGameObjectsPlacement()

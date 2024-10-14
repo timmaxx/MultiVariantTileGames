@@ -22,8 +22,7 @@ public class MGOSMineIsNotOpenedWithoutFlag extends MGOSMine {
                 .getGameMatch()
                 .sendGameEventToAllViews(
                         new GameEventOneTileMinesweeperOpenMine(
-                                getGameObjectStateAutomaton().getXyCoordinate().getX(),
-                                getGameObjectStateAutomaton().getXyCoordinate().getY()
+                                getGameObjectStateAutomaton().getXyCoordinate()
                         )
                 );
         getGameObjectStateAutomaton()
@@ -45,8 +44,7 @@ public class MGOSMineIsNotOpenedWithoutFlag extends MGOSMine {
                 .getGameMatch()
                 .sendGameEventToAllViews(
                         new GameEventOneTileMinesweeperChangeFlag(
-                                getGameObjectStateAutomaton().getXyCoordinate().getX(),
-                                getGameObjectStateAutomaton().getXyCoordinate().getY(),
+                                getGameObjectStateAutomaton().getXyCoordinate(),
                                 true
                         )
                 )

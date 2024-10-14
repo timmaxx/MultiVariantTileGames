@@ -1,47 +1,40 @@
 package timmax.tilegame.basemodel.gamecommand;
 
+import timmax.tilegame.basemodel.gameobject.XYCoordinate;
+
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 public abstract class GameCommandOneTile extends GameCommand {
-    private int x;
-    private int y;
+    private XYCoordinate xyCoordinate;
 
     public GameCommandOneTile() {
         super();
     }
 
-    public GameCommandOneTile(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public GameCommandOneTile(XYCoordinate xyCoordinate) {
+        this.xyCoordinate = xyCoordinate;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
+    public XYCoordinate getXYCoordinate() {
+        return xyCoordinate;
     }
 
     @Override
     public String toString() {
         return "GameCommandOneTile{" +
-                "x=" + x +
-                ", y=" + y +
+                "xyCoordinate=" + xyCoordinate +
                 '}';
     }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeInt(x);
-        out.writeInt(y);
+        out.writeObject(xyCoordinate);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        x = in.readInt();
-        y = in.readInt();
+        xyCoordinate = (XYCoordinate) in.readObject();
     }
 }

@@ -7,6 +7,7 @@ import java.io.ObjectOutput;
 import javafx.scene.paint.Color;
 
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
+import timmax.tilegame.basemodel.gameobject.XYCoordinate;
 
 import static timmax.tilegame.game.minesweeper.model.GameTypeOfMinesweeper.MINE;
 import static timmax.tilegame.game.minesweeper.model.GameTypeOfMinesweeper.MINE_CELL_COLOR;
@@ -15,8 +16,8 @@ public class GameEventOneTileMinesweeperOpenMine extends GameEventOneTile {
     public GameEventOneTileMinesweeperOpenMine() {
     }
 
-    public GameEventOneTileMinesweeperOpenMine(int x, int y) {
-        super(x, y);
+    public GameEventOneTileMinesweeperOpenMine(XYCoordinate xyCoordinate) {
+        super(xyCoordinate);
 
         // ToDo: Ниже относится к визуализации. Удалить это отсюда.
         // ToDo: Хотя-бы в GameType эти реквизиты можно было-бы переместить.

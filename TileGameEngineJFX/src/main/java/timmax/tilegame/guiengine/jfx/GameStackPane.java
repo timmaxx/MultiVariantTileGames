@@ -5,13 +5,14 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
+import timmax.tilegame.basemodel.gameobject.XYCoordinate;
 
 public class GameStackPane extends StackPane {
     private static final double COORDINATE_TEXT_FONT_SIZE_COEFFICIENT = 0.15;
     private static final int MAX_GENERAL_TEXT_LENGTH_FOR_GENERAL_TEXT_FONT_SIZE_COEFFICIENT = 4;
     private static final double GENERAL_TEXT_FONT_SIZE_COEFFICIENT = 0.4;
 
-    public GameStackPane(int x, int y, int cellSize, boolean showGrid, boolean showCoordinates) {
+    public GameStackPane(XYCoordinate xyCoordinate, int cellSize, boolean showGrid, boolean showCoordinates) {
         super(new Rectangle(), new Text(), new Text());
 
         if (showGrid) {
@@ -22,12 +23,14 @@ public class GameStackPane extends StackPane {
         if (showCoordinates) {
             getCoordinateText().setFont(Font.font(cellSize * COORDINATE_TEXT_FONT_SIZE_COEFFICIENT));
             StackPane.setAlignment(getCoordinateText(), Pos.TOP_LEFT);
-            getCoordinateText().setText(x + " - " + y);
+            getCoordinateText().setText(xyCoordinate.toString());
         }
         getRectangle().setWidth(cellSize);
         getRectangle().setHeight(cellSize);
-        setLayoutX(x * cellSize);
-        setLayoutY(y * cellSize);
+
+        setLayoutX(xyCoordinate.getX() * cellSize);
+        setLayoutY(xyCoordinate.getY() * cellSize);
+
     }
 
     private Rectangle getRectangle() {

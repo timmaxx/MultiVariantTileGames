@@ -7,6 +7,7 @@ import java.io.ObjectOutput;
 import javafx.scene.paint.Color;
 
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
+import timmax.tilegame.basemodel.gameobject.XYCoordinate;
 
 import static timmax.tilegame.game.minesweeper.model.GameTypeOfMinesweeper.OPENED_CELL_COLOR;
 
@@ -16,8 +17,9 @@ public class GameEventOneTileMinesweeperOpenNoMine extends GameEventOneTile {
     public GameEventOneTileMinesweeperOpenNoMine() {
     }
 
-    public GameEventOneTileMinesweeperOpenNoMine(int x, int y, int countOfMineNeighbors) {
-        super(x, y);
+    public GameEventOneTileMinesweeperOpenNoMine(XYCoordinate xyCoordinate, int countOfMineNeighbors) {
+        super(xyCoordinate);
+
         this.countOfMineNeighbors = countOfMineNeighbors;
 
         // ToDo: Ниже относится к визуализации. Удалить это отсюда.
