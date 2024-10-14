@@ -1,28 +1,30 @@
 package timmax.tilegame.game.sokoban.model.gameobject;
 
-import timmax.tilegame.basemodel.tile.Direction;
-import timmax.tilegame.basemodel.tile.Tile;
+import timmax.tilegame.basemodel.gameobject.GameObjectsPlacementNotVerified;
+import timmax.tilegame.basemodel.gameobject.XYCoordinate;
+import timmax.tilegame.basemodel.gameobject.XYOffset;
 
-//  ToDo:   Изменить структуру наследования классов для одноплиточных игровых объектов. Сделать базовым класс
-//              timmax.tilegame.basemodel.gameobject.OneTileGameObject
-//          Сейчас-же в корне стоит класс
-//              timmax.tilegame.basemodel.tile.Tile
-//  ToDo:   После отказа от класса Tile в этой модели и в других моделях - удалить Tile.
-
-// For Walls, Boxes and player
-abstract public class CollisionObject extends Tile {
-    public CollisionObject(int x, int y) {
-        super(x, y);
+// For Walls, Boxes and Player
+abstract public class CollisionObject extends SokobanGameObject {
+    public CollisionObject(String id, GameObjectsPlacementNotVerified gameObjectsPlacementNotVerified, XYCoordinate xyCoordinate) {
+        super(id, gameObjectsPlacementNotVerified, xyCoordinate);
     }
 
-    public boolean isCollision(CollisionObject collisionObject, Direction direction) {
-        Tile tile = add(direction);
-        return tile.getX() == collisionObject.x && tile.getY() == collisionObject.y;
+    public boolean isCollision(CollisionObject collisionObject, XYOffset xyOffset) {
+        return xyCoordinate
+                .getXYCoordinateByOffset(xyOffset, gameObjectsPlacementNotVerified.getWidthHeightSizes())
+                .equals(collisionObject.xyCoordinate)
+                ;
     }
 
-    public boolean isOutOfBoard(Direction direction, int width, int height) {
-        Tile tile = add(direction);
-        return tile.getX() < 0 || tile.getX() >= width ||
-                tile.getY() < 0 || tile.getY() >= height;
+    public boolean isOutOfBoard(XYOffset xyOffset) {
+        try {
+            xyCoordinate
+                    .getXYCoordinateByOffset(xyOffset, gameObjectsPlacementNotVerified.getWidthHeightSizes())
+            ;
+            return false;
+        } catch (RuntimeException rte) {
+            return true;
+        }
     }
 }

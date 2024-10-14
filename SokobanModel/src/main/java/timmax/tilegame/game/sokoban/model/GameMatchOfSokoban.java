@@ -14,10 +14,11 @@ import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
+import timmax.tilegame.basemodel.gameobject.XYCoordinate;
+import timmax.tilegame.basemodel.gameobject.XYOffset;
 import timmax.tilegame.basemodel.protocol.server.GameMatch;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
-import timmax.tilegame.basemodel.tile.Direction;
 
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventOneTileSokobanChangeable;
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanVariableParamsCountOfBoxesInHouses;
@@ -35,14 +36,19 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
 
     private final CurrentLevel currentLevel = new CurrentLevel();
 
-    private AllSokobanObjects allSokobanObjects;
     private int countOfBoxesInHomes;
     private Route route;
     private Route routeRedo = new Route();
 
     static {
         try {
-            levelLoader = new LevelLoader(Paths.get(Objects.requireNonNull(GameMatchOfSokoban.class.getResource("levels.txt")).toURI()));
+            levelLoader = new LevelLoader(
+                    Paths.get(
+                            Objects.requireNonNull(
+                                            GameMatchOfSokoban.class.getResource("levels.txt"))
+                                    .toURI()
+                    )
+            );
         } catch (URISyntaxException e) {
             logger.error("There is a problem with file with game levels.", e);
             // ToDo: При 'System.exit(1);' сервер закроется. Но ошибка произошла при загрузке только модели одной игры.
@@ -70,19 +76,19 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         }
 
         Step step = route.pop();
-        Player player = allSokobanObjects.getPlayer();
+        SGOPlayer player = getGameObjectsPlacement().getPlayer();
 
         int oldBoxX;
         int oldBoxY;
         WhoMovableInTile oldWhoMovableInTile;
         if (step.isBoxMoved()) {
-            for (Box box : allSokobanObjects.getBoxes()) {
+            for (SGOBox box : getGameObjectsPlacement().getBoxes()) {
                 if (box.isCollision(player, step.oppositeStepDirection())) {
-                    oldBoxX = box.getX();
-                    oldBoxY = box.getY();
+                    oldBoxX = box.getXyCoordinate().getX();
+                    oldBoxY = box.getXyCoordinate().getY();
                     box.move(step.oppositeStepDirection());
 
-                    WhoPersistentInTile oldWhoPersistentInTile = allSokobanObjects.getWhoPersistentInTile(oldBoxX, oldBoxY);
+                    WhoPersistentInTile oldWhoPersistentInTile = getGameObjectsPlacement().getWhoPersistentInTile(new XYCoordinate(oldBoxX, oldBoxY));
                     sendGameEventToAllViews(new GameEventOneTileSokobanChangeable(oldBoxX, oldBoxY, oldWhoPersistentInTile, IS_NOBODY));
 
                     break;
@@ -93,9 +99,9 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
             oldWhoMovableInTile = IS_NOBODY;
         }
 
-        Direction direction = step.oppositeStepDirection();
+        XYOffset xyOffset = step.oppositeStepDirection();
 
-        addGameEventAboutPlayer(direction, player, oldWhoMovableInTile);
+        addGameEventAboutPlayer(xyOffset, player, oldWhoMovableInTile);
         routeRedo.push(step);
 
         sendGameEventToAllViews(new GameEventSokobanVariableParamsCountOfSteps(route.size()));
@@ -105,11 +111,11 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         }
     }
 
-    private void move(Direction direction) {
+    private void move(XYOffset xyOffset) {
         if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
             return;
         }
-        movePlayerIfPossible(direction, false);
+        movePlayerIfPossible(xyOffset, false);
         routeRedo = new Route();
 
         setStatusIsGame();
@@ -123,34 +129,34 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
             return;
         }
         Step step = routeRedo.pop();
-        movePlayerIfPossible(step.getDirection(), true);
+        movePlayerIfPossible(step.getXyOffset(), true);
     }
 
-    private boolean isCollisionWithWall(CollisionObject gameObject, Direction direction) {
-        for (Wall wall : allSokobanObjects.getWalls()) {
-            if (gameObject.isCollision(wall, direction)) {
+    private boolean isCollisionWithWall(CollisionObject gameObject, XYOffset xyOffset) {
+        for (SGOWall wall : getGameObjectsPlacement().getWalls()) {
+            if (gameObject.isCollision(wall, xyOffset)) {
                 return true;
             }
         }
         return false;
     }
 
-    private boolean isCollisionWithBox(CollisionObject gameObject, Direction direction) {
-        for (Box box : allSokobanObjects.getBoxes()) {
-            if (gameObject.isCollision(box, direction)) {
+    private boolean isCollisionWithBox(CollisionObject gameObject, XYOffset xyOffset) {
+        for (SGOBox box : getGameObjectsPlacement().getBoxes()) {
+            if (gameObject.isCollision(box, xyOffset)) {
                 return true;
             }
         }
         return false;
     }
 
-    private void movePlayerIfPossible(Direction direction, boolean isRedo) {
-        Player player = allSokobanObjects.getPlayer();
+    private void movePlayerIfPossible(XYOffset xyOffset, boolean isRedo) {
+        SGOPlayer player = getGameObjectsPlacement().getPlayer();
         if (!isRedo) {
-            if (player.isOutOfBoard(direction, allSokobanObjects.getWidth(), allSokobanObjects.getHeight())) {
+            if (player.isOutOfBoard(xyOffset)) {
                 return;
             }
-            if (isCollisionWithWall(player, direction)) {
+            if (isCollisionWithWall(player, xyOffset)) {
                 return;
             }
         }
@@ -158,25 +164,25 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         int newBoxX;
         int newBoxY;
 
-        for (Box box : allSokobanObjects.getBoxes()) {
-            if (player.isCollision(box, direction)) {
+        for (SGOBox box : getGameObjectsPlacement().getBoxes()) {
+            if (player.isCollision(box, xyOffset)) {
                 if (!isRedo) {
-                    if (box.isOutOfBoard(direction, allSokobanObjects.getWidth(), allSokobanObjects.getHeight())) {
+                    if (box.isOutOfBoard(xyOffset)) {
                         return;
                     }
-                    if (isCollisionWithWall(box, direction)) {
+                    if (isCollisionWithWall(box, xyOffset)) {
                         return;
                     }
-                    if (isCollisionWithBox(box, direction)) {
+                    if (isCollisionWithBox(box, xyOffset)) {
                         return;
                     }
                 }
-                box.move(direction);
+                box.move(xyOffset);
 
-                newBoxX = box.getX();
-                newBoxY = box.getY();
+                newBoxX = box.getXyCoordinate().getX();
+                newBoxY = box.getXyCoordinate().getY();
 
-                WhoPersistentInTile newWhoPersistentInTile = allSokobanObjects.getWhoPersistentInTile(newBoxX, newBoxY);
+                WhoPersistentInTile newWhoPersistentInTile = getGameObjectsPlacement().getWhoPersistentInTile(new XYCoordinate(newBoxX, newBoxY));
                 sendGameEventToAllViews(new GameEventOneTileSokobanChangeable(newBoxX, newBoxY, newWhoPersistentInTile, IS_BOX));
 
                 isBoxMoved = true;
@@ -184,8 +190,8 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
             }
         }
 
-        addGameEventAboutPlayer(direction, player, IS_NOBODY);
-        route.push(new Step(direction, isBoxMoved));
+        addGameEventAboutPlayer(xyOffset, player, IS_NOBODY);
+        route.push(new Step(xyOffset, isBoxMoved));
 
         sendGameEventToAllViews(new GameEventSokobanVariableParamsCountOfSteps(route.size()));
         if (isBoxMoved) {
@@ -196,29 +202,29 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         checkCompletion();
     }
 
-    private void addGameEventAboutPlayer(Direction direction, Player player, WhoMovableInTile whoMovableInTile) {
+    private void addGameEventAboutPlayer(XYOffset xyOffset, SGOPlayer player, WhoMovableInTile whoMovableInTile) {
         int x;
         int y;
         WhoPersistentInTile whoPersistentInTile;
 
-        x = player.getX();
-        y = player.getY();
-        whoPersistentInTile = allSokobanObjects.getWhoPersistentInTile(x, y);
+        x = player.getXyCoordinate().getX();
+        y = player.getXyCoordinate().getY();
+        whoPersistentInTile = getGameObjectsPlacement().getWhoPersistentInTile(new XYCoordinate(x, y));
         sendGameEventToAllViews(new GameEventOneTileSokobanChangeable(x, y, whoPersistentInTile, whoMovableInTile));
 
-        player.move(direction);
+        player.move(xyOffset);
 
-        x = player.getX();
-        y = player.getY();
-        whoPersistentInTile = allSokobanObjects.getWhoPersistentInTile(x, y);
+        x = player.getXyCoordinate().getX();
+        y = player.getXyCoordinate().getY();
+        whoPersistentInTile = getGameObjectsPlacement().getWhoPersistentInTile(new XYCoordinate(x, y));
         sendGameEventToAllViews(new GameEventOneTileSokobanChangeable(x, y, whoPersistentInTile, IS_PLAYER));
     }
 
     private void calcCountOfBoxesInHomes() {
         int countOfBoxesInHomes = 0;
-        for (Home home : allSokobanObjects.getHomes()) {
-            for (Box box : allSokobanObjects.getBoxes()) {
-                if (box.getX() == home.getX() && box.getY() == home.getY()) {
+        for (SGOHome home : getGameObjectsPlacement().getHomes()) {
+            for (SGOBox box : getGameObjectsPlacement().getBoxes()) {
+                if (box.getXyCoordinate().equals(home.getXyCoordinate())) {
                     countOfBoxesInHomes++;
                     break;
                 }
@@ -230,7 +236,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     private void checkCompletion() {
         // Этот метод должен проверить, пройден ли уровень (т.е. на всех ли домах стоят ящики?).
         // Если условие выполнено, то проинформировать слушателей событий, что текущий уровень завершен.
-        if (countOfBoxesInHomes == allSokobanObjects.getCountOfHomesBoxes()) {
+        if (countOfBoxesInHomes == getGameObjectsPlacement().getCountOfPairHomesAndBoxes()) {
             win();
         }
     }
@@ -258,8 +264,14 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     public void setParamsOfModelValueMap(Map<String, Integer> paramsOfModelValueMap) {
         throwExceptionIfIsPlaying();
 
-        allSokobanObjects = levelLoader.getLevel(currentLevel.getValue());
-        super.setParamsOfModelValueMap(Map.of(PARAM_NAME_WIDTH, allSokobanObjects.getWidth(), PARAM_NAME_HEIGHT, allSokobanObjects.getHeight()));
+        setGameObjectsPlacement(levelLoader.getLevel(currentLevel.getValue(), this));
+        super.setParamsOfModelValueMap(
+                Map.of(PARAM_NAME_WIDTH,
+                        getGameObjectsPlacement().getWidthHeightSizes().width(),
+                        PARAM_NAME_HEIGHT,
+                        getGameObjectsPlacement().getWidthHeightSizes().height()
+                )
+        );
     }
 
     @Override
@@ -276,17 +288,22 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         throwExceptionIfIsPlaying();
 
         // В этой реализации Сокобан не обращаем внимание на gameMatchExtendedDto - просто загружаем следующий уровень.
-        allSokobanObjects = levelLoader.getLevel(currentLevel.getValue());
+        setGameObjectsPlacement(levelLoader.getLevel(currentLevel.getValue(), this));
         // paramsOfModelValueMap = Map.of(PARAM_NAME_WIDTH, allSokobanObjects.getWidth(), PARAM_NAME_HEIGHT, allSokobanObjects.getHeight());
-        super.setParamsOfModelValueMap(Map.of(PARAM_NAME_WIDTH, allSokobanObjects.getWidth(), PARAM_NAME_HEIGHT, allSokobanObjects.getHeight()));
-        // super.start(Map.of(PARAM_NAME_WIDTH, allSokobanObjects.getWidth(), PARAM_NAME_HEIGHT, allSokobanObjects.getHeight()));
+        super.setParamsOfModelValueMap(
+                Map.of(PARAM_NAME_WIDTH,
+                        getGameObjectsPlacement().getWidthHeightSizes().width(),
+                        PARAM_NAME_HEIGHT,
+                        getGameObjectsPlacement().getWidthHeightSizes().height()
+                )
+        );
 
         Set<GameEventOneTile> gameEventOneTileSet = new HashSet<>();
 
-        for (int y = 0; y < allSokobanObjects.getHeight(); y++) {
-            for (int x = 0; x < allSokobanObjects.getWidth(); x++) {
-                WhoPersistentInTile whoPersistentInTile = allSokobanObjects.getWhoPersistentInTile(x, y);
-                WhoMovableInTile whoMovableInTile = allSokobanObjects.getWhoMovableInTile(x, y);
+        for (int y = 0; y < getGameObjectsPlacement().getWidthHeightSizes().height(); y++) {
+            for (int x = 0; x < getGameObjectsPlacement().getWidthHeightSizes().width(); x++) {
+                WhoPersistentInTile whoPersistentInTile = getGameObjectsPlacement().getWhoPersistentInTile(new XYCoordinate(x, y));
+                WhoMovableInTile whoMovableInTile = getGameObjectsPlacement().getWhoMovableInTile(new XYCoordinate(x, y));
                 // Это чтобы меньше было событий - про пустые плитки не делаем события.
                 if (whoPersistentInTile == IS_EMPTY && whoMovableInTile == IS_NOBODY) {
                     continue;
@@ -306,17 +323,17 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     @Override
     public void executeMouseCommand(GameCommandMouseClick gameCommandMouseClick) {
         if (gameCommandMouseClick.getMouseButton() == MouseButton.PRIMARY) {
-            if (gameCommandMouseClick.getY() == allSokobanObjects.getPlayer().getY()) {
-                if (gameCommandMouseClick.getX() < allSokobanObjects.getPlayer().getX()) {
-                    move(Direction.LEFT);
-                } else if (gameCommandMouseClick.getX() > allSokobanObjects.getPlayer().getX()) {
-                    move(Direction.RIGHT);
+            if (gameCommandMouseClick.getY() == getGameObjectsPlacement().getPlayer().getXyCoordinate().getY()) {
+                if (gameCommandMouseClick.getX() < getGameObjectsPlacement().getPlayer().getXyCoordinate().getX()) {
+                    move(XYOffset.TO_LEFT);
+                } else if (gameCommandMouseClick.getX() > getGameObjectsPlacement().getPlayer().getXyCoordinate().getX()) {
+                    move(XYOffset.TO_RIGHT);
                 }
-            } else if ((gameCommandMouseClick.getX() == allSokobanObjects.getPlayer().getX())) {
-                if (gameCommandMouseClick.getY() < allSokobanObjects.getPlayer().getY()) {
-                    move(Direction.UP);
-                } else if (gameCommandMouseClick.getY() > allSokobanObjects.getPlayer().getY()) {
-                    move(Direction.DOWN);
+            } else if ((gameCommandMouseClick.getX() == getGameObjectsPlacement().getPlayer().getXyCoordinate().getX())) {
+                if (gameCommandMouseClick.getY() < getGameObjectsPlacement().getPlayer().getXyCoordinate().getY()) {
+                    move(XYOffset.TO_UP);
+                } else if (gameCommandMouseClick.getY() > getGameObjectsPlacement().getPlayer().getXyCoordinate().getY()) {
+                    move(XYOffset.TO_DOWN);
                 }
             }
         } else if (gameCommandMouseClick.getMouseButton() == MouseButton.SECONDARY) {
@@ -329,13 +346,13 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     @Override
     public void executeKeyboardCommand(GameCommandKeyPressed gameCommandKeyPressed) {
         if (gameCommandKeyPressed.getKeyCode() == KeyCode.LEFT) {
-            move(Direction.LEFT);
+            move(XYOffset.TO_LEFT);
         } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.RIGHT) {
-            move(Direction.RIGHT);
+            move(XYOffset.TO_RIGHT);
         } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.UP) {
-            move(Direction.UP);
+            move(XYOffset.TO_UP);
         } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.DOWN) {
-            move(Direction.DOWN);
+            move(XYOffset.TO_DOWN);
         } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.Q) {
             moveUndo();
         } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.P) {
@@ -353,5 +370,10 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     public void win() {
         currentLevel.incValue();
         super.win();
+    }
+
+    @Override
+    public SokobanPlacement getGameObjectsPlacement() {
+        return (SokobanPlacement) super.getGameObjectsPlacement();
     }
 }

@@ -1,20 +1,20 @@
 package timmax.tilegame.game.sokoban.model.route;
 
-import timmax.tilegame.basemodel.tile.Direction;
+import timmax.tilegame.basemodel.gameobject.XYOffset;
 
 public class Step {
-    private final Direction direction;
+    private final XYOffset xyOffset;
     private final boolean isBoxMoved;
 
-    public Step(Direction direction, boolean isBoxMoved) {
-        this.direction = direction;
+    public Step(XYOffset xyOffset, boolean isBoxMoved) {
+        this.xyOffset = xyOffset;
         this.isBoxMoved = isBoxMoved;
     }
 
     @Override
     public String toString() {
         return "Step{ " +
-                "direction = " + direction +
+                "XYOffset = " + xyOffset +
                 ", isBoxMoved = " + isBoxMoved +
                 "}";
     }
@@ -31,22 +31,22 @@ public class Step {
             return false;
         }
 
-        return this.isBoxMoved == step.isBoxMoved && direction.equals(step.direction);
+        return this.isBoxMoved == step.isBoxMoved && xyOffset.equals(step.xyOffset);
     }
 
     public Step oppositeStep() {
-        return new Step(direction.not(), isBoxMoved);
+        return new Step(xyOffset.getOpposite(), isBoxMoved);
     }
 
-    public Direction oppositeStepDirection() {
-        return oppositeStep().direction;
+    public XYOffset oppositeStepDirection() {
+        return oppositeStep().xyOffset;
     }
 
     public boolean isBoxMoved() {
         return isBoxMoved;
     }
 
-    public Direction getDirection() {
-        return direction;
+    public XYOffset getXyOffset() {
+        return xyOffset;
     }
 }

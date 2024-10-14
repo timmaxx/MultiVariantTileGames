@@ -1,21 +1,15 @@
 package timmax.tilegame.game.sokoban.model.gameobject;
 
-import timmax.tilegame.basemodel.tile.Direction;
-import timmax.tilegame.basemodel.tile.Tile;
+import timmax.tilegame.basemodel.gameobject.GameObjectsPlacementNotVerified;
+import timmax.tilegame.basemodel.gameobject.XYCoordinate;
+import timmax.tilegame.basemodel.gameobject.XYOffset;
 
-//  ToDo:   Изменить структуру наследования классов для одноплиточных игровых объектов. Сделать базовым класс
-//              timmax.tilegame.basemodel.gameobject.OneTileGameObject
-//          Сейчас-же в корне стоит класс
-//              timmax.tilegame.basemodel.tile.Tile
-//  ToDo:   После отказа от класса Tile в этой модели и в других моделях - удалить Tile.
-public abstract class CollisionMovableObject extends CollisionObject implements Movable {
-    public CollisionMovableObject(int x, int y) {
-        super(x, y);
+public abstract class CollisionMovableObject extends CollisionObject implements IMovable {
+    public CollisionMovableObject(String id, GameObjectsPlacementNotVerified gameObjectsPlacement, XYCoordinate xyCoordinate) {
+        super(id, gameObjectsPlacement, xyCoordinate);
     }
 
-    public void move(Direction direction) {
-        Tile tile = add(direction);
-        x = tile.getX();
-        y = tile.getY();
+    public void move(XYOffset xyOffset) {
+        xyCoordinate = xyCoordinate.getXYCoordinateByOffset(xyOffset, gameObjectsPlacementNotVerified.getWidthHeightSizes());
     }
 }
