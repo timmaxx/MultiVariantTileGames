@@ -102,6 +102,14 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         this.remoteClientStateAutomaton = remoteClientStateAutomaton;
     }
 
+    public GameObjectsPlacement getGameObjectsPlacement() {
+        return gameObjectsPlacement;
+    }
+
+    public void setGameObjectsPlacement(GameObjectsPlacement gameObjectsPlacement) {
+        this.gameObjectsPlacement = gameObjectsPlacement;
+    }
+
     public GameType getGameType() {
         return gameType;
     }
@@ -187,13 +195,13 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     // ToDo: start() (т.е. без параметров) должен вызывать start(...)
     @Override
     public GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto) {
-        // ToDo: Отправить клиенту:
-        //       1. Размеры главной выборки матча и умолчательные характеристики для построение пустого поля
-        //          (но возможно, это в более раннем событии следует передать) для построения пустой выборки главного поля.
-        //       2. Объекты матча статические (например для Сокобана: стены или дома).
-        //       3. Объекты матча динамические. Например:
-        //          1. Для Сокобана: игрок, ящики.
-        //          2. Для Сапёра: флаги и количество мин на открытых плитках.
+        //  ToDo:   Отправить клиенту:
+        //          1. Размеры главной выборки матча и умолчательные характеристики для построение пустого поля
+        //             (но возможно, это в более раннем событии следует передать) для построения пустой выборки главного поля.
+        //          2. Объекты матча статические (например для Сокобана: стены или дома).
+        //          3. Объекты матча динамические. Например:
+        //              1. Для Сокобана: игрок, ящики.
+        //              2. Для Сапёра: флаги и количество мин на открытых плитках.
 
         throwExceptionIfIsPlaying();
         this.paramsOfModelValueMap = gameMatchExtendedDto.getParamsOfModelValueMap();

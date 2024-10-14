@@ -43,6 +43,11 @@ public class GameObjectsPlacementNotVerified {
         this.widthHeightSizes = widthHeightSizes;
     }
 
+    public GameObjectsPlacementNotVerified(GameMatch gameMatch) {
+        //  ToDo:   Здесь указано 3 х 3, но это не правильно!!!
+        this(gameMatch, new WidthHeightSizes(3, 3));
+    }
+
     public GameMatch getGameMatch() {
         return gameMatch;
     }
@@ -59,9 +64,35 @@ public class GameObjectsPlacementNotVerified {
         return widthHeightSizes;
     }
 
+    //  ToDo:   Рассмотреть введение состояний:
+    //          - "До верификации" - допустим вызов только add.
+    //          - "После верификации" - допустим вызов move, в состав которого межет входить и add, delete, update.
+    //  ToDo:   Или можно сделать и разделением этих методов по иерархии классов. Например:
+    //          - Базовый класс.
+    //          - Класс, реализующий "До верификации".
+    //          - Класс, реализующий "После верификации".
     public void add(GameObjectStateAutomaton gameObjectStateAutomaton) {
         if (!gameObjectStateAutomatonSet.add(gameObjectStateAutomaton)) {
             throw new RuntimeException("You cannot add gameObjectStateAutomaton if there is the same one.");
         }
+    }
+
+    public Set<GameObjectStateAutomaton> getGameObjectStateAutomatonSetInXYCoordinate(XYCoordinate xyCoordinate) {
+        Set<GameObjectStateAutomaton> result = new HashSet<>();
+        for (GameObjectStateAutomaton gameObjectStateAutomaton : gameObjectStateAutomatonSet) {
+            if (gameObjectStateAutomaton.getXyCoordinate().equals(xyCoordinate)) {
+                result.add(gameObjectStateAutomaton);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "GameObjectsPlacementNotVerified{" +
+                // "gameMatch=" + gameMatch +
+                ", gameObjectStateAutomatonSet=" + gameObjectStateAutomatonSet +
+                ", widthHeightSizes=" + widthHeightSizes +
+                '}';
     }
 }

@@ -1,11 +1,11 @@
 package timmax.tilegame.basemodel.gameobject;
 
-//  Смещение объекта
+//  Смещение на поле
 public class XYOffset {
-    public static XYOffset TO_UP = new XYOffset(-1, 0);
-    public static XYOffset TO_DOWN = new XYOffset(1, 0);
-    public static XYOffset TO_LEFT = new XYOffset(0, -1);
-    public static XYOffset TO_RIGHT = new XYOffset(0, 1);
+    public static XYOffset TO_UP = new XYOffset(0, -1);
+    public static XYOffset TO_DOWN = new XYOffset(0, 1);
+    public static XYOffset TO_LEFT = new XYOffset(-1, 0);
+    public static XYOffset TO_RIGHT = new XYOffset(1, 0);
 
     private final int dx;
     private final int dy;

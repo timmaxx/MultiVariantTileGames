@@ -2,14 +2,7 @@ package timmax.tilegame.basemodel.gameobject;
 
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
-import java.util.Set;
-
-//  Расположение игровых объектов (матча)
-
-//  ToDo:   Вынести отсюда некоторые поля в GameObjectsPlacementNotVerified,
-//          а здесь внести переменную этого типа и сделать её финальной.
-//          И при вызове конструктора сначала проверить её на целостность и потом только инициализировать.
-//  ToDo:   Тогда и добавление объекта здесь не должно быть без игрового хода.
+//  Расположение игровых объектов (матча), верифицированное с правилами игры.
 public class GameObjectsPlacement {
     private final GameObjectsPlacementNotVerified gameObjectsPlacementNotVerified;
 
@@ -17,16 +10,19 @@ public class GameObjectsPlacement {
 
     private MatchStatus matchStatus;
 
+    //  ToDo:   При вызове конструктора проверить параметр GameObjectsPlacementNotVerified
+    //          на целостность и потом только инициализировать.
     public GameObjectsPlacement(
             GameObjectsPlacementNotVerified gameObjectsPlacementNotVerified,
             int playerIndexOfCurrentMove
     ) {
         //  ToDo:   Нужно проверить, а соответствует-ли WidthHeightSizes и GameType?
+
         this.gameObjectsPlacementNotVerified = gameObjectsPlacementNotVerified;
 
         if (playerIndexOfCurrentMove < 0 || playerIndexOfCurrentMove >= gameTypeCountOfGamers()) {
             //  ToDo:   Отдельный класс исключения сделать?
-            throw new RuntimeException("Wrong playerIndexOfCurrentMove.");
+            throw new RuntimeException("Wrong playerIndexOfCurrentMove = " + playerIndexOfCurrentMove);
         }
         this.playerIndexOfCurrentMove = playerIndexOfCurrentMove;
 
@@ -41,10 +37,10 @@ public class GameObjectsPlacement {
         */
     }
 
-    public GameObjectsPlacement(GameObjectsPlacement gameObjectsPlacement) {
-        this.gameObjectsPlacementNotVerified = gameObjectsPlacement.gameObjectsPlacementNotVerified;
-        this.playerIndexOfCurrentMove = gameObjectsPlacement.playerIndexOfCurrentMove;
-        this.matchStatus = gameObjectsPlacement.matchStatus;
+    public GameObjectsPlacement(GameObjectsPlacement gameObjectsPlacementNotVerified) {
+        this.gameObjectsPlacementNotVerified = gameObjectsPlacementNotVerified.gameObjectsPlacementNotVerified;
+        this.playerIndexOfCurrentMove = gameObjectsPlacementNotVerified.playerIndexOfCurrentMove;
+        this.matchStatus = gameObjectsPlacementNotVerified.matchStatus;
     }
 
     public WidthHeightSizes getWidthHeightSizes() {
@@ -55,39 +51,23 @@ public class GameObjectsPlacement {
         return gameObjectsPlacementNotVerified.getGameType();
     }
 
-    protected int getPlayerIndexOfCurrentMove() {
-        return playerIndexOfCurrentMove;
-    }
-
     protected MatchStatus getMatchStatus() {
         return matchStatus;
     }
 
-    protected void setMatchStatus(MatchStatus matchStatus) {
-        this.matchStatus = matchStatus;
+    protected GameObjectsPlacementNotVerified getGameObjectsPlacementNotVerified() {
+        return gameObjectsPlacementNotVerified;
     }
 
     public int gameTypeCountOfGamers() {
         return getGameType().getCountOfGamers();
     }
 
-/*
-    public Set<GameObjectStateAutomaton> getGameObjectStateAutomatonSetInXYCoordinate(XYCoordinate xyCoordinate) {
-        Set<GameObjectStateAutomaton> result = new HashSet<>();
-        for (GameObjectStateAutomaton gameObjectStateAutomaton : gameObjectStateAutomatonSet) {
-            if (gameObjectStateAutomaton.getXyCoordinate().equals(xyCoordinate)) {
-                result.add(gameObjectStateAutomaton);
-            }
-        }
-        return result;
-    }
-*/
-
-
-    //  Применить один игровой ход:
-    //  - проверить, что статус == MatchStatus1Running, если нет создать исключение, если да, то:
-    //  - внести изменения в расстановку,
-    //  - рассчитать статус и выдать его.
+    //  Применить один игровой ход и проверить, что статус == MatchStatus1Running.
+    //  - Если нет создать исключение,
+    //  - если да, то:
+    //  -- внести изменения в расстановку,
+    //  -- рассчитать статус и выдать его.
     protected MatchStatus applyGameMove(GameMove gameMove) {
         if (!(matchStatus instanceof MatchStatus1Running)) {
             throw new RuntimeException("Status is " + matchStatus + ". It is impossible to apply game move.");
@@ -99,47 +79,12 @@ public class GameObjectsPlacement {
         return new MatchStatus0Undefined();
     }
 
-    //  Расстановка всех элементов должна удовлетворять правилам типа игры.
-
-    //      - ограниечение на наличие/количество/взаимное расположение объектов определённого типа как
-    //        на всей доске, так и на определённых координатах.
-    //        Например, для Шахмат не может быть, что-бы:
-    //          - хотя-бы у одной из сторон не было-бы короля или королей было-бы несколько,
-    protected void verifyGameObjectClass_XYCoordinateSet(Class<GameObject> gameObjectClass, Set<XYCoordinate> xyCoordinateSet) {
-    }
-
-    //      - ограничение на перечень типов объектов, которые могут находиться на одних координатах.
-    //          Например, для Шахмат не может быть, что-бы:
-    //              - на одной плитке был бы больше чем один объект.
-    //          Например, для Сокобан не может быть, что-бы:
-    //              - на одной клетке был-бы:
-    //                  - стена и стена,
-    //                  - стена и дом,
-    //                  - стена и ящик,
-    //                  - стена и игрок,
-    //                  - дом и дом,
-    //                  - ящик и ящик,
-    //                  - ящик и игрок,
-    //                  - игрок и игрок.
-    protected void verifyXYCoordinateSet_GameObjectClassSet(XYCoordinate xyCoordinate, Set<Class<GameObject>> gameObjectClassSet) {
-    }
-
-    //      - ограничения на взаимное расположение всех объектов:
-    //          Например, для Шахмат не может быть, что-бы:
-    //              - короли обоих противников были-бы одновременно под боем.
-    //          И в т.ч. нужно вычислить статус матча и вернуть его.
-    protected MatchStatus verifyAllGameObjects() {
-        return new MatchStatus0Undefined();
-    }
-
     @Override
     public String toString() {
         return "GameObjectsPlacement{" +
-                // "gameType=" + gameType +
-                // ", widthHeightSizes=" + widthHeightSizes +
-//                ", gameObjectStateAutomatonSet=" + gameObjectStateAutomatonSet +
-                // ", playerIndexOfCurrentMove=" + playerIndexOfCurrentMove +
-                // ", matchStatus=" + matchStatus +
+                "gameObjectsPlacementNotVerified=" + gameObjectsPlacementNotVerified +
+                ", playerIndexOfCurrentMove=" + playerIndexOfCurrentMove +
+                ", matchStatus=" + matchStatus +
                 '}';
     }
 }

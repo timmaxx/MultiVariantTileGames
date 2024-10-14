@@ -18,18 +18,20 @@ public class GameObject {
     private final String id;
 
     //  Расстановка, которой принадлежит объект.
-    protected final GameObjectsPlacement gameObjectsPlacement;
+    protected final GameObjectsPlacementNotVerified gameObjectsPlacementNotVerified;
 
     protected XYCoordinate xyCoordinate;
 
-
-    public GameObject(String id, GameObjectsPlacement gameObjectsPlacement) {
+    public GameObject(String id, GameObjectsPlacementNotVerified gameObjectsPlacementNotVerified) {
         this.id = id;
-        this.gameObjectsPlacement = gameObjectsPlacement;
+        this.gameObjectsPlacementNotVerified = gameObjectsPlacementNotVerified;
     }
 
-    public GameObject(String id, GameObjectsPlacement gameObjectsPlacement, XYCoordinate xyCoordinate) {
-        this(id, gameObjectsPlacement);
+    public GameObject(
+            String id,
+            GameObjectsPlacementNotVerified gameObjectsPlacementNotVerified,
+            XYCoordinate xyCoordinate) {
+        this(id, gameObjectsPlacementNotVerified);
         setXyCoordinate(xyCoordinate);
     }
 
@@ -46,12 +48,12 @@ public class GameObject {
             throw new NullPointerException("xyCoordinate must be not null.");
         }
         //  ToDo:   Проверить координаты на допустимость (минимум и максимум)
-        gameObjectsPlacement.getWidthHeightSizes().validateXYCoordinate(xyCoordinate);
+        gameObjectsPlacementNotVerified.getWidthHeightSizes().validateXYCoordinate(xyCoordinate);
         this.xyCoordinate = xyCoordinate;
     }
 
-    public GameObjectsPlacement getGameObjectsPlacement() {
-        return gameObjectsPlacement;
+    public GameObjectsPlacementNotVerified getGameObjectsPlacementNotVerified() {
+        return gameObjectsPlacementNotVerified;
     }
 
     @Override
@@ -61,13 +63,13 @@ public class GameObject {
 
         GameObject that = (GameObject) o;
 
-        if (!gameObjectsPlacement.equals(that.gameObjectsPlacement)) return false;
+        if (!gameObjectsPlacementNotVerified.equals(that.gameObjectsPlacementNotVerified)) return false;
         return xyCoordinate.equals(that.xyCoordinate);
     }
 
     @Override
     public int hashCode() {
-        int result = gameObjectsPlacement.hashCode();
+        int result = gameObjectsPlacementNotVerified.hashCode();
         result = 31 * result + xyCoordinate.hashCode();
         return result;
     }
