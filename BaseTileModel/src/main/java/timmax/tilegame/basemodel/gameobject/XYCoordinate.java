@@ -45,7 +45,7 @@ public final class XYCoordinate implements Externalizable {
     }
 
     public static XYCoordinate getRandom(WidthHeightSizes widthHeightSizes) {
-        return new XYCoordinate(random.nextInt(widthHeightSizes.width()), random.nextInt(widthHeightSizes.height()));
+        return new XYCoordinate(random.nextInt(widthHeightSizes.getWidth()), random.nextInt(widthHeightSizes.getHeight()));
     }
 
     public boolean hasEqualX(XYCoordinate xyCoordinate) {

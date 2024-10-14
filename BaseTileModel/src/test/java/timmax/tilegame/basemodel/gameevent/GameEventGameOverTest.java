@@ -2,6 +2,7 @@ package timmax.tilegame.basemodel.gameevent;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import timmax.tilegame.basemodel.gameobject.WidthHeightSizes;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -10,7 +11,7 @@ public class GameEventGameOverTest {
     @Test
     @DisplayName("Not null is not equals null")
     public void notNullIsNotEqualsNull() {
-        GameEvent gameEvent = new GameEventNewGame(2, 3);
+        GameEvent gameEvent = new GameEventNewGame(new WidthHeightSizes(2, 3));
         assertNotEquals(gameEvent, null);
     }
 /*

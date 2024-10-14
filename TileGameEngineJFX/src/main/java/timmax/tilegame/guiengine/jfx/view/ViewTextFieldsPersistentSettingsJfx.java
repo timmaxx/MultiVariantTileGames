@@ -12,7 +12,7 @@ public class ViewTextFieldsPersistentSettingsJfx extends ViewTextFieldsJfx {
             GameType gameType) {
         super(transportOfClient
                 , GameEventNewGame.class
-                // ToDo: Разобраться и удалить ведущий '\n' в commonLabel.
+                //  ToDo:   Разобраться и удалить ведущий '\n' в commonLabel.
                 , "\nPersistent settings:\n"
                 , viewName
                 , gameType);
@@ -21,8 +21,6 @@ public class ViewTextFieldsPersistentSettingsJfx extends ViewTextFieldsJfx {
     @Override
     protected String createStringFromGameEvent(GameEvent gameEvent) {
         GameEventNewGame ge = ((GameEventNewGame) gameEvent);
-        return " Width = " + ge.getWidth() + ". " +
-                " Height = " + ge.getHeight() + ". " +
-                " All tiles = " + ge.getWidth() * ((GameEventNewGame) gameEvent).getHeight() + ". ";
+        return " ge.getWidthHeightSizes() = " + ge.getWidthHeightSizes();
     }
 }

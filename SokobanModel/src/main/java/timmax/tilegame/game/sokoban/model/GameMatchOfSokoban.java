@@ -252,9 +252,9 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         setGameObjectsPlacement(levelLoader.getLevel(currentLevel.getValue(), this));
         super.setParamsOfModelValueMap(
                 Map.of(PARAM_NAME_WIDTH,
-                        getGameObjectsPlacement().getWidthHeightSizes().width(),
+                        getGameObjectsPlacement().getWidthHeightSizes().getWidth(),
                         PARAM_NAME_HEIGHT,
-                        getGameObjectsPlacement().getWidthHeightSizes().height()
+                        getGameObjectsPlacement().getWidthHeightSizes().getHeight()
                 )
         );
     }
@@ -274,19 +274,18 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
 
         // В этой реализации Сокобан не обращаем внимание на gameMatchExtendedDto - просто загружаем следующий уровень.
         setGameObjectsPlacement(levelLoader.getLevel(currentLevel.getValue(), this));
-        // paramsOfModelValueMap = Map.of(PARAM_NAME_WIDTH, allSokobanObjects.getWidth(), PARAM_NAME_HEIGHT, allSokobanObjects.getHeight());
         super.setParamsOfModelValueMap(
                 Map.of(PARAM_NAME_WIDTH,
-                        getGameObjectsPlacement().getWidthHeightSizes().width(),
+                        getGameObjectsPlacement().getWidthHeightSizes().getWidth(),
                         PARAM_NAME_HEIGHT,
-                        getGameObjectsPlacement().getWidthHeightSizes().height()
+                        getGameObjectsPlacement().getWidthHeightSizes().getHeight()
                 )
         );
 
         Set<GameEventOneTile> gameEventOneTileSet = new HashSet<>();
 
-        for (int y = 0; y < getGameObjectsPlacement().getWidthHeightSizes().height(); y++) {
-            for (int x = 0; x < getGameObjectsPlacement().getWidthHeightSizes().width(); x++) {
+        for (int y = 0; y < getGameObjectsPlacement().getWidthHeightSizes().getHeight(); y++) {
+            for (int x = 0; x < getGameObjectsPlacement().getWidthHeightSizes().getWidth(); x++) {
                 XYCoordinate xyCoordinate = new XYCoordinate(x, y);
                 WhoPersistentInTile whoPersistentInTile = getGameObjectsPlacement().getWhoPersistentInTile(xyCoordinate);
                 WhoMovableInTile whoMovableInTile = getGameObjectsPlacement().getWhoMovableInTile(xyCoordinate);

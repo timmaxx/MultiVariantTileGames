@@ -2,10 +2,14 @@ package timmax.tilegame.basemodel.gameobject;
 
 import timmax.tilegame.basemodel.exception.XYCoordinateIsOutOfRangeException;
 
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.Objects;
 
 //  Ширина и высота
-public final class WidthHeightSizes {
+public final class WidthHeightSizes implements Externalizable {
     //  ToDo:   Вероятно эти переменные лучше переместить в GameType - что-бы у разных типов игр
     //          было можно по разному выставлять ограничения на размеры досок.
     //  ToDo:   Также рассмотреть и возможность хранения для типа игры перечня допустимых размеров.
@@ -20,8 +24,11 @@ public final class WidthHeightSizes {
     public final static int MAX_WIDTH = 20;
     public final static int MAX_HEIGHT = 20;
 
-    private final int width;
-    private final int height;
+    private int width;
+    private int height;
+
+    public WidthHeightSizes() {
+    }
 
     public WidthHeightSizes(int width, int height) {
         if (width < MIN_WIDTH || width > MAX_WIDTH ||
@@ -36,11 +43,11 @@ public final class WidthHeightSizes {
         return width * height;
     }
 
-    public int width() {
+    public int getWidth() {
         return width;
     }
 
-    public int height() {
+    public int getHeight() {
         return height;
     }
 
@@ -74,5 +81,17 @@ public final class WidthHeightSizes {
                 "width=" + width +
                 ", height=" + height +
                 '}';
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeInt(width);
+        out.writeInt(height);
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        width = in.readInt();
+        height = in.readInt();
     }
 }

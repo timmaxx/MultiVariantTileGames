@@ -45,8 +45,8 @@ public class LevelGenerator {
         } while (countMinesOnField < widthHeightSizes.getSquare() * restOfMineInstallationInPercents / 100);
 
         //  Расставим не мины
-        for (int y = 0; y < widthHeightSizes.height(); y++) {
-            for (int x = 0; x < widthHeightSizes.width(); x++) {
+        for (int y = 0; y < widthHeightSizes.getHeight(); y++) {
+            for (int x = 0; x < widthHeightSizes.getWidth(); x++) {
                 XYCoordinate xyCoordinate = new XYCoordinate(x, y);
                 if (minesweeperPlacementNotVerified.getGameObjectStateAutomatonSetInXYCoordinate(xyCoordinate).size() == 1) {
                     continue;

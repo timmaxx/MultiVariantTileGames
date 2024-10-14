@@ -1,59 +1,40 @@
 package timmax.tilegame.basemodel.gameevent;
 
+import timmax.tilegame.basemodel.gameobject.WidthHeightSizes;
+
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 public class GameEventNewGame extends GameEvent {
-    private int width;
-    private int height;
-
-    // ToDo: Было-бы лучше вынести из этого класса логику визуализации.
-    //       Эти реквизиты уже перемещены в GameType, но пока в этом классе не удалены.
-    // private boolean isThereCellSettingDefault;
+    private WidthHeightSizes widthHeightSizes;
 
     public GameEventNewGame() {
     }
 
-    public GameEventNewGame(int width, int height) {
-        this.width = width;
-        this.height = height;
-        // this.isThereCellSettingDefault = true;
+    public GameEventNewGame(WidthHeightSizes widthHeightSizes) {
+        this.widthHeightSizes = widthHeightSizes;
     }
 
-    public int getWidth() {
-        return width;
+    public WidthHeightSizes getWidthHeightSizes() {
+        return widthHeightSizes;
     }
 
-    public int getHeight() {
-        return height;
-    }
-/*
-    public boolean isThereCellSettingDefault() {
-        return isThereCellSettingDefault;
-    }
-*/
     @Override
     public String toString() {
         return "GameEventNewGame{" +
-                "width=" + width +
-                ", height=" + height +
-//                ", isThereCellSettingDefault=" + isThereCellSettingDefault +
+                "widthHeightSizes=" + widthHeightSizes +
                 '}';
     }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeInt(width);
-        out.writeInt(height);
-//        out.writeBoolean(isThereCellSettingDefault);
+        out.writeObject(widthHeightSizes);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        width = in.readInt();
-        height = in.readInt();
-//        isThereCellSettingDefault = in.readBoolean();
+        widthHeightSizes = (WidthHeightSizes) in.readObject();
     }
 
     @Override
@@ -63,14 +44,11 @@ public class GameEventNewGame extends GameEvent {
 
         GameEventNewGame that = (GameEventNewGame) o;
 
-        if (width != that.width) return false;
-        return height == that.height;
+        return widthHeightSizes.equals(that.widthHeightSizes);
     }
 
     @Override
     public int hashCode() {
-        int result = width;
-        result = 31 * result + height;
-        return result;
+        return widthHeightSizes.hashCode();
     }
 }
