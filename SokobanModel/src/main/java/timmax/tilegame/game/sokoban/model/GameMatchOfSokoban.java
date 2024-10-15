@@ -311,18 +311,18 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
             XYCoordinate xyCoordinateOfMouseClick = gameCommandMouseClick.getXYCoordinate();
             XYCoordinate xyCoordinateOfPlayer = getGameObjectsPlacement().getPlayer().getXyCoordinate();
             if (xyCoordinateOfMouseClick.hasEqualY(xyCoordinateOfPlayer)) {
-                if (xyCoordinateOfMouseClick.hasXLess(xyCoordinateOfPlayer)) {
+                if (xyCoordinateOfMouseClick.hasXLesser(xyCoordinateOfPlayer)) {
                     move(TO_LEFT);
                 } else
-                    if (xyCoordinateOfMouseClick.hasXMore(xyCoordinateOfPlayer)) {
+                    if (xyCoordinateOfMouseClick.hasXGreater(xyCoordinateOfPlayer)) {
                         move(TO_RIGHT);
                     }
             } else
                 if ((xyCoordinateOfMouseClick.hasEqualX(xyCoordinateOfPlayer))) {
-                    if (xyCoordinateOfMouseClick.hasYLess(xyCoordinateOfPlayer)) {
+                    if (xyCoordinateOfMouseClick.hasYLesser(xyCoordinateOfPlayer)) {
                         move(TO_UP);
                     } else
-                        if (xyCoordinateOfMouseClick.hasYMore(xyCoordinateOfPlayer)) {
+                        if (xyCoordinateOfMouseClick.hasYGreater(xyCoordinateOfPlayer)) {
                             move(TO_DOWN);
                         }
                 }

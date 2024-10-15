@@ -56,19 +56,19 @@ public final class XYCoordinate implements Externalizable {
         return y == xyCoordinate.y;
     }
 
-    public boolean hasXLess(XYCoordinate xyCoordinate) {
+    public boolean hasXLesser(XYCoordinate xyCoordinate) {
         return x < xyCoordinate.x;
     }
 
-    public boolean hasXMore(XYCoordinate xyCoordinate) {
+    public boolean hasXGreater(XYCoordinate xyCoordinate) {
         return x > xyCoordinate.x;
     }
 
-    public boolean hasYLess(XYCoordinate xyCoordinate) {
+    public boolean hasYLesser(XYCoordinate xyCoordinate) {
         return y < xyCoordinate.y;
     }
 
-    public boolean hasYMore(XYCoordinate xyCoordinate) {
+    public boolean hasYGreater(XYCoordinate xyCoordinate) {
         return y > xyCoordinate.y;
     }
 
