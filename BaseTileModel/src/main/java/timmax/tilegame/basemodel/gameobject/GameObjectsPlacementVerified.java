@@ -1,62 +1,53 @@
 package timmax.tilegame.basemodel.gameobject;
 
-import timmax.tilegame.basemodel.protocol.server.GameType;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-//  Расположение игровых объектов (матча), верифицированное с правилами игры.
-public class GameObjectsPlacement {
-    private final GameObjectsPlacementNotVerified gameObjectsPlacementNotVerified;
-
-    private final int playerIndexOfCurrentMove;
+//  Расположение игровых объектов (матча) с проверкой целостности (и на этапе создания и при каждом ходе).
+public class GameObjectsPlacementVerified extends GameObjectsPlacementAbstract {
+    private int playerIndexOfCurrentMove;
 
     private MatchStatus matchStatus;
 
-    //  ToDo:   При вызове конструктора проверить параметр GameObjectsPlacementNotVerified
-    //          на целостность и потом только инициализировать.
-    public GameObjectsPlacement(
+    public GameObjectsPlacementVerified(
             GameObjectsPlacementNotVerified gameObjectsPlacementNotVerified,
-            int playerIndexOfCurrentMove
-    ) {
-        //  ToDo:   Нужно проверить, а соответствует-ли WidthHeightSizes и GameType?
+            int playerIndexOfCurrentMove) {
+        super(gameObjectsPlacementNotVerified.getGameMatch(),
+                gameObjectsPlacementNotVerified.getWidthHeightSizes(),
+                gameObjectsPlacementNotVerified.gameObjectStateAutomatonSet
+        );
 
-        this.gameObjectsPlacementNotVerified = gameObjectsPlacementNotVerified;
+        //  ToDo:   Нужно проверить:
+        //          1. а соответствует-ли WidthHeightSizes и GameType?
+        //          2. индекс игрока, делающего следующий ход должен быть от 0 до количества игроков - 1.
+        //          3. что все объекты, стоят правильно:
+        //              1. сами по себе
+        //                  (например, для Шахмат пешки обоих игроков не могут располагаться на горизонталях 1 и 8),
+        //              2. обязательное наличие каких-либо типов объектов и их количество
+        //                  (например, для Шахмат:
+        //                      - королей должно быть только по одному для каждой стороны).
+        //              3. относительно других объектов и учитывая индекс игрока, чей ход следующий
+        //                  (например, для Шахмат:
+        //                      - короли каждой из сторон не могут быть под боем одновременно).
+        //  ToDo:   4. Определить статус матча (идёт игра, окончена выигрешем/поражением, окончена ничьёй).
 
+        //  2
         if (playerIndexOfCurrentMove < 0 || playerIndexOfCurrentMove >= gameTypeCountOfGamers()) {
-            //  ToDo:   Отдельный класс исключения сделать?
             throw new RuntimeException("Wrong playerIndexOfCurrentMove = " + playerIndexOfCurrentMove);
         }
         this.playerIndexOfCurrentMove = playerIndexOfCurrentMove;
 
+        //  4
         this.matchStatus = new MatchStatus0Undefined();
-        /*
-        //  ToDo:   Нужно реализовать проверку на:
-        //          - полный обзор всех объектов, относительно других объектов,
-        //          - учитывать индекс игрока, чей ход следующий.
-        //  ToDo:   Не забыть и проверку на возможно обязательное наличие каких-либо типов объектов - особенно,
-        //          если в расстановке их нет.
-        matchStatus = verifyAllGameObjects();
-        */
+        // matchStatus = verifyAllGameObjects();
     }
 
-    public GameObjectsPlacement(GameObjectsPlacement gameObjectsPlacementNotVerified) {
-        this.gameObjectsPlacementNotVerified = gameObjectsPlacementNotVerified.gameObjectsPlacementNotVerified;
-        this.playerIndexOfCurrentMove = gameObjectsPlacementNotVerified.playerIndexOfCurrentMove;
-        this.matchStatus = gameObjectsPlacementNotVerified.matchStatus;
+    public int getPlayerIndexOfCurrentMove() {
+        return playerIndexOfCurrentMove;
     }
 
-    public WidthHeightSizes getWidthHeightSizes() {
-        return gameObjectsPlacementNotVerified.getWidthHeightSizes();
-    }
-
-    protected GameType getGameType() {
-        return gameObjectsPlacementNotVerified.getGameType();
-    }
-
-    protected MatchStatus getMatchStatus() {
+    public MatchStatus getMatchStatus() {
         return matchStatus;
-    }
-
-    protected GameObjectsPlacementNotVerified getGameObjectsPlacementNotVerified() {
-        return gameObjectsPlacementNotVerified;
     }
 
     public int gameTypeCountOfGamers() {
@@ -79,16 +70,24 @@ public class GameObjectsPlacement {
         return new MatchStatus0Undefined();
     }
 
+    public final Set<GameObject> getGameObjectSetFilteredByGameObjectClass(
+            Class<? extends GameObject> gameObjectClass) {
+        return gameObjectStateAutomatonSet
+                .stream()
+                .filter(gosa -> gosa.getGameObject().getClass().equals(gameObjectClass))
+                .map(GameObjectStateAutomaton::getGameObject)
+                .collect(Collectors.toSet());
+    }
+
     @Override
     public String toString() {
-        return "GameObjectsPlacement{" +
-                "gameObjectsPlacementNotVerified=" + gameObjectsPlacementNotVerified +
-                ", playerIndexOfCurrentMove=" + playerIndexOfCurrentMove +
+        return super.toString() + " | " + "GameObjectsPlacementVerified{" +
+                "playerIndexOfCurrentMove=" + playerIndexOfCurrentMove +
                 ", matchStatus=" + matchStatus +
+                // ", gameObjectStateAutomatonSet=" + gameObjectStateAutomatonSet +
                 '}';
     }
 }
-
 
 //  ToDo:   Сделать четыре разных конструктора, у которых был-бы различный четвертый параметр.
 //          Но можно не четыре, а хотя-бы два: 1 и 3. Но минимально и одного из четырёх будет достаточно.

@@ -16,25 +16,20 @@ import java.util.ArrayList;
 
 //  Последовательность игровых ходов (матча) (с приложением к начальной расстановке)
 public abstract class GameMovesSequence extends GameMovesSequenceNotVerified {
-    //  Расстановка начальная, т.е. на пустой доске.
-    private final GameObjectsPlacement gameObjectsPlacementAtBegining;
-
     //  Расстановка после последнего хода, т.е. после того, как:
-    //  1. на пустую доску расставили начальную расстановку,
+    //  1. на пустую доску расставили начальную расстановку (заданную в конструкторе),
     //  2. последовательно сделаны все ходы.
-    private GameObjectsPlacement gameObjectsPlacementAfterLastMove;
+    private GameObjectsPlacementVerified gameObjectsPlacementAfterLastMove;
 
     public GameMovesSequence(
             GameType gameType,
             ArrayList<GameMove[]> gameMoveArray_ListArray,
             int playerIndexOfFirstMove,
             int playerIndexOfLasstMove,
-            GameObjectsPlacement gameObjectsPlacementAtBegining) {
+            GameObjectsPlacementVerified gameObjectsPlacementVerified) {
         super(gameType, gameMoveArray_ListArray, playerIndexOfFirstMove, playerIndexOfLasstMove);
 
-        this.gameObjectsPlacementAtBegining = gameObjectsPlacementAtBegining;
-        this.gameObjectsPlacementAfterLastMove = new GameObjectsPlacement(gameObjectsPlacementAtBegining);
-
+        this.gameObjectsPlacementAfterLastMove = gameObjectsPlacementVerified;
         MatchStatus matchStatus = gameObjectsPlacementAfterLastMove.getMatchStatus();
         int indexOfGameCycle = 0;
         int indexOfPlayer = 0;

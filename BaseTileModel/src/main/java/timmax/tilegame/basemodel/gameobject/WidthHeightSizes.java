@@ -8,7 +8,8 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.Objects;
 
-//  Ширина и высота
+//  Ширина и высота (пока предполагается применять для главного поля,
+//  но возможно позже можно будет рассмотреть и для многоплиточных объектов).
 public final class WidthHeightSizes implements Externalizable {
     //  ToDo:   Вероятно эти переменные лучше переместить в GameType - что-бы у разных типов игр
     //          было можно по разному выставлять ограничения на размеры досок.
@@ -27,10 +28,15 @@ public final class WidthHeightSizes implements Externalizable {
     private int width;
     private int height;
 
+    //  Можно-ли пересчитать (в большую сторону).
+    private boolean mayBeRecalc;
+
     public WidthHeightSizes() {
+        mayBeRecalc = true;
     }
 
     public WidthHeightSizes(int width, int height) {
+        this();
         if (width < MIN_WIDTH || width > MAX_WIDTH ||
                 height < MIN_HEIGHT || height > MAX_HEIGHT) {
             throw new RuntimeException("Wrong width and/or height. You cannot set them into (width < MIN_WIDTH || width > MAX_WIDTH || height < MIN_HEIGHT || height > MAX_HEIGHT).");
@@ -39,8 +45,13 @@ public final class WidthHeightSizes implements Externalizable {
         this.height = height;
     }
 
-    public int getSquare() {
-        return width * height;
+    public WidthHeightSizes(int width, int height, boolean mayBeRecalc) {
+        this(width, height);
+        this.mayBeRecalc = mayBeRecalc;
+    }
+
+    public boolean mayBeRecalc() {
+        return mayBeRecalc;
     }
 
     public int getWidth() {
@@ -51,6 +62,14 @@ public final class WidthHeightSizes implements Externalizable {
         return height;
     }
 
+    public int getSquare() {
+        return width * height;
+    }
+
+    public void setMayBeReaclFalse() {
+        mayBeRecalc = false;
+    }
+
     public void validateXYCoordinate(XYCoordinate xyCoordinate) {
         if (xyCoordinate.getX() < 0
                 || xyCoordinate.getX() >= width
@@ -58,6 +77,42 @@ public final class WidthHeightSizes implements Externalizable {
                 || xyCoordinate.getY() >= height
         ) {
             throw new XYCoordinateIsOutOfRangeException(); // ("xyCoordinate is wrong. xyCoordinate = " + xyCoordinate + ". WidthHeightSizes = " + this + ".");
+        }
+    }
+
+    public void recalc(XYCoordinate xyCoordinate) {
+        throwExceptionIfNotMayBeRecalc();
+
+        if (width <= xyCoordinate.getX()) {
+            width = xyCoordinate.getX() + 1;
+        }
+        if (height <= xyCoordinate.getY()) {
+            height = xyCoordinate.getY() + 1;
+        }
+    }
+
+    public void recalc(WidthHeightSizes widthHeightSizes) {
+        throwExceptionIfNotMayBeRecalc();
+
+        boolean thereIsError = false;
+        if (width < widthHeightSizes.width) {
+            width = widthHeightSizes.width;
+        } else {
+            thereIsError = true;
+        }
+        if (height < widthHeightSizes.height) {
+            height = widthHeightSizes.height;
+        } else {
+            thereIsError = true;
+        }
+        if (thereIsError) {
+            throw new RuntimeException("Current = " + this + ", but new one is = " + widthHeightSizes + ". You cannot do this.");
+        }
+    }
+
+    private void throwExceptionIfNotMayBeRecalc() {
+        if (!mayBeRecalc) {
+            throw new RuntimeException("mayBeRecalc = " + mayBeRecalc + ". You cannot call recalc().");
         }
     }
 
@@ -80,6 +135,7 @@ public final class WidthHeightSizes implements Externalizable {
         return "WidthHeightSizes{" +
                 "width=" + width +
                 ", height=" + height +
+                ", mayBeRecalc=" + mayBeRecalc +
                 '}';
     }
 
@@ -87,11 +143,13 @@ public final class WidthHeightSizes implements Externalizable {
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeInt(width);
         out.writeInt(height);
+        out.writeBoolean(mayBeRecalc);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         width = in.readInt();
         height = in.readInt();
+        mayBeRecalc = in.readBoolean();
     }
 }

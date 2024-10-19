@@ -1,98 +1,72 @@
 package timmax.tilegame.basemodel.gameobject;
 
-import timmax.tilegame.basemodel.protocol.server.GameMatch;
-import timmax.tilegame.basemodel.protocol.server.GameType;
-
-import java.util.HashSet;
-import java.util.Set;
-
-//  Класс нужен для первичной инициализации размещения, когда:
+//  Класс нужен для первичной инициализации размещения, когда размещение не сможет пройти проверку на целостность:
 //  - размер поля при инициализации может быть не известен.
-//      (например, для игр у которых карта может иметь различные размеры -
-//      тогда размеры поля будут динамически определены после расстановки всех объектов).
-//  - не выполняется целостность расстановки, т.е. не может быть начальной расстановкой для старта матча:
+//      (например, для игр у которых карта может иметь различные размеры на разных уровнях -
+//      тогда размеры поля будут динамически пересчитаны при добавлении нового объекта).
+//  - не выполняется целостность расстановки (а это нормальная ситуация при добавлении объектов по одному),
+//    т.е. не может быть начальной расстановкой для старта матча:
 //      - пустое поле (для некоторых типов игр).
 //          Например, для Шахмат, Шашек, Сапёра, Сокобан.
 //      - расстановка, заполненная объектами, не удовлетворяет правилам типа игры.
 //          Например, для Шахмат:
 //          - расстановка, на которой нет короля для хотя-бы одной из сторон.
-//          - расстановка, на которой есть два и более короля для хотя-бы одной из сторон.
-//  В экземпляре этого класса можно произвольно добавлять, удалять или изменять игровой объект, не взирая на правила.
+//          - расстановка, на которой есть два и более короля для хотя-бы одной из сторон
+//            (хотя при такой ситуации не получится пройти проверку на целостность даже и после, т.к. допустимо только
+//            добавление объекта, а методов редактирования и удаления не должно быть).
+//  В экземпляр этого класса можно произвольно добавлять игровой объект, невзирая на правила.
+
+import timmax.tilegame.basemodel.protocol.server.GameMatch;
 
 //  Расположение игровых объектов (матча) без проверки целостности.
-public class GameObjectsPlacementNotVerified {
-    private final GameMatch gameMatch;
-
-    //  Множество всех конкретных объектов расстановки как состояний этих объектов.
-    //      Например, для Шахмат:
-    //          Король, ферзь1, слон1, слон2, конь1, конь2, ладья1, ладья2, пешка1, ... пешка8.
-    //      Например, для Шашек:
-    //          Шашка1, ... шашка12, дамка1, ... дамкаN.
-    //      Например, для Сапёра:
-    //          Закрытое поле1, флаг1, открытое поле 1 (без мины), мина1.
-    //      Например, для Сокобан:
-    //          Игрок, коробка1, стена1, дом1.
-    private final Set<GameObjectStateAutomaton> gameObjectStateAutomatonSet;
-
-    //  Ширина и высота поля.
-    private final WidthHeightSizes widthHeightSizes;
+public class GameObjectsPlacementNotVerified extends GameObjectsPlacementAbstract {
+    //  Можно-ли в экземпляр добавлять объекты.
+    private boolean isAddable;
 
     public GameObjectsPlacementNotVerified(GameMatch gameMatch, WidthHeightSizes widthHeightSizes) {
-        this.gameMatch = gameMatch;
-        this.gameObjectStateAutomatonSet = new HashSet<>();
-        this.widthHeightSizes = widthHeightSizes;
+        super(gameMatch, widthHeightSizes);
+        this.isAddable = true;
     }
 
     public GameObjectsPlacementNotVerified(GameMatch gameMatch) {
-        //  ToDo:   Здесь указано 3 х 3, но это не правильно!!!
-        this(gameMatch, new WidthHeightSizes(3, 3));
+        super(gameMatch);
+        this.isAddable = true;
     }
 
-    public GameMatch getGameMatch() {
-        return gameMatch;
-    }
-
-    public GameType getGameType() {
-        return gameMatch.getGameType();
-    }
-
-    public Set<GameObjectStateAutomaton> getGameObjectStateAutomatonSet() {
-        return gameObjectStateAutomatonSet;
-    }
-
-    public WidthHeightSizes getWidthHeightSizes() {
-        return widthHeightSizes;
-    }
-
-    //  ToDo:   Рассмотреть введение состояний:
-    //          - "До верификации" - допустим вызов только add.
-    //          - "После верификации" - допустим вызов move, в состав которого межет входить и add, delete, update.
-    //  ToDo:   Или можно сделать и разделением этих методов по иерархии классов. Например:
-    //          - Базовый класс.
-    //          - Класс, реализующий "До верификации".
-    //          - Класс, реализующий "После верификации".
     public void add(GameObjectStateAutomaton gameObjectStateAutomaton) {
+        if (!isAddable) {
+            throw new RuntimeException("Property 'isAddable' == false, so you cannot add any object.");
+        }
+        if (!getWidthHeightSizes().mayBeRecalc()) {
+            getWidthHeightSizes().validateXYCoordinate(gameObjectStateAutomaton.getXyCoordinate());
+        }
         if (!gameObjectStateAutomatonSet.add(gameObjectStateAutomaton)) {
             throw new RuntimeException("You cannot add gameObjectStateAutomaton if there is the same one.");
         }
+        if (getWidthHeightSizes().mayBeRecalc()) {
+            getWidthHeightSizes().recalc(gameObjectStateAutomaton.getXyCoordinate());
+        }
     }
 
-    public Set<GameObjectStateAutomaton> getGameObjectStateAutomatonSetInXYCoordinate(XYCoordinate xyCoordinate) {
-        Set<GameObjectStateAutomaton> result = new HashSet<>();
-        for (GameObjectStateAutomaton gameObjectStateAutomaton : gameObjectStateAutomatonSet) {
-            if (gameObjectStateAutomaton.getXyCoordinate().equals(xyCoordinate)) {
-                result.add(gameObjectStateAutomaton);
-            }
-        }
-        return result;
+    //  Сделать расстановку не редактируемой.
+    //  Такой вызов предполагает, что после него можно проверять расстановку на целостность.
+    public void turnAddableToFalse() {
+        isAddable = false;
+        getWidthHeightSizes().setMayBeReaclFalse();
+    }
+
+    //  Сделать расстановку не редактируемой с введением альтернативной ширины и высоты поля
+    //  (ширина и/или высота должны быть не меньше, чем уже получилось при расстановке).
+    public void turnAddableToFalse(WidthHeightSizes widthHeightSizes) {
+        getWidthHeightSizes().recalc(widthHeightSizes);
+        turnAddableToFalse();
     }
 
     @Override
     public String toString() {
-        return "GameObjectsPlacementNotVerified{" +
-                // "gameMatch=" + gameMatch +
-                ", gameObjectStateAutomatonSet=" + gameObjectStateAutomatonSet +
-                ", widthHeightSizes=" + widthHeightSizes +
+        return super.toString() + " | " + "GameObjectsPlacementNotVerified{" +
+                "isAddable=" + isAddable +
+                // ", gameObjectStateAutomatonSet=" + gameObjectStateAutomatonSet +
                 '}';
     }
 }

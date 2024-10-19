@@ -7,7 +7,7 @@ import timmax.tilegame.basemodel.GameMatchStatus;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
-import timmax.tilegame.basemodel.gameobject.GameObjectsPlacement;
+import timmax.tilegame.basemodel.gameobject.GameObjectsPlacementVerified;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
 
@@ -22,35 +22,6 @@ import static timmax.tilegame.basemodel.GameMatchStatus.*;
 //  ToDo:   Следует инициализировать матч только при создании экземпляра. Так будет целостнее картина:
 //          - конструктор должен проверить целостность параметров матча.
 //          - сеттер параметров матча станет не нужным.
-//  ToDo:   Ввести отдельную группу классов для хранения расстановки объектов матча:
-//          - вижу, что это можно организовать как минимум двумя вариантами:
-//              - каждый элемент несёт информацию только о типе объекта и координатах
-//                (тогда записей будет столько сколько и количество объектов),
-//              - вся карта в сплошной последовательности плиток и для каждой плитки наличие в ней объектоа(ов) без
-//                координат
-//                (тогда записей будет ровно Ш х В).
-//          - расстановка всех элементов должна удовлетворять правилам типа игры.
-//              - ограничение на количество объектов определённого типа на одной плитке:
-//                  Например для Сокобан не может быть, что-бы:
-//                  - на одной плитке был-бы и дом и стена,
-//                  - на одной плитке был-бы и игрок и ящик.
-//                  Например для Шахмат не может быть, что-бы:
-//                  - на одной плитке было-бы более одного объекта.
-//              - ограничение на количество объектов определённого типа на всей доске:
-//                  Например для Шахмат не может быть, что-бы:
-//                  - хотя-бы у одной из сторон не было-бы короля или королей было-бы несколько,
-//              - ограничения на взаимное расположение объектов:
-//                  Например для Шахмат не может быть, что-бы:
-//                  - короли обоих противников были-бы одновременно под боем.
-//  ToDo:   Ввести отдельную группу классов для хранения последовательности всех ходов матча:
-//          - каждый ход должен соответствовать правилам типа игры
-//              Например для Сокобан:
-//                  - нельзя переместить игрока более чем на одну плитку по горизонтали или вертикали.
-//              Например для Шахмат:
-//                  - нельзя переместить слона как коня или перепрыгнув ч/з фигуру.
-//          - ход может быть принят, если он не приведёт к неправильной расстановке (примеры см. в описании предыдущего класса).
-//          После каждого хода нужно проверять не достигнут-ли конец партии. А если достигнут, то зафиксировать
-//          конец партии и успешность (победа/поражение) каждого игрока и не принимать следующие ходы.
 //  ToDo:   Ввести переменные в которых хранить:
 //          - первичную расстановку объектов,
 //          - последовательность всех ходов матча,
@@ -72,7 +43,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     //  Warning:(34, 21) Raw use of parameterized class 'GameType'
     protected final GameType gameType;
 
-    protected /*final*/ GameObjectsPlacement gameObjectsPlacement;
+    protected /*final*/ GameObjectsPlacementVerified gameObjectsPlacement;
 
     //  ToDo:   Сейчас здесь одна переменная типа RemoteClientStateAutomaton. И для одного игрока вполне норм.
     //          Но для для двух (а возможно и более игроков) или если какой-то участник игры, не являющийся игроком
@@ -102,11 +73,11 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         this.remoteClientStateAutomaton = remoteClientStateAutomaton;
     }
 
-    public GameObjectsPlacement getGameObjectsPlacement() {
+    public GameObjectsPlacementVerified getGameObjectsPlacement() {
         return gameObjectsPlacement;
     }
 
-    public void setGameObjectsPlacement(GameObjectsPlacement gameObjectsPlacement) {
+    public void setGameObjectsPlacement(GameObjectsPlacementVerified gameObjectsPlacement) {
         this.gameObjectsPlacement = gameObjectsPlacement;
     }
 
