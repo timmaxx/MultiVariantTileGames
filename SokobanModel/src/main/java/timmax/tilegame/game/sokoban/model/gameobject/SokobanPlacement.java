@@ -1,21 +1,14 @@
 package timmax.tilegame.game.sokoban.model.gameobject;
 
-import timmax.tilegame.basemodel.gameobject.GameObjectStateAutomaton;
-import timmax.tilegame.basemodel.gameobject.GameObjectsPlacement;
-import timmax.tilegame.basemodel.gameobject.GameObjectsPlacementNotVerified;
-import timmax.tilegame.basemodel.gameobject.XYCoordinate;
+import timmax.tilegame.basemodel.gameobject.*;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-public class SokobanPlacement extends GameObjectsPlacement {
+public class SokobanPlacement extends GameObjectsPlacementVerified {
 
     public SokobanPlacement(GameObjectsPlacementNotVerified gameObjectsPlacementNotVerified) {
         super(gameObjectsPlacementNotVerified, 0);
-    }
-
-    public SokobanPlacement(GameObjectsPlacement gameObjectsPlacement) {
-        super(gameObjectsPlacement);
     }
 
     public int getCountOfPairHomesAndBoxes() {
@@ -49,47 +42,32 @@ public class SokobanPlacement extends GameObjectsPlacement {
     }
 
     public SGOPlayer getPlayer() {
-        for (GameObjectStateAutomaton gameObjectStateAutomaton : getGameObjectsPlacementNotVerified().getGameObjectStateAutomatonSet()) {
-            if (gameObjectStateAutomaton.getGameObject() instanceof SGOPlayer sgoPlayer) {
-                return sgoPlayer;
-            }
-        }
-        //  ToDo:   Исключение нужно сгенерить.
-        return null;
+        return getGameObjectSetFilteredByGameObjectClass(SGOPlayer.class)
+                .stream()
+                .map(go -> (SGOPlayer)go)
+                .findAny()
+                //  ToDo:   Если null, то исключение нужно сгенерить.
+                .orElse(null);
     }
 
     public Set<SGOBox> getBoxes() {
-        Set<SGOBox> result = new HashSet<>();
-        for (GameObjectStateAutomaton gameObjectStateAutomaton : getGameObjectsPlacementNotVerified().getGameObjectStateAutomatonSet()) {
-            if (gameObjectStateAutomaton.getGameObject() instanceof SGOBox sgoBox) {
-                result.add(sgoBox);
-            }
-        }
-        return result;
+        return getGameObjectSetFilteredByGameObjectClass(SGOBox.class)
+                .stream()
+                .map(go -> (SGOBox)go)
+                .collect(Collectors.toSet());
     }
 
     public Set<SGOWall> getWalls() {
-        Set<SGOWall> result = new HashSet<>();
-        for (GameObjectStateAutomaton gameObjectStateAutomaton : getGameObjectsPlacementNotVerified().getGameObjectStateAutomatonSet()) {
-            if (gameObjectStateAutomaton.getGameObject() instanceof SGOWall sgoWall) {
-                result.add(sgoWall);
-            }
-        }
-        return result;
+        return getGameObjectSetFilteredByGameObjectClass(SGOWall.class)
+                .stream()
+                .map(go -> (SGOWall)go)
+                .collect(Collectors.toSet());
     }
 
     public Set<SGOHome> getHomes() {
-        Set<SGOHome> result = new HashSet<>();
-        for (GameObjectStateAutomaton gameObjectStateAutomaton : getGameObjectsPlacementNotVerified().getGameObjectStateAutomatonSet()) {
-            if (gameObjectStateAutomaton.getGameObject() instanceof SGOHome sgoHome) {
-                result.add(sgoHome);
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public SokobanPlacementNotVerified getGameObjectsPlacementNotVerified() {
-        return (SokobanPlacementNotVerified) super.getGameObjectsPlacementNotVerified();
+        return getGameObjectSetFilteredByGameObjectClass(SGOHome.class)
+                .stream()
+                .map(go -> (SGOHome)go)
+                .collect(Collectors.toSet());
     }
 }

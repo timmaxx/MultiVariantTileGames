@@ -7,4 +7,11 @@ public class SGOHome extends SokobanGameObject implements INonMovable {
     public SGOHome(String id, GameObjectsPlacementNotVerified gameObjectsPlacementNotVerified, XYCoordinate xyCoordinate) {
         super(id, gameObjectsPlacementNotVerified, xyCoordinate);
     }
+
+    @Override
+    public String toString() {
+        return "SGOHome{" +
+                "xyCoordinate=" + xyCoordinate +
+                '}';
+    }
 }

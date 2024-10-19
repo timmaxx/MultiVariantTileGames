@@ -12,7 +12,7 @@ abstract public class CollisionObject extends SokobanGameObject {
 
     public boolean isCollision(CollisionObject collisionObject, XYOffset xyOffset) {
         return xyCoordinate
-                .getXYCoordinateByOffset(xyOffset, gameObjectsPlacementNotVerified.getWidthHeightSizes())
+                .getXYCoordinateByOffset(xyOffset, gameObjectsPlacementAbstract.getWidthHeightSizes())
                 .equals(collisionObject.xyCoordinate)
                 ;
     }
@@ -20,7 +20,7 @@ abstract public class CollisionObject extends SokobanGameObject {
     public boolean isOutOfBoard(XYOffset xyOffset) {
         try {
             xyCoordinate
-                    .getXYCoordinateByOffset(xyOffset, gameObjectsPlacementNotVerified.getWidthHeightSizes())
+                    .getXYCoordinateByOffset(xyOffset, gameObjectsPlacementAbstract.getWidthHeightSizes())
             ;
             return false;
         } catch (RuntimeException rte) {

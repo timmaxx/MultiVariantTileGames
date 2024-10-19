@@ -7,4 +7,11 @@ public class SGOWall extends CollisionObject implements INonMovable {
     public SGOWall(String id, GameObjectsPlacementNotVerified gameObjectsPlacementNotVerified, XYCoordinate xyCoordinate) {
         super(id, gameObjectsPlacementNotVerified, xyCoordinate);
     }
+
+    @Override
+    public String toString() {
+        return "SGOWall{" +
+                "xyCoordinate=" + xyCoordinate +
+                '}';
+    }
 }

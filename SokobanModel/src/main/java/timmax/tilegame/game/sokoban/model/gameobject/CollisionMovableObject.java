@@ -10,6 +10,6 @@ public abstract class CollisionMovableObject extends CollisionObject implements 
     }
 
     public void move(XYOffset xyOffset) {
-        xyCoordinate = xyCoordinate.getXYCoordinateByOffset(xyOffset, gameObjectsPlacementNotVerified.getWidthHeightSizes());
+        xyCoordinate = xyCoordinate.getXYCoordinateByOffset(xyOffset, gameObjectsPlacementAbstract.getWidthHeightSizes());
     }
 }

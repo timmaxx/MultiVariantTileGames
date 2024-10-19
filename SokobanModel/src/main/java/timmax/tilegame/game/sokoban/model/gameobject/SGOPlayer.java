@@ -7,4 +7,11 @@ public class SGOPlayer extends CollisionMovableObject {
     public SGOPlayer(String id, GameObjectsPlacementNotVerified gameObjectsPlacement, XYCoordinate xyCoordinate) {
         super(id, gameObjectsPlacement, xyCoordinate);
     }
+
+    @Override
+    public String toString() {
+        return "SGOPlayer{" +
+                "xyCoordinate=" + xyCoordinate +
+                '}';
+    }
 }
