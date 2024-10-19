@@ -83,7 +83,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
         //  Найдём объект по координатам
         Set<GameObjectStateAutomaton> gameObjectStateAutomatonSet =
                 getGameObjectsPlacement()
-                        .getGameObjectStateAutomatonSetInXYCoordinate(xyCoordinate);
+                        .getGameObjectStateAutomatonSetFilteredXYCoordinate(xyCoordinate);
         GameObjectStateAutomaton gameObjectStateAutomaton = gameObjectStateAutomatonSet
                 .stream()
                 .findFirst()

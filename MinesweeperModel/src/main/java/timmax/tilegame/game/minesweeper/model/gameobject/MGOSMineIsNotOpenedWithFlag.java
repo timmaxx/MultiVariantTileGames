@@ -18,7 +18,7 @@ public class MGOSMineIsNotOpenedWithFlag extends MGOSMine {
 
         getGameObjectStateAutomaton()
                 .getGameObject()
-                .getGameObjectsPlacementNotVerified()
+                .getGameObjectsPlacementAbstract()
                 .getGameMatch()
                 .sendGameEventToAllViews(
                         new GameEventOneTileMinesweeperChangeFlag(

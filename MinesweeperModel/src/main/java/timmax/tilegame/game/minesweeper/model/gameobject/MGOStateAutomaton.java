@@ -58,7 +58,7 @@ public class MGOStateAutomaton extends GameObjectStateAutomaton implements IMGOS
                                     .getXYCoordinateByOffset(
                                             new XYOffset(dx, dy),
                                             getGameObject()
-                                                    .getGameObjectsPlacementNotVerified()
+                                                    .getGameObjectsPlacementAbstract()
                                                     .getWidthHeightSizes()
                                     )
                     ;
@@ -67,8 +67,8 @@ public class MGOStateAutomaton extends GameObjectStateAutomaton implements IMGOS
                 }
                 Set<GameObjectStateAutomaton> gameObjectStateAutomatonSet =
                         getGameObject()
-                                .getGameObjectsPlacementNotVerified()
-                                .getGameObjectStateAutomatonSetInXYCoordinate(xyCoordinateOfNeighbour);
+                                .getGameObjectsPlacementAbstract()
+                                .getGameObjectStateAutomatonSetFilteredXYCoordinate(xyCoordinateOfNeighbour);
                 if (gameObjectStateAutomatonSet.size() != 1) {
                     throw new RuntimeException("Должен быть один элемент во множестве gameObjectStateAutomatonSet, но gameObjectStateAutomatonSet = " + gameObjectStateAutomatonSet);
                 }

@@ -29,7 +29,7 @@ public class LevelGenerator {
         //  Расставим мины
         do {
             XYCoordinate xyCoordinate = XYCoordinate.getRandom(widthHeightSizes);
-            if (minesweeperPlacementNotVerified.getGameObjectStateAutomatonSetInXYCoordinate(xyCoordinate).size() == 1) {
+            if (minesweeperPlacementNotVerified.getGameObjectStateAutomatonSetFilteredXYCoordinate(xyCoordinate).size() == 1) {
                 continue;
             }
             MGOStateAutomaton mine =
@@ -48,7 +48,7 @@ public class LevelGenerator {
         for (int y = 0; y < widthHeightSizes.getHeight(); y++) {
             for (int x = 0; x < widthHeightSizes.getWidth(); x++) {
                 XYCoordinate xyCoordinate = new XYCoordinate(x, y);
-                if (minesweeperPlacementNotVerified.getGameObjectStateAutomatonSetInXYCoordinate(xyCoordinate).size() == 1) {
+                if (minesweeperPlacementNotVerified.getGameObjectStateAutomatonSetFilteredXYCoordinate(xyCoordinate).size() == 1) {
                     continue;
                 }
 
