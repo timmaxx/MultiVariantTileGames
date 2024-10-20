@@ -16,29 +16,28 @@ public class SokobanPlacement extends GameObjectsPlacementVerified {
     }
 
     public WhoMovableInTile getWhoMovableInTile(XYCoordinate xyCoordinate) {
-        for (SGOBox box : getBoxes()) {
-            if (box.getXyCoordinate().equals(xyCoordinate)) {
-                return WhoMovableInTile.IS_BOX;
-            }
-        }
-        if (getPlayer().getXyCoordinate().equals(xyCoordinate)) {
-            return WhoMovableInTile.IS_PLAYER;
-        }
-        return WhoMovableInTile.IS_NOBODY;
+        return getBoxes().stream()
+                .filter(sgoBox -> sgoBox.getXyCoordinate().equals(xyCoordinate))
+                .map(sgoBox -> WhoMovableInTile.IS_BOX)
+                .findAny()
+                .orElse(getPlayer().getXyCoordinate().equals(xyCoordinate)
+                        ? WhoMovableInTile.IS_PLAYER
+                        : WhoMovableInTile.IS_NOBODY
+                );
     }
 
     public WhoPersistentInTile getWhoPersistentInTile(XYCoordinate xyCoordinate) {
-        for (SGOWall wall : getWalls()) {
-            if (wall.getXyCoordinate().equals(xyCoordinate)) {
-                return WhoPersistentInTile.IS_WALL;
-            }
-        }
-        for (SGOHome home : getHomes()) {
-            if (home.getXyCoordinate().equals(xyCoordinate)) {
-                return WhoPersistentInTile.IS_HOME;
-            }
-        }
-        return WhoPersistentInTile.IS_EMPTY;
+        return getWalls().stream()
+                .filter(sgoWall -> sgoWall.getXyCoordinate().equals(xyCoordinate))
+                .map(sgoWall -> WhoPersistentInTile.IS_WALL)
+                .findAny()
+                .orElse(
+                        getHomes().stream()
+                                .filter(sgoHome -> sgoHome.getXyCoordinate().equals(xyCoordinate))
+                                .map(sgoHome -> WhoPersistentInTile.IS_HOME)
+                                .findAny()
+                                .orElse(WhoPersistentInTile.IS_EMPTY)
+                );
     }
 
     public SGOPlayer getPlayer() {
