@@ -70,12 +70,12 @@ public class GameObjectsPlacementVerified extends GameObjectsPlacementAbstract {
         return new MatchStatus0Undefined();
     }
 
-    public final Set<GameObject> getGameObjectSetFilteredByGameObjectClass(
-            Class<? extends GameObject> gameObjectClass) {
+    public final <GO extends GameObject> Set<GO> getGameObjectSetFilteredByGameObjectClass(
+            Class<GO> gameObjectClass) {
         return gameObjectStateAutomatonSet
                 .stream()
                 .filter(gosa -> gosa.getGameObject().getClass().equals(gameObjectClass))
-                .map(GameObjectStateAutomaton::getGameObject)
+                .map(gosa -> (GO)(gosa.getGameObject()))
                 .collect(Collectors.toSet());
     }
 

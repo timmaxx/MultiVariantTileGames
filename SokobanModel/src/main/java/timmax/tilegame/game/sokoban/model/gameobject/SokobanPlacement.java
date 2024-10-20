@@ -3,7 +3,6 @@ package timmax.tilegame.game.sokoban.model.gameobject;
 import timmax.tilegame.basemodel.gameobject.*;
 
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class SokobanPlacement extends GameObjectsPlacementVerified {
 
@@ -43,30 +42,19 @@ public class SokobanPlacement extends GameObjectsPlacementVerified {
     public SGOPlayer getPlayer() {
         return getGameObjectSetFilteredByGameObjectClass(SGOPlayer.class)
                 .stream()
-                .map(go -> (SGOPlayer)go)
                 .findAny()
-                //  ToDo:   Если null, то исключение нужно сгенерить.
-                .orElse(null);
+                .orElseThrow(() -> new RuntimeException("Player is not found."));
     }
 
     public Set<SGOBox> getBoxes() {
-        return getGameObjectSetFilteredByGameObjectClass(SGOBox.class)
-                .stream()
-                .map(go -> (SGOBox)go)
-                .collect(Collectors.toSet());
+        return getGameObjectSetFilteredByGameObjectClass(SGOBox.class);
     }
 
     public Set<SGOWall> getWalls() {
-        return getGameObjectSetFilteredByGameObjectClass(SGOWall.class)
-                .stream()
-                .map(go -> (SGOWall)go)
-                .collect(Collectors.toSet());
+        return getGameObjectSetFilteredByGameObjectClass(SGOWall.class);
     }
 
     public Set<SGOHome> getHomes() {
-        return getGameObjectSetFilteredByGameObjectClass(SGOHome.class)
-                .stream()
-                .map(go -> (SGOHome)go)
-                .collect(Collectors.toSet());
+        return getGameObjectSetFilteredByGameObjectClass(SGOHome.class);
     }
 }
