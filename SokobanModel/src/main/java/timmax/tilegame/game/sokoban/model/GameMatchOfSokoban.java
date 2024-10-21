@@ -33,29 +33,36 @@ import static timmax.tilegame.game.sokoban.model.gameobject.WhoMovableInTile.*;
 import static timmax.tilegame.game.sokoban.model.gameobject.WhoPersistentInTile.IS_EMPTY;
 
 public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
-    private static LevelLoader levelLoader;
+    //  1.  String constants
+    //      Их нет.
 
+    //  2.  Level generator/loader
+    private static final LevelLoader levelLoader;
+
+    //  3.  Переменные экземпляра
     private final CurrentLevel currentLevel = new CurrentLevel();
-
     private int countOfBoxesInHomes;
     private Route route;
     private Route routeRedo = new Route();
 
+    //  4.  Инициализатор Level generator/loader
     static {
         try {
             levelLoader = new LevelLoader(
                     Paths.get(
-                            Objects.requireNonNull(
-                                            GameMatchOfSokoban.class.getResource("levels.txt"))
+                            Objects
+                                    .requireNonNull(GameMatchOfSokoban.class.getResource("levels.txt"))
                                     .toURI()
                     )
             );
-        } catch (URISyntaxException e) {
-            logger.error("There is a problem with file with game levels.", e);
+        } catch (URISyntaxException uriSE) {
+            logger.error("There is a problem with file with game levels.", uriSE);
             // ToDo: При 'System.exit(1);' сервер закроется. Но ошибка произошла при загрузке только модели одной игры.
             //       Поэтому нужно чтобы только эта модель не загрузилась и клиенту должен быть отправлен перечень игр
             //       без этой игры.
             System.exit(1);
+
+            throw new RuntimeException(uriSE);
         }
     }
 
@@ -249,7 +256,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     public void setParamsOfModelValueMap(Map<String, Integer> paramsOfModelValueMap) {
         throwExceptionIfIsPlaying();
 
-        setGameObjectsPlacement(levelLoader.getLevel(currentLevel.getValue(), this));
+        setGameObjectsPlacement(levelLoader.getLevel(this, currentLevel.getValue()));
         super.setParamsOfModelValueMap(
                 Map.of(PARAM_NAME_WIDTH,
                         getGameObjectsPlacement().getWidthHeightSizes().getWidth(),
@@ -273,7 +280,8 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         throwExceptionIfIsPlaying();
 
         // В этой реализации Сокобан не обращаем внимание на gameMatchExtendedDto - просто загружаем следующий уровень.
-        setGameObjectsPlacement(levelLoader.getLevel(currentLevel.getValue(), this));
+        setGameObjectsPlacement(levelLoader.getLevel(this, currentLevel.getValue()));
+
         super.setParamsOfModelValueMap(
                 Map.of(PARAM_NAME_WIDTH,
                         getGameObjectsPlacement().getWidthHeightSizes().getWidth(),

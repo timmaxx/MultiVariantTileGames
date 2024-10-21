@@ -22,7 +22,7 @@ public class LevelLoader {
     }
 
     //  ToDo:   GameMatch gameMatch удалить, т.к. он нужен только для вызова конструктора.
-    public SokobanPlacement getLevel(int level, GameMatch gameMatch) {
+    public SokobanPlacement getLevel(GameMatch gameMatch, int level) {
 
         int countOfBoxes = 0;
         int countOfHome = 0;

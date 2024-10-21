@@ -21,9 +21,19 @@ import java.util.Map;
 import java.util.Set;
 
 public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
+    //  1.  String constants
     public static final String PARAM_NAME_PERCENTS_OF_MINES = "Percents of mines";
 
-    private final LevelGenerator levelGenerator;
+    //  2.  Level generator/loader
+    private static final LevelGenerator levelGenerator;
+
+    //  3.  Переменные экземпляра
+    //      Их нет.
+
+    //  4.  Инициализатор Level generator/loader
+    static {
+        levelGenerator = new LevelGenerator();
+    }
 
     // ToDo: См. комментарии о согласовании параметров в
     //       - GameType :: GameType(...)
@@ -32,8 +42,6 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     public GameMatchOfMinesweeper(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton)
             throws ClassNotFoundException, NoSuchMethodException {
         super(new GameTypeOfMinesweeper(), remoteClientStateAutomaton);
-
-        levelGenerator = new LevelGenerator();
     }
 
     // interface IGameMatchX:
