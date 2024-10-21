@@ -82,9 +82,9 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         WhoMovableInTile oldWhoMovableInTile;
         if (step.isBoxMoved()) {
             for (SGOBox box : getGameObjectsPlacement().getBoxes()) {
-                if (box.isCollision(player, step.oppositeStepDirection())) {
+                if (box.isCollision(player, step.getOppositeXYOffset())) {
                     XYCoordinate xyCoordinateOld = box.getXyCoordinate();
-                    box.move(step.oppositeStepDirection());
+                    box.move(step.getOppositeXYOffset());
 
                     WhoPersistentInTile oldWhoPersistentInTile = getGameObjectsPlacement().getWhoPersistentInTile(xyCoordinateOld);
                     sendGameEventToAllViews(new GameEventOneTileSokobanChangeable(xyCoordinateOld, oldWhoPersistentInTile, IS_NOBODY));
@@ -97,7 +97,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
             oldWhoMovableInTile = IS_NOBODY;
         }
 
-        XYOffset xyOffset = step.oppositeStepDirection();
+        XYOffset xyOffset = step.getOppositeXYOffset();
 
         addGameEventAboutPlayer(xyOffset, player, oldWhoMovableInTile);
         routeRedo.push(step);

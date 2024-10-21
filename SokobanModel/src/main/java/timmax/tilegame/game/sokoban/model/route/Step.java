@@ -11,12 +11,20 @@ public class Step {
         this.isBoxMoved = isBoxMoved;
     }
 
-    @Override
-    public String toString() {
-        return "Step{ " +
-                "XYOffset = " + xyOffset +
-                ", isBoxMoved = " + isBoxMoved +
-                "}";
+    public Step getOpposite() {
+        return new Step(xyOffset.getOpposite(), isBoxMoved);
+    }
+
+    public XYOffset getOppositeXYOffset() {
+        return getOpposite().xyOffset;
+    }
+
+    public boolean isBoxMoved() {
+        return isBoxMoved;
+    }
+
+    public XYOffset getXyOffset() {
+        return xyOffset;
     }
 
     @Override
@@ -34,19 +42,11 @@ public class Step {
         return this.isBoxMoved == step.isBoxMoved && xyOffset.equals(step.xyOffset);
     }
 
-    public Step oppositeStep() {
-        return new Step(xyOffset.getOpposite(), isBoxMoved);
-    }
-
-    public XYOffset oppositeStepDirection() {
-        return oppositeStep().xyOffset;
-    }
-
-    public boolean isBoxMoved() {
-        return isBoxMoved;
-    }
-
-    public XYOffset getXyOffset() {
-        return xyOffset;
+    @Override
+    public String toString() {
+        return "Step{ " +
+                "XYOffset = " + xyOffset +
+                ", isBoxMoved = " + isBoxMoved +
+                "}";
     }
 }
