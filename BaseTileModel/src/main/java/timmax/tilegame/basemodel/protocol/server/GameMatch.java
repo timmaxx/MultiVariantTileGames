@@ -43,7 +43,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     //  Warning:(34, 21) Raw use of parameterized class 'GameType'
     protected final GameType gameType;
 
-    protected /*final*/ GameObjectsPlacementVerified gameObjectsPlacement;
+    private /*final*/ GameObjectsPlacementVerified gameObjectsPlacement;
 
     //  ToDo:   Сейчас здесь одна переменная типа RemoteClientStateAutomaton. И для одного игрока вполне норм.
     //          Но для для двух (а возможно и более игроков) или если какой-то участник игры, не являющийся игроком
@@ -73,11 +73,11 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         this.remoteClientStateAutomaton = remoteClientStateAutomaton;
     }
 
-    public GameObjectsPlacementVerified getGameObjectsPlacement() {
+    protected GameObjectsPlacementVerified getGameObjectsPlacement() {
         return gameObjectsPlacement;
     }
 
-    public void setGameObjectsPlacement(GameObjectsPlacementVerified gameObjectsPlacement) {
+    protected void setGameObjectsPlacement(GameObjectsPlacementVerified gameObjectsPlacement) {
         this.gameObjectsPlacement = gameObjectsPlacement;
     }
 

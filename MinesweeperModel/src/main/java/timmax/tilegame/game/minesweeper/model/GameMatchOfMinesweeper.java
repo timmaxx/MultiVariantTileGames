@@ -50,13 +50,13 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
         throwExceptionIfIsPlaying();
 
         super.setParamsOfModelValueMap(paramsOfModelValueMap);
-        gameObjectsPlacement = levelGenerator.getLevel(
+        setGameObjectsPlacement(levelGenerator.getLevel(
                 this,
                 //  ToDo:   Переделать getWidth(), getHeight() в родительском классе.
                 //          Пусть там будет переменная WidthHeightSizes.
                 new WidthHeightSizes(getWidth(), getHeight()),
                 paramsOfModelValueMap.get(PARAM_NAME_PERCENTS_OF_MINES)
-        );
+        ));
     }
 
     @Override
@@ -73,13 +73,13 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
         throwExceptionIfIsPlaying();
 
         super.start(gameMatchExtendedDto);
-        gameObjectsPlacement = levelGenerator.getLevel(
+        setGameObjectsPlacement(levelGenerator.getLevel(
                 this,
                 //  ToDo:   Переделать getWidth(), getHeight() в родительском классе.
                 //          Пусть там будет переменная WidthHeightSizes.
                 new WidthHeightSizes(getWidth(), getHeight()),
                 getFromParamsOfModelValueMap(PARAM_NAME_PERCENTS_OF_MINES)
-        );
+        ));
 
         return newGameMatchExtendedDto(new HashSet<>());
     }
