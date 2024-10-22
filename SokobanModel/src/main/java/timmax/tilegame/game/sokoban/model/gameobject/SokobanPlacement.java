@@ -58,3 +58,53 @@ public class SokobanPlacement extends GameObjectsPlacementVerified {
         return getGameObjectSetFilteredByGameObjectClass(SGOHome.class);
     }
 }
+
+/*
+public class SokobanPlacement extends GameObjectsPlacementVerified {
+
+    public SokobanPlacement(GameObjectsPlacementNotVerified gameObjectsPlacementNotVerified) {
+        super(gameObjectsPlacementNotVerified, 0);
+    }
+
+    public int getCountOfPairHomesAndBoxes() {
+        return getBoxes().size();
+    }
+
+    public WhoMovableInTile getWhoMovableInTile(XYCoordinate xyCoordinate) {
+        return getGameObjectSetFilteredByXYCoordinate(xyCoordinate)
+                .stream()
+                .filter(sgo -> sgo instanceof CollisionMovableObject)
+                .map(sgo -> sgo instanceof SGOBox ? WhoMovableInTile.IS_BOX : WhoMovableInTile.IS_PLAYER)
+                .findAny()
+                .orElse(WhoMovableInTile.IS_NOBODY);
+    }
+
+    public WhoPersistentInTile getWhoPersistentInTile(XYCoordinate xyCoordinate) {
+        return (WhoPersistentInTile) getGameObjectSetFilteredByGameObjectClasses(new Class[]{SGOWall.class, SGOHome.class})
+                .stream()
+                .filter(sgo -> ((SokobanGameObject)(sgo)).getXyCoordinate().equals(xyCoordinate))
+                .map(sgo -> sgo.getClass().equals(SGOWall.class) ? WhoPersistentInTile.IS_WALL : WhoPersistentInTile.IS_HOME)
+                .findAny()
+                .orElse(WhoPersistentInTile.IS_EMPTY);
+    }
+
+    public SGOPlayer getPlayer() {
+        return getGameObjectSetFilteredByGameObjectClasses(SGOPlayer.class)
+                .stream()
+                .findAny()
+                .orElseThrow(() -> new RuntimeException("Player is not found."));
+    }
+
+    public Set<SGOBox> getBoxes() {
+        return getGameObjectSetFilteredByGameObjectClasses(SGOBox.class);
+    }
+
+    public Set<SGOWall> getWalls() {
+        return getGameObjectSetFilteredByGameObjectClasses(SGOWall.class);
+    }
+
+    public Set<SGOHome> getHomes() {
+        return getGameObjectSetFilteredByGameObjectClasses(SGOHome.class);
+    }
+}
+*/

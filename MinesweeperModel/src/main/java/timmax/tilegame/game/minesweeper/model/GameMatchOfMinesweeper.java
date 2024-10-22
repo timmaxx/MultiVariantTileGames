@@ -49,6 +49,9 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     public void setParamsOfModelValueMap(Map<String, Integer> paramsOfModelValueMap) {
         throwExceptionIfIsPlaying();
 
+        //  Здесь, по порядку:
+        //  1. super.setParamsOfModelValueMap(),
+        //  2. setGameObjectsPlacement(levelGenerator.getLevel()).
         super.setParamsOfModelValueMap(paramsOfModelValueMap);
         setGameObjectsPlacement(levelGenerator.getLevel(
                 this,
@@ -72,6 +75,8 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
 
         throwExceptionIfIsPlaying();
 
+        // 1. super.start(),
+        // 2. setGameObjectsPlacement(levelGenerator.getLevel()).
         super.start(gameMatchExtendedDto);
         setGameObjectsPlacement(levelGenerator.getLevel(
                 this,
@@ -100,9 +105,11 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
                 (MGOStateAutomaton) gameObjectStateAutomaton;
         if (gameCommandMouseClick.getMouseButton() == MouseButton.PRIMARY) {
             //  Откроем объект
+            //  Warning:(109, 31) Method invocation 'open' may produce 'NullPointerException'
             MGOStateAutomaton.open();
         } else if (gameCommandMouseClick.getMouseButton() == MouseButton.SECONDARY) {
             //  Инвертируем флаг объекту
+            //  Warning:(113, 31) Method invocation 'inverseFlag' may produce 'NullPointerException'
             MGOStateAutomaton.inverseFlag();
         }
     }

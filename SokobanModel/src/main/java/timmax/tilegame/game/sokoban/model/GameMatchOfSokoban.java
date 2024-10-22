@@ -256,6 +256,9 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     public void setParamsOfModelValueMap(Map<String, Integer> paramsOfModelValueMap) {
         throwExceptionIfIsPlaying();
 
+        //  Здесь, по порядку:
+        //  1. setGameObjectsPlacement(levelLoader.getLevel()),
+        //  2. super.setParamsOfModelValueMap().
         setGameObjectsPlacement(levelLoader.getLevel(this, currentLevel.getValue()));
         super.setParamsOfModelValueMap(
                 Map.of(PARAM_NAME_WIDTH,
@@ -278,6 +281,10 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         //          - для Сапёра: флаги и количество мин на открытых плитках.
 
         throwExceptionIfIsPlaying();
+
+        // 1. setGameObjectsPlacement(levelLoader.getLevel())
+        // 2. super.setParamsOfModelValueMap()
+        // 3. подготовка перечня событий для отправки клиенту для прорисовки расстановки.
 
         // В этой реализации Сокобан не обращаем внимание на gameMatchExtendedDto - просто загружаем следующий уровень.
         setGameObjectsPlacement(levelLoader.getLevel(this, currentLevel.getValue()));

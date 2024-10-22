@@ -56,16 +56,7 @@ public class LevelLoader {
                 if (readLevel == level) {
                     if (line.length() == 0) {
                         boolean isEnd = isLevelMap;
-
                         isLevelMap = !isLevelMap;
-
-/*
-                        if (isEnd && !isLevelMap) {
-                            break;
-                        } else {
-                            continue;
-                        }
-*/
                         if (isEnd) {
                             break;
                         } else {

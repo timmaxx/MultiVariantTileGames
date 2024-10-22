@@ -79,6 +79,42 @@ public class GameObjectsPlacementVerified extends GameObjectsPlacementAbstract {
                 .collect(Collectors.toSet());
     }
 
+/*
+    //  Этот метод мог-бы работать с перечнем типов игровых объектов (в отличии от следующего метода).
+    //  Мог-бы быть использован в Сокобан.
+    //  Не проверен.
+    public final <GO extends GameObject> Set<GO> getGameObjectSetFilteredByGameObjectClasses(
+            Class<GO>... gameObjectClasses) {
+        if (gameObjectClasses.length == 0) {
+            return Set.of();
+        }
+        return gameObjectStateAutomatonSet
+                .stream()
+                .filter(gosa -> {
+                    for (Class<GO> gameObjectClass: gameObjectClasses) {
+                        if (gosa.getGameObject().getClass().equals(gameObjectClass)) {
+                            return true;
+                        }
+                    };
+                    return false;
+                })
+                .map(gosa -> (GO)(gosa.getGameObject()))
+                .collect(Collectors.toSet());
+    }
+*/
+
+    //  Этот метод работает с одним типом игровых объектов.
+    //  Используется только в Сокобан.
+    public final <GO extends GameObject> Set<GO> getGameObjectSetFilteredByXYCoordinate(
+            XYCoordinate xyCoordinate
+    ) {
+        return gameObjectStateAutomatonSet
+                .stream()
+                .filter(gosa -> gosa.getXyCoordinate().equals(xyCoordinate))
+                .map(gosa -> (GO)(gosa.getGameObject()))
+                .collect(Collectors.toSet());
+    }
+
     @Override
     public String toString() {
         return super.toString() + " | " + "GameObjectsPlacementVerified{" +
