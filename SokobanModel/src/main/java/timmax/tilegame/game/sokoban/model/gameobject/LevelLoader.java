@@ -1,4 +1,4 @@
-package timmax.tilegame.game.sokoban.model;
+package timmax.tilegame.game.sokoban.model.gameobject;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -7,7 +7,6 @@ import java.nio.file.Path;
 
 import timmax.tilegame.basemodel.gameobject.XYCoordinate;
 import timmax.tilegame.basemodel.protocol.server.GameMatch;
-import timmax.tilegame.game.sokoban.model.gameobject.*;
 
 //  ToDo:   Классы LevelLoader для Сокобан и LevelGenerator для Сапёра увязать в одну иерархию.
 //          Т.к. они имеют метод getLevel, который возвращает размещение.
@@ -47,9 +46,11 @@ public class LevelLoader {
                     readLevel = Integer.parseInt(line.split(" ")[1]);
                     continue;
                 } else if (line.contains("Size X:")) {
+                    //  ToDo:   Убрать из файла уровней размеры по ширине и высоте.
                     /*width = */Integer.parseInt(line.split(" ")[2]);
                     continue;
                 } else if (line.contains("Size Y:")) {
+                    //  ToDo:   Убрать из файла уровней размеры по ширине и высоте.
                     /*height = */Integer.parseInt(line.split(" ")[2]);
                     continue;
                 }
