@@ -14,6 +14,9 @@ public class LevelGenerator {
     //  ToDo:   GameMatch gameMatch удалить, т.к. он нужен только для вызова конструктора.
     public MinesweeperPlacement getLevel(
             GameMatch gameMatch,
+            //  ToDo:   Следующие два параметра завернуть в
+            //              Map<String, Integer> paramsOfModelValueMap
+            //          и тогда getLevel() здесь и в другом классе будет с одинаковым количеством параметров.
             WidthHeightSizes widthHeightSizes,
             int restOfMineInstallationInPercents) {
 

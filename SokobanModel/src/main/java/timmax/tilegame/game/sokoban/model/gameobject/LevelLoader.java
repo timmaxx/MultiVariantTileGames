@@ -21,7 +21,12 @@ public class LevelLoader {
     }
 
     //  ToDo:   GameMatch gameMatch удалить, т.к. он нужен только для вызова конструктора.
-    public SokobanPlacement getLevel(GameMatch gameMatch, int level) {
+    public SokobanPlacement getLevel(
+            GameMatch gameMatch
+            //  ToDo:   Следующий параметр завернуть в
+            //              Map<String, Integer> paramsOfModelValueMap
+            //          и тогда getLevel() здесь и в другом классе будет с одинаковым количеством параметров.
+            , int level) {
 
         int countOfBoxes = 0;
         int countOfHome = 0;
