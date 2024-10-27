@@ -70,68 +70,6 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         super(new GameTypeOfSokoban(), remoteClientStateAutomaton);
     }
 
-    private void moveUndo() {
-        if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
-            return;
-        }
-        if (route.size() <= 0) {
-            return;
-        }
-
-        Step step = route.pop();
-        SGOPlayer player = getGameObjectsPlacement().getPlayer();
-
-        WhoMovableInTile oldWhoMovableInTile;
-        if (step.isBoxMoved()) {
-            for (SGOBox box : getGameObjectsPlacement().getBoxes()) {
-                if (box.isCollision(player, step.getOppositeXYOffset())) {
-                    XYCoordinate xyCoordinateOld = box.getXyCoordinate();
-                    box.move(step.getOppositeXYOffset());
-
-                    WhoPersistentInTile oldWhoPersistentInTile = getGameObjectsPlacement().getWhoPersistentInTile(xyCoordinateOld);
-                    sendGameEventToAllViews(new GameEventOneTileSokobanChangeable(xyCoordinateOld, oldWhoPersistentInTile, IS_NOBODY));
-
-                    break;
-                }
-            }
-            oldWhoMovableInTile = IS_BOX;
-        } else {
-            oldWhoMovableInTile = IS_NOBODY;
-        }
-
-        XYOffset xyOffset = step.getOppositeXYOffset();
-
-        addGameEventAboutPlayer(xyOffset, player, oldWhoMovableInTile);
-        routeRedo.push(step);
-
-        sendGameEventToAllViews(new GameEventSokobanVariableParamsCountOfSteps(route.size()));
-        if (step.isBoxMoved()) {
-            calcCountOfBoxesInHomes();
-            sendGameEventToAllViews(new GameEventSokobanVariableParamsCountOfBoxesInHouses(countOfBoxesInHomes));
-        }
-    }
-
-    private void move(XYOffset xyOffset) {
-        if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
-            return;
-        }
-        movePlayerIfPossible(xyOffset, false);
-        routeRedo = new Route();
-
-        setStatusIsGame();
-    }
-
-    private void moveRedo() {
-        if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
-            return;
-        }
-        if (routeRedo.size() <= 0) {
-            return;
-        }
-        Step step = routeRedo.pop();
-        movePlayerIfPossible(step.getXyOffset(), true);
-    }
-
     private void move(XYOffsetOne xyOffset) {
         //  ToDo:   Сдделать обработку исключения (пусть игнор будет) если нельзя делать ход.
         getGameObjectsPlacement().getPlayer().move(xyOffset);
