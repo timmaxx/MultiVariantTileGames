@@ -10,6 +10,7 @@ import java.util.Set;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 
+import timmax.tilegame.basemodel.exception.GameObjectAlreadyExistsException;
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
@@ -71,8 +72,10 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     }
 
     private void move(XYOffsetOne xyOffset) {
-        //  ToDo:   Сдделать обработку исключения (пусть игнор будет) если нельзя делать ход.
-        getGameObjectsPlacement().getPlayer().move(xyOffset);
+        try {
+            getGameObjectsPlacement().getPlayer().move(xyOffset);
+        } catch (GameObjectAlreadyExistsException ignored) {
+        }
     }
 
     public void addGameEvent(XYCoordinate xyCoordinate) {
