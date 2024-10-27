@@ -14,7 +14,7 @@ public class MGOSNoMineIsNotOpenedWithFlag extends MGOSNoMine {
 
     @Override
     public void inverseFlag() {
-        getGameObjectStateAutomaton().setCurrentState(getGameObjectStateAutomaton().noMineIsNotOpenedWithoutFlag);
+        getGameObjectStateAutomaton().setCurrentStateNoMineIsNotOpenedWithoutFlag();
 
         getGameObjectStateAutomaton()
                 .getGameObject()

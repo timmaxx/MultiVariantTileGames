@@ -10,7 +10,7 @@ public class MGOSNoMineIsNotOpenedWithoutFlag extends MGOSNoMine {
 
     @Override
     public void open() {
-        getGameObjectStateAutomaton().setCurrentState(getGameObjectStateAutomaton().noMineIsOpened);
+        getGameObjectStateAutomaton().setCurrentStateNoMineIsOpened();
 
         getGameObjectStateAutomaton().initNeighbourSet();
 
@@ -38,7 +38,7 @@ public class MGOSNoMineIsNotOpenedWithoutFlag extends MGOSNoMine {
 
     @Override
     public void inverseFlag() {
-        getGameObjectStateAutomaton().setCurrentState(getGameObjectStateAutomaton().noMineIsNotOpenedWithFlag);
+        getGameObjectStateAutomaton().setCurrentStateNoMineIsNotOpenedWithFlag();
 
         getGameObjectStateAutomaton()
                 .getGameObject()

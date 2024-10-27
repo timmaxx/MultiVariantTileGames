@@ -14,7 +14,7 @@ public class MGOSMineIsNotOpenedWithoutFlag extends MGOSMine {
 
     @Override
     public void open() {
-        getGameObjectStateAutomaton().setCurrentState(getGameObjectStateAutomaton().mineIsOpened);
+        getGameObjectStateAutomaton().setCurrentStateMineIsOpened();
 
         getGameObjectStateAutomaton()
                 .getGameObject()
@@ -36,7 +36,7 @@ public class MGOSMineIsNotOpenedWithoutFlag extends MGOSMine {
 
     @Override
     public void inverseFlag() {
-        getGameObjectStateAutomaton().setCurrentState(getGameObjectStateAutomaton().mineIsNotOpenedWithFlag);
+        getGameObjectStateAutomaton().setCurrentStateMineIsNotOpenedWithFlag();
 
         getGameObjectStateAutomaton()
                 .getGameObject()

@@ -43,6 +43,30 @@ public class MGOStateAutomaton extends GameObjectStateAutomaton implements MGOSt
         }
     }
 
+    protected void setCurrentStateMineIsNotOpenedWithoutFlag() {
+        setCurrentState(mineIsNotOpenedWithoutFlag);
+    }
+
+    protected void setCurrentStateMineIsOpened() {
+        setCurrentState(mineIsOpened);
+    }
+
+    protected void setCurrentStateMineIsNotOpenedWithFlag() {
+        setCurrentState(mineIsNotOpenedWithFlag);
+    }
+
+    protected void setCurrentStateNoMineIsNotOpenedWithoutFlag() {
+        setCurrentState(noMineIsNotOpenedWithoutFlag);
+    }
+
+    protected void setCurrentStateNoMineIsOpened() {
+        setCurrentState(noMineIsOpened);
+    }
+
+    protected void setCurrentStateNoMineIsNotOpenedWithFlag() {
+        setCurrentState(noMineIsNotOpenedWithFlag);
+    }
+
     protected void initNeighbourSet() {
         neighbourSet = new HashSet<>();
         countOfMinesInNeighbours = 0;
