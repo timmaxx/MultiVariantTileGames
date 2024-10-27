@@ -8,7 +8,7 @@ import java.util.Random;
 
 import static timmax.tilegame.basemodel.gameobject.XYOffset.NO_OFFSET;
 
-//  ToDo:   Отделить функциональность DTO и основных функций в разные классы.
+//  ToDo:   Разделить функциональность DTO и основных функций в разные классы.
 //          Класс реализует Externalizable для того, чтобы быть DTO.
 //  xy-координаты
 public final class XYCoordinate implements Externalizable {
@@ -25,16 +25,22 @@ public final class XYCoordinate implements Externalizable {
         this.y = y;
     }
 
-    //  В методе
+    //  В методах
+    //  WidthHeightSizes :: void recalc(XYCoordinate xyCoordinate)
     //  ViewMainFieldJfx :: GameStackPane getCellByGameEventOneTile(GameEventOneTile gameEventOneTile)
+    //  GameStackPane :: GameStackPane(XYCoordinate xyCoordinate, int cellSize, boolean showGrid, boolean showCoordinates)
     //  используется метод, поэтому public.
+    //  Нужно стараться не использовать этот метод!
     public int getX() {
         return x;
     }
 
-    //  В методе
+    //  В методах
+    //  WidthHeightSizes :: void recalc(XYCoordinate xyCoordinate)
     //  ViewMainFieldJfx :: GameStackPane getCellByGameEventOneTile(GameEventOneTile gameEventOneTile)
+    //  GameStackPane :: GameStackPane(XYCoordinate xyCoordinate, int cellSize, boolean showGrid, boolean showCoordinates)
     //  используется метод, поэтому public.
+    //  Нужно стараться не использовать этот метод!
     public int getY() {
         return y;
     }
@@ -54,27 +60,51 @@ public final class XYCoordinate implements Externalizable {
     }
 
     public boolean hasEqualX(XYCoordinate xyCoordinate) {
-        return x == xyCoordinate.x;
+        return hasEqualX(xyCoordinate.x);
+    }
+
+    public boolean hasEqualX(int x) {
+        return this.x == x;
     }
 
     public boolean hasEqualY(XYCoordinate xyCoordinate) {
-        return y == xyCoordinate.y;
+        return hasEqualY(xyCoordinate.y);
+    }
+
+    public boolean hasEqualY(int y) {
+        return this.y == y;
     }
 
     public boolean hasXLesser(XYCoordinate xyCoordinate) {
-        return x < xyCoordinate.x;
+        return hasXLesser(xyCoordinate.x);
+    }
+
+    public boolean hasXLesser(int x) {
+        return this.x < x;
     }
 
     public boolean hasXGreater(XYCoordinate xyCoordinate) {
-        return x > xyCoordinate.x;
+        return hasXGreater(xyCoordinate.x);
+    }
+
+    public boolean hasXGreater(int x) {
+        return this.x > x;
     }
 
     public boolean hasYLesser(XYCoordinate xyCoordinate) {
-        return y < xyCoordinate.y;
+        return hasYLesser(xyCoordinate.y);
+    }
+
+    public boolean hasYLesser(int y) {
+        return this.y < y;
     }
 
     public boolean hasYGreater(XYCoordinate xyCoordinate) {
-        return y > xyCoordinate.y;
+        return hasYGreater(xyCoordinate.y);
+    }
+
+    public boolean hasYGreater(int y) {
+        return this.y > y;
     }
 
     @Override

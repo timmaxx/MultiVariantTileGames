@@ -71,22 +71,22 @@ public final class WidthHeightSizes implements Externalizable {
     }
 
     public void validateXYCoordinate(XYCoordinate xyCoordinate) {
-        if (xyCoordinate.getX() < 0
-                || xyCoordinate.getX() >= width
-                || xyCoordinate.getY() < 0
-                || xyCoordinate.getY() >= height
+        if (xyCoordinate.hasXLesser(0)
+                || xyCoordinate.hasXGreater(width - 1)
+                || xyCoordinate.hasYLesser(0)
+                || xyCoordinate.hasYGreater(height - 1)
         ) {
-            throw new XYCoordinateIsOutOfRangeException(); // ("xyCoordinate is wrong. xyCoordinate = " + xyCoordinate + ". WidthHeightSizes = " + this + ".");
+            throw new XYCoordinateIsOutOfRangeException(xyCoordinate);
         }
     }
 
     public void recalc(XYCoordinate xyCoordinate) {
         throwExceptionIfNotMayBeRecalc();
 
-        if (width <= xyCoordinate.getX()) {
+        if (xyCoordinate.hasXGreater(width - 1)) {
             width = xyCoordinate.getX() + 1;
         }
-        if (height <= xyCoordinate.getY()) {
+        if (xyCoordinate.hasYGreater(height - 1)) {
             height = xyCoordinate.getY() + 1;
         }
     }
