@@ -6,6 +6,10 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.Random;
 
+import static timmax.tilegame.basemodel.gameobject.XYOffset.NO_OFFSET;
+
+//  ToDo:   Отделить функциональность DTO и основных функций в разные классы.
+//          Класс реализует Externalizable для того, чтобы быть DTO.
 //  xy-координаты
 public final class XYCoordinate implements Externalizable {
     private static final Random random = new Random();
@@ -35,11 +39,12 @@ public final class XYCoordinate implements Externalizable {
         return y;
     }
 
-    public XYCoordinate getXYCoordinateByOffset(XYOffset XYOffset, WidthHeightSizes widthHeightSizes) {
-        if (XYOffset.getDx() == 0 && XYOffset.getDy() == 0) {
+    public XYCoordinate getXYCoordinateByOffset(XYOffset xyOffset, WidthHeightSizes widthHeightSizes) {
+        if (xyOffset.equals(NO_OFFSET)) {
             return this;
         }
-        XYCoordinate xyCoordinate = new XYCoordinate(x + XYOffset.getDx(), y + XYOffset.getDy());
+
+        XYCoordinate xyCoordinate = new XYCoordinate(x + xyOffset.getDx(), y + xyOffset.getDy());
         widthHeightSizes.validateXYCoordinate(xyCoordinate);
         return xyCoordinate;
     }
