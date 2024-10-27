@@ -14,7 +14,7 @@ import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
 import timmax.tilegame.game.minesweeper.model.gameobject.LevelGenerator;
 import timmax.tilegame.game.minesweeper.model.gameobject.MGOStateAutomaton;
-import timmax.tilegame.game.minesweeper.model.gameobject.MinesweeperPlacement;
+import timmax.tilegame.game.minesweeper.model.gameobject.MinesweeperPlacementVerified;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -96,7 +96,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
         //  Найдём объект по координатам
         Set<GameObjectStateAutomaton> gameObjectStateAutomatonSet =
                 getGameObjectsPlacement()
-                        .getGameObjectStateAutomatonSetFilteredXYCoordinate(xyCoordinate);
+                        .getGameObjectStateAutomatonSetFilteredByXYCoordinate(xyCoordinate);
         GameObjectStateAutomaton gameObjectStateAutomaton = gameObjectStateAutomatonSet
                 .stream()
                 .findFirst()
@@ -122,7 +122,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     }
 
     @Override
-    public MinesweeperPlacement getGameObjectsPlacement() {
-        return (MinesweeperPlacement) super.getGameObjectsPlacement();
+    public MinesweeperPlacementVerified getGameObjectsPlacement() {
+        return (MinesweeperPlacementVerified) super.getGameObjectsPlacement();
     }
 }

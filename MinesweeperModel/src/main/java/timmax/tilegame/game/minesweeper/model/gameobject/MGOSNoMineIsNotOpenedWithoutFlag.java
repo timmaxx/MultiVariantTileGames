@@ -16,7 +16,7 @@ public class MGOSNoMineIsNotOpenedWithoutFlag extends MGOSNoMine {
 
         getGameObjectStateAutomaton()
                 .getGameObject()
-                .getGameObjectsPlacementAbstract()
+                .getGameObjectsPlacement()
                 .getGameMatch()
                 .sendGameEventToAllViews(
                         new GameEventOneTileMinesweeperOpenNoMine(
@@ -42,7 +42,7 @@ public class MGOSNoMineIsNotOpenedWithoutFlag extends MGOSNoMine {
 
         getGameObjectStateAutomaton()
                 .getGameObject()
-                .getGameObjectsPlacementAbstract()
+                .getGameObjectsPlacement()
                 .getGameMatch()
                 .sendGameEventToAllViews(
                         new GameEventOneTileMinesweeperChangeFlag(

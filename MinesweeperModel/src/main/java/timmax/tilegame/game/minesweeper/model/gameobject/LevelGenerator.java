@@ -12,7 +12,7 @@ import timmax.tilegame.basemodel.protocol.server.GameMatch;
 //  ToDo:   А может перенести функционал getLevel() в MinesweeperPlacement в конструктор или в статический метод?
 public class LevelGenerator {
     //  ToDo:   GameMatch gameMatch удалить, т.к. он нужен только для вызова конструктора.
-    public MinesweeperPlacement getLevel(
+    public MinesweeperPlacementVerified getLevel(
             GameMatch gameMatch,
             //  ToDo:   Следующие два параметра завернуть в
             //              Map<String, Integer> paramsOfModelValueMap
@@ -32,7 +32,7 @@ public class LevelGenerator {
         //  Расставим мины
         do {
             XYCoordinate xyCoordinate = XYCoordinate.getRandom(widthHeightSizes);
-            if (minesweeperPlacementNotVerified.getGameObjectStateAutomatonSetFilteredXYCoordinate(xyCoordinate).size() == 1) {
+            if (minesweeperPlacementNotVerified.getGameObjectStateAutomatonSetFilteredByXYCoordinate(xyCoordinate).size() == 1) {
                 continue;
             }
             MGOStateAutomaton mine =
@@ -42,7 +42,9 @@ public class LevelGenerator {
                     );
             try {
                 minesweeperPlacementNotVerified.add(mine);
-            } catch (RuntimeException rte) {
+            }
+            //  Warning:(45, 15) Empty 'catch' block
+            catch (RuntimeException rte) {
             }
             countMinesOnField++;
         } while (countMinesOnField < widthHeightSizes.getSquare() * restOfMineInstallationInPercents / 100);
@@ -51,7 +53,7 @@ public class LevelGenerator {
         for (int y = 0; y < widthHeightSizes.getHeight(); y++) {
             for (int x = 0; x < widthHeightSizes.getWidth(); x++) {
                 XYCoordinate xyCoordinate = new XYCoordinate(x, y);
-                if (minesweeperPlacementNotVerified.getGameObjectStateAutomatonSetFilteredXYCoordinate(xyCoordinate).size() == 1) {
+                if (minesweeperPlacementNotVerified.getGameObjectStateAutomatonSetFilteredByXYCoordinate(xyCoordinate).size() == 1) {
                     continue;
                 }
 
@@ -62,11 +64,13 @@ public class LevelGenerator {
                         );
                 try {
                     minesweeperPlacementNotVerified.add(noMine);
-                } catch (RuntimeException rte) {
+                }
+                //  Warning:(65, 19) Empty 'catch' block
+                catch (RuntimeException rte) {
                 }
             }
         }
 
-        return new MinesweeperPlacement(minesweeperPlacementNotVerified);
+        return new MinesweeperPlacementVerified(minesweeperPlacementNotVerified);
     }
 }
