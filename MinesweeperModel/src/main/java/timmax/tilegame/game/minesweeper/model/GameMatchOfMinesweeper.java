@@ -5,9 +5,7 @@ import javafx.scene.input.MouseButton;
 
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
-import timmax.tilegame.basemodel.gameobject.GameObjectStateAutomaton;
 import timmax.tilegame.basemodel.gameobject.WidthHeightSizes;
-import timmax.tilegame.basemodel.gameobject.XYCoordinate;
 import timmax.tilegame.basemodel.protocol.server.GameMatch;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
@@ -18,7 +16,6 @@ import timmax.tilegame.game.minesweeper.model.gameobject.MinesweeperPlacementVer
 
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     //  1.  String constants
@@ -92,25 +89,19 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     // interface IGameMatch
     @Override
     public void executeMouseCommand(GameCommandMouseClick gameCommandMouseClick) {
-        XYCoordinate xyCoordinate = gameCommandMouseClick.getXYCoordinate();
-        //  Найдём объект по координатам
-        Set<GameObjectStateAutomaton> gameObjectStateAutomatonSet =
-                getGameObjectsPlacement()
-                        .getGameObjectStateAutomatonSetFilteredByXYCoordinate(xyCoordinate);
-        GameObjectStateAutomaton gameObjectStateAutomaton = gameObjectStateAutomatonSet
+        MGOStateAutomaton mgoStateAutomaton = (MGOStateAutomaton) getGameObjectsPlacement()
+                //  Найдём объект по координатам
+                .getGameObjectStateAutomatonSetFilteredByXYCoordinate(gameCommandMouseClick.getXYCoordinate())
                 .stream()
-                .findFirst()
+                .findAny()
                 .orElse(null);
-        MGOStateAutomaton MGOStateAutomaton =
-                (MGOStateAutomaton) gameObjectStateAutomaton;
+        assert mgoStateAutomaton != null;
         if (gameCommandMouseClick.getMouseButton() == MouseButton.PRIMARY) {
             //  Откроем объект
-            //  Warning:(109, 31) Method invocation 'open' may produce 'NullPointerException'
-            MGOStateAutomaton.open();
+            mgoStateAutomaton.open();
         } else if (gameCommandMouseClick.getMouseButton() == MouseButton.SECONDARY) {
             //  Инвертируем флаг объекту
-            //  Warning:(113, 31) Method invocation 'inverseFlag' may produce 'NullPointerException'
-            MGOStateAutomaton.inverseFlag();
+            mgoStateAutomaton.inverseFlag();
         }
     }
 
