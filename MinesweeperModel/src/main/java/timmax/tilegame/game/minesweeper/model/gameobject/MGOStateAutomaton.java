@@ -12,7 +12,7 @@ import java.util.Set;
 //  ToDo:   Разложить класс TileOfMinesweeper на несколько и в т.ч. перенести сюда часть его функционала.
 //          А для этой модели базовым должен стать этот класс.
 //  ToDo:   После полного отказа от класса TileOfMinesweeper, удалить его.
-public class MGOStateAutomaton extends GameObjectStateAutomaton implements IMGOState {
+public class MGOStateAutomaton extends GameObjectStateAutomaton implements MGOState {
     protected Set<MGOStateAutomaton> neighbourSet; // Соседние плитки
     protected int countOfMinesInNeighbours;
 
@@ -89,8 +89,8 @@ public class MGOStateAutomaton extends GameObjectStateAutomaton implements IMGOS
     }
 
     @Override
-    public MGOState getGameObjectState() {
-        return (MGOState) super.getGameObjectState();
+    public AbstractMGOState getGameObjectState() {
+        return (AbstractMGOState) super.getGameObjectState();
     }
 
     @Override

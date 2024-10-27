@@ -1,16 +1,16 @@
 package timmax.tilegame.basemodel.gameobject;
 
-public class GameObjectStateAutomaton implements IGameObjectState {
+public class GameObjectStateAutomaton implements GameObjectState {
     private final GameObject gameObject;
-    private GameObjectState gameObjectState;
+    private AbstractGameObjectState abstractGameObjectState;
 
     public GameObjectStateAutomaton(GameObject gameObject) {
         this.gameObject = gameObject;
     }
 
-    public GameObjectStateAutomaton(GameObject gameObject, GameObjectState gameObjectState) {
+    public GameObjectStateAutomaton(GameObject gameObject, AbstractGameObjectState abstractGameObjectState) {
         this(gameObject);
-        setCurrentState(gameObjectState);
+        setCurrentState(abstractGameObjectState);
     }
 
     public XYCoordinate getXyCoordinate() {
@@ -21,19 +21,19 @@ public class GameObjectStateAutomaton implements IGameObjectState {
         return gameObject;
     }
 
-    public void setCurrentState(GameObjectState gameObjectState) {
-        this.gameObjectState = gameObjectState;
+    protected void setCurrentState(AbstractGameObjectState abstractGameObjectState) {
+        this.abstractGameObjectState = abstractGameObjectState;
     }
 
-    public GameObjectState getGameObjectState() {
-        return gameObjectState;
+    public AbstractGameObjectState getGameObjectState() {
+        return abstractGameObjectState;
     }
 
     @Override
     public String toString() {
         return "GameObjectStateAutomaton{" +
                 "gameObject=" + gameObject +
-                ", gameObjectState=" + gameObjectState +
+                ", abstractGameObjectState=" + abstractGameObjectState +
                 '}';
     }
 }

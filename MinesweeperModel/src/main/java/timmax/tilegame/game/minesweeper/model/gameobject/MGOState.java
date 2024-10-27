@@ -2,14 +2,10 @@ package timmax.tilegame.game.minesweeper.model.gameobject;
 
 import timmax.tilegame.basemodel.gameobject.GameObjectState;
 
-public abstract class MGOState extends GameObjectState implements IMGOState {
+public interface MGOState extends GameObjectState {
+    int getOneOrZeroMines();
 
-    public MGOState(MGOStateAutomaton MGOStateAutomaton) {
-        super(MGOStateAutomaton);
-    }
+    void open();
 
-    @Override
-    public MGOStateAutomaton getGameObjectStateAutomaton() {
-        return (MGOStateAutomaton) super.getGameObjectStateAutomaton();
-    }
+    void inverseFlag();
 }
