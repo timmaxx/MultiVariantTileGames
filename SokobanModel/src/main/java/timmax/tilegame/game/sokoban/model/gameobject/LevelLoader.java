@@ -21,7 +21,7 @@ public class LevelLoader {
     }
 
     //  ToDo:   GameMatch gameMatch удалить, т.к. он нужен только для вызова конструктора.
-    public SokobanPlacement getLevel(
+    public SokobanPlacementVerified getLevel(
             GameMatch gameMatch
             //  ToDo:   Следующий параметр завернуть в
             //              Map<String, Integer> paramsOfModelValueMap
@@ -52,10 +52,12 @@ public class LevelLoader {
                     continue;
                 } else if (line.contains("Size X:")) {
                     //  ToDo:   Убрать из файла уровней размеры по ширине и высоте.
+                    //  Warning:(55, 41) Result of 'Integer.parseInt()' is ignored
                     /*width = */Integer.parseInt(line.split(" ")[2]);
                     continue;
                 } else if (line.contains("Size Y:")) {
                     //  ToDo:   Убрать из файла уровней размеры по ширине и высоте.
+                    //  Warning:(59, 42) Result of 'Integer.parseInt()' is ignored
                     /*height = */Integer.parseInt(line.split(" ")[2]);
                     continue;
                 }
@@ -118,7 +120,7 @@ public class LevelLoader {
 
         validate(countOfPlayers, countOfBoxes, countOfHome);
 
-        return new SokobanPlacement(sokobanPlacementNotVerified);
+        return new SokobanPlacementVerified(sokobanPlacementNotVerified);
     }
 
     private static void validate(int countOfPlayers, int countOfBoxes, int countOfHome) {

@@ -15,20 +15,16 @@ import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.gameobject.XYCoordinate;
-import timmax.tilegame.basemodel.gameobject.XYOffset;
+import timmax.tilegame.basemodel.gameobject.XYOffsetOne;
 import timmax.tilegame.basemodel.protocol.server.GameMatch;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
 
 import timmax.tilegame.game.sokoban.model.gameevent.GameEventOneTileSokobanChangeable;
-import timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanVariableParamsCountOfBoxesInHouses;
-import timmax.tilegame.game.sokoban.model.gameevent.GameEventSokobanVariableParamsCountOfSteps;
 import timmax.tilegame.game.sokoban.model.gameobject.*;
-import timmax.tilegame.game.sokoban.model.route.Route;
-import timmax.tilegame.game.sokoban.model.route.Step;
 
 import static timmax.tilegame.basemodel.GameMatchStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
-import static timmax.tilegame.basemodel.gameobject.XYOffset.*;
+import static timmax.tilegame.basemodel.gameobject.XYOffsetOne.*;
 import static timmax.tilegame.game.sokoban.model.gameobject.WhoMovableInTile.*;
 import static timmax.tilegame.game.sokoban.model.gameobject.WhoPersistentInTile.IS_EMPTY;
 
@@ -41,9 +37,8 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
 
     //  3.  Переменные экземпляра
     private final CurrentLevel currentLevel = new CurrentLevel();
-    private int countOfBoxesInHomes;
-    private Route route;
-    private Route routeRedo = new Route();
+    // private Route route;
+    // private Route routeRedo = new Route();
 
     //  4.  Инициализатор Level generator/loader
     static {
@@ -137,100 +132,15 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         movePlayerIfPossible(step.getXyOffset(), true);
     }
 
-    private boolean isCollisionWithWall(CollisionObject gameObject, XYOffset xyOffset) {
-        for (SGOWall wall : getGameObjectsPlacement().getWalls()) {
-            if (gameObject.isCollision(wall, xyOffset)) {
-                return true;
-            }
-        }
-        return false;
+    private void move(XYOffsetOne xyOffset) {
+        //  ToDo:   Сдделать обработку исключения (пусть игнор будет) если нельзя делать ход.
+        getGameObjectsPlacement().getPlayer().move(xyOffset);
     }
 
-    private boolean isCollisionWithBox(CollisionObject gameObject, XYOffset xyOffset) {
-        for (SGOBox box : getGameObjectsPlacement().getBoxes()) {
-            if (gameObject.isCollision(box, xyOffset)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void movePlayerIfPossible(XYOffset xyOffset, boolean isRedo) {
-        SGOPlayer player = getGameObjectsPlacement().getPlayer();
-        if (!isRedo) {
-            if (player.isOutOfBoard(xyOffset)) {
-                return;
-            }
-            if (isCollisionWithWall(player, xyOffset)) {
-                return;
-            }
-        }
-        boolean isBoxMoved = false;
-
-        for (SGOBox box : getGameObjectsPlacement().getBoxes()) {
-            if (player.isCollision(box, xyOffset)) {
-                if (!isRedo) {
-                    if (box.isOutOfBoard(xyOffset)) {
-                        return;
-                    }
-                    if (isCollisionWithWall(box, xyOffset)) {
-                        return;
-                    }
-                    if (isCollisionWithBox(box, xyOffset)) {
-                        return;
-                    }
-                }
-                box.move(xyOffset);
-
-                WhoPersistentInTile newWhoPersistentInTile = getGameObjectsPlacement().getWhoPersistentInTile(box.getXyCoordinate());
-                sendGameEventToAllViews(new GameEventOneTileSokobanChangeable(box.getXyCoordinate(), newWhoPersistentInTile, IS_BOX));
-
-                isBoxMoved = true;
-                break;
-            }
-        }
-
-        addGameEventAboutPlayer(xyOffset, player, IS_NOBODY);
-        route.push(new Step(xyOffset, isBoxMoved));
-
-        sendGameEventToAllViews(new GameEventSokobanVariableParamsCountOfSteps(route.size()));
-        if (isBoxMoved) {
-            calcCountOfBoxesInHomes();
-            sendGameEventToAllViews(new GameEventSokobanVariableParamsCountOfBoxesInHouses(countOfBoxesInHomes));
-        }
-
-        checkCompletion();
-    }
-
-    private void addGameEventAboutPlayer(XYOffset xyOffset, SGOPlayer player, WhoMovableInTile whoMovableInTile) {
-        WhoPersistentInTile whoPersistentInTileBefore = getGameObjectsPlacement().getWhoPersistentInTile(player.getXyCoordinate());
-        sendGameEventToAllViews(new GameEventOneTileSokobanChangeable(player.getXyCoordinate(), whoPersistentInTileBefore, whoMovableInTile));
-
-        player.move(xyOffset);
-
-        WhoPersistentInTile whoPersistentInTileAfter = getGameObjectsPlacement().getWhoPersistentInTile(player.getXyCoordinate());
-        sendGameEventToAllViews(new GameEventOneTileSokobanChangeable(player.getXyCoordinate(), whoPersistentInTileAfter, IS_PLAYER));
-    }
-
-    private void calcCountOfBoxesInHomes() {
-        int countOfBoxesInHomes = 0;
-        for (SGOHome home : getGameObjectsPlacement().getHomes()) {
-            for (SGOBox box : getGameObjectsPlacement().getBoxes()) {
-                if (box.getXyCoordinate().equals(home.getXyCoordinate())) {
-                    countOfBoxesInHomes++;
-                    break;
-                }
-            }
-        }
-        this.countOfBoxesInHomes = countOfBoxesInHomes;
-    }
-
-    private void checkCompletion() {
-        // Этот метод должен проверить, пройден ли уровень (т.е. на всех ли домах стоят ящики?).
-        // Если условие выполнено, то проинформировать слушателей событий, что текущий уровень завершен.
-        if (countOfBoxesInHomes == getGameObjectsPlacement().getCountOfPairHomesAndBoxes()) {
-            win();
-        }
+    public void addGameEvent(XYCoordinate xyCoordinate) {
+        WhoPersistentInTile whoPersistentInTileBefore = getGameObjectsPlacement().getWhoPersistentInTile(xyCoordinate);
+        WhoMovableInTile whoMovableInTile = getGameObjectsPlacement().getWhoMovableInTile(xyCoordinate);
+        sendGameEventToAllViews(new GameEventOneTileSokobanChangeable(xyCoordinate, whoPersistentInTileBefore, whoMovableInTile));
     }
 
     public void nextLevel() {
@@ -312,9 +222,8 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
                 gameEventOneTileSet.add(gameEventOneTile);
             }
         }
-        route = new Route();
-        routeRedo = new Route();
-        calcCountOfBoxesInHomes();
+        // route = new Route();
+        // routeRedo = new Route();
 
         return newGameMatchExtendedDto(gameEventOneTileSet);
     }
@@ -341,11 +250,11 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
                             move(TO_DOWN);
                         }
                 }
-        } else if (gameCommandMouseClick.getMouseButton() == MouseButton.SECONDARY) {
+        }/* else if (gameCommandMouseClick.getMouseButton() == MouseButton.SECONDARY) {
             moveUndo();
-        } else if (gameCommandMouseClick.getMouseButton() == MouseButton.MIDDLE) {
+        }*/ /*else if (gameCommandMouseClick.getMouseButton() == MouseButton.MIDDLE) {
             moveRedo();
-        }
+        }*/
     }
 
     @Override
@@ -358,11 +267,11 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
             move(TO_UP);
         } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.DOWN) {
             move(TO_DOWN);
-        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.Q) {
+        }/* else if (gameCommandKeyPressed.getKeyCode() == KeyCode.Q) {
             moveUndo();
-        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.P) {
+        }*/ /*else if (gameCommandKeyPressed.getKeyCode() == KeyCode.P) {
             moveRedo();
-        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.BACK_SPACE) {
+        }*/ else if (gameCommandKeyPressed.getKeyCode() == KeyCode.BACK_SPACE) {
             prevLevel();
         } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.SPACE) {
             nextLevel();
@@ -378,7 +287,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     }
 
     @Override
-    public SokobanPlacement getGameObjectsPlacement() {
-        return (SokobanPlacement) super.getGameObjectsPlacement();
+    public SokobanPlacementVerified getGameObjectsPlacement() {
+        return (SokobanPlacementVerified) super.getGameObjectsPlacement();
     }
 }

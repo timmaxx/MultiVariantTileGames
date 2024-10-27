@@ -8,4 +8,9 @@ public class SokobanGameObject extends GameObject {
     public SokobanGameObject(String id, GameObjectsPlacementNotVerified gameObjectsPlacementNotVerified, XYCoordinate xyCoordinate) {
         super(id, gameObjectsPlacementNotVerified, xyCoordinate);
     }
+
+    @Override
+    public SokobanPlacementVerified getGameObjectsPlacement() {
+        return (SokobanPlacementVerified) super.getGameObjectsPlacement();
+    }
 }
