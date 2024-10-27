@@ -29,7 +29,17 @@ public abstract class GameObjectsPlacementAbstract {
     protected GameObjectsPlacementAbstract(GameMatch gameMatch, WidthHeightSizes widthHeightSizes, Set<GameObjectStateAutomaton> gameObjectStateAutomatonSet) {
         this.gameMatch = gameMatch;
         this.widthHeightSizes = widthHeightSizes;
-        this.gameObjectStateAutomatonSet = gameObjectStateAutomatonSet;
+
+        //  ToDo:   Нужно отказаться от двух классов (Verified и NotVerified) в такой конструкции,
+        //          но связать их ч/з шаблон Состояние.
+        // this.gameObjectStateAutomatonSet = gameObjectStateAutomatonSet;
+        this.gameObjectStateAutomatonSet = new HashSet<>();
+        gameObjectStateAutomatonSet.forEach(
+                gosa -> {
+                    gosa.getGameObject().gameObjectsPlacementAbstract = this;
+                    this.gameObjectStateAutomatonSet.add(gosa);
+                }
+        );
     }
 
     //  При таком конструкторе, WidthHeightSizes поступает как параметр и не может быть изменён в процессе заполнения.
@@ -42,7 +52,7 @@ public abstract class GameObjectsPlacementAbstract {
         this(gameMatch, new WidthHeightSizes(1, 1));
     }
 
-    public final GameMatch getGameMatch() {
+    public GameMatch getGameMatch() {
         return gameMatch;
     }
 
@@ -54,10 +64,18 @@ public abstract class GameObjectsPlacementAbstract {
         return widthHeightSizes;
     }
 
-    public final Set<GameObjectStateAutomaton> getGameObjectStateAutomatonSetFilteredXYCoordinate(XYCoordinate xyCoordinate) {
+    public final Set<GameObjectStateAutomaton> getGameObjectStateAutomatonSetFilteredByXYCoordinate(XYCoordinate xyCoordinate) {
         return gameObjectStateAutomatonSet
                 .stream()
                 .filter(gosa -> gosa.getXyCoordinate().equals(xyCoordinate))
+                .collect(Collectors.toSet());
+    }
+
+    public final Set<GameObject> getGameObjectSetFilteredByXYCoordinate(XYCoordinate xyCoordinate) {
+        return gameObjectStateAutomatonSet
+                .stream()
+                .filter(gosa -> gosa.getXyCoordinate().equals(xyCoordinate))
+                .map(GameObjectStateAutomaton::getGameObject)
                 .collect(Collectors.toSet());
     }
 

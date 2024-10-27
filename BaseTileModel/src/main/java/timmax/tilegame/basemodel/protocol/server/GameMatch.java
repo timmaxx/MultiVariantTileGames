@@ -97,7 +97,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
 
     // Посылает игровое событие всем выборкам.
     public void sendGameEventToAllViews(GameEvent gameEvent) {
-        //  Warning:(70, 9) Unchecked call to 'sendGameEventToAllViews(GameEvent, RemoteClientStateAutomaton<ClientId>)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.GameType'
+        //  Warning:(101, 9) Unchecked call to 'sendGameEventToAllViews(GameEvent, RemoteClientStateAutomaton<ClientId>)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.GameType'
         gameType.sendGameEventToAllViews(gameEvent, remoteClientStateAutomaton);
     }
 
@@ -118,13 +118,6 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
             return true;
         }
         return false;
-    }
-
-    protected void setStatusIsGame() {
-        if (status != PAUSE && status != GAME) {
-            throw new RuntimeException("You cannot set game status to GAME! (gameMatchStatus = " + status + ")");
-        }
-        status = GAME;
     }
 
     public GameMatchExtendedDto newGameMatchExtendedDto(Set<GameEventOneTile> gameEventOneTileSet) {

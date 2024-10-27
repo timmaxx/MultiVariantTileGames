@@ -1,10 +1,15 @@
 package timmax.tilegame.basemodel.gameobject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 //  Одноплиточный игровой объект.
 //  Ранее назывался OneTileGameObject.
 //  Предполагалость, что потом будет многоплиточный игровой объект (типа падающей фигурки у Тетриса).
 //  Но такого ещё и нет, но, а если он и появится, то и пусть он называется, например, MultiTileGameObject.
 public class GameObject {
+    protected static final Logger logger = LoggerFactory.getLogger(GameObject.class);
+
     //  Идентификатор объекта для отличия двух и более объектов одного типа.
     //  Например, для Шахмат:
     //      У каждой из сторон может быть по нескольку пешек, тогда здесь можно было-бы написать:
@@ -12,7 +17,7 @@ public class GameObject {
     private final String id;
 
     //  Расстановка, которой принадлежит объект.
-    protected final GameObjectsPlacementAbstract gameObjectsPlacementAbstract;
+    protected GameObjectsPlacementAbstract gameObjectsPlacementAbstract;
 
     protected XYCoordinate xyCoordinate;
 
@@ -47,7 +52,7 @@ public class GameObject {
         this.xyCoordinate = xyCoordinate;
     }
 
-    public GameObjectsPlacementAbstract getGameObjectsPlacementAbstract() {
+    public GameObjectsPlacementAbstract getGameObjectsPlacement() {
         return gameObjectsPlacementAbstract;
     }
 

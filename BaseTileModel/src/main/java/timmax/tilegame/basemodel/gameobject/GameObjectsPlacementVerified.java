@@ -42,10 +42,6 @@ public class GameObjectsPlacementVerified extends GameObjectsPlacementAbstract {
         // matchStatus = verifyAllGameObjects();
     }
 
-    public int getPlayerIndexOfCurrentMove() {
-        return playerIndexOfCurrentMove;
-    }
-
     public MatchStatus getMatchStatus() {
         return matchStatus;
     }
@@ -75,6 +71,7 @@ public class GameObjectsPlacementVerified extends GameObjectsPlacementAbstract {
         return gameObjectStateAutomatonSet
                 .stream()
                 .filter(gosa -> gosa.getGameObject().getClass().equals(gameObjectClass))
+                //  Warning:(75, 30) Unchecked cast: 'timmax.tilegame.basemodel.gameobject.GameObject' to 'GO'
                 .map(gosa -> (GO)(gosa.getGameObject()))
                 .collect(Collectors.toSet());
     }
@@ -102,18 +99,6 @@ public class GameObjectsPlacementVerified extends GameObjectsPlacementAbstract {
                 .collect(Collectors.toSet());
     }
 */
-
-    //  Этот метод работает с одним типом игровых объектов.
-    //  Используется только в Сокобан.
-    public final <GO extends GameObject> Set<GO> getGameObjectSetFilteredByXYCoordinate(
-            XYCoordinate xyCoordinate
-    ) {
-        return gameObjectStateAutomatonSet
-                .stream()
-                .filter(gosa -> gosa.getXyCoordinate().equals(xyCoordinate))
-                .map(gosa -> (GO)(gosa.getGameObject()))
-                .collect(Collectors.toSet());
-    }
 
     @Override
     public String toString() {
