@@ -47,6 +47,7 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchDto
     //       (см. конструктор класса GameClientPaneJfx), выполнялось в мапе viewName_ViewClassMap.
     //       Поэтому пришлось сделать его public. Но это не хорошо!
     public Map<String, Class<? extends View>> getViewName_ViewClassMap() {
+        //  Warning:(51, 16) Unchecked assignment: 'java.util.Map' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'. Reason: 'getGameType_()' has raw type, so result of getViewName_ViewClassMap is erased
         return getGameType_().getViewName_ViewClassMap();
     }
 
@@ -64,8 +65,6 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchDto
         if (view instanceof ViewMainField viewMainField) {
             Platform.runLater(() -> {
                 viewMainField.initMainField(gameMatchExtendedDto.getParamsOfModelValueMap());
-                System.out.println("  gameMatchExtendedDto.getGameEventOneTileSet() = " + gameMatchExtendedDto.getGameEventOneTileSet());
-
                 for (GameEventOneTile gameEventOneTile : gameMatchExtendedDto.getGameEventOneTileSet()) {
                     viewMainField.update(gameEventOneTile);
                 }
