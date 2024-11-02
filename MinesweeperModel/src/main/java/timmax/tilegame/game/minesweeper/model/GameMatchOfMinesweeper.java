@@ -12,7 +12,6 @@ import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
 import timmax.tilegame.game.minesweeper.model.gameobject.LevelGenerator;
 import timmax.tilegame.game.minesweeper.model.gameobject.MGOStateAutomaton;
-import timmax.tilegame.game.minesweeper.model.gameobject.MinesweeperPlacementVerified;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -50,7 +49,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
         //  1. super.setParamsOfModelValueMap(),
         //  2. setGameObjectsPlacement(levelGenerator.getLevel()).
         super.setParamsOfModelValueMap(paramsOfModelValueMap);
-        setGameObjectsPlacement(levelGenerator.getLevel(
+        setGameObjectsPlacementStateAutomaton(levelGenerator.getLevel(
                 this,
                 //  ToDo:   Переделать getWidth(), getHeight() в родительском классе.
                 //          Пусть там будет переменная WidthHeightSizes.
@@ -75,7 +74,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
         // 1. super.start(),
         // 2. setGameObjectsPlacement(levelGenerator.getLevel()).
         super.start(gameMatchExtendedDto);
-        setGameObjectsPlacement(levelGenerator.getLevel(
+        setGameObjectsPlacementStateAutomaton(levelGenerator.getLevel(
                 this,
                 //  ToDo:   Переделать getWidth(), getHeight() в родительском классе.
                 //          Пусть там будет переменная WidthHeightSizes.
@@ -89,7 +88,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     // interface IGameMatch
     @Override
     public void executeMouseCommand(GameCommandMouseClick gameCommandMouseClick) {
-        MGOStateAutomaton mgoStateAutomaton = (MGOStateAutomaton) getGameObjectsPlacement()
+        MGOStateAutomaton mgoStateAutomaton = (MGOStateAutomaton) getGameObjectsPlacementStateAutomaton()
                 //  Найдём объект по координатам
                 .getGameObjectStateAutomatonSetFilteredByXYCoordinate(gameCommandMouseClick.getXYCoordinate())
                 .stream()
@@ -110,10 +109,5 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
         if (gameCommandKeyPressed.getKeyCode() == KeyCode.ESCAPE) {
             restart();
         }
-    }
-
-    @Override
-    public MinesweeperPlacementVerified getGameObjectsPlacement() {
-        return (MinesweeperPlacementVerified) super.getGameObjectsPlacement();
     }
 }

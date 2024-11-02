@@ -1,6 +1,8 @@
 package timmax.tilegame.game.minesweeper.model.gameobject;
 
+import timmax.tilegame.basemodel.exception.GameObjectAlreadyExistsException;
 import timmax.tilegame.basemodel.gameobject.GameObject;
+import timmax.tilegame.basemodel.gameobject.GameObjectsPlacementStateAutomaton;
 import timmax.tilegame.basemodel.gameobject.WidthHeightSizes;
 import timmax.tilegame.basemodel.gameobject.XYCoordinate;
 import timmax.tilegame.basemodel.protocol.server.GameMatch;
@@ -12,7 +14,7 @@ import timmax.tilegame.basemodel.protocol.server.GameMatch;
 //  ToDo:   А может перенести функционал getLevel() в MinesweeperPlacement в конструктор или в статический метод?
 public class LevelGenerator {
     //  ToDo:   GameMatch gameMatch удалить, т.к. он нужен только для вызова конструктора.
-    public MinesweeperPlacementVerified getLevel(
+    public GameObjectsPlacementStateAutomaton getLevel(
             GameMatch gameMatch,
             //  ToDo:   Следующие два параметра завернуть в
             //              Map<String, Integer> paramsOfModelValueMap
@@ -21,27 +23,22 @@ public class LevelGenerator {
             int restOfMineInstallationInPercents) {
 
         //  Создаём новую пустую не верифицированную расстановку для Сапёра
-        MinesweeperPlacementNotVerified minesweeperPlacementNotVerified =
-                new MinesweeperPlacementNotVerified(
-                        gameMatch,
-                        widthHeightSizes
-                );
+        GameObjectsPlacementStateAutomaton minesweeperPlacement = new GameObjectsPlacementStateAutomaton(gameMatch);
 
         int countMinesOnField = 0;
 
         //  Расставим мины
         do {
             XYCoordinate xyCoordinate = XYCoordinate.getRandom(widthHeightSizes);
-            if (minesweeperPlacementNotVerified.getGameObjectStateAutomatonSetFilteredByXYCoordinate(xyCoordinate).size() == 1) {
+            if (minesweeperPlacement.getGameObjectStateAutomatonSetFilteredByXYCoordinate(xyCoordinate).size() == 1) {
                 continue;
             }
-            MGOStateAutomaton mine =
-                    new MGOStateAutomaton(
-                            new GameObject(xyCoordinate.toString(), minesweeperPlacementNotVerified, xyCoordinate),
-                            true
-                    );
+
             try {
-                minesweeperPlacementNotVerified.add(mine);
+                minesweeperPlacement.add(new MGOStateAutomaton(
+                        new GameObject(xyCoordinate.toString(), minesweeperPlacement, xyCoordinate),
+                        true
+                ));
             }
             //  Warning:(45, 15) Empty 'catch' block
             catch (RuntimeException rte) {
@@ -53,24 +50,22 @@ public class LevelGenerator {
         for (int y = 0; y < widthHeightSizes.getHeight(); y++) {
             for (int x = 0; x < widthHeightSizes.getWidth(); x++) {
                 XYCoordinate xyCoordinate = new XYCoordinate(x, y);
-                if (minesweeperPlacementNotVerified.getGameObjectStateAutomatonSetFilteredByXYCoordinate(xyCoordinate).size() == 1) {
+                if (minesweeperPlacement.getGameObjectStateAutomatonSetFilteredByXYCoordinate(xyCoordinate).size() == 1) {
                     continue;
                 }
 
-                MGOStateAutomaton noMine =
-                        new MGOStateAutomaton(
-                                new GameObject(xyCoordinate.toString(), minesweeperPlacementNotVerified, xyCoordinate),
-                                false
-                        );
                 try {
-                    minesweeperPlacementNotVerified.add(noMine);
+                    minesweeperPlacement.add(new MGOStateAutomaton(
+                            new GameObject(xyCoordinate.toString(), minesweeperPlacement, xyCoordinate),
+                            false
+                    ));
                 }
                 //  Warning:(65, 19) Empty 'catch' block
                 catch (RuntimeException rte) {
                 }
             }
         }
-
-        return new MinesweeperPlacementVerified(minesweeperPlacementNotVerified);
+        minesweeperPlacement.turnOnVerifable(0);
+        return minesweeperPlacement;
     }
 }
