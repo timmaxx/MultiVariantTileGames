@@ -1,5 +1,6 @@
 package timmax.tilegame.basemodel.gameobject;
 
+import timmax.tilegame.basemodel.exception.WidthHeightIsNotAllowedRecalcException;
 import timmax.tilegame.basemodel.exception.XYCoordinateIsOutOfRangeException;
 
 import java.io.Externalizable;
@@ -112,7 +113,7 @@ public final class WidthHeightSizes implements Externalizable {
 
     private void throwExceptionIfNotMayBeRecalc() {
         if (!mayBeRecalc) {
-            throw new RuntimeException("mayBeRecalc = " + mayBeRecalc + ". You cannot call recalc().");
+            throw new WidthHeightIsNotAllowedRecalcException();
         }
     }
 
