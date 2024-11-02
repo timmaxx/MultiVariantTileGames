@@ -7,7 +7,7 @@ import timmax.tilegame.basemodel.GameMatchStatus;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
-import timmax.tilegame.basemodel.gameobject.GameObjectsPlacementVerified;
+import timmax.tilegame.basemodel.gameobject.GameObjectsPlacementStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
 
@@ -37,13 +37,16 @@ import static timmax.tilegame.basemodel.GameMatchStatus.*;
 //          Тогда, в т.ч. уйдёт предупреждение в строке:
 //          allMinesweeperObjects = levelGenerator.getLevel(width, height, percentsOfMines);
 //          в классе GameMatchOfMinesweeper.
+
+//  Конкретный матч определённого типа игры.
 public abstract class GameMatch<ClientId> implements IGameMatch {
     protected static final Logger logger = LoggerFactory.getLogger(GameMatch.class);
 
     //  Warning:(34, 21) Raw use of parameterized class 'GameType'
     protected final GameType gameType;
 
-    private /*final*/ GameObjectsPlacementVerified gameObjectsPlacement;
+    private /*final*/ GameObjectsPlacementStateAutomaton gameObjectsPlacementStateAutomaton;
+
 
     //  ToDo:   Сейчас здесь одна переменная типа RemoteClientStateAutomaton. И для одного игрока вполне норм.
     //          Но для для двух (а возможно и более игроков) или если какой-то участник игры, не являющийся игроком
@@ -73,12 +76,12 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         this.remoteClientStateAutomaton = remoteClientStateAutomaton;
     }
 
-    protected GameObjectsPlacementVerified getGameObjectsPlacement() {
-        return gameObjectsPlacement;
+    protected GameObjectsPlacementStateAutomaton getGameObjectsPlacementStateAutomaton() {
+        return gameObjectsPlacementStateAutomaton;
     }
 
-    protected void setGameObjectsPlacement(GameObjectsPlacementVerified gameObjectsPlacement) {
-        this.gameObjectsPlacement = gameObjectsPlacement;
+    protected void setGameObjectsPlacementStateAutomaton(GameObjectsPlacementStateAutomaton gameObjectsPlacementStateAutomaton) {
+        this.gameObjectsPlacementStateAutomaton = gameObjectsPlacementStateAutomaton;
     }
 
     public GameType getGameType() {

@@ -14,33 +14,23 @@ package timmax.tilegame.basemodel.gameobject;
 //          - расстановка, на которой есть два и более короля для хотя-бы одной из сторон
 //            (хотя при такой ситуации не получится пройти проверку на целостность даже и после, т.к. допустимо только
 //            добавление объекта, а методов редактирования и удаления не должно быть).
-//  В экземпляр этого класса можно произвольно добавлять игровой объект, невзирая на правила.
+//  В экземпляр этого класса можно произвольно добавлять игровой объект, невзирая на правила расстановки для типа игры.
 
 import timmax.tilegame.basemodel.protocol.server.GameMatch;
 
-//  Расположение игровых объектов (матча) без проверки целостности.
-public class GameObjectsPlacementNotVerified extends GameObjectsPlacementAbstract {
-    //  Можно-ли в экземпляр добавлять объекты.
-    private boolean isAddable;
-
-    public GameObjectsPlacementNotVerified(GameMatch gameMatch, WidthHeightSizes widthHeightSizes) {
-        super(gameMatch, widthHeightSizes);
-        this.isAddable = true;
+//  Расстановка игровых объектов (матча) без проверки целостности.
+public class GameObjectsPlacementNotVerifiedState extends GameObjectsPlacementAbstractState {
+    public GameObjectsPlacementNotVerifiedState(GameObjectsPlacementStateAutomaton gameObjectsPlacementStateAutomaton) {
+        super(gameObjectsPlacementStateAutomaton);
     }
 
-    public GameObjectsPlacementNotVerified(GameMatch gameMatch) {
-        super(gameMatch);
-        this.isAddable = true;
-    }
-
+    //  Добавляется игровой объект в расстановку
+    @Override
     public void add(GameObjectStateAutomaton gameObjectStateAutomaton) {
-        if (!isAddable) {
-            throw new RuntimeException("Property 'isAddable' == false, so you cannot add any object.");
-        }
         if (!getWidthHeightSizes().mayBeRecalc()) {
             getWidthHeightSizes().validateXYCoordinate(gameObjectStateAutomaton.getXyCoordinate());
         }
-        if (!gameObjectStateAutomatonSet.add(gameObjectStateAutomaton)) {
+        if (!getGameObjectStateAutomatonSet().add(gameObjectStateAutomaton)) {
             throw new RuntimeException("You cannot add gameObjectStateAutomaton if there is the same one.");
         }
         if (getWidthHeightSizes().mayBeRecalc()) {
@@ -50,23 +40,17 @@ public class GameObjectsPlacementNotVerified extends GameObjectsPlacementAbstrac
 
     //  Сделать расстановку не редактируемой.
     //  Такой вызов предполагает, что после него можно проверять расстановку на целостность.
-    public void turnAddableToFalse() {
-        isAddable = false;
+    @Override
+    public void turnOnVerifable(int playerIndexOfCurrentMove) {
         getWidthHeightSizes().setMayBeReaclFalse();
+        gameObjectsPlacementStateAutomaton.setCurrentStateVerified();
     }
 
     //  Сделать расстановку не редактируемой с введением альтернативной ширины и высоты поля
     //  (ширина и/или высота должны быть не меньше, чем уже получилось при расстановке).
-    public void turnAddableToFalse(WidthHeightSizes widthHeightSizes) {
-        getWidthHeightSizes().recalc(widthHeightSizes);
-        turnAddableToFalse();
-    }
-
     @Override
-    public String toString() {
-        return super.toString() + " | " + "GameObjectsPlacementNotVerified{" +
-                "isAddable=" + isAddable +
-                // ", gameObjectStateAutomatonSet=" + gameObjectStateAutomatonSet +
-                '}';
+    public void turnOnVerifable(int playerIndexOfCurrentMove, WidthHeightSizes widthHeightSizes) {
+        getWidthHeightSizes().recalc(widthHeightSizes);
+        turnOnVerifable(playerIndexOfCurrentMove);
     }
 }

@@ -17,20 +17,20 @@ public class GameObject {
     private final String id;
 
     //  Расстановка, которой принадлежит объект.
-    protected GameObjectsPlacementAbstract gameObjectsPlacementAbstract;
+    protected GameObjectsPlacementStateAutomaton gameObjectsPlacementStateAutomaton;
 
     protected XYCoordinate xyCoordinate;
 
-    public GameObject(String id, GameObjectsPlacementAbstract gameObjectsPlacementAbstract) {
+    public GameObject(String id, GameObjectsPlacementStateAutomaton gameObjectsPlacementStateAutomaton) {
         this.id = id;
-        this.gameObjectsPlacementAbstract = gameObjectsPlacementAbstract;
+        this.gameObjectsPlacementStateAutomaton = gameObjectsPlacementStateAutomaton;
     }
 
     public GameObject(
             String id,
-            GameObjectsPlacementAbstract gameObjectsPlacementAbstract,
+            GameObjectsPlacementStateAutomaton gameObjectsPlacementStateAutomaton,
             XYCoordinate xyCoordinate) {
-        this(id, gameObjectsPlacementAbstract);
+        this(id, gameObjectsPlacementStateAutomaton);
         setXyCoordinate(xyCoordinate);
     }
 
@@ -46,14 +46,14 @@ public class GameObject {
         if (xyCoordinate == null) {
             throw new NullPointerException("xyCoordinate must be not null.");
         }
-        if (!gameObjectsPlacementAbstract.getWidthHeightSizes().mayBeRecalc()) {
-            gameObjectsPlacementAbstract.getWidthHeightSizes().validateXYCoordinate(xyCoordinate);
+        if (!gameObjectsPlacementStateAutomaton.getWidthHeightSizes().mayBeRecalc()) {
+            gameObjectsPlacementStateAutomaton.getWidthHeightSizes().validateXYCoordinate(xyCoordinate);
         }
         this.xyCoordinate = xyCoordinate;
     }
 
-    public GameObjectsPlacementAbstract getGameObjectsPlacement() {
-        return gameObjectsPlacementAbstract;
+    public GameObjectsPlacementStateAutomaton getGameObjectsPlacement() {
+        return gameObjectsPlacementStateAutomaton;
     }
 
     @Override
@@ -63,13 +63,13 @@ public class GameObject {
 
         GameObject that = (GameObject) o;
 
-        if (!gameObjectsPlacementAbstract.equals(that.gameObjectsPlacementAbstract)) return false;
+        if (!gameObjectsPlacementStateAutomaton.equals(that.gameObjectsPlacementStateAutomaton)) return false;
         return xyCoordinate.equals(that.xyCoordinate);
     }
 
     @Override
     public int hashCode() {
-        int result = gameObjectsPlacementAbstract.hashCode();
+        int result = gameObjectsPlacementStateAutomaton.hashCode();
         result = 31 * result + xyCoordinate.hashCode();
         return result;
     }

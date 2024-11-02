@@ -19,14 +19,14 @@ public abstract class GameMovesSequence extends GameMovesSequenceNotVerified {
     //  Расстановка после последнего хода, т.е. после того, как:
     //  1. на пустую доску расставили начальную расстановку (заданную в конструкторе),
     //  2. последовательно сделаны все ходы.
-    private GameObjectsPlacementVerified gameObjectsPlacementAfterLastMove;
+    private final GameObjectsPlacementStateAutomaton gameObjectsPlacementAfterLastMove;
 
     public GameMovesSequence(
             GameType gameType,
             ArrayList<GameMove[]> gameMoveArray_ListArray,
             int playerIndexOfFirstMove,
             int playerIndexOfLasstMove,
-            GameObjectsPlacementVerified gameObjectsPlacementVerified) {
+            GameObjectsPlacementStateAutomaton gameObjectsPlacementVerified) {
         super(gameType, gameMoveArray_ListArray, playerIndexOfFirstMove, playerIndexOfLasstMove);
 
         this.gameObjectsPlacementAfterLastMove = gameObjectsPlacementVerified;
@@ -52,7 +52,7 @@ public abstract class GameMovesSequence extends GameMovesSequenceNotVerified {
                 //                  - нельзя переместить игрока более чем на одну плитку по горизонтали или вертикали.
                 //              Например, для Шахмат:
                 //                  - нельзя переместить слона как коня или перепрыгнув ч/з фигуру.
-                matchStatus = gameObjectsPlacementAfterLastMove.applyGameMove(gameMove);
+                matchStatus = gameObjectsPlacementAfterLastMove.makeGameMove(gameMove);
                 if (matchStatus instanceof MatchStatus2GameOver) {
                     indexOfGameCycle = i;
                     indexOfPlayer = j;
