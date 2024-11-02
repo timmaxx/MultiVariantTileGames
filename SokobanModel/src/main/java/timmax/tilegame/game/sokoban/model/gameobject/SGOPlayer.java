@@ -7,8 +7,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class SGOPlayer extends SGOCollisionMovableObject {
-    public SGOPlayer(String id, GameObjectsPlacementNotVerified gameObjectsPlacement, XYCoordinate xyCoordinate) {
-        super(id, gameObjectsPlacement, xyCoordinate);
+    public SGOPlayer(String id, GameObjectsPlacementStateAutomaton gameObjectsPlacementStateAutomaton, XYCoordinate xyCoordinate) {
+        super(id, gameObjectsPlacementStateAutomaton, xyCoordinate);
     }
 
     @Override
@@ -36,8 +36,13 @@ public class SGOPlayer extends SGOCollisionMovableObject {
                     )
             */
 
-            for (SGOBox sgoBox1 : getGameObjectsPlacement().getBoxes()) {
-                countBoxesOnHomes += sgoBox1.countOnHome();
+            // public Set<GameObject> getGameObjectSetFilteredByGameObjectClass(Class<GameObject> gameObjectClass)
+
+            // for (SGOBox sgoBox1 : getGameObjectsPlacement().getBoxes())
+            for (GameObject gameObject : (/*(Set<SGOBox>)*/(getGameObjectsPlacement().getGameObjectSetFilteredByGameObjectClass(SGOBox.class)))) {
+                if (gameObject instanceof SGOBox sgoBox1) {
+                    countBoxesOnHomes += sgoBox1.countOnHome();
+                }
             }
 
             getGameObjectsPlacement()

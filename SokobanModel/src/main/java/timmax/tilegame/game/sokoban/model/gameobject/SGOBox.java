@@ -1,11 +1,11 @@
 package timmax.tilegame.game.sokoban.model.gameobject;
 
-import timmax.tilegame.basemodel.gameobject.GameObjectsPlacementNotVerified;
+import timmax.tilegame.basemodel.gameobject.GameObjectsPlacementStateAutomaton;
 import timmax.tilegame.basemodel.gameobject.XYCoordinate;
 
 public class SGOBox extends SGOCollisionMovableObject {
-    public SGOBox(String id, GameObjectsPlacementNotVerified gameObjectsPlacementNotVerified, XYCoordinate xyCoordinate) {
-        super(id, gameObjectsPlacementNotVerified, xyCoordinate);
+    public SGOBox(String id, GameObjectsPlacementStateAutomaton gameObjectsPlacementNotVerifiedState, XYCoordinate xyCoordinate) {
+        super(id, gameObjectsPlacementNotVerifiedState, xyCoordinate);
     }
 
     public int countOnHome() {

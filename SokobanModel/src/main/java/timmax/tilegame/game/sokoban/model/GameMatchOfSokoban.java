@@ -73,14 +73,14 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
 
     private void move(XYOffsetOne xyOffset) {
         try {
-            getGameObjectsPlacement().getPlayer().move(xyOffset);
+            getGameObjectsPlacementStateAutomaton().getPlayer().move(xyOffset);
         } catch (GameObjectAlreadyExistsException ignored) {
         }
     }
 
     public void addGameEvent(XYCoordinate xyCoordinate) {
-        WhoPersistentInTile whoPersistentInTileBefore = getGameObjectsPlacement().getWhoPersistentInTile(xyCoordinate);
-        WhoMovableInTile whoMovableInTile = getGameObjectsPlacement().getWhoMovableInTile(xyCoordinate);
+        WhoPersistentInTile whoPersistentInTileBefore = getGameObjectsPlacementStateAutomaton().getWhoPersistentInTile(xyCoordinate);
+        WhoMovableInTile whoMovableInTile = getGameObjectsPlacementStateAutomaton().getWhoMovableInTile(xyCoordinate);
         sendGameEventToAllViews(new GameEventOneTileSokobanChangeable(xyCoordinate, whoPersistentInTileBefore, whoMovableInTile));
     }
 
@@ -110,12 +110,12 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         //  Здесь, по порядку:
         //  1. setGameObjectsPlacement(levelLoader.getLevel()),
         //  2. super.setParamsOfModelValueMap().
-        setGameObjectsPlacement(levelLoader.getLevel(this, currentLevel.getValue()));
+        setGameObjectsPlacementStateAutomaton(levelLoader.getLevel(this, currentLevel.getValue()));
         super.setParamsOfModelValueMap(
                 Map.of(PARAM_NAME_WIDTH,
-                        getGameObjectsPlacement().getWidthHeightSizes().getWidth(),
+                        getGameObjectsPlacementStateAutomaton().getWidthHeightSizes().getWidth(),
                         PARAM_NAME_HEIGHT,
-                        getGameObjectsPlacement().getWidthHeightSizes().getHeight()
+                        getGameObjectsPlacementStateAutomaton().getWidthHeightSizes().getHeight()
                 )
         );
     }
@@ -138,23 +138,23 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         // 3. подготовка перечня событий для отправки клиенту для прорисовки расстановки.
 
         // В этой реализации Сокобан не обращаем внимание на gameMatchExtendedDto - просто загружаем следующий уровень.
-        setGameObjectsPlacement(levelLoader.getLevel(this, currentLevel.getValue()));
+        setGameObjectsPlacementStateAutomaton(levelLoader.getLevel(this, currentLevel.getValue()));
 
         super.setParamsOfModelValueMap(
                 Map.of(PARAM_NAME_WIDTH,
-                        getGameObjectsPlacement().getWidthHeightSizes().getWidth(),
+                        getGameObjectsPlacementStateAutomaton().getWidthHeightSizes().getWidth(),
                         PARAM_NAME_HEIGHT,
-                        getGameObjectsPlacement().getWidthHeightSizes().getHeight()
+                        getGameObjectsPlacementStateAutomaton().getWidthHeightSizes().getHeight()
                 )
         );
 
         Set<GameEventOneTile> gameEventOneTileSet = new HashSet<>();
 
-        for (int y = 0; y < getGameObjectsPlacement().getWidthHeightSizes().getHeight(); y++) {
-            for (int x = 0; x < getGameObjectsPlacement().getWidthHeightSizes().getWidth(); x++) {
+        for (int y = 0; y < getGameObjectsPlacementStateAutomaton().getWidthHeightSizes().getHeight(); y++) {
+            for (int x = 0; x < getGameObjectsPlacementStateAutomaton().getWidthHeightSizes().getWidth(); x++) {
                 XYCoordinate xyCoordinate = new XYCoordinate(x, y);
-                WhoPersistentInTile whoPersistentInTile = getGameObjectsPlacement().getWhoPersistentInTile(xyCoordinate);
-                WhoMovableInTile whoMovableInTile = getGameObjectsPlacement().getWhoMovableInTile(xyCoordinate);
+                WhoPersistentInTile whoPersistentInTile = getGameObjectsPlacementStateAutomaton().getWhoPersistentInTile(xyCoordinate);
+                WhoMovableInTile whoMovableInTile = getGameObjectsPlacementStateAutomaton().getWhoMovableInTile(xyCoordinate);
                 // Это чтобы меньше было событий - про пустые плитки не делаем события.
                 if (whoPersistentInTile == IS_EMPTY && whoMovableInTile == IS_NOBODY) {
                     continue;
@@ -174,23 +174,20 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     public void executeMouseCommand(GameCommandMouseClick gameCommandMouseClick) {
         if (gameCommandMouseClick.getMouseButton() == MouseButton.PRIMARY) {
             XYCoordinate xyCoordinateOfMouseClick = gameCommandMouseClick.getXYCoordinate();
-            XYCoordinate xyCoordinateOfPlayer = getGameObjectsPlacement().getPlayer().getXyCoordinate();
+            XYCoordinate xyCoordinateOfPlayer = getGameObjectsPlacementStateAutomaton().getPlayer().getXyCoordinate();
             if (xyCoordinateOfMouseClick.hasEqualY(xyCoordinateOfPlayer)) {
                 if (xyCoordinateOfMouseClick.hasXLesser(xyCoordinateOfPlayer)) {
                     move(TO_LEFT);
-                } else
-                    if (xyCoordinateOfMouseClick.hasXGreater(xyCoordinateOfPlayer)) {
-                        move(TO_RIGHT);
-                    }
-            } else
-                if ((xyCoordinateOfMouseClick.hasEqualX(xyCoordinateOfPlayer))) {
-                    if (xyCoordinateOfMouseClick.hasYLesser(xyCoordinateOfPlayer)) {
-                        move(TO_UP);
-                    } else
-                        if (xyCoordinateOfMouseClick.hasYGreater(xyCoordinateOfPlayer)) {
-                            move(TO_DOWN);
-                        }
+                } else if (xyCoordinateOfMouseClick.hasXGreater(xyCoordinateOfPlayer)) {
+                    move(TO_RIGHT);
                 }
+            } else if ((xyCoordinateOfMouseClick.hasEqualX(xyCoordinateOfPlayer))) {
+                if (xyCoordinateOfMouseClick.hasYLesser(xyCoordinateOfPlayer)) {
+                    move(TO_UP);
+                } else if (xyCoordinateOfMouseClick.hasYGreater(xyCoordinateOfPlayer)) {
+                    move(TO_DOWN);
+                }
+            }
         }/* else if (gameCommandMouseClick.getMouseButton() == MouseButton.SECONDARY) {
             moveUndo();
         }*/ /*else if (gameCommandMouseClick.getMouseButton() == MouseButton.MIDDLE) {
@@ -228,7 +225,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     }
 
     @Override
-    public SokobanPlacementVerified getGameObjectsPlacement() {
-        return (SokobanPlacementVerified) super.getGameObjectsPlacement();
+    protected SokobanPlacementStateAutomaton getGameObjectsPlacementStateAutomaton() {
+        return (SokobanPlacementStateAutomaton) super.getGameObjectsPlacementStateAutomaton();
     }
 }

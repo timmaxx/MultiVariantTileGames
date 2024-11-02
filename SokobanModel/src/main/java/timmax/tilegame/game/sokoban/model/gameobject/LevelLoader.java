@@ -7,6 +7,7 @@ import java.nio.file.Path;
 
 import timmax.tilegame.basemodel.gameobject.XYCoordinate;
 import timmax.tilegame.basemodel.protocol.server.GameMatch;
+import timmax.tilegame.game.sokoban.model.SokobanPlacementStateAutomaton;
 
 //  ToDo:   Классы LevelLoader для Сокобан и LevelGenerator для Сапёра увязать в одну иерархию.
 //          Т.к. они имеют метод getLevel, который возвращает размещение.
@@ -21,7 +22,7 @@ public class LevelLoader {
     }
 
     //  ToDo:   GameMatch gameMatch удалить, т.к. он нужен только для вызова конструктора.
-    public SokobanPlacementVerified getLevel(
+    public SokobanPlacementStateAutomaton getLevel(
             GameMatch gameMatch
             //  ToDo:   Следующий параметр завернуть в
             //              Map<String, Integer> paramsOfModelValueMap
@@ -32,7 +33,7 @@ public class LevelLoader {
         int countOfHome = 0;
         int countOfPlayers = 0;
 
-        SokobanPlacementNotVerified sokobanPlacementNotVerified = new SokobanPlacementNotVerified(gameMatch);
+        SokobanPlacementStateAutomaton sokobanPlacementStateAutomaton = new SokobanPlacementStateAutomaton(gameMatch);
 
         // ToDo:    Нужно высчитать ширину и высоту, исходя из карты уровня (определив число строк и максимальный столбец).
         //          Сейчас берутся явно из файла.
@@ -80,34 +81,34 @@ public class LevelLoader {
                     for (char c : chars) {
                         XYCoordinate xyCoordinate = new XYCoordinate(x, y);
                         if (c == 'X') {
-                            SGOWall sgoWall = new SGOWall(xyCoordinate.toString(), sokobanPlacementNotVerified, xyCoordinate);
+                            SGOWall sgoWall = new SGOWall(xyCoordinate.toString(), sokobanPlacementStateAutomaton, xyCoordinate);
                             SGOStateAutomaton sgoSAutomatonWall = new SGOStateAutomaton(sgoWall);
-                            sokobanPlacementNotVerified.add(sgoSAutomatonWall);
+                            sokobanPlacementStateAutomaton.add(sgoSAutomatonWall);
                         } else if (c == '*') {
                             countOfBoxes++;
-                            SGOBox sgoBox = new SGOBox(xyCoordinate.toString(), sokobanPlacementNotVerified, xyCoordinate);
+                            SGOBox sgoBox = new SGOBox(xyCoordinate.toString(), sokobanPlacementStateAutomaton, xyCoordinate);
                             SGOStateAutomaton sgoSAutomatonBox = new SGOStateAutomaton(sgoBox);
-                            sokobanPlacementNotVerified.add(sgoSAutomatonBox);
+                            sokobanPlacementStateAutomaton.add(sgoSAutomatonBox);
                         } else if (c == '.') {
                             countOfHome++;
-                            SGOHome sgoHome = new SGOHome(xyCoordinate.toString(), sokobanPlacementNotVerified, xyCoordinate);
+                            SGOHome sgoHome = new SGOHome(xyCoordinate.toString(), sokobanPlacementStateAutomaton, xyCoordinate);
                             SGOStateAutomaton sgoSAutomatonHome = new SGOStateAutomaton(sgoHome);
-                            sokobanPlacementNotVerified.add(sgoSAutomatonHome);
+                            sokobanPlacementStateAutomaton.add(sgoSAutomatonHome);
                         } else if (c == '&') {
                             countOfBoxes++;
-                            SGOBox sgoBox = new SGOBox(xyCoordinate.toString(), sokobanPlacementNotVerified, xyCoordinate);
+                            SGOBox sgoBox = new SGOBox(xyCoordinate.toString(), sokobanPlacementStateAutomaton, xyCoordinate);
                             SGOStateAutomaton sgoSAutomatonBox = new SGOStateAutomaton(sgoBox);
-                            sokobanPlacementNotVerified.add(sgoSAutomatonBox);
+                            sokobanPlacementStateAutomaton.add(sgoSAutomatonBox);
 
                             countOfHome++;
-                            SGOHome sgoHome = new SGOHome(xyCoordinate.toString(), sokobanPlacementNotVerified, xyCoordinate);
+                            SGOHome sgoHome = new SGOHome(xyCoordinate.toString(), sokobanPlacementStateAutomaton, xyCoordinate);
                             SGOStateAutomaton sgoSAutomatonHome = new SGOStateAutomaton(sgoHome);
-                            sokobanPlacementNotVerified.add(sgoSAutomatonHome);
+                            sokobanPlacementStateAutomaton.add(sgoSAutomatonHome);
                         } else if (c == '@') {
                             countOfPlayers++;
-                            SGOPlayer sgoPlayer = new SGOPlayer(xyCoordinate.toString(), sokobanPlacementNotVerified, xyCoordinate);
+                            SGOPlayer sgoPlayer = new SGOPlayer(xyCoordinate.toString(), sokobanPlacementStateAutomaton, xyCoordinate);
                             SGOStateAutomaton sgoSAutomatonPlayer = new SGOStateAutomaton(sgoPlayer);
-                            sokobanPlacementNotVerified.add(sgoSAutomatonPlayer);
+                            sokobanPlacementStateAutomaton.add(sgoSAutomatonPlayer);
                         }
                         x++;
                     }
@@ -120,7 +121,8 @@ public class LevelLoader {
 
         validate(countOfPlayers, countOfBoxes, countOfHome);
 
-        return new SokobanPlacementVerified(sokobanPlacementNotVerified);
+        sokobanPlacementStateAutomaton.turnOnVerifable(0);
+        return sokobanPlacementStateAutomaton;
     }
 
     private static void validate(int countOfPlayers, int countOfBoxes, int countOfHome) {
