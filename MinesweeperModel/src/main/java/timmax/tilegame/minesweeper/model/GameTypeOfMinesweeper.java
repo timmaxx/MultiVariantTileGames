@@ -1,16 +1,16 @@
-package timmax.tilegame.game.minesweeper.model;
+package timmax.tilegame.minesweeper.model;
 
 import javafx.scene.paint.Color;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
-import timmax.tilegame.game.minesweeper.model.gameobject.*;
+import timmax.tilegame.minesweeper.model.placement.gameobject.*;
 
 import java.util.Set;
 
 import static javafx.scene.paint.Color.*;
 import static timmax.tilegame.basemodel.protocol.server.GameMatch.PARAM_NAME_HEIGHT;
 import static timmax.tilegame.basemodel.protocol.server.GameMatch.PARAM_NAME_WIDTH;
-import static timmax.tilegame.game.minesweeper.model.GameMatchOfMinesweeper.PARAM_NAME_PERCENTS_OF_MINES;
+import static timmax.tilegame.minesweeper.model.GameMatchOfMinesweeper.PARAM_NAME_PERCENTS_OF_MINES;
 
 //  Warning:(13, 44) Raw use of parameterized class 'GameType'
 public class GameTypeOfMinesweeper extends GameType {

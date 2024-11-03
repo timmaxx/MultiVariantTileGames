@@ -1,4 +1,4 @@
-package timmax.tilegame.game.minesweeper.model.gameevent;
+package timmax.tilegame.minesweeper.model.gameevent;
 
 import java.io.IOException;
 import java.io.ObjectInput;
@@ -15,11 +15,11 @@ public class GameEventMinesweeperPersistentParams extends GameEvent {
 
     public GameEventMinesweeperPersistentParams() {
     }
-
+/*
     public GameEventMinesweeperPersistentParams(int countOfMines) {
         this.countOfMines = countOfMines;
     }
-
+*/
     public int getCountOfMines() {
         return countOfMines;
     }

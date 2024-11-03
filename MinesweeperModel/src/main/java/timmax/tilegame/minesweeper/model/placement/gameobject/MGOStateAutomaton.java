@@ -1,17 +1,14 @@
-package timmax.tilegame.game.minesweeper.model.gameobject;
+package timmax.tilegame.minesweeper.model.placement.gameobject;
 
 import timmax.tilegame.basemodel.exception.XYCoordinateIsOutOfRangeException;
-import timmax.tilegame.basemodel.gameobject.GameObject;
-import timmax.tilegame.basemodel.gameobject.GameObjectStateAutomaton;
-import timmax.tilegame.basemodel.gameobject.XYCoordinate;
-import timmax.tilegame.basemodel.gameobject.XYOffset;
+import timmax.tilegame.basemodel.placement.gameobject.GameObject;
+import timmax.tilegame.basemodel.placement.gameobject.GameObjectStateAutomaton;
+import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
+import timmax.tilegame.basemodel.placement.primitives.XYOffset;
 
 import java.util.HashSet;
 import java.util.Set;
 
-//  ToDo:   Разложить класс TileOfMinesweeper на несколько и в т.ч. перенести сюда часть его функционала.
-//          А для этой модели базовым должен стать этот класс.
-//  ToDo:   После полного отказа от класса TileOfMinesweeper, удалить его.
 public class MGOStateAutomaton extends GameObjectStateAutomaton implements MGOState {
     protected Set<MGOStateAutomaton> neighbourSet; // Соседние плитки
     protected int countOfMinesInNeighbours;

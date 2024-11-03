@@ -1,7 +1,7 @@
-package timmax.tilegame.game.minesweeper.model.gameobject;
+package timmax.tilegame.minesweeper.model.placement.gameobject;
 
-import timmax.tilegame.game.minesweeper.model.gameevent.GameEventOneTileMinesweeperChangeFlag;
-import timmax.tilegame.game.minesweeper.model.gameevent.GameEventOneTileMinesweeperOpenNoMine;
+import timmax.tilegame.minesweeper.model.gameevent.GameEventOneTileMinesweeperChangeFlag;
+import timmax.tilegame.minesweeper.model.gameevent.GameEventOneTileMinesweeperOpenNoMine;
 
 public class MGOSNoMineIsNotOpenedWithoutFlag extends MGOSNoMine {
     public MGOSNoMineIsNotOpenedWithoutFlag(MGOStateAutomaton MGOStateAutomaton) {

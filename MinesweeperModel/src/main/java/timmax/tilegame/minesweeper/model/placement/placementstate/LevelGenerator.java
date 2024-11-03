@@ -1,11 +1,12 @@
-package timmax.tilegame.game.minesweeper.model.gameobject;
+package timmax.tilegame.minesweeper.model.placement.placementstate;
 
 import timmax.tilegame.basemodel.exception.GameObjectAlreadyExistsException;
-import timmax.tilegame.basemodel.gameobject.GameObject;
-import timmax.tilegame.basemodel.gameobject.GameObjectsPlacementStateAutomaton;
-import timmax.tilegame.basemodel.gameobject.WidthHeightSizes;
-import timmax.tilegame.basemodel.gameobject.XYCoordinate;
+import timmax.tilegame.basemodel.placement.gameobject.GameObject;
+import timmax.tilegame.basemodel.placement.placementstate.GameObjectsPlacementStateAutomaton;
+import timmax.tilegame.basemodel.placement.primitives.WidthHeightSizes;
+import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
 import timmax.tilegame.basemodel.protocol.server.GameMatch;
+import timmax.tilegame.minesweeper.model.placement.gameobject.MGOStateAutomaton;
 
 //  ToDo:   Классы LevelLoader для Сокобан и LevelGenerator для Сапёра увязать в одну иерархию.
 //          Т.к. они имеют метод getLevel, который возвращает размещение.
@@ -41,7 +42,7 @@ public class LevelGenerator {
                 ));
             }
             //  Warning:(45, 15) Empty 'catch' block
-            catch (RuntimeException rte) {
+            catch (GameObjectAlreadyExistsException ignored) {
             }
             countMinesOnField++;
         } while (countMinesOnField < widthHeightSizes.getSquare() * restOfMineInstallationInPercents / 100);
@@ -61,7 +62,7 @@ public class LevelGenerator {
                     ));
                 }
                 //  Warning:(65, 19) Empty 'catch' block
-                catch (RuntimeException rte) {
+                catch (GameObjectAlreadyExistsException ignored) {
                 }
             }
         }

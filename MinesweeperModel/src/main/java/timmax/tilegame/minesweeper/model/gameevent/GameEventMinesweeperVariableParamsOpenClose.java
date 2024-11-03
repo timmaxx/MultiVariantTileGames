@@ -1,4 +1,4 @@
-package timmax.tilegame.game.minesweeper.model.gameevent;
+package timmax.tilegame.minesweeper.model.gameevent;
 
 import java.io.IOException;
 import java.io.ObjectInput;
@@ -17,14 +17,14 @@ public class GameEventMinesweeperVariableParamsOpenClose extends GameEvent {
 
     public GameEventMinesweeperVariableParamsOpenClose() {
     }
-
+/*
     public GameEventMinesweeperVariableParamsOpenClose(
             int tilesWereOpened,
             int tilesStillClose) {
         this.tilesWereOpened = tilesWereOpened;
         this.tilesStillClose = tilesStillClose;
     }
-
+*/
     public int getTilesWereOpened() {
         return tilesWereOpened;
     }

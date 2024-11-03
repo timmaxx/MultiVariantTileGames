@@ -1,6 +1,6 @@
-package timmax.tilegame.game.minesweeper.model.gameobject;
+package timmax.tilegame.minesweeper.model.placement.gameobject;
 
-import timmax.tilegame.basemodel.gameobject.AbstractGameObjectState;
+import timmax.tilegame.basemodel.placement.placementstate.AbstractGameObjectState;
 
 public abstract class AbstractMGOState extends AbstractGameObjectState implements MGOState {
 

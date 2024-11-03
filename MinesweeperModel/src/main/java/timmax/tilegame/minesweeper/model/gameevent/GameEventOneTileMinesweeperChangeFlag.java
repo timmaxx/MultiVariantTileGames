@@ -1,4 +1,4 @@
-package timmax.tilegame.game.minesweeper.model.gameevent;
+package timmax.tilegame.minesweeper.model.gameevent;
 
 import java.io.IOException;
 import java.io.ObjectInput;
@@ -7,9 +7,9 @@ import java.io.ObjectOutput;
 import javafx.scene.paint.Color;
 
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
-import timmax.tilegame.basemodel.gameobject.XYCoordinate;
+import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
 
-import static timmax.tilegame.game.minesweeper.model.GameTypeOfMinesweeper.*;
+import static timmax.tilegame.minesweeper.model.GameTypeOfMinesweeper.*;
 
 public class GameEventOneTileMinesweeperChangeFlag extends GameEventOneTile {
     private boolean isFlag;

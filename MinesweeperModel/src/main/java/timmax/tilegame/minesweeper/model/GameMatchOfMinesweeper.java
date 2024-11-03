@@ -1,17 +1,17 @@
-package timmax.tilegame.game.minesweeper.model;
+package timmax.tilegame.minesweeper.model;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
-import timmax.tilegame.basemodel.gameobject.WidthHeightSizes;
+import timmax.tilegame.basemodel.placement.primitives.WidthHeightSizes;
 import timmax.tilegame.basemodel.protocol.server.GameMatch;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
-import timmax.tilegame.game.minesweeper.model.gameobject.LevelGenerator;
-import timmax.tilegame.game.minesweeper.model.gameobject.MGOStateAutomaton;
+import timmax.tilegame.minesweeper.model.placement.placementstate.LevelGenerator;
+import timmax.tilegame.minesweeper.model.placement.gameobject.MGOStateAutomaton;
 
 import java.util.HashSet;
 import java.util.Map;

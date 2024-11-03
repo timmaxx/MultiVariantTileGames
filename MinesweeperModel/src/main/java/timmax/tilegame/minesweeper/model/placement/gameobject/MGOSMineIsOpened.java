@@ -1,7 +1,7 @@
-package timmax.tilegame.game.minesweeper.model.gameobject;
+package timmax.tilegame.minesweeper.model.placement.gameobject;
 
-public class MGOSNoMineIsOpened extends MGOSNoMine {
-    public MGOSNoMineIsOpened(MGOStateAutomaton MGOStateAutomaton) {
+public class MGOSMineIsOpened extends MGOSMine {
+    public MGOSMineIsOpened(MGOStateAutomaton MGOStateAutomaton) {
         super(MGOStateAutomaton);
     }
 

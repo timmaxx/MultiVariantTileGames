@@ -1,4 +1,4 @@
-package timmax.tilegame.game.minesweeper.model.gameevent;
+package timmax.tilegame.minesweeper.model.gameevent;
 
 import java.io.IOException;
 import java.io.ObjectInput;
@@ -17,14 +17,14 @@ public class GameEventMinesweeperVariableParamsFlag extends GameEvent {
 
     public GameEventMinesweeperVariableParamsFlag() {
     }
-
+/*
     public GameEventMinesweeperVariableParamsFlag(
             int flagsWereUsed,
             int flagsAreStillAvailableForUsing) {
         this.flagsWereUsed = flagsWereUsed;
         this.flagsAreStillAvailableForUsing = flagsAreStillAvailableForUsing;
     }
-
+*/
     public int getFlagsWereUsed() {
         return flagsWereUsed;
     }

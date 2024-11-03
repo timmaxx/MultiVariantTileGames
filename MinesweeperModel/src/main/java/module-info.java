@@ -1,8 +1,8 @@
-module timmax.tilegame.game.minesweeper.model {
+module timmax.tilegame.minesweeper.model {
     requires org.slf4j;
     requires javafx.graphics;
 
     requires timmax.tilegame.basetilemodel;
 
-    exports timmax.tilegame.game.minesweeper.model.gameevent;
+    exports timmax.tilegame.minesweeper.model.gameevent;
 }

@@ -1,9 +1,9 @@
-package timmax.tilegame.game.minesweeper.model.gameobject;
+package timmax.tilegame.minesweeper.model.placement.gameobject;
 
-import timmax.tilegame.game.minesweeper.model.gameevent.GameEventOneTileMinesweeperChangeFlag;
+import timmax.tilegame.minesweeper.model.gameevent.GameEventOneTileMinesweeperChangeFlag;
 
-public class MGOSNoMineIsNotOpenedWithFlag extends MGOSNoMine {
-    public MGOSNoMineIsNotOpenedWithFlag(MGOStateAutomaton MGOStateAutomaton) {
+public class MGOSMineIsNotOpenedWithFlag extends MGOSMine {
+    public MGOSMineIsNotOpenedWithFlag(MGOStateAutomaton MGOStateAutomaton) {
         super(MGOStateAutomaton);
     }
 
@@ -14,7 +14,7 @@ public class MGOSNoMineIsNotOpenedWithFlag extends MGOSNoMine {
 
     @Override
     public void inverseFlag() {
-        getGameObjectStateAutomaton().setCurrentStateNoMineIsNotOpenedWithoutFlag();
+        getGameObjectStateAutomaton().setCurrentStateMineIsNotOpenedWithoutFlag();
 
         getGameObjectStateAutomaton()
                 .getGameObject()
