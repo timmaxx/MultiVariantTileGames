@@ -6,9 +6,6 @@ import timmax.tilegame.basemodel.placement.placementstate.GameObjectsPlacementSt
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
 
 //  Одноплиточный игровой объект.
-//  Ранее назывался OneTileGameObject.
-//  Предполагалость, что потом будет многоплиточный игровой объект (типа падающей фигурки у Тетриса).
-//  Но такого ещё и нет, но, а если он и появится, то и пусть он называется, например, MultiTileGameObject.
 public class GameObject {
     protected static final Logger logger = LoggerFactory.getLogger(GameObject.class);
 
@@ -19,20 +16,16 @@ public class GameObject {
     private final String id;
 
     //  Расстановка, которой принадлежит объект.
-    protected GameObjectsPlacementStateAutomaton gameObjectsPlacementStateAutomaton;
+    protected final GameObjectsPlacementStateAutomaton gameObjectsPlacementStateAutomaton;
 
     protected XYCoordinate xyCoordinate;
-
-    public GameObject(String id, GameObjectsPlacementStateAutomaton gameObjectsPlacementStateAutomaton) {
-        this.id = id;
-        this.gameObjectsPlacementStateAutomaton = gameObjectsPlacementStateAutomaton;
-    }
 
     public GameObject(
             String id,
             GameObjectsPlacementStateAutomaton gameObjectsPlacementStateAutomaton,
             XYCoordinate xyCoordinate) {
-        this(id, gameObjectsPlacementStateAutomaton);
+        this.id = id;
+        this.gameObjectsPlacementStateAutomaton = gameObjectsPlacementStateAutomaton;
         setXyCoordinate(xyCoordinate);
     }
 
@@ -46,7 +39,7 @@ public class GameObject {
 
     protected void setXyCoordinate(XYCoordinate xyCoordinate) {
         if (xyCoordinate == null) {
-            throw new NullPointerException("xyCoordinate must be not null.");
+            throw new NullPointerException("xyCoordinate must be not null");
         }
         if (!gameObjectsPlacementStateAutomaton.getWidthHeightSizes().mayBeRecalc()) {
             gameObjectsPlacementStateAutomaton.getWidthHeightSizes().validateXYCoordinate(xyCoordinate);
