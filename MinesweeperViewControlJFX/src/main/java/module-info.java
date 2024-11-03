@@ -4,7 +4,7 @@ module timmax.tilegame.game.minesweeper.jfx {
 
     requires timmax.tilegame.basetilemodel;
     requires timmax.tilegame.guiengine.jfx;
-    requires timmax.tilegame.game.minesweeper.model;
+    requires timmax.tilegame.minesweeper.model;
 
-    exports timmax.tilegame.game.minesweeper.jfx.view;
+    exports timmax.tilegame.minesweeper.jfx.view;
 }

@@ -1,13 +1,13 @@
-package timmax.tilegame.game.minesweeper.jfx.view;
+package timmax.tilegame.minesweeper.jfx.view;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.transport.TransportOfClient;
 import timmax.tilegame.guiengine.jfx.view.ViewTextFieldsJfx;
 
-import timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsFlag;
+import timmax.tilegame.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsFlag;
 
-import static timmax.tilegame.game.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsFlag.*;
+import static timmax.tilegame.minesweeper.model.gameevent.GameEventMinesweeperVariableParamsFlag.*;
 
 public class MinesweeperVariableSettingsFlag extends ViewTextFieldsJfx {
     public MinesweeperVariableSettingsFlag(TransportOfClient transportOfClient, String viewName, GameType gameType) {
