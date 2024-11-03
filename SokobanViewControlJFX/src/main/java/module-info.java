@@ -1,10 +1,10 @@
-module timmax.tilegame.game.sokoban.jfx {
+module timmax.tilegame.sokoban.jfx {
     requires org.slf4j;
     requires javafx.graphics;
 
     requires timmax.tilegame.basetilemodel;
     requires timmax.tilegame.guiengine.jfx;
-    requires timmax.tilegame.game.sokoban.model;
+    requires timmax.tilegame.sokoban.model;
 
-    exports timmax.tilegame.game.sokoban.jfx.view;
+    exports timmax.tilegame.sokoban.jfx.view;
 }
