@@ -1,4 +1,4 @@
-package timmax.tilegame.basemodel.gameobject;
+package timmax.tilegame.basemodel.placement.gamemove;
 
 //  Ход должен соответствовать правилам типа игры без относительно расстановки.
 //      Например, для Сокобан:
@@ -7,6 +7,6 @@ package timmax.tilegame.basemodel.gameobject;
 //          - нельзя переместить слона как коня.
 //  Конструктор хода может быть выполнен без исключений, если ход (как будто доска пустая) соответствует правилам.
 
-//  Игровой ход (только одного игрока в игровом цикле)
+//  Игровой ход (только одного игрока в игровом цикле).
 public abstract class GameMove {
 }

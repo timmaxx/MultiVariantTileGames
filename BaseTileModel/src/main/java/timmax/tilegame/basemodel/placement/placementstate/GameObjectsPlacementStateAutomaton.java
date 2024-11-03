@@ -1,7 +1,13 @@
-package timmax.tilegame.basemodel.gameobject;
+package timmax.tilegame.basemodel.placement.placementstate;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import timmax.tilegame.basemodel.placement.gameobject.GameObject;
+import timmax.tilegame.basemodel.placement.gameobject.GameObjectStateAutomaton;
+import timmax.tilegame.basemodel.placement.primitives.WidthHeightSizes;
+import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
+import timmax.tilegame.basemodel.placement.gamemove.GameMove;
+import timmax.tilegame.basemodel.placement.matchstatus.MatchStatus;
 import timmax.tilegame.basemodel.protocol.server.GameMatch;
 
 import java.util.Set;

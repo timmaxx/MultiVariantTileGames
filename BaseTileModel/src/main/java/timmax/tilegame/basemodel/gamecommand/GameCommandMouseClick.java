@@ -6,7 +6,7 @@ import java.io.ObjectOutput;
 
 import javafx.scene.input.MouseButton;
 
-import timmax.tilegame.basemodel.gameobject.XYCoordinate;
+import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
 import timmax.tilegame.basemodel.protocol.server.IGameMatch;
 
 public class GameCommandMouseClick extends GameCommandOneTile {

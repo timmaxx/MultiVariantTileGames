@@ -1,4 +1,4 @@
-package timmax.tilegame.basemodel.gameobject;
+package timmax.tilegame.basemodel.placement.matchstatus;
 
 //  Матч окончен выигрышем/проигрышем - т.е. нельзя делать ход.
 //  Для Шахмат его подклассом мог-бы стать класс Мат (MatchStatus21GameOverWinOrLoseСheckmate).

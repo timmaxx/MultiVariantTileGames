@@ -1,4 +1,4 @@
-package timmax.tilegame.basemodel.gameobject;
+package timmax.tilegame.basemodel.placement.matchstatus;
 
 //  Статус неопределён - т.е. нельзя делать ход.
 //  Используется для инициализации расстановки.

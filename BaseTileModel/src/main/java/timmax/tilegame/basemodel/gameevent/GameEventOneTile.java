@@ -7,7 +7,7 @@ import java.io.ObjectOutput;
 import javafx.scene.paint.Color;
 
 import timmax.common.JFXColorWithExternalizable;
-import timmax.tilegame.basemodel.gameobject.XYCoordinate;
+import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
 
 public abstract class GameEventOneTile extends GameEvent {
     private XYCoordinate xyCoordinate;

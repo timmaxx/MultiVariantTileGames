@@ -1,4 +1,4 @@
-package timmax.tilegame.basemodel.gameobject;
+package timmax.tilegame.basemodel.placement.gamemove;
 
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
@@ -39,7 +39,7 @@ public abstract class GameMovesSequenceNotVerified {
     public GameType getGameType() {
         return gameType;
     }
-
+/*
     public ArrayList<GameMove[]> getGameMoveArray_ListArray() {
         return gameMoveArray_ListArray;
     }
@@ -47,7 +47,7 @@ public abstract class GameMovesSequenceNotVerified {
     public int getPlayerIndexOfFirstMove() {
         return playerIndexOfFirstMove;
     }
-
+*/
     public int getPlayerIndexOfNextAfterLastMove() {
         return playerIndexOfNextAfterLastMove;
     }

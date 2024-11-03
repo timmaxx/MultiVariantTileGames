@@ -1,6 +1,6 @@
 package timmax.tilegame.basemodel.gameevent;
 
-import timmax.tilegame.basemodel.gameobject.WidthHeightSizes;
+import timmax.tilegame.basemodel.placement.primitives.WidthHeightSizes;
 
 import java.io.IOException;
 import java.io.ObjectInput;

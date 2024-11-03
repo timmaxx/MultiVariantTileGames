@@ -1,5 +1,9 @@
-package timmax.tilegame.basemodel.gameobject;
+package timmax.tilegame.basemodel.placement.gamemove;
 
+import timmax.tilegame.basemodel.placement.placementstate.GameObjectsPlacementStateAutomaton;
+import timmax.tilegame.basemodel.placement.matchstatus.MatchStatus;
+import timmax.tilegame.basemodel.placement.matchstatus.MatchStatus1Running;
+import timmax.tilegame.basemodel.placement.matchstatus.MatchStatus2GameOver;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
 import java.util.ArrayList;
@@ -14,7 +18,7 @@ import java.util.ArrayList;
 //          После каждого хода нужно проверять не достигнут-ли конец партии. А если достигнут, то зафиксировать
 //          конец партии и успешность (победа/поражение) каждого игрока или ничья и не принимать следующие ходы.
 
-//  Последовательность игровых ходов (матча) (с приложением к начальной расстановке)
+//  Последовательность игровых ходов (матча) (с приложением к начальной Расстановке).
 public abstract class GameMovesSequence extends GameMovesSequenceNotVerified {
     //  Расстановка после последнего хода, т.е. после того, как:
     //  1. на пустую доску расставили начальную расстановку (заданную в конструкторе),

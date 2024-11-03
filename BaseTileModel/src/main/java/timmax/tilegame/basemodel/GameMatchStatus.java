@@ -3,7 +3,7 @@ package timmax.tilegame.basemodel;
 //  Текущий статус матча относительно того стартовал он или нет, на паузе или нет, достигнут конец матча -
 //  т.е. в работе-ли на сервере этот матч и можно-ли применять к нему игровые события, которые поступают
 //  от контролов игровых клиентов.
-//  Также смотри timmax.tilegame.basemodel.gameobject.MatchStatus
+//  Также смотри timmax.tilegame.basemodel.gameobject.matchstatus.MatchStatus
 public enum GameMatchStatus {
     NOT_STARTED,    //  Не стартовал
     GAME,           //  Матч в процессе игры

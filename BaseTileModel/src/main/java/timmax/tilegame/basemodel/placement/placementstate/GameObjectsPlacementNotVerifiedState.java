@@ -1,6 +1,12 @@
-package timmax.tilegame.basemodel.gameobject;
+package timmax.tilegame.basemodel.placement.placementstate;
 
-//  Класс нужен для первичной инициализации размещения, когда размещение не сможет пройти проверку на целостность:
+import timmax.tilegame.basemodel.exception.GameObjectAlreadyExistsException;
+import timmax.tilegame.basemodel.exception.WidthHeightIsNotAllowedRecalcException;
+import timmax.tilegame.basemodel.exception.XYCoordinateIsOutOfRangeException;
+import timmax.tilegame.basemodel.placement.gameobject.GameObjectStateAutomaton;
+import timmax.tilegame.basemodel.placement.primitives.WidthHeightSizes;
+
+//  Класс нужен для первичной инициализации расстановки, когда расстановка не сможет пройти проверку на целостность:
 //  - размер поля при инициализации может быть не известен.
 //      (например, для игр у которых карта может иметь различные размеры на разных уровнях -
 //      тогда размеры поля будут динамически пересчитаны при добавлении нового объекта).
@@ -16,8 +22,6 @@ package timmax.tilegame.basemodel.gameobject;
 //            добавление объекта, а методов редактирования и удаления не должно быть).
 //  В экземпляр этого класса можно произвольно добавлять игровой объект, невзирая на правила расстановки для типа игры.
 
-import timmax.tilegame.basemodel.protocol.server.GameMatch;
-
 //  Расстановка игровых объектов (матча) без проверки целостности.
 public class GameObjectsPlacementNotVerifiedState extends GameObjectsPlacementAbstractState {
     public GameObjectsPlacementNotVerifiedState(GameObjectsPlacementStateAutomaton gameObjectsPlacementStateAutomaton) {
@@ -26,12 +30,13 @@ public class GameObjectsPlacementNotVerifiedState extends GameObjectsPlacementAb
 
     //  Добавляется игровой объект в расстановку
     @Override
-    public void add(GameObjectStateAutomaton gameObjectStateAutomaton) {
+    public void add(GameObjectStateAutomaton gameObjectStateAutomaton)
+            throws XYCoordinateIsOutOfRangeException, GameObjectAlreadyExistsException, WidthHeightIsNotAllowedRecalcException {
         if (!getWidthHeightSizes().mayBeRecalc()) {
             getWidthHeightSizes().validateXYCoordinate(gameObjectStateAutomaton.getXyCoordinate());
         }
         if (!getGameObjectStateAutomatonSet().add(gameObjectStateAutomaton)) {
-            throw new RuntimeException("You cannot add gameObjectStateAutomaton if there is the same one.");
+            throw new GameObjectAlreadyExistsException(gameObjectStateAutomaton.getXyCoordinate());
         }
         if (getWidthHeightSizes().mayBeRecalc()) {
             getWidthHeightSizes().recalc(gameObjectStateAutomaton.getXyCoordinate());

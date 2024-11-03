@@ -1,6 +1,6 @@
 package timmax.tilegame.basemodel.gamecommand;
 
-import timmax.tilegame.basemodel.gameobject.XYCoordinate;
+import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
 
 import java.io.IOException;
 import java.io.ObjectInput;

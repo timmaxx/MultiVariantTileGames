@@ -1,6 +1,6 @@
 package timmax.tilegame.basemodel.exception;
 
-import timmax.tilegame.basemodel.gameobject.XYCoordinate;
+import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
 
 public class XYCoordinateIsOutOfRangeException extends RuntimeException {
     public XYCoordinateIsOutOfRangeException(XYCoordinate xyCoordinate) {

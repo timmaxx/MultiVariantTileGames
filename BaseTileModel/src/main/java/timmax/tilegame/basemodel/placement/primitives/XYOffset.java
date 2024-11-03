@@ -1,4 +1,4 @@
-package timmax.tilegame.basemodel.gameobject;
+package timmax.tilegame.basemodel.placement.primitives;
 
 //  Смещение на поле
 public class XYOffset {

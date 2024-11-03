@@ -1,4 +1,7 @@
-package timmax.tilegame.basemodel.gameobject;
+package timmax.tilegame.basemodel.placement.placementstate;
+
+import timmax.tilegame.basemodel.placement.gameobject.GameObjectState;
+import timmax.tilegame.basemodel.placement.gameobject.GameObjectStateAutomaton;
 
 public abstract class AbstractGameObjectState implements GameObjectState {
     private final GameObjectStateAutomaton gameObjectStateAutomaton;

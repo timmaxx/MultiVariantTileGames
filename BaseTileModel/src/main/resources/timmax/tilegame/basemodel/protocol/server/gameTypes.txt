@@ -1,2 +1,2 @@
-timmax.tilegame.game.minesweeper.model.GameTypeOfMinesweeper
-timmax.tilegame.game.sokoban.model.GameTypeOfSokoban
+timmax.tilegame.minesweeper.model.GameTypeOfMinesweeper
+timmax.tilegame.sokoban.model.GameTypeOfSokoban

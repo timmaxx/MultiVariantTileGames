@@ -1,5 +1,9 @@
-package timmax.tilegame.basemodel.gameobject;
+package timmax.tilegame.basemodel.placement.placementstate;
 
+import timmax.tilegame.basemodel.placement.gameobject.GameObjectStateAutomaton;
+import timmax.tilegame.basemodel.placement.primitives.WidthHeightSizes;
+import timmax.tilegame.basemodel.placement.gamemove.GameMove;
+import timmax.tilegame.basemodel.placement.matchstatus.MatchStatus;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
 import java.util.Set;
@@ -25,7 +29,7 @@ public abstract class GameObjectsPlacementAbstractState implements GameObjectsPl
         return getGameObjectStateAutomatonSet()
                 .stream()
                 .filter(gosa -> gosa.getGameObject().getClass().equals(gameObjectClass))
-                //  Warning:(75, 30) Unchecked cast: 'timmax.tilegame.basemodel.gameobject.GameObject' to 'GO'
+                //  Warning:(75, 30) Unchecked cast: 'timmax.tilegame.basemodel.gameobject.placement.GameObject' to 'GO'
                 .map(gosa -> (GO) (gosa.getGameObject()))
                 .collect(Collectors.toSet());
     }

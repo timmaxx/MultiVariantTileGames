@@ -7,7 +7,7 @@ import timmax.tilegame.basemodel.GameMatchStatus;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
-import timmax.tilegame.basemodel.gameobject.GameObjectsPlacementStateAutomaton;
+import timmax.tilegame.basemodel.placement.placementstate.GameObjectsPlacementStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
 
@@ -80,6 +80,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         return gameObjectsPlacementStateAutomaton;
     }
 
+    //  ToDo:   Проверить, чтобы Расстановка была верифицируемой!
     protected void setGameObjectsPlacementStateAutomaton(GameObjectsPlacementStateAutomaton gameObjectsPlacementStateAutomaton) {
         this.gameObjectsPlacementStateAutomaton = gameObjectsPlacementStateAutomaton;
     }
@@ -98,6 +99,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         }
     }
 
+    //  ToDo:   Этот метод здесь не к месту.
     // Посылает игровое событие всем выборкам.
     public void sendGameEventToAllViews(GameEvent gameEvent) {
         //  Warning:(101, 9) Unchecked call to 'sendGameEventToAllViews(GameEvent, RemoteClientStateAutomaton<ClientId>)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.GameType'

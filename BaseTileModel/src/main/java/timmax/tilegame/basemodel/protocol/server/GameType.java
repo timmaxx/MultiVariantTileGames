@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import timmax.common.JFXColorWithExternalizable;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
-import timmax.tilegame.basemodel.gameobject.GameObjectStateAutomaton;
+import timmax.tilegame.basemodel.placement.gameobject.GameObjectStateAutomaton;
 import timmax.tilegame.basemodel.protocol.EventOfServer;
 import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent;
 import timmax.tilegame.basemodel.protocol.IGameType;
@@ -158,6 +158,10 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
         return gameMatchConstructor;
     }
 
+    //  ToDo:   Этот метод здесь не к месту. Т.к.:
+    //          - вызывается он только из GameMatch,
+    //          - единственное поле, которое используется в методе - это viewName_ViewClassMap
+    //              (а именно .keySet() - т.е. имена классов выборок, которым направлять события)
     public <ClientId> void sendGameEventToAllViews(GameEvent gameEvent, RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
         for (String viewName : viewName_ViewClassMap.keySet()) {
             EventOfServer eventOfServer = new EventOfServer92GameEvent(viewName, gameEvent);

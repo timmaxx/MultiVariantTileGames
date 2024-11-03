@@ -1,4 +1,9 @@
-package timmax.tilegame.basemodel.gameobject;
+package timmax.tilegame.basemodel.placement.placementstate;
+
+import timmax.tilegame.basemodel.placement.gamemove.GameMove;
+import timmax.tilegame.basemodel.placement.matchstatus.MatchStatus;
+import timmax.tilegame.basemodel.placement.matchstatus.MatchStatus0Undefined;
+import timmax.tilegame.basemodel.placement.matchstatus.MatchStatus1Running;
 
 //  Расстановка игровых объектов (матча) с проверкой целостности (и на этапе создания и при каждом ходе).
 public class GameObjectsPlacementVerifiedState extends GameObjectsPlacementAbstractState {

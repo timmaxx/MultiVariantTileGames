@@ -1,7 +1,9 @@
-package timmax.tilegame.basemodel.gameobject;
+package timmax.tilegame.basemodel.placement.placementstate;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import timmax.tilegame.basemodel.placement.gameobject.GameObject;
+import timmax.tilegame.basemodel.placement.gameobject.GameObjectStateAutomaton;
+import timmax.tilegame.basemodel.placement.primitives.WidthHeightSizes;
+import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
 import timmax.tilegame.basemodel.protocol.server.GameMatch;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
@@ -13,8 +15,6 @@ import java.util.stream.Collectors;
 //  Является базовым классом (хранящим данные и содержащим методы, но при этом не наследуемым)
 //  как для верифицируемого, так и для не верифицируемой Расстановки.
 public final class GameObjectsPlacementBaseInstance {
-    private static final Logger logger = LoggerFactory.getLogger(GameObjectsPlacementBaseInstance.class);
-
     private final GameMatch gameMatch;
 
     //  Множество всех конкретных объектов расстановки как состояний этих объектов.
@@ -77,13 +77,6 @@ public final class GameObjectsPlacementBaseInstance {
     }
 
     public Set<GameObject> getGameObjectSetFilteredByGameObjectClass(Class<? extends GameObject> gameObjectClass) {
-/*
-        return gameObjectStateAutomatonSet
-                .stream()
-                .filter(gosa -> gosa.getGameObject().getClass().equals(gameObjectClass))
-                .map(GameObjectStateAutomaton::getGameObject)
-                .collect(Collectors.toSet());
-*/
         return gameObjectStateAutomatonSet
                 .stream()
                 .map(GameObjectStateAutomaton::getGameObject)

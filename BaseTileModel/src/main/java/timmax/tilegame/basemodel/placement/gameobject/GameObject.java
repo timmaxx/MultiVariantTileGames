@@ -1,7 +1,9 @@
-package timmax.tilegame.basemodel.gameobject;
+package timmax.tilegame.basemodel.placement.gameobject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import timmax.tilegame.basemodel.placement.placementstate.GameObjectsPlacementStateAutomaton;
+import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
 
 //  Одноплиточный игровой объект.
 //  Ранее назывался OneTileGameObject.

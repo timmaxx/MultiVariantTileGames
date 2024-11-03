@@ -1,4 +1,4 @@
-package timmax.tilegame.basemodel.gameobject;
+package timmax.tilegame.basemodel.placement.matchstatus;
 
 //  Статус матча
 //  Этот статус определяет возможность делания игрового хода:

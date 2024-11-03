@@ -1,4 +1,4 @@
-package timmax.tilegame.basemodel.gameobject;
+package timmax.tilegame.basemodel.placement.primitives;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.Random;
 
-import static timmax.tilegame.basemodel.gameobject.XYOffset.NO_OFFSET;
+import static timmax.tilegame.basemodel.placement.primitives.XYOffset.NO_OFFSET;
 
 //  ToDo:   Разделить функциональность DTO и основных функций в разные классы.
 //          Класс реализует Externalizable для того, чтобы быть DTO.

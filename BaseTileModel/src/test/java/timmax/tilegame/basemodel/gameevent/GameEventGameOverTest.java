@@ -2,7 +2,7 @@ package timmax.tilegame.basemodel.gameevent;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import timmax.tilegame.basemodel.gameobject.WidthHeightSizes;
+import timmax.tilegame.basemodel.placement.primitives.WidthHeightSizes;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 

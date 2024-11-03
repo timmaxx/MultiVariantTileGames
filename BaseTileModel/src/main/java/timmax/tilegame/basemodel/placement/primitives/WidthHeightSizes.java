@@ -1,4 +1,4 @@
-package timmax.tilegame.basemodel.gameobject;
+package timmax.tilegame.basemodel.placement.primitives;
 
 import timmax.tilegame.basemodel.exception.WidthHeightIsNotAllowedRecalcException;
 import timmax.tilegame.basemodel.exception.XYCoordinateIsOutOfRangeException;
