@@ -5,7 +5,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
-import timmax.tilegame.basemodel.gameobject.XYCoordinate;
+import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
 
 public class GameStackPane extends StackPane {
     private static final double COORDINATE_TEXT_FONT_SIZE_COEFFICIENT = 0.15;
