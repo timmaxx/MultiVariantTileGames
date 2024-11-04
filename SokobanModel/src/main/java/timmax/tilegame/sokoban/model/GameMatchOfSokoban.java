@@ -1,6 +1,7 @@
 package timmax.tilegame.sokoban.model;
 
 import java.net.URISyntaxException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Map;
@@ -21,7 +22,6 @@ import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
 
 import timmax.tilegame.sokoban.model.gameevent.GameEventOneTileSokobanChangeable;
-import timmax.tilegame.sokoban.model.placement.placementstate.LevelLoader;
 import timmax.tilegame.sokoban.model.placement.gameobject.WhoMovableInTile;
 import timmax.tilegame.sokoban.model.placement.gameobject.WhoPersistentInTile;
 
@@ -29,25 +29,22 @@ import static timmax.tilegame.basemodel.GameMatchStatus.FORCE_RESTART_OR_CHANGE_
 
 public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     //  1.  String constants
-    //      Их нет.
+    //      Нет.
 
-    //  2.  Level generator/loader
-    private static final LevelLoader levelLoader;
+    //  2.  static pathToLevels
+    private static final Path pathToLevels;
 
     //  3.  Переменные экземпляра
     private final CurrentLevel currentLevel = new CurrentLevel();
     // private Route route;
     // private Route routeRedo = new Route();
 
-    //  4.  Инициализатор Level generator/loader
+    //  4.  Инициализатор pathToLevels
     static {
         try {
-            levelLoader = new LevelLoader(
-                    Paths.get(
-                            Objects
-                                    .requireNonNull(GameMatchOfSokoban.class.getResource("levels.txt"))
-                                    .toURI()
-                    )
+            pathToLevels = Paths.get(Objects
+                    .requireNonNull(GameMatchOfSokoban.class.getResource("levels.txt"))
+                    .toURI()
             );
         } catch (URISyntaxException uriSE) {
             logger.error("There is a problem with file with game levels.", uriSE);
@@ -92,10 +89,11 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     public void setParamsOfModelValueMap(Map<String, Integer> paramsOfModelValueMap) {
         throwExceptionIfIsPlaying();
 
-        //  Здесь, по порядку:
-        //  1. setGameObjectsPlacement(levelLoader.getLevel()),
+        //  Здесь, в таком порядке:
+        //  1. setGameObjectsPlacement(new SokobanPlacementStateAutomaton(...)),
         //  2. super.setParamsOfModelValueMap().
-        setGameObjectsPlacementStateAutomaton(levelLoader.getLevel(this, currentLevel.getValue()));
+
+        setGameObjectsPlacementStateAutomaton(new SokobanPlacementStateAutomaton(this, pathToLevels, currentLevel.getValue()));
         super.setParamsOfModelValueMap(
                 Map.of(PARAM_NAME_WIDTH,
                         getGameObjectsPlacementStateAutomaton().getWidthHeightSizes().getWidth(),
@@ -123,8 +121,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         // 3. подготовка перечня событий для отправки клиенту для прорисовки расстановки.
 
         // В этой реализации Сокобан не обращаем внимание на gameMatchExtendedDto - просто загружаем следующий уровень.
-        setGameObjectsPlacementStateAutomaton(levelLoader.getLevel(this, currentLevel.getValue()));
-
+        setGameObjectsPlacementStateAutomaton(new SokobanPlacementStateAutomaton(this, pathToLevels, currentLevel.getValue()));
         super.setParamsOfModelValueMap(
                 Map.of(PARAM_NAME_WIDTH,
                         getGameObjectsPlacementStateAutomaton().getWidthHeightSizes().getWidth(),
@@ -162,7 +159,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
             getGameObjectsPlacementStateAutomaton().movePlayerToMouseClick(xyCoordinateOfMouseClick);
         }/* else if (gameCommandMouseClick.getMouseButton() == MouseButton.SECONDARY) {
             moveUndo();
-        }*/ /*else if (gameCommandMouseClick.getMouseButton() == MouseButton.MIDDLE) {
+        } else if (gameCommandMouseClick.getMouseButton() == MouseButton.MIDDLE) {
             moveRedo();
         }*/
     }
@@ -174,7 +171,8 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
             moveUndo();
         } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.P) {
             moveRedo();
-        } else*/ if (gameCommandKeyPressed.getKeyCode() == KeyCode.BACK_SPACE) {
+        } else*/
+        if (gameCommandKeyPressed.getKeyCode() == KeyCode.BACK_SPACE) {
             prevLevel();
         } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.SPACE) {
             nextLevel();
