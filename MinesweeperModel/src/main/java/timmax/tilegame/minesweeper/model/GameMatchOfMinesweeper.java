@@ -10,7 +10,7 @@ import timmax.tilegame.basemodel.protocol.server.GameMatch;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
-import timmax.tilegame.minesweeper.model.placement.placementstate.LevelGenerator;
+import timmax.tilegame.minesweeper.model.placement.placementstate.MinesweeperPlacementStateAutomaton;
 import timmax.tilegame.minesweeper.model.placement.gameobject.MGOStateAutomaton;
 
 import java.util.HashSet;
@@ -20,16 +20,14 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     //  1.  String constants
     public static final String PARAM_NAME_PERCENTS_OF_MINES = "Percents of mines";
 
-    //  2.  Level generator/loader
-    private static final LevelGenerator levelGenerator;
+    //  2.  static pathToLevels
+    //      Нет.
 
     //  3.  Переменные экземпляра
-    //      Их нет.
+    //      Нет.
 
     //  4.  Инициализатор Level generator/loader
-    static {
-        levelGenerator = new LevelGenerator();
-    }
+    //      Нет.
 
     // ToDo: См. комментарии о согласовании параметров в
     //       - GameType :: GameType(...)
@@ -45,11 +43,12 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     public void setParamsOfModelValueMap(Map<String, Integer> paramsOfModelValueMap) {
         throwExceptionIfIsPlaying();
 
-        //  Здесь, по порядку:
+        //  Здесь, в таком порядке:
         //  1. super.setParamsOfModelValueMap(),
         //  2. setGameObjectsPlacement(levelGenerator.getLevel()).
+
         super.setParamsOfModelValueMap(paramsOfModelValueMap);
-        setGameObjectsPlacementStateAutomaton(levelGenerator.getLevel(
+        setGameObjectsPlacementStateAutomaton(new MinesweeperPlacementStateAutomaton(
                 this,
                 //  ToDo:   Переделать getWidth(), getHeight() в родительском классе.
                 //          Пусть там будет переменная WidthHeightSizes.
@@ -71,10 +70,12 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
 
         throwExceptionIfIsPlaying();
 
+        //  Здесь, в таком порядке:
         // 1. super.start(),
-        // 2. setGameObjectsPlacement(levelGenerator.getLevel()).
+        // 2. setGameObjectsPlacement(new MinesweeperPlacementStateAutomaton(...)).
+
         super.start(gameMatchExtendedDto);
-        setGameObjectsPlacementStateAutomaton(levelGenerator.getLevel(
+        setGameObjectsPlacementStateAutomaton(new MinesweeperPlacementStateAutomaton(
                 this,
                 //  ToDo:   Переделать getWidth(), getHeight() в родительском классе.
                 //          Пусть там будет переменная WidthHeightSizes.
