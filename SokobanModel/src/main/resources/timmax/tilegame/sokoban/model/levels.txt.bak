@@ -1,10 +1,5 @@
 *************************************
 Maze: 1
-File offset: 148C, DS:00FC, table offset: 0000
-Size X: 22
-Size Y: 11
-End: 14BD
-Length: 50
 
     XXXXX
     X   X
@@ -20,11 +15,6 @@ XXXXX XXXX X@XXXX  ..X
 
 *************************************
 Maze: 2
-File offset: 14BE, DS:012E, table offset: 0032
-Size X: 14
-Size Y: 10
-End: 14E8
-Length: 43
 
 XXXXXXXXXXXX
 X..  X     XXX
@@ -39,11 +29,6 @@ XXXXXX XX* * X
 
 *************************************
 Maze: 3
-File offset: 14E9, DS:0159, table offset: 005D
-Size X: 17
-Size Y: 10
-End: 150D
-Length: 37
 
         XXXXXXXX
         X     @X
@@ -58,11 +43,6 @@ XXXXXXXX
 
 *************************************
 Maze: 4
-File offset: 150E, DS:017E, table offset: 0082
-Size X: 22
-Size Y: 13
-End: 154D
-Length: 64
 
               XXXXXXXX
               X  ....X
@@ -80,11 +60,6 @@ XXXXXXXXX
 
 *************************************
 Maze: 5
-File offset: 154E, DS:01BE, table offset: 00C2
-Size X: 17
-Size Y: 13
-End: 1580
-Length: 51
 
         XXXXX
         X   XXXXX
@@ -102,11 +77,6 @@ XXXXXXXXX  *  XX
 
 *************************************
 Maze: 6
-File offset: 1581, DS:01F1, table offset: 00F5
-Size X: 12
-Size Y: 11
-End: 15AC
-Length: 44
 
 XXXXXX  XXX
 X..  X XX@XX
@@ -122,11 +92,6 @@ XXXX * X*  X
 
 *************************************
 Maze: 7
-File offset: 15AD, DS:021D, table offset: 0121
-Size X: 13
-Size Y: 12
-End: 15D8
-Length: 44
 
        XXXXX
  XXXXXXX   XX
@@ -143,11 +108,6 @@ XXXX
 
 *************************************
 Maze: 8
-File offset: 15D9, DS:0249, table offset: 014D
-Size X: 16
-Size Y: 17
-End: 161A
-Length: 66
 
   XXXX
   X  XXXXXXXXXXX
@@ -169,11 +129,6 @@ XX  *    * * * X
 
 *************************************
 Maze: 9
-File offset: 161B, DS:028B, table offset: 018F
-Size X: 17
-Size Y: 18
-End: 165D
-Length: 67
 
           XXXXXXX
           X  ...X
@@ -196,11 +151,6 @@ XXXXXX ** * XXXXX
 
 *************************************
 Maze: 10
-File offset: 165E, DS:02CE, table offset: 01D2
-Size X: 21
-Size Y: 20
-End: 16BE
-Length: 97
 
               XXXX
          XXXXXX  X
@@ -225,11 +175,6 @@ XXX   X  *    X.....X
 
 *************************************
 Maze: 11
-File offset: 16BF, DS:032F, table offset: 0233
-Size X: 19
-Size Y: 15
-End: 16FF
-Length: 65
 
           XXXX
      XXXX X  X
@@ -249,11 +194,6 @@ XXXXXXX
 
 *************************************
 Maze: 12
-File offset: 1700, DS:0370, table offset: 0274
-Size X: 13
-Size Y: 16
-End: 1741
-Length: 66
 
   XXXXXXXXX
   X&.&X&.&X
@@ -274,11 +214,6 @@ XX * * * * XX
 
 *************************************
 Maze: 13
-File offset: 1742, DS:03B2, table offset: 02B6
-Size X: 20
-Size Y: 13
-End: 178D
-Length: 76
 
     XXXXXXXXX
   XXX   XX  XXXXX
@@ -296,11 +231,6 @@ XX **  *   *  *... X
 
 *************************************
 Maze: 14
-File offset: 178E, DS:03FE, table offset: 0302
-Size X: 17
-Size Y: 13
-End: 17C7
-Length: 58
 
 XXXXXXXXXXXXXXXX
 X              X
@@ -318,11 +248,6 @@ XXXXX   XX XX...X
 
 *************************************
 Maze: 15
-File offset: 17C8, DS:0438, table offset: 033C
-Size X: 17
-Size Y: 17
-End: 180F
-Length: 72
 
        XXXX
     XXXX  X
@@ -344,11 +269,6 @@ XXXXXX   X
 
 *************************************
 Maze: 16
-File offset: 1810, DS:0480, table offset: 0384
-Size X: 14
-Size Y: 15
-End: 184E
-Length: 63
 
 XXXXX
 X   XX
@@ -368,11 +288,6 @@ XXX@ X*    XX
 
 *************************************
 Maze: 17
-File offset: 184F, DS:04BF, table offset: 03C3
-Size X: 18
-Size Y: 16
-End: 1895
-Length: 71
 
        XXXXXXX
  XXXXXXX     X
@@ -393,11 +308,6 @@ XXXXX     *   X X
 
 *************************************
 Maze: 18
-File offset: 1896, DS:0506, table offset: 040A
-Size X: 22
-Size Y: 13
-End: 18DC
-Length: 71
 
       XXXXXXXXXXXX
       X  .  XX   X
@@ -415,11 +325,6 @@ XXXX*XXX*X *  X   X XX
 
 *************************************
 Maze: 19
-File offset: 18DD, DS:054D, table offset: 0451
-Size X: 28
-Size Y: 20
-End: 1951
-Length: 117
 
         XXXXXX
         X   @XXXX
@@ -444,11 +349,6 @@ XX    XX              X....X
 
 *************************************
 Maze: 20
-File offset: 1952, DS:05C2, table offset: 04C6
-Size X: 20
-Size Y: 20
-End: 19B7
-Length: 102
 
        XXXXXXXXXXXX
        X..........X
@@ -473,11 +373,6 @@ XXXX  XX   X    X  X
 
 *************************************
 Maze: 21
-File offset: 19B8, DS:0628, table offset: 052C
-Size X: 16
-Size Y: 14
-End: 19F1
-Length: 58
 
    XXXXXXXXXX
    X..  X   X
@@ -496,11 +391,6 @@ XXXX XX XXXXXXX
 
 *************************************
 Maze: 22
-File offset: 19F2, DS:0662, table offset: 0566
-Size X: 22
-Size Y: 20
-End: 1A66
-Length: 117
 
             XXXX
  XXXXXXXXXXXX  XXXXX
@@ -525,11 +415,6 @@ XX X     * * * *   XXX
 
 *************************************
 Maze: 23
-File offset: 1A67, DS:06D7, table offset: 05DB
-Size X: 25
-Size Y: 14
-End: 1AB7
-Length: 81
 
        XXXXXXX
        X  X  XXXX
@@ -548,11 +433,6 @@ XXXXXXXX  X**X*  X
 
 *************************************
 Maze: 24
-File offset: 1AB8, DS:0728, table offset: 062C
-Size X: 21
-Size Y: 19
-End: 1B1F
-Length: 104
 
    XXXXXXXXXX
    X........XXXX
@@ -576,11 +456,6 @@ XXXXX    X XX X XX XX
 
 *************************************
 Maze: 25
-File offset: 1B20, DS:0790, table offset: 0694
-Size X: 23
-Size Y: 17
-End: 1B7C
-Length: 93
 
                XXXX
           XXXXXX  XXXXX
@@ -602,11 +477,6 @@ XXXXXXXXXX    XXXX
 
 *************************************
 Maze: 26
-File offset: 1B7D, DS:07ED, table offset: 06F1
-Size X: 15
-Size Y: 15
-End: 1BBB
-Length: 63
 
 XXXXXXXXX
 X       X
@@ -626,11 +496,6 @@ XXXX  *** *X  X
 
 *************************************
 Maze: 27
-File offset: 1BBC, DS:082C, table offset: 0730
-Size X: 23
-Size Y: 13
-End: 1C0B
-Length: 80
 
  XXXXXXXXXXXXXXXXX
  X...   X    X   XXX
@@ -648,11 +513,6 @@ XXXXXXXXX *  * X X  XXX
 
 *************************************
 Maze: 28
-File offset: 1C0C, DS:087C, table offset: 0780
-Size X: 15
-Size Y: 17
-End: 1C54
-Length: 73
 
      XXXXXXX
      X@ X  X
@@ -674,11 +534,6 @@ XXX .X....XXXXX
 
 *************************************
 Maze: 29
-File offset: 1C55, DS:08C5, table offset: 07C9
-Size X: 24
-Size Y: 11
-End: 1C96
-Length: 66
 
                 XXXXX
        XXXXXX XXX   XXXX
@@ -694,11 +549,6 @@ XXXX    X   XXX    @  X
 
 *************************************
 Maze: 30
-File offset: 1C97, DS:0907, table offset: 080B
-Size X: 14
-Size Y: 20
-End: 1CE3
-Length: 77
 
  XXXXX
  X   XXXXXXX
@@ -723,11 +573,6 @@ XX  XXXXXXXXXX
 
 *************************************
 Maze: 31
-File offset: 1CE4, DS:0954, table offset: 0858
-Size X: 15
-Size Y: 12
-End: 1D16
-Length: 51
 
  XXXXXXX
  X  X  XXXXX
@@ -744,11 +589,6 @@ XX  X  ** X   X
 
 *************************************
 Maze: 32
-File offset: 1D17, DS:0987, table offset: 088B
-Size X: 18
-Size Y: 16
-End: 1D60
-Length: 74
 
   XXXX
   X  XXXXXXXXX
@@ -769,11 +609,6 @@ XX  XXX  XXX* X
 
 *************************************
 Maze: 33
-File offset: 1D61, DS:09D1, table offset: 08D5
-Size X: 13
-Size Y: 15
-End: 1D97
-Length: 55
 
       XXXX
   XXXXX  X
@@ -793,11 +628,6 @@ XXXX XX   *X
 
 *************************************
 Maze: 34
-File offset: 1D98, DS:0A08, table offset: 090C
-Size X: 12
-Size Y: 15
-End: 1DCB
-Length: 52
 
 XXXXXXXXXXXX
 XX     XX  X
@@ -817,11 +647,6 @@ XXXXXXXXXXXX
 
 *************************************
 Maze: 35
-File offset: 1DCC, DS:0A3C, table offset: 0940
-Size X: 20
-Size Y: 16
-End: 1E20
-Length: 85
 
 XXXXXXXXXXXX  XXXXXX
 X   X    X@XXXX....X
@@ -842,11 +667,6 @@ XX XX XXX *  X
 
 *************************************
 Maze: 36
-File offset: 1E21, DS:0A91, table offset: 0995
-Size X: 18
-Size Y: 19
-End: 1E7E
-Length: 94
 
      XXXX
    XXX  XX
@@ -870,11 +690,6 @@ XX*X* XXXX*XXXX..X
 
 *************************************
 Maze: 37
-File offset: 1E7F, DS:0AEF, table offset: 09F3
-Size X: 21
-Size Y: 15
-End: 1ED0
-Length: 82
 
 XXXXXXXXXXX
 X......   XXXXXXXXX
@@ -894,11 +709,6 @@ XXX    X   X*  X *XXX
 
 *************************************
 Maze: 38
-File offset: 1ED1, DS:0B41, table offset: 0A45
-Size X: 14
-Size Y: 15
-End: 1F11
-Length: 65
 
  XXXXXXXXX
  X....   XX
@@ -918,11 +728,6 @@ XX XXX  *    X
 
 *************************************
 Maze: 39
-File offset: 1F12, DS:0B82, table offset: 0A86
-Size X: 23
-Size Y: 18
-End: 1F73
-Length: 98
 
               XXX
              XX.XXX
@@ -945,11 +750,6 @@ XXXXXX   XXX
 
 *************************************
 Maze: 40
-File offset: 1F74, DS:0BE4, table offset: 0AE8
-Size X: 11
-Size Y: 11
-End: 1F9A
-Length: 39
 
       XXXX
 XXXXXXX @X
@@ -965,11 +765,6 @@ XX*X...X X
 
 *************************************
 Maze: 41
-File offset: 1F9B, DS:0C0B, table offset: 0B0F
-Size X: 20
-Size Y: 15
-End: 1FDE
-Length: 68
 
            XXXXX
           XX   XX
@@ -989,11 +784,6 @@ XXXXXXXXXXXXXX  *  X
 
 *************************************
 Maze: 42
-File offset: 1FDF, DS:0C4F, table offset: 0B53
-Size X: 13
-Size Y: 18
-End: 2022
-Length: 68
 
  XXXXXXXX
  X@XX   XXXX
@@ -1016,11 +806,6 @@ XX X....X**X
 
 *************************************
 Maze: 43
-File offset: 2023, DS:0C93, table offset: 0B97
-Size X: 17
-Size Y: 16
-End: 206B
-Length: 73
 
     XXXXXXXXXXXX
     X          XX
@@ -1041,11 +826,6 @@ XXXXXXXXX
 
 *************************************
 Maze: 44
-File offset: 206C, DS:0CDC, table offset: 0BE0
-Size X: 25
-Size Y: 19
-End: 20DD
-Length: 114
 
       XXXXXX
    XXXXX   X
@@ -1069,11 +849,6 @@ XX XXX      XXXX X*X X  X
 
 *************************************
 Maze: 45
-File offset: 20DE, DS:0D4E, table offset: 0C52
-Size X: 19
-Size Y: 11
-End: 2114
-Length: 55
 
         XXXXXXX
     XXXXX  X  XXXX
@@ -1089,11 +864,6 @@ XXXXXXXX XX   X   X
 
 *************************************
 Maze: 46
-File offset: 2115, DS:0D85, table offset: 0C89
-Size X: 22
-Size Y: 17
-End: 2173
-Length: 95
 
     XXXXXXXXX  XXXX
     X   XX  XXXX  X
@@ -1115,11 +885,6 @@ XXXXXX X  X*   XXX...X
 
 *************************************
 Maze: 47
-File offset: 2174, DS:0DE4, table offset: 0CE8
-Size X: 19
-Size Y: 15
-End: 21B5
-Length: 66
 
  XXXXX
  X   X
@@ -1139,11 +904,6 @@ XXXXXX  XXX  ...  X
 
 *************************************
 Maze: 48
-File offset: 21B6, DS:0E26, table offset: 0D2A
-Size X: 16
-Size Y: 15
-End: 21F4
-Length: 63
 
        XXXX
        X  XX
@@ -1163,11 +923,6 @@ XXX  XXXX XXX X
 
 *************************************
 Maze: 49
-File offset: 21F5, DS:0E65, table offset: 0D69
-Size X: 19
-Size Y: 16
-End: 224C
-Length: 88
 
       XXXXXXXXXXXX
      XX..    X   X
@@ -1188,11 +943,6 @@ XXX**   X X X X X
 
 *************************************
 Maze: 50
-File offset: 224D, DS:0EBD, table offset: 0DC1
-Size X: 21
-Size Y: 16
-End: 22A7
-Length: 91
 
      XXXXXXXXXXXXX
      X    XXX    X
@@ -1213,11 +963,6 @@ XXXXX  X  XX  X *X  X
 
 *************************************
 Maze: 51
-File offset: 22A8, DS:0F18, table offset: 0E1C
-Size X: 16
-Size Y: 14
-End: 22EA
-Length: 67
 
 XXXXX XXXX
 X...X X  XXXX
@@ -1236,11 +981,6 @@ XXX
 
 *************************************
 Maze: 52
-File offset: 22EB, DS:0F5B, table offset: 0E5F
-Size X: 21
-Size Y: 14
-End: 2332
-Length: 72
 
  XXXX
 XX  XXXXX
@@ -1259,11 +999,6 @@ XXXXXXXX
 
 *************************************
 Maze: 53
-File offset: 2333, DS:0FA3, table offset: 0EA7
-Size X: 13
-Size Y: 19
-End: 2382
-Length: 80
 
    XXXXXXXXXX
    X  XXX   X
@@ -1287,11 +1022,6 @@ XXXXXXXXXXXXX
 
 *************************************
 Maze: 54
-File offset: 2383, DS:0FF3, table offset: 0EF7
-Size X: 23
-Size Y: 20
-End: 23F8
-Length: 118
 
  XXXXXXXXXXXXXXXXXXXXX
  X   XX  X   X   X   X
@@ -1316,11 +1046,6 @@ XXXXXXXXXXXXXXXXXXXXXXX
 
 *************************************
 Maze: 55
-File offset: 23F9, DS:1069, table offset: 0F6D
-Size X: 22
-Size Y: 15
-End: 2450
-Length: 88
 
  XXXXXXXXXXXXXXXXXXXXX
 XX                   X
@@ -1340,11 +1065,6 @@ XX     X *  * XX   X
 
 *************************************
 Maze: 56
-File offset: 2451, DS:10C1, table offset: 0FC5
-Size X: 14
-Size Y: 16
-End: 248B
-Length: 59
 
 XXXXXXXXXX
 X        XXXX
@@ -1365,11 +1085,6 @@ XXX*  **X  XXX
 
 *************************************
 Maze: 57
-File offset: 248C, DS:10FC, table offset: 1000
-Size X: 18
-Size Y: 11
-End: 24BD
-Length: 50
 
          XXXX
  XXXXXXXXX  XX
@@ -1385,11 +1100,6 @@ XXX*       XXXXXXX
 
 *************************************
 Maze: 58
-File offset: 24BE, DS:112E, table offset: 1032
-Size X: 27
-Size Y: 20
-End: 2542
-Length: 133
 
               XXXXXX
           XXXXX    X
@@ -1414,11 +1124,6 @@ XXXX X  *X X              X
 
 *************************************
 Maze: 59
-File offset: 2543, DS:11B3, table offset: 10B7
-Size X: 29
-Size Y: 20
-End: 25DA
-Length: 152
 
          XXXX
          X  X
@@ -1443,11 +1148,6 @@ XXXXXXXX  XXXXXXXXXXX
 
 *************************************
 Maze: 60
-File offset: 25DB, DS:124B, table offset: 114F
-Size X: 26
-Size Y: 16
-End: 2646
-Length: 108
 
         XXXXX
         X   XXXX
