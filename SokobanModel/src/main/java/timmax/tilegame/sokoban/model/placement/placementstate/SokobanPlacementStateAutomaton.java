@@ -31,6 +31,7 @@ public class SokobanPlacementStateAutomaton extends GameObjectsPlacementStateAut
             , int level) {
         super(gameMatch);
 
+        //  ToDo:   Работу с этими счетчиками можно не делать в этом методе, но реализовать валидацию правильно.
         int countOfBoxes = 0;
         int countOfHome = 0;
         int countOfPlayers = 0;
@@ -47,63 +48,51 @@ public class SokobanPlacementStateAutomaton extends GameObjectsPlacementStateAut
                     readLevel = Integer.parseInt(line.split(" ")[1]);
                     continue;
                 }
-                if (readLevel == level) {
-                    if (line.length() == 0) {
-                        boolean isEnd = isLevelMap;
-                        isLevelMap = !isLevelMap;
-                        if (isEnd) {
-                            break;
-                        } else {
-                            continue;
-                        }
-                    }
-                    if (!isLevelMap) {
-                        continue;
-                    }
-
-                    char[] chars = line.toCharArray();
-                    int x = 0;
-                    for (char c : chars) {
-                        XYCoordinate xyCoordinate = new XYCoordinate(x, y);
-                        if (c == 'X') {
-                            SGOWall sgoWall = new SGOWall(xyCoordinate.toString(), this, xyCoordinate);
-                            SGOStateAutomaton sgoSAutomatonWall = new SGOStateAutomaton(sgoWall);
-                            add(sgoSAutomatonWall);
-                        } else if (c == '*') {
-                            countOfBoxes++;
-                            SGOBox sgoBox = new SGOBox(xyCoordinate.toString(), this, xyCoordinate);
-                            SGOStateAutomaton sgoSAutomatonBox = new SGOStateAutomaton(sgoBox);
-                            add(sgoSAutomatonBox);
-                        } else if (c == '.') {
-                            countOfHome++;
-                            SGOHome sgoHome = new SGOHome(xyCoordinate.toString(), this, xyCoordinate);
-                            SGOStateAutomaton sgoSAutomatonHome = new SGOStateAutomaton(sgoHome);
-                            add(sgoSAutomatonHome);
-                        } else if (c == '&') {
-                            countOfBoxes++;
-                            SGOBox sgoBox = new SGOBox(xyCoordinate.toString(), this, xyCoordinate);
-                            SGOStateAutomaton sgoSAutomatonBox = new SGOStateAutomaton(sgoBox);
-                            add(sgoSAutomatonBox);
-
-                            countOfHome++;
-                            SGOHome sgoHome = new SGOHome(xyCoordinate.toString(), this, xyCoordinate);
-                            SGOStateAutomaton sgoSAutomatonHome = new SGOStateAutomaton(sgoHome);
-                            add(sgoSAutomatonHome);
-                        } else if (c == '@') {
-                            countOfPlayers++;
-                            SGOPlayer sgoPlayer = new SGOPlayer(xyCoordinate.toString(), this, xyCoordinate);
-                            SGOStateAutomaton sgoSAutomatonPlayer = new SGOStateAutomaton(sgoPlayer);
-                            add(sgoSAutomatonPlayer);
-                        }
-                        x++;
-                    }
-                    y++;
+                if (readLevel != level) {
+                    continue;
                 }
+                if (line.length() == 0) {
+                    isLevelMap = !isLevelMap;
+                    if (isLevelMap) {
+                        continue;
+                    } else {
+                        break;
+                    }
+                }
+
+                char[] chars = line.toCharArray();
+                int x = 0;
+                for (char c : chars) {
+                    XYCoordinate xyCoordinate = new XYCoordinate(x, y);
+                    if (c == 'X') {
+                        add(new SGOStateAutomaton(new SGOWall(xyCoordinate.toString(), this, xyCoordinate)));
+                    } else if (c == '*') {
+                        countOfBoxes++;
+                        add(new SGOStateAutomaton(new SGOBox(xyCoordinate.toString(), this, xyCoordinate)));
+                    } else if (c == '.') {
+                        countOfHome++;
+                        add(new SGOStateAutomaton(new SGOHome(xyCoordinate.toString(), this, xyCoordinate)));
+                    } else if (c == '&') {
+                        countOfBoxes++;
+                        add(new SGOStateAutomaton(new SGOBox(xyCoordinate.toString(), this, xyCoordinate)));
+                        countOfHome++;
+                        add(new SGOStateAutomaton(new SGOHome(xyCoordinate.toString(), this, xyCoordinate)));
+                    } else if (c == '@') {
+                        countOfPlayers++;
+                        add(new SGOStateAutomaton(new SGOPlayer(xyCoordinate.toString(), this, xyCoordinate)));
+                    }
+                    x++;
+                }
+                y++;
             }
         } catch (IOException e) {
+            logger.error(e.toString());
             e.printStackTrace();
+            // throw e;
         }
 
+        //  ToDo:   Переместить вызов этого метода валидации отсюда в turnOnVerifable(...).
+        //  ToDo:   Да и сам метод нужно сделать как реализацию абстрактного метода валидации.
         validate(countOfPlayers, countOfBoxes, countOfHome);
 
         turnOnVerifable(0);
@@ -208,9 +197,9 @@ public class SokobanPlacementStateAutomaton extends GameObjectsPlacementStateAut
     }
 
     @Override
-    // Warning:(212, 12) Raw use of parameterized class 'GameMatchOfSokoban'
+    // Warning:(201, 12) Raw use of parameterized class 'GameMatchOfSokoban'
     public GameMatchOfSokoban getGameMatch() {
-        // Warning:(214, 12) Raw use of parameterized class 'GameMatchOfSokoban'
+        // Warning:(203, 12) Raw use of parameterized class 'GameMatchOfSokoban'
         return (GameMatchOfSokoban) super.getGameMatch();
     }
 }
