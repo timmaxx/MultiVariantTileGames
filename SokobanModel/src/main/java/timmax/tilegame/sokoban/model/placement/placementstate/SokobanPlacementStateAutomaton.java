@@ -21,8 +21,8 @@ import static timmax.tilegame.sokoban.model.placement.gameobject.WhoPersistentIn
 import static timmax.tilegame.sokoban.model.placement.primitives.SokobanXYOffset.*;
 
 public class SokobanPlacementStateAutomaton extends GameObjectsPlacementStateAutomaton {
-    //  Warning:(13, 43) Raw use of parameterized class 'GameMatch'
     public SokobanPlacementStateAutomaton(
+            // Warning:(26, 13) Raw use of parameterized class 'GameMatch'
             GameMatch gameMatch
             , Path levels
             //  ToDo:   Следующий параметр завернуть в
@@ -35,11 +35,6 @@ public class SokobanPlacementStateAutomaton extends GameObjectsPlacementStateAut
         int countOfHome = 0;
         int countOfPlayers = 0;
 
-        // ToDo:    Нужно высчитать ширину и высоту, исходя из карты уровня (определив число строк и максимальный столбец).
-        //          Сейчас берутся явно из файла.
-        //  int width = 0;
-        //  int height = 0;
-
         try (BufferedReader reader = new BufferedReader(new FileReader(levels.toFile()))) {
             int readLevel = 0;
 
@@ -50,18 +45,6 @@ public class SokobanPlacementStateAutomaton extends GameObjectsPlacementStateAut
             while ((line = reader.readLine()) != null) {
                 if (line.contains("Maze:")) {
                     readLevel = Integer.parseInt(line.split(" ")[1]);
-                    continue;
-                } else if (line.contains("Size X:")) {
-                    //  ToDo:   Убрать из файла уровней размеры по ширине и высоте.
-                    //  Warning:(55, 41) Result of 'Integer.parseInt()' is ignored
-                    /*width = */
-                    Integer.parseInt(line.split(" ")[2]);
-                    continue;
-                } else if (line.contains("Size Y:")) {
-                    //  ToDo:   Убрать из файла уровней размеры по ширине и высоте.
-                    //  Warning:(59, 42) Result of 'Integer.parseInt()' is ignored
-                    /*height = */
-                    Integer.parseInt(line.split(" ")[2]);
                     continue;
                 }
                 if (readLevel == level) {
@@ -225,9 +208,9 @@ public class SokobanPlacementStateAutomaton extends GameObjectsPlacementStateAut
     }
 
     @Override
-    // Warning:(229, 12) Raw use of parameterized class 'GameMatchOfSokoban'
+    // Warning:(212, 12) Raw use of parameterized class 'GameMatchOfSokoban'
     public GameMatchOfSokoban getGameMatch() {
-        // Warning:(231, 12) Raw use of parameterized class 'GameMatchOfSokoban'
+        // Warning:(214, 12) Raw use of parameterized class 'GameMatchOfSokoban'
         return (GameMatchOfSokoban) super.getGameMatch();
     }
 }
