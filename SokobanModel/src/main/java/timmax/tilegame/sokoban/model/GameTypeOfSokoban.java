@@ -14,9 +14,12 @@ import static javafx.scene.paint.Color.*;
 //  Warning:(9, 40) Raw use of parameterized class 'GameType'
 public class GameTypeOfSokoban extends GameType {
     // ToDo: Удалить это отсюда константы, описанные ниже, т.к. они относятся к визуализации.
-    public static final Color WALL_CELL_COLOR = RED;
-    public static final Color HOME_CELL_COLOR = WHITE;
-    public static final Color EMPTY_CELL_COLOR = BLACK;
+    public static final Color WALL_BACKGROUND_COLOR = RED;
+    public static final Color HOME_BACKGROUND_COLOR = WHITE;
+    public static final Color EMPTY_BACKGROUND_COLOR = BLACK;
+
+    public static final String NOBODY = "";
+    public static final Color NOBODY_TEXT_COLOR = BLACK;
 
     public static final String PLAYER = "😀"; // "\uF9CD"; // "&";
     public static final Color PLAYER_TEXT_COLOR = GREEN;
@@ -25,7 +28,7 @@ public class GameTypeOfSokoban extends GameType {
     public static final Color BOX_TEXT_COLOR = BLUE;
 
     public GameTypeOfSokoban() throws ClassNotFoundException, NoSuchMethodException {
-        //  ToDo:   Warning:(30, 9) Unchecked call to 'GameType(String, int, Class<? extends IGameMatch>, Color, Color, String)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.GameType'
+        //  ToDo:   Warning:(32, 9) Unchecked call to 'GameType(String, int, Class<? extends IGameMatch>, Color, Color, String)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.GameType'
         super("Sokoban",
                 1,
                 //  ToDo:   Элементами Set должны быть только классы, являющиеся наследниками класса
@@ -35,7 +38,7 @@ public class GameTypeOfSokoban extends GameType {
                 //          и компилятор ничего не скажет.
                 Set.of(SGOPlayer.class, SGOHome.class, SGOBox.class, SGOWall.class),
                 GameMatchOfSokoban.class,
-                BLACK, BLACK, ""
+                EMPTY_BACKGROUND_COLOR, NOBODY_TEXT_COLOR, NOBODY
         );
 
         //  Это пример того, как хотелось-бы что-бы компилятор отреагировал в предыдущих строках
