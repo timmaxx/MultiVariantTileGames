@@ -4,12 +4,11 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import javafx.scene.paint.Color;
-
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
 
-import static timmax.tilegame.minesweeper.model.GameTypeOfMinesweeper.OPENED_CELL_COLOR;
+import static timmax.tilegame.minesweeper.model.GameTypeOfMinesweeper.NOMINE_BACKGROUND_COLOR;
+import static timmax.tilegame.minesweeper.model.GameTypeOfMinesweeper.NOMINE_TEXT_COLOR;
 
 public class GameEventOneTileMinesweeperOpenNoMine extends GameEventOneTile {
     private int countOfMineNeighbors;
@@ -24,8 +23,8 @@ public class GameEventOneTileMinesweeperOpenNoMine extends GameEventOneTile {
 
         // ToDo: Ниже относится к визуализации. Удалить это отсюда.
         // ToDo: Хотя-бы в GameType эти реквизиты можно было-бы переместить.
-        cellBackgroundColor = OPENED_CELL_COLOR;
-        cellTextColor = Color.BLACK;
+        cellBackgroundColor = NOMINE_BACKGROUND_COLOR;
+        cellTextColor = NOMINE_TEXT_COLOR;
         cellText = String.valueOf(countOfMineNeighbors);
     }
 

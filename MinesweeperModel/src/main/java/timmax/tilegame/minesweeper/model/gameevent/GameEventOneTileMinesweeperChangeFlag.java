@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import javafx.scene.paint.Color;
-
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
 
@@ -23,13 +21,13 @@ public class GameEventOneTileMinesweeperChangeFlag extends GameEventOneTile {
 
         // ToDo: Ниже относится к визуализации. Удалить это отсюда.
         // ToDo: Хотя-бы в GameType эти реквизиты можно было-бы переместить.
-        cellTextColor = Color.BLACK;
+        cellTextColor = UNOPENED_TEXT_COLOR;
         if (isFlag) {
-            this.cellBackgroundColor = FLAG_CELL_COLOR;
+            cellBackgroundColor = FLAG_BACKGROUND_COLOR;
             cellText = FLAG;
         } else {
-            this.cellBackgroundColor = UNOPENED_CELL_COLOR;
-            cellText = "";
+            cellBackgroundColor = UNOPENED_BACKGROUND_COLOR;
+            cellText = UNOPENED;
         }
     }
 

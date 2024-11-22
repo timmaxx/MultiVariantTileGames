@@ -15,15 +15,20 @@ import static timmax.tilegame.minesweeper.model.GameMatchOfMinesweeper.PARAM_NAM
 //  Warning:(13, 44) Raw use of parameterized class 'GameType'
 public class GameTypeOfMinesweeper extends GameType {
 
-    // ToDo: Удалить это отсюда константы, описанные ниже, т.к. они относятся к визуализации.
-    public static final Color UNOPENED_CELL_COLOR = ORANGE;
-    public static final Color OPENED_CELL_COLOR = GREEN;
+    // ToDo: Удалить отсюда константы, описанные ниже, т.к. они относятся к визуализации.
+    public static final String UNOPENED = "";
+    public static final Color UNOPENED_BACKGROUND_COLOR = ORANGE;
+    public static final Color UNOPENED_TEXT_COLOR = BLACK;
 
     public static final String FLAG = "🚩"; // "\uD83D\uDEA9";
-    public static final Color FLAG_CELL_COLOR = YELLOW;
+    public static final Color FLAG_BACKGROUND_COLOR = YELLOW;
+
+    public static final Color NOMINE_BACKGROUND_COLOR = GREEN;
+    public static final Color NOMINE_TEXT_COLOR = BLACK;
 
     public static final String MINE = "💣"; // "\uD83D\uDCA3";
-    public static final Color MINE_CELL_COLOR = RED;
+    public static final Color MINE_BACKGROUND_COLOR = RED;
+    public static final Color MINE_TEXT_COLOR = BLACK;
 
     public GameTypeOfMinesweeper() throws ClassNotFoundException, NoSuchMethodException {
         //  ToDo:   Warning:(34, 9) Unchecked call to 'GameType(String, int, Class<? extends IGameMatch>, Color, Color, String)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.GameType'
@@ -38,7 +43,7 @@ public class GameTypeOfMinesweeper extends GameType {
                         MGOSNoMineIsNotOpenedWithFlag.class, MGOSNoMineIsNotOpenedWithoutFlag.class, MGOSNoMineIsOpened.class
                 ),
                 GameMatchOfMinesweeper.class,
-                UNOPENED_CELL_COLOR, BLACK, ""
+                UNOPENED_BACKGROUND_COLOR, UNOPENED_TEXT_COLOR, UNOPENED
         );
         //  Это пример того, как хотелось-бы что-бы компилятор отреагировал в предыдущих строках:
         //      - компилятор возражает и это хорошо:
