@@ -18,6 +18,10 @@ import java.util.Set;
 
 public class GameTypeFabric {
     protected static final Logger logger = LoggerFactory.getLogger(GameTypeFabric.class);
+
+    //  ToDo:   Переместить файл gameTypes.txt из этого модуля (BaseTileModel) в другой.
+    //          Файл gameTypes.txt сейчас находится в модуле BaseTileModel.
+    //          Это, вероятно, не правильно, т.к. в модуле BaseTileModel не должны быть известны реализации.
     private static final String FILE_NAME_WITH_CLASS_NAMES_OF_GAME_TYPES = "gameTypes.txt";
 
     public static Set<GameType> getGameTypeSet() {
@@ -78,7 +82,7 @@ public class GameTypeFabric {
             ClassNotFoundException,
             NoSuchMethodException,
             InvocationTargetException, InstantiationException, IllegalAccessException {
-        // ToDo: Избавиться от "Warning:(82, 51) Unchecked cast: 'java.lang.Class<capture<?>>' to 'java.lang.Class<? extends timmax.tilegame.basemodel.protocol.server.GameType>'"
+        // ToDo: Избавиться от "Warning:(86, 51) Unchecked cast: 'java.lang.Class<capture<?>>' to 'java.lang.Class<? extends timmax.tilegame.basemodel.protocol.server.GameType>'"
         Class<? extends GameType> gameTypeClass = (Class<? extends GameType>) Class.forName(gameTypeFullClassName);
         Constructor<? extends GameType> constructorOfGameTypeClass = gameTypeClass.getConstructor();
 

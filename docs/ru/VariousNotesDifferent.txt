@@ -31,7 +31,6 @@ public static final String name;
 3. Большая задача: Пишем игру Тетрис
 https://javarush.com/quests/lectures/questcollections.level02.lecture15
 
-
 4. Пристальный взгляд на отладку JavaScript приложений
 https://habr.com/ru/companies/kaspersky/articles/760922/
 
@@ -125,87 +124,6 @@ https://skillbox.ru/media/code/identifikatsiya-autentifikatsiya-avtorizatsiya-ch
   Прав обычного пользователя для этого не хватит. Такими привилегиями обладает только системный администратор компании,
   который авторизуется под своим логином и может устанавливать дополнительный софт.
 
-
-24.10.2023 ------------------------------------------------------------------------------------------------------------
-
-MultiGameWebSocketClient extends WebSocketClient
-Класс, являющийся наследником WebSocketClient, а значит он может быть клиентом WebSocket и подключаться к серверу.
-MultiGameWebSocketClient введён для того, чтобы многовариантный игровой клиент мог взаимодействовать с сервером
-многовариантного игрового сервера.
-Сначала перечислю методы, унаследованные от WebSocketClient и нужные в реализации. Все они не сразу дают ответ:
-- Конструктор( URI serverUri) - запоминает строку соединения и создаёт соединение.
-  Сигнал о том, что соединение есть, будет через вызов метода onOpen.
-- connect() - только создаёт соединение. Причём строка соединения уже должна быть в объекте (от конструктора).
-- close() - закрывает соединение.
-Абстрактные методы, которые необходимо реализовать в MultiGameWebSocketClient, как наследнику WebSocketClient:
-- void onOpen( ServerHandshake handshakedata) - будет вызван при успешном установлении соединения с сервером.
-  Например, после вызова конструктора или connect.
-- void onMessage( String message) - будет вызван при получении строкового сообщения от сервера.
-- void onClose( int code, String reason, boolean remote) - будет вызван при закрытии соединения.
-- void onError( Exception ex) - будет вызван при возникновении ошибок. Если ошибка привела к разрыву
-  websocket-соединения, то дополнительно будет вызван метод onClose(int, String, boolean).
-
-Нужно создать несколько методов, которые могут быть вызваны при определённом состоянии клиента.
-Они также не должны давать ответ сразу. Перечислены в формате "- Тип запроса - метод":
-- REQ_CONNECT               - См. конструктор и connect()
-- REQ_LOGIN                 - void login( String userName, String password)
-/*
-- REQ_LOGOUT                - void logout( )
-*/
-- REQ_GAME_TYPE_MAP         - void getGameTypeMap( )
-- REQ_SELECT_GAME_TYPE      - void selectGameType( Class serverBaseModelClass) -
-/*
-- REQ_CREATE_GAME_SERIES    - void createGameSeries( )
-- REQ_GAME_SERIES_MAP       - void getGameSeriesMap( )
-- REQ_SELECT_GAME_SERIES    - void selectGameSeries( )
-- REQ_GAME_MATCH_MAP        - void getGameMatchMap( )
-- REQ_SELECT_GAME_MATCH     - void selectSelectGameMatch( )
-- REQ_PLAYER_SIDE_MAP       - void getPlayerSideMap( )
-- REQ_SELECT_PLAYER_SIDE    - void selectPlayerSide( )
-- REQ_DECLARE_READINESS     - void declareReadiness( )
-- REQ_READINESS_MAP         - void getReadinessMap( )
-*/
-
-- void onStart()
-- void onOpen(WebSocket conn, ClientHandshake handshake)
-- void onClose(WebSocket conn, int code, String reason, boolean remote)
-- void onMessage(WebSocket conn, String message)
-- void onError(WebSocket conn, Exception ex)
-
-У сервера многовариантных игровых моделей будет свой перечень методов для отправки сообщений клиенту.
-Позже опишу... Здесь пока приведу перечень типов сообщений сервера
-- INFO_CONNECT              -   См. onOpen
-- INFO_LOGIN                -   void infoLogin() {}
-/*
-- INFO_LOGOUT               -   void infoLogout() {}
-*/
-- INFO_GAME_TYPE_MAP        -   void infoGameTypeMap( Map< ServerBaseModel, String> mapOfServerBaseModel_String) {}
-- INFO_SELECT_GAME_TYPE     -   void infoSelectGameType( Class clazz) {}
-/*
-- INFO_CREATE_GAME_SERIES   -   void infoCreateGameSeries() {}
-- INFO_GAME_SERIES_MAP      -   void infoGameSeriesMap() {}
-- INFO_GAME_MATCH_MAP       -   void infoGameMatchMap() {}
-- INFO_SELECT_GAME_MATCH    -   void infoSelectGameMatch() {}
-- INFO_PLAYER_SIDE_MAP      -   void infoPlayerSideMap() {}
-- INFO_SELECT_PLAYER_SIDE   -   void infoSelectPlayerSide() {}
-- INFO_DECLARE_READINESS    -   void infoDeclareReadiness() {}
-- INFO_READINESS_MAP        -   void infoReadinessMap() {}
-- INFO_START_GAME_MATCH     -   void infoStartGameMatch() {}
-*/
-При отправке сервером клиенту сообщений у клиента будет срабатывать onMessage.
-
-Создать интерфейсы и реализацию методов в классах, которые могут быть вызваны при поступлении различного типа сообщений
-от сервера.
-
-MultiGameWebSocketClient
-- void onMessage( String message)
-  В зависимости от:
-  - типа присланного сообщения,
-  - различного типа дополнительных данных, характерных для типа сообщений,
-  - (но и при желательном контроле состояния соединения клиента),
-  Можно либо:
-  - в MultiGameWebSocketClient запомнить, что пришло и вызвать
-
 Автоформатирование однострочных методов в intelij idea
 https://ru.stackoverflow.com/questions/713089/%d0%90%d0%b2%d1%82%d0%be%d1%84%d0%be%d1%80%d0%bc%d0%b0%d1%82%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5-%d0%be%d0%b4%d0%bd%d0%be%d1%81%d1%82%d1%80%d0%be%d1%87%d0%bd%d1%8b%d1%85-%d0%bc%d0%b5%d1%82%d0%be%d0%b4%d0%be%d0%b2-%d0%b2-intelij-idea?rq=1
 В редакторе видим:
@@ -255,3 +173,19 @@ https://www.git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project#_co
 https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
 https://who-t.blogspot.com/2009/12/on-commit-messages.html
 https://github.com/erlang/otp/wiki/writing-good-commit-messages
+
+Обратить внимание на
+package org.springframework.dao.support;
+public abstract class DataAccessUtils {
+	public static <T> T singleResult(@Nullable Collection<T> results) throws IncorrectResultSizeDataAccessException
+	public static <T> T requiredSingleResult(@Nullable Collection<T> results) throws IncorrectResultSizeDataAccessException
+...
+}
+
+package org.springframework.lang;
+public @interface Nullable {
+}
+
+package org.springframework.lang;
+public @interface NonNull {
+}
