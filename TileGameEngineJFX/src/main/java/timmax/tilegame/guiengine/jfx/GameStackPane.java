@@ -7,7 +7,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
 
+import static javafx.scene.paint.Color.BLACK;
+import static javafx.scene.paint.Color.TRANSPARENT;
+
 public class GameStackPane extends StackPane {
+    private static final Color GRID_STROKE_COLOR = BLACK;
     private static final double COORDINATE_TEXT_FONT_SIZE_COEFFICIENT = 0.15;
     private static final int MAX_GENERAL_TEXT_LENGTH_FOR_GENERAL_TEXT_FONT_SIZE_COEFFICIENT = 4;
     private static final double GENERAL_TEXT_FONT_SIZE_COEFFICIENT = 0.4;
@@ -18,7 +22,7 @@ public class GameStackPane extends StackPane {
         if (showGrid) {
             getRectangle().setWidth(cellSize - 1);
             getRectangle().setHeight(cellSize - 1);
-            getRectangle().setStroke(Color.BLACK);
+            getRectangle().setStroke(GRID_STROKE_COLOR);
         }
         if (showCoordinates) {
             getCoordinateText().setFont(Font.font(cellSize * COORDINATE_TEXT_FONT_SIZE_COEFFICIENT));
@@ -30,7 +34,6 @@ public class GameStackPane extends StackPane {
 
         setLayoutX(xyCoordinate.getX() * cellSize);
         setLayoutY(xyCoordinate.getY() * cellSize);
-
     }
 
     private Rectangle getRectangle() {
@@ -61,7 +64,7 @@ public class GameStackPane extends StackPane {
 
     public void setBackgroundColor(Color cellColor) {
         if (cellColor != null &&
-                cellColor != Color.TRANSPARENT &&
+                cellColor != TRANSPARENT &&
                 !cellColor.equals(getRectangle().getFill())
         ) {
             getRectangle().setFill(cellColor);
