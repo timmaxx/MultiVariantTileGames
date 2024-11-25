@@ -1,6 +1,7 @@
 package timmax.tilegame.sokoban.model.placement.gameobject;
 
-import timmax.tilegame.basemodel.placement.gameobject.GameObjectState;
-
-public interface SGOState extends GameObjectState {
+//  Интерфейс определяет какие действия можно делать с отдельным объетом игры Сокобан.
+//  Для игровых объектов Сокобан не применяются состояния (каждый объект игры не меняет свою роль-состояние),
+//  поэтому интерфейс не содержит методов.
+public interface SGOState {
 }

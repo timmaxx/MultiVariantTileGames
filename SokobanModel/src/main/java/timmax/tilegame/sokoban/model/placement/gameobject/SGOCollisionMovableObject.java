@@ -5,7 +5,7 @@ import timmax.tilegame.basemodel.placement.placementstate.GameObjectsPlacementSt
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
 import timmax.tilegame.sokoban.model.placement.primitives.SokobanXYOffset;
 
-public abstract class SGOCollisionMovableObject extends SGOCollisionObject implements Movable<SokobanXYOffset> {
+public abstract class SGOCollisionMovableObject extends SGOCollisionObject implements Movable {
     public SGOCollisionMovableObject(String id, GameObjectsPlacementStateAutomaton gameObjectsPlacementStateAutomaton, XYCoordinate xyCoordinate) {
         super(id, gameObjectsPlacementStateAutomaton, xyCoordinate);
     }
