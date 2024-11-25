@@ -11,4 +11,6 @@ public abstract class BaseGameObjectState {
     public GameObjectStateAutomaton getGameObjectStateAutomaton() {
         return gameObjectStateAutomaton;
     }
+
+    protected void doWhenTurnOn() {}
 }
