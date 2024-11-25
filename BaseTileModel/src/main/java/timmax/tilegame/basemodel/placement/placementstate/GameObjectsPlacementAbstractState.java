@@ -8,7 +8,7 @@ import timmax.tilegame.basemodel.protocol.server.GameType;
 
 import java.util.Set;
 
-//  Базовое абстрактное состояние - родитель для других состояний Расстановки.
+//  Базовое состояние Расстановки - родитель для других состояний Расстановки.
 public abstract class GameObjectsPlacementAbstractState implements GameObjectsPlacementState {
     protected final GameObjectsPlacementStateAutomaton gameObjectsPlacementStateAutomaton;
 
@@ -23,17 +23,7 @@ public abstract class GameObjectsPlacementAbstractState implements GameObjectsPl
     protected GameType getGameType() {
         return getGameObjectsPlacementBaseData().getGameType();
     }
-/*
-    public final <GO extends GameObject> Set<GO> getGameObjectSetFilteredByGameObjectClass(
-            Class<GO> gameObjectClass) {
-        return getGameObjectStateAutomatonSet()
-                .stream()
-                .filter(gosa -> gosa.getGameObject().getClass().equals(gameObjectClass))
-                //  Warning:(75, 30) Unchecked cast: 'timmax.tilegame.basemodel.gameobject.placement.GameObject' to 'GO'
-                .map(gosa -> (GO) (gosa.getGameObject()))
-                .collect(Collectors.toSet());
-    }
-*/
+
     protected WidthHeightSizes getWidthHeightSizes() {
         return getGameObjectsPlacementBaseData().getWidthHeightSizes();
     }
@@ -46,8 +36,8 @@ public abstract class GameObjectsPlacementAbstractState implements GameObjectsPl
         throw new RuntimeException("You cannot call this method in current state");
     }
 
-    private GameObjectsPlacementBaseInstance getGameObjectsPlacementBaseData() {
-        return gameObjectsPlacementStateAutomaton.gameObjectsPlacementBaseInstance;
+    private GameObjectsPlacementCommon getGameObjectsPlacementBaseData() {
+        return gameObjectsPlacementStateAutomaton.gameObjectsPlacementCommon;
     }
 
 

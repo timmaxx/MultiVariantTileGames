@@ -12,7 +12,7 @@ import timmax.tilegame.basemodel.protocol.server.GameMatch;
 
 import java.util.Set;
 
-//  Расстановка игровых объектов (реализован шаблон Состояние).
+//  Автомат состояний расстановки игровых объектов.
 public class GameObjectsPlacementStateAutomaton implements GameObjectsPlacementState {
     protected static final Logger logger = LoggerFactory.getLogger(GameObjectsPlacementStateAutomaton.class);
 
@@ -23,43 +23,42 @@ public class GameObjectsPlacementStateAutomaton implements GameObjectsPlacementS
     //  Экземпляр (с данными и методами), доступный в состоянии "Целостное":
     private final GameObjectsPlacementVerifiedState verified;
 
-
     //  Экземпляр (с данными и методами), доступный во всех состояниях:
-    protected final GameObjectsPlacementBaseInstance gameObjectsPlacementBaseInstance;
-
+    protected final GameObjectsPlacementCommon gameObjectsPlacementCommon;
 
     public GameObjectsPlacementStateAutomaton(GameMatch gameMatch) {
-        gameObjectsPlacementBaseInstance = new GameObjectsPlacementBaseInstance(gameMatch);
+        gameObjectsPlacementCommon = new GameObjectsPlacementCommon(gameMatch);
         notVerified = new GameObjectsPlacementNotVerifiedState(this);
         verified = new GameObjectsPlacementVerifiedState(this);
         setCurrentState(notVerified);
     }
 
     public WidthHeightSizes getWidthHeightSizes() {
-        return gameObjectsPlacementBaseInstance.getWidthHeightSizes();
+        return gameObjectsPlacementCommon.getWidthHeightSizes();
     }
+
     private void setCurrentState(GameObjectsPlacementState gameObjectsPlacementStateCurrent) {
         this.gameObjectsPlacementStateCurrent = gameObjectsPlacementStateCurrent;
     }
 
     protected void setCurrentStateVerified() {
-        this.gameObjectsPlacementStateCurrent = verified;
+        setCurrentState(verified);
     }
 
     public final Set<GameObjectStateAutomaton> getGameObjectStateAutomatonSetFilteredByXYCoordinate(XYCoordinate xyCoordinate) {
-        return gameObjectsPlacementBaseInstance.getGameObjectStateAutomatonSetFilteredByXYCoordinate(xyCoordinate);
+        return gameObjectsPlacementCommon.getGameObjectStateAutomatonSetFilteredByXYCoordinate(xyCoordinate);
     }
 
     public Set<GameObject> getGameObjectSetFilteredByXYCoordinate(XYCoordinate xyCoordinate) {
-        return gameObjectsPlacementBaseInstance.getGameObjectSetFilteredByXYCoordinate(xyCoordinate);
+        return gameObjectsPlacementCommon.getGameObjectSetFilteredByXYCoordinate(xyCoordinate);
     }
 
     public GameMatch getGameMatch() {
-        return gameObjectsPlacementBaseInstance.getGameMatch();
+        return gameObjectsPlacementCommon.getGameMatch();
     }
 
     public Set<GameObject> getGameObjectSetFilteredByGameObjectClass(Class<? extends GameObject> gameObjectClass) {
-        return gameObjectsPlacementBaseInstance.getGameObjectSetFilteredByGameObjectClass(gameObjectClass);
+        return gameObjectsPlacementCommon.getGameObjectSetFilteredByGameObjectClass(gameObjectClass);
     }
 
     public MatchStatus getMatchStatus() {

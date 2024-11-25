@@ -11,10 +11,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-//  Расположение игровых объектов (матча).
-//  Является базовым классом (хранящим данные и содержащим методы, но при этом не наследуемым)
-//  как для верифицируемого, так и для не верифицируемой Расстановки.
-public final class GameObjectsPlacementBaseInstance {
+//  Общие поля и методы (как для верифицируемой, так и для не верифицируемой) Расстановки игровых объектов (матча).
+public final class GameObjectsPlacementCommon {
     private final GameMatch gameMatch;
 
     //  Множество всех конкретных объектов расстановки как состояний этих объектов.
@@ -23,7 +21,7 @@ public final class GameObjectsPlacementBaseInstance {
     //  Ширина и высота поля.
     private final WidthHeightSizes widthHeightSizes;
 
-    private GameObjectsPlacementBaseInstance(
+    private GameObjectsPlacementCommon(
             GameMatch gameMatch,
             WidthHeightSizes widthHeightSizes,
             Set<GameObjectStateAutomaton> gameObjectStateAutomatonSet) {
@@ -33,14 +31,14 @@ public final class GameObjectsPlacementBaseInstance {
     }
 
     //  При таком конструкторе, WidthHeightSizes поступает как параметр и не может быть изменён в процессе заполнения.
-    public GameObjectsPlacementBaseInstance(
+    public GameObjectsPlacementCommon(
             GameMatch gameMatch,
             WidthHeightSizes widthHeightSizes) {
         this(gameMatch, widthHeightSizes, new HashSet<>());
     }
 
     //  При таком конструкторе, WidthHeightSizes будет вычисляться каждый раз при добавлении объекта.
-    public GameObjectsPlacementBaseInstance(
+    public GameObjectsPlacementCommon(
             GameMatch gameMatch) {
         this(gameMatch, new WidthHeightSizes(1, 1));
     }
