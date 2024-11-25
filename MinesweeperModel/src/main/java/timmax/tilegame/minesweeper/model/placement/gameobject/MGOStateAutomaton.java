@@ -9,6 +9,7 @@ import timmax.tilegame.basemodel.placement.primitives.XYOffset;
 import java.util.HashSet;
 import java.util.Set;
 
+//  Автомат состояния игрового объекта для Сапёра.
 public class MGOStateAutomaton extends GameObjectStateAutomaton implements MGOState {
     protected Set<MGOStateAutomaton> neighbourSet; // Соседние плитки
     protected int countOfMinesInNeighbours;
@@ -110,8 +111,8 @@ public class MGOStateAutomaton extends GameObjectStateAutomaton implements MGOSt
     }
 
     @Override
-    public AbstractMGOState getGameObjectState() {
-        return (AbstractMGOState) super.getGameObjectState();
+    public BaseMGOState getGameObjectState() {
+        return (BaseMGOState) super.getGameObjectState();
     }
 
     @Override

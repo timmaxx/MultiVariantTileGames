@@ -1,7 +1,6 @@
 package timmax.tilegame.minesweeper.model.placement.gameobject;
 
-public abstract class MGOSNoMine extends AbstractMGOState {
-
+public abstract class MGOSNoMine extends BaseMGOState {
     public MGOSNoMine(MGOStateAutomaton MGOStateAutomaton) {
         super(MGOStateAutomaton);
     }

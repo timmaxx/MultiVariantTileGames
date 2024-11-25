@@ -16,6 +16,8 @@ public class MGOSMineIsNotOpenedWithFlag extends MGOSMine {
     public void inverseFlag() {
         getGameObjectStateAutomaton().setCurrentStateMineIsNotOpenedWithoutFlag();
 
+        //  ToDo:   Код ниже в этом методе лучше перенести в метод "выполнить при входе в состояние".
+
         getGameObjectStateAutomaton()
                 .getGameObject()
                 .getGameObjectsPlacement()

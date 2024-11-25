@@ -12,6 +12,8 @@ public class MGOSNoMineIsNotOpenedWithoutFlag extends MGOSNoMine {
     public void open() {
         getGameObjectStateAutomaton().setCurrentStateNoMineIsOpened();
 
+        //  ToDo:   Код ниже в этом методе лучше перенести в метод "выполнить при входе в состояние".
+
         getGameObjectStateAutomaton().initNeighbourSet();
 
         getGameObjectStateAutomaton()
@@ -40,6 +42,9 @@ public class MGOSNoMineIsNotOpenedWithoutFlag extends MGOSNoMine {
     public void inverseFlag() {
         getGameObjectStateAutomaton().setCurrentStateNoMineIsNotOpenedWithFlag();
 
+        //  ToDo:   Код ниже в это методе лучше перенести в метод "выполнить при входе в состояние".
+
+        //  Код ниже идентичен коду в MGOSMineIsNotOpenedWithoutFlag :: void inverseFlag()
         getGameObjectStateAutomaton()
                 .getGameObject()
                 .getGameObjectsPlacement()
