@@ -1,9 +1,16 @@
 package timmax.tilegame.minesweeper.model.placement.gameobject;
 
 import timmax.tilegame.minesweeper.model.gameevent.GameEventOneTileMinesweeperChangeFlag;
-import timmax.tilegame.minesweeper.model.gameevent.GameEventOneTileMinesweeperOpenNoMine;
 
 public class MGOSNoMineIsNotOpenedWithoutFlag extends MGOSNoMine {
+    //  ToDo:   Избавиться от этой переменной.
+    //          ЗАЛЕПУХА!
+    //          Дело в том, что состояния ...NotOpenedWithoutFlag - это первичные состояния. А при инициализации
+    //          каждой ячейки также будет попытка вызвать doWhenTurnOn(). Но на этапе инициализации всего поля
+    //          не вся графическая составляющаяя готова. Поэтому пришлось ввести эту переменную,
+    //          что-бы один раз её не выполнять для каждой плитки.
+    private boolean isFirst = true;
+
     public MGOSNoMineIsNotOpenedWithoutFlag(MGOStateAutomaton MGOStateAutomaton) {
         super(MGOStateAutomaton);
     }
@@ -11,40 +18,19 @@ public class MGOSNoMineIsNotOpenedWithoutFlag extends MGOSNoMine {
     @Override
     public void open() {
         getGameObjectStateAutomaton().setCurrentStateNoMineIsOpened();
-
-        //  ToDo:   Код ниже в этом методе лучше перенести в метод "выполнить при входе в состояние".
-
-        getGameObjectStateAutomaton().initNeighbourSet();
-
-        getGameObjectStateAutomaton()
-                .getGameObject()
-                .getGameObjectsPlacement()
-                .getGameMatch()
-                .sendGameEventToAllViews(
-                        new GameEventOneTileMinesweeperOpenNoMine(
-                                getGameObjectStateAutomaton().getXyCoordinate(),
-                                getGameObjectStateAutomaton().countOfMinesInNeighbours
-                        )
-                )
-        ;
-
-        if (getGameObjectStateAutomaton().countOfMinesInNeighbours > 0) {
-            return;
-        }
-        for (MGOStateAutomaton neighbour : getGameObjectStateAutomaton().getNeighbourSet()) {
-            if (neighbour.getGameObjectState() instanceof MGOSNoMineIsNotOpenedWithoutFlag) {
-                neighbour.open();
-            }
-        }
     }
 
     @Override
     public void inverseFlag() {
         getGameObjectStateAutomaton().setCurrentStateNoMineIsNotOpenedWithFlag();
+    }
 
-        //  ToDo:   Код ниже в это методе лучше перенести в метод "выполнить при входе в состояние".
-
-        //  Код ниже идентичен коду в MGOSMineIsNotOpenedWithoutFlag :: void inverseFlag()
+    @Override
+    protected void doWhenTurnOn() {
+        if (isFirst) {
+            isFirst = false;
+            return;
+        }
         getGameObjectStateAutomaton()
                 .getGameObject()
                 .getGameObjectsPlacement()
@@ -52,7 +38,7 @@ public class MGOSNoMineIsNotOpenedWithoutFlag extends MGOSNoMine {
                 .sendGameEventToAllViews(
                         new GameEventOneTileMinesweeperChangeFlag(
                                 getGameObjectStateAutomaton().getXyCoordinate(),
-                                true
+                                false
                         )
                 )
         ;

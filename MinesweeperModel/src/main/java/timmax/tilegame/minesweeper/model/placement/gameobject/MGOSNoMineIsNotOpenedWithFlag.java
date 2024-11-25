@@ -15,9 +15,10 @@ public class MGOSNoMineIsNotOpenedWithFlag extends MGOSNoMine {
     @Override
     public void inverseFlag() {
         getGameObjectStateAutomaton().setCurrentStateNoMineIsNotOpenedWithoutFlag();
+    }
 
-        //  ToDo:   Код ниже в этом методе лучше перенести в метод "выполнить при входе в состояние".
-
+    @Override
+    protected void doWhenTurnOn() {
         getGameObjectStateAutomaton()
                 .getGameObject()
                 .getGameObjectsPlacement()
@@ -25,7 +26,7 @@ public class MGOSNoMineIsNotOpenedWithFlag extends MGOSNoMine {
                 .sendGameEventToAllViews(
                         new GameEventOneTileMinesweeperChangeFlag(
                                 getGameObjectStateAutomaton().getXyCoordinate(),
-                                false
+                                true
                         )
                 )
         ;
