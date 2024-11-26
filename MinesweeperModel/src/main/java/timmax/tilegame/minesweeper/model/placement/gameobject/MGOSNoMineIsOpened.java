@@ -18,7 +18,7 @@ public class MGOSNoMineIsOpened extends MGOSNoMine {
     }
 
     @Override
-    protected void doWhenTurnOn() {
+    protected void doAfterTurnOn() {
         getGameObjectStateAutomaton().initNeighbourSet();
 
         getGameObjectStateAutomaton()

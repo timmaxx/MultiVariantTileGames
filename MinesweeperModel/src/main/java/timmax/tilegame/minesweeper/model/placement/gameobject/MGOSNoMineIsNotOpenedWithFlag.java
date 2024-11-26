@@ -18,7 +18,7 @@ public class MGOSNoMineIsNotOpenedWithFlag extends MGOSNoMine {
     }
 
     @Override
-    protected void doWhenTurnOn() {
+    protected void doAfterTurnOn() {
         getGameObjectStateAutomaton()
                 .getGameObject()
                 .getGameObjectsPlacement()

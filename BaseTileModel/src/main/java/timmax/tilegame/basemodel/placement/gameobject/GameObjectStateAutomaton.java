@@ -25,12 +25,17 @@ public abstract class GameObjectStateAutomaton {
     }
 
     protected void setCurrentState(BaseGameObjectState baseGameObjectState) {
-        //  MayBeToDo:
-        //          Возможно при переходе между состояниями понадобится метод "выполнить при выходе из состояния".
-        //          Если он понадобится, то в варианте до "this.baseGameObjectState = baseGameObjectState;"
+        //  ToDo:   baseGameObjectState не должен быть null
+        if (this.baseGameObjectState == baseGameObjectState) {
+            return;
+        }
+        if (this.baseGameObjectState != null) {
+            //  здесь реализован вариант "выполнить при выходе из состояния" до "this.baseGameObjectState = baseGameObjectState;"
+            this.baseGameObjectState.doBeforeTurnOff();
+        }
         this.baseGameObjectState = baseGameObjectState;
         //  здесь реализован вариант "выполнить при входе в состояние" после "this.baseGameObjectState = baseGameObjectState;"
-        this.baseGameObjectState.doWhenTurnOn();
+        this.baseGameObjectState.doAfterTurnOn();
     }
 
     public BaseGameObjectState getGameObjectState() {

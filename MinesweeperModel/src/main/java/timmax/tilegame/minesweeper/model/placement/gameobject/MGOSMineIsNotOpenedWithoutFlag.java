@@ -26,7 +26,7 @@ public class MGOSMineIsNotOpenedWithoutFlag extends MGOSMine {
     }
 
     @Override
-    protected void doWhenTurnOn() {
+    protected void doAfterTurnOn() {
         if (isFirst) {
             isFirst = false;
             return;
