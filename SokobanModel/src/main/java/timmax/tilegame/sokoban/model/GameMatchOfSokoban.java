@@ -16,6 +16,7 @@ import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
+import timmax.tilegame.basemodel.protocol.server.GameEventSender;
 import timmax.tilegame.sokoban.model.placement.placementstate.SokobanPlacementStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.GameMatch;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
@@ -72,7 +73,12 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         }
         setStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
         currentLevel.incValue();
-        sendGameEventToAllViews(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
+        GameEventSender.sendGameEventToAllViews(
+                new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL),
+                getRemoteClientStateAutomaton(),
+                //  Warning:(79, 17) Unchecked assignment: 'java.util.Map' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'. Reason: 'getGameType()' has raw type, so result of getViewName_ViewClassMap is erased
+                getGameType().getViewName_ViewClassMap()
+        );
     }
 
     public void prevLevel() {
@@ -81,7 +87,12 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         }
         setStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
         currentLevel.decValue();
-        sendGameEventToAllViews(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
+        GameEventSender.sendGameEventToAllViews(
+                new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL),
+                getRemoteClientStateAutomaton(),
+                //  Warning:(92, 17) Unchecked assignment: 'java.util.Map' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'. Reason: 'getGameType()' has raw type, so result of getViewName_ViewClassMap is erased
+                getGameType().getViewName_ViewClassMap()
+        );
     }
 
     // interface IGameMatchX

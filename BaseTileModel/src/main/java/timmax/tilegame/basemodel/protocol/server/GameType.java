@@ -15,10 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import timmax.common.JFXColorWithExternalizable;
-import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.placement.gameobject.GameObjectStateAutomaton;
-import timmax.tilegame.basemodel.protocol.EventOfServer;
-import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent;
 import timmax.tilegame.basemodel.protocol.IGameType;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
@@ -81,7 +78,7 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
     private Map<String, Class<? extends View>> viewName_ViewClassMap;
     protected ParamName_paramModelDescriptionMap paramName_paramModelDescriptionMap;
 
-    //  ToDo:   Поля ниже относятся к визуализации. Их нужно абстрагировать и визуальную часть вынести отсюда.
+    //  ToDo:   Поля ниже (три шт.) относятся к визуализации. Их нужно абстрагировать и визуальную часть вынести отсюда.
     private Color defaultCellBackgroundColor;
     private Color defaultCellTextColor;
     private String defaultCellTextValue;
@@ -144,29 +141,18 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
         return defaultCellTextValue;
     }
 
-    // ToDo: Отказаться от прямого доступа к viewName_ViewClassMap из вне класса.
+    // ToDo: Отказаться от прямого доступа к viewName_ViewClassMap извне класса.
     public Map<String, Class<? extends View>> getViewName_ViewClassMap() {
         return viewName_ViewClassMap;
     }
 
-    // ToDo: Отказаться от прямого доступа к paramName_paramModelDescriptionMap из вне класса.
+    // ToDo: Отказаться от прямого доступа к paramName_paramModelDescriptionMap извне класса.
     public final ParamName_paramModelDescriptionMap getParamName_paramModelDescriptionMap() {
         return paramName_paramModelDescriptionMap;
     }
 
     public Constructor<? extends IGameMatch> getGameMatchConstructor() {
         return gameMatchConstructor;
-    }
-
-    //  ToDo:   Этот метод здесь не к месту. Т.к.:
-    //          - вызывается он только из GameMatch,
-    //          - единственное поле, которое используется в методе - это viewName_ViewClassMap
-    //              (а именно .keySet() - т.е. имена классов выборок, которым направлять события)
-    public <ClientId> void sendGameEventToAllViews(GameEvent gameEvent, RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
-        for (String viewName : viewName_ViewClassMap.keySet()) {
-            EventOfServer eventOfServer = new EventOfServer92GameEvent(viewName, gameEvent);
-            remoteClientStateAutomaton.sendEventOfServer(remoteClientStateAutomaton.getClientId(), eventOfServer);
-        }
     }
 
     public <ClientId> void initGameMatchXSet(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {

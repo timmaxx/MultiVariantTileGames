@@ -1,5 +1,6 @@
 package timmax.tilegame.minesweeper.model.placement.gameobject;
 
+import timmax.tilegame.basemodel.protocol.server.GameEventSender;
 import timmax.tilegame.minesweeper.model.gameevent.GameEventOneTileMinesweeperChangeFlag;
 
 public class MGOSMineIsNotOpenedWithoutFlag extends MGOSMine {
@@ -31,16 +32,15 @@ public class MGOSMineIsNotOpenedWithoutFlag extends MGOSMine {
             isFirst = false;
             return;
         }
-        getGameObjectStateAutomaton()
-                .getGameObject()
-                .getGameObjectsPlacement()
-                .getGameMatch()
-                .sendGameEventToAllViews(
-                        new GameEventOneTileMinesweeperChangeFlag(
-                                getGameObjectStateAutomaton().getXyCoordinate(),
-                                false
-                        )
-                )
-        ;
+        GameEventSender.sendGameEventToAllViews(
+                new GameEventOneTileMinesweeperChangeFlag(
+                        getGameObjectStateAutomaton().getXyCoordinate(),
+                        false
+                ),
+                //  Warning:(40, 17) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton' to 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton<java.lang.Object>'. Reason: 'getGameObjectStateAutomaton().getGameObject().getGameObjectsPlacement().getGameMatch()' has raw type, so result of getRemoteClientStateAutomaton is erased
+                getGameObjectStateAutomaton().getGameObject().getGameObjectsPlacement().getGameMatch().getRemoteClientStateAutomaton(),
+                //  Warning:(41, 17) Unchecked assignment: 'java.util.Map' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'. Reason: 'getGameObjectStateAutomaton().getGameObject().getGameObjectsPlacement().getGameMatch().getGameType()' has raw type, so result of getViewName_ViewClassMap is erased
+                getGameObjectStateAutomaton().getGameObject().getGameObjectsPlacement().getGameMatch().getGameType().getViewName_ViewClassMap()
+        );
     }
 }

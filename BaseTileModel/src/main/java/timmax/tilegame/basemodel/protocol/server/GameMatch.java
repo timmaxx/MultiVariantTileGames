@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import timmax.tilegame.basemodel.GameMatchStatus;
-import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.placement.placementstate.GameObjectsPlacementStateAutomaton;
@@ -74,6 +73,14 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         this.remoteClientStateAutomaton = remoteClientStateAutomaton;
     }
 
+    //  ToDo:   Переместить сюда функционал GameEventSender :: static <ClientId> void sendGameEventToAllViews
+    //          и удалить этот геттер.
+    //          Если метод GameEventSender :: static <ClientId> void sendGameEventToAllViews
+    //          перенести в этот класс, то и этот геттер не понадобится.
+    public RemoteClientStateAutomaton<ClientId> getRemoteClientStateAutomaton() {
+        return remoteClientStateAutomaton;
+    }
+
     protected GameObjectsPlacementStateAutomaton getGameObjectsPlacementStateAutomaton() {
         return gameObjectsPlacementStateAutomaton;
     }
@@ -95,13 +102,6 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         if (getStatus() == GameMatchStatus.GAME) {
             throw new RuntimeException("Wrong situation: getStatus() == GameMatchStatus.GAME");
         }
-    }
-
-    //  ToDo:   Этот метод здесь не к месту.
-    //          Посылает игровое событие всем выборкам.
-    public void sendGameEventToAllViews(GameEvent gameEvent) {
-        //  Warning:(101, 9) Unchecked call to 'sendGameEventToAllViews(GameEvent, RemoteClientStateAutomaton<ClientId>)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.GameType'
-        gameType.sendGameEventToAllViews(gameEvent, remoteClientStateAutomaton);
     }
 
     protected final boolean verifyGameStatusNotGameAndMayBeCreateNewGame() {
@@ -140,7 +140,12 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     @Override
     public void win() {
         setStatus(GameMatchStatus.VICTORY);
-        sendGameEventToAllViews(new GameEventGameOver(VICTORY));
+        GameEventSender.sendGameEventToAllViews(
+                new GameEventGameOver(VICTORY),
+                remoteClientStateAutomaton,
+                //  Warning:(144, 109) Unchecked assignment: 'java.util.Map' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'. Reason: 'gameType' has raw type, so result of getViewName_ViewClassMap is erased
+                gameType.getViewName_ViewClassMap()
+        );
     }
 
     @Override
@@ -149,7 +154,12 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
             return;
         }
         setStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
-        sendGameEventToAllViews(new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL));
+        GameEventSender.sendGameEventToAllViews(
+                new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL),
+                remoteClientStateAutomaton,
+                //  Warning:(157, 17) Unchecked assignment: 'java.util.Map' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'. Reason: 'gameType' has raw type, so result of getViewName_ViewClassMap is erased
+                gameType.getViewName_ViewClassMap()
+        );
     }
 
     @Override
