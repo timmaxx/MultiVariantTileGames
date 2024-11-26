@@ -23,9 +23,7 @@ import static timmax.tilegame.basemodel.GameMatchStatus.*;
 //          - конструктор должен проверить целостность параметров матча.
 //          - сеттер параметров матча станет не нужным.
 //  ToDo:   Ввести переменные в которых хранить:
-//          - первичную расстановку объектов,
-//          - последовательность всех ходов матча,
-//          - текущая (т.е. после последнего хода) расстановка объектов (не обязательно, но может понадобиться для быстрого просмотра).
+//          - последовательность всех ходов матча.
 //  ToDo:   Дополнить функционалом:
 //          - по хранению перечня игровых контроллеров (от которых можно принимать сигналы управления игрой),
 //          -- при игре с более чем одним игроком, контроллеры нужно учитывать по отдельному участнику.
@@ -100,7 +98,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     }
 
     //  ToDo:   Этот метод здесь не к месту.
-    // Посылает игровое событие всем выборкам.
+    //          Посылает игровое событие всем выборкам.
     public void sendGameEventToAllViews(GameEvent gameEvent) {
         //  Warning:(101, 9) Unchecked call to 'sendGameEventToAllViews(GameEvent, RemoteClientStateAutomaton<ClientId>)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.GameType'
         gameType.sendGameEventToAllViews(gameEvent, remoteClientStateAutomaton);
