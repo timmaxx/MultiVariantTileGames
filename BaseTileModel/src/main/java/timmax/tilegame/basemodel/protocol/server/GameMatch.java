@@ -73,10 +73,6 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         this.remoteClientStateAutomaton = remoteClientStateAutomaton;
     }
 
-    //  ToDo:   Переместить сюда функционал GameEventSender :: static <ClientId> void sendGameEventToAllViews
-    //          и удалить этот геттер.
-    //          Если метод GameEventSender :: static <ClientId> void sendGameEventToAllViews
-    //          перенести в этот класс, то и этот геттер не понадобится.
     public RemoteClientStateAutomaton<ClientId> getRemoteClientStateAutomaton() {
         return remoteClientStateAutomaton;
     }
@@ -140,9 +136,8 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     @Override
     public void win() {
         setStatus(GameMatchStatus.VICTORY);
-        GameEventSender.sendGameEventToAllViews(
+        remoteClientStateAutomaton.sendGameEventToAllViews(
                 new GameEventGameOver(VICTORY),
-                remoteClientStateAutomaton,
                 //  Warning:(144, 109) Unchecked assignment: 'java.util.Map' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'. Reason: 'gameType' has raw type, so result of getViewName_ViewClassMap is erased
                 gameType.getViewName_ViewClassMap()
         );
@@ -154,9 +149,8 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
             return;
         }
         setStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
-        GameEventSender.sendGameEventToAllViews(
+        remoteClientStateAutomaton.sendGameEventToAllViews(
                 new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL),
-                remoteClientStateAutomaton,
                 //  Warning:(157, 17) Unchecked assignment: 'java.util.Map' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'. Reason: 'gameType' has raw type, so result of getViewName_ViewClassMap is erased
                 gameType.getViewName_ViewClassMap()
         );

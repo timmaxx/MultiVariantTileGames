@@ -1,7 +1,6 @@
 package timmax.tilegame.sokoban.model.placement.gameobject;
 
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
-import timmax.tilegame.basemodel.protocol.server.GameEventSender;
 import timmax.tilegame.sokoban.model.placement.primitives.SokobanXYOffset;
 import timmax.tilegame.basemodel.placement.gameobject.GameObject;
 import timmax.tilegame.basemodel.placement.placementstate.GameObjectsPlacementStateAutomaton;
@@ -49,10 +48,9 @@ public class SGOPlayer extends SGOCollisionMovableObject {
                 }
             }
 
-            GameEventSender.sendGameEventToAllViews(
+            //  Warning:(51, 13) Unchecked call to 'sendGameEventToAllViews(GameEvent, Map<String, Class<? extends View>>)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton'
+            getGameObjectsPlacement().getGameMatch().getRemoteClientStateAutomaton().sendGameEventToAllViews(
                     new GameEventSokobanVariableParamsCountOfBoxesInHouses(countBoxesOnHomes),
-                    //  Warning:(54, 21) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton' to 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton<java.lang.Object>'. Reason: 'getGameObjectsPlacement().getGameMatch()' has raw type, so result of getRemoteClientStateAutomaton is erased
-                    getGameObjectsPlacement().getGameMatch().getRemoteClientStateAutomaton(),
                     //  Warning:(55, 21) Unchecked assignment: 'java.util.Map' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'. Reason: 'getGameObjectsPlacement().getGameMatch().getGameType()' has raw type, so result of getViewName_ViewClassMap is erased
                     getGameObjectsPlacement().getGameMatch().getGameType().getViewName_ViewClassMap()
             );

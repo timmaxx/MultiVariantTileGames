@@ -1,6 +1,5 @@
 package timmax.tilegame.minesweeper.model.placement.gameobject;
 
-import timmax.tilegame.basemodel.protocol.server.GameEventSender;
 import timmax.tilegame.minesweeper.model.gameevent.GameEventOneTileMinesweeperChangeFlag;
 
 public class MGOSNoMineIsNotOpenedWithoutFlag extends MGOSNoMine {
@@ -33,13 +32,12 @@ public class MGOSNoMineIsNotOpenedWithoutFlag extends MGOSNoMine {
             return;
         }
 
-        GameEventSender.sendGameEventToAllViews(
+        //  Warning:(35, 9) Unchecked call to 'sendGameEventToAllViews(GameEvent, Map<String, Class<? extends View>>)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton'
+        getGameObjectStateAutomaton().getGameObject().getGameObjectsPlacement().getGameMatch().getRemoteClientStateAutomaton().sendGameEventToAllViews(
                 new GameEventOneTileMinesweeperChangeFlag(
                         getGameObjectStateAutomaton().getXyCoordinate(),
                         false
                 ),
-                //  Warning:(41, 17) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton' to 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton<java.lang.Object>'. Reason: 'getGameObjectStateAutomaton().getGameObject().getGameObjectsPlacement().getGameMatch()' has raw type, so result of getRemoteClientStateAutomaton is erased
-                getGameObjectStateAutomaton().getGameObject().getGameObjectsPlacement().getGameMatch().getRemoteClientStateAutomaton(),
                 // Warning:(42, 17) Unchecked assignment: 'java.util.Map' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'. Reason: 'getGameObjectStateAutomaton().getGameObject().getGameObjectsPlacement().getGameMatch().getGameType()' has raw type, so result of getViewName_ViewClassMap is erased
                 getGameObjectStateAutomaton().getGameObject().getGameObjectsPlacement().getGameMatch().getGameType().getViewName_ViewClassMap()
         );

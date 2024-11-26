@@ -4,7 +4,6 @@ import javafx.scene.input.KeyCode;
 import timmax.tilegame.basemodel.exception.GameObjectAlreadyExistsException;
 import timmax.tilegame.basemodel.placement.placementstate.GameObjectsPlacementStateAutomaton;
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
-import timmax.tilegame.basemodel.protocol.server.GameEventSender;
 import timmax.tilegame.basemodel.protocol.server.GameMatch;
 
 import timmax.tilegame.sokoban.model.GameMatchOfSokoban;
@@ -149,10 +148,9 @@ public class SokobanPlacementStateAutomaton extends GameObjectsPlacementStateAut
     public void sendGameEventToAllViews(XYCoordinate xyCoordinate) {
         WhoPersistentInTile whoPersistentInTileBefore = getWhoPersistentInTile(xyCoordinate);
         WhoMovableInTile whoMovableInTile = getWhoMovableInTile(xyCoordinate);
-        GameEventSender.sendGameEventToAllViews(
+        //  Warning:(151, 9) Unchecked call to 'sendGameEventToAllViews(GameEvent, Map<String, Class<? extends View>>)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton'
+        getGameMatch().getRemoteClientStateAutomaton().sendGameEventToAllViews(
                 new GameEventOneTileSokobanChangeable(xyCoordinate, whoPersistentInTileBefore, whoMovableInTile),
-                //  Warning:(154, 17) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton' to 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton<java.lang.Object>'. Reason: 'getGameMatch()' has raw type, so result of getRemoteClientStateAutomaton is erased
-                getGameMatch().getRemoteClientStateAutomaton(),
                 //  Warning:(155, 17) Unchecked assignment: 'java.util.Map' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'. Reason: 'getGameMatch().getGameType()' has raw type, so result of getViewName_ViewClassMap is erased
                 getGameMatch().getGameType().getViewName_ViewClassMap()
         );
