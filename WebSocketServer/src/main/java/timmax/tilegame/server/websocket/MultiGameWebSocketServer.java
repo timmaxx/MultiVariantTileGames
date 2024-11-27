@@ -23,12 +23,12 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketServer.class);
 
     private final ObjectMapperOfMvtg mapper;
-    private final Map<WebSocket, RemoteClientStateAutomaton<WebSocket>> webSocketAndRemoteClientStateAutomatonMap;
+    private final Map<WebSocket, RemoteClientStateAutomaton<WebSocket>> webSocket_RemoteClientStateAutomaton_Map;
 
     public MultiGameWebSocketServer(int port) {
         super(new InetSocketAddress(port));
         mapper = new ObjectMapperOfMvtg();
-        webSocketAndRemoteClientStateAutomatonMap = new HashMap<>();
+        webSocket_RemoteClientStateAutomaton_Map = new HashMap<>();
     }
 
     // class WebSocketServer:
@@ -41,7 +41,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     public void onClose(WebSocket webSocket, int code, String reason, boolean remote) {
         logger.info("WebSocket: {}. Connection was closed.", webSocket);
         logger.debug("  Code: {}. Reason: {}. Remote: {}.", code, reason, remote);
-        webSocketAndRemoteClientStateAutomatonMap.remove(webSocket);
+        webSocket_RemoteClientStateAutomaton_Map.remove(webSocket);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         logger.debug("  ClientHandshake: {}.", clientHandshake);
         // ToDo: Устранить взаимозависимость интерфейса IFabricOfClientStates и класса ClientStateAutomaton.
         //       См. коммент к IFabricOfClientStates
-        webSocketAndRemoteClientStateAutomatonMap.put(
+        webSocket_RemoteClientStateAutomaton_Map.put(
                 webSocket,
                 // ToDo: Внедрить двустороннюю мапу (https://coderlessons.com/articles/java/google-guava-bimaps)
                 // ToDo: Сейчас в конструктор RemoteClientStateAutomaton передаются несколько параметров, некоторые из
@@ -78,7 +78,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         // ToDo: События, поступающие от разных клиентов (webSocket) нужно складывать в очередь и обрабатывать после
         //       того, как будут обработаны предыдущие.
         //       Также см. комментарий в EventOfServer92GameEvent :: void executeOnClient(...).
-        Thread thread = new Thread(() -> eventOfClient.executeOnServer(webSocketAndRemoteClientStateAutomatonMap.get(webSocket)));
+        Thread thread = new Thread(() -> eventOfClient.executeOnServer(webSocket_RemoteClientStateAutomaton_Map.get(webSocket)));
         thread.start();
     }
 
