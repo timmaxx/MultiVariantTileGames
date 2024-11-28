@@ -9,6 +9,7 @@ import timmax.tilegame.transport.TransportOfServer;
 
 import java.util.Map;
 
+//  Автомат состояний клиента, работающий на сервере и учитывающий состояния удалённых клиентов.
 public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<IGameMatch> {
     private final ClientId clientId;
 

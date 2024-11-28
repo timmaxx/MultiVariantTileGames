@@ -15,6 +15,7 @@ import timmax.tilegame.baseview.ViewMainField;
 import java.util.HashMap;
 import java.util.Map;
 
+//  Автомат состояний клиента, работающий на клиенте и учитывающий состояния локального клиента.
 public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchDto> implements ObserverOnAbstractEvent {
     private final ObserverOnAbstractEventHashSet observerOnAbstractEventHashSet;
     private final Map<String, View> viewName_ViewMap;

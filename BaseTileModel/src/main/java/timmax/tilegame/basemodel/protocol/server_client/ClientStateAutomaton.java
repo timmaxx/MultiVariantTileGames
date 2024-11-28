@@ -6,6 +6,10 @@ import timmax.tilegame.basemodel.protocol.server.GameType;
 import java.util.HashSet;
 import java.util.Set;
 
+//  Базовый автомат состояний клиента.
+//  Он будет родителем:
+//  - как для автомата состояний клиента на сервере,
+//  - так и для автомата состояний клиента на клиенте.
 public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
         IClientState01NoConnect,
         IClientState02ConnectNonIdent,
