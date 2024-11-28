@@ -1,19 +1,19 @@
 package timmax.tilegame.basemodel.credential;
 
-import java.util.Map;
+import java.util.Set;
 
 public class Credentials {
-    private final static Map<String, String> mapOfCredential;
+    private final static Set<User> userSet;
 
     static {
-        mapOfCredential = Map.of(
-                "u1", "1",
-                "u2", "2",
-                "u3", "3"
+        userSet = Set.of(
+                new User("u1", "1"),
+                new User("u2", "2"),
+                new User("u3", "3")
         );
     }
 
     public static boolean isUserAndPasswordCorrect(String userName, String password) {
-        return mapOfCredential.containsKey(userName) && mapOfCredential.get(userName).equals(password);
+        return userSet.contains(new User(userName, password));
     }
 }
