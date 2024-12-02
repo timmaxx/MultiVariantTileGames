@@ -7,10 +7,14 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.HBox;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.transport.TransportOfClient;
 
 public abstract class AbstractConnectStatePane extends HBox implements ObserverOnAbstractEvent {
+    protected static final Logger logger = LoggerFactory.getLogger(AbstractConnectStatePane.class);
+
     // X - составляющие
     public final static int LAYOUT_X_OF_FIRST_COLUMN = 0;
     public final static int LAYOUT_X_OF_SECOND_COLUMN = 100;

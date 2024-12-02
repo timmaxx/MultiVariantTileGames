@@ -2,16 +2,22 @@ package timmax.tilegame.basemodel.credential;
 
 //  Пользователь
 public class User {
+//  ToDo:   Создать класс Players, в котором будут храниться упорядоченные игроки (с индексами 0 и 1)
+//          и который будет использоваться в классе GameMatch.
+
     private final String userName;
     private final String password;
-    //  //  Доступные типы игр
-    //  private final Set<GameType> availableGameTypeSet;
+
+    //  ToDo:   Сделать поле перечень матчей, в которых этот пользователь является участником и под каким номером.
     //  MayBeToDo:  доступные матчи и номер игрока в ней.
 
     public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
-        //  this.availableGameTypeSet = new HashSet<>();
+    }
+
+    public String getUserName() {
+        return userName;
     }
 
     @Override

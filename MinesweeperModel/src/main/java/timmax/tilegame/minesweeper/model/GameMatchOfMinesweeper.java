@@ -36,6 +36,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     public GameMatchOfMinesweeper(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton)
             throws ClassNotFoundException, NoSuchMethodException {
         super(new GameTypeOfMinesweeper(), remoteClientStateAutomaton);
+        super.setPlayer(remoteClientStateAutomaton.getUser(), 0);
     }
 
     // interface IGameMatchX:
@@ -60,6 +61,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     @Override
     public GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto) {
         //  ToDo:   Что-то из описанного ниже ToDo сделать здесь, что-то в родительском классе.
+
         //  ToDo:   Отправить клиенту:
         //          1. Размеры главной выборки матча и умолчательные характеристики для построения пустого поля
         //             (но возможно, это в более раннем событии следует передать) для построения пустой выборки главного поля.
@@ -67,8 +69,6 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
         //          3. Объекты матча динамические. Например:
         //              - для Сокобана: игрок, ящики.
         //              - для Сапёра: флаги и количество мин на открытых плитках.
-
-        throwExceptionIfIsPlaying();
 
         //  Здесь, в таком порядке:
         // 1. super.start(),

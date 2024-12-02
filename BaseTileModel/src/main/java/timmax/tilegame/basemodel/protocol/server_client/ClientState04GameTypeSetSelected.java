@@ -13,9 +13,7 @@ public abstract class ClientState04GameTypeSetSelected<GameMatchX extends IGameM
     @Override
     public void reauthorizeUser() {
         String userName = getClientStateAutomaton().getUserName_();
-        //  Warning:(16, 13) Raw use of parameterized class 'GameType'
-        Set<GameType> gameTypeSet = getClientStateAutomaton().getGameTypeSet_();
-        authorizeUser(userName, gameTypeSet);
+        authorizeUser(userName);
     }
 
     @Override

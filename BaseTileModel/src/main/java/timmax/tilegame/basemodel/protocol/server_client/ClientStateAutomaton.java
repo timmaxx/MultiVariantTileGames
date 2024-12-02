@@ -1,7 +1,11 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
 import timmax.tilegame.basemodel.GameMatchStatus;
+import timmax.tilegame.basemodel.credential.Credentials;
+import timmax.tilegame.basemodel.credential.User;
+import timmax.tilegame.basemodel.exception.WrongChangeStateException;
 import timmax.tilegame.basemodel.protocol.server.GameType;
+import timmax.tilegame.basemodel.protocol.server.GameTypeFabric;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -28,10 +32,10 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
     private IClientState99<GameMatchX> currentState;
 
-    //  ToDo:   Создать тип User и в т.ч. в его составе должен быть Set<GameType> gameTypeSet.
-    private String userName; // ---- 2 (Пользователь)
+    private User user;
 
-    //  ToDo:   Удалить, т.к. в User должен быть Set<GameType>.
+    //  ToDo:   Удалить, т.к. у сервера должен быть перечень типов, поддерживаемых игр Set<GameType>.
+    //          Но при этом геттер оставить.
     //      Warning:(31, 17) Raw use of parameterized class 'GameType'
     private Set<GameType> gameTypeSet; // ---- 3 (Список типов игр)
 
@@ -79,6 +83,10 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         stateToStateSet.add(new StateToState<>(clientState08GameMatchIsPlaying, clientState07GameMatchSelected));
     }
 
+    public User getUser() {
+        return user;
+    }
+
     private void setCurrentState(IClientState99<GameMatchX> currentState) {
         boolean success = false;
         for (StateToState<GameMatchX> stateToState : stateToStateSet) {
@@ -90,7 +98,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         }
 
         if (!success) {
-            throw new RuntimeException("You cannot change state from '" + this.currentState + "' to '" + currentState + "'!");
+            throw new WrongChangeStateException(this.currentState, currentState);
         }
 
         this.currentState.doBeforeTurnOff();
@@ -114,13 +122,13 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     void close_() {
     }
 
-    void authorizeUser_(String userName, Set<GameType> gameTypeSet) {
+    void authorizeUser_(String userName) {
         if (userName == null || userName.isEmpty()) {
             setCurrentState(clientState01NoConnect);
             return;
         }
-        this.userName = userName;
-        this.gameTypeSet = gameTypeSet;
+        this.user = Credentials.getUserByUserName(userName);
+        this.gameTypeSet = GameTypeFabric.getGameTypeSet();
     }
 
     void selectGameType_(GameType gameType) {
@@ -139,7 +147,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
     // Геттерам, имеющим прямой доступ к полям(..._), тоже достаточно быть private-package:
     String getUserName_() {
-        return userName;
+        return user.getUserName();
     }
 
     // ToDo: Может обойтись без protected?
@@ -182,9 +190,9 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     }
 
     @Override
-    public void authorizeUser(String userName, Set<GameType> gameTypeSet) {
+    public void authorizeUser(String userName) {
         setCurrentState(clientState04GameTypeSetSelected);
-        currentState.authorizeUser(userName, gameTypeSet);
+        currentState.authorizeUser(userName);
     }
 
     // 4 interface IClientState04GameTypeSetSelected

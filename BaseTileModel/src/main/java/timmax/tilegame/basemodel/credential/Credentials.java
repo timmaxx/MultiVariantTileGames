@@ -16,4 +16,12 @@ public class Credentials {
     public static boolean isUserAndPasswordCorrect(String userName, String password) {
         return userSet.contains(new User(userName, password));
     }
+
+    public static User getUserByUserName(String userName) {
+        return userSet
+                .stream()
+                .filter(user -> user.getUserName().equals(userName))
+                .findAny()
+                .orElse(null);
+    }
 }

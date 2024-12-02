@@ -4,22 +4,14 @@ import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server_client.ClientState04GameTypeSetSelected;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 
-import java.util.Set;
-
 public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientState04GameTypeSetSelected<IGameMatch> {
     public RemoteClientState04GameTypeSetSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 
     @Override
-    public void authorizeUser(String userName, Set<GameType> gameTypeSet) {
-        //  ToDo:   Требует переделки, т.к. второй параметр (gameTypeSet):
-        //          - в принципе не должен поступать в этот метод, т.к. это зависимое значение.
-        //          - и соответственно определаять его нужно до вызова этого метода внутри userName (т.е. создать
-        //            отдельный класс User, в котором должен быть переменная Set<GameType> gameTypeSet).
-        //          Также см. комментарий к
-        //          RemoteClientState06GameMatchSetSelected :: void selectGameType(GameType gameType, Set<IGameMatch> gameMatchXSet)
-        super.authorizeUser(userName, gameTypeSet);
+    public void authorizeUser(String userName) {
+        super.authorizeUser(userName);
 
         //  ToDo:   Ниже, использовать входящий параметр (здесь это userName) не рекомендуется, т.к.
         //          в методе super он может быть не принят полностью или в какой-то части, но в целевом экземпляре
@@ -28,7 +20,7 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
         //          отправить клиенту.
         getClientStateAutomaton().sendEventOfServer(
                 getClientStateAutomaton().getClientId(),
-                new EventOfServer21IdentifyAuthenticateAuthorizeUser(userName, gameTypeSet)
+                new EventOfServer21IdentifyAuthenticateAuthorizeUser(userName, getGameTypeSet())
         );
     }
 

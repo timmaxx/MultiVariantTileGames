@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import timmax.tilegame.basemodel.GameMatchStatus;
+import timmax.tilegame.basemodel.credential.User;
 import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.placement.placementstate.GameObjectsPlacementStateAutomaton;
@@ -57,6 +58,11 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     //          (с одним элементом - для игр с одним игроком, с двумя элементами - для игр с двумя игроками).
     protected final RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton;
 
+    //  ToDo:   Создать класс Players, в котором будут храниться упорядоченные игроки (с индексами 0 и 1)
+    //          и который будет использоваться в классе GameMatch.
+    //          И перенести отсюда часть логики в тот класс.
+    private User[] players;
+
     private Map<String, Integer> paramsOfModelValueMap;
     private GameMatchStatus status;
 
@@ -69,8 +75,19 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
             GameType gameType,
             RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
         this.gameType = gameType;
+        this.players = new User[gameType.getCountOfGamers()];
         this.status = NOT_STARTED;
         this.remoteClientStateAutomaton = remoteClientStateAutomaton;
+    }
+
+    public void setPlayer(User player, int indexOfPlayer) {
+        if (this.status != NOT_STARTED) {
+            throw new RuntimeException("Match is not in state NOT_STARTED");
+        }
+        if (indexOfPlayer < 0 || indexOfPlayer > gameType.getCountOfGamers()) {
+            throw new RuntimeException("Wrong indexOfPlayer");
+        }
+        players[indexOfPlayer] = player;
     }
 
     public RemoteClientStateAutomaton<ClientId> getRemoteClientStateAutomaton() {
@@ -97,6 +114,15 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     protected void throwExceptionIfIsPlaying() {
         if (getStatus() == GameMatchStatus.GAME) {
             throw new RuntimeException("Wrong situation: getStatus() == GameMatchStatus.GAME");
+        }
+    }
+
+    protected void throwExceptionIfThereIsNotDefinedPlayer() {
+        for (int i = 0; i < gameType.getCountOfGamers(); i++) {
+            if (players[i] == null) {
+                logger.error("Wrong situation: there is player == null (index = {})", i);
+                throw new RuntimeException("Wrong situation: there is player == null (index = " + i + ")");
+            }
         }
     }
 
@@ -175,6 +201,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         //              2. Для Сапёра: флаги и количество мин на открытых плитках.
 
         throwExceptionIfIsPlaying();
+        throwExceptionIfThereIsNotDefinedPlayer();
         this.paramsOfModelValueMap = gameMatchExtendedDto.getParamsOfModelValueMap();
         status = GameMatchStatus.GAME;
         return gameMatchExtendedDto;

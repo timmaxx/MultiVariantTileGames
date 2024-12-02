@@ -5,10 +5,10 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.credential.Credentials;
-import timmax.tilegame.basemodel.protocol.server.GameTypeFabric;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
 public class EventOfClient21IdentifyAuthenticateAuthorizeUser extends EventOfClient {
+    //  ToDo:   Вместо этих двух полей нужно здесь использовать DTO для USER, в котором будут эти два поля.
     private String userName;
     private String password;
 
@@ -26,7 +26,7 @@ public class EventOfClient21IdentifyAuthenticateAuthorizeUser extends EventOfCli
     public <ClientId> void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
         if (Credentials.isUserAndPasswordCorrect(userName, password)) {
             password = ""; // Не будем даже хранить пароль.
-            remoteClientStateAutomaton.authorizeUser(userName, GameTypeFabric.getGameTypeSet());
+            remoteClientStateAutomaton.authorizeUser(userName);
         } else {
             password = ""; // Не будем даже хранить неправильный пароль.
             remoteClientStateAutomaton.connect();

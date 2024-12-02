@@ -9,6 +9,7 @@ import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
 public class EventOfServer21IdentifyAuthenticateAuthorizeUser extends EventOfServer {
+    //  ToDo:   Вместо этих двух полей нужно здесь использовать DTO для USER, в котором будут эти два поля.
     private String userName;
     private Set<GameType> gameTypeSet;
 
@@ -27,7 +28,7 @@ public class EventOfServer21IdentifyAuthenticateAuthorizeUser extends EventOfSer
 
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
-        localClientStateAutomaton.authorizeUser(userName, gameTypeSet);
+        localClientStateAutomaton.authorizeUser(userName);
     }
 
     @Override
