@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEventHashSet;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
+import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server.ParamName_paramModelDescriptionMap;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
@@ -14,6 +15,7 @@ import timmax.tilegame.baseview.ViewMainField;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 //  Автомат состояний клиента, работающий на клиенте и учитывающий состояния локального клиента.
 public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchDto> implements ObserverOnAbstractEvent {
@@ -57,6 +59,12 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchDto
     //       Поэтому пришлось сделать его public. Но это не хорошо!
     public ParamName_paramModelDescriptionMap getParamName_paramModelDescriptionMap() {
         return getGameType_().getParamName_paramModelDescriptionMap();
+    }
+
+    //  ToDo:   См. коммент к ClientStateAutomaton :: void setGameTypeSet(Set<GameType> gameTypeSet)
+    @Override
+    public void setGameTypeSet(Set<GameType> gameTypeSet) {
+        super.setGameTypeSet(gameTypeSet);
     }
 
     @Override

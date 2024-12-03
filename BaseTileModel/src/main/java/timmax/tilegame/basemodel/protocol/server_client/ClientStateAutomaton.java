@@ -174,6 +174,15 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         return getGameMatchX_().getStatus();
     }
 
+    //  ToDo:   Удалить метод, т.к. он используется только для клиента, и перенести инициализацию перечня типов игр в
+    //          состояние "Установлено соединение с сервером".
+    //          У сервера перечень типов игр одинаков, определяется вне зависимости от авторизации пользователя на сервере,
+    //            и мог-бы храниться вне экземпляра этого класса.
+    //          Сейчас клиенту поступает перечень типов игр при успешной аутентификации пользователя.
+    protected void setGameTypeSet(Set<GameType> gameTypeSet) {
+        this.gameTypeSet = gameTypeSet;
+    }
+
     // Публичные методы класса, вызов которых будет в т.ч. приводить к смене состояния.
     // 1 interface IClientState01NoConnect
     @Override
