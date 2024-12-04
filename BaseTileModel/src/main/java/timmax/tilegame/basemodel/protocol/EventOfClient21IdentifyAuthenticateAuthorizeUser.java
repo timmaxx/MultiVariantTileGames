@@ -37,7 +37,7 @@ public class EventOfClient21IdentifyAuthenticateAuthorizeUser extends EventOfCli
     public String toString() {
         return getClass().getSimpleName() + "{" +
                 "userName='" + userName + '\'' +
-                "password='*'" +
+                ", password='*'" +
                 '}';
     }
 
