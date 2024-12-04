@@ -3,6 +3,7 @@ package timmax.tilegame.basemodel.protocol.server_client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import timmax.tilegame.basemodel.GameMatchStatus;
+import timmax.tilegame.basemodel.exception.WrongMethodInvokeForCurrentStateException;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
 import java.util.Set;
