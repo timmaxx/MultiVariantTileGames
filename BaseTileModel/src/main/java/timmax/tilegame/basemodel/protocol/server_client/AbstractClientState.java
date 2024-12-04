@@ -20,14 +20,6 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
         return clientStateAutomaton;
     }
 
-    private void wrongCallInStateAutomaton() {
-        logger.error("Current state is '{}'", getClientStateAutomaton().toString());
-        logger.error("  In this state you cannot use method '{}()'!",
-                Thread.currentThread().getStackTrace()[3].getMethodName()
-        );
-        throw new RuntimeException("Wrong call in state automaton (see log.error)!");
-    }
-
     @Override
     public void doBeforeTurnOff() {
     }
@@ -39,7 +31,7 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     // interface IClientState01NoConnect
     @Override
     public void connect() {
-        wrongCallInStateAutomaton();
+        throw new WrongMethodInvokeForCurrentStateException(getClientStateAutomaton().getCurrentState());
     }
 
     // interface IClientState02ConnectNonIdent
@@ -51,72 +43,66 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
 
     @Override
     public void authorizeUser(String userName) {
-        wrongCallInStateAutomaton();
+        throw new WrongMethodInvokeForCurrentStateException(getClientStateAutomaton().getCurrentState());
     }
 
     @Override
     public void reauthorizeUser() {
-        wrongCallInStateAutomaton();
+        throw new WrongMethodInvokeForCurrentStateException(getClientStateAutomaton().getCurrentState());
     }
 
     // interface IClientState04GameTypeSetSelected
     @Override
     public Set<GameType> getGameTypeSet() {
-        wrongCallInStateAutomaton();
-        return null;
+        throw new WrongMethodInvokeForCurrentStateException(getClientStateAutomaton().getCurrentState());
     }
 
     @Override
     public void selectGameType(GameType gameType) {
-        wrongCallInStateAutomaton();
+        throw new WrongMethodInvokeForCurrentStateException(getClientStateAutomaton().getCurrentState());
     }
 
     // interface IClientState06GameMatchSetSelected
     @Override
     public GameType getGameType() {
-        wrongCallInStateAutomaton();
-        return null;
+        throw new WrongMethodInvokeForCurrentStateException(getClientStateAutomaton().getCurrentState());
     }
 
     @Override
     public void reselectGameType() {
-        wrongCallInStateAutomaton();
+        throw new WrongMethodInvokeForCurrentStateException(getClientStateAutomaton().getCurrentState());
     }
 
     @Override
     public Set<GameMatchX> getGameMatchXSet() {
-        wrongCallInStateAutomaton();
-        return null;
+        throw new WrongMethodInvokeForCurrentStateException(getClientStateAutomaton().getCurrentState());
     }
 
     @Override
     public void selectGameMatchX(GameMatchX gameMatchX) {
-        wrongCallInStateAutomaton();
+        throw new WrongMethodInvokeForCurrentStateException(getClientStateAutomaton().getCurrentState());
     }
 
     // interface IClientState07GameMatchSelected
     @Override
     public void reselectGameMatch() {
-        wrongCallInStateAutomaton();
+        throw new WrongMethodInvokeForCurrentStateException(getClientStateAutomaton().getCurrentState());
     }
 
     @Override
     public GameMatchX getGameMatchX() {
-        wrongCallInStateAutomaton();
-        return null;
+        throw new WrongMethodInvokeForCurrentStateException(getClientStateAutomaton().getCurrentState());
     }
 
     @Override
     public GameMatchExtendedDto startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
-        wrongCallInStateAutomaton();
-        return null;
+        throw new WrongMethodInvokeForCurrentStateException(getClientStateAutomaton().getCurrentState());
     }
 
     // interface IClientState08GameMatchPlaying
     @Override
     public GameMatchStatus getGameMatchStatus() {
-        wrongCallInStateAutomaton();
-        return null;
+        throw new WrongMethodInvokeForCurrentStateException(getClientStateAutomaton().getCurrentState());
     }
 
     // class Object
