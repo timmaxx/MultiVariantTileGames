@@ -24,7 +24,12 @@ public class GameTypeFabric {
     //          Это, вероятно, не правильно, т.к. в модуле BaseTileModel не должны быть известны реализации.
     private static final String FILE_NAME_WITH_CLASS_NAMES_OF_GAME_TYPES = "gameTypes.txt";
 
-    public static Set<GameType> getGameTypeSet() {
+    public static final Set<GameType> GAME_TYPE_SET = getGameTypeSet();
+
+    private GameTypeFabric() {
+    }
+
+    private static Set<GameType> getGameTypeSet() {
         Path path = null;
         try {
             path = Paths.get(Objects.requireNonNull(GameTypeFabric.class.getResource(FILE_NAME_WITH_CLASS_NAMES_OF_GAME_TYPES)).toURI());
