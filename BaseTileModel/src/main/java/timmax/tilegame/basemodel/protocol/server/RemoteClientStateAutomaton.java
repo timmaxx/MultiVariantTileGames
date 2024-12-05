@@ -43,8 +43,6 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
         changeStateFrom01To02_();
 
         //  ToDo:   Переместить весь код ниже в doAfterTurnOn() в серверный класс.
-        //  ToDo:   Для серверной стороны сеттер и не нужен вроде. Чтобы gameTypeSet был определён,
-        //          лучше сделать его инициализацию синглтоном, равным GameTypeFabric.getGameTypeSet().
         setGameTypeSet(GameTypeFabric.GAME_TYPE_SET);
         sendEventOfServer(
                 clientId,
