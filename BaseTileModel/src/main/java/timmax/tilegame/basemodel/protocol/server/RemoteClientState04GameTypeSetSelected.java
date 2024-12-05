@@ -20,7 +20,7 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
         //          отправить клиенту.
         getClientStateAutomaton().sendEventOfServer(
                 getClientStateAutomaton().getClientId(),
-                new EventOfServer21IdentifyAuthenticateAuthorizeUser(userName, getGameTypeSet())
+                new EventOfServer21IdentifyAuthenticateAuthorizeUser(userName)
         );
     }
 

@@ -5,7 +5,6 @@ import timmax.tilegame.basemodel.credential.Credentials;
 import timmax.tilegame.basemodel.credential.User;
 import timmax.tilegame.basemodel.exception.WrongChangeStateException;
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.basemodel.protocol.server.GameTypeFabric;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -106,6 +105,10 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         currentState.doAfterTurnOn();
     }
 
+    public IClientState99<GameMatchX> getCurrentState() {
+        return currentState;
+    }
+
     protected final void changeStateFrom01To02_() {
         if (!currentState.equals(clientState01NoConnect)) {
             throw new RuntimeException("This method allowed only for changing state from 01 to 02");
@@ -128,7 +131,6 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
             return;
         }
         this.user = Credentials.getUserByUserName(userName);
-        this.gameTypeSet = GameTypeFabric.getGameTypeSet();
     }
 
     void selectGameType_(GameType gameType) {
@@ -188,6 +190,9 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     @Override
     public void connect() {
         setCurrentState(clientState02ConnectNonIdent);
+        //  ToDo:   Функционал, написанный в этом методе и в аналогичных ниже, после вызова
+        //          setCurrentState(...)
+        //          нужно переместить в doAfterTurnOn() соответствующего состояния.
         currentState.connect();
     }
 

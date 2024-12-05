@@ -2,6 +2,7 @@ package timmax.tilegame.basemodel.protocol.server;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.EventOfServer;
+import timmax.tilegame.basemodel.protocol.EventOfServer11ConnectWithoutUserIdentify;
 import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.baseview.View;
@@ -40,6 +41,15 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
         this.clientId = clientId;
         this.multiGameWebSocketServer = multiGameWebSocketServer;
         changeStateFrom01To02_();
+
+        //  ToDo:   Переместить весь код ниже в doAfterTurnOn() в серверный класс.
+        //  ToDo:   Для серверной стороны сеттер и не нужен вроде. Чтобы gameTypeSet был определён,
+        //          лучше сделать его инициализацию синглтоном, равным GameTypeFabric.getGameTypeSet().
+        setGameTypeSet(GameTypeFabric.getGameTypeSet());
+        sendEventOfServer(
+                clientId,
+                new EventOfServer11ConnectWithoutUserIdentify(getGameTypeSet())
+        );
     }
 
     public ClientId getClientId() {
