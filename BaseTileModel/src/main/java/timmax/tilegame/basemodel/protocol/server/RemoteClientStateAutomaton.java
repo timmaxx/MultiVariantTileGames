@@ -41,13 +41,6 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
         this.clientId = clientId;
         this.multiGameWebSocketServer = multiGameWebSocketServer;
         changeStateFrom01To02_();
-
-        //  ToDo:   Переместить весь код ниже в doAfterTurnOn() в серверный класс.
-        setGameTypeSet(GameTypeFabric.GAME_TYPE_SET);
-        sendEventOfServer(
-                clientId,
-                new EventOfServer11ConnectWithoutUserIdentify(getGameTypeSet())
-        );
     }
 
     public ClientId getClientId() {
@@ -65,5 +58,16 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
             EventOfServer eventOfServer = new EventOfServer92GameEvent(viewName, gameEvent);
             sendEventOfServer(getClientId(), eventOfServer);
         }
+    }
+
+    @Override
+    protected final void changeStateFrom01To02_() {
+        super.changeStateFrom01To02_();
+        //  ToDo:   Переместить весь код ниже в doAfterTurnOn() в серверный класс.
+        setGameTypeSet(GameTypeFabric.GAME_TYPE_SET);
+        sendEventOfServer(
+                clientId,
+                new EventOfServer11ConnectWithoutUserIdentify(getGameTypeSet())
+        );
     }
 }
