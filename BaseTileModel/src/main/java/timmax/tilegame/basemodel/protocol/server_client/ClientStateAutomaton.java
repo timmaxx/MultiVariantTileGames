@@ -1,5 +1,7 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import timmax.tilegame.basemodel.GameMatchStatus;
 import timmax.tilegame.basemodel.credential.Credentials;
 import timmax.tilegame.basemodel.credential.User;
@@ -20,6 +22,8 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         IClientState06GameMatchSetSelected<GameMatchX>,
         IClientState07GameMatchSelected<GameMatchX>,
         IClientState08GameMatchIsPlaying {
+    protected static final Logger logger = LoggerFactory.getLogger(ClientStateAutomaton.class);
+
     private final Set<StateToState<GameMatchX>> stateToStateSet;
 
     final ClientState01NoConnect<GameMatchX> clientState01NoConnect;
@@ -86,22 +90,22 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         return user;
     }
 
-    private void setCurrentState(IClientState99<GameMatchX> currentState) {
+    private void setCurrentState(IClientState99<GameMatchX> targetState) {
         boolean success = false;
         for (StateToState<GameMatchX> stateToState : stateToStateSet) {
-            if (stateToState.getState1().equals(this.currentState) &&
-                    stateToState.getState2().equals(currentState)) {
+            if (stateToState.getState1().equals(currentState) &&
+                    stateToState.getState2().equals(targetState)) {
                 success = true;
                 break;
             }
         }
 
         if (!success) {
-            throw new WrongChangeStateException(this.currentState, currentState);
+            throw new WrongChangeStateException(currentState, targetState);
         }
 
-        this.currentState.doBeforeTurnOff();
-        this.currentState = currentState;
+        currentState.doBeforeTurnOff();
+        currentState = targetState;
         currentState.doAfterTurnOn();
     }
 
@@ -120,6 +124,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     // 1. они private-package
     // 2. делают целевое действие в уже установленном состоянии.
     void connect_() {
+        setCurrentState(clientState02ConnectNonIdent);
     }
 
     void close_() {
@@ -131,6 +136,8 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
             return;
         }
         this.user = Credentials.getUserByUserName(userName);
+
+        setCurrentState(clientState04GameTypeSetSelected);
     }
 
     void selectGameType_(GameType gameType) {
@@ -189,29 +196,26 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     // 1 interface IClientState01NoConnect
     @Override
     public void connect() {
-        setCurrentState(clientState02ConnectNonIdent);
-        //  ToDo:   Функционал, написанный в этом методе и в аналогичных ниже, после вызова
-        //          setCurrentState(...)
-        //          нужно переместить в doAfterTurnOn() соответствующего состояния.
         currentState.connect();
     }
 
     // 2 interface IClientState02ConnectNonIdent
     @Override
     public void close() {
+        //  ToDo:   Переместить setCurrentState(...) в close_().
         setCurrentState(clientState01NoConnect);
         currentState.close();
     }
 
     @Override
     public void authorizeUser(String userName) {
-        setCurrentState(clientState04GameTypeSetSelected);
         currentState.authorizeUser(userName);
     }
 
     // 4 interface IClientState04GameTypeSetSelected
     @Override
     public void reauthorizeUser() {
+        //  ToDo:   Переместить setCurrentState(...) в reauthorizeUser_().
         setCurrentState(clientState04GameTypeSetSelected);
         currentState.reauthorizeUser();
     }
@@ -228,6 +232,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
     @Override
     public void selectGameType(GameType gameType) {
+        //  ToDo:   Переместить setCurrentState(...) в selectGameType_().
         setCurrentState(clientState06GameMatchSetSelected);
         //  Warning:(209, 37) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.GameType' to 'timmax.tilegame.basemodel.protocol.server.GameType<GameMatchX>'
         currentState.selectGameType(gameType);
@@ -236,6 +241,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     // 6 interface IClientState06GameMatchSetSelected
     @Override
     public void reselectGameType() {
+        //  ToDo:   Переместить setCurrentState(...) в reselectGameType_().
         setCurrentState(clientState06GameMatchSetSelected);
         currentState.reselectGameType();
     }
@@ -247,6 +253,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
     @Override
     public void selectGameMatchX(GameMatchX gameMatchX) {
+        //  ToDo:   Переместить setCurrentState(...) в selectGameMatchX_().
         setCurrentState(clientState07GameMatchSelected);
         currentState.selectGameMatchX(gameMatchX);
     }
@@ -254,6 +261,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     // 7 interface IClientState07GameMatchSelected
     @Override
     public void reselectGameMatch() {
+        //  ToDo:   Переместить setCurrentState(...) в reselectGameMatch_().
         setCurrentState(clientState07GameMatchSelected);
         currentState.reselectGameMatch();
     }
@@ -264,6 +272,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     }
 
     public GameMatchExtendedDto startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
+        //  ToDo:   Переместить setCurrentState(...) в startGameMatch_().
         setCurrentState(clientState08GameMatchIsPlaying);
         return currentState.startGameMatch(gameMatchExtendedDto);
     }

@@ -9,22 +9,15 @@ public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientStat
         super(clientStateAutomaton);
     }
 
+    // class AbstractClientState
     @Override
-    public void authorizeUser(String userName) {
-        super.authorizeUser(userName);
-
-        //  ToDo:   Ниже, использовать входящий параметр (здесь это userName) не рекомендуется, т.к.
-        //          в методе super он может быть не принят полностью или в какой-то части, но в целевом экземпляре
-        //          (здесь это ???) будет либо принят, либо сформирован свой (здесь это userName).
-        //          Вот его и нужно упаковать в EventOfServer (здесь это EventOfServer21IdentifyAuthenticateAuthorizeUser) и
-        //          отправить клиенту.
+    public void doAfterTurnOn() {
         getClientStateAutomaton().sendEventOfServer(
                 getClientStateAutomaton().getClientId(),
-                new EventOfServer21IdentifyAuthenticateAuthorizeUser(userName)
+                new EventOfServer21IdentifyAuthenticateAuthorizeUser(getClientStateAutomaton().getUser().getUserName())
         );
     }
 
-    // class AbstractClientState
     @Override
     public RemoteClientStateAutomaton<ClientId> getClientStateAutomaton() {
         return (RemoteClientStateAutomaton<ClientId>) (super.getClientStateAutomaton());
