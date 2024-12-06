@@ -8,16 +8,15 @@ public class RemoteClientState02ConnectNonIdent<ClientId> extends ClientState02C
         super(clientStateAutomaton);
     }
 
+    // class AbstractClientState
     @Override
-    public void connect() {
-        super.connect();
+    public void doAfterTurnOn() {
         getClientStateAutomaton().sendEventOfServer(
                 getClientStateAutomaton().getClientId(),
                 new EventOfServer11ConnectWithoutUserIdentify()
         );
     }
 
-    // class AbstractClientState
     @Override
     public RemoteClientStateAutomaton<ClientId> getClientStateAutomaton() {
         return (RemoteClientStateAutomaton<ClientId>)(super.getClientStateAutomaton());
