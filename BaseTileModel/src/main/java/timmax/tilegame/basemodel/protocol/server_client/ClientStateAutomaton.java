@@ -117,10 +117,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         if (!currentState.equals(clientState01NoConnect)) {
             throw new RuntimeException("This method allowed only for changing state from 01 to 02");
         }
-        currentState = clientState02ConnectNonIdent;
-
-        //  ToDo:   Переместить весь код ниже в doAfterTurnOn() в серверный класс.
-        // setCurrentState(clientState02ConnectNonIdent);
+        setCurrentState(clientState02ConnectNonIdent);
     }
 
     // Все методы с именами такими-же, как есть public, но:
@@ -191,7 +188,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     //          У сервера перечень типов игр одинаков, определяется вне зависимости от авторизации пользователя на сервере,
     //            и мог-бы храниться вне экземпляра этого класса.
     //          Сейчас клиенту поступает перечень типов игр при успешной аутентификации пользователя.
-    protected void setGameTypeSet(Set<GameType> gameTypeSet) {
+    public void setGameTypeSet(Set<GameType> gameTypeSet) {
         this.gameTypeSet = gameTypeSet;
     }
 

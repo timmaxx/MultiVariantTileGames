@@ -2,7 +2,6 @@ package timmax.tilegame.basemodel.protocol.server;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.EventOfServer;
-import timmax.tilegame.basemodel.protocol.EventOfServer11ConnectWithoutUserIdentify;
 import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.baseview.View;
@@ -58,16 +57,5 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
             EventOfServer eventOfServer = new EventOfServer92GameEvent(viewName, gameEvent);
             sendEventOfServer(getClientId(), eventOfServer);
         }
-    }
-
-    @Override
-    protected final void changeStateFrom01To02_() {
-        super.changeStateFrom01To02_();
-        //  ToDo:   Переместить весь код ниже в doAfterTurnOn() в серверный класс.
-        setGameTypeSet(GameTypeFabric.GAME_TYPE_SET);
-        sendEventOfServer(
-                clientId,
-                new EventOfServer11ConnectWithoutUserIdentify(getGameTypeSet())
-        );
     }
 }
