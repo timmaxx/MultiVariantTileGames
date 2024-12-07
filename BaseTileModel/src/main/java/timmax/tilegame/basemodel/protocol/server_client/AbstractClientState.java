@@ -59,7 +59,7 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     }
 
     @Override
-    public void selectGameType(GameType gameType) {
+    public void setGameType(GameType gameType) {
         throw new WrongMethodInvokeForCurrentStateException(getClientStateAutomaton().getCurrentState());
     }
 
@@ -119,7 +119,7 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
 
     @Override
     public int hashCode() {
-        return clientStateAutomaton.hashCode() /*+ getClass().hashCode()*/;
+        return clientStateAutomaton.hashCode();
     }
 
     @Override

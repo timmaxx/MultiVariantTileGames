@@ -140,9 +140,11 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         setCurrentState(clientState04GameTypeSetSelected);
     }
 
-    void selectGameType_(GameType gameType) {
+    void setGameType_(GameType gameType) {
         //  Warning:(121, 25) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.GameType' to 'timmax.tilegame.basemodel.protocol.server.GameType<GameMatchX>'
         this.gameType = gameType;
+
+        setCurrentState(clientState06GameMatchSetSelected);
     }
 
     void selectGameMatchX_(GameMatchX gameMatchX) {
@@ -232,9 +234,9 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
     //  ToDo:   Переименовать в setGameType
     @Override
-    public void selectGameType(GameType gameType) {
+    public void setGameType(GameType gameType) {
         //  Warning:(209, 37) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.GameType' to 'timmax.tilegame.basemodel.protocol.server.GameType<GameMatchX>'
-        currentState.selectGameType(gameType);
+        currentState.setGameType(gameType);
     }
 
     // 6 interface IClientState06GameMatchSetSelected

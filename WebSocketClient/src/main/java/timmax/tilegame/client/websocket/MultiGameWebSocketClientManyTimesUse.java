@@ -88,8 +88,8 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
     }
 
     @Override
-    public void selectGameType(GameType gameType) {
-        transportOfClient.selectGameType(gameType);
+    public void setGameType(GameType gameType) {
+        transportOfClient.setGameType(gameType);
     }
 
     // 6

@@ -18,7 +18,7 @@ public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientSta
     public void doAfterTurnOn() {
         getClientStateAutomaton().sendEventOfServer(
                 getClientStateAutomaton().getClientId(),
-                new EventOfServer41SelectGameType(
+                new EventOfServer41SetGameType(
                         getClientStateAutomaton().getGameType().getId(),
                         //  ToDo:   Избавиться от приведения типа.
                         (Set<GameMatchDto>) getClientStateAutomaton().getGameType().getGameMatchXSet()

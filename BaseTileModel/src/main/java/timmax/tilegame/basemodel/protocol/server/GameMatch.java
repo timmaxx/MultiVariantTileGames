@@ -68,7 +68,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
 
     //  ToDo:   Перечень параметров согласовывать также и в
     //          - GameType,
-    //          - RemoteClientState06GameMatchSetSelected :: void selectGameType(GameType gameType, Set<IGameMatch> gameMatchXSet).
+    //          - RemoteClientState06GameMatchSetSelected :: void setGameType(GameType gameType, Set<IGameMatch> gameMatchXSet).
     //            Там создаётся конструктор через рекурсию. Но после рефакторинга, создание конструктора должно уйти в
     //            GameType.
     public GameMatch(

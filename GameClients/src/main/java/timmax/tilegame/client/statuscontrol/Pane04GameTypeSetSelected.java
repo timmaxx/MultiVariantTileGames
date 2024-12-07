@@ -37,7 +37,7 @@ public class Pane04GameTypeSetSelected extends AbstractConnectStatePane {
                 return;
             }
             disableAllControls();
-            transportOfClient.selectGameType(gameType);
+            transportOfClient.setGameType(gameType);
         });
 
         // Контролы для продвижения состояния "назад":

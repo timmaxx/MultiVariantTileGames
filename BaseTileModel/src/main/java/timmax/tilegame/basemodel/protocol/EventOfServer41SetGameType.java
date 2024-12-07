@@ -9,16 +9,16 @@ import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 
-public class EventOfServer41SelectGameType extends EventOfServer {
+public class EventOfServer41SetGameType extends EventOfServer {
     //  ToDo:   Использовать здесь DTO для GameType, только с этими двумя полями.
     private String gameTypeName;
     private Set<GameMatchDto> gameMatchDtoSet;
 
-    public EventOfServer41SelectGameType() {
+    public EventOfServer41SetGameType() {
         super();
     }
 
-    public EventOfServer41SelectGameType(String gameTypeName, Set<GameMatchDto> gameMatchDtoSet) {
+    public EventOfServer41SetGameType(String gameTypeName, Set<GameMatchDto> gameMatchDtoSet) {
         this();
         this.gameTypeName = gameTypeName;
         this.gameMatchDtoSet = gameMatchDtoSet;
@@ -35,7 +35,7 @@ public class EventOfServer41SelectGameType extends EventOfServer {
                         .findAny()
                         .orElse(null);
         gameType.setGameMatchDtoSet(gameMatchDtoSet);
-        localClientStateAutomaton.selectGameType(gameType);
+        localClientStateAutomaton.setGameType(gameType);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class EventOfServer41SelectGameType extends EventOfServer {
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         gameTypeName = (String) in.readObject();
         // ToDo: Избавиться от "Warning:(58, 27) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.protocol.server_client.GameMatchDto>'"
-        //       Например как в readExternal в EventOfServer41SelectGameTypeSet
+        //       Например как в readExternal в EventOfServer41SetGameTypeSet
         gameMatchDtoSet = (Set<GameMatchDto>) in.readObject();
     }
 

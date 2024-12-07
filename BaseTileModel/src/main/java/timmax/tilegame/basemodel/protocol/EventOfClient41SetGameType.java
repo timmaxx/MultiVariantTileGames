@@ -7,16 +7,16 @@ import java.io.ObjectOutput;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
-public class EventOfClient41SelectGameType extends EventOfClient {
+public class EventOfClient41SetGameType extends EventOfClient {
     //  ToDo:   См. комментарий к GameType.
     //  ToDo:   Использовать здесь DTO для GameType только с Id.
     private String gameTypeName;
 
-    public EventOfClient41SelectGameType() {
+    public EventOfClient41SetGameType() {
         super();
     }
 
-    public EventOfClient41SelectGameType(String gameTypeName) {
+    public EventOfClient41SetGameType(String gameTypeName) {
         this();
         this.gameTypeName = gameTypeName;
     }
@@ -35,7 +35,7 @@ public class EventOfClient41SelectGameType extends EventOfClient {
                 .findAny()
                 .orElse(null);
 
-        remoteClientStateAutomaton.selectGameType(gameType);
+        remoteClientStateAutomaton.setGameType(gameType);
     }
 
     // interface Externalizable
