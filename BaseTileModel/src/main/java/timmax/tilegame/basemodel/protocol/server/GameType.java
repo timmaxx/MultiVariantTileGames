@@ -176,7 +176,7 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
         //              - начатые и оконченные партии - для возможности ознакомления с ними.
 
         GameMatchX gameMatchX = null;
-        Constructor<? extends IGameMatch> GameMatchConstructor = getGameMatchConstructor();
+        Constructor<? extends IGameMatch> gameMatchConstructor = getGameMatchConstructor();
 
         try {
             // Создаём экземпляр модели, ранее выбранного типа.
@@ -185,15 +185,15 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
             //       1. Перечень параметров согласовывается с перечнем в
             //          GameType :: GameType(...)
             //          в строке
-            //          GameMatchConstructor = gameMatchClass.getConstructor(...);
+            //          gameMatchConstructor = gameMatchClass.getConstructor(...);
             //          и там-же ниже в строке
-            //          iGameMatch = GameMatchConstructor.newInstance(...);
+            //          iGameMatch = gameMatchConstructor.newInstance(...);
             //       2. Ну в т.ч. это, те-же параметры, которые поступили в executeOnServer().
             //  ToDo:   Приведение типа?
             //  Warning:(193, 26) Unchecked cast: 'capture<? extends timmax.tilegame.basemodel.protocol.server.IGameMatch>' to 'GameMatchX'
-            gameMatchX = (GameMatchX) GameMatchConstructor.newInstance(remoteClientStateAutomaton);
+            gameMatchX = (GameMatchX) gameMatchConstructor.newInstance(remoteClientStateAutomaton);
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
-            logger.error("Server cannot create object of model for {} with GameMatchConstructor with specific parameters.", this, e);
+            logger.error("Server cannot create object of model for {} with gameMatchConstructor with specific parameters.", this, e);
             System.exit(1);
         }
         gameMatchXSet.add(gameMatchX);
