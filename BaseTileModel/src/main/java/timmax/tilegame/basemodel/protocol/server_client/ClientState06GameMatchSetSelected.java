@@ -11,12 +11,6 @@ public abstract class ClientState06GameMatchSetSelected<GameMatchX extends IGame
 
     // interface IClientState06GameMatchSetSelected
     @Override
-    //      Warning:(14, 12) Raw use of parameterized class 'GameType'
-    public GameType getGameType() {
-        return getClientStateAutomaton().getGameType_();
-    }
-
-    @Override
     public void reselectGameType() {
         GameType gameType = getClientStateAutomaton().getGameType_();
         selectGameType(gameType);
