@@ -123,7 +123,7 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
                 // Достаём параметр из описания типа игры.
                 paramValue = paramOfModelDescription.getDefaultValue();
             } else {
-                throw new RuntimeException("Pane07GameMatchSelected :: void updateOnSelectGameMatch(). transportOfClient.getLocalClientStateAutomaton().getGameMatchStatus() = " + transportOfClient.getLocalClientStateAutomaton().getGameMatchStatus());
+                throw new RuntimeException("Pane07GameMatchSelected :: void updateOnSetGameMatch(). transportOfClient.getLocalClientStateAutomaton().getGameMatchStatus() = " + transportOfClient.getLocalClientStateAutomaton().getGameMatchStatus());
             }
             paramNameTextField.setTextFormatter(
                     new TextFormatter<>(
