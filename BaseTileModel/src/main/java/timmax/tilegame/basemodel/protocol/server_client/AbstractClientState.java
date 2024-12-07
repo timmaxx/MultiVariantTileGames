@@ -70,7 +70,7 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     }
 
     @Override
-    public void reselectGameType() {
+    public void resetGameType() {
         throw new WrongMethodInvokeForCurrentStateException(getClientStateAutomaton().getCurrentState());
     }
 
