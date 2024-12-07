@@ -7,21 +7,21 @@ import java.io.ObjectOutput;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 
-public class EventOfServer61SelectGameMatch extends EventOfServer {
+public class EventOfServer61SetGameMatch extends EventOfServer {
     GameMatchDto gameMatchDto;
 
-    public EventOfServer61SelectGameMatch() {
+    public EventOfServer61SetGameMatch() {
         super();
     }
 
-    public EventOfServer61SelectGameMatch(GameMatchDto gameMatchDto) {
+    public EventOfServer61SetGameMatch(GameMatchDto gameMatchDto) {
         this();
         this.gameMatchDto = gameMatchDto;
     }
 
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
-        localClientStateAutomaton.selectGameMatchX(gameMatchDto);
+        localClientStateAutomaton.setGameMatchX(gameMatchDto);
     }
 
     @Override

@@ -9,9 +9,9 @@ public abstract class ClientState07GameMatchSelected<GameMatchX extends IGameMat
 
     // interface IClientState07GameMatchSelected
     @Override
-    public void reselectGameMatch() {
+    public void resetGameMatch() {
         GameMatchX gameMatchX = getClientStateAutomaton().getGameMatchX_();
-        selectGameMatchX(gameMatchX);
+        setGameMatchX(gameMatchX);
     }
 
     @Override

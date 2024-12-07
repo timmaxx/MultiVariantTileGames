@@ -22,7 +22,7 @@ public abstract class ClientState06GameMatchSetSelected<GameMatchX extends IGame
     }
 
     @Override
-    public void selectGameMatchX(GameMatchX gameMatchX) {
-        getClientStateAutomaton().selectGameMatchX_(gameMatchX);
+    public void setGameMatchX(GameMatchX gameMatchX) {
+        getClientStateAutomaton().setGameMatchX_(gameMatchX);
     }
 }

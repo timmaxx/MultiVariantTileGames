@@ -80,13 +80,13 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     }
 
     @Override
-    public void selectGameMatchX(GameMatchX gameMatchX) {
+    public void setGameMatchX(GameMatchX gameMatchX) {
         throw new WrongMethodInvokeForCurrentStateException(getClientStateAutomaton().getCurrentState());
     }
 
     // interface IClientState07GameMatchSelected
     @Override
-    public void reselectGameMatch() {
+    public void resetGameMatch() {
         throw new WrongMethodInvokeForCurrentStateException(getClientStateAutomaton().getCurrentState());
     }
 

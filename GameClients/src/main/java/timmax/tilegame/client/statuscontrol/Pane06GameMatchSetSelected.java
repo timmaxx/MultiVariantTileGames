@@ -65,7 +65,7 @@ public class Pane06GameMatchSetSelected extends AbstractConnectStatePane {
                 );
             }
             gameMatchDto.setParamsOfModelValueMap(paramsOfModelValueMap);
-            transportOfClient.selectGameMatch(gameMatchDto);
+            transportOfClient.setGameMatch(gameMatchDto);
         });
 
         // Контролы для продвижения состояния "назад":
@@ -121,7 +121,7 @@ public class Pane06GameMatchSetSelected extends AbstractConnectStatePane {
 
     // 6
     @Override
-    public void updateOnSelectGameMatch() {
+    public void updateOnSetGameMatch() {
         doOnNextState();
     }
 

@@ -11,9 +11,9 @@ public interface IClientState07GameMatchSelected<GameMatchX extends IGameMatchX>
     GameMatchStatus getGameMatchStatus();
 
 
-    void reselectGameMatch();
+    void resetGameMatch();
     //  interface TransportOfClient
-    //      void reselectGameMatch();
+    //      void resetGameMatch();
 
     GameMatchExtendedDto startGameMatch(GameMatchExtendedDto gameMatchExtendedDto);
 }

@@ -99,8 +99,8 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
     }
 
     @Override
-    public void selectGameMatch(GameMatchDto gameMatchDto) {
-        transportOfClient.selectGameMatch(gameMatchDto);
+    public void setGameMatch(GameMatchDto gameMatchDto) {
+        transportOfClient.setGameMatch(gameMatchDto);
     }
 
     // 7
@@ -110,8 +110,8 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
     }
 
     @Override
-    public void reselectGameMatch() {
-        transportOfClient.reselectGameMatch();
+    public void resetGameMatch() {
+        transportOfClient.resetGameMatch();
     }
 
     // class Object

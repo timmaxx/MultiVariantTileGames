@@ -16,7 +16,7 @@ public interface ObserverOnAbstractEvent {
     void updateOnSetGameType();
 
     // 6
-    void updateOnSelectGameMatch();
+    void updateOnSetGameMatch();
 
     // 7
     void updateOnSetGameMatchIsPlaying();

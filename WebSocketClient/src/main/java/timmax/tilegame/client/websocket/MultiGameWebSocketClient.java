@@ -136,16 +136,16 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     }
 
     @Override
-    public void selectGameMatch(GameMatchDto gameMatchDto) {
-        logger.debug("selectGameMatch(GameMatchDto gameMatchDto)");
-        sendEventOfClient(new EventOfClient61SelectGameMatch(gameMatchDto));
+    public void setGameMatch(GameMatchDto gameMatchDto) {
+        logger.debug("setGameMatch(GameMatchDto gameMatchDto)");
+        sendEventOfClient(new EventOfClient61SetGameMatch(gameMatchDto));
     }
 
     // 7
     @Override
-    public void reselectGameMatch() {
-        logger.debug("reselectGameMatch()");
-        sendEventOfClient(new EventOfClient72ReselectGameMatch());
+    public void resetGameMatch() {
+        logger.debug("resetGameMatch()");
+        sendEventOfClient(new EventOfClient72ResetGameMatch());
     }
 
     @Override

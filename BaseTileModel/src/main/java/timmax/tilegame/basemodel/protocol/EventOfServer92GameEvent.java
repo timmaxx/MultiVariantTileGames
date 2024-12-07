@@ -30,9 +30,9 @@ public class EventOfServer92GameEvent extends EventOfServer {
         //       Для сервера нужно делать разные очереди для отдельных клиентов.
         //       И вероятно нужно быть уверенным, что события поступили в правильной последовательности.
         // Событие этого типа (92GameEvent) генерируется сервером так:
-        // 1. от клиента поступает сообщение 71SelectGameMatchIsPlaying с возможно какими-то кастомными параметрами для матча,
+        // 1. от клиента поступает сообщение 71SetGameMatchIsPlaying с возможно какими-то кастомными параметрами для матча,
         // 2. сервер:
-        // 2.1. переводит состояние матча в состояние 08GameMatchIsPlaying и отправляет клиенту событие типа 71SelectGameMatchIsPlaying,
+        // 2.1. переводит состояние матча в состояние 08GameMatchIsPlaying и отправляет клиенту событие типа 71SetGameMatchIsPlaying,
         // 2.2. отправляет клиенту одно или несколько игровых событий типа 92GameEvent. Каждое из таких игровых событий
         //      напраляется для конкретной выборки.
         // 3. клиент, получив событие типа 71SelecttGameMatchIsPlaying (2.1.) должен построить одну или несколько выборок,
@@ -45,6 +45,7 @@ public class EventOfServer92GameEvent extends EventOfServer {
         try {
             View view;
             while ((view = localClientStateAutomaton.getView(viewName)) == null) {
+                //  Warning:(48, 24) Call to 'Thread.sleep()' in a loop, probably busy-waiting
                 Thread.sleep(100);
             }
             view.update(gameEvent);

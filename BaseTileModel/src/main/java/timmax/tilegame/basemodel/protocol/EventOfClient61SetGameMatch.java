@@ -8,14 +8,14 @@ import timmax.tilegame.basemodel.protocol.server.IGameMatch;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 
-public class EventOfClient61SelectGameMatch extends EventOfClient {
+public class EventOfClient61SetGameMatch extends EventOfClient {
     private GameMatchDto gameMatchDto;
 
-    public EventOfClient61SelectGameMatch() {
+    public EventOfClient61SetGameMatch() {
         super();
     }
 
-    public EventOfClient61SelectGameMatch(GameMatchDto gameMatchDto) {
+    public EventOfClient61SetGameMatch(GameMatchDto gameMatchDto) {
         this();
         this.gameMatchDto = gameMatchDto;
     }
@@ -44,7 +44,7 @@ public class EventOfClient61SelectGameMatch extends EventOfClient {
             return;
         }
 
-        remoteClientStateAutomaton.selectGameMatchX(iGameMatch);
+        remoteClientStateAutomaton.setGameMatchX(iGameMatch);
     }
 
     // class Object

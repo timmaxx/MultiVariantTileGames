@@ -54,7 +54,7 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
         prevStateButton.setFocusTraversable(false); // Это в любом случае д.б.
         prevStateButton.setOnAction(event -> {
             disableAllControls();
-            transportOfClient.reselectGameMatch();
+            transportOfClient.resetGameMatch();
             gameClientPaneJfx.clearChildren();
             prevStatePane.setMinWidth(0);
             prevStatePane.setMaxWidth(0);
@@ -81,7 +81,7 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
 
     // 6
     @Override
-    public void updateOnSelectGameMatch() {
+    public void updateOnSetGameMatch() {
         nextStatePane.getChildren().clear();
         List<Region> regionList = new ArrayList<>();
 

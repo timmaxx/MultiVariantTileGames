@@ -140,7 +140,7 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
 
     // 6
     @Override
-    public void updateOnSelectGameMatch() {
+    public void updateOnSetGameMatch() {
         disableAllControls();
     }
 

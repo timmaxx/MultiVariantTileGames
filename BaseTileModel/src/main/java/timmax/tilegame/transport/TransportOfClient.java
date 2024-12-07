@@ -39,10 +39,10 @@ public interface TransportOfClient {
 
     // 06GameMatchSetSelected
     void resetGameType();                                                       //  6 -> 6  void resetGameType();
-    void selectGameMatch(GameMatchDto gameMatchDto);                            //  6 -> 7  void selectGameMatchX(GameMatchX gameMatchX);
+    void setGameMatch(GameMatchDto gameMatchDto);                               //  6 -> 7  void setGameMatchX(GameMatchX gameMatchX);
 
     // 07GameMatchSelected
-    void reselectGameMatch();                                                   //  7 -> 7  void reselectGameMatch();
+    void resetGameMatch();                                                      //  7 -> 7  void resetGameMatch();
     void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue);          //  7 -> 8  void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue);
 
     // 08GameMatchIsPlaying

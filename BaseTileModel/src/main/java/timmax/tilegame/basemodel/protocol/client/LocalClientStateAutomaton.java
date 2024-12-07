@@ -55,7 +55,7 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchDto
     }
 
     // ToDo: Вместо прямого доступа к getParamName_paramModelDescriptionMap(), лучше что-бы нужное действие
-    //       (см. Pane07GameMatchSelected :: void updateOnSelectGameMatch()), выполнялось в мапе paramName_paramModelDescriptionMap.
+    //       (см. Pane07GameMatchSelected :: void updateOnSetGameMatch()), выполнялось в мапе paramName_paramModelDescriptionMap.
     //       Поэтому пришлось сделать его public. Но это не хорошо!
     public ParamName_paramModelDescriptionMap getParamName_paramModelDescriptionMap() {
         return getGameType_().getParamName_paramModelDescriptionMap();
@@ -103,8 +103,8 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchDto
     }
 
     @Override
-    public void updateOnSelectGameMatch() {
-        observerOnAbstractEventHashSet.updateOnSelectGameMatch();
+    public void updateOnSetGameMatch() {
+        observerOnAbstractEventHashSet.updateOnSetGameMatch();
     }
 
     @Override
