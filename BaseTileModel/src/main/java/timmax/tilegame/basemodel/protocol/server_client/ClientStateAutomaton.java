@@ -230,10 +230,9 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         return currentState.getGameType();
     }
 
+    //  ToDo:   Переименовать в setGameType
     @Override
     public void selectGameType(GameType gameType) {
-        //  ToDo:   Переместить setCurrentState(...) в selectGameType_().
-        setCurrentState(clientState06GameMatchSetSelected);
         //  Warning:(209, 37) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.GameType' to 'timmax.tilegame.basemodel.protocol.server.GameType<GameMatchX>'
         currentState.selectGameType(gameType);
     }

@@ -10,6 +10,7 @@ import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 
 public class EventOfServer41SelectGameType extends EventOfServer {
+    //  ToDo:   Использовать здесь DTO для GameType, только с этими двумя полями.
     private String gameTypeName;
     private Set<GameMatchDto> gameMatchDtoSet;
 

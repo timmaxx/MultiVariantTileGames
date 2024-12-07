@@ -8,7 +8,8 @@ import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
 public class EventOfClient41SelectGameType extends EventOfClient {
-    // ToDo: См. комментарий к GameType.
+    //  ToDo:   См. комментарий к GameType.
+    //  ToDo:   Использовать здесь DTO для GameType только с Id.
     private String gameTypeName;
 
     public EventOfClient41SelectGameType() {
@@ -23,11 +24,6 @@ public class EventOfClient41SelectGameType extends EventOfClient {
     // class EventOfClient
     @Override
     public <ClientId> void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
-        if (gameTypeName == null || gameTypeName.equals("")) {
-            logger.error("Client sent empty name of game type.");
-            remoteClientStateAutomaton.connect();
-            return;
-        }
         // От клиента поступило символическое имя типа игры (оно должно быть одно из тех, которые ему направлялись множеством).
 
         //  Warning:(33, 9) Raw use of parameterized class 'GameType'
@@ -39,13 +35,6 @@ public class EventOfClient41SelectGameType extends EventOfClient {
                 .findAny()
                 .orElse(null);
 
-        // ToDo: Формировать список матчей фильтруя из общего списка матчей на сервере (пока такого нет).
-        //       Список матчей должен накапливаться при работе сервера (даже без БД, а с БД и подавно).
-        //       Но вообще-то, вместо пустого списка (new HashSet<>()), нужно возвращать перечень моделей,
-        //       которые соответствуют выбранному типу игр, и к которым ещё можно присоединиться.
-        //       Т.е. удовлетворяющих условиям:
-        //         1. Игра для 2-х и более игроков.
-        //         2. Есть хотя-бы одна не занятая роль.
         remoteClientStateAutomaton.selectGameType(gameType);
     }
 

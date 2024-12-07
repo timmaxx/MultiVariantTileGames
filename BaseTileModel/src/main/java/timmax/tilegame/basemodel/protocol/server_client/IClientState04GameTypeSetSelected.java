@@ -12,6 +12,7 @@ public interface IClientState04GameTypeSetSelected<GameMatchX extends IGameMatch
     GameType getGameType();
 
 
+    //  ToDo:   Переименовать в setGameType
     void selectGameType(GameType<GameMatchX> gameType);
     //  interface TransportOfClient
     //      void selectGameType(GameType gameType);
