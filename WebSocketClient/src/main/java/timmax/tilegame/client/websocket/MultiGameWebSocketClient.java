@@ -103,54 +103,46 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     // 1
     @Override
     public void connectWithoutUserIdentify() {
-        logger.debug("connectWithoutUserIdentify()");
         sendEventOfClient(new EventOfClient11ConnectWithoutUserIdentify());
     }
 
     // 2
     @Override
     public void identifyAuthenticateAuthorizeUser(String userName, String password) {
-        logger.debug("identifyAuthenticateAuthorizeUser(String, String)");
         sendEventOfClient(new EventOfClient21IdentifyAuthenticateAuthorizeUser(userName, password));
     }
 
     // 4
     @Override
     public void reauthorizeUser() {
-        logger.debug("reauthorizeUser()");
         sendEventOfClient(new EventOfClient42ReauthorizeUser());
     }
 
     @Override
     //  Warning:(125, 32) Raw use of parameterized class 'GameType'
     public void setGameType(GameType gameType) {
-        logger.debug("setGameType(GameType)");
         sendEventOfClient(new EventOfClient41SetGameType(gameType.getId()));
     }
 
     // 6
     @Override
     public void resetGameType() {
-        logger.debug("resetGameType()");
         sendEventOfClient(new EventOfClient62ResetGameType());
     }
 
     @Override
     public void setGameMatch(GameMatchDto gameMatchDto) {
-        logger.debug("setGameMatch(GameMatchDto gameMatchDto)");
         sendEventOfClient(new EventOfClient61SetGameMatch(gameMatchDto));
     }
 
     // 7
     @Override
     public void resetGameMatch() {
-        logger.debug("resetGameMatch()");
         sendEventOfClient(new EventOfClient72ResetGameMatch());
     }
 
     @Override
     public void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue) {
-        logger.debug("startGameMatch(Map<String, Integer> mapOfParamsOfModelValue)");
         sendEventOfClient(new EventOfClient71StartGameMatch(mapOfParamsOfModelValue));
     }
 
