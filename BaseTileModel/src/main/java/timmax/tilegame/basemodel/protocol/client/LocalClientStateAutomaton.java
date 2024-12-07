@@ -98,8 +98,8 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchDto
     }
 
     @Override
-    public void updateOnSelectGameType() {
-        observerOnAbstractEventHashSet.updateOnSelectGameType();
+    public void updateOnSetGameType() {
+        observerOnAbstractEventHashSet.updateOnSetGameType();
     }
 
     @Override

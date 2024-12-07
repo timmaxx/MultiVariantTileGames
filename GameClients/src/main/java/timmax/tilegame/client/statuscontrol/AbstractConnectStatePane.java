@@ -134,7 +134,7 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
 
     // 4
     @Override
-    public void updateOnSelectGameType() {
+    public void updateOnSetGameType() {
         disableAllControls();
     }
 

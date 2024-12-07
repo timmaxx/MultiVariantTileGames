@@ -5,7 +5,7 @@ import java.util.HashSet;
 import javafx.application.Platform;
 
 public class ObserverOnAbstractEventHashSet extends HashSet<ObserverOnAbstractEvent> implements ObserverOnAbstractEvent {
-    //  Описанное было обнаружено при работе с Pane04SelectGameType
+    //  Описанное было обнаружено при работе с Pane04GameTypeSetSelected
     //  Если ранее comboBoxGameTypeSet уже было заполнено (т.е. вызывался updateOnGetGameTypeSet)
     //  и не использовать здесь Platform.runLater(), то возникнет исключение:
     //  Not on FX application thread
@@ -43,10 +43,10 @@ public class ObserverOnAbstractEventHashSet extends HashSet<ObserverOnAbstractEv
 
     // 4
     @Override
-    public void updateOnSelectGameType() {
+    public void updateOnSetGameType() {
         Platform.runLater(() -> {
             for (ObserverOnAbstractEvent observerOnAbstractEvent : this) {
-                observerOnAbstractEvent.updateOnSelectGameType();
+                observerOnAbstractEvent.updateOnSetGameType();
             }
         });
     }

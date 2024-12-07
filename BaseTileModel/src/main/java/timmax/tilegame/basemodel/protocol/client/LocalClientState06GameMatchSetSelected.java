@@ -13,7 +13,7 @@ public class LocalClientState06GameMatchSetSelected extends ClientState06GameMat
     @Override
     public void doAfterTurnOn() {
         getClientStateAutomaton().clearViewName_ViewMap();
-        getClientStateAutomaton().updateOnSelectGameType();
+        getClientStateAutomaton().updateOnSetGameType();
     }
 
     // class AbstractClientState

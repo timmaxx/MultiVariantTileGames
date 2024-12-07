@@ -27,7 +27,7 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
 
     // ToDo: Рассмотреть вариант выделения из этого класса "String gameTypeName" в отдельный класс GameTypeName.
     //       Тогда EventOfServer41SeletGameTypeSet будет передавать "Set<GameType> gameTypeSet",
-    //       а EventOfClient41SelectGameType будет передавать не "String gameTypeName", а "GameTypeName gameTypeName".
+    //       а EventOfClient41SetGameType будет передавать не "String gameTypeName", а "GameTypeName gameTypeName".
     //       Причины:
     //          Среди реквизитов класса, идентифицирующим (типа первичным ключём) является gameName.
     //          Поэтому, при передаче полной информации о типе игры нужно передавать все поля.

@@ -12,7 +12,7 @@ public interface IClientState06GameMatchSetSelected<GameMatchX extends IGameMatc
 
     void resetGameType();
     //  interface TransportOfClient
-    //      void reselectGameType();
+    //      void resetGameType();
 
 
     void selectGameMatchX(GameMatchX gameMatchX);

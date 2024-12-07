@@ -103,7 +103,7 @@ public class Pane06GameMatchSetSelected extends AbstractConnectStatePane {
 
     // 4
     @Override
-    public void updateOnSelectGameType() {
+    public void updateOnSetGameType() {
         ObservableList<GameMatchDto> observableList = FXCollections.observableArrayList();
         //  ToDo:   Надо делать, как в закомментированном блоке.
         // observableList.addAll(transportOfClient.getLocalClientStateAutomaton().getGameMatchDtoSet());
