@@ -11,21 +11,14 @@ public class RemoteClientState07GameMatchWasSet<ClientId> extends ClientState07G
     }
 
     @Override
-    public void setGameMatchX(IGameMatch gameMatchX) {
-        super.setGameMatchX(gameMatchX);
-
-        //  ToDo:   Ниже, использовать входящий параметр (здесь это gameMatchX) не рекомендуется, т.к.
-        //          в методе super он может быть не принят полностью или в какой-то части, но в целевом экземпляре
-        //          (здесь это GameMatchXSet) будет либо принят, либо сформирован свой (здесь это gameMatchX).
-        //          Вот его и нужно упаковать в EventOfServer (здесь это EventOfServer61SetGameMatch) и
-        //          отправить клиенту.
+    public void doAfterTurnOn() {
         getClientStateAutomaton().sendEventOfServer(
                 getClientStateAutomaton().getClientId(),
                 new EventOfServer61SetGameMatch(
                         new GameMatchDto(
-                                gameMatchX.getId(),
-                                gameMatchX.getStatus(),
-                                gameMatchX.getParamsOfModelValueMap()
+                                getClientStateAutomaton().getGameMatchX().getId(),
+                                getClientStateAutomaton().getGameMatchX().getStatus(),
+                                getClientStateAutomaton().getGameMatchX().getParamsOfModelValueMap()
                         )
                 )
         );
