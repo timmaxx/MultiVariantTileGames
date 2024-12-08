@@ -10,7 +10,7 @@ public interface IFabricOfClientStates<GameMatchX extends IGameMatchX> {
     //  Поэтому при вызове их конструкторов приходится создавать и пользоваться сеттером.
     ClientState01NoConnect<GameMatchX> getClientState01NoConnect(ClientStateAutomaton<GameMatchX> clientStateAutomaton);
     ClientState02ConnectNonIdent<GameMatchX> getClientState02ConnectNonIdent(ClientStateAutomaton<GameMatchX> clientStateAutomaton);
-    ClientState04UserAuthorized<GameMatchX> getClientState04UserAuthorized(ClientStateAutomaton<GameMatchX> clientStateAutomaton);
+    ClientState04UserWasAuthorized<GameMatchX> getClientState04UserWasAuthorized(ClientStateAutomaton<GameMatchX> clientStateAutomaton);
     ClientState06GameTypeWasSet<GameMatchX> getClientState06GameTypeWasSet(ClientStateAutomaton<GameMatchX> clientStateAutomaton);
     ClientState07GameMatchSelected<GameMatchX> getClientState07GameMatchSelected(ClientStateAutomaton<GameMatchX> clientStateAutomaton);
     ClientState08GameMatchIsPlaying<GameMatchX> getClientState08GameMatchIsPlaying(ClientStateAutomaton<GameMatchX> clientStateAutomaton);

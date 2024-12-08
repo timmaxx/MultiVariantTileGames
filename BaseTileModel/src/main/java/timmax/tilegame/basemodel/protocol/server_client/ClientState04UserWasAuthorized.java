@@ -2,8 +2,8 @@ package timmax.tilegame.basemodel.protocol.server_client;
 
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
-public abstract class ClientState04UserAuthorized<GameMatchX extends IGameMatchX> extends ClientState02ConnectNonIdent<GameMatchX> {
-    public ClientState04UserAuthorized(ClientStateAutomaton<GameMatchX> clientStateAutomaton) {
+public abstract class ClientState04UserWasAuthorized<GameMatchX extends IGameMatchX> extends ClientState02ConnectNonIdent<GameMatchX> {
+    public ClientState04UserWasAuthorized(ClientStateAutomaton<GameMatchX> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 
