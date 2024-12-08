@@ -20,8 +20,8 @@ public class FabricOfClientStatesJfx implements IFabricOfClientStates<GameMatchD
     }
 
     @Override
-    public LocalClientState06GameMatchSetSelected getClientState06GameMatchSetSelected(ClientStateAutomaton<GameMatchDto> clientStateAutomaton) {
-        return new LocalClientState06GameMatchSetSelected(clientStateAutomaton);
+    public LocalClientState06GameTypeWasSet getClientState06GameTypeWasSet(ClientStateAutomaton<GameMatchDto> clientStateAutomaton) {
+        return new LocalClientState06GameTypeWasSet(clientStateAutomaton);
     }
 
     @Override

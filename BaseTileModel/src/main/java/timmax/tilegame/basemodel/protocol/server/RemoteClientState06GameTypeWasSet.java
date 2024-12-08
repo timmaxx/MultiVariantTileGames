@@ -1,16 +1,15 @@
 package timmax.tilegame.basemodel.protocol.server;
 
 import timmax.tilegame.basemodel.protocol.*;
-import timmax.tilegame.basemodel.protocol.server_client.ClientState06GameMatchSetSelected;
+import timmax.tilegame.basemodel.protocol.server_client.ClientState06GameTypeWasSet;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
-//  ToDo:   Переименовать
-public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientState06GameMatchSetSelected<IGameMatch> {
-    public RemoteClientState06GameMatchSetSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
+public class RemoteClientState06GameTypeWasSet<ClientId> extends ClientState06GameTypeWasSet<IGameMatch> {
+    public RemoteClientState06GameTypeWasSet(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 

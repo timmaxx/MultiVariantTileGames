@@ -19,7 +19,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         IClientState01NoConnect,
         IClientState02ConnectNonIdent,
         IClientState04UserAuthorized<GameMatchX>,
-        IClientState06GameMatchSetSelected<GameMatchX>,
+        IClientState06GameTypeWasSet<GameMatchX>,
         IClientState07GameMatchSelected<GameMatchX>,
         IClientState08GameMatchIsPlaying {
     protected static final Logger logger = LoggerFactory.getLogger(ClientStateAutomaton.class);
@@ -29,7 +29,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     final ClientState01NoConnect<GameMatchX> clientState01NoConnect;
     final ClientState02ConnectNonIdent<GameMatchX> clientState02ConnectNonIdent;
     final ClientState04UserAuthorized<GameMatchX> clientState04UserAuthorized;
-    final ClientState06GameMatchSetSelected<GameMatchX> clientState06GameMatchSetSelected;
+    final ClientState06GameTypeWasSet<GameMatchX> clientState06GameMatchSetSelected;
     final ClientState07GameMatchSelected<GameMatchX> clientState07GameMatchSelected;
     final ClientState08GameMatchIsPlaying<GameMatchX> clientState08GameMatchIsPlaying;
 
@@ -51,7 +51,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         clientState01NoConnect = iFabricOfClientStates.getClientState01NoConnect(this);
         clientState02ConnectNonIdent = iFabricOfClientStates.getClientState02ConnectNonIdent(this);
         clientState04UserAuthorized = iFabricOfClientStates.getClientState04UserAuthorized(this);
-        clientState06GameMatchSetSelected = iFabricOfClientStates.getClientState06GameMatchSetSelected(this);
+        clientState06GameMatchSetSelected = iFabricOfClientStates.getClientState06GameTypeWasSet(this);
         clientState07GameMatchSelected = iFabricOfClientStates.getClientState07GameMatchSelected(this);
         clientState08GameMatchIsPlaying = iFabricOfClientStates.getClientState08GameMatchIsPlaying(this);
 

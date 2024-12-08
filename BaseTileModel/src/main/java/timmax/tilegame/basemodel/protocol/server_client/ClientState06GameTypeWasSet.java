@@ -4,8 +4,8 @@ import timmax.tilegame.basemodel.protocol.server.GameType;
 
 import java.util.Set;
 
-public abstract class ClientState06GameMatchSetSelected<GameMatchX extends IGameMatchX> extends ClientState04UserAuthorized<GameMatchX> {
-    public ClientState06GameMatchSetSelected(ClientStateAutomaton<GameMatchX> clientStateAutomaton) {
+public abstract class ClientState06GameTypeWasSet<GameMatchX extends IGameMatchX> extends ClientState04UserAuthorized<GameMatchX> {
+    public ClientState06GameTypeWasSet(ClientStateAutomaton<GameMatchX> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 
