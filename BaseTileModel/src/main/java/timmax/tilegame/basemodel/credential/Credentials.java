@@ -18,6 +18,9 @@ public class Credentials {
     }
 
     public static User getUserByUserName(String userName) {
+        if (userName == null || userName.isEmpty()) {
+            return null;
+        }
         return userSet
                 .stream()
                 .filter(user -> user.getUserName().equals(userName))

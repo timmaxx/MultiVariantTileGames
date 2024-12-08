@@ -132,11 +132,11 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     }
 
     void authorizeUser_(String userName) {
-        if (userName == null || userName.isEmpty()) {
+        this.user = Credentials.getUserByUserName(userName);
+        if (user == null) {
             setCurrentState(clientState01NoConnect);
             return;
         }
-        this.user = Credentials.getUserByUserName(userName);
 
         setCurrentState(clientState04UserWasAuthorized);
     }
