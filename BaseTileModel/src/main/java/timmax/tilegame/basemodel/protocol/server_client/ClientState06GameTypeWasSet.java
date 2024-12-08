@@ -1,7 +1,5 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
-import timmax.tilegame.basemodel.protocol.server.GameType;
-
 import java.util.Set;
 
 public abstract class ClientState06GameTypeWasSet<GameMatchX extends IGameMatchX> extends ClientState04UserWasAuthorized<GameMatchX> {
@@ -12,8 +10,7 @@ public abstract class ClientState06GameTypeWasSet<GameMatchX extends IGameMatchX
     // interface IClientState06GameMatchSetSelected
     @Override
     public void resetGameType() {
-        GameType gameType = getClientStateAutomaton().getGameType_();
-        setGameType(gameType);
+        setGameType(getClientStateAutomaton().getGameType_());
     }
 
     @Override
