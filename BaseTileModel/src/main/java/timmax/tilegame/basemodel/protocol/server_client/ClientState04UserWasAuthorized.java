@@ -16,8 +16,7 @@ public abstract class ClientState04UserWasAuthorized<GameMatchX extends IGameMat
 
     @Override
     public void reauthorizeUser() {
-        String userName = getClientStateAutomaton().getUserName_();
-        authorizeUser(userName);
+        authorizeUser(getClientStateAutomaton().getUserName_());
     }
 
     @Override

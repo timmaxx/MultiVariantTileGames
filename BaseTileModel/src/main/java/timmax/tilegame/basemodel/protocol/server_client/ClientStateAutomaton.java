@@ -216,8 +216,6 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     // 4 interface IClientState04GameTypeSetSelected
     @Override
     public void reauthorizeUser() {
-        //  ToDo:   Переместить setCurrentState(...) в reauthorizeUser_().
-        setCurrentState(clientState04UserWasAuthorized);
         currentState.reauthorizeUser();
     }
 
