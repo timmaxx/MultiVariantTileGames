@@ -2,8 +2,8 @@ package timmax.tilegame.basemodel.protocol.server_client;
 
 import timmax.tilegame.basemodel.GameMatchStatus;
 
-public abstract class ClientState07GameMatchSelected<GameMatchX extends IGameMatchX> extends ClientState06GameTypeWasSet<GameMatchX> {
-    public ClientState07GameMatchSelected(ClientStateAutomaton<GameMatchX> clientStateAutomaton) {
+public abstract class ClientState07GameMatchWasSet<GameMatchX extends IGameMatchX> extends ClientState06GameTypeWasSet<GameMatchX> {
+    public ClientState07GameMatchWasSet(ClientStateAutomaton<GameMatchX> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 

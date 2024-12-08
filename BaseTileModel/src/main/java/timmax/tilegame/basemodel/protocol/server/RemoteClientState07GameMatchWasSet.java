@@ -1,13 +1,12 @@
 package timmax.tilegame.basemodel.protocol.server;
 
 import timmax.tilegame.basemodel.protocol.*;
-import timmax.tilegame.basemodel.protocol.server_client.ClientState07GameMatchSelected;
+import timmax.tilegame.basemodel.protocol.server_client.ClientState07GameMatchWasSet;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 
-//  ToDo:   Переименовать
-public class RemoteClientState07GameMatchSelected<ClientId> extends ClientState07GameMatchSelected<IGameMatch> {
-    public RemoteClientState07GameMatchSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
+public class RemoteClientState07GameMatchWasSet<ClientId> extends ClientState07GameMatchWasSet<IGameMatch> {
+    public RemoteClientState07GameMatchWasSet(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 

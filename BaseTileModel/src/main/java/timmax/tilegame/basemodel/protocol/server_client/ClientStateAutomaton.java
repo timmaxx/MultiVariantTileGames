@@ -20,7 +20,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         IClientState02ConnectNonIdent,
         IClientState04UserWasAuthorized<GameMatchX>,
         IClientState06GameTypeWasSet<GameMatchX>,
-        IClientState07GameMatchSelected<GameMatchX>,
+        IClientState07GameMatchWasSet<GameMatchX>,
         IClientState08GameMatchIsPlaying {
     protected static final Logger logger = LoggerFactory.getLogger(ClientStateAutomaton.class);
 
@@ -30,7 +30,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     final ClientState02ConnectNonIdent<GameMatchX> clientState02ConnectNonIdent;
     final ClientState04UserWasAuthorized<GameMatchX> clientState04UserWasAuthorized;
     final ClientState06GameTypeWasSet<GameMatchX> clientState06GameMatchSetSelected;
-    final ClientState07GameMatchSelected<GameMatchX> clientState07GameMatchSelected;
+    final ClientState07GameMatchWasSet<GameMatchX> clientState07GameMatchSelected;
     final ClientState08GameMatchIsPlaying<GameMatchX> clientState08GameMatchIsPlaying;
 
     private IClientState99<GameMatchX> currentState;
