@@ -4,8 +4,8 @@ import timmax.tilegame.basemodel.protocol.server_client.ClientState04UserWasAuth
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 
-public class LocalClientState04UserAuthorized extends ClientState04UserWasAuthorized<GameMatchDto> {
-    public LocalClientState04UserAuthorized(ClientStateAutomaton<GameMatchDto> clientStateAutomaton) {
+public class LocalClientState04UserWasAuthorized extends ClientState04UserWasAuthorized<GameMatchDto> {
+    public LocalClientState04UserWasAuthorized(ClientStateAutomaton<GameMatchDto> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 

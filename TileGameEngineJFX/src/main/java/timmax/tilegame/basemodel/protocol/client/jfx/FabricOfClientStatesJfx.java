@@ -15,8 +15,8 @@ public class FabricOfClientStatesJfx implements IFabricOfClientStates<GameMatchD
     }
 
     @Override
-    public LocalClientState04UserAuthorized getClientState04UserWasAuthorized(ClientStateAutomaton<GameMatchDto> clientStateAutomaton) {
-        return new LocalClientState04UserAuthorized(clientStateAutomaton);
+    public LocalClientState04UserWasAuthorized getClientState04UserWasAuthorized(ClientStateAutomaton<GameMatchDto> clientStateAutomaton) {
+        return new LocalClientState04UserWasAuthorized(clientStateAutomaton);
     }
 
     @Override

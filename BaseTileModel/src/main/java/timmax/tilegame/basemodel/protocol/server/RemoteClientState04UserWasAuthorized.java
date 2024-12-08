@@ -4,8 +4,8 @@ import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server_client.ClientState04UserWasAuthorized;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 
-public class RemoteClientState04UserAuthorized<ClientId> extends ClientState04UserWasAuthorized<IGameMatch> {
-    public RemoteClientState04UserAuthorized(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
+public class RemoteClientState04UserWasAuthorized<ClientId> extends ClientState04UserWasAuthorized<IGameMatch> {
+    public RemoteClientState04UserWasAuthorized(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 
@@ -19,6 +19,7 @@ public class RemoteClientState04UserAuthorized<ClientId> extends ClientState04Us
         //          только один единственный матч - новый.
         //          Если удалить отсюда вызов initGameMatchXSet(...), то и всю реализацию setGameType(...)
         //          тоже можно удалять в этом классе.
+        //  Warning:(22, 9) Unchecked call to 'initGameMatchXSet(RemoteClientStateAutomaton<ClientId>)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.GameType'
         gameType.initGameMatchXSet(getClientStateAutomaton());
 
         super.setGameType(gameType);
