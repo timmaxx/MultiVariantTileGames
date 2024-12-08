@@ -1,11 +1,11 @@
 package timmax.tilegame.basemodel.protocol.server;
 
 import timmax.tilegame.basemodel.protocol.*;
-import timmax.tilegame.basemodel.protocol.server_client.ClientState04GameTypeSetSelected;
+import timmax.tilegame.basemodel.protocol.server_client.ClientState04UserAuthorized;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 
-public class RemoteClientState04GameTypeSetSelected<ClientId> extends ClientState04GameTypeSetSelected<IGameMatch> {
-    public RemoteClientState04GameTypeSetSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
+public class RemoteClientState04UserAuthorized<ClientId> extends ClientState04UserAuthorized<IGameMatch> {
+    public RemoteClientState04UserAuthorized(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 

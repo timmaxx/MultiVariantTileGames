@@ -18,7 +18,7 @@ import java.util.Set;
 public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
         IClientState01NoConnect,
         IClientState02ConnectNonIdent,
-        IClientState04GameTypeSetSelected<GameMatchX>,
+        IClientState04UserAuthorized<GameMatchX>,
         IClientState06GameMatchSetSelected<GameMatchX>,
         IClientState07GameMatchSelected<GameMatchX>,
         IClientState08GameMatchIsPlaying {
@@ -28,7 +28,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
     final ClientState01NoConnect<GameMatchX> clientState01NoConnect;
     final ClientState02ConnectNonIdent<GameMatchX> clientState02ConnectNonIdent;
-    final ClientState04GameTypeSetSelected<GameMatchX> clientState04GameTypeSetSelected;
+    final ClientState04UserAuthorized<GameMatchX> clientState04UserAuthorized;
     final ClientState06GameMatchSetSelected<GameMatchX> clientState06GameMatchSetSelected;
     final ClientState07GameMatchSelected<GameMatchX> clientState07GameMatchSelected;
     final ClientState08GameMatchIsPlaying<GameMatchX> clientState08GameMatchIsPlaying;
@@ -40,6 +40,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     //  ToDo:   Удалить, т.к. у сервера должен быть перечень типов, поддерживаемых игр Set<GameType>.
     //          Но при этом геттер оставить.
     //      Warning:(31, 17) Raw use of parameterized class 'GameType'
+
     private Set<GameType> gameTypeSet; // ---- 3 (Список типов игр)
 
     private GameType<GameMatchX> gameType; // ---- 4 (Конкретный тип игры)
@@ -49,7 +50,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
             IFabricOfClientStates<GameMatchX> iFabricOfClientStates) {
         clientState01NoConnect = iFabricOfClientStates.getClientState01NoConnect(this);
         clientState02ConnectNonIdent = iFabricOfClientStates.getClientState02ConnectNonIdent(this);
-        clientState04GameTypeSetSelected = iFabricOfClientStates.getClientState04GameTypeSetSelected(this);
+        clientState04UserAuthorized = iFabricOfClientStates.getClientState04UserAuthorized(this);
         clientState06GameMatchSetSelected = iFabricOfClientStates.getClientState06GameMatchSetSelected(this);
         clientState07GameMatchSelected = iFabricOfClientStates.getClientState07GameMatchSelected(this);
         clientState08GameMatchIsPlaying = iFabricOfClientStates.getClientState08GameMatchIsPlaying(this);
@@ -62,26 +63,26 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
         stateToStateSet.add(new StateToState<>(clientState02ConnectNonIdent, clientState01NoConnect));
         stateToStateSet.add(new StateToState<>(clientState02ConnectNonIdent, clientState02ConnectNonIdent));
-        stateToStateSet.add(new StateToState<>(clientState02ConnectNonIdent, clientState04GameTypeSetSelected));
+        stateToStateSet.add(new StateToState<>(clientState02ConnectNonIdent, clientState04UserAuthorized));
 
-        stateToStateSet.add(new StateToState<>(clientState04GameTypeSetSelected, clientState01NoConnect));
-        stateToStateSet.add(new StateToState<>(clientState04GameTypeSetSelected, clientState02ConnectNonIdent));
-        stateToStateSet.add(new StateToState<>(clientState04GameTypeSetSelected, clientState06GameMatchSetSelected));
+        stateToStateSet.add(new StateToState<>(clientState04UserAuthorized, clientState01NoConnect));
+        stateToStateSet.add(new StateToState<>(clientState04UserAuthorized, clientState02ConnectNonIdent));
+        stateToStateSet.add(new StateToState<>(clientState04UserAuthorized, clientState06GameMatchSetSelected));
 
         stateToStateSet.add(new StateToState<>(clientState06GameMatchSetSelected, clientState01NoConnect));
         stateToStateSet.add(new StateToState<>(clientState06GameMatchSetSelected, clientState02ConnectNonIdent));
-        stateToStateSet.add(new StateToState<>(clientState06GameMatchSetSelected, clientState04GameTypeSetSelected));
+        stateToStateSet.add(new StateToState<>(clientState06GameMatchSetSelected, clientState04UserAuthorized));
         stateToStateSet.add(new StateToState<>(clientState06GameMatchSetSelected, clientState07GameMatchSelected));
 
         stateToStateSet.add(new StateToState<>(clientState07GameMatchSelected, clientState01NoConnect));
         stateToStateSet.add(new StateToState<>(clientState07GameMatchSelected, clientState02ConnectNonIdent));
-        stateToStateSet.add(new StateToState<>(clientState07GameMatchSelected, clientState04GameTypeSetSelected));
+        stateToStateSet.add(new StateToState<>(clientState07GameMatchSelected, clientState04UserAuthorized));
         stateToStateSet.add(new StateToState<>(clientState07GameMatchSelected, clientState06GameMatchSetSelected));
         stateToStateSet.add(new StateToState<>(clientState07GameMatchSelected, clientState08GameMatchIsPlaying));
 
         stateToStateSet.add(new StateToState<>(clientState08GameMatchIsPlaying, clientState01NoConnect));
         stateToStateSet.add(new StateToState<>(clientState08GameMatchIsPlaying, clientState02ConnectNonIdent));
-        stateToStateSet.add(new StateToState<>(clientState08GameMatchIsPlaying, clientState04GameTypeSetSelected));
+        stateToStateSet.add(new StateToState<>(clientState08GameMatchIsPlaying, clientState04UserAuthorized));
         stateToStateSet.add(new StateToState<>(clientState08GameMatchIsPlaying, clientState06GameMatchSetSelected));
         stateToStateSet.add(new StateToState<>(clientState08GameMatchIsPlaying, clientState07GameMatchSelected));
     }
@@ -137,7 +138,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         }
         this.user = Credentials.getUserByUserName(userName);
 
-        setCurrentState(clientState04GameTypeSetSelected);
+        setCurrentState(clientState04UserAuthorized);
     }
 
     void setGameType_(GameType gameType) {
@@ -149,6 +150,8 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
     void setGameMatchX_(GameMatchX gameMatchX) {
         this.gameMatchX = gameMatchX;
+
+        setCurrentState(clientState07GameMatchSelected);
     }
 
     // ToDo: Избавиться от protected (см. коммент к LocalClientStateAutomaton)
@@ -218,7 +221,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     @Override
     public void reauthorizeUser() {
         //  ToDo:   Переместить setCurrentState(...) в reauthorizeUser_().
-        setCurrentState(clientState04GameTypeSetSelected);
+        setCurrentState(clientState04UserAuthorized);
         currentState.reauthorizeUser();
     }
 
@@ -254,16 +257,12 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
     @Override
     public void setGameMatchX(GameMatchX gameMatchX) {
-        //  ToDo:   Переместить setCurrentState(...) в setGameMatchX_().
-        setCurrentState(clientState07GameMatchSelected);
         currentState.setGameMatchX(gameMatchX);
     }
 
     // 7 interface IClientState07GameMatchSelected
     @Override
     public void resetGameMatch() {
-        //  ToDo:   Переместить setCurrentState(...) в resetGameMatch_().
-        setCurrentState(clientState07GameMatchSelected);
         currentState.resetGameMatch();
     }
 

@@ -8,6 +8,7 @@ import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+//  ToDo:   Переименовать
 public class RemoteClientState06GameMatchSetSelected<ClientId> extends ClientState06GameMatchSetSelected<IGameMatch> {
     public RemoteClientState06GameMatchSetSelected(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
         super(clientStateAutomaton);
