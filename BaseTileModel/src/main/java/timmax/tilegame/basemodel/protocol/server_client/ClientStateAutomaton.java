@@ -129,6 +129,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     }
 
     void close_() {
+        setCurrentState(clientState01NoConnect);
     }
 
     void authorizeUser_(String userName) {
@@ -137,20 +138,17 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
             setCurrentState(clientState01NoConnect);
             return;
         }
-
         setCurrentState(clientState04UserWasAuthorized);
     }
 
     void setGameType_(GameType gameType) {
         //  Warning:(121, 25) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.GameType' to 'timmax.tilegame.basemodel.protocol.server.GameType<GameMatchX>'
         this.gameType = gameType;
-
         setCurrentState(clientState06GameTypeWasSet);
     }
 
     void setGameMatchX_(GameMatchX gameMatchX) {
         this.gameMatchX = gameMatchX;
-
         setCurrentState(clientState07GameMatchWasSet);
     }
 
@@ -207,8 +205,6 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     // 2 interface IClientState02ConnectNonIdent
     @Override
     public void close() {
-        //  ToDo:   Переместить setCurrentState(...) в close_().
-        setCurrentState(clientState01NoConnect);
         currentState.close();
     }
 
@@ -235,7 +231,6 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         return currentState.getGameType();
     }
 
-    //  ToDo:   Переименовать в setGameType
     @Override
     public void setGameType(GameType gameType) {
         //  Warning:(209, 37) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.GameType' to 'timmax.tilegame.basemodel.protocol.server.GameType<GameMatchX>'
