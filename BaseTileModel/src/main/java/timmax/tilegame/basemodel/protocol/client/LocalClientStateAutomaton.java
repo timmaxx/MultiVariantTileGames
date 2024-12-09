@@ -61,12 +61,6 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchDto
         return getGameType_().getParamName_paramModelDescriptionMap();
     }
 
-    //  ToDo:   См. коммент к ClientStateAutomaton :: void setGameTypeSet(Set<GameType> gameTypeSet)
-    @Override
-    public void setGameTypeSet(Set<GameType> gameTypeSet) {
-        super.setGameTypeSet(gameTypeSet);
-    }
-
     @Override
     protected GameMatchExtendedDto startGameMatch_(GameMatchExtendedDto gameMatchExtendedDto) {
         // ToDo: Блок кода ниже попробовать переместить отсюда, что-бы сделать этот и родительский метод package-private.
