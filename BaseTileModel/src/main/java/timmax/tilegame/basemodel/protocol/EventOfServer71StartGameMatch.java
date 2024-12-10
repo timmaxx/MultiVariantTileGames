@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-//  ToDo:   Проверить, почему есть два одинаковых класса EventOfServer71StartGameMatch и EventOfServer74StartGameMatch.
-//          Удалить один из них и/или отредактировать их.
 public class EventOfServer71StartGameMatch extends EventOfServer {
     private GameMatchExtendedDto gameMatchExtendedDto;
 

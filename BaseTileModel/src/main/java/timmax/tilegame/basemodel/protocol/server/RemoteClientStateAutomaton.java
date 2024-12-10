@@ -58,4 +58,9 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
             sendEventOfServer(getClientId(), eventOfServer);
         }
     }
+
+    @Override
+    public GameMatch getGameMatchX() {
+        return (GameMatch) super.getGameMatchX();
+    }
 }

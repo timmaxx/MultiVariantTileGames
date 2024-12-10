@@ -14,16 +14,14 @@ public class RemoteClientState08GameMatchIsPlaying<ClientId> extends ClientState
         //  но внутри метода будет проверка на соответствие: если информация будет признана неподходящей,
         //  то внутри матча будет сформирована информация с другим содержанием.
         super.startGameMatch(gameMatchExtendedDto);
-        GameMatchExtendedDto gameMatchExtendedDto2 =
-                ((GameMatch)(getClientStateAutomaton().getGameMatchX()))
-                        .getGameMatchExtendedDto();
+        GameMatchExtendedDto gameMatchExtendedDto2 = getClientStateAutomaton().getGameMatchX().getGameMatchExtendedDto();
 
         //  Именно из-за того, что информация могла быть сформирована не такая, какая пришла,
         //  клиенту будет отправлена информация, которая была сформирована при вызове предыдущего метода.
         //  (Клиент, после получения этого события только строит главную выборку (пустую доску)).
         getClientStateAutomaton().sendEventOfServer(
                 getClientStateAutomaton().getClientId(),
-                new EventOfServer74StartGameMatch(gameMatchExtendedDto2)
+                new EventOfServer71StartGameMatch(gameMatchExtendedDto2)
         );
     }
 
