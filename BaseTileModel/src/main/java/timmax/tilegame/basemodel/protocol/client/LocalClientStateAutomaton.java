@@ -60,8 +60,11 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchDto
     }
 
     @Override
+    //  ToDo:   Сделать возвращаемое значение void.
     protected GameMatchExtendedDto startGameMatch_(GameMatchExtendedDto gameMatchExtendedDto) {
-        // ToDo: Блок кода ниже попробовать переместить отсюда, что-бы сделать этот и родительский метод package-private.
+        //  ToDo:   Переделать наследование и(или) вызов startGameMatch_().
+        //          В текущей реализации метод не вызывает родительский. Это не есть хорошо.
+        //  ToDo:   Блок кода ниже попробовать переместить отсюда, что-бы сделать этот и родительский метод package-private.
         View view = getView(ViewMainField.class.getSimpleName());
         if (view instanceof ViewMainField viewMainField) {
             Platform.runLater(() -> {

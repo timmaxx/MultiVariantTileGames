@@ -1,5 +1,7 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import timmax.tilegame.basemodel.GameMatchStatus;
 
 import java.io.Externalizable;
@@ -10,6 +12,8 @@ import java.util.Map;
 
 // DTO - Data Transfer Object
 public class GameMatchDto implements Externalizable, IGameMatchX {
+    protected static final Logger logger = LoggerFactory.getLogger(GameMatchDto.class);
+
     private String id;
     private GameMatchStatus status;
     private Map<String, Integer> paramsOfModelValueMap;
@@ -59,6 +63,9 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
         return paramsOfModelValueMap.get(PARAM_NAME_HEIGHT);
     }
 
+    //  ToDo:   Удалить метод.
+    //          Для DTO - этод метод не должен использоваться.
+    //  ToDo:   Или сделать возвращаемое значение void.
     @Override
     public GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto) {
         return gameMatchExtendedDto;

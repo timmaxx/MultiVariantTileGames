@@ -65,15 +65,15 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
         //  ToDo:   Отправить клиенту:
         //          1. Размеры главной выборки матча и умолчательные характеристики для построения пустого поля
         //             (но возможно, это в более раннем событии следует передать) для построения пустой выборки главного поля.
-        //          2. Объекты матча статические (например для Сокобана: стены или дома).
+        //          2. Объекты матча статические.
         //          3. Объекты матча динамические. Например:
-        //              - для Сокобана: игрок, ящики.
         //              - для Сапёра: флаги и количество мин на открытых плитках.
 
         //  Здесь, в таком порядке:
         // 1. super.start(),
         // 2. setGameObjectsPlacement(new MinesweeperPlacementStateAutomaton(...)).
 
+        //  Не используется возвращаемое значение метода родительского класса!
         super.start(gameMatchExtendedDto);
         setGameObjectsPlacementStateAutomaton(new MinesweeperPlacementStateAutomaton(
                 this,
@@ -83,6 +83,8 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
                 getFromParamsOfModelValueMap(PARAM_NAME_PERCENTS_OF_MINES)
         ));
 
+        //  ToDo:   Объявить переменную Set<GameEventOneTile> gameEventOneTileSet в GameMatch и тогда start может не
+        //          возвращать значение.
         return newGameMatchExtendedDto(new HashSet<>());
     }
 

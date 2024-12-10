@@ -45,11 +45,14 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
 
     private /*final*/ GameObjectsPlacementStateAutomaton gameObjectsPlacementStateAutomaton;
 
-
     //  ToDo:   Сейчас здесь одна переменная типа RemoteClientStateAutomaton. И для одного игрока вполне норм.
-    //          Но для для двух (а возможно и более игроков) или если какой-то участник игры, не являющийся игроком
-    //          (например наблюдатель) будет работать в отдельном клиенте, придётся создавать какую-то коллекцию,
-    //          в которой и будет описание игроков или других участников.
+    //          Но для двух (а возможно и более игроков), придётся создавать какую-то коллекцию,
+    //          в которой и будет описание игроков.
+    //          Замечания по поводу "наблюдателей" (это те пользователи, которые могут только следить за партией,
+    //          т.е. контроллер оттуда не должен генерировать события мыши и(или) клавиатуры, а если даже они будут
+    //          поступать, то сервер должен их игнорить):
+    //          Они вообще не должны храниться в матче, но их нужно будет учитывать в неком классе "Матч в реал-тайме".
+    //          С другой стороны, там-же стоит хранить и ссылки на ид клиентов не только наблюдателей, но и самих игроков.
     //  ToDo:   Ссылку на автомат состояний, да ещё и параметризацию его по типу идентификации клиента (на 28.08.2024 -
     //          это WebSocket), видимо неправильно хранить здесь.
     //          Сейчас переменная remoteClientStateAutomaton используется для того, что-бы отправить определённому
@@ -66,7 +69,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     private Map<String, Integer> paramsOfModelValueMap;
     private GameMatchStatus status;
 
-    //  ToDo:   Перечень параметров согласовывать также и в
+    //  ToDo:   Перечень параметров согласовывать также и в:
     //          - GameType,
     //          - RemoteClientState06GameMatchSetSelected :: void setGameType(GameType gameType, Set<IGameMatch> gameMatchXSet).
     //            Там создаётся конструктор через рекурсию. Но после рефакторинга, создание конструктора должно уйти в
@@ -189,7 +192,8 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     }
 
     // interface IGameMatchX
-    // ToDo: start() (т.е. без параметров) должен вызывать start(...)
+    //  ToDo:   start() (т.е. без параметров) должен вызывать start(...)
+    //  ToDo:   сделать void.
     @Override
     public GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto) {
         //  ToDo:   Отправить клиенту:

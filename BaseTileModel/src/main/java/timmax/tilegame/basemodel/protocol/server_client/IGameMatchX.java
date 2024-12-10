@@ -19,5 +19,8 @@ public interface IGameMatchX {
     int getWidth();
     int getHeight();
 
+    //  ToDo:   Сделать возвращаемое значение void.
+    //          Проверить: вероятно в реализации для клиента не используется возвращаемое значение,
+    //          а в реализации для сервера возвращаемое значение используется.
     GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto);
 }

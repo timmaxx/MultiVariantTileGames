@@ -43,6 +43,7 @@ public interface TransportOfClient {
 
     // 07GameMatchSelected
     void resetGameMatch();                                                      //  7 -> 7  void resetGameMatch();
+    // Объявлен без возвращаемого значения!
     void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue);          //  7 -> 8  void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue);
 
     // 08GameMatchIsPlaying

@@ -45,6 +45,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
     private GameType<GameMatchX> gameType; // ---- 4 (Конкретный тип игры)
     private GameMatchX gameMatchX; // ---- 6 (Конкретная модель игры)
+    //  GameMatchExtendedDto
 
     public ClientStateAutomaton(
             IFabricOfClientStates<GameMatchX> iFabricOfClientStates) {
@@ -152,7 +153,10 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         setCurrentState(clientState07GameMatchWasSet);
     }
 
-    // ToDo: Избавиться от protected (см. коммент к LocalClientStateAutomaton)
+    //  ToDo:   Избавиться от protected (см. коммент к LocalClientStateAutomaton)
+    //  ToDo:   Как-то не единообразно с предыдущими void получилось...
+    //  ToDo:   Сделать возвращаемое значение void.
+    //          В классе-наследнике LocalClientStateAutomaton метод полностью перегружается - не хорошо!
     protected GameMatchExtendedDto startGameMatch_(GameMatchExtendedDto gameMatchExtendedDto) {
         return getGameMatchX_().start(gameMatchExtendedDto);
     }
@@ -190,7 +194,6 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     //          состояние "Установлено соединение с сервером".
     //          У сервера перечень типов игр одинаков, определяется вне зависимости от авторизации пользователя на сервере,
     //            и мог-бы храниться вне экземпляра этого класса.
-    //          Сейчас клиенту поступает перечень типов игр при успешной аутентификации пользователя.
     public void setGameTypeSet(Set<GameType> gameTypeSet) {
         this.gameTypeSet = gameTypeSet;
     }
@@ -265,8 +268,18 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     public GameMatchExtendedDto startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
         //  ToDo:   Переместить setCurrentState(...) в startGameMatch_().
         setCurrentState(clientState08GameMatchIsPlaying);
+        //  Место, где используется возвращаемое значение!
         return currentState.startGameMatch(gameMatchExtendedDto);
     }
+/*
+    public void startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
+*//*
+        //  ToDo:   Переместить setCurrentState(...) в startGameMatch_().
+        setCurrentState(clientState08GameMatchIsPlaying);
+*//*
+        currentState.startGameMatch(gameMatchExtendedDto);
+    }
+*/
 
     // 8 interface IClientState08GameMatchIsPlaying
     @Override

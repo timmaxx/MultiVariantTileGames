@@ -22,6 +22,7 @@ public class EventOfServer71StartGameMatch extends EventOfServer {
     // class EventOfServer
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
+        //  Не используется возвращаемое значение!
         localClientStateAutomaton.startGameMatch(gameMatchExtendedDto);
     }
 

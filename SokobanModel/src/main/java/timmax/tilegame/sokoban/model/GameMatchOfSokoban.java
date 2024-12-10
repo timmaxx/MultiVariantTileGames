@@ -116,13 +116,13 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     public GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto) {
         // ToDo: Что-то из описанного ниже ToDo сделать здесь, что-то в родительском классе.
         // ToDo: Отправить клиенту:
-        //       1. Размеры главной выборки матча и умолчательные характеристики для построение пустого поля
+        //       1. Размеры главной выборки матча и умолчательные характеристики для построения пустого поля
         //          (но возможно, это в более раннем событии следует передать) для построения пустой выборки главного поля.
-        //       2. Объекты матча статические (например для Сокобана: стены или дома).
+        //       2. Объекты матча статические (например для Сокобан: стены или дома).
         //       3. Объекты матча динамические. Например:
-        //          - для Сокобана: игрок, ящики.
-        //          - для Сапёра: флаги и количество мин на открытых плитках.
+        //          - для Сокобан: игрок, ящики.
 
+        //  Не используется возвращаемое значение метода родительского класса!
         super.start(gameMatchExtendedDto);
 
         // 1. setGameObjectsPlacement(levelLoader.getLevel())
@@ -131,6 +131,8 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
 
         // В этой реализации Сокобан не обращаем внимание на gameMatchExtendedDto - просто загружаем следующий уровень.
         setGameObjectsPlacementStateAutomaton(new SokobanPlacementStateAutomaton(this, pathToLevels, currentLevel.getValue()));
+        //  ToDo:   Проверить и/или отредактировать setParamsOfModelValueMap() этого класса и/или родительского,
+        //          и вызывать setParamsOfModelValueMap() этого класса, а не родителя.
         super.setParamsOfModelValueMap(
                 Map.of(PARAM_NAME_WIDTH,
                         getGameObjectsPlacementStateAutomaton().getWidthHeightSizes().getWidth(),
@@ -139,6 +141,8 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
                 )
         );
 
+        //  ToDo:   Объявить переменную Set<GameEventOneTile> gameEventOneTileSet в GameMatch и тогда start() может не
+        //          возвращать значение.
         Set<GameEventOneTile> gameEventOneTileSet = new HashSet<>();
 
         for (int y = 0; y < getGameObjectsPlacementStateAutomaton().getWidthHeightSizes().getHeight(); y++) {

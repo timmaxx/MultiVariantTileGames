@@ -33,6 +33,7 @@ public class EventOfClient71StartGameMatch extends EventOfClient {
                 paramsOfModelValueMap,
                 new HashSet<>()
         );
+        //  Не используется возвращаемое значение!
         remoteClientStateAutomaton.startGameMatch(gameMatchExtendedDto);
     }
 

@@ -40,6 +40,7 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
             if (transportOfClient.getLocalClientStateAutomaton().getGameMatchX().getStatus() == GAME) {
                 throw new RuntimeException("Resume is not realised yet!");
             } else if (transportOfClient.getLocalClientStateAutomaton().getGameMatchX().getStatus() == NOT_STARTED) {
+                //  Не используется возвращаемое значение (но его там и нет)!
                 transportOfClient.startGameMatch(paramsOfModelValueMap);
             } else {
                 throw new RuntimeException("Pane07GameMatchSelected :: Pane07GameMatchSelected(TransportOfClient transportOfClient). nextStateButton.setOnAction. transportOfClient.getLocalClientStateAutomaton().getGameMatchX().getStatus() = " + transportOfClient.getLocalClientStateAutomaton().getGameMatchX().getStatus());
