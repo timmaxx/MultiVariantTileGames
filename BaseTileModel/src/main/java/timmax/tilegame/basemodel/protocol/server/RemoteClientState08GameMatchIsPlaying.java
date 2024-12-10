@@ -9,13 +9,14 @@ public class RemoteClientState08GameMatchIsPlaying<ClientId> extends ClientState
     }
 
     @Override
-    public GameMatchExtendedDto startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
+    public void startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
         //  В метод передаётся, поступившая от клиента информация (параметры матча, текущие положения объектов),
         //  но внутри метода будет проверка на соответствие: если информация будет признана неподходящей,
         //  то внутри матча будет сформирована информация с другим содержанием.
-        //  ToDo:   Сделать возвращаемое значение void.
-        //          Место, где используется возвращаемое значение!
-        GameMatchExtendedDto gameMatchExtendedDto2 = super.startGameMatch(gameMatchExtendedDto);
+        super.startGameMatch(gameMatchExtendedDto);
+        GameMatchExtendedDto gameMatchExtendedDto2 =
+                ((GameMatch)(getClientStateAutomaton().getGameMatchX()))
+                        .getGameMatchExtendedDto();
 
         //  Именно из-за того, что информация могла быть сформирована не такая, какая пришла,
         //  клиенту будет отправлена информация, которая была сформирована при вызове предыдущего метода.
@@ -24,7 +25,6 @@ public class RemoteClientState08GameMatchIsPlaying<ClientId> extends ClientState
                 getClientStateAutomaton().getClientId(),
                 new EventOfServer74StartGameMatch(gameMatchExtendedDto2)
         );
-        return gameMatchExtendedDto2;
     }
 
     // class AbstractClientState

@@ -107,7 +107,6 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
     //  Нет возвращаемого значения!
     @Override
     public void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue) {
-        //  Нет возвращаемого значения!
         transportOfClient.startGameMatch(mapOfParamsOfModelValue);
     }
 

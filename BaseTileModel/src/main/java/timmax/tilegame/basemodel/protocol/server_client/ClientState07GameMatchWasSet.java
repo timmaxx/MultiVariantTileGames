@@ -20,10 +20,8 @@ public abstract class ClientState07GameMatchWasSet<GameMatchX extends IGameMatch
     }
 
     @Override
-    public GameMatchExtendedDto startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
-        //  ToDo:   Сделать возвращаемое значение void.
-        //          Место, где используется возвращаемое значение!
-        return getClientStateAutomaton().startGameMatch_(gameMatchExtendedDto);
+    public void startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
+        getClientStateAutomaton().startGameMatch_(gameMatchExtendedDto);
     }
 
     @Override

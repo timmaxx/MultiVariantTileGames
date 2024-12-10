@@ -65,10 +65,9 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
 
     //  ToDo:   Удалить метод.
     //          Для DTO - этод метод не должен использоваться.
-    //  ToDo:   Или сделать возвращаемое значение void.
     @Override
-    public GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto) {
-        return gameMatchExtendedDto;
+    public void start(GameMatchExtendedDto gameMatchExtendedDto) {
+        logger.info("Этот вывод не должен проявиться. Т.к. start() для DTO не должен вызываться! (gameMatchExtendedDto = {})", gameMatchExtendedDto);
     }
 
     // interface Externalizable

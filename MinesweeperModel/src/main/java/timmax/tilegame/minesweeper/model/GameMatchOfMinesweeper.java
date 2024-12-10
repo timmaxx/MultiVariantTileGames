@@ -13,7 +13,6 @@ import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
 import timmax.tilegame.minesweeper.model.placement.placementstate.MinesweeperPlacementStateAutomaton;
 import timmax.tilegame.minesweeper.model.placement.gameobject.MGOStateAutomaton;
 
-import java.util.HashSet;
 import java.util.Map;
 
 public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
@@ -59,7 +58,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     }
 
     @Override
-    public GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto) {
+    public void start(GameMatchExtendedDto gameMatchExtendedDto) {
         //  ToDo:   Что-то из описанного ниже ToDo сделать здесь, что-то в родительском классе.
 
         //  ToDo:   Отправить клиенту:
@@ -73,7 +72,6 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
         // 1. super.start(),
         // 2. setGameObjectsPlacement(new MinesweeperPlacementStateAutomaton(...)).
 
-        //  Не используется возвращаемое значение метода родительского класса!
         super.start(gameMatchExtendedDto);
         setGameObjectsPlacementStateAutomaton(new MinesweeperPlacementStateAutomaton(
                 this,
@@ -83,9 +81,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
                 getFromParamsOfModelValueMap(PARAM_NAME_PERCENTS_OF_MINES)
         ));
 
-        //  ToDo:   Объявить переменную Set<GameEventOneTile> gameEventOneTileSet в GameMatch и тогда start может не
-        //          возвращать значение.
-        return newGameMatchExtendedDto(new HashSet<>());
+        setGameMatchExtendedDto(gameMatchExtendedDto);
     }
 
     // interface IGameMatch

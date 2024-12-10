@@ -45,6 +45,8 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
 
     private /*final*/ GameObjectsPlacementStateAutomaton gameObjectsPlacementStateAutomaton;
 
+    private GameMatchExtendedDto gameMatchExtendedDto;
+
     //  ToDo:   Сейчас здесь одна переменная типа RemoteClientStateAutomaton. И для одного игрока вполне норм.
     //          Но для двух (а возможно и более игроков), придётся создавать какую-то коллекцию,
     //          в которой и будет описание игроков.
@@ -112,6 +114,14 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
 
     protected final void setStatus(GameMatchStatus status) {
         this.status = status;
+    }
+
+    public GameMatchExtendedDto getGameMatchExtendedDto() {
+        return gameMatchExtendedDto;
+    }
+
+    public void setGameMatchExtendedDto(GameMatchExtendedDto gameMatchExtendedDto) {
+        this.gameMatchExtendedDto = gameMatchExtendedDto;
     }
 
     protected void throwExceptionIfIsPlaying() {
@@ -193,9 +203,8 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
 
     // interface IGameMatchX
     //  ToDo:   start() (т.е. без параметров) должен вызывать start(...)
-    //  ToDo:   сделать void.
     @Override
-    public GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto) {
+    public void start(GameMatchExtendedDto gameMatchExtendedDto) {
         //  ToDo:   Отправить клиенту:
         //          1. Размеры главной выборки матча и умолчательные характеристики для построение пустого поля
         //             (но возможно, это в более раннем событии следует передать) для построения пустой выборки главного поля.
@@ -208,7 +217,6 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         throwExceptionIfThereIsNotDefinedPlayer();
         this.paramsOfModelValueMap = gameMatchExtendedDto.getParamsOfModelValueMap();
         status = GameMatchStatus.GAME;
-        return gameMatchExtendedDto;
     }
 
     @Override

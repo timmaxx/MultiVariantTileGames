@@ -141,7 +141,6 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         sendEventOfClient(new EventOfClient72ResetGameMatch());
     }
 
-    //  Нет возвращаемого значения!
     @Override
     public void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue) {
         sendEventOfClient(new EventOfClient71StartGameMatch(mapOfParamsOfModelValue));

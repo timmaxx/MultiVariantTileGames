@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
+//  ToDo:   Проверить, почему есть два одинаковых класса EventOfServer71StartGameMatch и EventOfServer74StartGameMatch.
+//          Удалить один из них и/или отредактировать их.
 public class EventOfServer74StartGameMatch extends EventOfServer {
     private GameMatchExtendedDto gameMatchExtendedDto;
 
@@ -21,7 +23,6 @@ public class EventOfServer74StartGameMatch extends EventOfServer {
     // class EventOfServer
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
-        //  Не используется возвращаемое значение!
         localClientStateAutomaton.startGameMatch(gameMatchExtendedDto);
     }
 

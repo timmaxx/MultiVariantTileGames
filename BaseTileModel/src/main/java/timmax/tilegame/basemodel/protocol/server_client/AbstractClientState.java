@@ -96,7 +96,7 @@ public abstract class AbstractClientState<GameMatchX extends IGameMatchX> implem
     }
 
     @Override
-    public GameMatchExtendedDto startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
+    public void startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
         throw new WrongMethodInvokeForCurrentStateException(getClientStateAutomaton().getCurrentState());
     }
 

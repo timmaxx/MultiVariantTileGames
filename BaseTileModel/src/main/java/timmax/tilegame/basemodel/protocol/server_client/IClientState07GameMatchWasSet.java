@@ -15,5 +15,5 @@ public interface IClientState07GameMatchWasSet<GameMatchX extends IGameMatchX> e
     //  interface TransportOfClient
     //      void resetGameMatch();
 
-    GameMatchExtendedDto startGameMatch(GameMatchExtendedDto gameMatchExtendedDto);
+    void startGameMatch(GameMatchExtendedDto gameMatchExtendedDto);
 }

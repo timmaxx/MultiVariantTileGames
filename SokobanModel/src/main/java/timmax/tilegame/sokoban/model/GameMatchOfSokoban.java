@@ -113,7 +113,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     }
 
     @Override
-    public GameMatchExtendedDto start(GameMatchExtendedDto gameMatchExtendedDto) {
+    public void start(GameMatchExtendedDto gameMatchExtendedDto) {
         // ToDo: Что-то из описанного ниже ToDo сделать здесь, что-то в родительском классе.
         // ToDo: Отправить клиенту:
         //       1. Размеры главной выборки матча и умолчательные характеристики для построения пустого поля
@@ -122,7 +122,6 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         //       3. Объекты матча динамические. Например:
         //          - для Сокобан: игрок, ящики.
 
-        //  Не используется возвращаемое значение метода родительского класса!
         super.start(gameMatchExtendedDto);
 
         // 1. setGameObjectsPlacement(levelLoader.getLevel())
@@ -161,7 +160,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         // route = new Route();
         // routeRedo = new Route();
 
-        return newGameMatchExtendedDto(gameEventOneTileSet);
+        setGameMatchExtendedDto(newGameMatchExtendedDto(gameEventOneTileSet));
     }
 
     // interface IGameMatch
