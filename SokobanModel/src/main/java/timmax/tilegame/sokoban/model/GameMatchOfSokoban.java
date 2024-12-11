@@ -95,24 +95,6 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
 
     // interface IGameMatchX
     @Override
-    public void setParamsOfModelValueMap(Map<String, Integer> paramsOfModelValueMap) {
-        throwExceptionIfIsPlaying();
-
-        //  Здесь, в таком порядке:
-        //  1. setGameObjectsPlacement(new SokobanPlacementStateAutomaton(...)),
-        //  2. super.setParamsOfModelValueMap().
-
-        setGameObjectsPlacementStateAutomaton(new SokobanPlacementStateAutomaton(this, pathToLevels, currentLevel.getValue()));
-        super.setParamsOfModelValueMap(
-                Map.of(PARAM_NAME_WIDTH,
-                        getGameObjectsPlacementStateAutomaton().getWidthHeightSizes().getWidth(),
-                        PARAM_NAME_HEIGHT,
-                        getGameObjectsPlacementStateAutomaton().getWidthHeightSizes().getHeight()
-                )
-        );
-    }
-
-    @Override
     public void start(GameMatchExtendedDto gameMatchExtendedDto) {
         // ToDo: Что-то из описанного ниже ToDo сделать здесь, что-то в родительском классе.
         // ToDo: Отправить клиенту:
@@ -125,14 +107,12 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         super.start(gameMatchExtendedDto);
 
         // 1. setGameObjectsPlacement(levelLoader.getLevel())
-        // 2. super.setParamsOfModelValueMap()
+        // 2. setParamsOfModelValueMap()
         // 3. подготовка перечня событий для отправки клиенту для прорисовки расстановки.
 
         // В этой реализации Сокобан не обращаем внимание на gameMatchExtendedDto - просто загружаем следующий уровень.
         setGameObjectsPlacementStateAutomaton(new SokobanPlacementStateAutomaton(this, pathToLevels, currentLevel.getValue()));
-        //  ToDo:   Проверить и/или отредактировать setParamsOfModelValueMap() этого класса и/или родительского,
-        //          и вызывать setParamsOfModelValueMap() этого класса, а не родителя.
-        super.setParamsOfModelValueMap(
+        setParamsOfModelValueMap(
                 Map.of(PARAM_NAME_WIDTH,
                         getGameObjectsPlacementStateAutomaton().getWidthHeightSizes().getWidth(),
                         PARAM_NAME_HEIGHT,
@@ -140,8 +120,6 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
                 )
         );
 
-        //  ToDo:   Объявить переменную Set<GameEventOneTile> gameEventOneTileSet в GameMatch и тогда start() может не
-        //          возвращать значение.
         Set<GameEventOneTile> gameEventOneTileSet = new HashSet<>();
 
         for (int y = 0; y < getGameObjectsPlacementStateAutomaton().getWidthHeightSizes().getHeight(); y++) {
