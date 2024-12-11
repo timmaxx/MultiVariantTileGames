@@ -11,12 +11,12 @@ public class LocalClientState01NoConnect extends ClientState01NoConnect<GameMatc
 
     @Override
     public void doAfterTurnOn() {
-        getClientStateAutomaton().updateOnClose();
+        getBaseStateAutomaton().updateOnClose();
     }
 
     // class AbstractClientState
     @Override
-    public LocalClientStateAutomaton getClientStateAutomaton() {
-        return (LocalClientStateAutomaton) (super.getClientStateAutomaton());
+    public LocalClientStateAutomaton getBaseStateAutomaton() {
+        return (LocalClientStateAutomaton) (super.getBaseStateAutomaton());
     }
 }

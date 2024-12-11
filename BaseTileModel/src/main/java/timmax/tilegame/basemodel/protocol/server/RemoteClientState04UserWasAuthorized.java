@@ -20,7 +20,7 @@ public class RemoteClientState04UserWasAuthorized<ClientId> extends ClientState0
         //          Если удалить отсюда вызов initGameMatchXSet(...), то и всю реализацию setGameType(...)
         //          тоже можно удалять в этом классе.
         //  Warning:(22, 9) Unchecked call to 'initGameMatchXSet(RemoteClientStateAutomaton<ClientId>)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.GameType'
-        gameType.initGameMatchXSet(getClientStateAutomaton());
+        gameType.initGameMatchXSet(getBaseStateAutomaton());
 
         super.setGameType(gameType);
     }
@@ -28,14 +28,15 @@ public class RemoteClientState04UserWasAuthorized<ClientId> extends ClientState0
     // class AbstractClientState
     @Override
     public void doAfterTurnOn() {
-        getClientStateAutomaton().sendEventOfServer(
-                getClientStateAutomaton().getClientId(),
-                new EventOfServer21IdentifyAuthenticateAuthorizeUser(getClientStateAutomaton().getUser().getUserName())
+        getBaseStateAutomaton().sendEventOfServer(
+                getBaseStateAutomaton().getClientId(),
+                new EventOfServer21IdentifyAuthenticateAuthorizeUser(getBaseStateAutomaton().getUser().getUserName())
         );
     }
 
     @Override
-    public RemoteClientStateAutomaton<ClientId> getClientStateAutomaton() {
-        return (RemoteClientStateAutomaton<ClientId>) (super.getClientStateAutomaton());
+    public RemoteClientStateAutomaton<ClientId> getBaseStateAutomaton() {
+        //  Warning:(40, 16) Unchecked cast: 'timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton' to 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton<ClientId>'
+        return (RemoteClientStateAutomaton<ClientId>) (super.getBaseStateAutomaton());
     }
 }

@@ -11,15 +11,16 @@ public class RemoteClientState02ConnectNonIdent<ClientId> extends ClientState02C
     // class AbstractClientState
     @Override
     public void doAfterTurnOn() {
-        getClientStateAutomaton().setGameTypeSet(GameTypeFabric.GAME_TYPE_SET);
-        getClientStateAutomaton().sendEventOfServer(
-                getClientStateAutomaton().getClientId(),
-                new EventOfServer11ConnectWithoutUserIdentify(getClientStateAutomaton().getGameTypeSet())
+        getBaseStateAutomaton().setGameTypeSet(GameTypeFabric.GAME_TYPE_SET);
+        getBaseStateAutomaton().sendEventOfServer(
+                getBaseStateAutomaton().getClientId(),
+                new EventOfServer11ConnectWithoutUserIdentify(getBaseStateAutomaton().getGameTypeSet())
         );
     }
 
     @Override
-    public RemoteClientStateAutomaton<ClientId> getClientStateAutomaton() {
-        return (RemoteClientStateAutomaton<ClientId>)(super.getClientStateAutomaton());
+    public RemoteClientStateAutomaton<ClientId> getBaseStateAutomaton() {
+        //  Warning:(23, 16) Unchecked cast: 'timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton' to 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton<ClientId>'
+        return (RemoteClientStateAutomaton<ClientId>)(super.getBaseStateAutomaton());
     }
 }

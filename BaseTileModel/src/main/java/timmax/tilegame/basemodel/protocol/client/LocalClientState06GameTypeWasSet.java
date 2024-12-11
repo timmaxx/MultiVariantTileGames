@@ -12,13 +12,13 @@ public class LocalClientState06GameTypeWasSet extends ClientState06GameTypeWasSe
     // interface IClientState99
     @Override
     public void doAfterTurnOn() {
-        getClientStateAutomaton().clearViewName_ViewMap();
-        getClientStateAutomaton().updateOnSetGameType();
+        getBaseStateAutomaton().clearViewName_ViewMap();
+        getBaseStateAutomaton().updateOnSetGameType();
     }
 
     // class AbstractClientState
     @Override
-    public LocalClientStateAutomaton getClientStateAutomaton() {
-        return (LocalClientStateAutomaton) (super.getClientStateAutomaton());
+    public LocalClientStateAutomaton getBaseStateAutomaton() {
+        return (LocalClientStateAutomaton) (super.getBaseStateAutomaton());
     }
 }

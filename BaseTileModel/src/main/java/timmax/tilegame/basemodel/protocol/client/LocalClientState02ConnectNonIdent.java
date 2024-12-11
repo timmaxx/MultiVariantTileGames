@@ -12,12 +12,12 @@ public class LocalClientState02ConnectNonIdent extends ClientState02ConnectNonId
     // interface IClientState99
     @Override
     public void doAfterTurnOn() {
-        getClientStateAutomaton().updateOnOpen();
+        getBaseStateAutomaton().updateOnOpen();
     }
 
     // class AbstractClientState
     @Override
-    public LocalClientStateAutomaton getClientStateAutomaton() {
-        return (LocalClientStateAutomaton) (super.getClientStateAutomaton());
+    public LocalClientStateAutomaton getBaseStateAutomaton() {
+        return (LocalClientStateAutomaton) (super.getBaseStateAutomaton());
     }
 }

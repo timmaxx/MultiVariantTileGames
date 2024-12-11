@@ -13,15 +13,16 @@ public class RemoteClientState08GameMatchIsPlaying<ClientId> extends ClientState
         //  Именно из-за того, что информация могла быть сформирована не такая, какая пришла,
         //  клиенту будет отправлена информация, которая была сформирована при вызове предыдущего метода.
         //  (Клиент, после получения этого события только строит главную выборку (пустую доску)).
-        getClientStateAutomaton().sendEventOfServer(
-                getClientStateAutomaton().getClientId(),
-                new EventOfServer71StartGameMatch(getClientStateAutomaton().getGameMatchX().getGameMatchExtendedDto())
+        getBaseStateAutomaton().sendEventOfServer(
+                getBaseStateAutomaton().getClientId(),
+                new EventOfServer71StartGameMatch(getBaseStateAutomaton().getGameMatchX().getGameMatchExtendedDto())
         );
     }
 
     // class AbstractClientState
     @Override
-    public RemoteClientStateAutomaton<ClientId> getClientStateAutomaton() {
-        return (RemoteClientStateAutomaton<ClientId>) (super.getClientStateAutomaton());
+    public RemoteClientStateAutomaton<ClientId> getBaseStateAutomaton() {
+        //  Warning:(25, 16) Unchecked cast: 'timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton' to 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton<ClientId>'
+        return (RemoteClientStateAutomaton<ClientId>) (super.getBaseStateAutomaton());
     }
 }

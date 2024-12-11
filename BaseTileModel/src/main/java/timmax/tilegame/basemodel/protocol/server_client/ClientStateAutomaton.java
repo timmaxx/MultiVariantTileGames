@@ -1,21 +1,23 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import timmax.state.StateAutomaton;
 import timmax.tilegame.basemodel.GameMatchStatus;
 import timmax.tilegame.basemodel.credential.Credentials;
 import timmax.tilegame.basemodel.credential.User;
-import timmax.tilegame.basemodel.exception.WrongChangeStateException;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
-import java.util.HashSet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Set;
 
 //  Базовый автомат состояний клиента.
 //  Он будет родителем:
 //  - как для автомата состояний клиента на сервере,
 //  - так и для автомата состояний клиента на клиенте.
-public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> implements
+public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX>
+        extends StateAutomaton
+        implements
         IClientState01NoConnect,
         IClientState02ConnectNonIdent,
         IClientState04UserWasAuthorized<GameMatchX>,
@@ -24,16 +26,12 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         IClientState08GameMatchIsPlaying {
     protected static final Logger logger = LoggerFactory.getLogger(ClientStateAutomaton.class);
 
-    private final Set<StateToState<GameMatchX>> stateToStateSet;
-
     final ClientState01NoConnect<GameMatchX> clientState01NoConnect;
     final ClientState02ConnectNonIdent<GameMatchX> clientState02ConnectNonIdent;
     final ClientState04UserWasAuthorized<GameMatchX> clientState04UserWasAuthorized;
     final ClientState06GameTypeWasSet<GameMatchX> clientState06GameTypeWasSet;
     final ClientState07GameMatchWasSet<GameMatchX> clientState07GameMatchWasSet;
     final ClientState08GameMatchIsPlaying<GameMatchX> clientState08GameMatchIsPlaying;
-
-    private IClientState99<GameMatchX> currentState;
 
     private User user;
 
@@ -55,61 +53,36 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
         currentState = clientState01NoConnect;
 
-        stateToStateSet = new HashSet<>();
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState01NoConnect, clientState02ConnectNonIdent));
 
-        stateToStateSet.add(new StateToState<>(clientState01NoConnect, clientState02ConnectNonIdent));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState02ConnectNonIdent, clientState01NoConnect));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState02ConnectNonIdent, clientState02ConnectNonIdent));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState02ConnectNonIdent, clientState04UserWasAuthorized));
 
-        stateToStateSet.add(new StateToState<>(clientState02ConnectNonIdent, clientState01NoConnect));
-        stateToStateSet.add(new StateToState<>(clientState02ConnectNonIdent, clientState02ConnectNonIdent));
-        stateToStateSet.add(new StateToState<>(clientState02ConnectNonIdent, clientState04UserWasAuthorized));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState04UserWasAuthorized, clientState01NoConnect));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState04UserWasAuthorized, clientState02ConnectNonIdent));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState04UserWasAuthorized, clientState06GameTypeWasSet));
 
-        stateToStateSet.add(new StateToState<>(clientState04UserWasAuthorized, clientState01NoConnect));
-        stateToStateSet.add(new StateToState<>(clientState04UserWasAuthorized, clientState02ConnectNonIdent));
-        stateToStateSet.add(new StateToState<>(clientState04UserWasAuthorized, clientState06GameTypeWasSet));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState06GameTypeWasSet, clientState01NoConnect));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState06GameTypeWasSet, clientState02ConnectNonIdent));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState06GameTypeWasSet, clientState04UserWasAuthorized));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState06GameTypeWasSet, clientState07GameMatchWasSet));
 
-        stateToStateSet.add(new StateToState<>(clientState06GameTypeWasSet, clientState01NoConnect));
-        stateToStateSet.add(new StateToState<>(clientState06GameTypeWasSet, clientState02ConnectNonIdent));
-        stateToStateSet.add(new StateToState<>(clientState06GameTypeWasSet, clientState04UserWasAuthorized));
-        stateToStateSet.add(new StateToState<>(clientState06GameTypeWasSet, clientState07GameMatchWasSet));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState07GameMatchWasSet, clientState01NoConnect));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState07GameMatchWasSet, clientState02ConnectNonIdent));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState07GameMatchWasSet, clientState04UserWasAuthorized));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState07GameMatchWasSet, clientState06GameTypeWasSet));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState07GameMatchWasSet, clientState08GameMatchIsPlaying));
 
-        stateToStateSet.add(new StateToState<>(clientState07GameMatchWasSet, clientState01NoConnect));
-        stateToStateSet.add(new StateToState<>(clientState07GameMatchWasSet, clientState02ConnectNonIdent));
-        stateToStateSet.add(new StateToState<>(clientState07GameMatchWasSet, clientState04UserWasAuthorized));
-        stateToStateSet.add(new StateToState<>(clientState07GameMatchWasSet, clientState06GameTypeWasSet));
-        stateToStateSet.add(new StateToState<>(clientState07GameMatchWasSet, clientState08GameMatchIsPlaying));
-
-        stateToStateSet.add(new StateToState<>(clientState08GameMatchIsPlaying, clientState01NoConnect));
-        stateToStateSet.add(new StateToState<>(clientState08GameMatchIsPlaying, clientState02ConnectNonIdent));
-        stateToStateSet.add(new StateToState<>(clientState08GameMatchIsPlaying, clientState04UserWasAuthorized));
-        stateToStateSet.add(new StateToState<>(clientState08GameMatchIsPlaying, clientState06GameTypeWasSet));
-        stateToStateSet.add(new StateToState<>(clientState08GameMatchIsPlaying, clientState07GameMatchWasSet));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState08GameMatchIsPlaying, clientState01NoConnect));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState08GameMatchIsPlaying, clientState02ConnectNonIdent));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState08GameMatchIsPlaying, clientState04UserWasAuthorized));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState08GameMatchIsPlaying, clientState06GameTypeWasSet));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState08GameMatchIsPlaying, clientState07GameMatchWasSet));
     }
 
     public User getUser() {
         return user;
-    }
-
-    private void setCurrentState(IClientState99<GameMatchX> targetState) {
-        boolean success = false;
-        for (StateToState<GameMatchX> stateToState : stateToStateSet) {
-            if (stateToState.getState1().equals(currentState) &&
-                    stateToState.getState2().equals(targetState)) {
-                success = true;
-                break;
-            }
-        }
-
-        if (!success) {
-            throw new WrongChangeStateException(currentState, targetState);
-        }
-
-        currentState.doBeforeTurnOff();
-        currentState = targetState;
-        currentState.doAfterTurnOn();
-    }
-
-    public IClientState99<GameMatchX> getCurrentState() {
-        return currentState;
     }
 
     protected void changeStateFrom01To02_() {
@@ -157,8 +130,8 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     //          -   вызов start(...) делает инициализацию некоей переменной,
     //          -   в нём есть вызов метода перевода статуса.
     //          Но он и отличается, т.к.:
-    //          -   он не инициализирует никакую переменную gameMatchExtendedDto в классе ClientStateAutomaton,
-    //              но такая переменная есть в классе GameMatch и она и будет инициализирована.
+    //          -   он не инициализирует никакую переменную gameMatchExtendedDto в классе ClientStateAutomaton
+    //              (но такая переменная есть в классе GameMatch и она и будет инициализирована).
     protected void startGameMatch_(GameMatchExtendedDto gameMatchExtendedDto) {
         gameMatchX.start(gameMatchExtendedDto);
         setCurrentState(clientState08GameMatchIsPlaying);
@@ -198,91 +171,101 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
     //          У сервера перечень типов игр одинаков, определяется вне зависимости от авторизации пользователя на сервере,
     //            и мог-бы храниться вне экземпляра этого класса.
     public void setGameTypeSet(Set<GameType> gameTypeSet) {
-
         this.gameTypeSet = gameTypeSet;
+    }
+
+
+    @Override
+    public ClientState getCurrentState() {
+        return (ClientState) currentState;
     }
 
     // Публичные методы класса, вызов которых будет в т.ч. приводить к смене состояния.
     // 1 interface IClientState01NoConnect
     @Override
     public void connect() {
-        currentState.connect();
+        getCurrentState().connect();
     }
 
     // 2 interface IClientState02ConnectNonIdent
     @Override
     public void close() {
-        currentState.close();
+        getCurrentState().close();
     }
 
     @Override
     public void authorizeUser(String userName) {
-        currentState.authorizeUser(userName);
+        getCurrentState().authorizeUser(userName);
     }
 
     // 4 interface IClientState04GameTypeSetSelected
     @Override
     public void reauthorizeUser() {
-        currentState.reauthorizeUser();
+        getCurrentState().reauthorizeUser();
     }
 
     @Override
     public Set<GameType> getGameTypeSet() {
-        return currentState.getGameTypeSet();
+        //  Warning:(210, 16) Unchecked assignment: 'java.util.Set' to 'java.util.Set<timmax.tilegame.basemodel.protocol.server.GameType>'. Reason: 'getCurrentState()' has raw type, so result of getGameTypeSet is erased
+        return getCurrentState().getGameTypeSet();
     }
 
     @Override
     public GameType getGameType() {
-        return currentState.getGameType();
+        return getCurrentState().getGameType();
     }
 
     @Override
     public void setGameType(GameType gameType) {
         //  Warning:(209, 37) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.GameType' to 'timmax.tilegame.basemodel.protocol.server.GameType<GameMatchX>'
-        currentState.setGameType(gameType);
+        getCurrentState().setGameType(gameType);
     }
 
     // 6 interface IClientState06GameMatchSetSelected
     @Override
     public void resetGameType() {
-        currentState.resetGameType();
+        getCurrentState().resetGameType();
     }
 
     @Override
     public Set<GameMatchX> getGameMatchXSet() {
-        return currentState.getGameMatchXSet();
+        //  Warning:(232, 16) Unchecked assignment: 'java.util.Set' to 'java.util.Set<GameMatchX>'. Reason: 'getCurrentState()' has raw type, so result of getGameMatchXSet is erased
+        return getCurrentState().getGameMatchXSet();
     }
 
     @Override
     public void setGameMatchX(GameMatchX gameMatchX) {
-        currentState.setGameMatchX(gameMatchX);
+        //  Warning:(237, 9) Unchecked call to 'setGameMatchX(GameMatchX)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server_client.ClientState'
+        getCurrentState().setGameMatchX(gameMatchX);
     }
 
     // 7 interface IClientState07GameMatchSelected
     @Override
     public void resetGameMatch() {
-        currentState.resetGameMatch();
+        getCurrentState().resetGameMatch();
     }
 
     @Override
+    //  ToDo:   Избавиться от преобразования типа.
     public GameMatchX getGameMatchX() {
-        return currentState.getGameMatchX();
+        //  Warning:(249, 16) Unchecked cast: 'timmax.tilegame.basemodel.protocol.server_client.IGameMatchX' to 'GameMatchX'. Reason: 'getCurrentState()' has raw type, so result of getGameMatchX is erased
+        return (GameMatchX) getCurrentState().getGameMatchX();
     }
 
     @Override
     public void startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
-        currentState.startGameMatch(gameMatchExtendedDto);
+        getCurrentState().startGameMatch(gameMatchExtendedDto);
     }
 
     // 8 interface IClientState08GameMatchIsPlaying
     @Override
     public GameMatchStatus getGameMatchStatus() {
-        return currentState.getGameMatchStatus();
+        return getCurrentState().getGameMatchStatus();
     }
 
     // class Object
     @Override
     public String toString() {
-        return currentState.getClass().getSimpleName();
+        return getCurrentState().getClass().getSimpleName();
     }
 }

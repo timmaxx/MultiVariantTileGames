@@ -16,12 +16,14 @@ public class RemoteClientState06GameTypeWasSet<ClientId> extends ClientState06Ga
     // class AbstractClientState
     @Override
     public void doAfterTurnOn() {
-        getClientStateAutomaton().sendEventOfServer(
-                getClientStateAutomaton().getClientId(),
+        getBaseStateAutomaton().sendEventOfServer(
+                getBaseStateAutomaton().getClientId(),
                 new EventOfServer41SetGameType(
-                        getClientStateAutomaton().getGameType().getId(),
+                        getBaseStateAutomaton().getGameType().getId(),
                         //  ToDo:   Избавиться от приведения типа.
-                        (Set<GameMatchDto>) getClientStateAutomaton().getGameType().getGameMatchXSet()
+                        //  <GameMatchX extends IGameMatchX>
+                        //  public Set<GameMatchX> getGameMatchXSet()
+                        (Set<GameMatchDto>) getBaseStateAutomaton().getGameType().getGameMatchXSet()
                                 .stream()
                                 //  ToDo:   Избавиться от приведения типа.
                                 .map(x -> ((GameMatch) x).getGameMatchDto())
@@ -31,7 +33,8 @@ public class RemoteClientState06GameTypeWasSet<ClientId> extends ClientState06Ga
     }
 
     @Override
-    public RemoteClientStateAutomaton<ClientId> getClientStateAutomaton() {
-        return (RemoteClientStateAutomaton<ClientId>) (super.getClientStateAutomaton());
+    public RemoteClientStateAutomaton<ClientId> getBaseStateAutomaton() {
+        //  Warning:(37, 16) Unchecked cast: 'timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton' to 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton<ClientId>'
+        return (RemoteClientStateAutomaton<ClientId>) (super.getBaseStateAutomaton());
     }
 }

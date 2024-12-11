@@ -11,16 +11,16 @@ public abstract class ClientState04UserWasAuthorized<GameMatchX extends IGameMat
     @Override
     //      Warning:(14, 12) Raw use of parameterized class 'GameType'
     public GameType getGameType() {
-        return getClientStateAutomaton().getGameType_();
+        return getBaseStateAutomaton().getGameType_();
     }
 
     @Override
     public void reauthorizeUser() {
-        authorizeUser(getClientStateAutomaton().getUserName_());
+        authorizeUser(getBaseStateAutomaton().getUserName_());
     }
 
     @Override
     public void setGameType(GameType gameType) {
-        getClientStateAutomaton().setGameType_(gameType);
+        getBaseStateAutomaton().setGameType_(gameType);
     }
 }

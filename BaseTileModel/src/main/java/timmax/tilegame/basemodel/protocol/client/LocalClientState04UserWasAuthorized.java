@@ -12,12 +12,12 @@ public class LocalClientState04UserWasAuthorized extends ClientState04UserWasAut
     // interface IClientState99
     @Override
     public void doAfterTurnOn() {
-        getClientStateAutomaton().updateOnAuthorizeUser();
+        getBaseStateAutomaton().updateOnAuthorizeUser();
     }
 
     // class AbstractClientState
     @Override
-    public LocalClientStateAutomaton getClientStateAutomaton() {
-        return (LocalClientStateAutomaton) (super.getClientStateAutomaton());
+    public LocalClientStateAutomaton getBaseStateAutomaton() {
+        return (LocalClientStateAutomaton) (super.getBaseStateAutomaton());
     }
 }

@@ -12,13 +12,14 @@ public class RemoteClientState07GameMatchWasSet<ClientId> extends ClientState07G
 
     @Override
     public void doAfterTurnOn() {
-        getClientStateAutomaton().sendEventOfServer(
-                getClientStateAutomaton().getClientId(),
+        getBaseStateAutomaton().sendEventOfServer(
+                getBaseStateAutomaton().getClientId(),
                 new EventOfServer61SetGameMatch(
                         new GameMatchDto(
-                                getClientStateAutomaton().getGameMatchX().getId(),
-                                getClientStateAutomaton().getGameMatchX().getStatus(),
-                                getClientStateAutomaton().getGameMatchX().getParamsOfModelValueMap()
+                                getBaseStateAutomaton().getGameMatchX().getId(),
+                                getBaseStateAutomaton().getGameMatchX().getStatus(),
+                                //  Warning:(21, 33) Unchecked assignment: 'java.util.Map' to 'java.util.Map<java.lang.String,java.lang.Integer>'. Reason: 'getBaseStateAutomaton().getGameMatchX()' has raw type, so result of getParamsOfModelValueMap is erased
+                                getBaseStateAutomaton().getGameMatchX().getParamsOfModelValueMap()
                         )
                 )
         );
@@ -26,7 +27,8 @@ public class RemoteClientState07GameMatchWasSet<ClientId> extends ClientState07G
 
     // class AbstractClientState
     @Override
-    public RemoteClientStateAutomaton<ClientId> getClientStateAutomaton() {
-        return (RemoteClientStateAutomaton<ClientId>) (super.getClientStateAutomaton());
+    public RemoteClientStateAutomaton<ClientId> getBaseStateAutomaton() {
+        //  Warning:(30, 16) Unchecked cast: 'timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton' to 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton<ClientId>'
+        return (RemoteClientStateAutomaton<ClientId>) (super.getBaseStateAutomaton());
     }
 }

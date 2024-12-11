@@ -12,16 +12,17 @@ public abstract class ClientState02ConnectNonIdent<GameMatchX extends IGameMatch
     // interface IClientState02ConnectNonIdent
     @Override
     public void authorizeUser(String userName) {
-        getClientStateAutomaton().authorizeUser_(userName);
+        getBaseStateAutomaton().authorizeUser_(userName);
     }
 
     @Override
     public void close() {
-        getClientStateAutomaton().close_();
+        getBaseStateAutomaton().close_();
     }
 
     @Override
     public Set<GameType> getGameTypeSet() {
-        return getClientStateAutomaton().getGameTypeSet_();
+        //  Warning:(25, 16) Unchecked assignment: 'java.util.Set' to 'java.util.Set<timmax.tilegame.basemodel.protocol.server.GameType>'. Reason: 'getBaseStateAutomaton()' has raw type, so result of getGameTypeSet_ is erased
+        return getBaseStateAutomaton().getGameTypeSet_();
     }
 }
