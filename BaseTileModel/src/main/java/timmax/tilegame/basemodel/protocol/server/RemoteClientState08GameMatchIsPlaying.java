@@ -9,19 +9,13 @@ public class RemoteClientState08GameMatchIsPlaying<ClientId> extends ClientState
     }
 
     @Override
-    public void startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
-        //  В метод передаётся, поступившая от клиента информация (параметры матча, текущие положения объектов),
-        //  но внутри метода будет проверка на соответствие: если информация будет признана неподходящей,
-        //  то внутри матча будет сформирована информация с другим содержанием.
-        super.startGameMatch(gameMatchExtendedDto);
-        GameMatchExtendedDto gameMatchExtendedDto2 = getClientStateAutomaton().getGameMatchX().getGameMatchExtendedDto();
-
+    public void doAfterTurnOn() {
         //  Именно из-за того, что информация могла быть сформирована не такая, какая пришла,
         //  клиенту будет отправлена информация, которая была сформирована при вызове предыдущего метода.
         //  (Клиент, после получения этого события только строит главную выборку (пустую доску)).
         getClientStateAutomaton().sendEventOfServer(
                 getClientStateAutomaton().getClientId(),
-                new EventOfServer71StartGameMatch(gameMatchExtendedDto2)
+                new EventOfServer71StartGameMatch(getClientStateAutomaton().getGameMatchX().getGameMatchExtendedDto())
         );
     }
 

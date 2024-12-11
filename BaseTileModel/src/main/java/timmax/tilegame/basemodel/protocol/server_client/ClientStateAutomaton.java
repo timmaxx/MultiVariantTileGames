@@ -152,8 +152,16 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
 
     //  ToDo:   Избавиться от protected (см. коммент к LocalClientStateAutomaton)
     //  ToDo:   В классе-наследнике LocalClientStateAutomaton метод фактически не используется - не хорошо!
+    //  ToDo:   Устранить не единообразие этого метода с вышенаходящимися set..._().
+    //          Этот метод подобен вышенаходящимися set..._(), т.к.:
+    //          -   вызов start(...) делает инициализацию некоей переменной,
+    //          -   в нём есть вызов метода перевода статуса.
+    //          Но он и отличается, т.к.:
+    //          -   он не инициализирует никакую переменную gameMatchExtendedDto в классе ClientStateAutomaton,
+    //              но такая переменная есть в классе GameMatch и она и будет инициализирована.
     protected void startGameMatch_(GameMatchExtendedDto gameMatchExtendedDto) {
-        getGameMatchX_().start(gameMatchExtendedDto);
+        gameMatchX.start(gameMatchExtendedDto);
+        setCurrentState(clientState08GameMatchIsPlaying);
     }
 
     // Геттерам, имеющим прямой доступ к полям(..._), тоже достаточно быть private-package:
@@ -261,9 +269,8 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX> imple
         return currentState.getGameMatchX();
     }
 
+    @Override
     public void startGameMatch(GameMatchExtendedDto gameMatchExtendedDto) {
-        //  ToDo:   Переместить setCurrentState(...) в startGameMatch_().
-        setCurrentState(clientState08GameMatchIsPlaying);
         currentState.startGameMatch(gameMatchExtendedDto);
     }
 
