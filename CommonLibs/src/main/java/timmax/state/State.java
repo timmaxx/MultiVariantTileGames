@@ -11,9 +11,9 @@ public abstract class State {
         return stateAutomaton;
     }
 
-    void doBeforeTurnOff() {
+    protected void doBeforeTurnOff() {
     }
 
-    void doAfterTurnOn() {
+    protected void doAfterTurnOn() {
     }
 }
