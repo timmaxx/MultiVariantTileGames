@@ -15,6 +15,10 @@ public abstract class StateAutomaton {
     }
 
     protected void setCurrentState(State targetState) {
+        if (Classes.isInstanceOf(targetState, currentState.getClass())) {
+            return;
+        }
+
         boolean success = false;
         for (AllowedStateToStateTransition allowedStateToStateTransition : allowedStateToStateTransitionSet) {
 /*
