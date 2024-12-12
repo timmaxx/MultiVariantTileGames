@@ -17,13 +17,7 @@ import java.util.Set;
 //  - так и для автомата состояний клиента на клиенте.
 public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX>
         extends StateAutomaton
-        implements
-        IClientState01NoConnect,
-        IClientState02ConnectNonIdent,
-        IClientState04UserWasAuthorized<GameMatchX>,
-        IClientState06GameTypeWasSet<GameMatchX>,
-        IClientState07GameMatchWasSet<GameMatchX>,
-        IClientState08GameMatchIsPlaying {
+        implements IClientState99<GameMatchX> {
     protected static final Logger logger = LoggerFactory.getLogger(ClientStateAutomaton.class);
 
     final ClientState01NoConnect<GameMatchX> clientState01NoConnect;
@@ -94,7 +88,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX>
 
     // Все методы с именами такими-же, как есть public, но:
     // 1. они private-package
-    // 2. делают целевое действие в уже установленном состоянии.
+    // 2. делают целевое действие и переводят состояние.
     void connect_() {
         setCurrentState(clientState02ConnectNonIdent);
     }
