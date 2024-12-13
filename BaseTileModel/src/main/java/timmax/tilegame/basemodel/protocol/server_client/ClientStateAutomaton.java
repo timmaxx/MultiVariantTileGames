@@ -50,7 +50,6 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX>
         allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState01NoConnect, clientState02ConnectNonIdent));
 
         allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState02ConnectNonIdent, clientState01NoConnect));
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState02ConnectNonIdent, clientState02ConnectNonIdent));
         allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState02ConnectNonIdent, clientState04UserWasAuthorized));
 
         allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState04UserWasAuthorized, clientState01NoConnect));
@@ -164,6 +163,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX>
     //          состояние "Установлено соединение с сервером".
     //          У сервера перечень типов игр одинаков, определяется вне зависимости от авторизации пользователя на сервере,
     //            и мог-бы храниться вне экземпляра этого класса.
+
     public void setGameTypeSet(Set<GameType> gameTypeSet) {
         this.gameTypeSet = gameTypeSet;
     }

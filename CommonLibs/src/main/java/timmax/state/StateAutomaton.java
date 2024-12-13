@@ -15,7 +15,9 @@ public abstract class StateAutomaton {
     }
 
     protected void setCurrentState(State targetState) {
-        if (Classes.isInstanceOf(targetState, currentState.getClass())) {
+        if (Classes.isInstanceOf(targetState, currentState.getClass()) ||
+                Classes.isInstanceOf(currentState, targetState.getClass())
+        ) {
             return;
         }
 
