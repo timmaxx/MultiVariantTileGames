@@ -64,7 +64,7 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
     public GameMatchOfSokoban(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton)
             throws ClassNotFoundException, NoSuchMethodException {
         super(new GameTypeOfSokoban(), remoteClientStateAutomaton);
-        super.setPlayer(remoteClientStateAutomaton.getUser(), 0);
+        super.setPlayer(0, remoteClientStateAutomaton.getUser());
     }
 
     public void nextLevel() {

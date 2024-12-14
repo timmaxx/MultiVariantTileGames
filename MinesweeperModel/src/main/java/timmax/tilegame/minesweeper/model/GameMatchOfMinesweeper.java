@@ -35,7 +35,7 @@ public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
     public GameMatchOfMinesweeper(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton)
             throws ClassNotFoundException, NoSuchMethodException {
         super(new GameTypeOfMinesweeper(), remoteClientStateAutomaton);
-        super.setPlayer(remoteClientStateAutomaton.getUser(), 0);
+        super.setPlayer(0, remoteClientStateAutomaton.getUser());
     }
 
     // interface IGameMatchX:
