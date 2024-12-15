@@ -1,12 +1,13 @@
 package timmax.state;
 
-import timmax.common.Classes;
-
 public class AllowedStateToStateTransition {
     protected final State state1;
     protected final State state2;
 
     public AllowedStateToStateTransition(State state1, State state2) {
+        //  ToDo:   Сделать проверку обоих параметров на null.
+/*
+        //  Этот код мог-бы пригодититься если-бы не было ситуаций с переходом в тоже самое состояние, что и текущее.
         if (Classes.isInstanceOf(state1, state2.getClass()) ||
                 Classes.isInstanceOf(state2, state1.getClass())) {
             //  ToDo:   Избавиться от System.err.println(...).
@@ -27,6 +28,7 @@ public class AllowedStateToStateTransition {
             throw new RuntimeException( "AllowedStateToStateTransition :: AllowedStateToStateTransition(State state1, State state2)\n" +
                     "state 1 (" + state1 + ") and state 2 (" + state1 + ") are ancestor and successor to each other or vice versa.");
         }
+*/
         this.state1 = state1;
         this.state2 = state2;
     }

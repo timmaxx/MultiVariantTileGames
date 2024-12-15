@@ -15,18 +15,16 @@ public abstract class StateAutomaton {
     }
 
     protected void setCurrentState(State targetState) {
+/*
+        //  Этот код мог-бы пригодититься если-бы не было ситуаций с переходом в тоже самое состояние, что и текущее.
         if (Classes.isInstanceOf(targetState, currentState.getClass()) ||
                 Classes.isInstanceOf(currentState, targetState.getClass())
         ) {
             return;
         }
-
+*/
         boolean success = false;
         for (AllowedStateToStateTransition allowedStateToStateTransition : allowedStateToStateTransitionSet) {
-/*
-            if (stateToState.getState1().equals(currentState) &&
-                    stateToState.getState2().equals(targetState))
-*/
             if (Classes.isInstanceOf(allowedStateToStateTransition.getState1(), currentState.getClass())
                     &&
                     Classes.isInstanceOf(allowedStateToStateTransition.getState2(), targetState.getClass()))

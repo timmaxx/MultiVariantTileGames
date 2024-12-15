@@ -47,9 +47,21 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX>
 
         currentState = clientState01NoConnect;
 
+        //  ToDo:   Для клиента можно было-бы создать состояние "Ожидание соединения", оно как-бы уже соответствует
+        //          тому, что контролы блокируются после того, как что-то отправляется серверу.
+        //          При установлении соединения - переходим в следующее состояние (активируем и деактивируем контролы),
+        //          при ошибке - откатываемся в предыдущее состояние (активируем и деактивируем контролы).
+        //          Можно расширить и тогда можно сделать универсальное состояние "Ожидание подтверждения".
+        //          Тогда переход из состояния clientState01NoConnect в себя не понадобится.
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState01NoConnect, clientState01NoConnect));
         allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState01NoConnect, clientState02ConnectNonIdent));
 
         allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState02ConnectNonIdent, clientState01NoConnect));
+        //  ToDo:   Разделить состояние clientState02ConnectNonIdent на два:
+        //          - коннект состоялся, НО от сервера ЕЩЁ НЕ получен перечень типов игр,
+        //          - коннект состоялся и от сервера ПОЛУЧЕН перечень типов игр.
+        //          Тогда переход из состояния clientState02ConnectNonIdent в себя не понадобится.
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState02ConnectNonIdent, clientState02ConnectNonIdent));
         allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState02ConnectNonIdent, clientState04UserWasAuthorized));
 
         allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState04UserWasAuthorized, clientState01NoConnect));
@@ -184,7 +196,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX>
     // 2 interface IClientState02ConnectNonIdent
     @Override
     public void close() {
-        getCurrentState().close();
+        close_();
     }
 
     @Override
