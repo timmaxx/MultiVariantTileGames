@@ -28,7 +28,7 @@ public class RemoteClientState04UserWasAuthorized<ClientId> extends ClientState0
     // class AbstractClientState
     @Override
     public void doAfterTurnOn() {
-        getBaseStateAutomaton().sendEventOfServer(
+        getBaseStateAutomaton().getTransportOfServer().sendEventOfServer(
                 getBaseStateAutomaton().getClientId(),
                 new EventOfServer21IdentifyAuthenticateAuthorizeUser(getBaseStateAutomaton().getUser().getUserName())
         );

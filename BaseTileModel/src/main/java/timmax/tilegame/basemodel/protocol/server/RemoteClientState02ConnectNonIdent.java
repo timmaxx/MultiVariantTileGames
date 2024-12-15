@@ -12,7 +12,7 @@ public class RemoteClientState02ConnectNonIdent<ClientId> extends ClientState02C
     @Override
     public void doAfterTurnOn() {
         getBaseStateAutomaton().setGameTypeSet(GameTypeFabric.GAME_TYPE_SET);
-        getBaseStateAutomaton().sendEventOfServer(
+        getBaseStateAutomaton().getTransportOfServer().sendEventOfServer(
                 getBaseStateAutomaton().getClientId(),
                 new EventOfServer11ConnectWithoutUserIdentify(getBaseStateAutomaton().getGameTypeSet())
         );

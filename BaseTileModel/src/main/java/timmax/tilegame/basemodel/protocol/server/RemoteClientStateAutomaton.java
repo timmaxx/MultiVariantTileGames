@@ -1,13 +1,7 @@
 package timmax.tilegame.basemodel.protocol.server;
 
-import timmax.tilegame.basemodel.gameevent.GameEvent;
-import timmax.tilegame.basemodel.protocol.EventOfServer;
-import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
-import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfServer;
-
-import java.util.Map;
 
 //  Автомат состояний клиента, работающий на сервере и учитывающий состояния удалённых клиентов.
 public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<IGameMatch> {
@@ -35,6 +29,7 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
     public RemoteClientStateAutomaton(
             ClientId clientId,
             IFabricOfRemoteClientStates<ClientId> fabricOfClientStatesForServer,
+            //  ToDo:   Удалить.
             TransportOfServer multiGameWebSocketServer) {
         super(fabricOfClientStatesForServer);
         this.clientId = clientId;
@@ -46,17 +41,9 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
         return clientId;
     }
 
-    void sendEventOfServer(ClientId clientId, EventOfServer eventOfServer) {
-        multiGameWebSocketServer.sendEventOfServer(clientId, eventOfServer);
-    }
-
-    public void sendGameEventToAllViews(
-            GameEvent gameEvent,
-            Map<String, Class<? extends View>> viewName_ViewClassMap) {
-        for (String viewName : viewName_ViewClassMap.keySet()) {
-            EventOfServer eventOfServer = new EventOfServer92GameEvent(viewName, gameEvent);
-            sendEventOfServer(getClientId(), eventOfServer);
-        }
+    //  ToDo:   Удалить.
+    public TransportOfServer getTransportOfServer() {
+        return multiGameWebSocketServer;
     }
 
     @Override

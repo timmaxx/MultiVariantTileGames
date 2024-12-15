@@ -12,7 +12,7 @@ public class RemoteClientState07GameMatchWasSet<ClientId> extends ClientState07G
 
     @Override
     public void doAfterTurnOn() {
-        getBaseStateAutomaton().sendEventOfServer(
+        getBaseStateAutomaton().getTransportOfServer().sendEventOfServer(
                 getBaseStateAutomaton().getClientId(),
                 new EventOfServer61SetGameMatch(
                         new GameMatchDto(

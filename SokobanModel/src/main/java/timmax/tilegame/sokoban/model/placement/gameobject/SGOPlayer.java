@@ -48,8 +48,12 @@ public class SGOPlayer extends SGOCollisionMovableObject {
                 }
             }
 
+            //  ToDo:   Вместо
+            //          getGameObjectStateAutomaton().getGameObject().getGameObjectsPlacement().getGameMatch().getRemoteClientStateAutomaton().getTransportOfServer()
+            //          сделать getTransportOfServer(), который будет доставаться сразу из свойств сервера.
             //  Warning:(51, 13) Unchecked call to 'sendGameEventToAllViews(GameEvent, Map<String, Class<? extends View>>)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton'
-            getGameObjectsPlacement().getGameMatch().getRemoteClientStateAutomaton().sendGameEventToAllViews(
+            getGameObjectsPlacement().getGameMatch().getRemoteClientStateAutomaton().getTransportOfServer().sendGameEventToAllViews(
+                    getGameObjectsPlacement().getGameMatch().getMatchPlayerList(),
                     new GameEventSokobanVariableParamsCountOfBoxesInHouses(countBoxesOnHomes),
                     //  Warning:(55, 21) Unchecked assignment: 'java.util.Map' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'. Reason: 'getGameObjectsPlacement().getGameMatch().getGameType()' has raw type, so result of getViewName_ViewClassMap is erased
                     getGameObjectsPlacement().getGameMatch().getGameType().getViewName_ViewClassMap()

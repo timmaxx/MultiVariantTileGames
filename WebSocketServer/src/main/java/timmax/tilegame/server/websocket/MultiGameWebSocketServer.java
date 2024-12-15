@@ -14,9 +14,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import timmax.common.ObjectMapperOfMvtg;
+import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.EventOfClient;
 import timmax.tilegame.basemodel.protocol.EventOfServer;
+import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent;
+import timmax.tilegame.basemodel.protocol.server.MatchPlayerList;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
+import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfServer;
 
 public class MultiGameWebSocketServer extends WebSocketServer implements TransportOfServer {
@@ -113,5 +117,32 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         }
         // ToDo: См. выше про <ClientId extends WebSocket>
         // webSocket.send(byteArrayOutputStream.toByteArray());
+    }
+
+    @Override
+    public void sendEventOfServer(MatchPlayerList matchPlayerList, EventOfServer eventOfServer) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        mapper.writeValue(byteArrayOutputStream, eventOfServer);
+
+        for (var webSocket_RemoteClientStateAutomaton : webSocket_RemoteClientStateAutomaton_Map.entrySet()) {
+            for (int i = 0; i < matchPlayerList.size(); i++) {
+                if (webSocket_RemoteClientStateAutomaton.getValue().getUser().equals(matchPlayerList.get(i))) {
+                    WebSocket webSocket = webSocket_RemoteClientStateAutomaton.getKey();
+                    logger.info("WebSocket: {}. Outcoming message. EventOfServer: {}.", webSocket, eventOfServer);
+                    webSocket.send(byteArrayOutputStream.toByteArray());
+                }
+            }
+        }
+    }
+
+    @Override
+    public void sendGameEventToAllViews(
+            MatchPlayerList matchPlayerList,
+            GameEvent gameEvent,
+            Map<String, Class<? extends View>> viewName_ViewClassMap) {
+        for (String viewName : viewName_ViewClassMap.keySet()) {
+            EventOfServer eventOfServer = new EventOfServer92GameEvent(viewName, gameEvent);
+            sendEventOfServer(matchPlayerList, eventOfServer);
+        }
     }
 }

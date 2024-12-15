@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 
 import timmax.tilegame.basemodel.GameMatchStatus;
 import timmax.tilegame.basemodel.credential.User;
-import timmax.tilegame.basemodel.gameevent.GameEventGameOver;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.placement.placementstate.GameObjectsPlacementStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
@@ -64,7 +63,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     protected final RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton;
 
     //  Список игроков матча.
-    private MatchPlayerList matchPlayerList;
+    private final MatchPlayerList matchPlayerList;
 
     private Map<String, Integer> paramsOfModelValueMap;
     private GameMatchStatus status;
@@ -88,6 +87,10 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
             throw new RuntimeException("Match is not in state NOT_STARTED");
         }
         matchPlayerList.setPlayer(indexOfPlayer, player);
+    }
+
+    public MatchPlayerList getMatchPlayerList() {
+        return matchPlayerList;
     }
 
     public RemoteClientStateAutomaton<ClientId> getRemoteClientStateAutomaton() {
@@ -168,16 +171,19 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     // interface IGameMatch
     @Override
     public void win() {
+/*
         setStatus(GameMatchStatus.VICTORY);
         remoteClientStateAutomaton.sendGameEventToAllViews(
                 new GameEventGameOver(VICTORY),
                 //  Warning:(144, 109) Unchecked assignment: 'java.util.Map' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'. Reason: 'gameType' has raw type, so result of getViewName_ViewClassMap is erased
                 gameType.getViewName_ViewClassMap()
         );
+*/
     }
 
     @Override
     public void restart() {
+/*
         if (verifyGameStatusNotGameAndMayBeCreateNewGame()) {
             return;
         }
@@ -187,6 +193,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
                 //  Warning:(157, 17) Unchecked assignment: 'java.util.Map' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'. Reason: 'gameType' has raw type, so result of getViewName_ViewClassMap is erased
                 gameType.getViewName_ViewClassMap()
         );
+*/
     }
 
     @Override

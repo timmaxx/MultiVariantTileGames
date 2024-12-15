@@ -19,8 +19,12 @@ public class MGOSMineIsNotOpenedWithFlag extends MGOSMine {
 
     @Override
     protected void doAfterTurnOn() {
+        //  ToDo:   Вместо
+        //          getGameObjectStateAutomaton().getGameObject().getGameObjectsPlacement().getGameMatch().getRemoteClientStateAutomaton().getTransportOfServer()
+        //          сделать getTransportOfServer(), который будет доставаться сразу из свойств сервера.
         //  Warning:(22, 9) Unchecked call to 'sendGameEventToAllViews(GameEvent, Map<String, Class<? extends View>>)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton'
-        getGameObjectStateAutomaton().getGameObject().getGameObjectsPlacement().getGameMatch().getRemoteClientStateAutomaton().sendGameEventToAllViews(
+        getGameObjectStateAutomaton().getGameObject().getGameObjectsPlacement().getGameMatch().getRemoteClientStateAutomaton().getTransportOfServer().sendGameEventToAllViews(
+                getGameObjectStateAutomaton().getGameObject().getGameObjectsPlacement().getGameMatch().getMatchPlayerList(),
                 new GameEventOneTileMinesweeperChangeFlag(
                         getGameObjectStateAutomaton().getXyCoordinate(),
                         true

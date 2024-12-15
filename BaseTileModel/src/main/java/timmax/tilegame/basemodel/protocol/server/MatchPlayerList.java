@@ -7,6 +7,7 @@ import timmax.tilegame.basemodel.credential.User;
 import java.util.ArrayList;
 import java.util.Objects;
 
+//  ToDo:   Можно было-бы сделать его implements Iterable (что-бы foreach циклы использовать)
 //  Список игроков для матча
 public class MatchPlayerList {
     protected static final Logger logger = LoggerFactory.getLogger(MatchPlayerList.class);
@@ -66,5 +67,9 @@ public class MatchPlayerList {
             throw new RuntimeException("You cannot invoke setReadOnlyTrue() because isFull() = false.");
         }
         isReadOnly = true;
+    }
+
+    public int size() {
+        return userArrayList.size();
     }
 }

@@ -16,7 +16,7 @@ public class RemoteClientState06GameTypeWasSet<ClientId> extends ClientState06Ga
     // class AbstractClientState
     @Override
     public void doAfterTurnOn() {
-        getBaseStateAutomaton().sendEventOfServer(
+        getBaseStateAutomaton().getTransportOfServer().sendEventOfServer(
                 getBaseStateAutomaton().getClientId(),
                 new EventOfServer41SetGameType(
                         getBaseStateAutomaton().getGameType().getId(),

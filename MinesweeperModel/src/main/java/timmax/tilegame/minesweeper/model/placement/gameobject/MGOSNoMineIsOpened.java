@@ -21,8 +21,12 @@ public class MGOSNoMineIsOpened extends MGOSNoMine {
     protected void doAfterTurnOn() {
         getGameObjectStateAutomaton().initNeighbourSet();
 
+        //  ToDo:   Вместо
+        //          getGameObjectStateAutomaton().getGameObject().getGameObjectsPlacement().getGameMatch().getRemoteClientStateAutomaton().getTransportOfServer()
+        //          сделать getTransportOfServer(), который будет доставаться сразу из свойств сервера.
         //  Warning:(24, 9) Unchecked call to 'sendGameEventToAllViews(GameEvent, Map<String, Class<? extends View>>)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton'
-        getGameObjectStateAutomaton().getGameObject().getGameObjectsPlacement().getGameMatch().getRemoteClientStateAutomaton().sendGameEventToAllViews(
+        getGameObjectStateAutomaton().getGameObject().getGameObjectsPlacement().getGameMatch().getRemoteClientStateAutomaton().getTransportOfServer().sendGameEventToAllViews(
+                getGameObjectStateAutomaton().getGameObject().getGameObjectsPlacement().getGameMatch().getMatchPlayerList(),
                 new GameEventOneTileMinesweeperOpenNoMine(
                         getGameObjectStateAutomaton().getXyCoordinate(),
                         getGameObjectStateAutomaton().countOfMinesInNeighbours

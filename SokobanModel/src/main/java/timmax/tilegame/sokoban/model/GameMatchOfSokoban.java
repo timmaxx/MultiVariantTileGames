@@ -73,7 +73,11 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         }
         setStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
         currentLevel.incValue();
-        getRemoteClientStateAutomaton().sendGameEventToAllViews(
+        //  ToDo:   Вместо
+        //          getRemoteClientStateAutomaton().getTransportOfServer()
+        //          сделать getTransportOfServer(), который будет доставаться сразу из свойств сервера.
+        getRemoteClientStateAutomaton().getTransportOfServer().sendGameEventToAllViews(
+                getRemoteClientStateAutomaton().getGameMatchX().getMatchPlayerList(),
                 new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL),
                 //  Warning:(79, 17) Unchecked assignment: 'java.util.Map' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'. Reason: 'getGameType()' has raw type, so result of getViewName_ViewClassMap is erased
                 getGameType().getViewName_ViewClassMap()
@@ -86,7 +90,11 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         }
         setStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
         currentLevel.decValue();
-        getRemoteClientStateAutomaton().sendGameEventToAllViews(
+        //  ToDo:   Вместо
+        //          getRemoteClientStateAutomaton().getTransportOfServer()
+        //          сделать getTransportOfServer(), который будет доставаться сразу из свойств сервера.
+        getRemoteClientStateAutomaton().getTransportOfServer().sendGameEventToAllViews(
+                getRemoteClientStateAutomaton().getGameMatchX().getMatchPlayerList(),
                 new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL),
                 //  Warning:(92, 17) Unchecked assignment: 'java.util.Map' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'. Reason: 'getGameType()' has raw type, so result of getViewName_ViewClassMap is erased
                 getGameType().getViewName_ViewClassMap()
