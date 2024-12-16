@@ -8,7 +8,9 @@ import timmax.tilegame.baseview.View;
 import java.util.Map;
 
 public interface TransportOfServer {
-    <ClientId> void sendEventOfServer(ClientId clientId, EventOfServer transportPackageOfServer);
+    <ClientId> void sendEventOfServer(ClientId clientId, EventOfServer eventOfServer);
+    //  Не стал определять этот метод в interface TransportOfServer, поэтому не @Override.
+    // void sendEventOfServer(User user, EventOfServer eventOfServer);
 
     void sendEventOfServer(MatchPlayerList matchPlayerList, EventOfServer eventOfServer);
     void sendGameEventToAllViews(

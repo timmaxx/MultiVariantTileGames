@@ -33,6 +33,7 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
             TransportOfServer multiGameWebSocketServer) {
         super(fabricOfClientStatesForServer);
         this.clientId = clientId;
+        //  ToDo:   Удалить.
         this.multiGameWebSocketServer = multiGameWebSocketServer;
         changeStateFrom01To02_();
     }

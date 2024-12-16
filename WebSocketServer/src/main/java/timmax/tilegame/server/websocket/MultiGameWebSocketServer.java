@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import timmax.common.ObjectMapperOfMvtg;
+import timmax.tilegame.basemodel.credential.User;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.EventOfClient;
 import timmax.tilegame.basemodel.protocol.EventOfServer;
@@ -96,10 +97,6 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
 
     // interface TransportOfServer:
     @Override
-    //  ToDo:   Сделать метод не от
-    //          ClientId webSocket,
-    //          а от
-    //          User user
     public <ClientId> void sendEventOfServer(ClientId webSocket, EventOfServer eventOfServer) {
         if (webSocket instanceof WebSocket ws) {
             logger.info("WebSocket: {}. Outcoming message. EventOfServer: {}.", webSocket, eventOfServer);
@@ -110,23 +107,29 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
             logger.error("Variable webSocket is not of type WebSocket!");
             throw new RuntimeException("Variable webSocket is not of type WebSocket!");
         }
-        // ToDo: См. выше про <ClientId extends WebSocket>
-        // webSocket.send(byteArrayOutputStream.toByteArray());
+    }
+
+    //  Не стал определять этот метод в interface TransportOfServer, поэтому не @Override.
+    private void sendEventOfServer(User user, EventOfServer eventOfServer) {
+        if (user == null) {
+            logger.error("user is null.");
+            throw new RuntimeException("user is null.");
+        }
+        for (var webSocket_RemoteClientStateAutomaton : webSocket_RemoteClientStateAutomaton_Map.entrySet()) {
+            if (webSocket_RemoteClientStateAutomaton.getValue().getUser().equals(user)) {
+                sendEventOfServer(webSocket_RemoteClientStateAutomaton.getKey(), eventOfServer);
+            }
+        }
     }
 
     @Override
     public void sendEventOfServer(MatchPlayerList matchPlayerList, EventOfServer eventOfServer) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        mapper.writeValue(byteArrayOutputStream, eventOfServer);
-
-        for (var webSocket_RemoteClientStateAutomaton : webSocket_RemoteClientStateAutomaton_Map.entrySet()) {
-            for (int i = 0; i < matchPlayerList.size(); i++) {
-                if (webSocket_RemoteClientStateAutomaton.getValue().getUser().equals(matchPlayerList.get(i))) {
-                    WebSocket webSocket = webSocket_RemoteClientStateAutomaton.getKey();
-                    logger.info("WebSocket: {}. Outcoming message. EventOfServer: {}.", webSocket, eventOfServer);
-                    webSocket.send(byteArrayOutputStream.toByteArray());
-                }
-            }
+        if (matchPlayerList == null || matchPlayerList.size() == 0) {
+            logger.error("matchPlayerList is null or empty.");
+            throw new RuntimeException("matchPlayerList is null or empty.");
+        }
+        for (int i = 0; i < matchPlayerList.size(); i++) {
+            sendEventOfServer(matchPlayerList.get(i), eventOfServer);
         }
     }
 
@@ -136,8 +139,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
             GameEvent gameEvent,
             Map<String, Class<? extends View>> viewName_ViewClassMap) {
         for (String viewName : viewName_ViewClassMap.keySet()) {
-            EventOfServer eventOfServer = new EventOfServer92GameEvent(viewName, gameEvent);
-            sendEventOfServer(matchPlayerList, eventOfServer);
+            sendEventOfServer(matchPlayerList, new EventOfServer92GameEvent(viewName, gameEvent));
         }
     }
 }
