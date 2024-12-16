@@ -48,7 +48,9 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
     }
 
     @Override
+    //  Warning:(56, 12) Raw use of parameterized class 'GameMatch'
     public GameMatch getGameMatchX() {
+        //  Warning:(58, 17) Raw use of parameterized class 'GameMatch'
         return (GameMatch) super.getGameMatchX();
     }
 }
