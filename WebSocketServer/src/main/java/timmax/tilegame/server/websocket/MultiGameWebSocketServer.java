@@ -96,20 +96,15 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
 
     // interface TransportOfServer:
     @Override
-    // public void sendEventOfServer(WebSocket webSocket, EventOfServer eventOfServer)
-    // ToDo: Было-бы красивее, если-бы вместо
-    //       <ClientId>
-    //       можно было-бы написать
-    //       <ClientId extends WebSocket>
-    //       Тогда не пришлось-бы делать
-    //       if (webSocket instanceof WebSocket ws)
-    // public <ClientId extends WebSocket> void sendEventOfServer(ClientId webSocket, EventOfServer eventOfServer) {
+    //  ToDo:   Сделать метод не от
+    //          ClientId webSocket,
+    //          а от
+    //          User user
     public <ClientId> void sendEventOfServer(ClientId webSocket, EventOfServer eventOfServer) {
-        logger.info("WebSocket: {}. Outcoming message. EventOfServer: {}.", webSocket, eventOfServer);
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        mapper.writeValue(byteArrayOutputStream, eventOfServer);
-
         if (webSocket instanceof WebSocket ws) {
+            logger.info("WebSocket: {}. Outcoming message. EventOfServer: {}.", webSocket, eventOfServer);
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            mapper.writeValue(byteArrayOutputStream, eventOfServer);
             ws.send(byteArrayOutputStream.toByteArray());
         } else {
             logger.error("Variable webSocket is not of type WebSocket!");
