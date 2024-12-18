@@ -10,15 +10,12 @@ public abstract class ClientState07GameMatchWasSet<GameMatchX extends IGameMatch
     // interface IClientState07GameMatchSelected
     @Override
     public void resetGameMatch() {
-        //  ToDo:   Избавиться от преобразования типа.
-        GameMatchX gameMatchX = (GameMatchX) getBaseStateAutomaton().getGameMatchX_();
-        setGameMatchX(gameMatchX);
+        getBaseStateAutomaton().setGameMatchX_(getBaseStateAutomaton().getGameMatchX_());
     }
 
     @Override
     public GameMatchX getGameMatchX() {
-        //  ToDo:   Избавиться от преобразования типа.
-        return (GameMatchX) getBaseStateAutomaton().getGameMatchX_();
+        return getBaseStateAutomaton().getGameMatchX_();
     }
 
     @Override

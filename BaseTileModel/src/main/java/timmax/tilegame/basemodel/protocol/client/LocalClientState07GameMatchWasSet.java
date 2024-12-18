@@ -9,12 +9,13 @@ public class LocalClientState07GameMatchWasSet extends ClientState07GameMatchWas
         super(clientStateAutomaton);
     }
 
+    //  class State
     @Override
     public void doAfterTurnOn() {
         getBaseStateAutomaton().updateOnSetGameMatch();
     }
 
-    // class AbstractClientState
+    //  class ClientState
     @Override
     public LocalClientStateAutomaton getBaseStateAutomaton() {
         return (LocalClientStateAutomaton) (super.getBaseStateAutomaton());

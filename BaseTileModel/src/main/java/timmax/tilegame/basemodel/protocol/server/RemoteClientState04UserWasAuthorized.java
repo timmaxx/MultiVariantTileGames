@@ -25,7 +25,7 @@ public class RemoteClientState04UserWasAuthorized<ClientId> extends ClientState0
         super.setGameType(gameType);
     }
 
-    // class AbstractClientState
+    //  class State
     @Override
     public void doAfterTurnOn() {
         getBaseStateAutomaton().getTransportOfServer().sendEventOfServer(
@@ -34,6 +34,7 @@ public class RemoteClientState04UserWasAuthorized<ClientId> extends ClientState0
         );
     }
 
+    //  class ClientState
     @Override
     public RemoteClientStateAutomaton<ClientId> getBaseStateAutomaton() {
         //  Warning:(40, 16) Unchecked cast: 'timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton' to 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton<ClientId>'

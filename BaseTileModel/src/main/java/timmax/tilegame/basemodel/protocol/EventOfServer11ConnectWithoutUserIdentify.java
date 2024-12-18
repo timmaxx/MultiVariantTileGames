@@ -20,8 +20,6 @@ public class EventOfServer11ConnectWithoutUserIdentify extends EventOfServer {
 
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
-        //  ToDo:   Вместо вызова setGameTypeSet(gameTypeSet) рассмотреть вызов connect(), но с параметром gameTypeSet.
-        localClientStateAutomaton.connect();
         localClientStateAutomaton.setGameTypeSet(gameTypeSet);
     }
 

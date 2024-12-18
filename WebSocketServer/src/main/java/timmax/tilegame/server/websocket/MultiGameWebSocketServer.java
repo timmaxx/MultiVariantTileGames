@@ -83,7 +83,9 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
         // ToDo: События, поступающие от разных клиентов (webSocket) нужно складывать в очередь и обрабатывать после
         //       того, как будут обработаны предыдущие.
         //       Также см. комментарий в EventOfServer92GameEvent :: void executeOnClient(...).
-        Thread thread = new Thread(() -> eventOfClient.executeOnServer(webSocket_RemoteClientStateAutomaton_Map.get(webSocket)));
+        Thread thread = new Thread(
+                () -> eventOfClient.executeOnServer(webSocket_RemoteClientStateAutomaton_Map.get(webSocket))
+        );
         thread.start();
     }
 
@@ -96,6 +98,12 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     }
 
     // interface TransportOfServer:
+    //  ToDo:   Все методы ниже (send...()) лучше вынести из этого класса, т.к. они:
+    //          1. не используются в методах выше (это методы, которые вызываются при возникновении событий,
+    //             связанных с WebSocketServer).
+    //          2.1. методы send...() вызываются тогда, когда приложение собирается что-то отправить корреспондентам
+    //               (т.е. каким-то WebSocket),
+    //          2.2. и даже WebSocket не является ни предком ни наследником WebSocketServer.
     @Override
     public <ClientId> void sendEventOfServer(ClientId webSocket, EventOfServer eventOfServer) {
         if (webSocket instanceof WebSocket ws) {

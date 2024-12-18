@@ -8,6 +8,7 @@ public class RemoteClientState08GameMatchIsPlaying<ClientId> extends ClientState
         super(clientStateAutomaton);
     }
 
+    //  class State
     @Override
     public void doAfterTurnOn() {
         //  Именно из-за того, что информация могла быть сформирована не такая, какая пришла,
@@ -21,7 +22,7 @@ public class RemoteClientState08GameMatchIsPlaying<ClientId> extends ClientState
         );
     }
 
-    // class AbstractClientState
+    //  class ClientState
     @Override
     public RemoteClientStateAutomaton<ClientId> getBaseStateAutomaton() {
         //  Warning:(25, 16) Unchecked cast: 'timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton' to 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton<ClientId>'

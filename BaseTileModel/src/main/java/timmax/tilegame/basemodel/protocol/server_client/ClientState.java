@@ -18,8 +18,9 @@ public abstract class ClientState<GameMatchX extends IGameMatchX>
         super(clientStateAutomaton);
     }
 
-    public ClientStateAutomaton getBaseStateAutomaton() {
-        return (ClientStateAutomaton) super.getBaseStateAutomaton();
+    public ClientStateAutomaton<GameMatchX> getBaseStateAutomaton() {
+        //  Warning:(22, 16) Unchecked cast: 'timmax.state.StateAutomaton' to 'timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton<GameMatchX>'
+        return (ClientStateAutomaton<GameMatchX>) super.getBaseStateAutomaton();
     }
 
     // interface IClientState01NoConnect
@@ -33,6 +34,11 @@ public abstract class ClientState<GameMatchX extends IGameMatchX>
     public void close() {
         // Нет кода, т.к. переход в состояние 01NoConnect пусть будет доступен всегда
         // (в т.ч. и из 01NoConnect)
+    }
+
+    @Override
+    public void setGameTypeSet(Set<GameType> gameTypeSet) {
+        throw new WrongMethodInvokeForCurrentStateException(getBaseStateAutomaton().getCurrentState());
     }
 
     @Override

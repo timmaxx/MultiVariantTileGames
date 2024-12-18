@@ -10,8 +10,13 @@ public class FabricOfClientStatesJfx implements IFabricOfClientStates<GameMatchD
     }
 
     @Override
-    public LocalClientState02ConnectNonIdent getClientState02ConnectNonIdent(ClientStateAutomaton<GameMatchDto> clientStateAutomaton) {
-        return new LocalClientState02ConnectNonIdent(clientStateAutomaton);
+    public LocalClientState02ConnectWithoutServerInfo getClientState02ConnectWithoutServerInfo(ClientStateAutomaton<GameMatchDto> clientStateAutomaton) {
+        return new LocalClientState02ConnectWithoutServerInfo(clientStateAutomaton);
+    }
+
+    @Override
+    public ClientState03ConnectWithServerInfo<GameMatchDto> getClientState03ConnectWithServerInfo(ClientStateAutomaton<GameMatchDto> clientStateAutomaton) {
+        return new LocalClientState03ConnectWithServerInfo(clientStateAutomaton);
     }
 
     @Override

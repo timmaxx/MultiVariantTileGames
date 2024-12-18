@@ -2,7 +2,7 @@ package timmax.tilegame.basemodel.protocol.server_client;
 
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
-public abstract class ClientState04UserWasAuthorized<GameMatchX extends IGameMatchX> extends ClientState02ConnectNonIdent<GameMatchX> {
+public abstract class ClientState04UserWasAuthorized<GameMatchX extends IGameMatchX> extends ClientState03ConnectWithServerInfo<GameMatchX> {
     public ClientState04UserWasAuthorized(ClientStateAutomaton<GameMatchX> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
@@ -16,7 +16,7 @@ public abstract class ClientState04UserWasAuthorized<GameMatchX extends IGameMat
 
     @Override
     public void reauthorizeUser() {
-        authorizeUser(getBaseStateAutomaton().getUserName_());
+        getBaseStateAutomaton().authorizeUser_(getBaseStateAutomaton().getUserName_());
     }
 
     @Override

@@ -10,6 +10,7 @@ public class RemoteClientState07GameMatchWasSet<ClientId> extends ClientState07G
         super(clientStateAutomaton);
     }
 
+    //  class State
     @Override
     public void doAfterTurnOn() {
         getBaseStateAutomaton().getTransportOfServer().sendEventOfServer(
@@ -25,7 +26,7 @@ public class RemoteClientState07GameMatchWasSet<ClientId> extends ClientState07G
         );
     }
 
-    // class AbstractClientState
+    //  class ClientState
     @Override
     public RemoteClientStateAutomaton<ClientId> getBaseStateAutomaton() {
         //  Warning:(30, 16) Unchecked cast: 'timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton' to 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton<ClientId>'

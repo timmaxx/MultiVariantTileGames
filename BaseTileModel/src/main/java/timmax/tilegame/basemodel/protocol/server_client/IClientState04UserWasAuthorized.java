@@ -2,7 +2,7 @@ package timmax.tilegame.basemodel.protocol.server_client;
 
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
-//  Выбран перечень типов игр.
+//  Сервер идентифицировал, аутентифицировал и авторизовал пользователя.
 public interface IClientState04UserWasAuthorized<GameMatchX extends IGameMatchX> extends IClientState00 {
     // Нумерация приведена соответствующая классам Pane0Х... пакета timmax.tilegame.client.statuscontrol:
 

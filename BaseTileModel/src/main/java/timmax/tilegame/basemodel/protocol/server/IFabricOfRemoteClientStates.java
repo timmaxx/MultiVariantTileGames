@@ -6,7 +6,9 @@ public interface IFabricOfRemoteClientStates<ClientId> extends IFabricOfClientSt
     @Override
     RemoteClientState01NoConnect getClientState01NoConnect(ClientStateAutomaton<IGameMatch> clientStateAutomaton);
     @Override
-    RemoteClientState02ConnectNonIdent<ClientId> getClientState02ConnectNonIdent(ClientStateAutomaton<IGameMatch> clientStateAutomaton);
+    RemoteClientState02ConnectWithoutServerInfo<ClientId> getClientState02ConnectWithoutServerInfo(ClientStateAutomaton<IGameMatch> clientStateAutomaton);
+    @Override
+    RemoteClientState03ConnectWithServerInfo<ClientId> getClientState03ConnectWithServerInfo(ClientStateAutomaton<IGameMatch> clientStateAutomaton);
     @Override
     RemoteClientState04UserWasAuthorized<ClientId> getClientState04UserWasAuthorized(ClientStateAutomaton<IGameMatch> clientStateAutomaton);
     @Override

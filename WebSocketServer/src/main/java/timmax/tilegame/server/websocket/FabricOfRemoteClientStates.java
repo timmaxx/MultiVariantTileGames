@@ -20,8 +20,13 @@ public class FabricOfRemoteClientStates<ClientId> implements IFabricOfRemoteClie
     }
 
     @Override
-    public RemoteClientState02ConnectNonIdent<ClientId> getClientState02ConnectNonIdent(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
-        return new RemoteClientState02ConnectNonIdent<>(clientStateAutomaton);
+    public RemoteClientState02ConnectWithoutServerInfo<ClientId> getClientState02ConnectWithoutServerInfo(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
+        return new RemoteClientState02ConnectWithoutServerInfo<>(clientStateAutomaton);
+    }
+
+    @Override
+    public RemoteClientState03ConnectWithServerInfo<ClientId> getClientState03ConnectWithServerInfo(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
+        return new RemoteClientState03ConnectWithServerInfo<>(clientStateAutomaton);
     }
 
     @Override
