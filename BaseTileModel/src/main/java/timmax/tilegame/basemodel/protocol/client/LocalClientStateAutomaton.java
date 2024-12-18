@@ -32,10 +32,6 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchDto
         viewName_ViewMap.put(view.getViewName(), view);
     }
 
-    public void clearViewName_ViewMap() {
-        viewName_ViewMap.clear();
-    }
-
     public View getView(String key) {
         return viewName_ViewMap.get(key);
     }
@@ -94,6 +90,7 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchDto
 
     @Override
     public void updateOnSetGameType() {
+        viewName_ViewMap.clear();
         observerOnAbstractEventHashSet.updateOnSetGameType();
     }
 

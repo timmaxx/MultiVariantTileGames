@@ -12,7 +12,6 @@ public class LocalClientState06GameTypeWasSet extends ClientState06GameTypeWasSe
     //  class State
     @Override
     public void doAfterTurnOn() {
-        getBaseStateAutomaton().clearViewName_ViewMap();
         getBaseStateAutomaton().updateOnSetGameType();
     }
 
