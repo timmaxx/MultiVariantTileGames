@@ -9,13 +9,13 @@ public abstract class ClientState07GameMatchWasSet<GameMatchX extends IGameMatch
 
     // interface IClientState07GameMatchSelected
     @Override
-    public void resetGameMatch() {
-        getBaseStateAutomaton().setGameMatchX_(getBaseStateAutomaton().getGameMatchX_());
+    public GameMatchX getGameMatchX() {
+        return getBaseStateAutomaton().getGameMatchX_();
     }
 
     @Override
-    public GameMatchX getGameMatchX() {
-        return getBaseStateAutomaton().getGameMatchX_();
+    public void resetGameMatch() {
+        getBaseStateAutomaton().setGameMatchX_(getBaseStateAutomaton().getGameMatchX_());
     }
 
     @Override
@@ -23,6 +23,7 @@ public abstract class ClientState07GameMatchWasSet<GameMatchX extends IGameMatch
         getBaseStateAutomaton().startGameMatch_(gameMatchExtendedDto);
     }
 
+    //  ToDo:   Ещё один геттер - не единообразно с предыдущими ClientState0X...
     @Override
     public GameMatchStatus getGameMatchStatus() {
         return getBaseStateAutomaton().getGameMatchStatus_();
