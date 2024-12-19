@@ -24,6 +24,9 @@ import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.TransportOfServer;
 
+//  ToDo:   Разделить на два класса:
+//          1. MultiGameWebSocketServer
+//          2. SenderOfEventOfServer
 public class MultiGameWebSocketServer extends WebSocketServer implements TransportOfServer {
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketServer.class);
 

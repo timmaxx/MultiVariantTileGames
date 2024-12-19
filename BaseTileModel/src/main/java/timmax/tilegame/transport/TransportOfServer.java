@@ -9,6 +9,7 @@ import org.java_websocket.WebSocket;
 
 import java.util.Map;
 
+//  ToDo:   Переименовать в BaseSenderOfEventOfServer
 public interface TransportOfServer {
     void sendEventOfServer(WebSocket webSocket, EventOfServer eventOfServer);
 
