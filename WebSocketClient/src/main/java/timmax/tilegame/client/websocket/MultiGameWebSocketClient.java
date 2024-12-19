@@ -79,6 +79,12 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
     }
 
     // interface TransportOfClient:
+    //  ToDo:   Все методы ниже лучше вынести из этого класса, т.к. они:
+    //          1. не используются в методах выше (это методы, которые вызываются при возникновении событий,
+    //             связанных с WebSocketClient).
+    //          2.1. методы нмже вызываются тогда, когда приложение собирается что-то настроить, прочитать или
+    //               отправить корреспондентам (т.е. каким-то WebSocket),
+    //          Хотя WebSocketClient реализует интерфейс WebSocket.
     @Override
     public void setURI(URI uriFromControls) {
         String errLogMessage = "You can not use this method!";

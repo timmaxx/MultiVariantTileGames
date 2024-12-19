@@ -26,7 +26,7 @@ public class EventOfClient71StartGameMatch extends EventOfClient {
     //       Нужно пересмотреть архитектуру и передавать сюда GameMatch.
     // class EventOfClient
     @Override
-    public <ClientId> void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
+    public void executeOnServer(RemoteClientStateAutomaton remoteClientStateAutomaton) {
         GameMatchExtendedDto gameMatchExtendedDto = new GameMatchExtendedDto(
                 remoteClientStateAutomaton.getGameMatchX().getId(),
                 remoteClientStateAutomaton.getGameMatchX().getStatus(),

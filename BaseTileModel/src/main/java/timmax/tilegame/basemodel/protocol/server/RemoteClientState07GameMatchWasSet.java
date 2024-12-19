@@ -28,8 +28,8 @@ public class RemoteClientState07GameMatchWasSet<ClientId> extends ClientState07G
 
     //  class ClientState
     @Override
-    public RemoteClientStateAutomaton<ClientId> getBaseStateAutomaton() {
+    public RemoteClientStateAutomaton getBaseStateAutomaton() {
         //  Warning:(30, 16) Unchecked cast: 'timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton' to 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton<ClientId>'
-        return (RemoteClientStateAutomaton<ClientId>) (super.getBaseStateAutomaton());
+        return (RemoteClientStateAutomaton) (super.getBaseStateAutomaton());
     }
 }

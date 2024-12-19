@@ -23,7 +23,7 @@ public class EventOfClient21IdentifyAuthenticateAuthorizeUser extends EventOfCli
     }
 
     @Override
-    public <ClientId> void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
+    public void executeOnServer(RemoteClientStateAutomaton remoteClientStateAutomaton) {
         if (Credentials.isUserAndPasswordCorrect(userName, password)) {
             password = ""; // Не будем даже хранить пароль.
             remoteClientStateAutomaton.authorizeUser(userName);

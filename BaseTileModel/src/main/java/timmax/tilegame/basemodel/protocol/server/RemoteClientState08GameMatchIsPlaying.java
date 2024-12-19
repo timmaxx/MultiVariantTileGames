@@ -3,7 +3,7 @@ package timmax.tilegame.basemodel.protocol.server;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server_client.*;
 
-public class RemoteClientState08GameMatchIsPlaying<ClientId> extends ClientState08GameMatchIsPlaying<IGameMatch> {
+public class RemoteClientState08GameMatchIsPlaying extends ClientState08GameMatchIsPlaying<IGameMatch> {
     public RemoteClientState08GameMatchIsPlaying(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
@@ -24,8 +24,8 @@ public class RemoteClientState08GameMatchIsPlaying<ClientId> extends ClientState
 
     //  class ClientState
     @Override
-    public RemoteClientStateAutomaton<ClientId> getBaseStateAutomaton() {
+    public RemoteClientStateAutomaton getBaseStateAutomaton() {
         //  Warning:(25, 16) Unchecked cast: 'timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton' to 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton<ClientId>'
-        return (RemoteClientStateAutomaton<ClientId>) (super.getBaseStateAutomaton());
+        return (RemoteClientStateAutomaton) (super.getBaseStateAutomaton());
     }
 }

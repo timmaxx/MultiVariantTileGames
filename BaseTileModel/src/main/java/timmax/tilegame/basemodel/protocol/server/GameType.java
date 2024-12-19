@@ -155,7 +155,7 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
         return gameMatchConstructor;
     }
 
-    public <ClientId> void initGameMatchXSet(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
+    public void initGameMatchXSet(RemoteClientStateAutomaton remoteClientStateAutomaton) {
         gameMatchXSet = new HashSet<>();
         // Done:
         //       1.1. При создании перечня матчей на сервере,

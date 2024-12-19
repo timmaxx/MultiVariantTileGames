@@ -1,11 +1,12 @@
 package timmax.tilegame.basemodel.protocol.server;
 
+import org.java_websocket.WebSocket;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.transport.TransportOfServer;
 
 //  Автомат состояний клиента, работающий на сервере и учитывающий состояния удалённых клиентов.
-public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<IGameMatch> {
-    private final ClientId clientId;
+public class RemoteClientStateAutomaton extends ClientStateAutomaton<IGameMatch> {
+    private final WebSocket clientId;
 
     // ToDo: Удалить TransportOfServer<ClientId> multiGameWebSocketServer.
     //       Вместо того, чтобы хранить переменную типа TransportOfServer здесь, нужно рассмотреть вариант по передаче
@@ -27,8 +28,8 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
     private final TransportOfServer multiGameWebSocketServer;
 
     public RemoteClientStateAutomaton(
-            ClientId clientId,
-            IFabricOfRemoteClientStates<ClientId> fabricOfClientStatesForServer,
+            WebSocket clientId,
+            IFabricOfRemoteClientStates fabricOfClientStatesForServer,
             //  ToDo:   Удалить.
             TransportOfServer multiGameWebSocketServer) {
         super(fabricOfClientStatesForServer);
@@ -38,7 +39,7 @@ public class RemoteClientStateAutomaton<ClientId> extends ClientStateAutomaton<I
         changeStateFrom01To02_();
     }
 
-    public ClientId getClientId() {
+    public WebSocket getClientId() {
         return clientId;
     }
 

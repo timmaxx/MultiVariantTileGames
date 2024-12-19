@@ -22,7 +22,7 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
 
     // class EventOfClient
     @Override
-    public <ClientId> void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
+    public void executeOnServer(RemoteClientStateAutomaton remoteClientStateAutomaton) {
         if (gameMatchDto.isNullOrEmpty()) {
             remoteClientStateAutomaton.resetGameType();
             return;

@@ -8,7 +8,7 @@ import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class RemoteClientState06GameTypeWasSet<ClientId> extends ClientState06GameTypeWasSet<IGameMatch> {
+public class RemoteClientState06GameTypeWasSet extends ClientState06GameTypeWasSet<IGameMatch> {
     public RemoteClientState06GameTypeWasSet(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
@@ -34,8 +34,8 @@ public class RemoteClientState06GameTypeWasSet<ClientId> extends ClientState06Ga
 
     //  class ClientState
     @Override
-    public RemoteClientStateAutomaton<ClientId> getBaseStateAutomaton() {
+    public RemoteClientStateAutomaton getBaseStateAutomaton() {
         //  Warning:(37, 16) Unchecked cast: 'timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton' to 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton<ClientId>'
-        return (RemoteClientStateAutomaton<ClientId>) (super.getBaseStateAutomaton());
+        return (RemoteClientStateAutomaton) (super.getBaseStateAutomaton());
     }
 }

@@ -23,7 +23,7 @@ public class EventOfClient41SetGameType extends EventOfClient {
 
     // class EventOfClient
     @Override
-    public <ClientId> void executeOnServer(RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
+    public void executeOnServer(RemoteClientStateAutomaton remoteClientStateAutomaton) {
         // От клиента поступило символическое имя типа игры (оно должно быть одно из тех, которые ему направлялись множеством).
 
         //  Warning:(33, 9) Raw use of parameterized class 'GameType'

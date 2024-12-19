@@ -28,7 +28,7 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketServer.class);
 
     private final ObjectMapperOfMvtg mapper;
-    private final Map<WebSocket, RemoteClientStateAutomaton<WebSocket>> webSocket_RemoteClientStateAutomaton_Map;
+    private final Map<WebSocket, RemoteClientStateAutomaton> webSocket_RemoteClientStateAutomaton_Map;
 
     public MultiGameWebSocketServer(int port) {
         super(new InetSocketAddress(port));
@@ -60,9 +60,9 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
                 // ToDo: Внедрить двустороннюю мапу (https://coderlessons.com/articles/java/google-guava-bimaps)
                 // ToDo: Сейчас в конструктор RemoteClientStateAutomaton передаются несколько параметров, некоторые из
                 //       них не являются необходимыми (см. комментарий перед каждым параметром):
-                new RemoteClientStateAutomaton<>(
+                new RemoteClientStateAutomaton(
                         webSocket,
-                        new FabricOfRemoteClientStates<>(),
+                        new FabricOfRemoteClientStates(),
                         this
                 )
         );
@@ -105,16 +105,11 @@ public class MultiGameWebSocketServer extends WebSocketServer implements Transpo
     //               (т.е. каким-то WebSocket),
     //          2.2. и даже WebSocket не является ни предком ни наследником WebSocketServer.
     @Override
-    public <ClientId> void sendEventOfServer(ClientId webSocket, EventOfServer eventOfServer) {
-        if (webSocket instanceof WebSocket ws) {
-            logger.info("WebSocket: {}. Outcoming message. EventOfServer: {}.", webSocket, eventOfServer);
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            mapper.writeValue(byteArrayOutputStream, eventOfServer);
-            ws.send(byteArrayOutputStream.toByteArray());
-        } else {
-            logger.error("Variable webSocket is not of type WebSocket!");
-            throw new RuntimeException("Variable webSocket is not of type WebSocket!");
-        }
+    public void sendEventOfServer(WebSocket webSocket, EventOfServer eventOfServer) {
+        logger.info("WebSocket: {}. Outcoming message. EventOfServer: {}.", webSocket, eventOfServer);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        mapper.writeValue(byteArrayOutputStream, eventOfServer);
+        webSocket.send(byteArrayOutputStream.toByteArray());
     }
 
     //  Не стал определять этот метод в interface TransportOfServer, поэтому не @Override.

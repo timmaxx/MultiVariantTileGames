@@ -60,7 +60,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     //          клиенту игровое событие.
     //          А вот правильно было-бы хранить множество со ссылками на игроков
     //          (с одним элементом - для игр с одним игроком, с двумя элементами - для игр с двумя игроками).
-    protected final RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton;
+    protected final RemoteClientStateAutomaton remoteClientStateAutomaton;
 
     //  Список игроков матча.
     private final MatchPlayerList matchPlayerList;
@@ -75,7 +75,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
     //            GameType.
     public GameMatch(
             GameType gameType,
-            RemoteClientStateAutomaton<ClientId> remoteClientStateAutomaton) {
+            RemoteClientStateAutomaton remoteClientStateAutomaton) {
         this.gameType = gameType;
         this.matchPlayerList = new MatchPlayerList(gameType.getCountOfGamers());
         this.status = NOT_STARTED;
@@ -93,7 +93,7 @@ public abstract class GameMatch<ClientId> implements IGameMatch {
         return matchPlayerList;
     }
 
-    public RemoteClientStateAutomaton<ClientId> getRemoteClientStateAutomaton() {
+    public RemoteClientStateAutomaton getRemoteClientStateAutomaton() {
         return remoteClientStateAutomaton;
     }
 

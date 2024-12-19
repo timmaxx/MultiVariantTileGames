@@ -3,7 +3,7 @@ package timmax.tilegame.server.websocket;
 import timmax.tilegame.basemodel.protocol.server.*;
 import timmax.tilegame.basemodel.protocol.server_client.*;
 
-public class FabricOfRemoteClientStates<ClientId> implements IFabricOfRemoteClientStates<ClientId> {
+public class FabricOfRemoteClientStates implements IFabricOfRemoteClientStates {
     // ToDo: Сейчас есть параметр
     //       ClientStateAutomaton<IGameMatch> clientStateAutomaton
     //       но когда пришлось добавлять параметр clientId, то я сделал это ч/з конструктор - и сигнатуру методов
@@ -20,32 +20,32 @@ public class FabricOfRemoteClientStates<ClientId> implements IFabricOfRemoteClie
     }
 
     @Override
-    public RemoteClientState02ConnectWithoutServerInfo<ClientId> getClientState02ConnectWithoutServerInfo(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
-        return new RemoteClientState02ConnectWithoutServerInfo<>(clientStateAutomaton);
+    public RemoteClientState02ConnectWithoutServerInfo getClientState02ConnectWithoutServerInfo(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
+        return new RemoteClientState02ConnectWithoutServerInfo(clientStateAutomaton);
     }
 
     @Override
-    public RemoteClientState03ConnectWithServerInfo<ClientId> getClientState03ConnectWithServerInfo(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
-        return new RemoteClientState03ConnectWithServerInfo<>(clientStateAutomaton);
+    public RemoteClientState03ConnectWithServerInfo getClientState03ConnectWithServerInfo(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
+        return new RemoteClientState03ConnectWithServerInfo(clientStateAutomaton);
     }
 
     @Override
-    public RemoteClientState04UserWasAuthorized<ClientId> getClientState04UserWasAuthorized(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
-        return new RemoteClientState04UserWasAuthorized<>(clientStateAutomaton);
+    public RemoteClientState04UserWasAuthorized getClientState04UserWasAuthorized(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
+        return new RemoteClientState04UserWasAuthorized(clientStateAutomaton);
     }
 
     @Override
-    public RemoteClientState06GameTypeWasSet<ClientId> getClientState06GameTypeWasSet(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
-        return new RemoteClientState06GameTypeWasSet<>(clientStateAutomaton);
+    public RemoteClientState06GameTypeWasSet getClientState06GameTypeWasSet(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
+        return new RemoteClientState06GameTypeWasSet(clientStateAutomaton);
     }
 
     @Override
-    public RemoteClientState07GameMatchWasSet<ClientId> getClientState07GameMatchWasSet(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
-        return new RemoteClientState07GameMatchWasSet<>(clientStateAutomaton);
+    public RemoteClientState07GameMatchWasSet getClientState07GameMatchWasSet(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
+        return new RemoteClientState07GameMatchWasSet(clientStateAutomaton);
     }
 
     @Override
-    public RemoteClientState08GameMatchIsPlaying<ClientId> getClientState08GameMatchIsPlaying(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
-        return new RemoteClientState08GameMatchIsPlaying<>(clientStateAutomaton);
+    public RemoteClientState08GameMatchIsPlaying getClientState08GameMatchIsPlaying(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
+        return new RemoteClientState08GameMatchIsPlaying(clientStateAutomaton);
     }
 }
