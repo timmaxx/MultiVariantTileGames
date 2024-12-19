@@ -42,6 +42,13 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
         logger.info("  Main game client status: {}.", localClientStateAutomatonJfx);
     }
 
+    private void sendEventOfClient(EventOfClient eventOfClient) {
+        logger.info("Outcoming message. EventOfClient: {}.", eventOfClient);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        mapper.writeValue(byteArrayOutputStream, eventOfClient);
+        transportOfClient.send(byteArrayOutputStream.toByteArray());
+    }
+
     // interface TransportOfClient
     @Override
     public void close() {
@@ -67,15 +74,9 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
         transportOfClient.close();
     }
 
-    //  ToDo:   Сделать два sendEventOfClient:
-    //          1. private void sendEventOfClient(EventOfClient eventOfClient)
-    //          2. public void sendEventOfClient(EventOfClient92GameCommand eventOfClient)
     @Override
-    public void sendEventOfClient(EventOfClient eventOfClient) {
-        logger.info("Outcoming message. EventOfClient: {}.", eventOfClient);
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        mapper.writeValue(byteArrayOutputStream, eventOfClient);
-        transportOfClient.send(byteArrayOutputStream.toByteArray());
+    public void sendEventOfClient92GameCommand(EventOfClient92GameCommand eventOfClient92GameCommand) {
+        sendEventOfClient(eventOfClient92GameCommand);
     }
 
     @Override

@@ -7,7 +7,6 @@ import timmax.tilegame.basemodel.gamecommand.GameCommand;
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
-import timmax.tilegame.basemodel.protocol.EventOfClient;
 import timmax.tilegame.basemodel.protocol.EventOfClient92GameCommand;
 import timmax.tilegame.transport.TransportOfClient;
 
@@ -20,18 +19,14 @@ public class BaseController {
 
     public void onKeyPressed(KeyCode keyCode) {
         GameCommand gameCommand = new GameCommandKeyPressed(keyCode);
-        EventOfClient eventOfClient = new EventOfClient92GameCommand(gameCommand);
-        sendEventOfClient(eventOfClient);
+        EventOfClient92GameCommand eventOfClient92GameCommand = new EventOfClient92GameCommand(gameCommand);
+        transportOfClient.sendEventOfClient92GameCommand(eventOfClient92GameCommand);
     }
 
     public final void onMouseClick(MouseButton mouseButton, XYCoordinate xyCoordinate) {
         GameCommand gameCommand = new GameCommandMouseClick(xyCoordinate, mouseButton);
-        EventOfClient eventOfClient = new EventOfClient92GameCommand(gameCommand);
-        sendEventOfClient(eventOfClient);
-    }
-
-    private void sendEventOfClient(EventOfClient eventOfClient) {
-        transportOfClient.sendEventOfClient(eventOfClient);
+        EventOfClient92GameCommand eventOfClient92GameCommand = new EventOfClient92GameCommand(gameCommand);
+        transportOfClient.sendEventOfClient92GameCommand(eventOfClient92GameCommand);
     }
 
     @Override

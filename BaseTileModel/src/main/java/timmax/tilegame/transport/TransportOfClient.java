@@ -3,7 +3,7 @@ package timmax.tilegame.transport;
 import java.net.URI;
 import java.util.Map;
 
-import timmax.tilegame.basemodel.protocol.EventOfClient;
+import timmax.tilegame.basemodel.protocol.EventOfClient92GameCommand;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
@@ -18,9 +18,7 @@ public interface TransportOfClient {
     //  это не получается. Также смотри комментарии к MultiGameWebSocketClient.
     void setURI(URI uriFromControls);
 
-    //  ToDo:   Исправить на
-    //          void sendEventOfClient(EventOfClient92GameCommand eventOfClient)
-    void sendEventOfClient(EventOfClient eventOfClient);
+    void sendEventOfClient92GameCommand(EventOfClient92GameCommand eventOfClient92GameCommand);
 
     LocalClientStateAutomaton getLocalClientStateAutomaton();
 
