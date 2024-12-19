@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.client.jfx.FabricOfClientStatesJfx;
 import timmax.tilegame.client.statuscontrol.*;
-import timmax.tilegame.client.websocket.MultiGameWebSocketClientManyTimesUse;
+import timmax.tilegame.client.websocket.SenderOfEventOfClient;
 import timmax.tilegame.transport.ISenderOfEventOfClient;
 
 public class MultiGameClient extends Application {
@@ -25,7 +25,7 @@ public class MultiGameClient extends Application {
                 new FabricOfClientStatesJfx()
         );
 
-        ISenderOfEventOfClient senderOfEventOfClient = new MultiGameWebSocketClientManyTimesUse(localClientStateAutomatonJfx);
+        ISenderOfEventOfClient senderOfEventOfClient = new SenderOfEventOfClient(localClientStateAutomatonJfx);
 
         root.getChildren().addAll(
                 new Pane01NoConnect(senderOfEventOfClient),

@@ -15,11 +15,9 @@ import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 import timmax.tilegame.transport.ISenderOfEventOfClient;
 
-//  ToDo:   Переименовать во что-то типа "Отправитель сообщений клиента",
-//          и в т.ч. класс не является наследником WebSocketClient.
-// WebSocket клиент многоразовый
-public class MultiGameWebSocketClientManyTimesUse implements ISenderOfEventOfClient {
-    private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketClientManyTimesUse.class);
+//  Отправитель клиентсих событий.
+public class SenderOfEventOfClient implements ISenderOfEventOfClient {
+    private static final Logger logger = LoggerFactory.getLogger(SenderOfEventOfClient.class);
 
     //  ToDo:   ObjectMapperOfMvtg mapper сделать синглтоном.
     private final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
@@ -34,7 +32,7 @@ public class MultiGameWebSocketClientManyTimesUse implements ISenderOfEventOfCli
     //       А для сервера переменная типа TransportOfServer входит в состав RemoteClientStateAutomaton.
     private WebSocketClient webSocketClient;
 
-    public MultiGameWebSocketClientManyTimesUse(LocalClientStateAutomaton localClientStateAutomatonJfx) {
+    public SenderOfEventOfClient(LocalClientStateAutomaton localClientStateAutomatonJfx) {
         super();
         this.localClientStateAutomatonJfx = localClientStateAutomatonJfx;
         // ToDo: Возможно, что-бы не использовать null, стоит реализовать класс, реализующий IClientState01NoConnect
