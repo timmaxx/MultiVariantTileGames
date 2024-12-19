@@ -27,7 +27,7 @@ import timmax.tilegame.sokoban.model.placement.gameobject.WhoPersistentInTile;
 
 import static timmax.tilegame.basemodel.GameMatchStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
 
-public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
+public class GameMatchOfSokoban extends GameMatch {
     //  1.  String constants
     //      Нет.
 
@@ -79,7 +79,6 @@ public class GameMatchOfSokoban<ClientId> extends GameMatch<ClientId> {
         getRemoteClientStateAutomaton().getTransportOfServer().sendGameEventToAllViews(
                 getRemoteClientStateAutomaton().getGameMatchX().getMatchPlayerList(),
                 new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL),
-                //  Warning:(79, 17) Unchecked assignment: 'java.util.Map' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'. Reason: 'getGameType()' has raw type, so result of getViewName_ViewClassMap is erased
                 getGameType().getViewName_ViewClassMap()
         );
     }

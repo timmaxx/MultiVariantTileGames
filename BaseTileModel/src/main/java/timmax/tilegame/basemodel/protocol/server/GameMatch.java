@@ -36,7 +36,7 @@ import static timmax.tilegame.basemodel.GameMatchStatus.*;
 //          в классе GameMatchOfMinesweeper.
 
 //  Конкретный матч определённого типа игры.
-public abstract class GameMatch<ClientId> implements IGameMatch {
+public abstract class GameMatch implements IGameMatch {
     protected static final Logger logger = LoggerFactory.getLogger(GameMatch.class);
 
     //  Warning:(34, 21) Raw use of parameterized class 'GameType'

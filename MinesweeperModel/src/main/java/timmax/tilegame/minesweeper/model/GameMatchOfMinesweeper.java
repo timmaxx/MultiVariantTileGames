@@ -15,7 +15,7 @@ import timmax.tilegame.minesweeper.model.placement.gameobject.MGOStateAutomaton;
 
 import java.util.Map;
 
-public class GameMatchOfMinesweeper<ClientId> extends GameMatch<ClientId> {
+public class GameMatchOfMinesweeper extends GameMatch {
     //  1.  String constants
     public static final String PARAM_NAME_PERCENTS_OF_MINES = "Percents of mines";
 

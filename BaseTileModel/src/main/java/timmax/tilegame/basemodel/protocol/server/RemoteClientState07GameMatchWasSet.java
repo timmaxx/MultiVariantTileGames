@@ -5,7 +5,7 @@ import timmax.tilegame.basemodel.protocol.server_client.ClientState07GameMatchWa
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 
-public class RemoteClientState07GameMatchWasSet<ClientId> extends ClientState07GameMatchWasSet<IGameMatch> {
+public class RemoteClientState07GameMatchWasSet extends ClientState07GameMatchWasSet<IGameMatch> {
     public RemoteClientState07GameMatchWasSet(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
         super(clientStateAutomaton);
     }
@@ -19,7 +19,6 @@ public class RemoteClientState07GameMatchWasSet<ClientId> extends ClientState07G
                         new GameMatchDto(
                                 getBaseStateAutomaton().getGameMatchX().getId(),
                                 getBaseStateAutomaton().getGameMatchX().getStatus(),
-                                //  Warning:(21, 33) Unchecked assignment: 'java.util.Map' to 'java.util.Map<java.lang.String,java.lang.Integer>'. Reason: 'getBaseStateAutomaton().getGameMatchX()' has raw type, so result of getParamsOfModelValueMap is erased
                                 getBaseStateAutomaton().getGameMatchX().getParamsOfModelValueMap()
                         )
                 )
@@ -29,7 +28,6 @@ public class RemoteClientState07GameMatchWasSet<ClientId> extends ClientState07G
     //  class ClientState
     @Override
     public RemoteClientStateAutomaton getBaseStateAutomaton() {
-        //  Warning:(30, 16) Unchecked cast: 'timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton' to 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton<ClientId>'
         return (RemoteClientStateAutomaton) (super.getBaseStateAutomaton());
     }
 }
