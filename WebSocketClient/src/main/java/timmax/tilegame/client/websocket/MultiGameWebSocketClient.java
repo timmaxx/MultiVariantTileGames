@@ -12,29 +12,28 @@ import org.slf4j.LoggerFactory;
 import timmax.common.ObjectMapperOfMvtg;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
-import timmax.tilegame.transport.TransportOfClient;
+import timmax.tilegame.transport.ISenderOfEventOfClient;
 
 // Этот класс, к сожалению, я не смог использовать "многоразово".
 // Т.е. у меня не получилось после открытия и закрытия вновь открыть соединение.
 // Поэтому:
+
 // - создал класс-обёртку MultiGameWebSocketClientManyTimesUse.
-// - соответственно и работающий метод void setURI(URI uriFromControls) в этом классе не возможен,
-//   но тогда пусть он бросает исключение.
 
 public class MultiGameWebSocketClient extends WebSocketClient {
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketClient.class);
 
     //  ToDo:   ObjectMapperOfMvtg mapper сделать синглтоном.
     private final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
-    private final TransportOfClient modelMultiGameWebSocketClientManyTimesUse;
+    private final ISenderOfEventOfClient senderOfEventOfClient;
 
-    public MultiGameWebSocketClient(URI serverUri, TransportOfClient modelMultiGameWebSocketClientManyTimesUse) {
+    public MultiGameWebSocketClient(URI serverUri, ISenderOfEventOfClient senderOfEventOfClient) {
         super(serverUri);
-        this.modelMultiGameWebSocketClientManyTimesUse = modelMultiGameWebSocketClientManyTimesUse;
+        this.senderOfEventOfClient = senderOfEventOfClient;
     }
 
     private LocalClientStateAutomaton getLocalClientStateAutomaton() {
-        return modelMultiGameWebSocketClientManyTimesUse.getLocalClientStateAutomaton();
+        return senderOfEventOfClient.getLocalClientStateAutomaton();
     }
 
     // class WebSocketClient:
@@ -42,7 +41,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     public void onClose(int code, String reason, boolean remote) {
         logger.info("Connection was closed.");
         getLocalClientStateAutomaton().close();
-        logger.info("  Main game client status: {}.", modelMultiGameWebSocketClientManyTimesUse);
+        logger.info("  Main game client status: {}.", senderOfEventOfClient);
         logger.debug("  Code: {}. Reason: {}. Remote: {}.", code, reason, remote);
     }
 
@@ -55,7 +54,7 @@ public class MultiGameWebSocketClient extends WebSocketClient {
     @Override
     public void onError(Exception ex) {
         logger.error("Error occurred.", ex);
-        logger.error("  Main game client status: {}.", modelMultiGameWebSocketClientManyTimesUse);
+        logger.error("  Main game client status: {}.", senderOfEventOfClient);
     }
 
     @Override
@@ -69,13 +68,13 @@ public class MultiGameWebSocketClient extends WebSocketClient {
         //       того, как будут обработаны предыдущие.
         //       Также см. комментарий в EventOfServer92GameEvent :: void executeOnClient(...).
         eventOfServer.executeOnClient(getLocalClientStateAutomaton());
-        logger.debug("  Main game client status: {}.", modelMultiGameWebSocketClientManyTimesUse);
+        logger.debug("  Main game client status: {}.", senderOfEventOfClient);
     }
 
     @Override
     public void onMessage(String message) {
         logger.error("Incoming message. This type of message (String) should not be!");
-        logger.error("  Main game client status: {}.", modelMultiGameWebSocketClientManyTimesUse);
+        logger.error("  Main game client status: {}.", senderOfEventOfClient);
         System.exit(1);
     }
 }

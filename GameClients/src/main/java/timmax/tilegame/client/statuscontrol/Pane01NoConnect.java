@@ -7,15 +7,15 @@ import java.util.List;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import timmax.tilegame.transport.TransportOfClient;
+import timmax.tilegame.transport.ISenderOfEventOfClient;
 
 public class Pane01NoConnect extends AbstractConnectStatePane {
     private final TextField serverAddressTextField;
     private final TextField serverPortTextField;
     private final TextField connectStringTextField;
 
-    public Pane01NoConnect(TransportOfClient transportOfClient) {
-        super(transportOfClient);
+    public Pane01NoConnect(ISenderOfEventOfClient senderOfEventOfClient) {
+        super(senderOfEventOfClient);
 
         // 1 (обязательные)
         // Контролы для продвижения состояния "вперёд":
@@ -33,9 +33,8 @@ public class Pane01NoConnect extends AbstractConnectStatePane {
         nextStateButton.setText("Connect");
         nextStateButton.setOnAction(event -> {
             disableAllControls();
-            // ToDo: С методом setURI() нужно разобраться - включать или не включать его в интерфейс?
-            transportOfClient.setURI(getURIFromControls());
-            transportOfClient.connect();
+            senderOfEventOfClient.setURI(getURIFromControls());
+            senderOfEventOfClient.connect();
         });
 
         // Контролы для продвижения состояния "назад":
@@ -43,7 +42,7 @@ public class Pane01NoConnect extends AbstractConnectStatePane {
         prevStateButton.setFocusTraversable(false);
         prevStateButton.setOnAction(event -> {
             disableAllControls();
-            transportOfClient.close();
+            senderOfEventOfClient.close();
         });
 
         // 1

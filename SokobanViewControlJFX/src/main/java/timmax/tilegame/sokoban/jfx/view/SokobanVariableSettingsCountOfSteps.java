@@ -2,7 +2,7 @@ package timmax.tilegame.sokoban.jfx.view;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.transport.TransportOfClient;
+import timmax.tilegame.transport.ISenderOfEventOfClient;
 import timmax.tilegame.guiengine.jfx.view.ViewTextFieldsJfx;
 
 import timmax.tilegame.sokoban.model.gameevent.GameEventSokobanVariableParamsCountOfSteps;
@@ -10,8 +10,8 @@ import timmax.tilegame.sokoban.model.gameevent.GameEventSokobanVariableParamsCou
 import static timmax.tilegame.sokoban.model.gameevent.GameEventSokobanVariableParamsCountOfSteps.COMMON_LABEL_OF_VARIABLE_PARAMS_COUNT_OF_STEPS;
 
 public class SokobanVariableSettingsCountOfSteps extends ViewTextFieldsJfx {
-    public SokobanVariableSettingsCountOfSteps(TransportOfClient transportOfClient, String viewName, GameType gameType) {
-        super(transportOfClient
+    public SokobanVariableSettingsCountOfSteps(ISenderOfEventOfClient senderOfEventOfClient, String viewName, GameType gameType) {
+        super(senderOfEventOfClient
                 , GameEventSokobanVariableParamsCountOfSteps.class
                 , COMMON_LABEL_OF_VARIABLE_PARAMS_COUNT_OF_STEPS
                 , viewName

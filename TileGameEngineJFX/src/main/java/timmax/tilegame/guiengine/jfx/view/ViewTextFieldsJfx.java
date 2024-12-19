@@ -5,7 +5,7 @@ import javafx.scene.text.Text;
 
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.transport.TransportOfClient;
+import timmax.tilegame.transport.ISenderOfEventOfClient;
 
 abstract public class ViewTextFieldsJfx extends ViewJfx {
     String commonLabel;
@@ -13,13 +13,13 @@ abstract public class ViewTextFieldsJfx extends ViewJfx {
     Class<? extends GameEvent> clazz;
 
     public ViewTextFieldsJfx(
-            TransportOfClient transportOfClient,
+            ISenderOfEventOfClient senderOfEventOfClient,
             Class<? extends GameEvent> clazz,
             String commonLabel,
             String viewName,
             GameType gameType) {
         // ToDo: убрать отсюда null. См. ToDo от 02.10.2023.
-        super(transportOfClient, null, viewName, gameType);
+        super(senderOfEventOfClient, null, viewName, gameType);
 
         this.clazz = clazz;
         this.commonLabel = commonLabel;

@@ -10,7 +10,7 @@ import javafx.scene.layout.HBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
-import timmax.tilegame.transport.TransportOfClient;
+import timmax.tilegame.transport.ISenderOfEventOfClient;
 
 public abstract class AbstractConnectStatePane extends HBox implements ObserverOnAbstractEvent {
     protected static final Logger logger = LoggerFactory.getLogger(AbstractConnectStatePane.class);
@@ -28,7 +28,7 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     public final static int LAYOUT_Y_OF_FIRST_ROW = 0;
     public final static int DIFFERENCE_OF_LAYOUT_Y = 30;
 
-    protected final TransportOfClient transportOfClient;
+    protected final ISenderOfEventOfClient senderOfEventOfClient;
 
     protected Pane nextStatePane;
     protected Button nextStateButton;
@@ -38,8 +38,8 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
     private List<Region> nextStateControlsList;
     private List<Region> prevStateControlsList;
 
-    public AbstractConnectStatePane(TransportOfClient transportOfClient) {
-        this.transportOfClient = transportOfClient;
+    public AbstractConnectStatePane(ISenderOfEventOfClient senderOfEventOfClient) {
+        this.senderOfEventOfClient = senderOfEventOfClient;
 
         nextStatePane = new Pane();
         nextStatePane.setMinWidth(PANE_NEXT_STATE_PREF_WIDTH);
@@ -77,7 +77,7 @@ public abstract class AbstractConnectStatePane extends HBox implements ObserverO
         prevStatePane.getChildren().addAll(prevStateControlsList);
         disableAllControls();
 
-        transportOfClient.getLocalClientStateAutomaton().addCallBackOnIncomingTransportPackageEvent(this);
+        senderOfEventOfClient.getLocalClientStateAutomaton().addCallBackOnIncomingTransportPackageEvent(this);
     }
 
     protected void disableAllControls() {

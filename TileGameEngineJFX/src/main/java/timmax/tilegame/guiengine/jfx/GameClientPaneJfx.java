@@ -9,14 +9,14 @@ import javafx.scene.layout.VBox;
 import timmax.tilegame.basecontroller.BaseController;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.baseview.View;
-import timmax.tilegame.transport.TransportOfClient;
+import timmax.tilegame.transport.ISenderOfEventOfClient;
 
 import timmax.tilegame.guiengine.jfx.view.ViewJfx;
 
 public class GameClientPaneJfx extends VBox {
-    public void createViews(TransportOfClient transportOfClient) {
-        BaseController baseController = new BaseController(transportOfClient);
-        LocalClientStateAutomaton localClientStateAutomaton = transportOfClient.getLocalClientStateAutomaton();
+    public void createViews(ISenderOfEventOfClient senderOfEventOfClient) {
+        BaseController baseController = new BaseController(senderOfEventOfClient);
+        LocalClientStateAutomaton localClientStateAutomaton = senderOfEventOfClient.getLocalClientStateAutomaton();
 
         // ToDo: Переделать. См. комментарий к
         //       LocalClientStateAutomaton :: Map<String, Class<? extends View>> getViewName_ViewClassMap()
@@ -33,7 +33,7 @@ public class GameClientPaneJfx extends VBox {
                 //       - перечень параметров конструктора ViewJfx
                 //       - с перечнями типов параметров в ViewJfxClass
                 //       - и с перечнем параметров в GameClientPaneJfx.
-                viewJfx = viewConstructor.newInstance(transportOfClient, baseController, viewName_ViewClassEntry.getKey(), localClientStateAutomaton.getGameType());
+                viewJfx = viewConstructor.newInstance(senderOfEventOfClient, baseController, viewName_ViewClassEntry.getKey(), localClientStateAutomaton.getGameType());
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
                 throw new RuntimeException(e);
             }

@@ -10,7 +10,7 @@ import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.guiengine.jfx.GameClientPaneJfx;
-import timmax.tilegame.transport.TransportOfClient;
+import timmax.tilegame.transport.ISenderOfEventOfClient;
 
 import timmax.tilegame.baseview.ViewMainField;
 import timmax.tilegame.guiengine.jfx.Game;
@@ -26,11 +26,11 @@ public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
     protected int cellSize;
 
     public ViewMainFieldJfx(
-            TransportOfClient transportOfClient,
+            ISenderOfEventOfClient senderOfEventOfClient,
             BaseController baseController,
             String viewName,
             GameType gameType) {
-        super(transportOfClient, baseController, viewName, gameType);
+        super(senderOfEventOfClient, baseController, viewName, gameType);
 
         setOnMouseClicked(event ->
                 baseController.onMouseClick(

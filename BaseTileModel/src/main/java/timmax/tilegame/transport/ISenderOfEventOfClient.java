@@ -8,9 +8,7 @@ import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 
-//  ToDo:   Переименовать во что-то типа "Отправитель сообщений клиента",
-//          и в т.ч. класс не является наследником WebSocketClient.
-public interface TransportOfClient {
+public interface ISenderOfEventOfClient {
     //  setURI(URI uriFromControls) Нужен в обоих классах, но в
     //  class MultiGameWebSocketClient
     //  т.к. он

@@ -12,7 +12,7 @@ import javafx.scene.layout.Region;
 
 import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
 import timmax.tilegame.guiengine.jfx.GameClientPaneJfx;
-import timmax.tilegame.transport.TransportOfClient;
+import timmax.tilegame.transport.ISenderOfEventOfClient;
 
 import static timmax.tilegame.basemodel.GameMatchStatus.GAME;
 import static timmax.tilegame.basemodel.GameMatchStatus.NOT_STARTED;
@@ -20,8 +20,8 @@ import static timmax.tilegame.basemodel.GameMatchStatus.NOT_STARTED;
 public class Pane07GameMatchSelected extends AbstractConnectStatePane {
     private final GameClientPaneJfx gameClientPaneJfx;
 
-    public Pane07GameMatchSelected(TransportOfClient transportOfClient) {
-        super(transportOfClient);
+    public Pane07GameMatchSelected(ISenderOfEventOfClient senderOfEventOfClient) {
+        super(senderOfEventOfClient);
 
         // 1 (обязательные)
         // Контролы для продвижения состояния "вперёд":
@@ -37,12 +37,12 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
                 }
             }
 
-            if (transportOfClient.getLocalClientStateAutomaton().getGameMatchX().getStatus() == GAME) {
+            if (senderOfEventOfClient.getLocalClientStateAutomaton().getGameMatchX().getStatus() == GAME) {
                 throw new RuntimeException("Resume is not realised yet!");
-            } else if (transportOfClient.getLocalClientStateAutomaton().getGameMatchX().getStatus() == NOT_STARTED) {
-                transportOfClient.startGameMatch(paramsOfModelValueMap);
+            } else if (senderOfEventOfClient.getLocalClientStateAutomaton().getGameMatchX().getStatus() == NOT_STARTED) {
+                senderOfEventOfClient.startGameMatch(paramsOfModelValueMap);
             } else {
-                throw new RuntimeException("Pane07GameMatchSelected :: Pane07GameMatchSelected(TransportOfClient transportOfClient). nextStateButton.setOnAction. transportOfClient.getLocalClientStateAutomaton().getGameMatchX().getStatus() = " + transportOfClient.getLocalClientStateAutomaton().getGameMatchX().getStatus());
+                throw new RuntimeException("Pane07GameMatchSelected :: Pane07GameMatchSelected(TransportOfClient transportOfClient). nextStateButton.setOnAction. transportOfClient.getLocalClientStateAutomaton().getGameMatchX().getStatus() = " + senderOfEventOfClient.getLocalClientStateAutomaton().getGameMatchX().getStatus());
             }
             getScene().getWindow().sizeToScene();
         });
@@ -54,7 +54,7 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
         prevStateButton.setFocusTraversable(false); // Это в любом случае д.б.
         prevStateButton.setOnAction(event -> {
             disableAllControls();
-            transportOfClient.resetGameMatch();
+            senderOfEventOfClient.resetGameMatch();
             gameClientPaneJfx.clearChildren();
             prevStatePane.setMinWidth(0);
             prevStatePane.setMaxWidth(0);
@@ -90,7 +90,7 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
         //       Здесь используется
         //       LocalClientStateAutomaton :: Map<String, ParamOfModelDescription> getParamName_paramModelDescriptionMap()
 
-        for (String paramName : transportOfClient.getLocalClientStateAutomaton().getParamName_paramModelDescriptionMap().keySet()) {
+        for (String paramName : senderOfEventOfClient.getLocalClientStateAutomaton().getParamName_paramModelDescriptionMap().keySet()) {
             Label paramNameLabel = new Label(paramName);
             paramNameLabel.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
             paramNameLabel.setLayoutY(y);
@@ -99,7 +99,7 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
             paramNameTextField.setId(paramName);
             paramNameTextField.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
             paramNameTextField.setLayoutY(y);
-            ParamOfModelDescription paramOfModelDescription = transportOfClient
+            ParamOfModelDescription paramOfModelDescription = senderOfEventOfClient
                     .getLocalClientStateAutomaton()
                     .getParamName_paramModelDescriptionMap()
                     .get(paramName);
@@ -110,20 +110,20 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
             //       paramOfModelDescription.getDefaultValue()
             //       нужно взять значение из текущего матча.
             int paramValue;
-            if (transportOfClient.getLocalClientStateAutomaton().getGameMatchStatus() == GAME) {
+            if (senderOfEventOfClient.getLocalClientStateAutomaton().getGameMatchStatus() == GAME) {
                 // Если матч уже был начат.
                 // Достаём параметр из матча.
-                paramValue = transportOfClient
+                paramValue = senderOfEventOfClient
                         .getLocalClientStateAutomaton()
                         .getGameMatchX()
                         .getParamsOfModelValueMap()
                         .get(paramName);
-            } else if (transportOfClient.getLocalClientStateAutomaton().getGameMatchStatus() == NOT_STARTED) {
+            } else if (senderOfEventOfClient.getLocalClientStateAutomaton().getGameMatchStatus() == NOT_STARTED) {
                 // Если матч ещё не был начат.
                 // Достаём параметр из описания типа игры.
                 paramValue = paramOfModelDescription.getDefaultValue();
             } else {
-                throw new RuntimeException("Pane07GameMatchSelected :: void updateOnSetGameMatch(). transportOfClient.getLocalClientStateAutomaton().getGameMatchStatus() = " + transportOfClient.getLocalClientStateAutomaton().getGameMatchStatus());
+                throw new RuntimeException("Pane07GameMatchSelected :: void updateOnSetGameMatch(). transportOfClient.getLocalClientStateAutomaton().getGameMatchStatus() = " + senderOfEventOfClient.getLocalClientStateAutomaton().getGameMatchStatus());
             }
             paramNameTextField.setTextFormatter(
                     new TextFormatter<>(
@@ -154,10 +154,10 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
         // Запретим для редактирования параметры матча, если матч уже был начат.
         // Этот цикл нужно сделать после вызова 'doOnThisState()', т.к. там
         for (Region region : regionList) {
-            region.setDisable(transportOfClient.getLocalClientStateAutomaton().getGameMatchStatus() != NOT_STARTED);
+            region.setDisable(senderOfEventOfClient.getLocalClientStateAutomaton().getGameMatchStatus() != NOT_STARTED);
         }
 
-        gameClientPaneJfx.createViews(transportOfClient);
+        gameClientPaneJfx.createViews(senderOfEventOfClient);
     }
 
     // 7

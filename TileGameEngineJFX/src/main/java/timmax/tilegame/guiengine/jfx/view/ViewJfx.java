@@ -3,7 +3,7 @@ package timmax.tilegame.guiengine.jfx.view;
 import javafx.scene.layout.Pane;
 
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.transport.TransportOfClient;
+import timmax.tilegame.transport.ISenderOfEventOfClient;
 import timmax.tilegame.basecontroller.BaseController;
 import timmax.tilegame.baseview.View;
 
@@ -17,7 +17,7 @@ public abstract class ViewJfx extends Pane implements View {
     //       - с перечнями типов параметров в ViewJfxClass
     //       - и с перечнем параметров в GameClientPaneJfx.
     public ViewJfx(
-            TransportOfClient transportOfClient,
+            ISenderOfEventOfClient senderOfEventOfClient,
             BaseController baseController,
             String viewName,
             GameType gameType) {
@@ -25,7 +25,7 @@ public abstract class ViewJfx extends Pane implements View {
         this.baseController = baseController;
         this.viewName = viewName;
         this.gameType = gameType;
-        transportOfClient.getLocalClientStateAutomaton().addView(this);
+        senderOfEventOfClient.getLocalClientStateAutomaton().addView(this);
     }
 
     @Override

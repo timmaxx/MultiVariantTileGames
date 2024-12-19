@@ -7,7 +7,7 @@ import timmax.tilegame.baseview.ViewClass;
 import timmax.tilegame.baseview.ViewMainField;
 import timmax.tilegame.guiengine.jfx.view.ViewJfx;
 import timmax.tilegame.guiengine.jfx.view.ViewMainFieldJfx;
-import timmax.tilegame.transport.TransportOfClient;
+import timmax.tilegame.transport.ISenderOfEventOfClient;
 
 import java.lang.reflect.Constructor;
 
@@ -42,7 +42,7 @@ public class ViewJfxClass extends ViewClass {
             //       - с перечнями типов параметров в ViewJfxClass
             //       - и с перечнем параметров в GameClientPaneJfx.
             viewJfxConstructor = classOfViewJfx.getConstructor(
-                    TransportOfClient.class, BaseController.class, String.class, GameType.class
+                    ISenderOfEventOfClient.class, BaseController.class, String.class, GameType.class
             );
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);

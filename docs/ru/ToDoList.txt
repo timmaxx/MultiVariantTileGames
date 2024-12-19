@@ -343,7 +343,7 @@ EventOfClient61SetGameMatch::
 GameClientPaneJfx::
     public GameClientPaneJfx(
             IModelOfClient iModelOfClient,
-            TransportOfClient transportOfClient) {
+            ISenderOfEventOfClient senderOfEventOfClient) {
       Ищется Jfx класс выборки.
       Ищется конструктор выборки.
       Вызывается конструктор и создаются выборки.

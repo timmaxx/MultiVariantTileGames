@@ -13,12 +13,12 @@ import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
-import timmax.tilegame.transport.TransportOfClient;
+import timmax.tilegame.transport.ISenderOfEventOfClient;
 
 //  ToDo:   Переименовать во что-то типа "Отправитель сообщений клиента",
 //          и в т.ч. класс не является наследником WebSocketClient.
 // WebSocket клиент многоразовый
-public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
+public class MultiGameWebSocketClientManyTimesUse implements ISenderOfEventOfClient {
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketClientManyTimesUse.class);
 
     //  ToDo:   ObjectMapperOfMvtg mapper сделать синглтоном.
@@ -32,7 +32,7 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
     //       - на сервере переменных типов TransportOfServer и RemoteClientStateAutomaton.
     //       Переменные типов WebSocketClient и LocalClientStateAutomaton на клиенте на одном уровне.
     //       А для сервера переменная типа TransportOfServer входит в состав RemoteClientStateAutomaton.
-    private WebSocketClient transportOfClient;
+    private WebSocketClient webSocketClient;
 
     public MultiGameWebSocketClientManyTimesUse(LocalClientStateAutomaton localClientStateAutomatonJfx) {
         super();
@@ -46,32 +46,32 @@ public class MultiGameWebSocketClientManyTimesUse implements TransportOfClient {
         logger.info("Outcoming message. EventOfClient: {}.", eventOfClient);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         mapper.writeValue(byteArrayOutputStream, eventOfClient);
-        transportOfClient.send(byteArrayOutputStream.toByteArray());
+        webSocketClient.send(byteArrayOutputStream.toByteArray());
     }
 
     // interface TransportOfClient
     @Override
     public void close() {
-        if (transportOfClient == null) {
+        if (webSocketClient == null) {
             return;
         }
-        transportOfClient.close();
-        transportOfClient = null;
+        webSocketClient.close();
+        webSocketClient = null;
     }
 
     @Override
     public void connect() {
-        transportOfClient = new MultiGameWebSocketClient(uri, this);
-        transportOfClient.connect();
+        webSocketClient = new MultiGameWebSocketClient(uri, this);
+        webSocketClient.connect();
     }
 
     @Override
     public void setURI(URI uri) {
         this.uri = uri;
-        if (transportOfClient == null) {
+        if (webSocketClient == null) {
             return;
         }
-        transportOfClient.close();
+        webSocketClient.close();
     }
 
     @Override

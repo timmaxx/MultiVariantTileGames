@@ -6,11 +6,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-import timmax.tilegame.transport.TransportOfClient;
+import timmax.tilegame.transport.ISenderOfEventOfClient;
 
 public class Pane02ConnectNonIdent extends AbstractConnectStatePane {
-    public Pane02ConnectNonIdent(TransportOfClient transportOfClient) {
-        super(transportOfClient);
+    public Pane02ConnectNonIdent(ISenderOfEventOfClient senderOfEventOfClient) {
+        super(senderOfEventOfClient);
 
         // 1 (обязательные)
         // Контролы для продвижения состояния "вперёд":
@@ -26,7 +26,7 @@ public class Pane02ConnectNonIdent extends AbstractConnectStatePane {
         nextStateButton.setText("Login");
         nextStateButton.setOnAction(event -> {
             disableAllControls();
-            transportOfClient.identifyAuthenticateAuthorizeUser(userNameTextField.getText(), userPasswordField.getText());
+            senderOfEventOfClient.identifyAuthenticateAuthorizeUser(userNameTextField.getText(), userPasswordField.getText());
         });
 
         // Контролы для продвижения состояния "назад":
@@ -34,7 +34,7 @@ public class Pane02ConnectNonIdent extends AbstractConnectStatePane {
         prevStateButton.setFocusTraversable(false);
         prevStateButton.setOnAction(event -> {
             disableAllControls();
-            transportOfClient.connectWithoutUserIdentify();
+            senderOfEventOfClient.connectWithoutUserIdentify();
         });
 
         // 1

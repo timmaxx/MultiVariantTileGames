@@ -6,13 +6,13 @@ import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
 
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.transport.TransportOfClient;
+import timmax.tilegame.transport.ISenderOfEventOfClient;
 
 public class Pane04GameTypeSetSelected extends AbstractConnectStatePane {
     private final ComboBox<String> gameTypeSetComboBox;
 
-    public Pane04GameTypeSetSelected(TransportOfClient transportOfClient) {
-        super(transportOfClient);
+    public Pane04GameTypeSetSelected(ISenderOfEventOfClient senderOfEventOfClient) {
+        super(senderOfEventOfClient);
 
         // 1 (обязательные)
         // Контролы для продвижения состояния "вперёд":
@@ -26,7 +26,7 @@ public class Pane04GameTypeSetSelected extends AbstractConnectStatePane {
             }
             //  Warning:(27, 13) Raw use of parameterized class 'GameType'
             GameType gameType =
-                    transportOfClient
+                    senderOfEventOfClient
                             .getLocalClientStateAutomaton()
                             .getGameTypeSet()
                             .stream()
@@ -37,7 +37,7 @@ public class Pane04GameTypeSetSelected extends AbstractConnectStatePane {
                 return;
             }
             disableAllControls();
-            transportOfClient.setGameType(gameType);
+            senderOfEventOfClient.setGameType(gameType);
         });
 
         // Контролы для продвижения состояния "назад":
@@ -45,7 +45,7 @@ public class Pane04GameTypeSetSelected extends AbstractConnectStatePane {
         prevStateButton.setFocusTraversable(false);
         prevStateButton.setOnAction(event -> {
             disableAllControls();
-            transportOfClient.reauthorizeUser();
+            senderOfEventOfClient.reauthorizeUser();
         });
 
 
@@ -79,7 +79,7 @@ public class Pane04GameTypeSetSelected extends AbstractConnectStatePane {
     public void updateOnAuthorizeUser() {
         gameTypeSetComboBox.setItems(
                 FXCollections.observableArrayList(
-                        transportOfClient
+                        senderOfEventOfClient
                                 .getLocalClientStateAutomaton()
                                 .getGameTypeSet()
                                 .stream()
