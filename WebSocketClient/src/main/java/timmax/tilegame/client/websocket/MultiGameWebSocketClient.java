@@ -1,10 +1,8 @@
 package timmax.tilegame.client.websocket;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.net.URI;
 import java.nio.ByteBuffer;
-import java.util.Map;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
@@ -14,8 +12,6 @@ import org.slf4j.LoggerFactory;
 import timmax.common.ObjectMapperOfMvtg;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 import timmax.tilegame.transport.TransportOfClient;
 
 // Этот класс, к сожалению, я не смог использовать "многоразово".
@@ -25,15 +21,20 @@ import timmax.tilegame.transport.TransportOfClient;
 // - соответственно и работающий метод void setURI(URI uriFromControls) в этом классе не возможен,
 //   но тогда пусть он бросает исключение.
 
-public class MultiGameWebSocketClient extends WebSocketClient implements TransportOfClient {
+public class MultiGameWebSocketClient extends WebSocketClient {
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketClient.class);
 
+    //  ToDo:   ObjectMapperOfMvtg mapper сделать синглтоном.
     private final ObjectMapperOfMvtg mapper = new ObjectMapperOfMvtg();
     private final TransportOfClient modelMultiGameWebSocketClientManyTimesUse;
 
     public MultiGameWebSocketClient(URI serverUri, TransportOfClient modelMultiGameWebSocketClientManyTimesUse) {
         super(serverUri);
         this.modelMultiGameWebSocketClientManyTimesUse = modelMultiGameWebSocketClientManyTimesUse;
+    }
+
+    private LocalClientStateAutomaton getLocalClientStateAutomaton() {
+        return modelMultiGameWebSocketClientManyTimesUse.getLocalClientStateAutomaton();
     }
 
     // class WebSocketClient:
@@ -67,7 +68,7 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         // ToDo: События, поступающие от сервера для разных выборок, нужно складывать в очередь и обрабатывать после
         //       того, как будут обработаны предыдущие.
         //       Также см. комментарий в EventOfServer92GameEvent :: void executeOnClient(...).
-        eventOfServer.executeOnClient(modelMultiGameWebSocketClientManyTimesUse.getLocalClientStateAutomaton());
+        eventOfServer.executeOnClient(getLocalClientStateAutomaton());
         logger.debug("  Main game client status: {}.", modelMultiGameWebSocketClientManyTimesUse);
     }
 
@@ -77,80 +78,4 @@ public class MultiGameWebSocketClient extends WebSocketClient implements Transpo
         logger.error("  Main game client status: {}.", modelMultiGameWebSocketClientManyTimesUse);
         System.exit(1);
     }
-
-    // interface TransportOfClient:
-    //  ToDo:   Все методы ниже лучше вынести из этого класса, т.к. они:
-    //          1. не используются в методах выше (это методы, которые вызываются при возникновении событий,
-    //             связанных с WebSocketClient).
-    //          2.1. методы нмже вызываются тогда, когда приложение собирается что-то настроить, прочитать или
-    //               отправить корреспондентам (т.е. каким-то WebSocket),
-    //          Хотя WebSocketClient реализует интерфейс WebSocket.
-    @Override
-    public void setURI(URI uriFromControls) {
-        String errLogMessage = "You can not use this method!";
-        logger.error(errLogMessage);
-        throw new RuntimeException(errLogMessage);
-    }
-
-    @Override
-    public void sendEventOfClient(EventOfClient eventOfClient) {
-        logger.info("Outcoming message. EventOfClient: {}.", eventOfClient);
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        mapper.writeValue(byteArrayOutputStream, eventOfClient);
-        send(byteArrayOutputStream.toByteArray());
-    }
-
-    @Override
-    public LocalClientStateAutomaton getLocalClientStateAutomaton() {
-        return modelMultiGameWebSocketClientManyTimesUse.getLocalClientStateAutomaton();
-    }
-
-    // interface TransportOfClient:
-    // 1
-    @Override
-    public void connectWithoutUserIdentify() {
-        sendEventOfClient(new EventOfClient11ConnectWithoutUserIdentify());
-    }
-
-    // 2
-    @Override
-    public void identifyAuthenticateAuthorizeUser(String userName, String password) {
-        sendEventOfClient(new EventOfClient21IdentifyAuthenticateAuthorizeUser(userName, password));
-    }
-
-    // 4
-    @Override
-    public void reauthorizeUser() {
-        sendEventOfClient(new EventOfClient42ReauthorizeUser());
-    }
-
-    @Override
-    //  Warning:(125, 32) Raw use of parameterized class 'GameType'
-    public void setGameType(GameType gameType) {
-        sendEventOfClient(new EventOfClient41SetGameType(gameType.getId()));
-    }
-
-    // 6
-    @Override
-    public void resetGameType() {
-        sendEventOfClient(new EventOfClient62ResetGameType());
-    }
-
-    @Override
-    public void setGameMatch(GameMatchDto gameMatchDto) {
-        sendEventOfClient(new EventOfClient61SetGameMatch(gameMatchDto));
-    }
-
-    // 7
-    @Override
-    public void resetGameMatch() {
-        sendEventOfClient(new EventOfClient72ResetGameMatch());
-    }
-
-    @Override
-    public void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue) {
-        sendEventOfClient(new EventOfClient71StartGameMatch(mapOfParamsOfModelValue));
-    }
-
-    // 8
 }
