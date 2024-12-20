@@ -16,8 +16,8 @@ public class RemoteClientState06GameTypeWasSet extends ClientState06GameTypeWasS
     //  class State
     @Override
     public void doAfterTurnOn() {
-        getBaseStateAutomaton().getTransportOfServer().sendEventOfServer(
-                getBaseStateAutomaton().getClientId(),
+        getBaseStateAutomaton().getSenderOfEventOfServer().sendEventOfServer(
+                getBaseStateAutomaton().getWebSocket(),
                 new EventOfServer41SetGameType(
                         getBaseStateAutomaton().getGameType().getId(),
                         //  ToDo:   Избавиться от приведения типа.

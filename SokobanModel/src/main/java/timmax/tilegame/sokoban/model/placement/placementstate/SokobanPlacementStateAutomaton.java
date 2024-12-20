@@ -149,10 +149,10 @@ public class SokobanPlacementStateAutomaton extends GameObjectsPlacementStateAut
         WhoPersistentInTile whoPersistentInTileBefore = getWhoPersistentInTile(xyCoordinate);
         WhoMovableInTile whoMovableInTile = getWhoMovableInTile(xyCoordinate);
         //  ToDo:   Вместо
-        //          getGameObjectStateAutomaton().getGameObject().getGameObjectsPlacement().getGameMatch().getRemoteClientStateAutomaton().getTransportOfServer()
-        //          сделать getTransportOfServer(), который будет доставаться сразу из свойств сервера.
+        //          getGameObjectStateAutomaton().getGameObject().getGameObjectsPlacement().getGameMatch().getRemoteClientStateAutomaton().getSenderOfEventOfServer()
+        //          сделать getSenderOfEventOfServer(), который будет доставаться сразу из свойств сервера.
         //  Warning:(151, 9) Unchecked call to 'sendGameEventToAllViews(GameEvent, Map<String, Class<? extends View>>)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton'
-        getGameMatch().getRemoteClientStateAutomaton().getTransportOfServer().sendGameEventToAllViews(
+        getGameMatch().getRemoteClientStateAutomaton().getSenderOfEventOfServer().sendGameEventToAllViews(
                 getGameMatch().getMatchPlayerList(),
                 new GameEventOneTileSokobanChangeable(xyCoordinate, whoPersistentInTileBefore, whoMovableInTile),
                 //  Warning:(155, 17) Unchecked assignment: 'java.util.Map' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'. Reason: 'getGameMatch().getGameType()' has raw type, so result of getViewName_ViewClassMap is erased

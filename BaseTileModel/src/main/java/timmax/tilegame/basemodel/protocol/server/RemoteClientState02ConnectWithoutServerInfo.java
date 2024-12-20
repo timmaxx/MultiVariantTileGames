@@ -12,8 +12,8 @@ public class RemoteClientState02ConnectWithoutServerInfo extends ClientState02Co
     @Override
     public void doAfterTurnOn() {
         getBaseStateAutomaton().setGameTypeSet(GameTypeFabric.GAME_TYPE_SET);
-        getBaseStateAutomaton().getTransportOfServer().sendEventOfServer(
-                getBaseStateAutomaton().getClientId(),
+        getBaseStateAutomaton().getSenderOfEventOfServer().sendEventOfServer(
+                getBaseStateAutomaton().getWebSocket(),
                 new EventOfServer11ConnectWithoutUserIdentify(getBaseStateAutomaton().getGameTypeSet())
         );
     }

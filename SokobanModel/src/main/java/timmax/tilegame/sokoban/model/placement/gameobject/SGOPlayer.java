@@ -42,17 +42,17 @@ public class SGOPlayer extends SGOCollisionMovableObject {
             // public Set<GameObject> getGameObjectSetFilteredByGameObjectClass(Class<GameObject> gameObjectClass)
 
             // for (SGOBox sgoBox1 : getGameObjectsPlacement().getBoxes())
-            for (GameObject gameObject : (/*(Set<SGOBox>)*/(getGameObjectsPlacement().getGameObjectSetFilteredByGameObjectClass(SGOBox.class)))) {
+            for (GameObject gameObject : getGameObjectsPlacement().getGameObjectSetFilteredByGameObjectClass(SGOBox.class)) {
                 if (gameObject instanceof SGOBox sgoBox1) {
                     countBoxesOnHomes += sgoBox1.countOnHome();
                 }
             }
 
             //  ToDo:   Вместо
-            //          getGameObjectStateAutomaton().getGameObject().getGameObjectsPlacement().getGameMatch().getRemoteClientStateAutomaton().getTransportOfServer()
-            //          сделать getTransportOfServer(), который будет доставаться сразу из свойств сервера.
+            //          getGameObjectStateAutomaton().getGameObject().getGameObjectsPlacement().getGameMatch().getRemoteClientStateAutomaton().getSenderOfEventOfServer()
+            //          сделать getSenderOfEventOfServer(), который будет доставаться сразу из свойств сервера.
             //  Warning:(51, 13) Unchecked call to 'sendGameEventToAllViews(GameEvent, Map<String, Class<? extends View>>)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton'
-            getGameObjectsPlacement().getGameMatch().getRemoteClientStateAutomaton().getTransportOfServer().sendGameEventToAllViews(
+            getGameObjectsPlacement().getGameMatch().getRemoteClientStateAutomaton().getSenderOfEventOfServer().sendGameEventToAllViews(
                     getGameObjectsPlacement().getGameMatch().getMatchPlayerList(),
                     new GameEventSokobanVariableParamsCountOfBoxesInHouses(countBoxesOnHomes),
                     //  Warning:(55, 21) Unchecked assignment: 'java.util.Map' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'. Reason: 'getGameObjectsPlacement().getGameMatch().getGameType()' has raw type, so result of getViewName_ViewClassMap is erased

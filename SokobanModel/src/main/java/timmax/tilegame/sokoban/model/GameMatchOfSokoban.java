@@ -74,9 +74,9 @@ public class GameMatchOfSokoban extends GameMatch {
         setStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
         currentLevel.incValue();
         //  ToDo:   Вместо
-        //          getRemoteClientStateAutomaton().getTransportOfServer()
-        //          сделать getTransportOfServer(), который будет доставаться сразу из свойств сервера.
-        getRemoteClientStateAutomaton().getTransportOfServer().sendGameEventToAllViews(
+        //          getRemoteClientStateAutomaton().getSenderOfEventOfServer()
+        //          сделать getSenderOfEventOfServer(), который будет доставаться сразу из свойств сервера.
+        getRemoteClientStateAutomaton().getSenderOfEventOfServer().sendGameEventToAllViews(
                 getRemoteClientStateAutomaton().getGameMatchX().getMatchPlayerList(),
                 new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL),
                 getGameType().getViewName_ViewClassMap()
@@ -90,9 +90,9 @@ public class GameMatchOfSokoban extends GameMatch {
         setStatus(FORCE_RESTART_OR_CHANGE_LEVEL);
         currentLevel.decValue();
         //  ToDo:   Вместо
-        //          getRemoteClientStateAutomaton().getTransportOfServer()
-        //          сделать getTransportOfServer(), который будет доставаться сразу из свойств сервера.
-        getRemoteClientStateAutomaton().getTransportOfServer().sendGameEventToAllViews(
+        //          getRemoteClientStateAutomaton().getSenderOfEventOfServer()
+        //          сделать getSenderOfEventOfServer(), который будет доставаться сразу из свойств сервера.
+        getRemoteClientStateAutomaton().getSenderOfEventOfServer().sendGameEventToAllViews(
                 getRemoteClientStateAutomaton().getGameMatchX().getMatchPlayerList(),
                 new GameEventGameOver(FORCE_RESTART_OR_CHANGE_LEVEL),
                 //  Warning:(92, 17) Unchecked assignment: 'java.util.Map' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'. Reason: 'getGameType()' has raw type, so result of getViewName_ViewClassMap is erased

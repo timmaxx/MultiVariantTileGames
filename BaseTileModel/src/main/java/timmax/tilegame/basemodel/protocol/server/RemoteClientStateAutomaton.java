@@ -6,7 +6,7 @@ import timmax.tilegame.transport.ISenderOfEventOfServer;
 
 //  Автомат состояний клиента, работающий на сервере и учитывающий состояния удалённых клиентов.
 public class RemoteClientStateAutomaton extends ClientStateAutomaton<IGameMatch> {
-    private final WebSocket clientId;
+    private final WebSocket webSocket;
 
     // ToDo: Удалить ISenderOfEventOfServer senderOfEventOfServer.
     //       Вместо того, чтобы хранить переменную типа ISenderOfEventOfServer здесь, нужно рассмотреть вариант по передаче
@@ -28,23 +28,23 @@ public class RemoteClientStateAutomaton extends ClientStateAutomaton<IGameMatch>
     private final ISenderOfEventOfServer senderOfEventOfServer;
 
     public RemoteClientStateAutomaton(
-            WebSocket clientId,
+            WebSocket webSocket,
             IFabricOfRemoteClientStates fabricOfClientStatesForServer,
             //  ToDo:   Удалить.
             ISenderOfEventOfServer senderOfEventOfServer) {
         super(fabricOfClientStatesForServer);
-        this.clientId = clientId;
+        this.webSocket = webSocket;
         //  ToDo:   Удалить.
         this.senderOfEventOfServer = senderOfEventOfServer;
         changeStateFrom01To02_();
     }
 
-    public WebSocket getClientId() {
-        return clientId;
+    public WebSocket getWebSocket() {
+        return webSocket;
     }
 
     //  ToDo:   Удалить.
-    public ISenderOfEventOfServer getTransportOfServer() {
+    public ISenderOfEventOfServer getSenderOfEventOfServer() {
         return senderOfEventOfServer;
     }
 

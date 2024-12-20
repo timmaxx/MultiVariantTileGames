@@ -14,7 +14,7 @@ public class RemoteClientState08GameMatchIsPlaying extends ClientState08GameMatc
         //  Именно из-за того, что информация могла быть сформирована не такая, какая пришла,
         //  клиенту будет отправлена информация, которая была сформирована при вызове предыдущего метода.
         //  (Клиент, после получения этого события только строит главную выборку (пустую доску)).
-        getBaseStateAutomaton().getTransportOfServer().sendEventOfServer(
+        getBaseStateAutomaton().getSenderOfEventOfServer().sendEventOfServer(
                 //  Предыдущие RemoteClientState02-07 отправляли сообщение конкретному клиенту.
                 //  Этот должен отправить уже нескольким клиентам - пользователям, являющимися игроками данного матча.
                 getBaseStateAutomaton().getGameMatchX().getMatchPlayerList(),
