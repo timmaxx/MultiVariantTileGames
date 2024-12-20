@@ -2,40 +2,40 @@ package timmax.tilegame.basemodel.protocol.server;
 
 import org.java_websocket.WebSocket;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
-import timmax.tilegame.transport.TransportOfServer;
+import timmax.tilegame.transport.ISenderOfEventOfServer;
 
 //  Автомат состояний клиента, работающий на сервере и учитывающий состояния удалённых клиентов.
 public class RemoteClientStateAutomaton extends ClientStateAutomaton<IGameMatch> {
     private final WebSocket clientId;
 
-    // ToDo: Удалить TransportOfServer<ClientId> multiGameWebSocketServer.
-    //       Вместо того, чтобы хранить переменную типа TransportOfServer здесь, нужно рассмотреть вариант по передаче
+    // ToDo: Удалить ISenderOfEventOfServer senderOfEventOfServer.
+    //       Вместо того, чтобы хранить переменную типа ISenderOfEventOfServer здесь, нужно рассмотреть вариант по передаче
     //       её как параметра в те методы, где она нужна.
-    // ToDo: Удалить TransportOfServer<ClientId> multiGameWebSocketServer.
-    //       1. TransportOfClient - LocalClientStateAutomaton:
-    //         - В MultiGameWebSocketClientManyTimesUse есть переменная LocalClientStateAutomaton.
-    //         - В LocalClientStateAutomaton нет переменной TransportOfClient (или MultiGameWebSocketClientManyTimesUse).
-    //           И как-то без этого обходится.
-    //       2. TransportOfServer - Map<WebSocket, RemoteClientStateAutomaton<WebSocket>>
+    // ToDo: Удалить ISenderOfEventOfServer senderOfEventOfServer.
+    //       1. ISenderOfEventOfClient - LocalClientStateAutomaton:
+    //         - В SenderOfEventOfClient есть переменная LocalClientStateAutomaton.
+    //         - В LocalClientStateAutomaton нет переменной ISenderOfEventOfClient (или SenderOfEventOfClient).
+    //           И как-то без этого обходится!
+    //       2. ISenderOfEventOfServer - Map<WebSocket, RemoteClientStateAutomaton<WebSocket>>
     //         - В MultiGameWebSocketServer есть мапа WebSocket -> RemoteClientStateAutomaton
-    //         - В RemoteClientStateAutomaton есть переменная TransportOfServer.
+    //         - В RemoteClientStateAutomaton есть переменная ISenderOfEventOfServer.
     //           Почему-же здесь нужна эта переменная?
     // ToDo: Привести к единому виду взаимоиспользование:
-    //       - на клиенте переменных типов TransportOfClient и LocalClientStateAutomaton,
-    //       - на сервере переменных типов TransportOfServer и RemoteClientStateAutomaton.
-    //       Переменные типов TransportOfClient и LocalClientStateAutomaton на клиенте на одном уровне.
-    //       А для сервера переменная типа TransportOfServer входит в состав RemoteClientStateAutomaton.
-    private final TransportOfServer multiGameWebSocketServer;
+    //       - на клиенте переменных типов ISenderOfEventOfClient и LocalClientStateAutomaton,
+    //       - на сервере переменных типов ISenderOfEventOfServer и RemoteClientStateAutomaton.
+    //       Переменные типов ISenderOfEventOfClient и LocalClientStateAutomaton на клиенте на одном уровне.
+    //       А для сервера переменная типа ISenderOfEventOfServer входит в состав RemoteClientStateAutomaton.
+    private final ISenderOfEventOfServer senderOfEventOfServer;
 
     public RemoteClientStateAutomaton(
             WebSocket clientId,
             IFabricOfRemoteClientStates fabricOfClientStatesForServer,
             //  ToDo:   Удалить.
-            TransportOfServer multiGameWebSocketServer) {
+            ISenderOfEventOfServer senderOfEventOfServer) {
         super(fabricOfClientStatesForServer);
         this.clientId = clientId;
         //  ToDo:   Удалить.
-        this.multiGameWebSocketServer = multiGameWebSocketServer;
+        this.senderOfEventOfServer = senderOfEventOfServer;
         changeStateFrom01To02_();
     }
 
@@ -44,8 +44,8 @@ public class RemoteClientStateAutomaton extends ClientStateAutomaton<IGameMatch>
     }
 
     //  ToDo:   Удалить.
-    public TransportOfServer getTransportOfServer() {
-        return multiGameWebSocketServer;
+    public ISenderOfEventOfServer getTransportOfServer() {
+        return senderOfEventOfServer;
     }
 
     @Override

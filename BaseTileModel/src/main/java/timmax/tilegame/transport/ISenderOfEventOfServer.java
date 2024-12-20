@@ -9,8 +9,7 @@ import org.java_websocket.WebSocket;
 
 import java.util.Map;
 
-//  ToDo:   Переименовать в BaseSenderOfEventOfServer
-public interface TransportOfServer {
+public interface ISenderOfEventOfServer {
     void sendEventOfServer(WebSocket webSocket, EventOfServer eventOfServer);
 
     //  Не стал определять этот метод в interface TransportOfServer, поэтому не @Override.

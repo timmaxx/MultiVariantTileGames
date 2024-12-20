@@ -22,12 +22,12 @@ import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent;
 import timmax.tilegame.basemodel.protocol.server.MatchPlayerList;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 import timmax.tilegame.baseview.View;
-import timmax.tilegame.transport.TransportOfServer;
+import timmax.tilegame.transport.ISenderOfEventOfServer;
 
 //  ToDo:   Разделить на два класса:
 //          1. MultiGameWebSocketServer
 //          2. SenderOfEventOfServer
-public class MultiGameWebSocketServer extends WebSocketServer implements TransportOfServer {
+public class MultiGameWebSocketServer extends WebSocketServer implements ISenderOfEventOfServer {
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketServer.class);
 
     private final ObjectMapperOfMvtg mapper;
