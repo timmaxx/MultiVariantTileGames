@@ -1,8 +1,14 @@
 package timmax.tilegame.server.websocket;
 
+import org.java_websocket.WebSocket;
+import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
+import timmax.tilegame.transport.ISenderOfEventOfServer;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MultiGameWebSocketServerStarter {
     public static void main(String[] args) throws InterruptedException, IOException {
@@ -12,7 +18,10 @@ public class MultiGameWebSocketServerStarter {
         } catch (Exception ex) {
             port = 8887; // 843 flash policy port
         }
-        MultiGameWebSocketServer multiGameWebSocketServer = new MultiGameWebSocketServer(port);
+
+        Map<WebSocket, RemoteClientStateAutomaton> webSocket_RemoteClientStateAutomaton_Map = new HashMap<>();
+        ISenderOfEventOfServer senderOfEventOfServer = new SenderOfEventOfServer(webSocket_RemoteClientStateAutomaton_Map);
+        MultiGameWebSocketServer multiGameWebSocketServer = new MultiGameWebSocketServer(port, webSocket_RemoteClientStateAutomaton_Map, senderOfEventOfServer);
 /*
         // Вариант работы с непойманными исключениями, которые могли возникнуть в дочерних потоках-нитях:
         {
