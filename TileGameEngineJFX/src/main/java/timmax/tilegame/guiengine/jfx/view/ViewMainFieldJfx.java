@@ -9,6 +9,7 @@ import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
 import timmax.tilegame.basemodel.protocol.server.GameType;
+import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 import timmax.tilegame.guiengine.jfx.GameClientPaneJfx;
 import timmax.tilegame.transport.ISenderOfEventOfClient;
 
@@ -29,7 +30,7 @@ public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
             ISenderOfEventOfClient senderOfEventOfClient,
             BaseController baseController,
             String viewName,
-            GameType gameType) {
+            GameType<IGameMatchX> gameType) {
         super(senderOfEventOfClient, baseController, viewName, gameType);
 
         setOnMouseClicked(event ->

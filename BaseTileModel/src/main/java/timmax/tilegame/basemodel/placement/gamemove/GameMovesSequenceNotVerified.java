@@ -1,12 +1,13 @@
 package timmax.tilegame.basemodel.placement.gamemove;
 
 import timmax.tilegame.basemodel.protocol.server.GameType;
+import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 
 import java.util.ArrayList;
 
 //  Последовательность игровых ходов (матча) (без приложения к начальной расстановке)
 public abstract class GameMovesSequenceNotVerified {
-    private final GameType gameType;
+    private final GameType<IGameMatchX> gameType;
     //  Список массивов (1 или 2 длина массива) игровых ходов.
     //  Длина массива должна быть равной количеству игроков матча
     //  (для игр с одним игроком - длина массива 1, для игр с двумя игроками - длина массива - 2).
@@ -17,7 +18,7 @@ public abstract class GameMovesSequenceNotVerified {
     private int playerIndexOfNextAfterLastMove;
 
     public GameMovesSequenceNotVerified(
-            GameType gameType,
+            GameType<IGameMatchX> gameType,
             ArrayList<GameMove[]> gameMoveArray_ListArray,
             int playerIndexOfFirstMove,
             int playerIndexOfNextAfterLastMove) {
@@ -36,7 +37,7 @@ public abstract class GameMovesSequenceNotVerified {
         this.playerIndexOfNextAfterLastMove = playerIndexOfNextAfterLastMove;
     }
 
-    public GameType getGameType() {
+    public GameType<IGameMatchX> getGameType() {
         return gameType;
     }
 /*

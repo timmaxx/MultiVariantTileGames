@@ -8,6 +8,7 @@ import java.util.Set;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
+import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 
 //  Событие сервера с именем типа игры и перечнем матчей, которые доступны пользователю.
 public class EventOfServer41SetGameType extends EventOfServer {
@@ -28,7 +29,7 @@ public class EventOfServer41SetGameType extends EventOfServer {
     // class EventOfServer
     @Override
     public void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton) {
-        GameType gameType =
+        GameType<IGameMatchX> gameType =
                 localClientStateAutomaton
                         .getGameTypeSet()
                         .stream()
@@ -48,8 +49,8 @@ public class EventOfServer41SetGameType extends EventOfServer {
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         gameTypeName = (String) in.readObject();
-        // ToDo: Избавиться от "Warning:(58, 27) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.protocol.server_client.GameMatchDto>'"
-        //       Например как в readExternal в EventOfServer41SetGameTypeSet
+        //  Warning:(54, 27) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.protocol.server_client.GameMatchDto>'
+        //  Например, как в readExternal в EventOfServer41SetGameTypeSet
         gameMatchDtoSet = (Set<GameMatchDto>) in.readObject();
     }
 

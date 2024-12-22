@@ -2,15 +2,14 @@ package timmax.tilegame.basemodel.protocol.server_client;
 
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
-public abstract class ClientState04UserWasAuthorized<GameMatchX extends IGameMatchX> extends ClientState03ConnectWithServerInfo<GameMatchX> {
-    public ClientState04UserWasAuthorized(ClientStateAutomaton<GameMatchX> clientStateAutomaton) {
+public abstract class ClientState04UserWasAuthorized extends ClientState03ConnectWithServerInfo {
+    public ClientState04UserWasAuthorized(ClientStateAutomaton clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 
     // interface IClientState04GameTypeSetSelected
     @Override
-    //      Warning:(14, 12) Raw use of parameterized class 'GameType'
-    public GameType getGameType() {
+    public GameType<IGameMatchX> getGameType() {
         return getBaseStateAutomaton().getGameType_();
     }
 
@@ -20,7 +19,7 @@ public abstract class ClientState04UserWasAuthorized<GameMatchX extends IGameMat
     }
 
     @Override
-    public void setGameType(GameType gameType) {
+    public void setGameType(GameType<IGameMatchX> gameType) {
         getBaseStateAutomaton().setGameType_(gameType);
     }
 }

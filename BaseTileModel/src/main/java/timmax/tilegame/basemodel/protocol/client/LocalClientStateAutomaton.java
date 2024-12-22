@@ -6,7 +6,6 @@ import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEventHashSet;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.server.ParamName_paramModelDescriptionMap;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
 import timmax.tilegame.basemodel.protocol.server_client.IFabricOfClientStates;
 import timmax.tilegame.baseview.View;
@@ -16,12 +15,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 //  Автомат состояний клиента, работающий на клиенте и учитывающий состояния локального клиента.
-public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchDto> implements ObserverOnAbstractEvent {
+public class LocalClientStateAutomaton extends ClientStateAutomaton implements ObserverOnAbstractEvent {
     private final ObserverOnAbstractEventHashSet observerOnAbstractEventHashSet;
     private final Map<String, View> viewName_ViewMap;
 
-    public LocalClientStateAutomaton(
-            IFabricOfClientStates<GameMatchDto> iFabricOfClientStates) {
+    public LocalClientStateAutomaton(IFabricOfClientStates iFabricOfClientStates) {
         super(iFabricOfClientStates);
 
         observerOnAbstractEventHashSet = new ObserverOnAbstractEventHashSet();
@@ -44,7 +42,6 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton<GameMatchDto
     //       (см. конструктор класса GameClientPaneJfx), выполнялось в мапе viewName_ViewClassMap.
     //       Поэтому пришлось сделать его public. Но это не хорошо!
     public Map<String, Class<? extends View>> getViewName_ViewClassMap() {
-        //  Warning:(51, 16) Unchecked assignment: 'java.util.Map' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'. Reason: 'getGameType_()' has raw type, so result of getViewName_ViewClassMap is erased
         return getGameType_().getViewName_ViewClassMap();
     }
 

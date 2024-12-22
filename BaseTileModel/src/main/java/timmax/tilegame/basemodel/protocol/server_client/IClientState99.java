@@ -1,11 +1,11 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
-public interface IClientState99<GameMatchX extends IGameMatchX> extends
+public interface IClientState99 extends
         IClientState01NoConnect,
         IClientState02ConnectWithoutServerInfo,
         IClientState03ConnectWithServerInfo,
-        IClientState04UserWasAuthorized<GameMatchX>,
-        IClientState06GameTypeWasSet<GameMatchX>,
-        IClientState07GameMatchWasSet<GameMatchX>,
+        IClientState04UserWasAuthorized,
+        IClientState06GameTypeWasSet,
+        IClientState07GameMatchWasSet,
         IClientState08GameMatchIsPlaying {
 }

@@ -10,17 +10,15 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Set;
 
-public abstract class ClientState<GameMatchX extends IGameMatchX>
-        extends State implements IClientState99<GameMatchX> {
+public abstract class ClientState extends State implements IClientState99 {
     protected static final Logger logger = LoggerFactory.getLogger(ClientState.class);
 
-    public ClientState(ClientStateAutomaton<GameMatchX> clientStateAutomaton) {
+    public ClientState(ClientStateAutomaton clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 
-    public ClientStateAutomaton<GameMatchX> getBaseStateAutomaton() {
-        //  Warning:(22, 16) Unchecked cast: 'timmax.state.StateAutomaton' to 'timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton<GameMatchX>'
-        return (ClientStateAutomaton<GameMatchX>) super.getBaseStateAutomaton();
+    public ClientStateAutomaton getBaseStateAutomaton() {
+        return (ClientStateAutomaton) super.getBaseStateAutomaton();
     }
 
     // interface IClientState01NoConnect
@@ -37,7 +35,7 @@ public abstract class ClientState<GameMatchX extends IGameMatchX>
     }
 
     @Override
-    public void setGameTypeSet(Set<GameType> gameTypeSet) {
+    public void setGameTypeSet(Set<GameType<IGameMatchX>> gameTypeSet) {
         throw new WrongMethodInvokeForCurrentStateException(getBaseStateAutomaton().getCurrentState());
     }
 
@@ -53,18 +51,18 @@ public abstract class ClientState<GameMatchX extends IGameMatchX>
 
     // interface IClientState04GameTypeSetSelected
     @Override
-    public Set<GameType> getGameTypeSet() {
+    public Set<GameType<IGameMatchX>> getGameTypeSet() {
         throw new WrongMethodInvokeForCurrentStateException(getBaseStateAutomaton().getCurrentState());
     }
 
     @Override
-    public void setGameType(GameType gameType) {
+    public void setGameType(GameType<IGameMatchX> gameType) {
         throw new WrongMethodInvokeForCurrentStateException(getBaseStateAutomaton().getCurrentState());
     }
 
     // interface IClientState06GameMatchSetSelected
     @Override
-    public GameType getGameType() {
+    public GameType<IGameMatchX> getGameType() {
         throw new WrongMethodInvokeForCurrentStateException(getBaseStateAutomaton().getCurrentState());
     }
 
@@ -74,12 +72,12 @@ public abstract class ClientState<GameMatchX extends IGameMatchX>
     }
 
     @Override
-    public Set<GameMatchX> getGameMatchXSet() {
+    public Set<IGameMatchX> getGameMatchXSet() {
         throw new WrongMethodInvokeForCurrentStateException(getBaseStateAutomaton().getCurrentState());
     }
 
     @Override
-    public void setGameMatchX(GameMatchX gameMatchX) {
+    public void setGameMatchX(IGameMatchX gameMatchX) {
         throw new WrongMethodInvokeForCurrentStateException(getBaseStateAutomaton().getCurrentState());
     }
 
@@ -90,7 +88,7 @@ public abstract class ClientState<GameMatchX extends IGameMatchX>
     }
 
     @Override
-    public GameMatchX getGameMatchX() {
+    public IGameMatchX getGameMatchX() {
         throw new WrongMethodInvokeForCurrentStateException(getBaseStateAutomaton().getCurrentState());
     }
 
@@ -111,7 +109,7 @@ public abstract class ClientState<GameMatchX extends IGameMatchX>
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ClientState<?> that = (ClientState<?>) o;
+        ClientState that = (ClientState) o;
 
         return getBaseStateAutomaton().equals(that.getBaseStateAutomaton());
     }

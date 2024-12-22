@@ -10,9 +10,9 @@ public interface IClientState02ConnectWithoutServerInfo extends IClientState00 {
 
     // ---- 2 ConnectNonIdent
     //  Warning:(13, 9) Raw use of parameterized class 'GameType'
-    Set<GameType> getGameTypeSet();
+    Set<GameType<IGameMatchX>> getGameTypeSet();
 
-    void setGameTypeSet(Set<GameType> gameTypeSet);
+    void setGameTypeSet(Set<GameType<IGameMatchX>> gameTypeSet);
 
     void close();
     //  interface TransportOfClient

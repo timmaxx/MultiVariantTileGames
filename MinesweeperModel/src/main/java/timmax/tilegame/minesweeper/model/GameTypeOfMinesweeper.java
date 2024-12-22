@@ -3,7 +3,7 @@ package timmax.tilegame.minesweeper.model;
 import javafx.scene.paint.Color;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
-import timmax.tilegame.minesweeper.model.placement.gameobject.*;
+import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 
 import java.util.Set;
 
@@ -12,8 +12,7 @@ import static timmax.tilegame.basemodel.protocol.server.GameMatch.PARAM_NAME_HEI
 import static timmax.tilegame.basemodel.protocol.server.GameMatch.PARAM_NAME_WIDTH;
 import static timmax.tilegame.minesweeper.model.GameMatchOfMinesweeper.PARAM_NAME_PERCENTS_OF_MINES;
 
-//  Warning:(13, 44) Raw use of parameterized class 'GameType'
-public class GameTypeOfMinesweeper extends GameType {
+public class GameTypeOfMinesweeper extends GameType<IGameMatchX> {
 
     // ToDo: Удалить отсюда константы, описанные ниже, т.к. они относятся к визуализации.
     public static final String UNOPENED = "";
@@ -39,9 +38,12 @@ public class GameTypeOfMinesweeper extends GameType {
                 //          Сейчас это соответствие не отслеживается, например можно написать так:
                 //              Set.of(Object.class),
                 //          и компилятор ничего не скажет.
+/*
                 Set.of(MGOSMineIsNotOpenedWithFlag.class, MGOSMineIsNotOpenedWithoutFlag.class, MGOSMineIsOpened.class,
                         MGOSNoMineIsNotOpenedWithFlag.class, MGOSNoMineIsNotOpenedWithoutFlag.class, MGOSNoMineIsOpened.class
                 ),
+*/
+                Set.of(),
                 GameMatchOfMinesweeper.class,
                 UNOPENED_BACKGROUND_COLOR, UNOPENED_TEXT_COLOR, UNOPENED
         );

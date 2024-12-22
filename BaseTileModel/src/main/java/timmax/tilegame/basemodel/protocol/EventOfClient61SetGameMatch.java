@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import timmax.tilegame.basemodel.protocol.server.IGameMatch;
+import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 
@@ -31,9 +31,7 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
             return;
         }
 
-        IGameMatch iGameMatch;
-
-        iGameMatch = remoteClientStateAutomaton
+        IGameMatchX iGameMatch = remoteClientStateAutomaton
                 .getGameMatchXSet()
                 .stream()
                 .filter(x -> x.toString().equals(gameMatchDto.getId()))

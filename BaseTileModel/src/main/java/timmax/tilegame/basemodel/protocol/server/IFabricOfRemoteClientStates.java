@@ -2,19 +2,19 @@ package timmax.tilegame.basemodel.protocol.server;
 
 import timmax.tilegame.basemodel.protocol.server_client.*;
 
-public interface IFabricOfRemoteClientStates extends IFabricOfClientStates<IGameMatch> {
+public interface IFabricOfRemoteClientStates extends IFabricOfClientStates {
     @Override
-    RemoteClientState01NoConnect getClientState01NoConnect(ClientStateAutomaton<IGameMatch> clientStateAutomaton);
+    RemoteClientState01NoConnect getClientState01NoConnect(ClientStateAutomaton clientStateAutomaton);
     @Override
-    RemoteClientState02ConnectWithoutServerInfo getClientState02ConnectWithoutServerInfo(ClientStateAutomaton<IGameMatch> clientStateAutomaton);
+    RemoteClientState02ConnectWithoutServerInfo getClientState02ConnectWithoutServerInfo(ClientStateAutomaton clientStateAutomaton);
     @Override
-    RemoteClientState03ConnectWithServerInfo getClientState03ConnectWithServerInfo(ClientStateAutomaton<IGameMatch> clientStateAutomaton);
+    RemoteClientState03ConnectWithServerInfo getClientState03ConnectWithServerInfo(ClientStateAutomaton clientStateAutomaton);
     @Override
-    RemoteClientState04UserWasAuthorized getClientState04UserWasAuthorized(ClientStateAutomaton<IGameMatch> clientStateAutomaton);
+    RemoteClientState04UserWasAuthorized getClientState04UserWasAuthorized(ClientStateAutomaton clientStateAutomaton);
     @Override
-    RemoteClientState06GameTypeWasSet getClientState06GameTypeWasSet(ClientStateAutomaton<IGameMatch> clientStateAutomaton);
+    RemoteClientState06GameTypeWasSet getClientState06GameTypeWasSet(ClientStateAutomaton clientStateAutomaton);
     @Override
-    RemoteClientState07GameMatchWasSet getClientState07GameMatchWasSet(ClientStateAutomaton<IGameMatch> clientStateAutomaton);
+    RemoteClientState07GameMatchWasSet getClientState07GameMatchWasSet(ClientStateAutomaton clientStateAutomaton);
     @Override
-    RemoteClientState08GameMatchIsPlaying getClientState08GameMatchIsPlaying(ClientStateAutomaton<IGameMatch> clientStateAutomaton);
+    RemoteClientState08GameMatchIsPlaying getClientState08GameMatchIsPlaying(ClientStateAutomaton clientStateAutomaton);
 }

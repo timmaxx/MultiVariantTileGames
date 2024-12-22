@@ -3,8 +3,8 @@ package timmax.tilegame.basemodel.protocol.server;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server_client.*;
 
-public class RemoteClientState02ConnectWithoutServerInfo extends ClientState02ConnectWithoutServerInfo<IGameMatch> {
-    public RemoteClientState02ConnectWithoutServerInfo(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
+public class RemoteClientState02ConnectWithoutServerInfo extends ClientState02ConnectWithoutServerInfo {
+    public RemoteClientState02ConnectWithoutServerInfo(ClientStateAutomaton clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 
@@ -21,7 +21,6 @@ public class RemoteClientState02ConnectWithoutServerInfo extends ClientState02Co
     //  class ClientState
     @Override
     public RemoteClientStateAutomaton getBaseStateAutomaton() {
-        //  Warning:(23, 16) Unchecked cast: 'timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton' to 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton<ClientId>'
         return (RemoteClientStateAutomaton)(super.getBaseStateAutomaton());
     }
 }

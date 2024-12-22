@@ -2,10 +2,9 @@ package timmax.tilegame.basemodel.protocol.client;
 
 import timmax.tilegame.basemodel.protocol.server_client.ClientState03ConnectWithServerInfo;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 
-public class LocalClientState03ConnectWithServerInfo extends ClientState03ConnectWithServerInfo<GameMatchDto> {
-    public LocalClientState03ConnectWithServerInfo(ClientStateAutomaton<GameMatchDto> clientStateAutomaton) {
+public class LocalClientState03ConnectWithServerInfo extends ClientState03ConnectWithServerInfo {
+    public LocalClientState03ConnectWithServerInfo(ClientStateAutomaton clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 

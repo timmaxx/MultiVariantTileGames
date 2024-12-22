@@ -5,8 +5,8 @@ import timmax.tilegame.basemodel.protocol.server_client.ClientState07GameMatchWa
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 
-public class RemoteClientState07GameMatchWasSet extends ClientState07GameMatchWasSet<IGameMatch> {
-    public RemoteClientState07GameMatchWasSet(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
+public class RemoteClientState07GameMatchWasSet extends ClientState07GameMatchWasSet {
+    public RemoteClientState07GameMatchWasSet(ClientStateAutomaton clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 

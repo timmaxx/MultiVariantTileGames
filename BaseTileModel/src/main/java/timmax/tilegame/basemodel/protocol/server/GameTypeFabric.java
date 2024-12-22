@@ -2,6 +2,7 @@ package timmax.tilegame.basemodel.protocol.server;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -24,12 +25,12 @@ public class GameTypeFabric {
     //          Это, вероятно, не правильно, т.к. в модуле BaseTileModel не должны быть известны реализации.
     private static final String FILE_NAME_WITH_CLASS_NAMES_OF_GAME_TYPES = "gameTypes.txt";
 
-    public static final Set<GameType> GAME_TYPE_SET = getGameTypeSet();
+    public static final Set<GameType<IGameMatchX>> GAME_TYPE_SET = getGameTypeSet();
 
     private GameTypeFabric() {
     }
 
-    private static Set<GameType> getGameTypeSet() {
+    private static Set<GameType<IGameMatchX>> getGameTypeSet() {
         Path path = null;
         try {
             path = Paths.get(Objects.requireNonNull(GameTypeFabric.class.getResource(FILE_NAME_WITH_CLASS_NAMES_OF_GAME_TYPES)).toURI());
@@ -38,10 +39,10 @@ public class GameTypeFabric {
         }
         assert path != null : "path to file '" + FILE_NAME_WITH_CLASS_NAMES_OF_GAME_TYPES + "' must be not null";
 
-        Set<GameType> gameTypeSet = new HashSet<>();
+        Set<GameType<IGameMatchX>> gameTypeSet = new HashSet<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
             String line;
-            GameType gameType;
+            GameType<IGameMatchX> gameType;
             while ((line = reader.readLine()) != null) {
                 try {
                     // ToDo: Нужно минимизировать количество согласований в методах и между классами.
@@ -82,14 +83,14 @@ public class GameTypeFabric {
         return gameTypeSet;
     }
 
-    private static GameType create(String gameTypeFullClassName)
+    private static GameType<IGameMatchX> create(String gameTypeFullClassName)
             throws
             ClassNotFoundException,
             NoSuchMethodException,
             InvocationTargetException, InstantiationException, IllegalAccessException {
-        // ToDo: Избавиться от "Warning:(86, 51) Unchecked cast: 'java.lang.Class<capture<?>>' to 'java.lang.Class<? extends timmax.tilegame.basemodel.protocol.server.GameType>'"
-        Class<? extends GameType> gameTypeClass = (Class<? extends GameType>) Class.forName(gameTypeFullClassName);
-        Constructor<? extends GameType> constructorOfGameTypeClass = gameTypeClass.getConstructor();
+        //  Warning:(91, 64) Unchecked cast: 'java.lang.Class<capture<?>>' to 'java.lang.Class<? extends timmax.tilegame.basemodel.protocol.server.GameType<timmax.tilegame.basemodel.protocol.server_client.IGameMatchX>>'
+        Class<? extends GameType<IGameMatchX>> gameTypeClass = (Class<? extends GameType<IGameMatchX>>) Class.forName(gameTypeFullClassName);
+        Constructor<? extends GameType<IGameMatchX>> constructorOfGameTypeClass = gameTypeClass.getConstructor();
 
         return constructorOfGameTypeClass.newInstance();
     }

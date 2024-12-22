@@ -37,6 +37,7 @@ public class Pane04GameTypeSetSelected extends AbstractConnectStatePane {
                 return;
             }
             disableAllControls();
+            //  Warning:(41, 47) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.GameType' to 'timmax.tilegame.basemodel.protocol.server.GameType<timmax.tilegame.basemodel.protocol.server_client.GameMatchDto>'
             senderOfEventOfClient.setGameType(gameType);
         });
 

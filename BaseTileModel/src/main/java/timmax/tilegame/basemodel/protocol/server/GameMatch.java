@@ -9,6 +9,7 @@ import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.placement.placementstate.GameObjectsPlacementStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
+import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 
 import java.util.Map;
 import java.util.Set;
@@ -39,8 +40,7 @@ import static timmax.tilegame.basemodel.GameMatchStatus.*;
 public abstract class GameMatch implements IGameMatch {
     protected static final Logger logger = LoggerFactory.getLogger(GameMatch.class);
 
-    //  Warning:(34, 21) Raw use of parameterized class 'GameType'
-    protected final GameType gameType;
+    protected final GameType<IGameMatchX> gameType;
 
     private /*final*/ GameObjectsPlacementStateAutomaton gameObjectsPlacementStateAutomaton;
 
@@ -74,7 +74,7 @@ public abstract class GameMatch implements IGameMatch {
     //            Там создаётся конструктор через рекурсию. Но после рефакторинга, создание конструктора должно уйти в
     //            GameType.
     public GameMatch(
-            GameType gameType,
+            GameType<IGameMatchX> gameType,
             RemoteClientStateAutomaton remoteClientStateAutomaton) {
         this.gameType = gameType;
         this.matchPlayerList = new MatchPlayerList(gameType.getCountOfGamers());
@@ -106,7 +106,7 @@ public abstract class GameMatch implements IGameMatch {
         this.gameObjectsPlacementStateAutomaton = gameObjectsPlacementStateAutomaton;
     }
 
-    public GameType getGameType() {
+    public GameType<IGameMatchX> getGameType() {
         return gameType;
     }
 

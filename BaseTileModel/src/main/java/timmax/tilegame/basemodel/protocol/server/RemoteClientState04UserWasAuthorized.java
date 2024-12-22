@@ -5,14 +5,13 @@ import timmax.tilegame.basemodel.protocol.server_client.ClientState04UserWasAuth
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 
-public class RemoteClientState04UserWasAuthorized extends ClientState04UserWasAuthorized<IGameMatch> {
-    public RemoteClientState04UserWasAuthorized(ClientStateAutomaton<IGameMatch> clientStateAutomaton) {
+public class RemoteClientState04UserWasAuthorized extends ClientState04UserWasAuthorized {
+    public RemoteClientState04UserWasAuthorized(ClientStateAutomaton clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 
     @Override
-    //  Warning:(17, 32) Raw use of parameterized class 'GameType'
-    public void setGameType(GameType gameType) {
+    public void setGameType(GameType<IGameMatchX> gameType) {
         //  ToDo:   Не использовать здесь initGameMatchXSet(...), т.к. множество матчей должно поступать из:
         //          - свойств пользователя (т.е. все неоконченные матчи, участником которых он был),
         //          - новый матч для текущего типа игры (но возможно, его лучше отдельно создавать).
@@ -20,7 +19,6 @@ public class RemoteClientState04UserWasAuthorized extends ClientState04UserWasAu
         //          только один единственный матч - новый.
         //          Если удалить отсюда вызов initGameMatchXSet(...), то и всю реализацию setGameType(...)
         //          тоже можно удалять в этом классе.
-        //  Warning:(22, 9) Unchecked call to 'initGameMatchXSet(RemoteClientStateAutomaton<ClientId>)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.GameType'
         gameType.initGameMatchXSet(getBaseStateAutomaton());
 
         super.setGameType(gameType);
@@ -38,7 +36,6 @@ public class RemoteClientState04UserWasAuthorized extends ClientState04UserWasAu
     //  class ClientState
     @Override
     public RemoteClientStateAutomaton getBaseStateAutomaton() {
-        //  Warning:(40, 16) Unchecked cast: 'timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton' to 'timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton<ClientId>'
         return (RemoteClientStateAutomaton) (super.getBaseStateAutomaton());
     }
 }

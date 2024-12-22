@@ -15,30 +15,27 @@ import java.util.Set;
 //  Он будет родителем:
 //  - как для автомата состояний клиента на сервере,
 //  - так и для автомата состояний клиента на клиенте.
-public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX>
-        extends StateAutomaton
-        implements IClientState99<GameMatchX> {
+public abstract class ClientStateAutomaton extends StateAutomaton implements IClientState99 {
     protected static final Logger logger = LoggerFactory.getLogger(ClientStateAutomaton.class);
 
-    final ClientState01NoConnect<GameMatchX> clientState01NoConnect;
-    final ClientState02ConnectWithoutServerInfo<GameMatchX> clientState02ConnectWithoutServerInfo;
-    final ClientState03ConnectWithServerInfo<GameMatchX> clientState03ConnectWithServerInfo;
-    final ClientState04UserWasAuthorized<GameMatchX> clientState04UserWasAuthorized;
-    final ClientState06GameTypeWasSet<GameMatchX> clientState06GameTypeWasSet;
-    final ClientState07GameMatchWasSet<GameMatchX> clientState07GameMatchWasSet;
-    final ClientState08GameMatchIsPlaying<GameMatchX> clientState08GameMatchIsPlaying;
+    final ClientState01NoConnect clientState01NoConnect;
+    final ClientState02ConnectWithoutServerInfo clientState02ConnectWithoutServerInfo;
+    final ClientState03ConnectWithServerInfo clientState03ConnectWithServerInfo;
+    final ClientState04UserWasAuthorized clientState04UserWasAuthorized;
+    final ClientState06GameTypeWasSet clientState06GameTypeWasSet;
+    final ClientState07GameMatchWasSet clientState07GameMatchWasSet;
+    final ClientState08GameMatchIsPlaying clientState08GameMatchIsPlaying;
 
     private User user;
 
-    //      Warning:(31, 17) Raw use of parameterized class 'GameType'
-    private Set<GameType> gameTypeSet; // ---- 3 (Список типов игр)
+    private Set<GameType<IGameMatchX>> gameTypeSet; // ---- 3 (Список типов игр)
 
-    private GameType<GameMatchX> gameType; // ---- 4 (Конкретный тип игры)
+    private GameType<IGameMatchX> gameType; // ---- 4 (Конкретный тип игры)
 
-    private GameMatchX gameMatchX; // ---- 6 (Конкретная модель игры)
+    private IGameMatchX gameMatchX; // ---- 6 (Конкретная модель игры)
 
     public ClientStateAutomaton(
-            IFabricOfClientStates<GameMatchX> iFabricOfClientStates) {
+            IFabricOfClientStates iFabricOfClientStates) {
         clientState01NoConnect = iFabricOfClientStates.getClientState01NoConnect(this);
         clientState02ConnectWithoutServerInfo = iFabricOfClientStates.getClientState02ConnectWithoutServerInfo(this);
         clientState03ConnectWithServerInfo = iFabricOfClientStates.getClientState03ConnectWithServerInfo(this);
@@ -55,40 +52,40 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX>
         //          при ошибке - откатываемся в предыдущее состояние (активируем и деактивируем контролы).
         //          Можно расширить и тогда можно сделать универсальное состояние "Ожидание подтверждения".
         //          Тогда переход из состояния clientState01NoConnect в себя не понадобится.
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState01NoConnect, clientState01NoConnect));
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState01NoConnect, clientState02ConnectWithoutServerInfo));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState01NoConnect, clientState01NoConnect));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState01NoConnect, clientState02ConnectWithoutServerInfo));
 
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState02ConnectWithoutServerInfo, clientState01NoConnect));
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState02ConnectWithoutServerInfo, clientState03ConnectWithServerInfo));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState02ConnectWithoutServerInfo, clientState01NoConnect));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState02ConnectWithoutServerInfo, clientState03ConnectWithServerInfo));
 
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState03ConnectWithServerInfo, clientState01NoConnect));
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState03ConnectWithServerInfo, clientState02ConnectWithoutServerInfo));
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState03ConnectWithServerInfo, clientState04UserWasAuthorized));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState03ConnectWithServerInfo, clientState01NoConnect));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState03ConnectWithServerInfo, clientState02ConnectWithoutServerInfo));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState03ConnectWithServerInfo, clientState04UserWasAuthorized));
 
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState04UserWasAuthorized, clientState01NoConnect));
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState04UserWasAuthorized, clientState02ConnectWithoutServerInfo));
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState04UserWasAuthorized, clientState03ConnectWithServerInfo));
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState04UserWasAuthorized, clientState06GameTypeWasSet));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState04UserWasAuthorized, clientState01NoConnect));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState04UserWasAuthorized, clientState02ConnectWithoutServerInfo));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState04UserWasAuthorized, clientState03ConnectWithServerInfo));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState04UserWasAuthorized, clientState06GameTypeWasSet));
 
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState06GameTypeWasSet, clientState01NoConnect));
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState06GameTypeWasSet, clientState02ConnectWithoutServerInfo));
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState06GameTypeWasSet, clientState03ConnectWithServerInfo));
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState06GameTypeWasSet, clientState04UserWasAuthorized));
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState06GameTypeWasSet, clientState07GameMatchWasSet));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState06GameTypeWasSet, clientState01NoConnect));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState06GameTypeWasSet, clientState02ConnectWithoutServerInfo));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState06GameTypeWasSet, clientState03ConnectWithServerInfo));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState06GameTypeWasSet, clientState04UserWasAuthorized));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState06GameTypeWasSet, clientState07GameMatchWasSet));
 
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState07GameMatchWasSet, clientState01NoConnect));
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState07GameMatchWasSet, clientState02ConnectWithoutServerInfo));
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState07GameMatchWasSet, clientState03ConnectWithServerInfo));
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState07GameMatchWasSet, clientState04UserWasAuthorized));
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState07GameMatchWasSet, clientState06GameTypeWasSet));
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState07GameMatchWasSet, clientState08GameMatchIsPlaying));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState07GameMatchWasSet, clientState01NoConnect));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState07GameMatchWasSet, clientState02ConnectWithoutServerInfo));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState07GameMatchWasSet, clientState03ConnectWithServerInfo));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState07GameMatchWasSet, clientState04UserWasAuthorized));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState07GameMatchWasSet, clientState06GameTypeWasSet));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState07GameMatchWasSet, clientState08GameMatchIsPlaying));
 
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState08GameMatchIsPlaying, clientState01NoConnect));
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState08GameMatchIsPlaying, clientState02ConnectWithoutServerInfo));
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState08GameMatchIsPlaying, clientState03ConnectWithServerInfo));
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState08GameMatchIsPlaying, clientState04UserWasAuthorized));
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState08GameMatchIsPlaying, clientState06GameTypeWasSet));
-        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition<>(clientState08GameMatchIsPlaying, clientState07GameMatchWasSet));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState08GameMatchIsPlaying, clientState01NoConnect));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState08GameMatchIsPlaying, clientState02ConnectWithoutServerInfo));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState08GameMatchIsPlaying, clientState03ConnectWithServerInfo));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState08GameMatchIsPlaying, clientState04UserWasAuthorized));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState08GameMatchIsPlaying, clientState06GameTypeWasSet));
+        allowedStateToStateTransitionSet.add(new ClientAllowedStateToStateTransition(clientState08GameMatchIsPlaying, clientState07GameMatchWasSet));
     }
 
     public User getUser() {
@@ -113,7 +110,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX>
         setCurrentState(clientState01NoConnect);
     }
 
-    public void setGameTypeSet_(Set<GameType> gameTypeSet) {
+    public void setGameTypeSet_(Set<GameType<IGameMatchX>> gameTypeSet) {
         this.gameTypeSet = gameTypeSet;
         setCurrentState(clientState03ConnectWithServerInfo);
     }
@@ -127,13 +124,12 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX>
         setCurrentState(clientState04UserWasAuthorized);
     }
 
-    void setGameType_(GameType gameType) {
-        //  Warning:(121, 25) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.GameType' to 'timmax.tilegame.basemodel.protocol.server.GameType<GameMatchX>'
+    void setGameType_(GameType<IGameMatchX> gameType) {
         this.gameType = gameType;
         setCurrentState(clientState06GameTypeWasSet);
     }
 
-    void setGameMatchX_(GameMatchX gameMatchX) {
+    void setGameMatchX_(IGameMatchX gameMatchX) {
         this.gameMatchX = gameMatchX;
         setCurrentState(clientState07GameMatchWasSet);
     }
@@ -161,19 +157,19 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX>
     //       Используется как protected в LocalClientStateAutomaton
     //       - :: Map<String, Class<? extends View>> getViewName_ViewClassMap()
     //       - :: Map<String, ParamOfModelDescription> getParamName_paramModelDescriptionMap()
-    protected GameType getGameType_() {
+    protected GameType<IGameMatchX> getGameType_() {
         return gameType;
     }
 
-    Set<GameType> getGameTypeSet_() {
+    Set<GameType<IGameMatchX>> getGameTypeSet_() {
         return gameTypeSet;
     }
 
-    Set<GameMatchX> getGameMatchXSet_() {
+    Set<IGameMatchX> getGameMatchXSet_() {
         return gameType.getGameMatchXSet();
     }
 
-    GameMatchX getGameMatchX_() {
+    IGameMatchX getGameMatchX_() {
         return gameMatchX;
     }
 
@@ -204,7 +200,7 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX>
     //          У сервера перечень типов игр одинаков, определяется вне зависимости от авторизации пользователя на сервере,
     //            и мог-бы храниться вне экземпляра этого класса.
     @Override
-    public void setGameTypeSet(Set<GameType> gameTypeSet) {
+    public void setGameTypeSet(Set<GameType<IGameMatchX>> gameTypeSet) {
         getCurrentState().setGameTypeSet(gameTypeSet);
     }
 
@@ -220,19 +216,17 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX>
     }
 
     @Override
-    public Set<GameType> getGameTypeSet() {
-        //  Warning:(210, 16) Unchecked assignment: 'java.util.Set' to 'java.util.Set<timmax.tilegame.basemodel.protocol.server.GameType>'. Reason: 'getCurrentState()' has raw type, so result of getGameTypeSet is erased
+    public Set<GameType<IGameMatchX>> getGameTypeSet() {
         return getCurrentState().getGameTypeSet();
     }
 
     @Override
-    public GameType getGameType() {
+    public GameType<IGameMatchX> getGameType() {
         return getCurrentState().getGameType();
     }
 
     @Override
-    public void setGameType(GameType gameType) {
-        //  Warning:(209, 37) Unchecked assignment: 'timmax.tilegame.basemodel.protocol.server.GameType' to 'timmax.tilegame.basemodel.protocol.server.GameType<GameMatchX>'
+    public void setGameType(GameType<IGameMatchX> gameType) {
         getCurrentState().setGameType(gameType);
     }
 
@@ -243,14 +237,12 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX>
     }
 
     @Override
-    public Set<GameMatchX> getGameMatchXSet() {
-        //  Warning:(232, 16) Unchecked assignment: 'java.util.Set' to 'java.util.Set<GameMatchX>'. Reason: 'getCurrentState()' has raw type, so result of getGameMatchXSet is erased
+    public Set<IGameMatchX> getGameMatchXSet() {
         return getCurrentState().getGameMatchXSet();
     }
 
     @Override
-    public void setGameMatchX(GameMatchX gameMatchX) {
-        //  Warning:(237, 9) Unchecked call to 'setGameMatchX(GameMatchX)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server_client.ClientState'
+    public void setGameMatchX(IGameMatchX gameMatchX) {
         getCurrentState().setGameMatchX(gameMatchX);
     }
 
@@ -261,10 +253,8 @@ public abstract class ClientStateAutomaton<GameMatchX extends IGameMatchX>
     }
 
     @Override
-    public GameMatchX getGameMatchX() {
-        //  ToDo:   Избавиться от преобразования типа.
-        //  Warning:(249, 16) Unchecked cast: 'timmax.tilegame.basemodel.protocol.server_client.IGameMatchX' to 'GameMatchX'. Reason: 'getCurrentState()' has raw type, so result of getGameMatchX is erased
-        return (GameMatchX) getCurrentState().getGameMatchX();
+    public IGameMatchX getGameMatchX() {
+        return getCurrentState().getGameMatchX();
     }
 
     @Override

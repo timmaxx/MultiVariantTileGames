@@ -54,15 +54,15 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
     //                  Set<Class<? extends GameObject>> abcClassSet1 = Set.of(Object.class);
     //              - компилятор не возражает и это тоже хорошо:
     //                  Set<Class<? extends GameObject>> abcClassSet2 = Set.of(GameObject.class);
-    private Set<Class<GameObjectStateAutomaton>> gameObjectStateAutomaton_Class_Set;
+    private Set<Class<? extends GameObjectStateAutomaton>> gameObjectStateAutomaton_Class_Set;
 
-    private Set<GameMatchX> gameMatchXSet;
+    private Set<IGameMatchX> gameMatchXSet;
 
     //  ToDo:   При наличии предыдущего - этот лишний.
     private Set<GameMatchDto> gameMatchDtoSet;
 
     //  ToDo:   Может тоже <GameMatchX>?
-    private Constructor<? extends IGameMatch> gameMatchConstructor;
+    private Constructor<? extends IGameMatchX> gameMatchConstructor;
 
     // private String[] ; // тогда в этом массиве строк можно хранить имя роли каждого из игроков
     // (например для шашек: "Белые", "Черные"; для многих игр для двух игроков: "Первый", "Второй"; для одного: "Игрок").
@@ -90,8 +90,8 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
     public GameType(
             String id,
             int countOfGamers,
-            Set<Class<GameObjectStateAutomaton>> gameObjectStateAutomaton_Class_Set,
-            Class<? extends IGameMatch> gameMatchClass,
+            Set<Class<? extends GameObjectStateAutomaton>> gameObjectStateAutomaton_Class_Set,
+            Class<? extends IGameMatchX> gameMatchClass,
             Color defaultCellBackgroundColor,
             Color defaultCellTextColor,
             String defaultCellTextValue)
@@ -125,7 +125,7 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
         return countOfGamers;
     }
 
-    public Set<GameMatchX> getGameMatchXSet() {
+    public Set<IGameMatchX> getGameMatchXSet() {
         return gameMatchXSet;
     }
 
@@ -151,7 +151,7 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
         return paramName_paramModelDescriptionMap;
     }
 
-    public Constructor<? extends IGameMatch> getGameMatchConstructor() {
+    public Constructor<? extends IGameMatchX> getGameMatchConstructor() {
         return gameMatchConstructor;
     }
 
@@ -176,7 +176,7 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
         //              - начатые и оконченные партии - для возможности ознакомления с ними.
 
         GameMatchX gameMatchX = null;
-        Constructor<? extends IGameMatch> gameMatchConstructor = getGameMatchConstructor();
+        Constructor<? extends IGameMatchX> gameMatchConstructor = getGameMatchConstructor();
 
         try {
             // Создаём экземпляр модели, ранее выбранного типа.
@@ -233,10 +233,10 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         id = (String) in.readObject();
         countOfGamers = in.readInt();
-        //          Warning:(236, 27) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.protocol.server_client.GameMatchDto>'
+        //  Warning:(236, 27) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.protocol.server_client.GameMatchDto>'
         gameMatchDtoSet = (Set<GameMatchDto>) in.readObject();
-        //  ToDo:   Избавиться от "Warning:(239, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'"
-        //          https://sky.pro/wiki/java/reshaem-preduprezhdenie-unchecked-cast-v-java-spring/
+        //  Warning:(240, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'
+        //  https://sky.pro/wiki/java/reshaem-preduprezhdenie-unchecked-cast-v-java-spring/
         viewName_ViewClassMap = (Map<String, Class<? extends View>>) in.readObject();
         paramName_paramModelDescriptionMap = (ParamName_paramModelDescriptionMap) in.readObject();
 
@@ -253,8 +253,8 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        //  Warning:(243, 9) Raw use of parameterized class 'GameType'
-        GameType gameType = (GameType) o;
+        //  Warning:(256, 42) Unchecked cast: 'java.lang.Object' to 'timmax.tilegame.basemodel.protocol.server.GameType<timmax.tilegame.basemodel.protocol.server_client.IGameMatchX>'
+        GameType<IGameMatchX> gameType = (GameType<IGameMatchX>) o;
 
         return id.equals(gameType.id);
     }

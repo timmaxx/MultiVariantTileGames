@@ -1,7 +1,7 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
-public abstract class ClientState01NoConnect<GameMatchX extends IGameMatchX> extends ClientState<GameMatchX> {
-    public ClientState01NoConnect(ClientStateAutomaton<GameMatchX> clientStateAutomaton) {
+public abstract class ClientState01NoConnect extends ClientState {
+    public ClientState01NoConnect(ClientStateAutomaton clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 

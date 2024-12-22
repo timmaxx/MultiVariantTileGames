@@ -5,6 +5,7 @@ import timmax.tilegame.basemodel.placement.matchstatus.MatchStatus;
 import timmax.tilegame.basemodel.placement.matchstatus.MatchStatus1Running;
 import timmax.tilegame.basemodel.placement.matchstatus.MatchStatus2GameOver;
 import timmax.tilegame.basemodel.protocol.server.GameType;
+import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 
 import java.util.ArrayList;
 
@@ -26,7 +27,7 @@ public abstract class GameMovesSequence extends GameMovesSequenceNotVerified {
     private final GameObjectsPlacementStateAutomaton gameObjectsPlacementAfterLastMove;
 
     public GameMovesSequence(
-            GameType gameType,
+            GameType<IGameMatchX> gameType,
             ArrayList<GameMove[]> gameMoveArray_ListArray,
             int playerIndexOfFirstMove,
             int playerIndexOfLasstMove,

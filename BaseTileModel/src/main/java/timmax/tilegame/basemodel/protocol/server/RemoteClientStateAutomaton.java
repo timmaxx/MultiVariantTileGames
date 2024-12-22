@@ -5,7 +5,7 @@ import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
 import timmax.tilegame.transport.ISenderOfEventOfServer;
 
 //  Автомат состояний клиента, работающий на сервере и учитывающий состояния удалённых клиентов.
-public class RemoteClientStateAutomaton extends ClientStateAutomaton<IGameMatch> {
+public class RemoteClientStateAutomaton extends ClientStateAutomaton {
     private final WebSocket webSocket;
 
     // ToDo: Удалить ISenderOfEventOfServer senderOfEventOfServer.

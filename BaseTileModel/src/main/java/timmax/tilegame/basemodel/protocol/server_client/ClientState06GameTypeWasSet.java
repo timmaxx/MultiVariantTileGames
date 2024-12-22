@@ -2,14 +2,14 @@ package timmax.tilegame.basemodel.protocol.server_client;
 
 import java.util.Set;
 
-public abstract class ClientState06GameTypeWasSet<GameMatchX extends IGameMatchX> extends ClientState04UserWasAuthorized<GameMatchX> {
-    public ClientState06GameTypeWasSet(ClientStateAutomaton<GameMatchX> clientStateAutomaton) {
+public abstract class ClientState06GameTypeWasSet extends ClientState04UserWasAuthorized {
+    public ClientState06GameTypeWasSet(ClientStateAutomaton clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 
     // interface IClientState06GameMatchSetSelected
     @Override
-    public Set<GameMatchX> getGameMatchXSet() {
+    public Set<IGameMatchX> getGameMatchXSet() {
         return getBaseStateAutomaton().getGameMatchXSet_();
     }
 
@@ -19,7 +19,7 @@ public abstract class ClientState06GameTypeWasSet<GameMatchX extends IGameMatchX
     }
 
     @Override
-    public void setGameMatchX(GameMatchX gameMatchX) {
+    public void setGameMatchX(IGameMatchX gameMatchX) {
         getBaseStateAutomaton().setGameMatchX_(gameMatchX);
     }
 }

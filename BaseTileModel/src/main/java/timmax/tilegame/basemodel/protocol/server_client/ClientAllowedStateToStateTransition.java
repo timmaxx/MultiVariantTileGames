@@ -2,17 +2,17 @@ package timmax.tilegame.basemodel.protocol.server_client;
 
 import timmax.state.AllowedStateToStateTransition;
 
-public class ClientAllowedStateToStateTransition<GameMatchX extends IGameMatchX>
+public class ClientAllowedStateToStateTransition
         extends AllowedStateToStateTransition {
-    public ClientAllowedStateToStateTransition(ClientState<GameMatchX> state1, ClientState<GameMatchX> state2) {
+    public ClientAllowedStateToStateTransition(ClientState state1, ClientState state2) {
         super(state1, state2);
     }
 
-    public ClientState<GameMatchX> getState1() {
-        return (ClientState<GameMatchX>) state1;
+    public ClientState getState1() {
+        return (ClientState) state1;
     }
 
-    public ClientState<GameMatchX> getState2() {
-        return (ClientState<GameMatchX>) state2;
+    public ClientState getState2() {
+        return (ClientState) state2;
     }
 }

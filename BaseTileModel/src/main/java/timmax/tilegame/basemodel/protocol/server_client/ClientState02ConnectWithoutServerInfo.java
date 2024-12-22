@@ -4,14 +4,14 @@ import timmax.tilegame.basemodel.protocol.server.GameType;
 
 import java.util.Set;
 
-public abstract class ClientState02ConnectWithoutServerInfo<GameMatchX extends IGameMatchX> extends ClientState01NoConnect<GameMatchX> {
-    public ClientState02ConnectWithoutServerInfo(ClientStateAutomaton<GameMatchX> clientStateAutomaton) {
+public abstract class ClientState02ConnectWithoutServerInfo extends ClientState01NoConnect {
+    public ClientState02ConnectWithoutServerInfo(ClientStateAutomaton clientStateAutomaton) {
         super(clientStateAutomaton);
     }
 
     // interface IClientState02ConnectNonIdent
     @Override
-    public void setGameTypeSet(Set<GameType> gameTypeSet) {
+    public void setGameTypeSet(Set<GameType<IGameMatchX>> gameTypeSet) {
         getBaseStateAutomaton().setGameTypeSet_(gameTypeSet);
     }
 

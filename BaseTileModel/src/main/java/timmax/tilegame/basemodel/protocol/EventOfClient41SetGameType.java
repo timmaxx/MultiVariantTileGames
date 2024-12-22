@@ -5,7 +5,7 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.basemodel.protocol.server.IGameMatch;
+import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
 //  Событие клиента с именем типа игры.
@@ -28,8 +28,7 @@ public class EventOfClient41SetGameType extends EventOfClient {
     public void executeOnServer(RemoteClientStateAutomaton remoteClientStateAutomaton) {
         // От клиента поступило символическое имя типа игры (оно должно быть одно из тех, которые ему направлялись множеством).
 
-        //  Warning:(33, 9) Raw use of parameterized class 'GameType'
-        GameType gameType = remoteClientStateAutomaton
+        GameType<IGameMatchX> gameType = remoteClientStateAutomaton
                 .getGameTypeSet()
                 .stream()
                 // В том перечне ищется gameType с таким-же именем:
