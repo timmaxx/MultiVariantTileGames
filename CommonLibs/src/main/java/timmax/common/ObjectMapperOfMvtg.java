@@ -45,8 +45,17 @@ public class ObjectMapperOfMvtg {
         ObjectInput objectInput;
         try {
             objectInput = new ObjectInputStream(byteArrayInputStream);
-            // См. комментарий выше перед
-            // @SuppressWarnings("unchecked")
+/*
+            //  См. комментарий выше перед
+            //  @SuppressWarnings("unchecked")
+            //  Такой вариант не подошёл:
+            Object object = objectInput.readObject();
+            if (Classes.isInstanceOf(object, result.getClass())) {
+                result = (T) object;
+            } else {
+                throw new ClassNotFoundException();
+            }
+*/
             result = (T) objectInput.readObject();
         } catch (IOException ioe) {
             ioe.printStackTrace();
