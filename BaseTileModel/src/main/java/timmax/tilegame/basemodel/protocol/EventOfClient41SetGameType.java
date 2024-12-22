@@ -5,8 +5,10 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.protocol.server.GameType;
+import timmax.tilegame.basemodel.protocol.server.IGameMatch;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
+//  Событие клиента с именем типа игры.
 public class EventOfClient41SetGameType extends EventOfClient {
     //  ToDo:   См. комментарий к GameType.
     //  ToDo:   Использовать здесь DTO для GameType только с Id.

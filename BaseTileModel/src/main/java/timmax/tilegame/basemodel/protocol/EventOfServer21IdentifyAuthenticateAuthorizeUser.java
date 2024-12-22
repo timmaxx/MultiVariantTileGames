@@ -6,6 +6,7 @@ import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 
+//  Событие сервера с именем пользователя, который был идентифицирован, аутентификацирован и авторизован.
 public class EventOfServer21IdentifyAuthenticateAuthorizeUser extends EventOfServer {
     //  ToDo:   Вместо этого поля нужно здесь использовать DTO для USER, в котором будет только это поле.
     private String userName;

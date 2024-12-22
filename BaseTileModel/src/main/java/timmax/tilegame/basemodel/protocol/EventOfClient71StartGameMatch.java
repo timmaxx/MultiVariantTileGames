@@ -9,7 +9,13 @@ import java.util.Map;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
 
+//  Событие клиента с параметрами матча для его старта.
 public class EventOfClient71StartGameMatch extends EventOfClient {
+    //  ToDo:   Исправить тип передаваемых данных:
+    //          1. Должен быть один и тот-же базовый тип.
+    //          2. Должен быть DTO (может один и тот-же, но может быть и разный).
+    //          В классах EventOfClient71StartGameMatch и EventOfServer71StartGameMatch разные типы для передачи
+    //          используются.
     private Map<String, Integer> paramsOfModelValueMap;
 
     public EventOfClient71StartGameMatch() {

@@ -9,6 +9,7 @@ import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 
+//  Событие сервера с именем типа игры и перечнем матчей, которые доступны пользователю.
 public class EventOfServer41SetGameType extends EventOfServer {
     //  ToDo:   Использовать здесь DTO для GameType, только с этими двумя полями.
     private String gameTypeName;

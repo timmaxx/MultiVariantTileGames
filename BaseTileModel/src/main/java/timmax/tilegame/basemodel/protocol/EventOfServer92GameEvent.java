@@ -8,6 +8,7 @@ import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.baseview.View;
 
+//  Событие сервера с игровым событием для определённого типа выборки.
 public class EventOfServer92GameEvent extends EventOfServer {
     private String viewName;
     private GameEvent gameEvent;

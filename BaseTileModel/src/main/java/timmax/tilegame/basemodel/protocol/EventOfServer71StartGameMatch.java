@@ -7,7 +7,13 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
+//  Событие сервера с расширенным DTO матча - матч стартовал.
 public class EventOfServer71StartGameMatch extends EventOfServer {
+    //  ToDo:   Исправить тип передаваемых данных:
+    //          1. Должен быть один и тот-же базовый тип.
+    //          2. Должен быть DTO (может один и тот-же, но может быть и разный).
+    //          В классах EventOfClient71StartGameMatch и EventOfServer71StartGameMatch разные типы для передачи
+    //          используются.
     private GameMatchExtendedDto gameMatchExtendedDto;
 
     public EventOfServer71StartGameMatch() {

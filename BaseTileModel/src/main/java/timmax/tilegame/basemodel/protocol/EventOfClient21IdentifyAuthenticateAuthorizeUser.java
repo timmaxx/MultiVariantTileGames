@@ -7,6 +7,7 @@ import java.io.ObjectOutput;
 import timmax.tilegame.basemodel.credential.Credentials;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
+//  Событие клиента с именем и паролем пользователя для идентификации, аутентификации и авторизации.
 public class EventOfClient21IdentifyAuthenticateAuthorizeUser extends EventOfClient {
     //  ToDo:   Вместо этих двух полей нужно здесь использовать DTO для USER, в котором будут эти два поля.
     private String userName;

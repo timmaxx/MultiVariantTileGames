@@ -8,6 +8,7 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.Set;
 
+//  Событие сервера об установлении соединения и передаче перечня типов игр.
 public class EventOfServer11ConnectWithoutUserIdentify extends EventOfServer {
     private Set<GameType> gameTypeSet;
 

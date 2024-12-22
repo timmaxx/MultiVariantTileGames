@@ -8,7 +8,10 @@ import timmax.tilegame.basemodel.protocol.server.IGameMatch;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 
+//  ToDo:   Дописать в назначении класса об индексе игрока в матче.
+//  Событие клиента с идентификатором матча.
 public class EventOfClient61SetGameMatch extends EventOfClient {
+    //  ToDo:   Нужно также передавать и индекс игрока в матче.
     private GameMatchDto gameMatchDto;
 
     public EventOfClient61SetGameMatch() {
