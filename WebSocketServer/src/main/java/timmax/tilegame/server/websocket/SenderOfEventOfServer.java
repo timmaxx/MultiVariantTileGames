@@ -19,22 +19,14 @@ import java.util.Map;
 public class SenderOfEventOfServer implements ISenderOfEventOfServer {
     private static final Logger logger = LoggerFactory.getLogger(SenderOfEventOfServer.class);
 
+    //  ToDo:   Две переменные ниже и сам этот класс можно было-бы сделать синглтонами и/или их инициализацию вынести
+    //          в другой класс.
     private final ObjectMapperOfMvtg mapper;
     private final Map<WebSocket, RemoteClientStateAutomaton> webSocket_RemoteClientStateAutomaton_Map;
 
     public SenderOfEventOfServer(Map<WebSocket, RemoteClientStateAutomaton> webSocket_RemoteClientStateAutomaton_Map) {
         this.mapper = new ObjectMapperOfMvtg();
         this.webSocket_RemoteClientStateAutomaton_Map = webSocket_RemoteClientStateAutomaton_Map;
-    }
-
-
-    //  interface ISenderOfEventOfServer:
-    @Override
-    public void sendEventOfServer(WebSocket webSocket, EventOfServer eventOfServer) {
-        logger.info("WebSocket: {}. Outcoming message. EventOfServer: {}.", webSocket, eventOfServer);
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        mapper.writeValue(byteArrayOutputStream, eventOfServer);
-        webSocket.send(byteArrayOutputStream.toByteArray());
     }
 
     //  Не стал определять этот метод в interface ISenderOfEventOfServer, поэтому не @Override.
@@ -50,6 +42,19 @@ public class SenderOfEventOfServer implements ISenderOfEventOfServer {
         }
     }
 
+    private void sendEventOfServer(MatchPlayerList matchPlayerList, EventOfServer92GameEvent eventOfServer) {
+        sendEventOfServer(matchPlayerList, (EventOfServer) eventOfServer);
+    }
+
+    //  interface ISenderOfEventOfServer:
+    @Override
+    public void sendEventOfServer(WebSocket webSocket, EventOfServer eventOfServer) {
+        logger.info("WebSocket: {}. Outcoming message. EventOfServer: {}.", webSocket, eventOfServer);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        mapper.writeValue(byteArrayOutputStream, eventOfServer);
+        webSocket.send(byteArrayOutputStream.toByteArray());
+    }
+
     @Override
     public void sendEventOfServer(MatchPlayerList matchPlayerList, EventOfServer eventOfServer) {
         if (matchPlayerList == null || matchPlayerList.size() == 0) {
@@ -61,6 +66,10 @@ public class SenderOfEventOfServer implements ISenderOfEventOfServer {
         }
     }
 
+    //  ToDo:   Вероятно этот метод нужно вынести за пределы этого класса, потому-что:
+    //          1. На вход ему поступает не базовый EventOfServer, а GameEvent - более высокоуровневый.
+    //          2. Генерируется EventOfServer92GameEvent - т.е. именно игровое событие
+    //             (а не события перехода состояний клиента).
     @Override
     public void sendGameEventToAllViews(
             MatchPlayerList matchPlayerList,

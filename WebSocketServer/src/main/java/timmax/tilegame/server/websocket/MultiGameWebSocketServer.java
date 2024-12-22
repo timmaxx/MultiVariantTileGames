@@ -19,6 +19,8 @@ import timmax.tilegame.transport.ISenderOfEventOfServer;
 public class MultiGameWebSocketServer extends WebSocketServer {
     private static final Logger logger = LoggerFactory.getLogger(MultiGameWebSocketServer.class);
 
+    //  ToDo:   Три переменные ниже и сам этот класс можно было-бы сделать синглтонами и/или их инициализацию вынести
+    //          в другой класс.
     private final ObjectMapperOfMvtg mapper;
     private final Map<WebSocket, RemoteClientStateAutomaton> webSocket_RemoteClientStateAutomaton_Map;
     private final ISenderOfEventOfServer senderOfEventOfServer;

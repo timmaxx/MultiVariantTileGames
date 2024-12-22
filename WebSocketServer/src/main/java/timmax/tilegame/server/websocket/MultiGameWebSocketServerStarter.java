@@ -19,6 +19,7 @@ public class MultiGameWebSocketServerStarter {
             port = 8887; // 843 flash policy port
         }
 
+        //  ToDo:   Объединить три переменные ниже в один класс.
         Map<WebSocket, RemoteClientStateAutomaton> webSocket_RemoteClientStateAutomaton_Map = new HashMap<>();
         ISenderOfEventOfServer senderOfEventOfServer = new SenderOfEventOfServer(webSocket_RemoteClientStateAutomaton_Map);
         MultiGameWebSocketServer multiGameWebSocketServer = new MultiGameWebSocketServer(port, webSocket_RemoteClientStateAutomaton_Map, senderOfEventOfServer);
