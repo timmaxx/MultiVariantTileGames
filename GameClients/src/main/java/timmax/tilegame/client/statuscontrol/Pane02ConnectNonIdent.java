@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+import timmax.tilegame.basemodel.util.UserUtil;
 import timmax.tilegame.transport.ISenderOfEventOfClient;
 
 public class Pane02ConnectNonIdent extends AbstractConnectStatePane {
@@ -26,7 +27,12 @@ public class Pane02ConnectNonIdent extends AbstractConnectStatePane {
         nextStateButton.setText("Login");
         nextStateButton.setOnAction(event -> {
             disableAllControls();
-            senderOfEventOfClient.identifyAuthenticateAuthorizeUser(userIdTextField.getText(), userPasswordField.getText());
+            senderOfEventOfClient.identifyAuthenticateAuthorizeUser(
+                    UserUtil.createUserDtoIdPassword(
+                            userIdTextField.getText(),
+                            userPasswordField.getText()
+                    )
+            );
         });
 
         // Контролы для продвижения состояния "назад":

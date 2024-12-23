@@ -3,6 +3,7 @@ package timmax.tilegame.basemodel.protocol.server;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server_client.ClientState04UserWasAuthorized;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
+import timmax.tilegame.basemodel.util.UserUtil;
 
 public class RemoteClientState04UserWasAuthorized extends ClientState04UserWasAuthorized {
     public RemoteClientState04UserWasAuthorized(ClientStateAutomaton clientStateAutomaton) {
@@ -28,7 +29,9 @@ public class RemoteClientState04UserWasAuthorized extends ClientState04UserWasAu
     public void doAfterTurnOn() {
         getBaseStateAutomaton().getSenderOfEventOfServer().sendEventOfServer(
                 getBaseStateAutomaton().getWebSocket(),
-                new EventOfServer21IdentifyAuthenticateAuthorizeUser(getBaseStateAutomaton().getUser().getId())
+                new EventOfServer21IdentifyAuthenticateAuthorizeUser(
+                        UserUtil.createUserDtoId(getBaseStateAutomaton().getUser())
+                )
         );
     }
 

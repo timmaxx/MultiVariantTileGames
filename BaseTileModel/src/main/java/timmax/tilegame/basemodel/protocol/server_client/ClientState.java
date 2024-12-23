@@ -3,6 +3,7 @@ package timmax.tilegame.basemodel.protocol.server_client;
 import timmax.state.State;
 import timmax.state.WrongMethodInvokeForCurrentStateException;
 import timmax.tilegame.basemodel.GameMatchStatus;
+import timmax.tilegame.basemodel.dto.UserDtoId;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
 import org.slf4j.Logger;
@@ -40,7 +41,7 @@ public abstract class ClientState extends State implements IClientState99 {
     }
 
     @Override
-    public void authorizeUser(String userId) {
+    public void authorizeUser(UserDtoId userDtoId) {
         throw new WrongMethodInvokeForCurrentStateException(getBaseStateAutomaton().getCurrentState());
     }
 

@@ -21,6 +21,8 @@ module timmax.tilegame.basetilemodel {
     exports timmax.tilegame.basemodel.placement.primitives;
     exports timmax.tilegame.basemodel.placement.placementstate;
     exports timmax.tilegame.transport;
+    exports timmax.tilegame.basemodel.dto;
+    exports timmax.tilegame.basemodel.util;
 
     opens timmax.tilegame.basemodel.protocol.server;
 }

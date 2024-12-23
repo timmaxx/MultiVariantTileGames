@@ -4,12 +4,13 @@ import org.java_websocket.WebSocket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import timmax.common.ObjectMapperOfMvtg;
-import timmax.tilegame.basemodel.credential.User;
+import timmax.tilegame.basemodel.dto.UserDtoId;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.EventOfServer;
 import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent;
 import timmax.tilegame.basemodel.protocol.server.MatchPlayerList;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
+import timmax.tilegame.basemodel.util.UserUtil;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.ISenderOfEventOfServer;
 
@@ -30,13 +31,13 @@ public class SenderOfEventOfServer implements ISenderOfEventOfServer {
     }
 
     //  Не стал определять этот метод в interface ISenderOfEventOfServer, поэтому не @Override.
-    private void sendEventOfServer(User user, EventOfServer eventOfServer) {
-        if (user == null) {
-            logger.error("user is null.");
-            throw new RuntimeException("user is null.");
+    private void sendEventOfServer(UserDtoId userDtoId, EventOfServer eventOfServer) {
+        if (userDtoId == null) {
+            logger.error("userDtoId is null.");
+            throw new RuntimeException("userDtoId is null.");
         }
         for (var webSocket_RemoteClientStateAutomaton : webSocket_RemoteClientStateAutomaton_Map.entrySet()) {
-            if (webSocket_RemoteClientStateAutomaton.getValue().getUser().equals(user)) {
+            if (UserUtil.equals(webSocket_RemoteClientStateAutomaton.getValue().getUser(), userDtoId)) {
                 sendEventOfServer(webSocket_RemoteClientStateAutomaton.getKey(), eventOfServer);
             }
         }
@@ -62,7 +63,10 @@ public class SenderOfEventOfServer implements ISenderOfEventOfServer {
             throw new RuntimeException("matchPlayerList is null or empty.");
         }
         for (int i = 0; i < matchPlayerList.size(); i++) {
-            sendEventOfServer(matchPlayerList.get(i), eventOfServer);
+            sendEventOfServer(
+                    UserUtil.createUserDtoId(matchPlayerList.get(i)),
+                    eventOfServer
+            );
         }
     }
 

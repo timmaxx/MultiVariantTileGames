@@ -1,5 +1,9 @@
 package timmax.tilegame.basemodel.credential;
 
+import timmax.tilegame.basemodel.dto.UserDtoId;
+import timmax.tilegame.basemodel.dto.UserDtoIdPassword;
+import timmax.tilegame.basemodel.util.UserUtil;
+
 import java.util.Set;
 
 public class Credentials {
@@ -13,17 +17,17 @@ public class Credentials {
         );
     }
 
-    public static boolean isUserAndPasswordCorrect(String userId, String userPassword) {
-        return userSet.contains(new User(userId, userPassword));
+    public static boolean isUserAndPasswordCorrect(UserDtoIdPassword userDtoIdPassword) {
+        return userSet.contains(UserUtil.createUser(userDtoIdPassword));
     }
 
-    public static User getUserByUserId(String userId) {
-        if (userId == null || userId.isEmpty()) {
+    public static User getUserByUserId(UserDtoId userDtoId) {
+        if (userDtoId == null || userDtoId.getId().isEmpty()) {
             return null;
         }
         return userSet
                 .stream()
-                .filter(user -> user.getId().equals(userId))
+                .filter(user -> UserUtil.equals(user, userDtoId))
                 .findAny()
                 .orElse(null);
     }

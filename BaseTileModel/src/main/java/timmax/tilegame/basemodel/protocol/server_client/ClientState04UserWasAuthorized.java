@@ -15,7 +15,7 @@ public abstract class ClientState04UserWasAuthorized extends ClientState03Connec
 
     @Override
     public void reauthorizeUser() {
-        getBaseStateAutomaton().authorizeUser_(getBaseStateAutomaton().getUserId_());
+        getBaseStateAutomaton().authorizeUser_(getBaseStateAutomaton().getUserDtoId_());
     }
 
     @Override

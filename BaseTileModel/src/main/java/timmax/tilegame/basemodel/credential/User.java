@@ -6,7 +6,6 @@ public class User {
     private final String password;
 
     //  ToDo:   Сделать поле перечень матчей, в которых этот пользователь является участником и под каким номером.
-    //  MayBeToDo:  доступные матчи и номер игрока в ней.
 
     public User(String id, String password) {
         this.id = id;
@@ -22,7 +21,6 @@ public class User {
         return "User{" +
                 "id='" + id + '\'' +
                 ", password='" + "*" + '\'' +
-                //  ", availableGameTypeSet=" + availableGameTypeSet +
                 '}';
     }
 
