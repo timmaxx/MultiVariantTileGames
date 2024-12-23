@@ -10,26 +10,26 @@ import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 //  Событие клиента с именем и паролем пользователя для идентификации, аутентификации и авторизации.
 public class EventOfClient21IdentifyAuthenticateAuthorizeUser extends EventOfClient {
     //  ToDo:   Вместо этих двух полей нужно здесь использовать DTO для USER, в котором будут эти два поля.
-    private String userName;
-    private String password;
+    private String userId;
+    private String userPassword;
 
     public EventOfClient21IdentifyAuthenticateAuthorizeUser() {
         super();
     }
 
-    public EventOfClient21IdentifyAuthenticateAuthorizeUser(String userName, String password) {
+    public EventOfClient21IdentifyAuthenticateAuthorizeUser(String userId, String userPassword) {
         this();
-        this.userName = userName;
-        this.password = password;
+        this.userId = userId;
+        this.userPassword = userPassword;
     }
 
     @Override
     public void executeOnServer(RemoteClientStateAutomaton remoteClientStateAutomaton) {
-        if (Credentials.isUserAndPasswordCorrect(userName, password)) {
-            password = ""; // Не будем даже хранить пароль.
-            remoteClientStateAutomaton.authorizeUser(userName);
+        if (Credentials.isUserAndPasswordCorrect(userId, userPassword)) {
+            userPassword = ""; // Не будем даже хранить пароль.
+            remoteClientStateAutomaton.authorizeUser(userId);
         } else {
-            password = ""; // Не будем даже хранить неправильный пароль.
+            userPassword = ""; // Не будем даже хранить неправильный пароль.
             remoteClientStateAutomaton.connect();
         }
     }
@@ -37,21 +37,21 @@ public class EventOfClient21IdentifyAuthenticateAuthorizeUser extends EventOfCli
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{" +
-                "userName='" + userName + '\'' +
-                ", password='*'" +
+                "userId='" + userId + '\'' +
+                ", userPassword='*'" +
                 '}';
     }
 
     // interface Externalizable
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(userName);
-        out.writeObject(password);
+        out.writeObject(userId);
+        out.writeObject(userPassword);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        userName = (String) in.readObject();
-        password = (String) in.readObject();
+        userId = (String) in.readObject();
+        userPassword = (String) in.readObject();
     }
 }

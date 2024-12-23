@@ -13,17 +13,17 @@ public class Credentials {
         );
     }
 
-    public static boolean isUserAndPasswordCorrect(String userName, String password) {
-        return userSet.contains(new User(userName, password));
+    public static boolean isUserAndPasswordCorrect(String userId, String userPassword) {
+        return userSet.contains(new User(userId, userPassword));
     }
 
-    public static User getUserByUserName(String userName) {
-        if (userName == null || userName.isEmpty()) {
+    public static User getUserByUserId(String userId) {
+        if (userId == null || userId.isEmpty()) {
             return null;
         }
         return userSet
                 .stream()
-                .filter(user -> user.getUserName().equals(userName))
+                .filter(user -> user.getId().equals(userId))
                 .findAny()
                 .orElse(null);
     }

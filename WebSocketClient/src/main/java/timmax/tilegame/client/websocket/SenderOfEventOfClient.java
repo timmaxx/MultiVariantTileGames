@@ -91,8 +91,8 @@ public class SenderOfEventOfClient implements ISenderOfEventOfClient {
 
     // 2
     @Override
-    public void identifyAuthenticateAuthorizeUser(String userName, String password) {
-        sendEventOfClient(new EventOfClient21IdentifyAuthenticateAuthorizeUser(userName, password));
+    public void identifyAuthenticateAuthorizeUser(String userId, String userPassword) {
+        sendEventOfClient(new EventOfClient21IdentifyAuthenticateAuthorizeUser(userId, userPassword));
     }
 
     // 4

@@ -31,7 +31,7 @@ public interface ISenderOfEventOfClient {
     // 02ConnectNonIdent
     void connectWithoutUserIdentify();                                          //  2 -> 2  void openConnectWithoutUserIdentify();
     void close();                                                               //  2 -> 1  void close();
-    void identifyAuthenticateAuthorizeUser(String userName, String password);   //  2 -> 4  void authorizeUser(String userName, Set<GameType> gameTypeSet);
+    void identifyAuthenticateAuthorizeUser(String userId, String userPassword); //  2 -> 4  void authorizeUser(String userId, Set<GameType> gameTypeSet);
 
     // 04GameTypeSetSelected
     void reauthorizeUser();                                                     //  4 -> 4  void reauthorizeUser();

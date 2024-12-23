@@ -16,7 +16,7 @@ public abstract class ClientState03ConnectWithServerInfo extends ClientState02Co
     }
 
     @Override
-    public void authorizeUser(String userName) {
-        getBaseStateAutomaton().authorizeUser_(userName);
+    public void authorizeUser(String userId) {
+        getBaseStateAutomaton().authorizeUser_(userId);
     }
 }

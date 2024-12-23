@@ -115,8 +115,8 @@ public abstract class ClientStateAutomaton extends StateAutomaton implements ICl
         setCurrentState(clientState03ConnectWithServerInfo);
     }
 
-    void authorizeUser_(String userName) {
-        this.user = Credentials.getUserByUserName(userName);
+    void authorizeUser_(String userId) {
+        this.user = Credentials.getUserByUserId(userId);
         if (user == null) {
             setCurrentState(clientState01NoConnect);
             return;
@@ -149,8 +149,8 @@ public abstract class ClientStateAutomaton extends StateAutomaton implements ICl
     }
 
     // Геттерам, имеющим прямой доступ к полям(..._), тоже достаточно быть private-package:
-    String getUserName_() {
-        return user.getUserName();
+    String getUserId_() {
+        return user.getId();
     }
 
     // ToDo: Может обойтись без protected?
@@ -205,8 +205,8 @@ public abstract class ClientStateAutomaton extends StateAutomaton implements ICl
     }
 
     @Override
-    public void authorizeUser(String userName) {
-        getCurrentState().authorizeUser(userName);
+    public void authorizeUser(String userId) {
+        getCurrentState().authorizeUser(userId);
     }
 
     // 4 interface IClientState04GameTypeSetSelected

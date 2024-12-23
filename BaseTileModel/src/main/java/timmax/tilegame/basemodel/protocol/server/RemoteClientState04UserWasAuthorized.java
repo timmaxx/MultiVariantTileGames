@@ -28,7 +28,7 @@ public class RemoteClientState04UserWasAuthorized extends ClientState04UserWasAu
     public void doAfterTurnOn() {
         getBaseStateAutomaton().getSenderOfEventOfServer().sendEventOfServer(
                 getBaseStateAutomaton().getWebSocket(),
-                new EventOfServer21IdentifyAuthenticateAuthorizeUser(getBaseStateAutomaton().getUser().getUserName())
+                new EventOfServer21IdentifyAuthenticateAuthorizeUser(getBaseStateAutomaton().getUser().getId())
         );
     }
 

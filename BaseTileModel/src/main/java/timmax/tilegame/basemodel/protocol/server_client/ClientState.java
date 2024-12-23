@@ -40,7 +40,7 @@ public abstract class ClientState extends State implements IClientState99 {
     }
 
     @Override
-    public void authorizeUser(String userName) {
+    public void authorizeUser(String userId) {
         throw new WrongMethodInvokeForCurrentStateException(getBaseStateAutomaton().getCurrentState());
     }
 

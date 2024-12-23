@@ -6,5 +6,5 @@ public interface IClientState03ConnectWithServerInfo extends IClientState00 {
     // Нумерация приведена соответствующая классам Pane0Х... пакета timmax.tilegame.client.statuscontrol:
 
     // ---- 3 ConnectNonIdent
-    void authorizeUser(String userName);
+    void authorizeUser(String userId);
 }

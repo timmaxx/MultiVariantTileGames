@@ -14,19 +14,19 @@ public class Pane02ConnectNonIdent extends AbstractConnectStatePane {
 
         // 1 (обязательные)
         // Контролы для продвижения состояния "вперёд":
-        Label userLabel = new Label("User");
-        TextField userNameTextField = new TextField();
-        Label passwordLabel = new Label("Password");
+        Label userIdLabel = new Label("User name");
+        TextField userIdTextField = new TextField();
+        Label userPasswordLabel = new Label("Password");
         PasswordField userPasswordField = new PasswordField();
         {   // Инициализация для отладки. Потом убрать совсем, либо через конфигурационный файл, но только имя (не пароль)!
-            userNameTextField.setText("u1");
+            userIdTextField.setText("u1");
             userPasswordField.setText("1");
         }
 
         nextStateButton.setText("Login");
         nextStateButton.setOnAction(event -> {
             disableAllControls();
-            senderOfEventOfClient.identifyAuthenticateAuthorizeUser(userNameTextField.getText(), userPasswordField.getText());
+            senderOfEventOfClient.identifyAuthenticateAuthorizeUser(userIdTextField.getText(), userPasswordField.getText());
         });
 
         // Контролы для продвижения состояния "назад":
@@ -39,15 +39,15 @@ public class Pane02ConnectNonIdent extends AbstractConnectStatePane {
 
         // 1
         int y = LAYOUT_Y_OF_FIRST_ROW;
-        userLabel.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
-        userLabel.setLayoutY(y);
-        userNameTextField.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
-        userNameTextField.setLayoutY(y);
+        userIdLabel.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
+        userIdLabel.setLayoutY(y);
+        userIdTextField.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
+        userIdTextField.setLayoutY(y);
 
         // 2
         y += DIFFERENCE_OF_LAYOUT_Y;
-        passwordLabel.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
-        passwordLabel.setLayoutY(y);
+        userPasswordLabel.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
+        userPasswordLabel.setLayoutY(y);
         userPasswordField.setLayoutX(LAYOUT_X_OF_SECOND_COLUMN);
         userPasswordField.setLayoutY(y);
 
@@ -58,7 +58,7 @@ public class Pane02ConnectNonIdent extends AbstractConnectStatePane {
 
         // Вызов setListsOfControlsAndAllDisable() нужен для разделения контролов на два перечня: "вперёд" и "назад".
         setListsOfControlsAndAllDisable(
-                List.of(userLabel, userNameTextField, passwordLabel, userPasswordField),
+                List.of(userIdLabel, userIdTextField, userPasswordLabel, userPasswordField),
                 List.of()
         );
     }
