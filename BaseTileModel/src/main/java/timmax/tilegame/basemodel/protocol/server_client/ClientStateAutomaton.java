@@ -28,9 +28,9 @@ public abstract class ClientStateAutomaton extends StateAutomaton implements ICl
 
     private User user;
 
-    private Set<GameType<IGameMatchX>> gameTypeSet; // ---- 3 (Список типов игр)
+    private Set<GameType> gameTypeSet; // ---- 3 (Список типов игр)
 
-    private GameType<IGameMatchX> gameType; // ---- 4 (Конкретный тип игры)
+    private GameType gameType; // ---- 4 (Конкретный тип игры)
 
     private IGameMatchX gameMatchX; // ---- 6 (Конкретная модель игры)
 
@@ -110,7 +110,7 @@ public abstract class ClientStateAutomaton extends StateAutomaton implements ICl
         setCurrentState(clientState01NoConnect);
     }
 
-    public void setGameTypeSet_(Set<GameType<IGameMatchX>> gameTypeSet) {
+    public void setGameTypeSet_(Set<GameType> gameTypeSet) {
         this.gameTypeSet = gameTypeSet;
         setCurrentState(clientState03ConnectWithServerInfo);
     }
@@ -124,7 +124,7 @@ public abstract class ClientStateAutomaton extends StateAutomaton implements ICl
         setCurrentState(clientState04UserWasAuthorized);
     }
 
-    void setGameType_(GameType<IGameMatchX> gameType) {
+    void setGameType_(GameType gameType) {
         this.gameType = gameType;
         setCurrentState(clientState06GameTypeWasSet);
     }
@@ -157,11 +157,11 @@ public abstract class ClientStateAutomaton extends StateAutomaton implements ICl
     //       Используется как protected в LocalClientStateAutomaton
     //       - :: Map<String, Class<? extends View>> getViewName_ViewClassMap()
     //       - :: Map<String, ParamOfModelDescription> getParamName_paramModelDescriptionMap()
-    protected GameType<IGameMatchX> getGameType_() {
+    protected GameType getGameType_() {
         return gameType;
     }
 
-    Set<GameType<IGameMatchX>> getGameTypeSet_() {
+    Set<GameType> getGameTypeSet_() {
         return gameTypeSet;
     }
 
@@ -200,7 +200,7 @@ public abstract class ClientStateAutomaton extends StateAutomaton implements ICl
     //          У сервера перечень типов игр одинаков, определяется вне зависимости от авторизации пользователя на сервере,
     //            и мог-бы храниться вне экземпляра этого класса.
     @Override
-    public void setGameTypeSet(Set<GameType<IGameMatchX>> gameTypeSet) {
+    public void setGameTypeSet(Set<GameType> gameTypeSet) {
         getCurrentState().setGameTypeSet(gameTypeSet);
     }
 
@@ -216,17 +216,17 @@ public abstract class ClientStateAutomaton extends StateAutomaton implements ICl
     }
 
     @Override
-    public Set<GameType<IGameMatchX>> getGameTypeSet() {
+    public Set<GameType> getGameTypeSet() {
         return getCurrentState().getGameTypeSet();
     }
 
     @Override
-    public GameType<IGameMatchX> getGameType() {
+    public GameType getGameType() {
         return getCurrentState().getGameType();
     }
 
     @Override
-    public void setGameType(GameType<IGameMatchX> gameType) {
+    public void setGameType(GameType gameType) {
         getCurrentState().setGameType(gameType);
     }
 

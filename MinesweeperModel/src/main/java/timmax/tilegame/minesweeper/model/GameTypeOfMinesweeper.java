@@ -3,7 +3,6 @@ package timmax.tilegame.minesweeper.model;
 import javafx.scene.paint.Color;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
-import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 
 import java.util.Set;
 
@@ -12,7 +11,7 @@ import static timmax.tilegame.basemodel.protocol.server.GameMatch.PARAM_NAME_HEI
 import static timmax.tilegame.basemodel.protocol.server.GameMatch.PARAM_NAME_WIDTH;
 import static timmax.tilegame.minesweeper.model.GameMatchOfMinesweeper.PARAM_NAME_PERCENTS_OF_MINES;
 
-public class GameTypeOfMinesweeper extends GameType<IGameMatchX> {
+public class GameTypeOfMinesweeper extends GameType {
 
     // ToDo: Удалить отсюда константы, описанные ниже, т.к. они относятся к визуализации.
     public static final String UNOPENED = "";

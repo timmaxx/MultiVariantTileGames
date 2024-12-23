@@ -11,7 +11,7 @@ public abstract class ClientState02ConnectWithoutServerInfo extends ClientState0
 
     // interface IClientState02ConnectNonIdent
     @Override
-    public void setGameTypeSet(Set<GameType<IGameMatchX>> gameTypeSet) {
+    public void setGameTypeSet(Set<GameType> gameTypeSet) {
         getBaseStateAutomaton().setGameTypeSet_(gameTypeSet);
     }
 

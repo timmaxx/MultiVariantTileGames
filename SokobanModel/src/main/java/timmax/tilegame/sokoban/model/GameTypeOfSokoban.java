@@ -2,14 +2,12 @@ package timmax.tilegame.sokoban.model;
 
 import javafx.scene.paint.Color;
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 
 import java.util.Set;
 
 import static javafx.scene.paint.Color.*;
 
-//  Warning:(9, 40) Raw use of parameterized class 'GameType'
-public class GameTypeOfSokoban extends GameType<IGameMatchX> {
+public class GameTypeOfSokoban extends GameType {
     // ToDo: Удалить это отсюда константы, описанные ниже, т.к. они относятся к визуализации.
     public static final Color WALL_BACKGROUND_COLOR = RED;
     public static final Color HOME_BACKGROUND_COLOR = WHITE;

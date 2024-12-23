@@ -5,7 +5,6 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
 //  Событие клиента с именем типа игры.
@@ -28,7 +27,7 @@ public class EventOfClient41SetGameType extends EventOfClient {
     public void executeOnServer(RemoteClientStateAutomaton remoteClientStateAutomaton) {
         // От клиента поступило символическое имя типа игры (оно должно быть одно из тех, которые ему направлялись множеством).
 
-        GameType<IGameMatchX> gameType = remoteClientStateAutomaton
+        GameType gameType = remoteClientStateAutomaton
                 .getGameTypeSet()
                 .stream()
                 // В том перечне ищется gameType с таким-же именем:

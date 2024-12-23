@@ -102,7 +102,7 @@ public class SenderOfEventOfClient implements ISenderOfEventOfClient {
     }
 
     @Override
-    public void setGameType(GameType<GameMatchDto> gameType) {
+    public void setGameType(GameType gameType) {
         sendEventOfClient(new EventOfClient41SetGameType(gameType.getId()));
     }
 

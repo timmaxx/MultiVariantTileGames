@@ -9,10 +9,10 @@ public interface IClientState04UserWasAuthorized extends IClientState00 {
     // ---- 4 (GameTypeSetSelected)
     // ToDo: Метод был добавлен, что-бы добраться до описания типа,
     //       но если нужно только описание, то м.б. другой метод сделать?
-    GameType<IGameMatchX> getGameType();
+    GameType getGameType();
 
 
-    void setGameType(GameType<IGameMatchX> gameType);
+    void setGameType(GameType gameType);
     //  interface TransportOfClient
     //      void setGameType(GameType gameType);
 

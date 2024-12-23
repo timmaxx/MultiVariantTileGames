@@ -5,7 +5,6 @@ import timmax.tilegame.basemodel.placement.primitives.WidthHeightSizes;
 import timmax.tilegame.basemodel.placement.gamemove.GameMove;
 import timmax.tilegame.basemodel.placement.matchstatus.MatchStatus;
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 
 import java.util.Set;
 
@@ -21,7 +20,7 @@ public abstract class GameObjectsPlacementAbstractState implements GameObjectsPl
         return getGameType().getCountOfGamers();
     }
 
-    protected GameType<IGameMatchX> getGameType() {
+    protected GameType getGameType() {
         return getGameObjectsPlacementBaseData().getGameType();
     }
 

@@ -35,7 +35,7 @@ public abstract class ClientState extends State implements IClientState99 {
     }
 
     @Override
-    public void setGameTypeSet(Set<GameType<IGameMatchX>> gameTypeSet) {
+    public void setGameTypeSet(Set<GameType> gameTypeSet) {
         throw new WrongMethodInvokeForCurrentStateException(getBaseStateAutomaton().getCurrentState());
     }
 
@@ -51,18 +51,18 @@ public abstract class ClientState extends State implements IClientState99 {
 
     // interface IClientState04GameTypeSetSelected
     @Override
-    public Set<GameType<IGameMatchX>> getGameTypeSet() {
+    public Set<GameType> getGameTypeSet() {
         throw new WrongMethodInvokeForCurrentStateException(getBaseStateAutomaton().getCurrentState());
     }
 
     @Override
-    public void setGameType(GameType<IGameMatchX> gameType) {
+    public void setGameType(GameType gameType) {
         throw new WrongMethodInvokeForCurrentStateException(getBaseStateAutomaton().getCurrentState());
     }
 
     // interface IClientState06GameMatchSetSelected
     @Override
-    public GameType<IGameMatchX> getGameType() {
+    public GameType getGameType() {
         throw new WrongMethodInvokeForCurrentStateException(getBaseStateAutomaton().getCurrentState());
     }
 

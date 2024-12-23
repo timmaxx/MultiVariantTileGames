@@ -3,7 +3,6 @@ package timmax.tilegame.guiengine.jfx.view;
 import javafx.scene.layout.Pane;
 
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 import timmax.tilegame.transport.ISenderOfEventOfClient;
 import timmax.tilegame.basecontroller.BaseController;
 import timmax.tilegame.baseview.View;
@@ -11,7 +10,7 @@ import timmax.tilegame.baseview.View;
 public abstract class ViewJfx extends Pane implements View {
     private final String viewName;
     protected final BaseController baseController;
-    protected final GameType<IGameMatchX> gameType;
+    protected final GameType gameType;
 
     //  ToDo:   Код сделать так, что-бы увязать:
     //          - перечень параметров конструктора ViewJfx,
@@ -21,7 +20,7 @@ public abstract class ViewJfx extends Pane implements View {
             ISenderOfEventOfClient senderOfEventOfClient,
             BaseController baseController,
             String viewName,
-            GameType<IGameMatchX> gameType) {
+            GameType gameType) {
         super();
         this.baseController = baseController;
         this.viewName = viewName;

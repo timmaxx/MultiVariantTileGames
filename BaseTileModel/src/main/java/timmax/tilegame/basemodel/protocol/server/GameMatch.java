@@ -9,7 +9,6 @@ import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.placement.placementstate.GameObjectsPlacementStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
-import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 
 import java.util.Map;
 import java.util.Set;
@@ -36,11 +35,11 @@ import static timmax.tilegame.basemodel.GameMatchStatus.*;
 //          allMinesweeperObjects = levelGenerator.getLevel(width, height, percentsOfMines);
 //          в классе GameMatchOfMinesweeper.
 
-//  Конкретный матч определённого типа игры.
+//  Матч определённого типа игры.
 public abstract class GameMatch implements IGameMatch {
     protected static final Logger logger = LoggerFactory.getLogger(GameMatch.class);
 
-    protected final GameType<IGameMatchX> gameType;
+    protected final GameType gameType;
 
     private /*final*/ GameObjectsPlacementStateAutomaton gameObjectsPlacementStateAutomaton;
 
@@ -74,7 +73,7 @@ public abstract class GameMatch implements IGameMatch {
     //            Там создаётся конструктор через рекурсию. Но после рефакторинга, создание конструктора должно уйти в
     //            GameType.
     public GameMatch(
-            GameType<IGameMatchX> gameType,
+            GameType gameType,
             RemoteClientStateAutomaton remoteClientStateAutomaton) {
         this.gameType = gameType;
         this.matchPlayerList = new MatchPlayerList(gameType.getCountOfGamers());
@@ -106,10 +105,11 @@ public abstract class GameMatch implements IGameMatch {
         this.gameObjectsPlacementStateAutomaton = gameObjectsPlacementStateAutomaton;
     }
 
-    public GameType<IGameMatchX> getGameType() {
+    public GameType getGameType() {
         return gameType;
     }
 
+    //  Warning:(112, 52) Actual value of parameter 'status' is always 'GameMatchStatus.FORCE_RESTART_OR_CHANGE_LEVEL'
     protected final void setStatus(GameMatchStatus status) {
         this.status = status;
     }
@@ -148,6 +148,7 @@ public abstract class GameMatch implements IGameMatch {
         }
         */
         // Для Сокобан restart и newGame - видимо работает одинаково.
+        //  Warning:(150, 9) 'if' statement can be simplified
         if (getStatus() != GameMatchStatus.GAME) {
             // start();
             return true;
@@ -207,7 +208,7 @@ public abstract class GameMatch implements IGameMatch {
     @Override
     public void start(GameMatchExtendedDto gameMatchExtendedDto) {
         //  ToDo:   Отправить клиенту:
-        //          1. Размеры главной выборки матча и умолчательные характеристики для построение пустого поля
+        //          1. Размеры главной выборки матча и умолчательные характеристики для построения пустого поля
         //             (но возможно, это в более раннем событии следует передать) для построения пустой выборки главного поля.
         //          2. Объекты матча статические (например для Сокобана: стены или дома).
         //          3. Объекты матча динамические. Например:

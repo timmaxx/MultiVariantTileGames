@@ -9,7 +9,7 @@ public abstract class ClientState04UserWasAuthorized extends ClientState03Connec
 
     // interface IClientState04GameTypeSetSelected
     @Override
-    public GameType<IGameMatchX> getGameType() {
+    public GameType getGameType() {
         return getBaseStateAutomaton().getGameType_();
     }
 
@@ -19,7 +19,7 @@ public abstract class ClientState04UserWasAuthorized extends ClientState03Connec
     }
 
     @Override
-    public void setGameType(GameType<IGameMatchX> gameType) {
+    public void setGameType(GameType gameType) {
         getBaseStateAutomaton().setGameType_(gameType);
     }
 }

@@ -3,7 +3,6 @@ package timmax.tilegame.basemodel.protocol.server;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.server_client.ClientState04UserWasAuthorized;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 
 public class RemoteClientState04UserWasAuthorized extends ClientState04UserWasAuthorized {
     public RemoteClientState04UserWasAuthorized(ClientStateAutomaton clientStateAutomaton) {
@@ -11,7 +10,7 @@ public class RemoteClientState04UserWasAuthorized extends ClientState04UserWasAu
     }
 
     @Override
-    public void setGameType(GameType<IGameMatchX> gameType) {
+    public void setGameType(GameType gameType) {
         //  ToDo:   Не использовать здесь initGameMatchXSet(...), т.к. множество матчей должно поступать из:
         //          - свойств пользователя (т.е. все неоконченные матчи, участником которых он был),
         //          - новый матч для текущего типа игры (но возможно, его лучше отдельно создавать).

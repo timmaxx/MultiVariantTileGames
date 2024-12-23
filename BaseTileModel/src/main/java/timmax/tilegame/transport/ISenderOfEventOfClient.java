@@ -35,7 +35,7 @@ public interface ISenderOfEventOfClient {
 
     // 04GameTypeSetSelected
     void reauthorizeUser();                                                     //  4 -> 4  void reauthorizeUser();
-    void setGameType(GameType<GameMatchDto> gameType);                          //  4 -> 5  void setGameType(GameType gameType, Set<GameMatchX> gameMatchXSet);
+    void setGameType(GameType gameType);                                        //  4 -> 5  void setGameType(GameType gameType, Set<GameMatchX> gameMatchXSet);
 
     // 06GameMatchSetSelected
     void resetGameType();                                                       //  6 -> 6  void resetGameType();

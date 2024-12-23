@@ -22,7 +22,7 @@ import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.baseview.ViewMainField;
 
-public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameType, Externalizable {
+public abstract class GameType implements IGameType, Externalizable {
     protected static final Logger logger = LoggerFactory.getLogger(GameType.class);
 
     // ToDo: Рассмотреть вариант выделения из этого класса "String gameTypeName" в отдельный класс GameTypeName.
@@ -35,26 +35,6 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
     //          И похожим образом сделано для идентификации GameMatch (см. коммент для GameMatchDto)
     private String id;
     private int countOfGamers;
-
-    //  Множество классов объектов. (Возможно убрать это в GameType)
-    //      Например, для Шахмат:
-    //          Король, ферзь, слон, конь, ладья, пешка.
-    //      Например, для Шашек:
-    //          Шашка, дамка.
-    //      Например, для Сапёра:
-    //          Закрытое поле, флаг, открытое поле (без мины), мина.
-    //      Например, для Сокобан:
-    //          Игрок, коробка, стена, дом.
-    //  ToDo:   Элементами Set должны быть только классы, являющиеся наследниками класса
-    //          GameObject.
-    //          Сейчас это соответствие не отслеживается в классах-наследниках GameType.
-    //          Смотри конструкторы в GameTypeOfMinesweeper и в GameTypeOfSokoban.
-    //          Это пример того, как хотелось-бы что-бы компилятор отреагировал при компиляции в этих конструкторах:
-    //              - компилятор возражает и это хорошо:
-    //                  Set<Class<? extends GameObject>> abcClassSet1 = Set.of(Object.class);
-    //              - компилятор не возражает и это тоже хорошо:
-    //                  Set<Class<? extends GameObject>> abcClassSet2 = Set.of(GameObject.class);
-    private Set<Class<? extends GameObjectStateAutomaton>> gameObjectStateAutomaton_Class_Set;
 
     private Set<IGameMatchX> gameMatchXSet;
 
@@ -99,7 +79,24 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
         this();
         this.id = id;
         this.countOfGamers = countOfGamers;
-        this.gameObjectStateAutomaton_Class_Set = gameObjectStateAutomaton_Class_Set;
+        //  Множество классов объектов. (Возможно убрать это в GameType)
+        //      Например, для Шахмат:
+        //          Король, ферзь, слон, конь, ладья, пешка.
+        //      Например, для Шашек:
+        //          Шашка, дамка.
+        //      Например, для Сапёра:
+        //          Закрытое поле, флаг, открытое поле (без мины), мина.
+        //      Например, для Сокобан:
+        //          Игрок, коробка, стена, дом.
+        //  ToDo:   Элементами Set должны быть только классы, являющиеся наследниками класса
+        //          GameObject.
+        //          Сейчас это соответствие не отслеживается в классах-наследниках GameType.
+        //          Смотри конструкторы в GameTypeOfMinesweeper и в GameTypeOfSokoban.
+        //          Это пример того, как хотелось-бы что-бы компилятор отреагировал при компиляции в этих конструкторах:
+        //              - компилятор возражает и это хорошо:
+        //                  Set<Class<? extends GameObject>> abcClassSet1 = Set.of(Object.class);
+        //              - компилятор не возражает и это тоже хорошо:
+        //                  Set<Class<? extends GameObject>> abcClassSet2 = Set.of(GameObject.class);
         this.defaultCellBackgroundColor = defaultCellBackgroundColor;
         this.defaultCellTextColor = defaultCellTextColor;
         this.defaultCellTextValue = defaultCellTextValue;
@@ -175,7 +172,7 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
         //              - начатые, но не оконченные (на паузе) партии.
         //              - начатые и оконченные партии - для возможности ознакомления с ними.
 
-        GameMatchX gameMatchX = null;
+        IGameMatchX gameMatchX = null;
         Constructor<? extends IGameMatchX> gameMatchConstructor = getGameMatchConstructor();
 
         try {
@@ -189,9 +186,7 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
             //          и там-же ниже в строке
             //          iGameMatch = gameMatchConstructor.newInstance(...);
             //       2. Ну в т.ч. это, те-же параметры, которые поступили в executeOnServer().
-            //  ToDo:   Приведение типа?
-            //  Warning:(193, 26) Unchecked cast: 'capture<? extends timmax.tilegame.basemodel.protocol.server.IGameMatch>' to 'GameMatchX'
-            gameMatchX = (GameMatchX) gameMatchConstructor.newInstance(remoteClientStateAutomaton);
+            gameMatchX = gameMatchConstructor.newInstance(remoteClientStateAutomaton);
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
             logger.error("Server cannot create object of model for {} with gameMatchConstructor with specific parameters.", this, e);
             System.exit(1);
@@ -253,8 +248,7 @@ public abstract class GameType<GameMatchX extends IGameMatchX> implements IGameT
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        //  Warning:(256, 42) Unchecked cast: 'java.lang.Object' to 'timmax.tilegame.basemodel.protocol.server.GameType<timmax.tilegame.basemodel.protocol.server_client.IGameMatchX>'
-        GameType<IGameMatchX> gameType = (GameType<IGameMatchX>) o;
+        GameType gameType = (GameType) o;
 
         return id.equals(gameType.id);
     }

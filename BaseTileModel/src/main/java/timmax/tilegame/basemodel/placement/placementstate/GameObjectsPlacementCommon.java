@@ -6,7 +6,6 @@ import timmax.tilegame.basemodel.placement.primitives.WidthHeightSizes;
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
 import timmax.tilegame.basemodel.protocol.server.GameMatch;
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -48,7 +47,7 @@ public final class GameObjectsPlacementCommon {
         return gameMatch;
     }
 
-    public GameType<IGameMatchX> getGameType() {
+    public GameType getGameType() {
         return gameMatch.getGameType();
     }
 
