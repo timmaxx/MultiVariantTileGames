@@ -44,14 +44,14 @@ public class GameTypeFabric {
             GameType gameType;
             while ((line = reader.readLine()) != null) {
                 try {
-                    // ToDo: Нужно минимизировать количество согласований в методах и между классами.
+                    //  ToDo:   Нужно минимизировать количество согласований в методах и между классами.
                     gameType = GameTypeFabric.create(line);
                 } catch (ClassNotFoundException cnfe) {
                     logger.warn("Class '{}' is not found.", line, cnfe);
                     continue;
                 } catch (NoSuchMethodException nsme) {
-                    // ToDo: - продолжение предыдущего ToDo.
-                    //       2. Во вторых при логировании здесь.
+                    //  ToDo:   (продолжение предыдущего ToDo.)
+                    //          2. Во вторых при логировании здесь.
                     logger.warn("Class '{}' does not contains constructor.", line, nsme);
                     continue;
                 } catch (InvocationTargetException ite) {
