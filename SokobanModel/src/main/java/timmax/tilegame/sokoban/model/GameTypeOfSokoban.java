@@ -1,27 +1,12 @@
 package timmax.tilegame.sokoban.model;
 
-import javafx.scene.paint.Color;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
 import java.util.Set;
 
-import static javafx.scene.paint.Color.*;
+import static timmax.tilegame.sokoban.model.GameMatchOfSokoban.*;
 
 public class GameTypeOfSokoban extends GameType {
-    // ToDo: Удалить это отсюда константы, описанные ниже, т.к. они относятся к визуализации.
-    public static final Color WALL_BACKGROUND_COLOR = RED;
-    public static final Color HOME_BACKGROUND_COLOR = WHITE;
-    public static final Color EMPTY_BACKGROUND_COLOR = BLACK;
-
-    public static final String NOBODY = "";
-    public static final Color NOBODY_TEXT_COLOR = BLACK;
-
-    public static final String PLAYER = "😀"; // "\uF9CD"; // "&";
-    public static final Color PLAYER_TEXT_COLOR = GREEN;
-
-    public static final String BOX = "█"; // "❐"; // "▉"; // "[]";
-    public static final Color BOX_TEXT_COLOR = BLUE;
-
     public GameTypeOfSokoban() throws ClassNotFoundException, NoSuchMethodException {
         //  ToDo:   Warning:(32, 9) Unchecked call to 'GameType(String, int, Class<? extends IGameMatch>, Color, Color, String)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.GameType'
         super("Sokoban",

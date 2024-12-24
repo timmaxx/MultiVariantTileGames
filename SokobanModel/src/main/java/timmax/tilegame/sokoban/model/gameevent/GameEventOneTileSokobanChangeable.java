@@ -5,12 +5,11 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
-
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
 import timmax.tilegame.sokoban.model.placement.gameobject.WhoMovableInTile;
 import timmax.tilegame.sokoban.model.placement.gameobject.WhoPersistentInTile;
 
-import static timmax.tilegame.sokoban.model.GameTypeOfSokoban.*;
+import static timmax.tilegame.sokoban.model.GameMatchOfSokoban.*;
 import static timmax.tilegame.sokoban.model.placement.gameobject.WhoMovableInTile.*;
 import static timmax.tilegame.sokoban.model.placement.gameobject.WhoPersistentInTile.*;
 

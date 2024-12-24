@@ -10,6 +10,7 @@ import java.util.Set;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
+import javafx.scene.paint.Color;
 
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
@@ -25,6 +26,8 @@ import timmax.tilegame.sokoban.model.gameevent.GameEventOneTileSokobanChangeable
 import timmax.tilegame.sokoban.model.placement.gameobject.WhoMovableInTile;
 import timmax.tilegame.sokoban.model.placement.gameobject.WhoPersistentInTile;
 
+import static javafx.scene.paint.Color.*;
+import static javafx.scene.paint.Color.BLUE;
 import static timmax.tilegame.basemodel.GameMatchStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
 
 public class GameMatchOfSokoban extends GameMatch {
@@ -56,6 +59,20 @@ public class GameMatchOfSokoban extends GameMatch {
             throw new RuntimeException(uriSE);
         }
     }
+
+    // ToDo: Удалить это отсюда константы, описанные ниже, т.к. они относятся к визуализации.
+    public static final Color WALL_BACKGROUND_COLOR = RED;
+    public static final Color HOME_BACKGROUND_COLOR = WHITE;
+    public static final Color EMPTY_BACKGROUND_COLOR = BLACK;
+
+    public static final String NOBODY = "";
+    public static final Color NOBODY_TEXT_COLOR = BLACK;
+
+    public static final String PLAYER = "😀"; // "\uF9CD"; // "&";
+    public static final Color PLAYER_TEXT_COLOR = GREEN;
+
+    public static final String BOX = "█"; // "❐"; // "▉"; // "[]";
+    public static final Color BOX_TEXT_COLOR = BLUE;
 
     // ToDo: См. комментарии о согласовании параметров в
     //       - GameType :: GameType(...)
