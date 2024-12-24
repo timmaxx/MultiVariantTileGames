@@ -14,10 +14,9 @@ import javafx.scene.paint.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import timmax.common.JFXColorWithExternalizable;
-import timmax.tilegame.basemodel.placement.gameobject.GameObjectStateAutomaton;
 import timmax.tilegame.basemodel.protocol.IGameType;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
+import timmax.tilegame.basemodel.protocol.server_client.GuiDefaultConstants;
 import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.baseview.ViewMainField;
@@ -58,10 +57,8 @@ public abstract class GameType implements IGameType, Externalizable {
     private Map<String, Class<? extends View>> viewName_ViewClassMap;
     protected ParamName_paramModelDescriptionMap paramName_paramModelDescriptionMap;
 
-    //  ToDo:   Поля ниже (три шт.) относятся к визуализации. Их нужно абстрагировать и визуальную часть вынести отсюда.
-    private Color defaultCellBackgroundColor;
-    private Color defaultCellTextColor;
-    private String defaultCellTextValue;
+    //  ToDo:   Поле относится к визуализации. Его нужно абстрагировать и вынести отсюда.
+    private GuiDefaultConstants guiDefaultConstants;
 
     public GameType() {
         super();
@@ -70,16 +67,15 @@ public abstract class GameType implements IGameType, Externalizable {
     public GameType(
             String id,
             int countOfGamers,
-            Set<Class<? extends GameObjectStateAutomaton>> gameObjectStateAutomaton_Class_Set,
+//            Set<Class<? extends GameObjectStateAutomaton>> gameObjectStateAutomaton_Class_Set,
             Class<? extends IGameMatchX> gameMatchClass,
-            Color defaultCellBackgroundColor,
-            Color defaultCellTextColor,
-            String defaultCellTextValue)
+            GuiDefaultConstants guiDefaultConstants)
             throws ClassNotFoundException, NoSuchMethodException {
         this();
         this.id = id;
         this.countOfGamers = countOfGamers;
-        //  Множество классов объектов. (Возможно убрать это в GameType)
+/*
+        //  Множество классов объектов.
         //      Например, для Шахмат:
         //          Король, ферзь, слон, конь, ладья, пешка.
         //      Например, для Шашек:
@@ -97,22 +93,22 @@ public abstract class GameType implements IGameType, Externalizable {
         //                  Set<Class<? extends GameObject>> abcClassSet1 = Set.of(Object.class);
         //              - компилятор не возражает и это тоже хорошо:
         //                  Set<Class<? extends GameObject>> abcClassSet2 = Set.of(GameObject.class);
-        this.defaultCellBackgroundColor = defaultCellBackgroundColor;
-        this.defaultCellTextColor = defaultCellTextColor;
-        this.defaultCellTextValue = defaultCellTextValue;
+*/
 
-        // ToDo: Мапу нужно инициализировать не как сейчас - константой, а в классе (или пакете...) найти все выборки,
-        //       реализующие View.class, в т.ч. и ViewMainField.class.
+        this.guiDefaultConstants = guiDefaultConstants;
+
+        //  ToDo:   Мапу нужно инициализировать не как сейчас - константой, а в классе (или пакете...) найти все выборки,
+        //          реализующие View.class, в т.ч. и ViewMainField.class.
         viewName_ViewClassMap = Map.of(ViewMainField.class.getSimpleName(), ViewMainField.class);
 
-        // ToDo: Нужно минимизировать количество согласований в методах и между классами.
-        //       Параметры, которые передаются в getConstructor() и ниже newInstance(), также согласуются с параметрами в
-        //       GameMatchLoader :: getCollectionOfGameType()
-        //       и внутри того метода с параметрами при вызове
-        //       gameType = new GameType()
-        //       и там же ниже в ветке
-        //       catch (NoSuchMethodException e)
-        //       при логировании.
+        //  ToDo:   Нужно минимизировать количество согласований в методах и между классами.
+        //          Параметры, которые передаются в getConstructor() и ниже newInstance(), также согласуются с параметрами в
+        //          GameMatchLoader :: getCollectionOfGameType()
+        //          и внутри того метода с параметрами при вызове
+        //          gameType = new GameType()
+        //          и там же ниже в ветке
+        //          catch (NoSuchMethodException e)
+        //          при логировании.
         gameMatchConstructor = gameMatchClass.getConstructor(RemoteClientStateAutomaton.class);
 
         paramName_paramModelDescriptionMap = new ParamName_paramModelDescriptionMap();
@@ -127,23 +123,23 @@ public abstract class GameType implements IGameType, Externalizable {
     }
 
     public Color getDefaultCellBackgroundColor() {
-        return defaultCellBackgroundColor;
+        return guiDefaultConstants.getDefaultCellBackgroundColor();
     }
 
     public Color getDefaultCellTextColor() {
-        return defaultCellTextColor;
+        return guiDefaultConstants.getDefaultCellTextColor();
     }
 
     public String getDefaultCellTextValue() {
-        return defaultCellTextValue;
+        return guiDefaultConstants.getDefaultCellTextValue();
     }
 
-    // ToDo: Отказаться от прямого доступа к viewName_ViewClassMap извне класса.
+    //  ToDo:   Отказаться от прямого доступа к viewName_ViewClassMap извне класса.
     public Map<String, Class<? extends View>> getViewName_ViewClassMap() {
         return viewName_ViewClassMap;
     }
 
-    // ToDo: Отказаться от прямого доступа к paramName_paramModelDescriptionMap извне класса.
+    //  ToDo:   Отказаться от прямого доступа к paramName_paramModelDescriptionMap извне класса.
     public final ParamName_paramModelDescriptionMap getParamName_paramModelDescriptionMap() {
         return paramName_paramModelDescriptionMap;
     }
@@ -154,7 +150,7 @@ public abstract class GameType implements IGameType, Externalizable {
 
     public void initGameMatchXSet(RemoteClientStateAutomaton remoteClientStateAutomaton) {
         gameMatchXSet = new HashSet<>();
-        // Done:
+        //  Done:
         //       1.1. При создании перечня матчей на сервере,
         //            если список не содержит ни одного матча в состоянии "Не начат",
         //            то сервер сам создаёт такой матч.
@@ -167,7 +163,7 @@ public abstract class GameType implements IGameType, Externalizable {
         //            - на клиенте опционально: не давать возможность редактировать в принципе.
         //            - на сервере обязательно: проверять попытку изменить параметры матча и возвращать актуальные
         //                значения на клиент.
-        // ToDo:
+        //  ToDo:
         //       1.2.1. Однако потом нужно будет вернуться к возможности удалять или как-то скидывать в архив
         //              - начатые, но не оконченные (на паузе) партии.
         //              - начатые и оконченные партии - для возможности ознакомления с ними.
@@ -177,15 +173,15 @@ public abstract class GameType implements IGameType, Externalizable {
 
         try {
             // Создаём экземпляр модели, ранее выбранного типа.
-            // ToDo: Нужно минимизировать количество согласований между классами.
-            //       Параметры, которые передаются в newInstance():
-            //       1. Перечень параметров согласовывается с перечнем в
-            //          GameType :: GameType(...)
-            //          в строке
-            //          gameMatchConstructor = gameMatchClass.getConstructor(...);
-            //          и там-же ниже в строке
-            //          iGameMatch = gameMatchConstructor.newInstance(...);
-            //       2. Ну в т.ч. это, те-же параметры, которые поступили в executeOnServer().
+            //  ToDo:   Нужно минимизировать количество согласований между классами.
+            //          Параметры, которые передаются в newInstance():
+            //          1. Перечень параметров согласовывается с перечнем в
+            //              GameType :: GameType(...)
+            //              в строке
+            //              gameMatchConstructor = gameMatchClass.getConstructor(...);
+            //              и там-же ниже в строке
+            //              iGameMatch = gameMatchConstructor.newInstance(...);
+            //          2. Ну в т.ч. это, те-же параметры, которые поступили в executeOnServer().
             gameMatchX = gameMatchConstructor.newInstance(remoteClientStateAutomaton);
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
             logger.error("Server cannot create object of model for {} with gameMatchConstructor with specific parameters.", this, e);
@@ -216,30 +212,20 @@ public abstract class GameType implements IGameType, Externalizable {
         out.writeObject(gameMatchDtoSet);
         out.writeObject(viewName_ViewClassMap);
         out.writeObject(paramName_paramModelDescriptionMap);
-
-        // Тип Color не сереализуемый, поэтому сериализуем его через дополнительный класс:
-        out.writeObject(new JFXColorWithExternalizable(defaultCellBackgroundColor));
-        out.writeObject(new JFXColorWithExternalizable(defaultCellTextColor));
-
-        out.writeObject(defaultCellTextValue);
+        out.writeObject(guiDefaultConstants);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         id = (String) in.readObject();
         countOfGamers = in.readInt();
-        //  Warning:(236, 27) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.protocol.server_client.GameMatchDto>'
+        //  Warning:(223, 27) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.protocol.server_client.GameMatchDto>'
         gameMatchDtoSet = (Set<GameMatchDto>) in.readObject();
-        //  Warning:(240, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'
+        //  Warning:(226, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'
         //  https://sky.pro/wiki/java/reshaem-preduprezhdenie-unchecked-cast-v-java-spring/
         viewName_ViewClassMap = (Map<String, Class<? extends View>>) in.readObject();
         paramName_paramModelDescriptionMap = (ParamName_paramModelDescriptionMap) in.readObject();
-
-        // Тип Color не сереализуемый, поэтому десериализуем его через дополнительный класс:
-        defaultCellBackgroundColor = ((JFXColorWithExternalizable) in.readObject()).getColor();
-        defaultCellTextColor = ((JFXColorWithExternalizable) in.readObject()).getColor();
-
-        defaultCellTextValue = (String) in.readObject();
+        guiDefaultConstants = (GuiDefaultConstants) in.readObject();
     }
 
     // class Object
@@ -267,6 +253,7 @@ public abstract class GameType implements IGameType, Externalizable {
                 ", gameMatchXSet=" + gameMatchXSet +
                 ", gameMatchDtoSet=" + gameMatchDtoSet +
                 ", viewName_ViewClassMap=" + viewName_ViewClassMap +
+                ", guiDefaultConstants=" + guiDefaultConstants +
                 ", paramName_paramModelDescriptionMap=" + paramName_paramModelDescriptionMap +
                 '}';
     }

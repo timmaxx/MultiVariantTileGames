@@ -51,27 +51,28 @@ public class GameMatchOfSokoban extends GameMatch {
             );
         } catch (URISyntaxException uriSE) {
             logger.error("There is a problem with file with game levels.", uriSE);
-            // ToDo: При 'System.exit(1);' сервер закроется. Но ошибка произошла при загрузке только модели одной игры.
-            //       Поэтому нужно чтобы только эта модель не загрузилась и клиенту должен быть отправлен перечень игр
-            //       без этой игры.
+            //  ToDo:   При 'System.exit(1);' сервер закроется.
+            //          Но ошибка произошла при загрузке только модели одной игры.
+            //          Поэтому нужно чтобы только эта модель не загрузилась
+            //          и клиенту должен быть отправлен перечень игр без этой игры.
             System.exit(1);
 
             throw new RuntimeException(uriSE);
         }
     }
 
-    // ToDo: Удалить это отсюда константы, описанные ниже, т.к. они относятся к визуализации.
+    //  ToDo:   Удалить отсюда константы, описанные ниже, т.к. они относятся к визуализации.
     public static final Color WALL_BACKGROUND_COLOR = RED;
     public static final Color HOME_BACKGROUND_COLOR = WHITE;
     public static final Color EMPTY_BACKGROUND_COLOR = BLACK;
 
-    public static final String NOBODY = "";
+    public static final String NOBODY_TEXT = "";
     public static final Color NOBODY_TEXT_COLOR = BLACK;
 
-    public static final String PLAYER = "😀"; // "\uF9CD"; // "&";
+    public static final String PLAYER_TEXT = "😀"; // "\uF9CD"; // "&";
     public static final Color PLAYER_TEXT_COLOR = GREEN;
 
-    public static final String BOX = "█"; // "❐"; // "▉"; // "[]";
+    public static final String BOX_TEXT = "█"; // "❐"; // "▉"; // "[]";
     public static final Color BOX_TEXT_COLOR = BLUE;
 
     // ToDo: См. комментарии о согласовании параметров в

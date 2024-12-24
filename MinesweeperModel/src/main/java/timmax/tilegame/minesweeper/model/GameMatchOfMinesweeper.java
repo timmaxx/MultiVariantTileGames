@@ -31,23 +31,23 @@ public class GameMatchOfMinesweeper extends GameMatch {
     //  4.  Инициализатор Level generator/loader
     //      Нет.
 
-    // ToDo: См. комментарии о согласовании параметров в
-    //       - GameType :: GameType(...)
-    //       и в
-    //       - GameMatchLoader :: getCollectionOfGameType(...)
+    //  ToDo:   См. комментарии о согласовании параметров в
+    //          - GameType :: GameType(...)
+    //          и в
+    //          - GameMatchLoader :: getCollectionOfGameType(...)
 
-    // ToDo: Удалить отсюда константы, описанные ниже, т.к. они относятся к визуализации.
-    public static final String UNOPENED = "";
+    //  ToDo:   Удалить отсюда константы, описанные ниже, т.к. они относятся к визуализации.
+    public static final String UNOPENED_TEXT = "";
     public static final Color UNOPENED_BACKGROUND_COLOR = ORANGE;
     public static final Color UNOPENED_TEXT_COLOR = BLACK;
 
-    public static final String FLAG = "🚩"; // "\uD83D\uDEA9";
+    public static final String FLAG_TEXT = "🚩"; // "\uD83D\uDEA9";
     public static final Color FLAG_BACKGROUND_COLOR = YELLOW;
 
     public static final Color NOMINE_BACKGROUND_COLOR = GREEN;
     public static final Color NOMINE_TEXT_COLOR = BLACK;
 
-    public static final String MINE = "💣"; // "\uD83D\uDCA3";
+    public static final String MINE_TEXT = "💣"; // "\uD83D\uDCA3";
     public static final Color MINE_BACKGROUND_COLOR = RED;
     public static final Color MINE_TEXT_COLOR = BLACK;
 

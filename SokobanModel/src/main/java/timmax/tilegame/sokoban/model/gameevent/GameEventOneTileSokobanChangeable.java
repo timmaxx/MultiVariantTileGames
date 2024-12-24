@@ -23,16 +23,15 @@ public class GameEventOneTileSokobanChangeable extends GameEventOneTile {
 
     public GameEventOneTileSokobanChangeable(
             XYCoordinate xyCoordinate,
-            // ToDo: Избавиться от "Warning:(28, 13) Class 'WhoPersistentInTile' is not exported from module 'timmax.tilegame.game.sokoban.model'"
+            //  Warning:(27, 13) Class 'WhoPersistentInTile' is not exported from module 'timmax.tilegame.sokoban.model'
             WhoPersistentInTile whoPersistentInTile,
-            // ToDo: Избавиться от "Warning:(30, 13) Class 'WhoMovableInTile' is not exported from module 'timmax.tilegame.game.sokoban.model'"
+            //  Warning:(29, 13) Class 'WhoMovableInTile' is not exported from module 'timmax.tilegame.sokoban.model'
             WhoMovableInTile whoMovableInTile) {
         super(xyCoordinate);
         this.whoPersistentInTile = whoPersistentInTile;
         this.whoMovableInTile = whoMovableInTile;
 
-        // ToDo: Ниже относится к визуализации. Удалить это отсюда.
-        // ToDo: Хотя-бы в GameType эти реквизиты можно было-бы переместить.
+        //  ToDo:   Ниже относится к визуализации. Удалить это отсюда.
         if (whoPersistentInTile == IS_WALL) {
             cellBackgroundColor = WALL_BACKGROUND_COLOR;
         } else if (whoPersistentInTile == IS_HOME) {
@@ -42,24 +41,15 @@ public class GameEventOneTileSokobanChangeable extends GameEventOneTile {
         }
 
         if (whoMovableInTile == IS_PLAYER) {
-            cellText = PLAYER;
+            cellText = PLAYER_TEXT;
             cellTextColor = PLAYER_TEXT_COLOR;
         } else if (whoMovableInTile == IS_BOX) {
-            cellText = BOX;
+            cellText = BOX_TEXT;
             cellTextColor = BOX_TEXT_COLOR;
         } else if (whoMovableInTile == IS_NOBODY) {
-            cellText = NOBODY;
+            cellText = NOBODY_TEXT;
             cellTextColor = NOBODY_TEXT_COLOR;
         }
-    }
-
-    @Override
-    public String toString() {
-        return "GameEventOneTileSokobanChangeable{" +
-                super.toString() + " " +
-                "whoPersistentInTile=" + whoPersistentInTile +
-                ", whoMovableInTile=" + whoMovableInTile +
-                '}';
     }
 
     @Override
@@ -74,5 +64,14 @@ public class GameEventOneTileSokobanChangeable extends GameEventOneTile {
         super.readExternal(in);
         whoPersistentInTile = (WhoPersistentInTile) in.readObject();
         whoMovableInTile = (WhoMovableInTile) in.readObject();
+    }
+
+    @Override
+    public String toString() {
+        return "GameEventOneTileSokobanChangeable{" +
+                super.toString() + " " +
+                "whoPersistentInTile=" + whoPersistentInTile +
+                ", whoMovableInTile=" + whoMovableInTile +
+                '}';
     }
 }

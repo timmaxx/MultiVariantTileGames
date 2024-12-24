@@ -16,11 +16,10 @@ public class GameEventOneTileMinesweeperOpenMine extends GameEventOneTile {
     public GameEventOneTileMinesweeperOpenMine(XYCoordinate xyCoordinate) {
         super(xyCoordinate);
 
-        // ToDo: Ниже относится к визуализации. Удалить это отсюда.
-        // ToDo: Хотя-бы в GameType эти реквизиты можно было-бы переместить.
+        //  ToDo:   Ниже относится к визуализации. Удалить это отсюда.
         cellBackgroundColor = MINE_BACKGROUND_COLOR;
         cellTextColor = MINE_TEXT_COLOR;
-        cellText = MINE;
+        cellText = MINE_TEXT;
     }
 
     @Override

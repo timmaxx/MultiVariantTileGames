@@ -1,27 +1,24 @@
 package timmax.tilegame.sokoban.model;
 
 import timmax.tilegame.basemodel.protocol.server.GameType;
-
-import java.util.Set;
+import timmax.tilegame.basemodel.protocol.server_client.GuiDefaultConstants;
 
 import static timmax.tilegame.sokoban.model.GameMatchOfSokoban.*;
 
 public class GameTypeOfSokoban extends GameType {
     public GameTypeOfSokoban() throws ClassNotFoundException, NoSuchMethodException {
-        //  ToDo:   Warning:(32, 9) Unchecked call to 'GameType(String, int, Class<? extends IGameMatch>, Color, Color, String)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.GameType'
         super("Sokoban",
                 1,
+/*
                 //  ToDo:   Элементами Set должны быть только классы, являющиеся наследниками класса
                 //          MinesweeperGameObject (который уже наследник GameObject).
                 //          Сейчас это соответствие не отслеживается, например можно написать так:
                 //              Set.of(Object.class),
                 //          и компилятор ничего не скажет.
-/*
                 Set.of(SGOPlayer.class, SGOHome.class, SGOBox.class, SGOWall.class),
 */
-                Set.of(),
                 GameMatchOfSokoban.class,
-                EMPTY_BACKGROUND_COLOR, NOBODY_TEXT_COLOR, NOBODY
+                new GuiDefaultConstants(EMPTY_BACKGROUND_COLOR, NOBODY_TEXT_COLOR, NOBODY_TEXT)
         );
 
         //  Это пример того, как хотелось-бы что-бы компилятор отреагировал в предыдущих строках
