@@ -7,8 +7,8 @@ import java.io.ObjectOutput;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
 
-import static timmax.tilegame.minesweeper.model.GameTypeOfMinesweeper.NOMINE_BACKGROUND_COLOR;
-import static timmax.tilegame.minesweeper.model.GameTypeOfMinesweeper.NOMINE_TEXT_COLOR;
+import static timmax.tilegame.minesweeper.model.GameMatchOfMinesweeper.NOMINE_BACKGROUND_COLOR;
+import static timmax.tilegame.minesweeper.model.GameMatchOfMinesweeper.NOMINE_TEXT_COLOR;
 
 public class GameEventOneTileMinesweeperOpenNoMine extends GameEventOneTile {
     private int countOfMineNeighbors;

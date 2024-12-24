@@ -1,33 +1,15 @@
 package timmax.tilegame.minesweeper.model;
 
-import javafx.scene.paint.Color;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
 
 import java.util.Set;
 
-import static javafx.scene.paint.Color.*;
 import static timmax.tilegame.basemodel.protocol.server.GameMatch.PARAM_NAME_HEIGHT;
 import static timmax.tilegame.basemodel.protocol.server.GameMatch.PARAM_NAME_WIDTH;
-import static timmax.tilegame.minesweeper.model.GameMatchOfMinesweeper.PARAM_NAME_PERCENTS_OF_MINES;
+import static timmax.tilegame.minesweeper.model.GameMatchOfMinesweeper.*;
 
 public class GameTypeOfMinesweeper extends GameType {
-
-    // ToDo: Удалить отсюда константы, описанные ниже, т.к. они относятся к визуализации.
-    public static final String UNOPENED = "";
-    public static final Color UNOPENED_BACKGROUND_COLOR = ORANGE;
-    public static final Color UNOPENED_TEXT_COLOR = BLACK;
-
-    public static final String FLAG = "🚩"; // "\uD83D\uDEA9";
-    public static final Color FLAG_BACKGROUND_COLOR = YELLOW;
-
-    public static final Color NOMINE_BACKGROUND_COLOR = GREEN;
-    public static final Color NOMINE_TEXT_COLOR = BLACK;
-
-    public static final String MINE = "💣"; // "\uD83D\uDCA3";
-    public static final Color MINE_BACKGROUND_COLOR = RED;
-    public static final Color MINE_TEXT_COLOR = BLACK;
-
     public GameTypeOfMinesweeper() throws ClassNotFoundException, NoSuchMethodException {
         //  ToDo:   Warning:(34, 9) Unchecked call to 'GameType(String, int, Class<? extends IGameMatch>, Color, Color, String)' as a member of raw type 'timmax.tilegame.basemodel.protocol.server.GameType'
         super("Minesweeper",

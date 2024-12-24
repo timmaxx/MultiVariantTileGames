@@ -7,7 +7,7 @@ import java.io.ObjectOutput;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
 
-import static timmax.tilegame.minesweeper.model.GameTypeOfMinesweeper.*;
+import static timmax.tilegame.minesweeper.model.GameMatchOfMinesweeper.*;
 
 public class GameEventOneTileMinesweeperOpenMine extends GameEventOneTile {
     public GameEventOneTileMinesweeperOpenMine() {

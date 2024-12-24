@@ -2,6 +2,7 @@ package timmax.tilegame.minesweeper.model;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
+import javafx.scene.paint.Color;
 
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
@@ -14,6 +15,8 @@ import timmax.tilegame.minesweeper.model.placement.placementstate.MinesweeperPla
 import timmax.tilegame.minesweeper.model.placement.gameobject.MGOStateAutomaton;
 
 import java.util.Map;
+
+import static javafx.scene.paint.Color.*;
 
 public class GameMatchOfMinesweeper extends GameMatch {
     //  1.  String constants
@@ -32,6 +35,22 @@ public class GameMatchOfMinesweeper extends GameMatch {
     //       - GameType :: GameType(...)
     //       и в
     //       - GameMatchLoader :: getCollectionOfGameType(...)
+
+    // ToDo: Удалить отсюда константы, описанные ниже, т.к. они относятся к визуализации.
+    public static final String UNOPENED = "";
+    public static final Color UNOPENED_BACKGROUND_COLOR = ORANGE;
+    public static final Color UNOPENED_TEXT_COLOR = BLACK;
+
+    public static final String FLAG = "🚩"; // "\uD83D\uDEA9";
+    public static final Color FLAG_BACKGROUND_COLOR = YELLOW;
+
+    public static final Color NOMINE_BACKGROUND_COLOR = GREEN;
+    public static final Color NOMINE_TEXT_COLOR = BLACK;
+
+    public static final String MINE = "💣"; // "\uD83D\uDCA3";
+    public static final Color MINE_BACKGROUND_COLOR = RED;
+    public static final Color MINE_TEXT_COLOR = BLACK;
+
     public GameMatchOfMinesweeper(RemoteClientStateAutomaton remoteClientStateAutomaton)
             throws ClassNotFoundException, NoSuchMethodException {
         super(new GameTypeOfMinesweeper(), remoteClientStateAutomaton);
