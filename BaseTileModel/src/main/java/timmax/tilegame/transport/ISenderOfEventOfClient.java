@@ -10,14 +10,7 @@ import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
 
 public interface ISenderOfEventOfClient {
-    //  setURI(URI uriFromControls) Нужен в обоих классах, но в
-    //  class MultiGameWebSocketClient
-    //  т.к. он
-    //  extends org.java_websocket.client.WebSocketClient
-    //  это не получается. Также смотри комментарии к MultiGameWebSocketClient.
     void setURI(URI uriFromControls);
-
-    void sendEventOfClient92GameCommand(EventOfClient92GameCommand eventOfClient92GameCommand);
 
     LocalClientStateAutomaton getLocalClientStateAutomaton();
 
@@ -47,4 +40,5 @@ public interface ISenderOfEventOfClient {
     void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue);          //  7 -> 8  void startGameMatch(Map<String, Integer> mapOfParamsOfModelValue);
 
     // 08GameMatchIsPlaying
+    void sendEventOfClient92GameCommand(EventOfClient92GameCommand eventOfClient92GameCommand); //  8 -> 8  нет соответствия
 }
