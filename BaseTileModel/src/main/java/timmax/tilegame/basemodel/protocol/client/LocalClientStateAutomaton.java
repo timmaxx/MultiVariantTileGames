@@ -38,27 +38,33 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton implements O
         observerOnAbstractEventHashSet.add(observerOnAbstractEvent);
     }
 
-    // ToDo: Вместо прямого доступа к getViewName_ViewClassMap(), лучше что-бы нужное действие
-    //       (см. конструктор класса GameClientPaneJfx), выполнялось в мапе viewName_ViewClassMap.
-    //       Поэтому пришлось сделать его public. Но это не хорошо!
+    //  ToDo:   Вместо прямого доступа к getViewName_ViewClassMap(), лучше что-бы нужное действие
+    //          (см. конструктор класса GameClientPaneJfx), выполнялось в мапе viewName_ViewClassMap.
+    //          Поэтому пришлось сделать его public. Но это не хорошо!
     public Map<String, Class<? extends View>> getViewName_ViewClassMap() {
         return getGameType_().getViewName_ViewClassMap();
     }
 
-    // ToDo: Вместо прямого доступа к getParamName_paramModelDescriptionMap(), лучше что-бы нужное действие
-    //       (см. Pane07GameMatchSelected :: void updateOnSetGameMatch()), выполнялось в мапе paramName_paramModelDescriptionMap.
-    //       Поэтому пришлось сделать его public. Но это не хорошо!
+    //  ToDo:   Вместо прямого доступа к getParamName_paramModelDescriptionMap(), лучше что-бы нужное действие
+    //          (см. Pane07GameMatchSelected :: void updateOnSetGameMatch()), выполнялось в мапе paramName_paramModelDescriptionMap.
+    //          Поэтому пришлось сделать его public. Но это не хорошо!
     public ParamName_paramModelDescriptionMap getParamName_paramModelDescriptionMap() {
         return getGameType_().getParamName_paramModelDescriptionMap();
     }
 
+    //  Этот метод единственный из ..._(...) методов родительского класса, который здесь перегружается.
+    //  Из-за этого в родительском классе он как минимум должен быть protected
+    //  (а не package-private, как другие ..._(...).
     @Override
     protected void startGameMatch_(GameMatchExtendedDto gameMatchExtendedDto) {
+        logger.info("__ Метод используется! __");
         //  ToDo:   Переделать наследование и(или) вызов startGameMatch_().
         //          В текущей реализации метод вызывает родительский. Но для DTO этого не должно быть.
         //          И вызываемый метод только в лог и пишет, что он был зачем-то вызван.
-        //  ToDo:   Блок кода ниже попробовать переместить отсюда, что-бы сделать этот и родительский метод package-private.
         super.startGameMatch_(gameMatchExtendedDto);
+
+        //  ToDo:   Блок кода ниже попробовать переместить отсюда, что-бы сделать родительский метод package-private,
+        //          а этот вообще удалить.
         View view = getView(ViewMainField.class.getSimpleName());
         if (view instanceof ViewMainField viewMainField) {
             Platform.runLater(() -> {
