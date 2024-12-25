@@ -112,7 +112,7 @@ public abstract class ClientStateAutomaton extends StateAutomaton implements ICl
         setCurrentState(clientState01NoConnect);
     }
 
-    public void setGameTypeSet_(Set<GameType> gameTypeSet) {
+    void setGameTypeSet_(Set<GameType> gameTypeSet) {
         this.gameTypeSet = gameTypeSet;
         setCurrentState(clientState03ConnectWithServerInfo);
     }
