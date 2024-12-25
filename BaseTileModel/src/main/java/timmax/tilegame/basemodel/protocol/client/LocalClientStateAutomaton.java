@@ -1,15 +1,11 @@
 package timmax.tilegame.basemodel.protocol.client;
 
-import javafx.application.Platform;
-import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEventHashSet;
 import timmax.tilegame.basemodel.protocol.ObserverOnAbstractEvent;
 import timmax.tilegame.basemodel.protocol.server.ParamName_paramModelDescriptionMap;
 import timmax.tilegame.basemodel.protocol.server_client.ClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
 import timmax.tilegame.basemodel.protocol.server_client.IFabricOfClientStates;
 import timmax.tilegame.baseview.View;
-import timmax.tilegame.baseview.ViewMainField;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,30 +46,6 @@ public class LocalClientStateAutomaton extends ClientStateAutomaton implements O
     //          Поэтому пришлось сделать его public. Но это не хорошо!
     public ParamName_paramModelDescriptionMap getParamName_paramModelDescriptionMap() {
         return getGameType_().getParamName_paramModelDescriptionMap();
-    }
-
-    //  Этот метод единственный из ..._(...) методов родительского класса, который здесь перегружается.
-    //  Из-за этого в родительском классе он как минимум должен быть protected
-    //  (а не package-private, как другие ..._(...).
-    @Override
-    protected void startGameMatch_(GameMatchExtendedDto gameMatchExtendedDto) {
-        logger.info("__ Метод используется! __");
-        //  ToDo:   Переделать наследование и(или) вызов startGameMatch_().
-        //          В текущей реализации метод вызывает родительский. Но для DTO этого не должно быть.
-        //          И вызываемый метод только в лог и пишет, что он был зачем-то вызван.
-        super.startGameMatch_(gameMatchExtendedDto);
-
-        //  ToDo:   Блок кода ниже попробовать переместить отсюда, что-бы сделать родительский метод package-private,
-        //          а этот вообще удалить.
-        View view = getView(ViewMainField.class.getSimpleName());
-        if (view instanceof ViewMainField viewMainField) {
-            Platform.runLater(() -> {
-                viewMainField.initMainField(gameMatchExtendedDto.getParamsOfModelValueMap());
-                for (GameEventOneTile gameEventOneTile : gameMatchExtendedDto.getGameEventOneTileSet()) {
-                    viewMainField.update(gameEventOneTile);
-                }
-            });
-        }
     }
 
     @Override

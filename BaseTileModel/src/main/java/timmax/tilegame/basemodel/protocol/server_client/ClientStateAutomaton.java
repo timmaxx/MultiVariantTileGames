@@ -35,6 +35,8 @@ public abstract class ClientStateAutomaton extends StateAutomaton implements ICl
     private GameType gameType; // ---- 4 (Конкретный тип игры)
 
     private IGameMatchX gameMatchX; // ---- 6 (Конкретная модель игры)
+    //  Это поле нужно только клиенту - нехорошо.
+    private GameMatchExtendedDto gameMatchExtendedDto;
 
     public ClientStateAutomaton(
             IFabricOfClientStates iFabricOfClientStates) {
@@ -94,6 +96,10 @@ public abstract class ClientStateAutomaton extends StateAutomaton implements ICl
         return user;
     }
 
+    public GameMatchExtendedDto getGameMatchExtendedDto() {
+        return gameMatchExtendedDto;
+    }
+
     protected void changeStateFrom01To02_() {
         if (!currentState.equals(clientState01NoConnect)) {
             throw new RuntimeException("This method allowed only for changing state from 01 to 02");
@@ -136,16 +142,16 @@ public abstract class ClientStateAutomaton extends StateAutomaton implements ICl
         setCurrentState(clientState07GameMatchWasSet);
     }
 
-    //  ToDo:   Избавиться от protected (см. коммент к LocalClientStateAutomaton)
-    //  ToDo:   В классе-наследнике LocalClientStateAutomaton метод фактически не используется - не хорошо!
     //  ToDo:   Устранить не единообразие этого метода с вышенаходящимися set..._().
     //          Этот метод подобен вышенаходящимися set..._(), т.к.:
-    //          -   вызов start(...) делает инициализацию некоей переменной,
-    //          -   в нём есть вызов метода перевода статуса.
+    //          -   инициализируется переменная экземпляра,
+    //          -   имеется вызов метода перевода статуса.
     //          Но он и отличается, т.к.:
-    //          -   он не инициализирует никакую переменную gameMatchExtendedDto в классе ClientStateAutomaton
-    //              (но такая переменная есть в классе GameMatch и она и будет инициализирована).
-    protected void startGameMatch_(GameMatchExtendedDto gameMatchExtendedDto) {
+    //          -   после инициализации переменной gameMatchExtendedDto запускается метод (здесь это start()).
+    void startGameMatch_(GameMatchExtendedDto gameMatchExtendedDto) {
+        //  Эта инициализация нужна только клиенту.
+        this.gameMatchExtendedDto = gameMatchExtendedDto;
+        //  Вызов этого метода нужен только серверу.
         gameMatchX.start(gameMatchExtendedDto);
         setCurrentState(clientState08GameMatchIsPlaying);
     }
