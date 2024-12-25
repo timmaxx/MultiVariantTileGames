@@ -10,7 +10,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.Region;
 
+import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
+import timmax.tilegame.baseview.View;
+import timmax.tilegame.baseview.ViewMainField;
 import timmax.tilegame.guiengine.jfx.GameClientPaneJfx;
 import timmax.tilegame.transport.ISenderOfEventOfClient;
 
@@ -86,10 +89,10 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
         List<Region> regionList = new ArrayList<>();
 
         int y = LAYOUT_Y_OF_FIRST_ROW;
+
         // ToDo: Отказаться от прямого доступа к getParamName_paramModelDescriptionMap().
         //       Здесь используется
         //       LocalClientStateAutomaton :: Map<String, ParamOfModelDescription> getParamName_paramModelDescriptionMap()
-
         for (String paramName : senderOfEventOfClient.getLocalClientStateAutomaton().getParamName_paramModelDescriptionMap().keySet()) {
             Label paramNameLabel = new Label(paramName);
             paramNameLabel.setLayoutX(LAYOUT_X_OF_FIRST_COLUMN);
@@ -164,6 +167,18 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
     @Override
     public void updateOnSetGameMatchIsPlaying() {
         doOnNextState();
+
+        //  ToDo:   Может этот код вообще перенести в отдельную Pane08 (не реализована).
+        //          Код ниже делается на главной выборке, которая находится в gameClientPaneJfx при переходе
+        //          в следующее состояние.
+        //  ToDo:   Попробовать вызывать getView у класса GameClientPaneJfx.
+        View view = senderOfEventOfClient.getLocalClientStateAutomaton().getView(ViewMainField.class.getSimpleName());
+        if (view instanceof ViewMainField viewMainField) {
+            viewMainField.initMainField(senderOfEventOfClient.getLocalClientStateAutomaton().getGameMatchExtendedDto().getParamsOfModelValueMap());
+            for (GameEventOneTile gameEventOneTile : senderOfEventOfClient.getLocalClientStateAutomaton().getGameMatchExtendedDto().getGameEventOneTileSet()) {
+                viewMainField.update(gameEventOneTile);
+            }
+        }
     }
 
     // X

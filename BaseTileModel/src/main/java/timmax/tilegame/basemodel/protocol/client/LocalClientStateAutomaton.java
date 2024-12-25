@@ -13,6 +13,7 @@ import java.util.Map;
 //  Автомат состояний клиента, работающий на клиенте и учитывающий состояния локального клиента.
 public class LocalClientStateAutomaton extends ClientStateAutomaton implements ObserverOnAbstractEvent {
     private final ObserverOnAbstractEventHashSet observerOnAbstractEventHashSet;
+    //  ToDo:   Попробовать переместить это поле, и методы, связанные с ним, в класс GameClientPaneJfx.
     private final Map<String, View> viewName_ViewMap;
 
     public LocalClientStateAutomaton(IFabricOfClientStates iFabricOfClientStates) {
