@@ -24,7 +24,7 @@ public class LocalClientState08GameMatchIsPlaying extends ClientState08GameMatch
         if (view instanceof ViewMainField viewMainField) {
             Platform.runLater(() -> {
                 viewMainField.initMainField(getBaseStateAutomaton().getGameMatchExtendedDto().getParamsOfModelValueMap());
-                for (GameEventOneTile gameEventOneTile : getBaseStateAutomaton().getGameMatchExtendedDto()/*gameMatchExtendedDto*/.getGameEventOneTileSet()) {
+                for (GameEventOneTile gameEventOneTile : getBaseStateAutomaton().getGameMatchExtendedDto().getGameEventOneTileSet()) {
                     viewMainField.update(gameEventOneTile);
                 }
             });
