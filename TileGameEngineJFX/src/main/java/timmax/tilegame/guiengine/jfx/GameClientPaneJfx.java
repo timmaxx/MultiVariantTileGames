@@ -18,21 +18,20 @@ public class GameClientPaneJfx extends VBox {
         BaseController baseController = new BaseController(senderOfEventOfClient);
         LocalClientStateAutomaton localClientStateAutomaton = senderOfEventOfClient.getLocalClientStateAutomaton();
 
-        // ToDo: Переделать. См. комментарий к
-        //       LocalClientStateAutomaton :: Map<String, Class<? extends View>> getViewName_ViewClassMap()
+        //  ToDo:   Переделать. См. комментарий к
+        //          LocalClientStateAutomaton :: Map<String, Class<? extends View>> getViewName_ViewClassMap()
         Map<String, Class<? extends View>> viewName_ViewClassMap = localClientStateAutomaton.getViewName_ViewClassMap();
 
         for (Map.Entry<String, Class<? extends View>> viewName_ViewClassEntry : viewName_ViewClassMap.entrySet()) {
-            // ToDo: Исправить
-            //       Warning:(29, 21) Unchecked cast: 'java.lang.reflect.Constructor<capture<? extends timmax.tilegame.baseview.View>>' to 'java.lang.reflect.Constructor<? extends timmax.tilegame.guiengine.jfx.view.ViewJfx>'
+            //  Warning:(29, 21) Unchecked cast: 'java.lang.reflect.Constructor<capture<? extends timmax.tilegame.baseview.View>>' to 'java.lang.reflect.Constructor<? extends timmax.tilegame.guiengine.jfx.view.ViewJfx>'
             Constructor<? extends ViewJfx> viewConstructor =
                     new ViewJfxClass(viewName_ViewClassEntry.getValue()).getViewConstructor();
             ViewJfx viewJfx;
             try {
-                // ToDo: Код сделать так, что-бы увязать:
-                //       - перечень параметров конструктора ViewJfx
-                //       - с перечнями типов параметров в ViewJfxClass
-                //       - и с перечнем параметров в GameClientPaneJfx.
+                //  ToDo:   Код сделать так, что-бы увязать:
+                //          - перечень параметров конструктора ViewJfx,
+                //          - с перечнями типов параметров в ViewJfxClass,
+                //          - и с перечнем параметров в GameClientPaneJfx.
                 viewJfx = viewConstructor.newInstance(senderOfEventOfClient, baseController, viewName_ViewClassEntry.getKey(), localClientStateAutomaton.getGameType());
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
                 throw new RuntimeException(e);

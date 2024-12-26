@@ -156,7 +156,7 @@ public abstract class ClientStateAutomaton extends StateAutomaton implements ICl
         setCurrentState(clientState08GameMatchIsPlaying);
     }
 
-    // Геттерам, имеющим прямой доступ к полям(..._), тоже достаточно быть private-package:
+    // Геттерам, имеющим прямой доступ к полям(get..._()), тоже достаточно быть private-package:
     UserDtoId getUserDtoId_() {
         return UserUtil.createUserDtoId(user);
     }

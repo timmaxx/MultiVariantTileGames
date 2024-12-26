@@ -79,6 +79,7 @@ public class Pane07GameMatchSelected extends AbstractConnectStatePane {
     @Override
     public void updateOnSetGameType() {
         super.updateOnSetGameType();
+        gameClientPaneJfx.clearChildren();
         doOnPrevState();
     }
 
