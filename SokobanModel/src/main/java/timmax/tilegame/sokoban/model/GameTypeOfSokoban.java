@@ -11,7 +11,7 @@ public class GameTypeOfSokoban extends GameType {
                 1,
 /*
                 //  ToDo:   Элементами Set должны быть только классы, являющиеся наследниками класса
-                //          MinesweeperGameObject (который уже наследник GameObject).
+                //          SokobanGameObject (который уже наследник GameObject).
                 //          Сейчас это соответствие не отслеживается, например можно написать так:
                 //              Set.of(Object.class),
                 //          и компилятор ничего не скажет.

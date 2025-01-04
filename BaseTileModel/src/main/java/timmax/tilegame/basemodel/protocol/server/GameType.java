@@ -25,7 +25,7 @@ public abstract class GameType implements IGameType, Externalizable {
     protected static final Logger logger = LoggerFactory.getLogger(GameType.class);
 
     // ToDo: Рассмотреть вариант выделения из этого класса "String gameTypeName" в отдельный класс GameTypeName.
-    //       Тогда EventOfServer41SeletGameTypeSet будет передавать "Set<GameType> gameTypeSet",
+    //       Тогда EventOfServer41SetGameTypeSet будет передавать "Set<GameType> gameTypeSet",
     //       а EventOfClient41SetGameType будет передавать не "String gameTypeName", а "GameTypeName gameTypeName".
     //       Причины:
     //          Среди реквизитов класса, идентифицирующим (типа первичным ключём) является gameName.
