@@ -32,21 +32,17 @@ public class Pane06GameMatchSetSelected extends AbstractConnectStatePane {
 
             String gameMatchId = gameMatchSetComboBox.getValue();
 
-            //  ToDo:   Избавиться от приведение типа.
-            //  Warning:(36, 56) Unchecked call to 'filter(Predicate<? super T>)' as a member of raw type 'java.util.stream.Stream'
-            //  Warning:(36, 56) Unchecked call to 'orElse(T)' as a member of raw type 'java.util.Optional'
-            //  Warning:(107, 31) Unchecked assignment: 'java.util.Set' to 'java.util.Collection<? extends timmax.tilegame.basemodel.protocol.server_client.GameMatchDto>'. Reason: 'transportOfClient.getLocalClientStateAutomaton().getGameType()' has raw type, so result of getGameMatchDtoSet is erased
-            GameMatchDto gameMatchDto = (GameMatchDto) senderOfEventOfClient
+            GameMatchDto gameMatchDto = senderOfEventOfClient
                     .getLocalClientStateAutomaton()
                     .getGameType()
                     .getGameMatchDtoSet()
                     .stream()
-                    //  ToDo:   Избавиться от приведение типа.
-                    .filter(x -> ((GameMatchDto) x).getId().equals(gameMatchId))
+                    .filter(x -> x.getId().equals(gameMatchId))
                     .findAny()
                     .orElse(null);
 
             Map<String, Integer> paramsOfModelValueMap;
+            //  Warning:(45, 30) Method invocation 'getStatus' may produce 'NullPointerException'
             if (gameMatchDto.getStatus() == PAUSE) {
                 // Если матч уже был начат.
                 // Достаём параметры из матча.
