@@ -4,7 +4,7 @@ import org.java_websocket.WebSocket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import timmax.common.ObjectMapperOfMvtg;
-import timmax.tilegame.basemodel.dto.BaseDtoId;
+import timmax.tilegame.basemodel.dto.BaseDto;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.protocol.EventOfServer;
 import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent;
@@ -31,7 +31,7 @@ public class SenderOfEventOfServer implements ISenderOfEventOfServer {
     }
 
     //  Не стал определять этот метод в interface ISenderOfEventOfServer, поэтому не @Override.
-    private void sendEventOfServer(BaseDtoId userDtoId, EventOfServer eventOfServer) {
+    private void sendEventOfServer(BaseDto userDtoId, EventOfServer eventOfServer) {
         if (userDtoId == null) {
             logger.error("userDtoId is null.");
             throw new RuntimeException("userDtoId is null.");

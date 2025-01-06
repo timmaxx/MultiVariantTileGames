@@ -5,13 +5,13 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-public class BaseDtoId implements Externalizable {
+public class BaseDto implements Externalizable {
     private String id;
 
-    public BaseDtoId() {
+    public BaseDto() {
     }
 
-    public BaseDtoId(String id) {
+    public BaseDto(String id) {
         this.id = id;
     }
 

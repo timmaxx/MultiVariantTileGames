@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-public class UserDtoPassword extends BaseDtoId {
+public class UserDtoPassword extends BaseDto {
     private String password;
 
     public UserDtoPassword() {

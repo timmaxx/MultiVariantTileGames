@@ -4,18 +4,18 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import timmax.tilegame.basemodel.dto.BaseDtoId;
+import timmax.tilegame.basemodel.dto.BaseDto;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 
 //  Событие сервера с именем пользователя, который был идентифицирован, аутентификацирован и авторизован.
 public class EventOfServer21IdentifyAuthenticateAuthorizeUser extends EventOfServer {
-    private BaseDtoId userDtoId;
+    private BaseDto userDtoId;
 
     public EventOfServer21IdentifyAuthenticateAuthorizeUser() {
         super();
     }
 
-    public EventOfServer21IdentifyAuthenticateAuthorizeUser(BaseDtoId userDtoId) {
+    public EventOfServer21IdentifyAuthenticateAuthorizeUser(BaseDto userDtoId) {
         this();
         if (userDtoId == null || userDtoId.isIdNullOrEmpty()) {
             throw new NullPointerException("User name is null. User name must not be null.");
@@ -44,6 +44,6 @@ public class EventOfServer21IdentifyAuthenticateAuthorizeUser extends EventOfSer
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         super.readExternal(in);
-        userDtoId = (BaseDtoId) in.readObject();
+        userDtoId = (BaseDto) in.readObject();
     }
 }

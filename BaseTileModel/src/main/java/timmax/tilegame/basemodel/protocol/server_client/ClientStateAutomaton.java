@@ -4,7 +4,7 @@ import timmax.state.StateAutomaton;
 import timmax.tilegame.basemodel.GameMatchStatus;
 import timmax.tilegame.basemodel.credential.Credentials;
 import timmax.tilegame.basemodel.credential.User;
-import timmax.tilegame.basemodel.dto.BaseDtoId;
+import timmax.tilegame.basemodel.dto.BaseDto;
 import timmax.tilegame.basemodel.dto.GameMatchExtendedDto;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
@@ -126,7 +126,7 @@ public abstract class ClientStateAutomaton extends StateAutomaton implements ICl
         setCurrentState(clientState03ConnectWithServerInfo);
     }
 
-    void authorizeUser_(BaseDtoId userDtoId) {
+    void authorizeUser_(BaseDto userDtoId) {
         this.user = Credentials.getUserByUserId(userDtoId);
         if (user == null) {
             setCurrentState(clientState01NoConnect);
@@ -160,7 +160,7 @@ public abstract class ClientStateAutomaton extends StateAutomaton implements ICl
     }
 
     // Геттерам, имеющим прямой доступ к полям(get..._()), тоже достаточно быть private-package:
-    BaseDtoId getUserDtoId_() {
+    BaseDto getUserDtoId_() {
         return UserUtil.createUserDtoId(user);
     }
 
@@ -216,7 +216,7 @@ public abstract class ClientStateAutomaton extends StateAutomaton implements ICl
     }
 
     @Override
-    public void authorizeUser(BaseDtoId userDtoId) {
+    public void authorizeUser(BaseDto userDtoId) {
         getCurrentState().authorizeUser(userDtoId);
     }
 

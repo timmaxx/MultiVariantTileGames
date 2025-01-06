@@ -11,7 +11,7 @@ import java.io.ObjectOutput;
 import java.util.Map;
 
 // DTO - Data Transfer Object
-public class GameMatchDto extends BaseDtoId implements IGameMatchX {
+public class GameMatchDto extends BaseDto implements IGameMatchX {
     protected static final Logger logger = LoggerFactory.getLogger(GameMatchDto.class);
 
     private GameMatchStatus status;
