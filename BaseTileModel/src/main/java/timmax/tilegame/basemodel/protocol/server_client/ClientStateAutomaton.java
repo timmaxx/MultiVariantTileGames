@@ -20,6 +20,8 @@ import java.util.Set;
 public abstract class ClientStateAutomaton extends StateAutomaton implements IClientState99 {
     protected static final Logger logger = LoggerFactory.getLogger(ClientStateAutomaton.class);
 
+    //  ToDo:   Константы-состояния можно было-бы определить как массив State в StateAutomaton, а в этом классе
+    //          переопределить его как ClientState. Ну и ввести перечисление для доступа к этим элементам.
     final ClientState01NoConnect clientState01NoConnect;
     final ClientState02ConnectWithoutServerInfo clientState02ConnectWithoutServerInfo;
     final ClientState03ConnectWithServerInfo clientState03ConnectWithServerInfo;
