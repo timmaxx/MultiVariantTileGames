@@ -8,27 +8,15 @@ public class UserUtil {
     private UserUtil() {
     }
 
-    public static BaseDto createUserDtoId(User user) {
-        return new BaseDto(user.getId());
-    }
-
-    public static BaseDto createUserDtoId(UserDtoPassword userDtoPassword) {
+    public static BaseDto createBaseDto(UserDtoPassword userDtoPassword) {
         return new BaseDto(userDtoPassword.getId());
     }
 
-    public static UserDtoPassword createUserDtoIdPassword(String userId, String userPassword) {
+    public static UserDtoPassword createUserDtoPassword(String userId, String userPassword) {
         return new UserDtoPassword(userId, userPassword);
     }
 
     public static User createUser(UserDtoPassword userDtoPassword) {
         return new User(userDtoPassword.getId(), userDtoPassword.getPassword());
-    }
-
-    public static boolean equals(User user, BaseDto userDtoId) {
-        return user.getId().equals(userDtoId.getId());
-    }
-
-    public static boolean equals(BaseDto userDtoId, User user) {
-        return equals(user, userDtoId);
     }
 }

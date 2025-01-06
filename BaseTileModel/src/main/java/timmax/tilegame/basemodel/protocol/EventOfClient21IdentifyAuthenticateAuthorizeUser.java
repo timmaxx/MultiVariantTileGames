@@ -26,7 +26,7 @@ public class EventOfClient21IdentifyAuthenticateAuthorizeUser extends EventOfCli
     public void executeOnServer(RemoteClientStateAutomaton remoteClientStateAutomaton) {
         if (Credentials.isUserAndPasswordCorrect(userDtoPassword)) {
             userDtoPassword.clearPassword(); // Не будем даже хранить пароль.
-            remoteClientStateAutomaton.authorizeUser(UserUtil.createUserDtoId(userDtoPassword));
+            remoteClientStateAutomaton.authorizeUser(UserUtil.createBaseDto(userDtoPassword));
         } else {
             userDtoPassword.clearPassword(); // Не будем даже хранить пароль.
             remoteClientStateAutomaton.connect();

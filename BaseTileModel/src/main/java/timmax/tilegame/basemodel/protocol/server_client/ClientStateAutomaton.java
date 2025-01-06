@@ -10,7 +10,7 @@ import timmax.tilegame.basemodel.protocol.server.GameType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import timmax.tilegame.basemodel.util.UserUtil;
+import timmax.tilegame.basemodel.util.BaseUtil;
 
 import java.util.Set;
 
@@ -161,7 +161,7 @@ public abstract class ClientStateAutomaton extends StateAutomaton implements ICl
 
     // Геттерам, имеющим прямой доступ к полям(get..._()), тоже достаточно быть private-package:
     BaseDto getUserDtoId_() {
-        return UserUtil.createUserDtoId(user);
+        return BaseUtil.createBaseDto(user);
     }
 
     // ToDo: Может обойтись без protected?
@@ -216,8 +216,8 @@ public abstract class ClientStateAutomaton extends StateAutomaton implements ICl
     }
 
     @Override
-    public void authorizeUser(BaseDto userDtoId) {
-        getCurrentState().authorizeUser(userDtoId);
+    public void authorizeUser(BaseDto userDto) {
+        getCurrentState().authorizeUser(userDto);
     }
 
     // 4 interface IClientState04GameTypeSetSelected

@@ -28,7 +28,7 @@ public class Pane02ConnectNonIdent extends AbstractConnectStatePane {
         nextStateButton.setOnAction(event -> {
             disableAllControls();
             senderOfEventOfClient.identifyAuthenticateAuthorizeUser(
-                    UserUtil.createUserDtoIdPassword(
+                    UserUtil.createUserDtoPassword(
                             userIdTextField.getText(),
                             userPasswordField.getText()
                     )

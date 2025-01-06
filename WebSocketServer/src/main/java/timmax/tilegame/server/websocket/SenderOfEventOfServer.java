@@ -10,7 +10,7 @@ import timmax.tilegame.basemodel.protocol.EventOfServer;
 import timmax.tilegame.basemodel.protocol.EventOfServer92GameEvent;
 import timmax.tilegame.basemodel.protocol.server.MatchPlayerList;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
-import timmax.tilegame.basemodel.util.UserUtil;
+import timmax.tilegame.basemodel.util.BaseUtil;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.transport.ISenderOfEventOfServer;
 
@@ -31,13 +31,13 @@ public class SenderOfEventOfServer implements ISenderOfEventOfServer {
     }
 
     //  Не стал определять этот метод в interface ISenderOfEventOfServer, поэтому не @Override.
-    private void sendEventOfServer(BaseDto userDtoId, EventOfServer eventOfServer) {
-        if (userDtoId == null) {
-            logger.error("userDtoId is null.");
-            throw new RuntimeException("userDtoId is null.");
+    private void sendEventOfServer(BaseDto userDto, EventOfServer eventOfServer) {
+        if (userDto == null) {
+            logger.error("userDto is null.");
+            throw new RuntimeException("userDto is null.");
         }
         for (var webSocket_RemoteClientStateAutomaton : webSocket_RemoteClientStateAutomaton_Map.entrySet()) {
-            if (UserUtil.equals(webSocket_RemoteClientStateAutomaton.getValue().getUser(), userDtoId)) {
+            if (BaseUtil.equals(webSocket_RemoteClientStateAutomaton.getValue().getUser(), userDto)) {
                 sendEventOfServer(webSocket_RemoteClientStateAutomaton.getKey(), eventOfServer);
             }
         }
@@ -64,7 +64,7 @@ public class SenderOfEventOfServer implements ISenderOfEventOfServer {
         }
         for (int i = 0; i < matchPlayerList.size(); i++) {
             sendEventOfServer(
-                    UserUtil.createUserDtoId(matchPlayerList.get(i)),
+                    BaseUtil.createBaseDto(matchPlayerList.get(i)),
                     eventOfServer
             );
         }

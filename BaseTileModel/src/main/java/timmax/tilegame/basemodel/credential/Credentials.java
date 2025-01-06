@@ -2,6 +2,7 @@ package timmax.tilegame.basemodel.credential;
 
 import timmax.tilegame.basemodel.dto.BaseDto;
 import timmax.tilegame.basemodel.dto.UserDtoPassword;
+import timmax.tilegame.basemodel.util.BaseUtil;
 import timmax.tilegame.basemodel.util.UserUtil;
 
 import java.util.Set;
@@ -21,13 +22,13 @@ public class Credentials {
         return userSet.contains(UserUtil.createUser(userDtoPassword));
     }
 
-    public static User getUserByUserId(BaseDto userDtoId) {
-        if (userDtoId == null || userDtoId.getId().isEmpty()) {
+    public static User getUserByUserId(BaseDto userDto) {
+        if (userDto == null || userDto.isIdNullOrEmpty()) {
             return null;
         }
         return userSet
                 .stream()
-                .filter(user -> UserUtil.equals(user, userDtoId))
+                .filter(user -> BaseUtil.equals(user, userDto))
                 .findAny()
                 .orElse(null);
     }
