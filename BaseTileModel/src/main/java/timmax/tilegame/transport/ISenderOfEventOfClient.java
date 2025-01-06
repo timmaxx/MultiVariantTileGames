@@ -3,7 +3,7 @@ package timmax.tilegame.transport;
 import java.net.URI;
 import java.util.Map;
 
-import timmax.tilegame.basemodel.dto.UserDtoIdPassword;
+import timmax.tilegame.basemodel.dto.UserDtoPassword;
 import timmax.tilegame.basemodel.protocol.EventOfClient92GameCommand;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.GameType;
@@ -25,7 +25,7 @@ public interface ISenderOfEventOfClient {
     // 02ConnectNonIdent
     void connectWithoutUserIdentify();                                          //  2 -> 2  void openConnectWithoutUserIdentify();
     void close();                                                               //  2 -> 1  void close();
-    void identifyAuthenticateAuthorizeUser(UserDtoIdPassword userDtoIdPassword);//  2 -> 4  void authorizeUser(String userId, Set<GameType> gameTypeSet);
+    void identifyAuthenticateAuthorizeUser(UserDtoPassword userDtoPassword);    //  2 -> 4  void authorizeUser(String userId, Set<GameType> gameTypeSet);
 
     // 04GameTypeSetSelected
     void reauthorizeUser();                                                     //  4 -> 4  void reauthorizeUser();

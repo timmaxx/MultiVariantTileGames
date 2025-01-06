@@ -1,7 +1,7 @@
 package timmax.tilegame.basemodel.credential;
 
 import timmax.tilegame.basemodel.dto.BaseDtoId;
-import timmax.tilegame.basemodel.dto.UserDtoIdPassword;
+import timmax.tilegame.basemodel.dto.UserDtoPassword;
 import timmax.tilegame.basemodel.util.UserUtil;
 
 import java.util.Set;
@@ -17,8 +17,8 @@ public class Credentials {
         );
     }
 
-    public static boolean isUserAndPasswordCorrect(UserDtoIdPassword userDtoIdPassword) {
-        return userSet.contains(UserUtil.createUser(userDtoIdPassword));
+    public static boolean isUserAndPasswordCorrect(UserDtoPassword userDtoPassword) {
+        return userSet.contains(UserUtil.createUser(userDtoPassword));
     }
 
     public static User getUserByUserId(BaseDtoId userDtoId) {

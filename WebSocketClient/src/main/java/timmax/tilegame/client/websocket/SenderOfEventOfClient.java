@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import timmax.common.ObjectMapperOfMvtg;
-import timmax.tilegame.basemodel.dto.UserDtoIdPassword;
+import timmax.tilegame.basemodel.dto.UserDtoPassword;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.GameType;
@@ -92,8 +92,8 @@ public class SenderOfEventOfClient implements ISenderOfEventOfClient {
 
     // 2
     @Override
-    public void identifyAuthenticateAuthorizeUser(UserDtoIdPassword userDtoIdPassword) {
-        sendEventOfClient(new EventOfClient21IdentifyAuthenticateAuthorizeUser(userDtoIdPassword));
+    public void identifyAuthenticateAuthorizeUser(UserDtoPassword userDtoPassword) {
+        sendEventOfClient(new EventOfClient21IdentifyAuthenticateAuthorizeUser(userDtoPassword));
     }
 
     // 4

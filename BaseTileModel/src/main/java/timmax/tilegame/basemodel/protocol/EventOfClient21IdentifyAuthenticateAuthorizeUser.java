@@ -5,30 +5,30 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.credential.Credentials;
-import timmax.tilegame.basemodel.dto.UserDtoIdPassword;
+import timmax.tilegame.basemodel.dto.UserDtoPassword;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 import timmax.tilegame.basemodel.util.UserUtil;
 
 //  Событие клиента с именем и паролем пользователя для идентификации, аутентификации и авторизации.
 public class EventOfClient21IdentifyAuthenticateAuthorizeUser extends EventOfClient {
-    private UserDtoIdPassword userDtoIdPassword;
+    private UserDtoPassword userDtoPassword;
 
     public EventOfClient21IdentifyAuthenticateAuthorizeUser() {
         super();
     }
 
-    public EventOfClient21IdentifyAuthenticateAuthorizeUser(UserDtoIdPassword userDtoIdPassword) {
+    public EventOfClient21IdentifyAuthenticateAuthorizeUser(UserDtoPassword userDtoPassword) {
         this();
-        this.userDtoIdPassword = userDtoIdPassword;
+        this.userDtoPassword = userDtoPassword;
     }
 
     @Override
     public void executeOnServer(RemoteClientStateAutomaton remoteClientStateAutomaton) {
-        if (Credentials.isUserAndPasswordCorrect(userDtoIdPassword)) {
-            userDtoIdPassword.clearPassword(); // Не будем даже хранить пароль.
-            remoteClientStateAutomaton.authorizeUser(UserUtil.createUserDtoId(userDtoIdPassword));
+        if (Credentials.isUserAndPasswordCorrect(userDtoPassword)) {
+            userDtoPassword.clearPassword(); // Не будем даже хранить пароль.
+            remoteClientStateAutomaton.authorizeUser(UserUtil.createUserDtoId(userDtoPassword));
         } else {
-            userDtoIdPassword.clearPassword(); // Не будем даже хранить пароль.
+            userDtoPassword.clearPassword(); // Не будем даже хранить пароль.
             remoteClientStateAutomaton.connect();
         }
     }
@@ -36,18 +36,18 @@ public class EventOfClient21IdentifyAuthenticateAuthorizeUser extends EventOfCli
     // interface Externalizable
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(userDtoIdPassword);
+        out.writeObject(userDtoPassword);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        userDtoIdPassword = (UserDtoIdPassword) in.readObject();
+        userDtoPassword = (UserDtoPassword) in.readObject();
     }
 
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{" +
-                "userDtoIdPassword='" + userDtoIdPassword + '\'' +
+                "userDtoIdPassword='" + userDtoPassword + '\'' +
                 '}';
     }
 }

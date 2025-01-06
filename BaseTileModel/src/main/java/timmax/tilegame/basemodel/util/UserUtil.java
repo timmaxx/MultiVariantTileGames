@@ -2,7 +2,7 @@ package timmax.tilegame.basemodel.util;
 
 import timmax.tilegame.basemodel.credential.User;
 import timmax.tilegame.basemodel.dto.BaseDtoId;
-import timmax.tilegame.basemodel.dto.UserDtoIdPassword;
+import timmax.tilegame.basemodel.dto.UserDtoPassword;
 
 public class UserUtil {
     private UserUtil() {
@@ -12,16 +12,16 @@ public class UserUtil {
         return new BaseDtoId(user.getId());
     }
 
-    public static BaseDtoId createUserDtoId(UserDtoIdPassword userDtoIdPassword) {
-        return new BaseDtoId(userDtoIdPassword.getId());
+    public static BaseDtoId createUserDtoId(UserDtoPassword userDtoPassword) {
+        return new BaseDtoId(userDtoPassword.getId());
     }
 
-    public static UserDtoIdPassword createUserDtoIdPassword(String userId, String userPassword) {
-        return new UserDtoIdPassword(userId, userPassword);
+    public static UserDtoPassword createUserDtoIdPassword(String userId, String userPassword) {
+        return new UserDtoPassword(userId, userPassword);
     }
 
-    public static User createUser(UserDtoIdPassword userDtoIdPassword) {
-        return new User(userDtoIdPassword.getId(), userDtoIdPassword.getPassword());
+    public static User createUser(UserDtoPassword userDtoPassword) {
+        return new User(userDtoPassword.getId(), userDtoPassword.getPassword());
     }
 
     public static boolean equals(User user, BaseDtoId userDtoId) {

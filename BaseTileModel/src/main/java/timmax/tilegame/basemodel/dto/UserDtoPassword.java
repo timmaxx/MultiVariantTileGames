@@ -4,14 +4,14 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-public class UserDtoIdPassword extends BaseDtoId {
+public class UserDtoPassword extends BaseDtoId {
     private String password;
 
-    public UserDtoIdPassword() {
+    public UserDtoPassword() {
         super();
     }
 
-    public UserDtoIdPassword(String id, String password) {
+    public UserDtoPassword(String id, String password) {
         super(id);
         this.password = password;
     }
