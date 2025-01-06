@@ -92,13 +92,15 @@ public class GameMatchOfMinesweeper extends GameMatch {
         // 2. setGameObjectsPlacement(new MinesweeperPlacementStateAutomaton(...)).
 
         super.start(gameMatchExtendedDto);
-        setGameObjectsPlacementStateAutomaton(new MinesweeperPlacementStateAutomaton(
-                this,
-                //  ToDo:   Переделать getWidth(), getHeight() в родительском классе.
-                //          Пусть там будет переменная WidthHeightSizes.
-                new WidthHeightSizes(getWidth(), getHeight()),
-                getFromParamsOfModelValueMap(PARAM_NAME_PERCENTS_OF_MINES)
-        ));
+        setGameObjectsPlacementStateAutomaton(
+                new MinesweeperPlacementStateAutomaton(
+                        this,
+                        //  ToDo:   Переделать getWidth(), getHeight() в родительском классе.
+                        //          Пусть там будет переменная WidthHeightSizes.
+                        new WidthHeightSizes(getWidth(), getHeight()),
+                        getFromParamsOfModelValueMap(PARAM_NAME_PERCENTS_OF_MINES)
+                )
+        );
 
         setGameMatchExtendedDto(gameMatchExtendedDto);
     }

@@ -12,16 +12,14 @@ public class GameTypeOfMinesweeper extends GameType {
     public GameTypeOfMinesweeper() throws ClassNotFoundException, NoSuchMethodException {
         super("Minesweeper",
                 1,
-/*
                 //  ToDo:   Элементами Set должны быть только классы, являющиеся наследниками класса
                 //          MinesweeperGameObject (который уже наследник GameObject).
                 //          Сейчас это соответствие не отслеживается, например можно написать так:
                 //              Set.of(Object.class),
                 //          и компилятор ничего не скажет.
-                Set.of(MGOSMineIsNotOpenedWithFlag.class, MGOSMineIsNotOpenedWithoutFlag.class, MGOSMineIsOpened.class,
-                        MGOSNoMineIsNotOpenedWithFlag.class, MGOSNoMineIsNotOpenedWithoutFlag.class, MGOSNoMineIsOpened.class
-                ),
-*/
+                //  Set.of(MGOSMineIsNotOpenedWithFlag.class, MGOSMineIsNotOpenedWithoutFlag.class, MGOSMineIsOpened.class,
+                //          MGOSNoMineIsNotOpenedWithFlag.class, MGOSNoMineIsNotOpenedWithoutFlag.class, MGOSNoMineIsOpened.class
+                //  ),
                 GameMatchOfMinesweeper.class,
                 new GuiDefaultConstants(UNOPENED_BACKGROUND_COLOR, UNOPENED_TEXT_COLOR, UNOPENED_TEXT)
         );

@@ -136,7 +136,11 @@ public class GameMatchOfSokoban extends GameMatch {
         // 3. подготовка перечня событий для отправки клиенту для прорисовки расстановки.
 
         // В этой реализации Сокобан не обращаем внимание на gameMatchExtendedDto - просто загружаем следующий уровень.
-        setGameObjectsPlacementStateAutomaton(new SokobanPlacementStateAutomaton(this, pathToLevels, currentLevel.getValue()));
+        setGameObjectsPlacementStateAutomaton(
+                new SokobanPlacementStateAutomaton(
+                        this, pathToLevels, currentLevel.getValue()
+                )
+        );
         setParamsOfModelValueMap(
                 Map.of(PARAM_NAME_WIDTH,
                         getGameObjectsPlacementStateAutomaton().getWidthHeightSizes().getWidth(),

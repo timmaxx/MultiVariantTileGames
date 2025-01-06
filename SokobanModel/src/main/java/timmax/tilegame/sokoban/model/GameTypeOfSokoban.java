@@ -9,14 +9,12 @@ public class GameTypeOfSokoban extends GameType {
     public GameTypeOfSokoban() throws ClassNotFoundException, NoSuchMethodException {
         super("Sokoban",
                 1,
-/*
                 //  ToDo:   Элементами Set должны быть только классы, являющиеся наследниками класса
                 //          SokobanGameObject (который уже наследник GameObject).
                 //          Сейчас это соответствие не отслеживается, например можно написать так:
                 //              Set.of(Object.class),
                 //          и компилятор ничего не скажет.
-                Set.of(SGOPlayer.class, SGOHome.class, SGOBox.class, SGOWall.class),
-*/
+                //  Set.of(SGOPlayer.class, SGOHome.class, SGOBox.class, SGOWall.class),
                 GameMatchOfSokoban.class,
                 new GuiDefaultConstants(EMPTY_BACKGROUND_COLOR, NOBODY_TEXT_COLOR, NOBODY_TEXT)
         );
