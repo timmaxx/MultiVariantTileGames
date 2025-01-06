@@ -1,7 +1,8 @@
 package timmax.tilegame.basemodel.credential;
 
 public class BaseEntity {
-    private final String id;
+    //  ToDo:   Исправить на "private final" после решения Dto c GameType.
+    protected String id;
 
     public BaseEntity(String id) {
         this.id = id;

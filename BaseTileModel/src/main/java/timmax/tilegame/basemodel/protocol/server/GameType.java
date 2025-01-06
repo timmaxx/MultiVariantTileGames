@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import timmax.tilegame.basemodel.credential.BaseEntity;
 import timmax.tilegame.basemodel.protocol.IGameType;
 import timmax.tilegame.basemodel.dto.GameMatchDto;
 import timmax.tilegame.basemodel.protocol.server_client.GuiDefaultConstants;
@@ -23,18 +24,9 @@ import timmax.tilegame.baseview.ViewMainField;
 
 //  ToDo:   Не реализовывать Externalizable!
 //          Отдельно должен быть один или несколько DTO, в которых реализовать Externalizable.
-public class GameType implements IGameType, Externalizable {
+public class GameType extends BaseEntity implements IGameType, Externalizable {
     protected static final Logger logger = LoggerFactory.getLogger(GameType.class);
 
-    // ToDo: Рассмотреть вариант выделения из этого класса "String gameTypeName" в отдельный класс GameTypeName.
-    //       Тогда EventOfServer41SetGameTypeSet будет передавать "Set<GameType> gameTypeSet",
-    //       а EventOfClient41SetGameType будет передавать не "String gameTypeName", а "GameTypeName gameTypeName".
-    //       Причины:
-    //          Среди реквизитов класса, идентифицирующим (типа первичным ключём) является gameName.
-    //          Поэтому, при передаче полной информации о типе игры нужно передавать все поля.
-    //          А вот при передаче как-бы ссылки на тип игры, достаточно передать только gameName.
-    //          И похожим образом сделано для идентификации GameMatch (см. коммент для GameMatchDto)
-    private String id;
     private int countOfGamers;
 
     private Set<IGameMatchX> gameMatchXSet;
@@ -62,8 +54,9 @@ public class GameType implements IGameType, Externalizable {
     //  ToDo:   Поле относится к визуализации. Его нужно абстрагировать и вынести отсюда.
     private GuiDefaultConstants guiDefaultConstants;
 
+    //  ToDo:   Удалить после решения Dto.
     public GameType() {
-        super();
+        super("");
     }
 
     public GameType(
@@ -73,8 +66,7 @@ public class GameType implements IGameType, Externalizable {
             Class<? extends IGameMatchX> gameMatchClass,
             GuiDefaultConstants guiDefaultConstants)
             throws ClassNotFoundException, NoSuchMethodException {
-        this();
-        this.id = id;
+        super(id);
         this.countOfGamers = countOfGamers;
 /*
         //  Множество классов объектов.
@@ -200,16 +192,11 @@ public class GameType implements IGameType, Externalizable {
         this.gameMatchDtoSet = gameMatchDtoSet;
     }
 
-    // interface IGameType
-    @Override
-    public String getId() {
-        return id;
-    }
-
     // interface Externalizable
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(id);
+        // super.writeExternal(out);
+        out.writeObject(getId());
         out.writeInt(countOfGamers);
         out.writeObject(gameMatchDtoSet);
         out.writeObject(viewName_ViewClassMap);
@@ -219,6 +206,7 @@ public class GameType implements IGameType, Externalizable {
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        // super.readExternal(in);
         id = (String) in.readObject();
         countOfGamers = in.readInt();
         //  Warning:(225, 27) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.dto.GameMatchDto>'
