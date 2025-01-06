@@ -21,7 +21,9 @@ import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.baseview.ViewMainField;
 
-public abstract class GameType implements IGameType, Externalizable {
+//  ToDo:   Не реализовывать Externalizable!
+//          Отдельно должен быть один или несколько DTO, в которых реализовать Externalizable.
+public class GameType implements IGameType, Externalizable {
     protected static final Logger logger = LoggerFactory.getLogger(GameType.class);
 
     // ToDo: Рассмотреть вариант выделения из этого класса "String gameTypeName" в отдельный класс GameTypeName.
@@ -219,9 +221,9 @@ public abstract class GameType implements IGameType, Externalizable {
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         id = (String) in.readObject();
         countOfGamers = in.readInt();
-        //  Warning:(223, 27) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.protocol.server_client.GameMatchDto>'
+        //  Warning:(225, 27) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.protocol.server_client.GameMatchDto>'
         gameMatchDtoSet = (Set<GameMatchDto>) in.readObject();
-        //  Warning:(226, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'
+        //  Warning:(228, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'
         //  https://sky.pro/wiki/java/reshaem-preduprezhdenie-unchecked-cast-v-java-spring/
         viewName_ViewClassMap = (Map<String, Class<? extends View>>) in.readObject();
         paramName_paramModelDescriptionMap = (ParamName_paramModelDescriptionMap) in.readObject();

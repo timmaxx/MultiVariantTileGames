@@ -3,18 +3,17 @@ package timmax.tilegame.basemodel.protocol.server_client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import timmax.tilegame.basemodel.GameMatchStatus;
+import timmax.tilegame.basemodel.dto.BaseDtoId;
 
-import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.Map;
 
 // DTO - Data Transfer Object
-public class GameMatchDto implements Externalizable, IGameMatchX {
+public class GameMatchDto extends BaseDtoId implements IGameMatchX {
     protected static final Logger logger = LoggerFactory.getLogger(GameMatchDto.class);
 
-    private String id;
     private GameMatchStatus status;
     private Map<String, Integer> paramsOfModelValueMap;
 
@@ -23,14 +22,9 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
     }
 
     public GameMatchDto(String id, GameMatchStatus status, Map<String, Integer> paramsOfModelValueMap) {
-        this();
-        this.id = id;
+        super(id);
         this.status = status;
         this.paramsOfModelValueMap = paramsOfModelValueMap;
-    }
-
-    public boolean isNullOrEmpty() {
-        return id == null || id.equals("");
     }
 
     public void setParamsOfModelValueMap(Map<String, Integer> paramsOfModelValueMap) {
@@ -38,11 +32,6 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
     }
 
     // interface IGameMatchX
-    @Override
-    public String getId() {
-        return id;
-    }
-
     @Override
     public GameMatchStatus getStatus() {
         return status;
@@ -73,16 +62,16 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
     // interface Externalizable
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(id);
+        super.writeExternal(out);
         out.writeObject(status);
         out.writeObject(paramsOfModelValueMap);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        id = (String) in.readObject();
+        super.readExternal(in);
         status = (GameMatchStatus) in.readObject();
-        // ToDo: Избавиться от "Warning:(88, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Integer>'"
+        //  Warning:(75, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Integer>'
         paramsOfModelValueMap = (Map<String, Integer>) in.readObject();
     }
 
@@ -90,7 +79,7 @@ public class GameMatchDto implements Externalizable, IGameMatchX {
     @Override
     public String toString() {
         return "GameMatchDto{" +
-                "id='" + id + '\'' +
+                "id='" + getId() + '\'' +
                 ", status=" + status +
                 ", paramsOfModelValueMap=" + paramsOfModelValueMap +
                 '}';

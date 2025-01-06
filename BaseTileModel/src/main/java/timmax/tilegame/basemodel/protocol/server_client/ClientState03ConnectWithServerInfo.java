@@ -1,6 +1,6 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
-import timmax.tilegame.basemodel.dto.UserDtoId;
+import timmax.tilegame.basemodel.dto.BaseDtoId;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
 import java.util.Set;
@@ -17,7 +17,7 @@ public abstract class ClientState03ConnectWithServerInfo extends ClientState02Co
     }
 
     @Override
-    public void authorizeUser(UserDtoId userDtoId) {
+    public void authorizeUser(BaseDtoId userDtoId) {
         getBaseStateAutomaton().authorizeUser_(userDtoId);
     }
 }

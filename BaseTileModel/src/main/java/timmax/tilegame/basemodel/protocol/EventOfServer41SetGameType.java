@@ -35,18 +35,21 @@ public class EventOfServer41SetGameType extends EventOfServer {
                         .filter(x -> x.getId().equals(gameTypeName))
                         .findAny()
                         .orElse(null);
+        //  Warning:(38, 18) Method invocation 'setGameMatchDtoSet' may produce 'NullPointerException'
         gameType.setGameMatchDtoSet(gameMatchDtoSet);
         localClientStateAutomaton.setGameType(gameType);
     }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
+        super.writeExternal(out);
         out.writeObject(gameTypeName);
         out.writeObject(gameMatchDtoSet);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        super.readExternal(in);
         gameTypeName = (String) in.readObject();
         //  Warning:(55, 27) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.protocol.server_client.GameMatchDto>'
         //  Например, как в readExternal в EventOfServer41SetGameTypeSet

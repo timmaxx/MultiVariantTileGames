@@ -26,7 +26,7 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
     // class EventOfClient
     @Override
     public void executeOnServer(RemoteClientStateAutomaton remoteClientStateAutomaton) {
-        if (gameMatchDto.isNullOrEmpty()) {
+        if (gameMatchDto.isIdNullOrEmpty()) {
             remoteClientStateAutomaton.resetGameType();
             return;
         }
@@ -59,11 +59,13 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
     // interface Externalizable
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
+        super.writeExternal(out);
         out.writeObject(gameMatchDto);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        super.readExternal(in);
         gameMatchDto = (GameMatchDto) in.readObject();
     }
 }
