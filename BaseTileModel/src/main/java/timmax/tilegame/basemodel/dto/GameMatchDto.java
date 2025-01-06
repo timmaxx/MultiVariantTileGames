@@ -1,9 +1,9 @@
-package timmax.tilegame.basemodel.protocol.server_client;
+package timmax.tilegame.basemodel.dto;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import timmax.tilegame.basemodel.GameMatchStatus;
-import timmax.tilegame.basemodel.dto.BaseDtoId;
+import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 
 import java.io.IOException;
 import java.io.ObjectInput;

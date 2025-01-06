@@ -13,7 +13,7 @@ import timmax.tilegame.basemodel.dto.UserDtoIdPassword;
 import timmax.tilegame.basemodel.protocol.*;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
+import timmax.tilegame.basemodel.dto.GameMatchDto;
 import timmax.tilegame.transport.ISenderOfEventOfClient;
 
 //  Отправитель клиентсих событий.

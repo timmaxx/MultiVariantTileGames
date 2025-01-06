@@ -10,7 +10,7 @@ import timmax.tilegame.basemodel.placement.primitives.WidthHeightSizes;
 import timmax.tilegame.basemodel.protocol.server.GameMatch;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
 
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
+import timmax.tilegame.basemodel.dto.GameMatchExtendedDto;
 import timmax.tilegame.minesweeper.model.placement.placementstate.MinesweeperPlacementStateAutomaton;
 import timmax.tilegame.minesweeper.model.placement.gameobject.MGOStateAutomaton;
 

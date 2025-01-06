@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Map;
 
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
+import timmax.tilegame.basemodel.dto.GameMatchExtendedDto;
 
 //  Событие клиента с параметрами матча для его старта.
 public class EventOfClient71StartGameMatch extends EventOfClient {

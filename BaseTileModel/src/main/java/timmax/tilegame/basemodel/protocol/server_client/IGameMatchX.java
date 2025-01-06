@@ -1,6 +1,7 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
 import timmax.tilegame.basemodel.GameMatchStatus;
+import timmax.tilegame.basemodel.dto.GameMatchExtendedDto;
 
 import java.util.Map;
 

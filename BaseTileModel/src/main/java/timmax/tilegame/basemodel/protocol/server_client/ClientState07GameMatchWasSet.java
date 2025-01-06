@@ -1,6 +1,7 @@
 package timmax.tilegame.basemodel.protocol.server_client;
 
 import timmax.tilegame.basemodel.GameMatchStatus;
+import timmax.tilegame.basemodel.dto.GameMatchExtendedDto;
 
 public abstract class ClientState07GameMatchWasSet extends ClientState06GameTypeWasSet {
     public ClientState07GameMatchWasSet(ClientStateAutomaton clientStateAutomaton) {

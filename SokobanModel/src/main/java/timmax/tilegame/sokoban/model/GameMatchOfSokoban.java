@@ -20,7 +20,7 @@ import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
 import timmax.tilegame.sokoban.model.placement.placementstate.SokobanPlacementStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.GameMatch;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
+import timmax.tilegame.basemodel.dto.GameMatchExtendedDto;
 
 import timmax.tilegame.sokoban.model.gameevent.GameEventOneTileSokobanChangeable;
 import timmax.tilegame.sokoban.model.placement.gameobject.WhoMovableInTile;

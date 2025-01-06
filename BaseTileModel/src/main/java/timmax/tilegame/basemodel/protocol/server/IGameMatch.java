@@ -2,7 +2,7 @@ package timmax.tilegame.basemodel.protocol.server;
 
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
 import timmax.tilegame.basemodel.gamecommand.GameCommandMouseClick;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
+import timmax.tilegame.basemodel.dto.GameMatchDto;
 import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 
 import java.util.Map;

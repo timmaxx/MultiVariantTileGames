@@ -4,6 +4,7 @@ import timmax.state.State;
 import timmax.state.WrongMethodInvokeForCurrentStateException;
 import timmax.tilegame.basemodel.GameMatchStatus;
 import timmax.tilegame.basemodel.dto.BaseDtoId;
+import timmax.tilegame.basemodel.dto.GameMatchExtendedDto;
 import timmax.tilegame.basemodel.protocol.server.GameType;
 
 import org.slf4j.Logger;

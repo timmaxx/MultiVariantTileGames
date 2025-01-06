@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import timmax.tilegame.basemodel.protocol.IGameType;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
+import timmax.tilegame.basemodel.dto.GameMatchDto;
 import timmax.tilegame.basemodel.protocol.server_client.GuiDefaultConstants;
 import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 import timmax.tilegame.baseview.View;
@@ -221,7 +221,7 @@ public class GameType implements IGameType, Externalizable {
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         id = (String) in.readObject();
         countOfGamers = in.readInt();
-        //  Warning:(225, 27) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.protocol.server_client.GameMatchDto>'
+        //  Warning:(225, 27) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.dto.GameMatchDto>'
         gameMatchDtoSet = (Set<GameMatchDto>) in.readObject();
         //  Warning:(228, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'
         //  https://sky.pro/wiki/java/reshaem-preduprezhdenie-unchecked-cast-v-java-spring/

@@ -7,8 +7,8 @@ import timmax.tilegame.basemodel.GameMatchStatus;
 import timmax.tilegame.basemodel.credential.User;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.placement.placementstate.GameObjectsPlacementStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
+import timmax.tilegame.basemodel.dto.GameMatchDto;
+import timmax.tilegame.basemodel.dto.GameMatchExtendedDto;
 
 import java.util.Map;
 import java.util.Set;

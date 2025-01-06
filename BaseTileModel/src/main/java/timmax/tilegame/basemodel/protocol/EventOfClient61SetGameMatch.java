@@ -6,7 +6,7 @@ import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 import timmax.tilegame.basemodel.protocol.server.RemoteClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
+import timmax.tilegame.basemodel.dto.GameMatchDto;
 
 //  ToDo:   Дописать в назначении класса об индексе игрока в матче.
 //  Событие клиента с идентификатором матча.

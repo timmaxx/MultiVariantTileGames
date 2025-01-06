@@ -7,7 +7,7 @@ import timmax.tilegame.basemodel.dto.UserDtoIdPassword;
 import timmax.tilegame.basemodel.protocol.EventOfClient92GameCommand;
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
+import timmax.tilegame.basemodel.dto.GameMatchDto;
 
 public interface ISenderOfEventOfClient {
     void setURI(URI uriFromControls);

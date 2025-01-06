@@ -1,4 +1,4 @@
-package timmax.tilegame.basemodel.protocol.server_client;
+package timmax.tilegame.basemodel.dto;
 
 import timmax.tilegame.basemodel.GameMatchStatus;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;

@@ -1,7 +1,7 @@
 package timmax.tilegame.basemodel.protocol;
 
 import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchExtendedDto;
+import timmax.tilegame.basemodel.dto.GameMatchExtendedDto;
 
 import java.io.IOException;
 import java.io.ObjectInput;

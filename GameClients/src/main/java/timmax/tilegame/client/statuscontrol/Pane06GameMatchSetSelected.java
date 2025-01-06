@@ -7,7 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 
-import timmax.tilegame.basemodel.protocol.server_client.GameMatchDto;
+import timmax.tilegame.basemodel.dto.GameMatchDto;
 import timmax.tilegame.transport.ISenderOfEventOfClient;
 
 import static timmax.tilegame.basemodel.GameMatchStatus.NOT_STARTED;
