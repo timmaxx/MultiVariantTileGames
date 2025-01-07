@@ -29,8 +29,15 @@ public class BaseEntity {
 
     @Override
     public String toString() {
-        return "BaseEntity{" +
-                "id='" + id + '\'' +
-                '}';
+        return
+                BaseEntity.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "id='" + id + '\'' +
+                        '}';
     }
 }

@@ -78,10 +78,16 @@ public class GameMatchDto extends BaseDto implements IGameMatchX {
     // class Object
     @Override
     public String toString() {
-        return "GameMatchDto{" +
-                "id='" + getId() + '\'' +
-                ", status=" + status +
-                ", paramsOfModelValueMap=" + paramsOfModelValueMap +
-                '}';
+        return
+                GameMatchDto.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        ", status=" + status +
+                        ", paramsOfModelValueMap=" + paramsOfModelValueMap +
+                        '}';
     }
 }

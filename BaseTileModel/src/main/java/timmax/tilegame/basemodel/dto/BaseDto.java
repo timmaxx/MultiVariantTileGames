@@ -35,8 +35,15 @@ public class BaseDto implements Externalizable {
 
     @Override
     public String toString() {
-        return "BaseDtoId{" +
-                "id='" + id + '\'' +
-                '}';
+        return
+                BaseDto.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "id='" + id + '\'' +
+                        '}';
     }
 }

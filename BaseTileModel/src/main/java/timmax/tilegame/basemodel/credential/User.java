@@ -13,9 +13,15 @@ public class User extends BaseEntity {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id='" + getId() + '\'' +
-                ", password='" + "*" + '\'' +
-                '}';
+        return
+                User.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "password='" + "*" + '\'' +
+                        '}';
     }
 }

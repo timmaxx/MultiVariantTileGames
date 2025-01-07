@@ -84,10 +84,17 @@ public final class GameObjectsPlacementCommon {
 
     @Override
     public String toString() {
-        return "GameObjectsPlacementAbstract{" +
-                "gameMatch=" + gameMatch +
-                ", gameObjectStateAutomatonSet=" + gameObjectStateAutomatonSet +
-                ", widthHeightSizes=" + widthHeightSizes +
-                '}';
+        return
+                GameObjectsPlacementCommon.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "gameMatch=" + gameMatch +
+                        ", gameObjectStateAutomatonSet=" + gameObjectStateAutomatonSet +
+                        ", widthHeightSizes=" + widthHeightSizes +
+                        '}';
     }
 }

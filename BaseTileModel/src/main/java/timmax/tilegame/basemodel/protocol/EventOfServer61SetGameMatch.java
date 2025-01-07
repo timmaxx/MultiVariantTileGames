@@ -29,9 +29,16 @@ public class EventOfServer61SetGameMatch extends EventOfServer {
 
     @Override
     public String toString() {
-        return getClass().getSimpleName() + "{" +
-                "gameMatchDto=" + gameMatchDto +
-                '}';
+        return
+                EventOfServer61SetGameMatch.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "gameMatchDto=" + gameMatchDto +
+                        '}';
     }
 
     @Override

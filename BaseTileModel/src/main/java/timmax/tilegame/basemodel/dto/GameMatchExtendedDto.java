@@ -41,8 +41,15 @@ public class GameMatchExtendedDto extends GameMatchDto {
 
     @Override
     public String toString() {
-        return "GameMatchExtendedDto{" +
-                "gameEventOneTileSet=" + gameEventOneTileSet +
-                '}';
+        return
+                GameMatchExtendedDto.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "gameEventOneTileSet=" + gameEventOneTileSet +
+                        '}';
     }
 }

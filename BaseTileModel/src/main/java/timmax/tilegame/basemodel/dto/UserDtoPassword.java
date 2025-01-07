@@ -38,9 +38,15 @@ public class UserDtoPassword extends BaseDto {
 
     @Override
     public String toString() {
-        return "UserDtoIdPassword{" +
-                "id='" + getId() + '\'' +
-                ", password='" + "*" + '\'' +
-                '}';
+        return
+                UserDtoPassword.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        ", password='" + "*" + '\'' +
+                        '}';
     }
 }

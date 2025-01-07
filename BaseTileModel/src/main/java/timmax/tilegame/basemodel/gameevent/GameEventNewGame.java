@@ -22,9 +22,16 @@ public class GameEventNewGame extends GameEvent {
 
     @Override
     public String toString() {
-        return "GameEventNewGame{" +
-                "widthHeightSizes=" + widthHeightSizes +
-                '}';
+        return
+                GameEventNewGame.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "widthHeightSizes=" + widthHeightSizes +
+                        '}';
     }
 
     @Override

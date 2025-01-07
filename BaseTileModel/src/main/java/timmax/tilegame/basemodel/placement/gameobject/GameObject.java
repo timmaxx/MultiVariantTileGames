@@ -71,10 +71,17 @@ public class GameObject {
 
     @Override
     public String toString() {
-        return "GameObject{" +
-                "id='" + id + '\'' +
+        return
+                GameObject.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "id='" + id + '\'' +
 //              ", gameObjectsPlacement=" + gameObjectsPlacement +
-                ", xyCoordinate=" + xyCoordinate +
-                '}';
+                        ", xyCoordinate=" + xyCoordinate +
+                        '}';
     }
 }

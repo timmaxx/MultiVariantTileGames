@@ -23,9 +23,16 @@ public abstract class GameCommandOneTile extends GameCommand {
 
     @Override
     public String toString() {
-        return "GameCommandOneTile{" +
-                "xyCoordinate=" + xyCoordinate +
-                '}';
+        return
+                GameCommandOneTile.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "xyCoordinate=" + xyCoordinate +
+                        '}';
     }
 
     @Override

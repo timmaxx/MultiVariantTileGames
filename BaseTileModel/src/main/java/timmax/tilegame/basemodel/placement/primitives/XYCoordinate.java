@@ -127,10 +127,17 @@ public final class XYCoordinate implements Externalizable {
 
     @Override
     public String toString() {
-        return "XYCoordinate{" +
-                "x=" + x +
-                ", y=" + y +
-                '}';
+        return
+                XYCoordinate.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "x=" + x +
+                        ", y=" + y +
+                        '}';
     }
 
     @Override

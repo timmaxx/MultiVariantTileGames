@@ -44,9 +44,16 @@ public class XYOffset {
 
     @Override
     public String toString() {
-        return "XYOffset{" +
-                "dx=" + dx +
-                ", dy=" + dy +
-                '}';
+        return
+                XYOffset.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "dx=" + dx +
+                        ", dy=" + dy +
+                        '}';
     }
 }

@@ -11,6 +11,14 @@ public class EventOfClient72ResetGameMatch extends EventOfClient {
 
     @Override
     public String toString() {
-        return getClass().getSimpleName() + "{}";
+        return
+                EventOfClient72ResetGameMatch.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "}";
     }
 }

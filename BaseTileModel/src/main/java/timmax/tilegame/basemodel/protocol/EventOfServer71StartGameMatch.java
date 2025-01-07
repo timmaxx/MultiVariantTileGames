@@ -34,9 +34,16 @@ public class EventOfServer71StartGameMatch extends EventOfServer {
     // class Object
     @Override
     public String toString() {
-        return "EventOfServer71StartGameMatch{" +
-                "gameMatchExtendedDto=" + gameMatchExtendedDto +
-                '}';
+        return
+                EventOfServer71StartGameMatch.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "gameMatchExtendedDto=" + gameMatchExtendedDto +
+                        '}';
     }
 
     // interface Externalizable

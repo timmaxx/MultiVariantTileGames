@@ -42,11 +42,18 @@ public class ParamOfModelDescription implements Externalizable {
 
     @Override
     public String toString() {
-        return "ParamOfModelDescription{" +
-                "defaultValue=" + defaultValue +
-                ", minValue=" + minValue +
-                ", maxValue=" + maxValue +
-                '}';
+        return
+                ParamOfModelDescription.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "defaultValue=" + defaultValue +
+                        ", minValue=" + minValue +
+                        ", maxValue=" + maxValue +
+                        '}';
     }
 
     @Override

@@ -236,15 +236,22 @@ public class GameType extends BaseEntity implements IGameType, Externalizable {
 
     @Override
     public String toString() {
-        return "GameType{" +
-                "gameMatchConstructor=" + gameMatchConstructor +
-                ", gameTypeName='" + id + '\'' +
-                ", countOfGamers='" + countOfGamers +
-                ", gameMatchXSet=" + gameMatchXSet +
-                ", gameMatchDtoSet=" + gameMatchDtoSet +
-                ", viewName_ViewClassMap=" + viewName_ViewClassMap +
-                ", guiDefaultConstants=" + guiDefaultConstants +
-                ", paramName_paramModelDescriptionMap=" + paramName_paramModelDescriptionMap +
-                '}';
+        return
+                GameType.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "gameMatchConstructor=" + gameMatchConstructor +
+                        ", gameTypeName='" + id + '\'' +
+                        ", countOfGamers='" + countOfGamers +
+                        ", gameMatchXSet=" + gameMatchXSet +
+                        ", gameMatchDtoSet=" + gameMatchDtoSet +
+                        ", viewName_ViewClassMap=" + viewName_ViewClassMap +
+                        ", guiDefaultConstants=" + guiDefaultConstants +
+                        ", paramName_paramModelDescriptionMap=" + paramName_paramModelDescriptionMap +
+                        '}';
     }
 }

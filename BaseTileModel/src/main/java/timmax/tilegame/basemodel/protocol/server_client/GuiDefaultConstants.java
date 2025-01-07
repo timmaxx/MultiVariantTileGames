@@ -53,10 +53,17 @@ public class GuiDefaultConstants implements Externalizable {
 
     @Override
     public String toString() {
-        return "GuiDefaultConstants{" +
-                "defaultCellBackgroundColor=" + defaultCellBackgroundColor +
-                ", defaultCellTextColor=" + defaultCellTextColor +
-                ", defaultCellTextValue='" + defaultCellTextValue + '\'' +
-                '}';
+        return
+                GuiDefaultConstants.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "defaultCellBackgroundColor=" + defaultCellBackgroundColor +
+                        ", defaultCellTextColor=" + defaultCellTextColor +
+                        ", defaultCellTextValue='" + defaultCellTextValue + '\'' +
+                        '}';
     }
 }

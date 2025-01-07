@@ -44,9 +44,16 @@ public abstract class GameObjectStateAutomaton {
 
     @Override
     public String toString() {
-        return "GameObjectStateAutomaton{" +
-                "gameObject=" + gameObject +
-                ", baseGameObjectState=" + baseGameObjectState +
-                '}';
+        return
+                GameObjectStateAutomaton.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "gameObject=" + gameObject +
+                        ", baseGameObjectState=" + baseGameObjectState +
+                        '}';
     }
 }

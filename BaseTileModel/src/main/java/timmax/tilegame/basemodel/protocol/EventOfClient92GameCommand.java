@@ -33,9 +33,16 @@ public class EventOfClient92GameCommand extends EventOfClient {
 
     @Override
     public String toString() {
-        return getClass().getSimpleName() + "{" +
-                "gameCommand=" + gameCommand +
-                '}';
+        return
+                EventOfClient92GameCommand.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "gameCommand=" + gameCommand +
+                        '}';
     }
 
     // interface Externalizable

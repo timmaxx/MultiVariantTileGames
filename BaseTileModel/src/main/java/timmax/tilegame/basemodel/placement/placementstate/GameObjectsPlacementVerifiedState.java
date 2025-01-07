@@ -69,10 +69,16 @@ public class GameObjectsPlacementVerifiedState extends GameObjectsPlacementAbstr
 
     @Override
     public String toString() {
-        return "GameObjectsPlacementStateVerified{" +
-                "playerIndexOfCurrentMove=" + playerIndexOfCurrentMove +
-                ", matchStatus=" + matchStatus +
-                super.toString() +
-                '}';
+        return
+                GameObjectsPlacementVerifiedState.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "playerIndexOfCurrentMove=" + playerIndexOfCurrentMove +
+                        ", matchStatus=" + matchStatus +
+                        '}';
     }
 }

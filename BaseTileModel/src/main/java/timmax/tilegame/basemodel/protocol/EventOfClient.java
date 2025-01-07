@@ -9,6 +9,14 @@ public abstract class EventOfClient extends Event {
 
     @Override
     public String toString() {
-        return getClass().getSimpleName() + "{}";
+        return
+                EventOfClient.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "}";
     }
 }

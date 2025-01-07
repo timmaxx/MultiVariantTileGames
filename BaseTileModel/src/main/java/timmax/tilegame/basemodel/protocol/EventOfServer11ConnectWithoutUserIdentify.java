@@ -26,9 +26,16 @@ public class EventOfServer11ConnectWithoutUserIdentify extends EventOfServer {
 
     @Override
     public String toString() {
-        return "EventOfServer11ConnectWithoutUserIdentify{" +
-                "gameTypeSet=" + gameTypeSet +
-                '}';
+        return
+                EventOfServer11ConnectWithoutUserIdentify.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "gameTypeSet=" + gameTypeSet +
+                        '}';
     }
 
     @Override

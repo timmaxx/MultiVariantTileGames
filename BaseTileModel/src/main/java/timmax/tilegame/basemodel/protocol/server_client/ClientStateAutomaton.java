@@ -282,6 +282,15 @@ public abstract class ClientStateAutomaton extends StateAutomaton implements ICl
     // class Object
     @Override
     public String toString() {
-        return getCurrentState().getClass().getSimpleName();
+        return
+                // ClientStateAutomaton.class.getSimpleName()
+                getCurrentState().getClass().getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "}";
     }
 }

@@ -66,8 +66,15 @@ public class EventOfClient71StartGameMatch extends EventOfClient {
     // class Object
     @Override
     public String toString() {
-        return "EventOfClient71StartGameMatch{" +
-                "paramsOfModelValueMap=" + paramsOfModelValueMap +
-                '}';
+        return
+                EventOfClient71StartGameMatch.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "paramsOfModelValueMap=" + paramsOfModelValueMap +
+                        '}';
     }
 }

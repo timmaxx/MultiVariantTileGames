@@ -133,11 +133,18 @@ public final class WidthHeightSizes implements Externalizable {
 
     @Override
     public String toString() {
-        return "WidthHeightSizes{" +
-                "width=" + width +
-                ", height=" + height +
-                ", mayBeRecalc=" + mayBeRecalc +
-                '}';
+        return
+                WidthHeightSizes.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "width=" + width +
+                        ", height=" + height +
+                        ", mayBeRecalc=" + mayBeRecalc +
+                        '}';
     }
 
     @Override

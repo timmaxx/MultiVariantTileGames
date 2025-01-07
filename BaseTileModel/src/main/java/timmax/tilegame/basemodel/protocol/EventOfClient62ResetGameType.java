@@ -11,6 +11,14 @@ public class EventOfClient62ResetGameType extends EventOfClient {
 
     @Override
     public String toString() {
-        return getClass().getSimpleName() + "{}";
+        return
+                EventOfClient62ResetGameType.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "}";
     }
 }

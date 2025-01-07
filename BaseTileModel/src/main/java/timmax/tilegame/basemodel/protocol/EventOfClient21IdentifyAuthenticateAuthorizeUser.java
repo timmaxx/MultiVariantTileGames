@@ -46,8 +46,15 @@ public class EventOfClient21IdentifyAuthenticateAuthorizeUser extends EventOfCli
 
     @Override
     public String toString() {
-        return getClass().getSimpleName() + "{" +
-                "userDtoIdPassword='" + userDtoPassword + '\'' +
-                '}';
+        return
+                EventOfClient21IdentifyAuthenticateAuthorizeUser.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "userDtoIdPassword='" + userDtoPassword + '\'' +
+                        '}';
     }
 }

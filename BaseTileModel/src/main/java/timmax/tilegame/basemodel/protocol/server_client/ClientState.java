@@ -123,6 +123,14 @@ public abstract class ClientState extends State implements IClientState99 {
 
     @Override
     public String toString() {
-        return getClass().getSimpleName();
+        return
+                ClientState.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "}";
     }
 }

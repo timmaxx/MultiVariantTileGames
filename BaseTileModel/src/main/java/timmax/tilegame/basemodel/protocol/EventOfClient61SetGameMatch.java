@@ -36,8 +36,7 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
                 .stream()
                 .filter(x -> x.toString().equals(gameMatchDto.getId()))
                 .findAny()
-                .orElse(null)
-        ;
+                .orElse(null);
 
         if (iGameMatch == null) {
             logger.error("There is not match '" + gameMatchDto.getId() + "'");
@@ -51,9 +50,16 @@ public class EventOfClient61SetGameMatch extends EventOfClient {
     // class Object
     @Override
     public String toString() {
-        return getClass().getSimpleName() + "{" +
-                "gameMatchDto=" + gameMatchDto +
-                '}';
+        return
+                EventOfClient61SetGameMatch.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "gameMatchDto=" + gameMatchDto +
+                        '}';
     }
 
     // interface Externalizable
