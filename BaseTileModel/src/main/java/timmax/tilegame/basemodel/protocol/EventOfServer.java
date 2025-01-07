@@ -6,17 +6,4 @@ import timmax.tilegame.basemodel.protocol.client.LocalClientStateAutomaton;
 //  (базовый класс несущий информацию о том, что состояние клиента в целом изменено, кроме ...92...).
 public abstract class EventOfServer extends Event {
     public abstract void executeOnClient(LocalClientStateAutomaton localClientStateAutomaton);
-
-    @Override
-    public String toString() {
-        return
-                EventOfServer.class.getSimpleName()
-                        // getClass().getSimpleName()
-                        + "{" +
-                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
-                                ? ""
-                                : ("{" + super.toString() + "}, ")
-                        ) +
-                        "}";
-    }
 }
