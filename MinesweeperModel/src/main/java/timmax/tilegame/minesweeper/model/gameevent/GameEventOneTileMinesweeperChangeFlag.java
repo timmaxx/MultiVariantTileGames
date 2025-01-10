@@ -7,7 +7,7 @@ import java.io.ObjectOutput;
 import javafx.scene.paint.Color;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
-import timmax.tilegame.basemodel.protocol.server_client.GuiDefaultConstants;
+import timmax.tilegame.basemodel.protocol.server_client.GuiCellValues;
 
 import static timmax.tilegame.minesweeper.model.GameMatchOfMinesweeper.*;
 
@@ -31,7 +31,7 @@ public class GameEventOneTileMinesweeperChangeFlag extends GameEventOneTile {
             cellBackgroundColor = UNOPENED_BACKGROUND_COLOR;
             cellText = UNOPENED_TEXT;
         }
-        guiValues = new GuiDefaultConstants(cellBackgroundColor, UNOPENED_TEXT_COLOR, cellText);
+        guiCellValues = new GuiCellValues(cellBackgroundColor, UNOPENED_TEXT_COLOR, cellText);
     }
 
     @Override

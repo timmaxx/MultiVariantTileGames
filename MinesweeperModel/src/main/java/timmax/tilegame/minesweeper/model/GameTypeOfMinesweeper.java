@@ -2,7 +2,7 @@ package timmax.tilegame.minesweeper.model;
 
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
-import timmax.tilegame.basemodel.protocol.server_client.GuiDefaultConstants;
+import timmax.tilegame.basemodel.protocol.server_client.GuiCellValues;
 
 import static timmax.tilegame.basemodel.protocol.server.GameMatch.PARAM_NAME_HEIGHT;
 import static timmax.tilegame.basemodel.protocol.server.GameMatch.PARAM_NAME_WIDTH;
@@ -21,7 +21,7 @@ public class GameTypeOfMinesweeper extends GameType {
                 //          MGOSNoMineIsNotOpenedWithFlag.class, MGOSNoMineIsNotOpenedWithoutFlag.class, MGOSNoMineIsOpened.class
                 //  ),
                 GameMatchOfMinesweeper.class,
-                new GuiDefaultConstants(UNOPENED_BACKGROUND_COLOR, UNOPENED_TEXT_COLOR, UNOPENED_TEXT)
+                new GuiCellValues(UNOPENED_BACKGROUND_COLOR, UNOPENED_TEXT_COLOR, UNOPENED_TEXT)
         );
         //  Это пример того, как хотелось-бы что-бы компилятор отреагировал в предыдущих строках:
         //      - компилятор возражает и это хорошо:

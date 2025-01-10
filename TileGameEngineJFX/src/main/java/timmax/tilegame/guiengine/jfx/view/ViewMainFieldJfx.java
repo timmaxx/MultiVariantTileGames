@@ -8,7 +8,6 @@ import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.basemodel.protocol.server_client.GuiDefaultConstants;
 import timmax.tilegame.guiengine.jfx.GameClientPaneJfx;
 import timmax.tilegame.transport.ISenderOfEventOfClient;
 
@@ -62,12 +61,6 @@ public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
 
         cellSize = Math.min(Game.APP_WIDTH / width, Game.APP_HEIGHT / height) * 2 / 3;
 
-        GuiDefaultConstants guiDefaultConstants = new GuiDefaultConstants(
-                gameType.getDefaultCellBackgroundColor(),
-                gameType.getDefaultCellTextColor(),
-                gameType.getDefaultCellTextValue()
-        );
-
         cells = new GameStackPane[height][width];
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
@@ -82,7 +75,7 @@ public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
                 //       Например:
                 //       - для Сапёра значения по умолчанию нужны.
                 //       - для Сокобана значения по умолчанию НЕ нужны.
-                drawCellDuringInitMainField(cell, guiDefaultConstants);
+                drawCellDuringInitMainField(cell);
                 getChildren().add(cell);
             }
         }
@@ -106,18 +99,18 @@ public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
         getScene().getWindow().sizeToScene();
     }
 
-    private void drawCellDuringInitMainField(GameStackPane cell, GuiDefaultConstants guiDefaultConstants) {
-        cell.setBackgroundColor(guiDefaultConstants.getDefaultCellBackgroundColor());
-        cell.setTextColor(guiDefaultConstants.getDefaultCellTextColor());
-        cell.setText(guiDefaultConstants.getDefaultCellTextValue(), cellSize);
+    private void drawCellDuringInitMainField(GameStackPane cell) {
+        cell.setBackgroundColor(gameType.getGuiDefaultCellConstants().getBackgroundColor());
+        cell.setTextColor(gameType.getGuiDefaultCellConstants().getTextColor());
+        cell.setText(gameType.getGuiDefaultCellConstants().getTextValue(), cellSize);
     }
 
     private void drawCellDuringGame(GameEventOneTile gameEventOneTile) {
         GameStackPane cell = getCellByGameEventOneTile(gameEventOneTile);
 
-        cell.setBackgroundColor(gameEventOneTile.getCellBackgroundColor());
-        cell.setTextColor(gameEventOneTile.getCellTextColor());
-        cell.setText(gameEventOneTile.getCellText(), cellSize);
+        cell.setBackgroundColor(gameEventOneTile.getGuiCellValues().getBackgroundColor());
+        cell.setTextColor(gameEventOneTile.getGuiCellValues().getTextColor());
+        cell.setText(gameEventOneTile.getGuiCellValues().getTextValue(), cellSize);
     }
 
     private GameStackPane getCellByGameEventOneTile(GameEventOneTile gameEventOneTile) {

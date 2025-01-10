@@ -1,7 +1,7 @@
 package timmax.tilegame.sokoban.model;
 
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.basemodel.protocol.server_client.GuiDefaultConstants;
+import timmax.tilegame.basemodel.protocol.server_client.GuiCellValues;
 
 import static timmax.tilegame.sokoban.model.GameMatchOfSokoban.*;
 
@@ -16,7 +16,7 @@ public class GameTypeOfSokoban extends GameType {
                 //          и компилятор ничего не скажет.
                 //  Set.of(SGOPlayer.class, SGOHome.class, SGOBox.class, SGOWall.class),
                 GameMatchOfSokoban.class,
-                new GuiDefaultConstants(EMPTY_BACKGROUND_COLOR, NOBODY_TEXT_COLOR, NOBODY_TEXT)
+                new GuiCellValues(EMPTY_BACKGROUND_COLOR, NOBODY_TEXT_COLOR, NOBODY_TEXT)
         );
 
         //  Это пример того, как хотелось-бы что-бы компилятор отреагировал в предыдущих строках

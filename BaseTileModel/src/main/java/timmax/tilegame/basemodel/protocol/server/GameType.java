@@ -10,14 +10,13 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javafx.scene.paint.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import timmax.tilegame.basemodel.credential.BaseEntity;
 import timmax.tilegame.basemodel.protocol.IGameType;
 import timmax.tilegame.basemodel.dto.GameMatchDto;
-import timmax.tilegame.basemodel.protocol.server_client.GuiDefaultConstants;
+import timmax.tilegame.basemodel.protocol.server_client.GuiCellValues;
 import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.baseview.ViewMainField;
@@ -52,7 +51,7 @@ public class GameType extends BaseEntity implements IGameType, Externalizable {
     protected ParamName_paramModelDescriptionMap paramName_paramModelDescriptionMap;
 
     //  ToDo:   Поле относится к визуализации. Его нужно абстрагировать и вынести отсюда.
-    private GuiDefaultConstants guiDefaultConstants;
+    private GuiCellValues guiDefaultCellConstants;
 
     //  ToDo:   Удалить после решения Dto.
     public GameType() {
@@ -64,7 +63,7 @@ public class GameType extends BaseEntity implements IGameType, Externalizable {
             int countOfGamers,
 //            Set<Class<? extends GameObjectStateAutomaton>> gameObjectStateAutomaton_Class_Set,
             Class<? extends IGameMatchX> gameMatchClass,
-            GuiDefaultConstants guiDefaultConstants)
+            GuiCellValues guiDefaultCellConstants)
             throws ClassNotFoundException, NoSuchMethodException {
         super(id);
         this.countOfGamers = countOfGamers;
@@ -89,7 +88,7 @@ public class GameType extends BaseEntity implements IGameType, Externalizable {
         //                  Set<Class<? extends GameObject>> abcClassSet2 = Set.of(GameObject.class);
 */
 
-        this.guiDefaultConstants = guiDefaultConstants;
+        this.guiDefaultCellConstants = guiDefaultCellConstants;
 
         //  ToDo:   Мапу нужно инициализировать не как сейчас - константой, а в классе (или пакете...) найти все выборки,
         //          реализующие View.class, в т.ч. и ViewMainField.class.
@@ -116,16 +115,8 @@ public class GameType extends BaseEntity implements IGameType, Externalizable {
         return gameMatchXSet;
     }
 
-    public Color getDefaultCellBackgroundColor() {
-        return guiDefaultConstants.getDefaultCellBackgroundColor();
-    }
-
-    public Color getDefaultCellTextColor() {
-        return guiDefaultConstants.getDefaultCellTextColor();
-    }
-
-    public String getDefaultCellTextValue() {
-        return guiDefaultConstants.getDefaultCellTextValue();
+    public GuiCellValues getGuiDefaultCellConstants() {
+        return guiDefaultCellConstants;
     }
 
     //  ToDo:   Отказаться от прямого доступа к viewName_ViewClassMap извне класса.
@@ -201,7 +192,7 @@ public class GameType extends BaseEntity implements IGameType, Externalizable {
         out.writeObject(gameMatchDtoSet);
         out.writeObject(viewName_ViewClassMap);
         out.writeObject(paramName_paramModelDescriptionMap);
-        out.writeObject(guiDefaultConstants);
+        out.writeObject(guiDefaultCellConstants);
     }
 
     @Override
@@ -209,13 +200,13 @@ public class GameType extends BaseEntity implements IGameType, Externalizable {
         // super.readExternal(in);
         id = (String) in.readObject();
         countOfGamers = in.readInt();
-        //  Warning:(225, 27) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.dto.GameMatchDto>'
+        //  Warning:(204, 27) Unchecked cast: 'java.lang.Object' to 'java.util.Set<timmax.tilegame.basemodel.dto.GameMatchDto>'
         gameMatchDtoSet = (Set<GameMatchDto>) in.readObject();
-        //  Warning:(228, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'
+        //  Warning:(207, 33) Unchecked cast: 'java.lang.Object' to 'java.util.Map<java.lang.String,java.lang.Class<? extends timmax.tilegame.baseview.View>>'
         //  https://sky.pro/wiki/java/reshaem-preduprezhdenie-unchecked-cast-v-java-spring/
         viewName_ViewClassMap = (Map<String, Class<? extends View>>) in.readObject();
         paramName_paramModelDescriptionMap = (ParamName_paramModelDescriptionMap) in.readObject();
-        guiDefaultConstants = (GuiDefaultConstants) in.readObject();
+        guiDefaultCellConstants = (GuiCellValues) in.readObject();
     }
 
     // class Object
@@ -250,7 +241,7 @@ public class GameType extends BaseEntity implements IGameType, Externalizable {
                         ", gameMatchXSet=" + gameMatchXSet +
                         ", gameMatchDtoSet=" + gameMatchDtoSet +
                         ", viewName_ViewClassMap=" + viewName_ViewClassMap +
-                        ", guiDefaultConstants=" + guiDefaultConstants +
+                        ", guiDefaultCellConstants=" + guiDefaultCellConstants +
                         ", paramName_paramModelDescriptionMap=" + paramName_paramModelDescriptionMap +
                         '}';
     }

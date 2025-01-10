@@ -6,7 +6,7 @@ import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
-import timmax.tilegame.basemodel.protocol.server_client.GuiDefaultConstants;
+import timmax.tilegame.basemodel.protocol.server_client.GuiCellValues;
 
 import static timmax.tilegame.minesweeper.model.GameMatchOfMinesweeper.NOMINE_BACKGROUND_COLOR;
 import static timmax.tilegame.minesweeper.model.GameMatchOfMinesweeper.NOMINE_TEXT_COLOR;
@@ -23,7 +23,7 @@ public class GameEventOneTileMinesweeperOpenNoMine extends GameEventOneTile {
         this.countOfMineNeighbors = countOfMineNeighbors;
 
         // ToDo: Ниже относится к визуализации. Удалить это отсюда.
-        guiValues = new GuiDefaultConstants(NOMINE_BACKGROUND_COLOR, NOMINE_TEXT_COLOR, String.valueOf(countOfMineNeighbors));
+        guiCellValues = new GuiCellValues(NOMINE_BACKGROUND_COLOR, NOMINE_TEXT_COLOR, String.valueOf(countOfMineNeighbors));
     }
 
     @Override

@@ -7,7 +7,7 @@ import java.io.ObjectOutput;
 import javafx.scene.paint.Color;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
-import timmax.tilegame.basemodel.protocol.server_client.GuiDefaultConstants;
+import timmax.tilegame.basemodel.protocol.server_client.GuiCellValues;
 import timmax.tilegame.sokoban.model.placement.gameobject.WhoMovableInTile;
 import timmax.tilegame.sokoban.model.placement.gameobject.WhoPersistentInTile;
 
@@ -25,9 +25,9 @@ public class GameEventOneTileSokobanChangeable extends GameEventOneTile {
 
     public GameEventOneTileSokobanChangeable(
             XYCoordinate xyCoordinate,
-            //  Warning:(27, 13) Class 'WhoPersistentInTile' is not exported from module 'timmax.tilegame.sokoban.model'
+            //  Warning:(29, 13) Class 'WhoPersistentInTile' is not exported from module 'timmax.tilegame.sokoban.model'
             WhoPersistentInTile whoPersistentInTile,
-            //  Warning:(29, 13) Class 'WhoMovableInTile' is not exported from module 'timmax.tilegame.sokoban.model'
+            //  Warning:(31, 13) Class 'WhoMovableInTile' is not exported from module 'timmax.tilegame.sokoban.model'
             WhoMovableInTile whoMovableInTile) {
         super(xyCoordinate);
         this.whoPersistentInTile = whoPersistentInTile;
@@ -55,7 +55,7 @@ public class GameEventOneTileSokobanChangeable extends GameEventOneTile {
             cellText = NOBODY_TEXT;
             cellTextColor = NOBODY_TEXT_COLOR;
         }
-        guiValues = new GuiDefaultConstants(cellBackgroundColor, cellTextColor, cellText);
+        guiCellValues = new GuiCellValues(cellBackgroundColor, cellTextColor, cellText);
     }
 
     @Override

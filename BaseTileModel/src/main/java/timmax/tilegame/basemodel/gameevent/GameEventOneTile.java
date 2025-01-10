@@ -4,18 +4,14 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import javafx.scene.paint.Color;
-
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
-import timmax.tilegame.basemodel.protocol.server_client.GuiDefaultConstants;
+import timmax.tilegame.basemodel.protocol.server_client.GuiCellValues;
 
 public abstract class GameEventOneTile extends GameEvent {
     private XYCoordinate xyCoordinate;
 
-    //  Поле нужно для визуализации. И сейчас оно добавлено сюда для работы универсального клиента.
-    //  Но:
     //  ToDo:   Было-бы лучше вынести из этого класса логику визуализации.
-    protected GuiDefaultConstants guiValues;
+    protected GuiCellValues guiCellValues;
 
     public GameEventOneTile() {
     }
@@ -28,16 +24,8 @@ public abstract class GameEventOneTile extends GameEvent {
         return xyCoordinate;
     }
 
-    public Color getCellBackgroundColor() {
-        return guiValues.getDefaultCellBackgroundColor();
-    }
-
-    public Color getCellTextColor() {
-        return guiValues.getDefaultCellTextColor();
-    }
-
-    public String getCellText() {
-        return guiValues.getDefaultCellTextValue();
+    public GuiCellValues getGuiCellValues() {
+        return guiCellValues;
     }
 
     @Override
@@ -51,19 +39,19 @@ public abstract class GameEventOneTile extends GameEvent {
                                 : ("{" + super.toString() + "}, ")
                         ) +
                         "xyCoordinate=" + xyCoordinate +
-                        ", guiValues=" + guiValues +
+                        ", guiCellValues=" + guiCellValues +
                         '}';
     }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeObject(xyCoordinate);
-        out.writeObject(guiValues);
+        out.writeObject(guiCellValues);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         xyCoordinate = (XYCoordinate) in.readObject();
-        guiValues = (GuiDefaultConstants) in.readObject();
+        guiCellValues = (GuiCellValues) in.readObject();
     }
 }
