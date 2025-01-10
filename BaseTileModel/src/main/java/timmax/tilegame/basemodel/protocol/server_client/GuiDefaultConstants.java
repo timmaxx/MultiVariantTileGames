@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
+//  ToDo:   Переименовать.
 public class GuiDefaultConstants implements Externalizable {
     private Color defaultCellBackgroundColor;
     private Color defaultCellTextColor;

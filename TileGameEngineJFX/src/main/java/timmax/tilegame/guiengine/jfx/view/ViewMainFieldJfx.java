@@ -2,13 +2,13 @@ package timmax.tilegame.guiengine.jfx.view;
 
 import javafx.application.Platform;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 
 import timmax.tilegame.basecontroller.BaseController;
 import timmax.tilegame.basemodel.gameevent.GameEvent;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
 import timmax.tilegame.basemodel.protocol.server.GameType;
+import timmax.tilegame.basemodel.protocol.server_client.GuiDefaultConstants;
 import timmax.tilegame.guiengine.jfx.GameClientPaneJfx;
 import timmax.tilegame.transport.ISenderOfEventOfClient;
 
@@ -62,9 +62,11 @@ public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
 
         cellSize = Math.min(Game.APP_WIDTH / width, Game.APP_HEIGHT / height) * 2 / 3;
 
-        Color defaultCellBackgroundColor = gameType.getDefaultCellBackgroundColor();
-        Color defaultCellTextColor = gameType.getDefaultCellTextColor();
-        String defaultCellText = gameType.getDefaultCellTextValue();
+        GuiDefaultConstants guiDefaultConstants = new GuiDefaultConstants(
+                gameType.getDefaultCellBackgroundColor(),
+                gameType.getDefaultCellTextColor(),
+                gameType.getDefaultCellTextValue()
+        );
 
         cells = new GameStackPane[height][width];
         for (int y = 0; y < height; y++) {
@@ -80,7 +82,7 @@ public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
                 //       Например:
                 //       - для Сапёра значения по умолчанию нужны.
                 //       - для Сокобана значения по умолчанию НЕ нужны.
-                drawCellDuringInitMainField(cell, defaultCellBackgroundColor, defaultCellTextColor, defaultCellText);
+                drawCellDuringInitMainField(cell, guiDefaultConstants);
                 getChildren().add(cell);
             }
         }
@@ -104,10 +106,10 @@ public class ViewMainFieldJfx extends ViewJfx implements ViewMainField {
         getScene().getWindow().sizeToScene();
     }
 
-    private void drawCellDuringInitMainField(GameStackPane cell, Color defaultCellBackgroundColor, Color defaultCellTextColor, String defaultCellText) {
-        cell.setBackgroundColor(defaultCellBackgroundColor);
-        cell.setTextColor(defaultCellTextColor);
-        cell.setText(defaultCellText, cellSize);
+    private void drawCellDuringInitMainField(GameStackPane cell, GuiDefaultConstants guiDefaultConstants) {
+        cell.setBackgroundColor(guiDefaultConstants.getDefaultCellBackgroundColor());
+        cell.setTextColor(guiDefaultConstants.getDefaultCellTextColor());
+        cell.setText(guiDefaultConstants.getDefaultCellTextValue(), cellSize);
     }
 
     private void drawCellDuringGame(GameEventOneTile gameEventOneTile) {

@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
+import javafx.scene.paint.Color;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
+import timmax.tilegame.basemodel.protocol.server_client.GuiDefaultConstants;
 
 import static timmax.tilegame.minesweeper.model.GameMatchOfMinesweeper.*;
 
@@ -20,7 +22,8 @@ public class GameEventOneTileMinesweeperChangeFlag extends GameEventOneTile {
         this.isFlag = isFlag;
 
         //  ToDo:   Ниже относится к визуализации. Удалить это отсюда.
-        cellTextColor = UNOPENED_TEXT_COLOR;
+        Color cellBackgroundColor;
+        String cellText;
         if (isFlag) {
             cellBackgroundColor = FLAG_BACKGROUND_COLOR;
             cellText = FLAG_TEXT;
@@ -28,6 +31,7 @@ public class GameEventOneTileMinesweeperChangeFlag extends GameEventOneTile {
             cellBackgroundColor = UNOPENED_BACKGROUND_COLOR;
             cellText = UNOPENED_TEXT;
         }
+        guiValues = new GuiDefaultConstants(cellBackgroundColor, UNOPENED_TEXT_COLOR, cellText);
     }
 
     @Override

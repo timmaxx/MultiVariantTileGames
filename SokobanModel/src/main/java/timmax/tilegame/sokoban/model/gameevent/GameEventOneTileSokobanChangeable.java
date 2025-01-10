@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
+import javafx.scene.paint.Color;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
+import timmax.tilegame.basemodel.protocol.server_client.GuiDefaultConstants;
 import timmax.tilegame.sokoban.model.placement.gameobject.WhoMovableInTile;
 import timmax.tilegame.sokoban.model.placement.gameobject.WhoPersistentInTile;
 
@@ -32,6 +34,7 @@ public class GameEventOneTileSokobanChangeable extends GameEventOneTile {
         this.whoMovableInTile = whoMovableInTile;
 
         //  ToDo:   Ниже относится к визуализации. Удалить это отсюда.
+        Color cellBackgroundColor = null;
         if (whoPersistentInTile == IS_WALL) {
             cellBackgroundColor = WALL_BACKGROUND_COLOR;
         } else if (whoPersistentInTile == IS_HOME) {
@@ -40,6 +43,8 @@ public class GameEventOneTileSokobanChangeable extends GameEventOneTile {
             cellBackgroundColor = EMPTY_BACKGROUND_COLOR;
         }
 
+        String cellText = null;
+        Color cellTextColor = null;
         if (whoMovableInTile == IS_PLAYER) {
             cellText = PLAYER_TEXT;
             cellTextColor = PLAYER_TEXT_COLOR;
@@ -50,6 +55,7 @@ public class GameEventOneTileSokobanChangeable extends GameEventOneTile {
             cellText = NOBODY_TEXT;
             cellTextColor = NOBODY_TEXT_COLOR;
         }
+        guiValues = new GuiDefaultConstants(cellBackgroundColor, cellTextColor, cellText);
     }
 
     @Override

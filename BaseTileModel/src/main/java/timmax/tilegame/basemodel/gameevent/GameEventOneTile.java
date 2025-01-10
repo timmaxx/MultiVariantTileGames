@@ -6,19 +6,16 @@ import java.io.ObjectOutput;
 
 import javafx.scene.paint.Color;
 
-import timmax.common.JFXColorWithExternalizable;
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
+import timmax.tilegame.basemodel.protocol.server_client.GuiDefaultConstants;
 
 public abstract class GameEventOneTile extends GameEvent {
     private XYCoordinate xyCoordinate;
 
-    // Поля ниже нужны для визуализации. И сейчас они добавлены сюда для работы универсального клиента.
-    // Но:
-    // ToDo: Было-бы лучше вынести из этого класса логику визуализации.
-    // ToDo: Хотя-бы в GameType эти реквизиты можно было-бы переместить.
-    protected Color cellBackgroundColor;
-    protected Color cellTextColor;
-    protected String cellText;
+    //  Поле нужно для визуализации. И сейчас оно добавлено сюда для работы универсального клиента.
+    //  Но:
+    //  ToDo:   Было-бы лучше вынести из этого класса логику визуализации.
+    protected GuiDefaultConstants guiValues;
 
     public GameEventOneTile() {
     }
@@ -32,15 +29,15 @@ public abstract class GameEventOneTile extends GameEvent {
     }
 
     public Color getCellBackgroundColor() {
-        return cellBackgroundColor;
+        return guiValues.getDefaultCellBackgroundColor();
     }
 
     public Color getCellTextColor() {
-        return cellTextColor;
+        return guiValues.getDefaultCellTextColor();
     }
 
     public String getCellText() {
-        return cellText;
+        return guiValues.getDefaultCellTextValue();
     }
 
     @Override
@@ -54,31 +51,19 @@ public abstract class GameEventOneTile extends GameEvent {
                                 : ("{" + super.toString() + "}, ")
                         ) +
                         "xyCoordinate=" + xyCoordinate +
-                        ", cellBackgroundColor=" + cellBackgroundColor +
-                        ", cellTextColor=" + cellTextColor +
-                        ", cellText='" + cellText + '\'' +
+                        ", guiValues=" + guiValues +
                         '}';
     }
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeObject(xyCoordinate);
-
-        // Тип Color не сереализуемый, поэтому сериализуем его через дополнительный класс:
-        out.writeObject(new JFXColorWithExternalizable(cellBackgroundColor));
-        out.writeObject(new JFXColorWithExternalizable(cellTextColor));
-
-        out.writeObject(cellText);
+        out.writeObject(guiValues);
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         xyCoordinate = (XYCoordinate) in.readObject();
-
-        // Тип Color не сереализуемый, поэтому десериализуем его через дополнительный класс:
-        cellBackgroundColor = ((JFXColorWithExternalizable) in.readObject()).getColor();
-        cellTextColor = ((JFXColorWithExternalizable) in.readObject()).getColor();
-
-        cellText = (String) in.readObject();
+        guiValues = (GuiDefaultConstants) in.readObject();
     }
 }
