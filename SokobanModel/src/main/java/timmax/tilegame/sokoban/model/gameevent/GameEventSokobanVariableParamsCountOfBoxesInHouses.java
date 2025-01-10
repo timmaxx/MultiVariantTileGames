@@ -28,7 +28,14 @@ public class GameEventSokobanVariableParamsCountOfBoxesInHouses extends GameEven
 
     @Override
     public String toString() {
-        return "GameEventSokobanVariableParamsCountOfBoxesInHouses{" +
+        return
+                GameEventSokobanVariableParamsCountOfBoxesInHouses.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
                 "countOfBoxesInHouses=" + countOfBoxesInHouses +
                 '}';
     }

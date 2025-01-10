@@ -133,6 +133,14 @@ public class SenderOfEventOfClient implements ISenderOfEventOfClient {
     // class Object
     @Override
     public String toString() {
-        return localClientStateAutomatonJfx.toString();
+        return
+                SenderOfEventOfClient.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
+                        "localClientStateAutomatonJfx=" + localClientStateAutomatonJfx;
     }
 }

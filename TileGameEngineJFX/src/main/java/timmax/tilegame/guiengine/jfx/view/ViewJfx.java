@@ -35,7 +35,14 @@ public abstract class ViewJfx extends Pane implements View {
 
     @Override
     public String toString() {
-        return "ViewJfx{" +
+        return
+                ViewJfx.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
                 "viewName='" + viewName + '\'' +
                 ", baseController=" + baseController +
                 ", gameType=" + gameType +

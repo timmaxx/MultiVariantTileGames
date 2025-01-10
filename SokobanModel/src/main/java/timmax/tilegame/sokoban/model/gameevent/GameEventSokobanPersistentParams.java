@@ -29,7 +29,14 @@ public class GameEventSokobanPersistentParams extends GameEvent {
 
     @Override
     public String toString() {
-        return "GameEventSokobanPersistentParams{" +
+        return
+                GameEventSokobanPersistentParams.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
                 "countOfBoxesAndHomes=" + countOfBoxesAndHomes +
                 '}';
     }

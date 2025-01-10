@@ -44,7 +44,14 @@ public class Step {
 
     @Override
     public String toString() {
-        return "Step{ " +
+        return
+                Step.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
                 "XYOffset = " + xyOffset +
                 ", isBoxMoved = " + isBoxMoved +
                 "}";

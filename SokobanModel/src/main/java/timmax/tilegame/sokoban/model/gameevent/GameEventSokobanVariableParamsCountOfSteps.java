@@ -28,7 +28,14 @@ public class GameEventSokobanVariableParamsCountOfSteps extends GameEvent {
 
     @Override
     public String toString() {
-        return "GameEventSokobanVariableParamsCountOfSteps{" +
+        return
+                GameEventSokobanVariableParamsCountOfSteps.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
                 "countOfSteps=" + countOfSteps +
                 '}';
     }

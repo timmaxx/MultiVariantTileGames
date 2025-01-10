@@ -68,8 +68,14 @@ public class GameEventOneTileSokobanChangeable extends GameEventOneTile {
 
     @Override
     public String toString() {
-        return "GameEventOneTileSokobanChangeable{" +
-                super.toString() + " " +
+        return
+                GameEventOneTileSokobanChangeable.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
                 "whoPersistentInTile=" + whoPersistentInTile +
                 ", whoMovableInTile=" + whoMovableInTile +
                 '}';

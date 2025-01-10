@@ -43,7 +43,14 @@ public class AllowedStateToStateTransition {
 
     @Override
     public String toString() {
-        return "StateToState{" +
+        return
+                AllowedStateToStateTransition.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
                 "state1=" + state1 +
                 ", state2=" + state2 +
                 '}';

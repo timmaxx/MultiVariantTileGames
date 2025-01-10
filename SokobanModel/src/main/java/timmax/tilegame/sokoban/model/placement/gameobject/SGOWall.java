@@ -10,7 +10,14 @@ public class SGOWall extends SGOCollisionObject {
 
     @Override
     public String toString() {
-        return "SGOWall{" +
+        return
+                SGOWall.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
                 "xyCoordinate=" + xyCoordinate +
                 '}';
     }

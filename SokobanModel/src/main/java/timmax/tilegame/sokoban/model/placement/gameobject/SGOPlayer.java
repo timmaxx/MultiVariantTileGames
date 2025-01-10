@@ -68,7 +68,14 @@ public class SGOPlayer extends SGOCollisionMovableObject {
 
     @Override
     public String toString() {
-        return "SGOPlayer{" +
+        return
+                SGOPlayer.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
                 "xyCoordinate=" + xyCoordinate +
                 '}';
     }

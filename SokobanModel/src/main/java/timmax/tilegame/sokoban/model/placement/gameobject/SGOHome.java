@@ -10,7 +10,14 @@ public class SGOHome extends SokobanGameObject {
 
     @Override
     public String toString() {
-        return "SGOHome{" +
+        return
+                SGOHome.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
                 "xyCoordinate=" + xyCoordinate +
                 '}';
     }

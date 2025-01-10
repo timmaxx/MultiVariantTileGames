@@ -61,7 +61,14 @@ public class JFXColorWithExternalizable implements Externalizable {
 
     @Override
     public String toString() {
-        return "JFXColorWithExternalizable{" +
+        return
+                JFXColorWithExternalizable.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
                 "color=" + color +
                 '}';
     }

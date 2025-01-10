@@ -20,7 +20,14 @@ public class SGOBox extends SGOCollisionMovableObject {
 
     @Override
     public String toString() {
-        return "SGOBox{" +
+        return
+                SGOBox.class.getSimpleName()
+                        // getClass().getSimpleName()
+                        + "{" +
+                        (super.toString().equals(getClass().getName() + "@" + Integer.toHexString(hashCode()))
+                                ? ""
+                                : ("{" + super.toString() + "}, ")
+                        ) +
                 "xyCoordinate=" + xyCoordinate +
                 '}';
     }
