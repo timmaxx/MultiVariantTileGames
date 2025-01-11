@@ -18,8 +18,5 @@
         <module name="WebSocketClient" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="GameClientsOld" target="18" />
-    </bytecodeTargetLevel>
   </component>
 </project>
