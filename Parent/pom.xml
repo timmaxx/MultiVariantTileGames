@@ -78,7 +78,6 @@
                     <forkCount>0</forkCount>
                 </configuration>
             </plugin>
-
             <plugin>
                 <!-- JaCoCo пока не смог заставить работать вместе c JUnit и maven-surefire-plugin -->
                 <!-- Intro to JaCoCo (https://www.baeldung.com/jacoco) -->
