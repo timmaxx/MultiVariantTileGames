@@ -10,6 +10,7 @@
         <module name="CommonLibs" />
         <module name="BaseTileModel" />
         <module name="WebSocketServer" />
+        <module name="Parent" />
         <module name="MinesweeperViewControlJFX" />
         <module name="MinesweeperModel" />
         <module name="GameClients" />

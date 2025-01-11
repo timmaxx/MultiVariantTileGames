@@ -5,22 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>MultiVariantTileGames</artifactId>
         <groupId>timmax</groupId>
+        <artifactId>Parent</artifactId>
+        <relativePath>../Parent/pom.xml</relativePath>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>SokobanModel</artifactId>
-
-    <properties>
-        <maven.compiler.source>19</maven.compiler.source>
-        <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit.version>5.8.2</junit.version>
-        <!-- Logging -->
-        <logback.version>1.5.16</logback.version>
-        <slf4j.version>2.0.10</slf4j.version>
-    </properties>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>${project.artifactId}</name>
 
     <dependencies>
         <dependency>
@@ -30,18 +24,4 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <!-- Этот плагин устраняет ошибку при попытке делать компиляцию из мавена -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.10.1</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.source}</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

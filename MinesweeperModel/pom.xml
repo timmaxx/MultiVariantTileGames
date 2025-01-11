@@ -5,26 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>MultiVariantTileGames</artifactId>
         <groupId>timmax</groupId>
+        <artifactId>Parent</artifactId>
+        <relativePath>../Parent/pom.xml</relativePath>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>MinesweeperModel</artifactId>
-
-    <properties>
-        <maven.compiler.source>19</maven.compiler.source>
-        <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit.version>5.8.2</junit.version>
-
-        <!-- Spring -->
-        <spring.version>5.3.25</spring.version>
-
-        <!-- Logging -->
-        <logback.version>1.5.16</logback.version>
-        <slf4j.version>2.0.10</slf4j.version>
-    </properties>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>${project.artifactId}</name>
 
     <dependencies>
         <dependency>
@@ -32,46 +22,10 @@
             <artifactId>BaseTileModel</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-<!--
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
--->
-
-        <!-- Logging with SLF4J & LogBack -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>javax.annotation-api</artifactId>
             <version>1.3.2</version>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <!-- Этот плагин устраняет ошибку при попытке делать компиляцию из мавена -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.10.1</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.source}</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>
