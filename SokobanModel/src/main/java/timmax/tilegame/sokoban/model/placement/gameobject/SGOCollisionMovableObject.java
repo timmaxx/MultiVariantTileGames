@@ -12,6 +12,7 @@ public abstract class SGOCollisionMovableObject extends SGOCollisionObject imple
 
     @Override
     public void move(SokobanXYOffset xyOffset) {
+        XYCoordinate xyCoordinateOld = xyCoordinate;
         XYCoordinate xyCoordinateNew = xyCoordinate.getXYCoordinateByOffset(xyOffset, gameObjectsPlacementStateAutomaton.getWidthHeightSizes());
         if (getGameObjectsPlacement()
                 .getGameObjectSetFilteredByXYCoordinate(xyCoordinateNew)
@@ -21,13 +22,8 @@ public abstract class SGOCollisionMovableObject extends SGOCollisionObject imple
                 .orElse(null) != null) {
             throw new GameObjectAlreadyExistsException(xyCoordinateNew);
         }
-        //  ToDo:   Здесь сделать отправку сообщения:
-        //          1. Объект уже не находится в старом месте.
-        //  ...
         xyCoordinate = xyCoordinateNew;
-
-        //  ToDo:   Здесь сделать отправку сообщения:
-        //          2. Объект находится в новом месте.
-        //  ...
+        getGameObjectsPlacement().sendGameEventToAllViews(xyCoordinateOld);
+        getGameObjectsPlacement().sendGameEventToAllViews(xyCoordinate);
     }
 }

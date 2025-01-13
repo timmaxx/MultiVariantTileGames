@@ -7,7 +7,6 @@ import timmax.tilegame.basemodel.placement.gameobject.GameObject;
 import timmax.tilegame.basemodel.placement.placementstate.GameObjectsPlacementStateAutomaton;
 import timmax.tilegame.sokoban.model.gameevent.GameEventSokobanVariableParamsCountOfBoxesInHouses;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public class SGOPlayer extends SGOCollisionMovableObject {
@@ -17,14 +16,9 @@ public class SGOPlayer extends SGOCollisionMovableObject {
 
     @Override
     public void move(SokobanXYOffset xyOffset) {
-        //  ToDo:   Вынести отсюда логику по отслеживанию координат для перерисовки и
-        //          переместить её, вероятно, в SGOCollisionMovableObject.
-        //  Множество координат, в которых будет движение
-        Set<XYCoordinate> xyCoordinateSet = new HashSet<>();
-
         //  Координаты после смещения (новые)
         XYCoordinate xyCoordinateNew = getXyCoordinate().getXYCoordinateByOffset(xyOffset, getGameObjectsPlacement().getWidthHeightSizes());
-        //  Ищем множество объектов в новых координатах (оно может быть и пустым или с одним элеиентом)
+        //  Ищем множество объектов в новых координатах (оно может быть или пустым или с одним элементом)
         Set<GameObject> gameObjectSetInNewPlace = getGameObjectsPlacement().getGameObjectSetFilteredByXYCoordinate(xyCoordinateNew);
         //  В этом множестве фильтруем только коробки
         GameObject gameObjectInNewPlace = gameObjectSetInNewPlace
@@ -39,9 +33,6 @@ public class SGOPlayer extends SGOCollisionMovableObject {
         if (gameObjectInNewPlace instanceof SGOBox sgoBox) {
             //  Двигаем коробку
             sgoBox.move(xyOffset);
-            //  Во множество координат, где было движение, добавляем новые координаты коробки
-            //  (1)
-            xyCoordinateSet.add(sgoBox.getXyCoordinate());
 
             //  Посчитаем количество коробок, стоящих на домах
             /*
@@ -72,17 +63,8 @@ public class SGOPlayer extends SGOCollisionMovableObject {
                     getGameObjectsPlacement().getGameMatch().getGameType().getViewName_ViewClassMap()
             );
         }
-        //  Во множество координат, где было движение, добавляем старые координаты игрока
-        //  1 (2)
-        xyCoordinateSet.add(getXyCoordinate());
         //  Переместим игрока
         super.move(xyOffset);
-        //  Во множество координат, где было движение, добавляем новые координаты игрока
-        //  2 (3)
-        xyCoordinateSet.add(getXyCoordinate());
-
-        //  Для каждой плитки, в которой было движение, отправим сообщение клиентам (для перерисовки)
-        xyCoordinateSet.forEach(xyCoordinate1 -> getGameObjectsPlacement().sendGameEventToAllViews(xyCoordinate1));
 
         //  Условие достижения конца игры с успехом
         if (countBoxesOnHomes > 0 && countBoxes == countBoxesOnHomes) {
