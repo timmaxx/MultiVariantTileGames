@@ -46,7 +46,7 @@ public class SGOPlayer extends SGOCollisionMovableObject {
         super.move(xyOffset);
 
         //  Условие достижения конца игры с успехом
-        if (countBoxesOnHomes > 0 && countBoxes == countBoxesOnHomes) {
+        if (getGameObjectsPlacement().isGameOver()) {
             throw new GameOverException();
         }
     }

@@ -2,6 +2,7 @@ package timmax.tilegame.sokoban.model.placement.placementstate;
 
 import javafx.scene.input.KeyCode;
 import timmax.tilegame.basemodel.exception.GameObjectAlreadyExistsException;
+import timmax.tilegame.basemodel.placement.gameobject.GameObject;
 import timmax.tilegame.basemodel.placement.placementstate.GameObjectsPlacementStateAutomaton;
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
 import timmax.tilegame.basemodel.protocol.server.GameMatch;
@@ -202,6 +203,18 @@ public class SokobanPlacementStateAutomaton extends GameObjectsPlacementStateAut
         } else if (keyCode == KeyCode.DOWN) {
             movePlayer(TO_DOWN);
         }
+    }
+
+    public boolean isGameOver() {
+        int countBoxesOnHomes = 0;
+        int countBoxes = 0;
+        for (GameObject gameObject : getGameObjectSetFilteredByGameObjectClass(SGOBox.class)) {
+            countBoxes++;
+            if (gameObject instanceof SGOBox sgoBox1) {
+                countBoxesOnHomes += sgoBox1.countOnHome();
+            }
+        }
+        return countBoxesOnHomes > 0 && countBoxes == countBoxesOnHomes;
     }
 
     @Override
