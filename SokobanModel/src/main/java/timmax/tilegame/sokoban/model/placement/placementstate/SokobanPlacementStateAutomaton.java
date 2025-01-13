@@ -22,7 +22,6 @@ import static timmax.tilegame.sokoban.model.placement.primitives.SokobanXYOffset
 
 public class SokobanPlacementStateAutomaton extends GameObjectsPlacementStateAutomaton {
     public SokobanPlacementStateAutomaton(
-            // Warning:(26, 13) Raw use of parameterized class 'GameMatch'
             GameMatch gameMatch
             , Path levels
             //  ToDo:   Следующий параметр завернуть в
@@ -206,9 +205,7 @@ public class SokobanPlacementStateAutomaton extends GameObjectsPlacementStateAut
     }
 
     @Override
-    // Warning:(201, 12) Raw use of parameterized class 'GameMatchOfSokoban'
     public GameMatchOfSokoban getGameMatch() {
-        // Warning:(203, 12) Raw use of parameterized class 'GameMatchOfSokoban'
         return (GameMatchOfSokoban) super.getGameMatch();
     }
 }
