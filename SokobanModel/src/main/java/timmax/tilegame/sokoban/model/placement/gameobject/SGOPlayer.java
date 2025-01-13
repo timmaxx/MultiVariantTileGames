@@ -1,5 +1,6 @@
 package timmax.tilegame.sokoban.model.placement.gameobject;
 
+import timmax.tilegame.basemodel.exception.GameOverException;
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
 import timmax.tilegame.sokoban.model.placement.primitives.SokobanXYOffset;
 import timmax.tilegame.basemodel.placement.gameobject.GameObject;
@@ -16,21 +17,33 @@ public class SGOPlayer extends SGOCollisionMovableObject {
 
     @Override
     public void move(SokobanXYOffset xyOffset) {
+        //  ToDo:   Вынести отсюда логику по отслеживанию координат для перерисовки и
+        //          переместить её, вероятно, в SGOCollisionMovableObject.
+        //  Множество координат, в которых будет движение
         Set<XYCoordinate> xyCoordinateSet = new HashSet<>();
 
+        //  Координаты после смещения (новые)
         XYCoordinate xyCoordinateNew = getXyCoordinate().getXYCoordinateByOffset(xyOffset, getGameObjectsPlacement().getWidthHeightSizes());
+        //  Ищем множество объектов в новых координатах (оно может быть и пустым или с одним элеиентом)
         Set<GameObject> gameObjectSetInNewPlace = getGameObjectsPlacement().getGameObjectSetFilteredByXYCoordinate(xyCoordinateNew);
+        //  В этом множестве фильтруем только коробки
         GameObject gameObjectInNewPlace = gameObjectSetInNewPlace
                 .stream()
                 .filter(go -> go instanceof SGOBox)
                 .findAny()
                 .orElse(null);
 
+        int countBoxesOnHomes = 0;
+        int countBoxes = 0;
+        //  Если коробка была найдена
         if (gameObjectInNewPlace instanceof SGOBox sgoBox) {
+            //  Двигаем коробку
             sgoBox.move(xyOffset);
+            //  Во множество координат, где было движение, добавляем новые координаты коробки
+            //  (1)
             xyCoordinateSet.add(sgoBox.getXyCoordinate());
 
-            int countBoxesOnHomes = 0;
+            //  Посчитаем количество коробок, стоящих на домах
             /*
             int countBoxesOnHomes = getGameObjectsPlacement().getBoxes().stream()
                     .collect(
@@ -43,11 +56,11 @@ public class SGOPlayer extends SGOCollisionMovableObject {
 
             // for (SGOBox sgoBox1 : getGameObjectsPlacement().getBoxes())
             for (GameObject gameObject : getGameObjectsPlacement().getGameObjectSetFilteredByGameObjectClass(SGOBox.class)) {
+                countBoxes++;
                 if (gameObject instanceof SGOBox sgoBox1) {
                     countBoxesOnHomes += sgoBox1.countOnHome();
                 }
             }
-
             //  ToDo:   Вместо
             //          getGameObjectStateAutomaton().getGameObject().getGameObjectsPlacement().getGameMatch().getRemoteClientStateAutomaton().getSenderOfEventOfServer()
             //          сделать getSenderOfEventOfServer(), который будет доставаться сразу из свойств сервера.
@@ -59,11 +72,22 @@ public class SGOPlayer extends SGOCollisionMovableObject {
                     getGameObjectsPlacement().getGameMatch().getGameType().getViewName_ViewClassMap()
             );
         }
+        //  Во множество координат, где было движение, добавляем старые координаты игрока
+        //  1 (2)
         xyCoordinateSet.add(getXyCoordinate());
+        //  Переместим игрока
         super.move(xyOffset);
+        //  Во множество координат, где было движение, добавляем новые координаты игрока
+        //  2 (3)
         xyCoordinateSet.add(getXyCoordinate());
 
+        //  Для каждой плитки, в которой было движение, отправим сообщение клиентам (для перерисовки)
         xyCoordinateSet.forEach(xyCoordinate1 -> getGameObjectsPlacement().sendGameEventToAllViews(xyCoordinate1));
+
+        //  Условие достижения конца игры с успехом
+        if (countBoxesOnHomes > 0 && countBoxes == countBoxesOnHomes) {
+            throw new GameOverException();
+        }
     }
 
     @Override

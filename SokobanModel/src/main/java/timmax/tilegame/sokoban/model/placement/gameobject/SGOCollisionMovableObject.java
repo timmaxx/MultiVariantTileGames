@@ -21,6 +21,13 @@ public abstract class SGOCollisionMovableObject extends SGOCollisionObject imple
                 .orElse(null) != null) {
             throw new GameObjectAlreadyExistsException(xyCoordinateNew);
         }
+        //  ToDo:   Здесь сделать отправку сообщения:
+        //          1. Объект уже не находится в старом месте.
+        //  ...
         xyCoordinate = xyCoordinateNew;
+
+        //  ToDo:   Здесь сделать отправку сообщения:
+        //          2. Объект находится в новом месте.
+        //  ...
     }
 }
