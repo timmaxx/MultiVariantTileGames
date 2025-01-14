@@ -8,8 +8,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
@@ -26,9 +24,12 @@ import timmax.tilegame.sokoban.model.gameevent.GameEventOneTileSokobanChangeable
 import timmax.tilegame.sokoban.model.placement.gameobject.WhoMovableInTile;
 import timmax.tilegame.sokoban.model.placement.gameobject.WhoPersistentInTile;
 
+import static javafx.scene.input.KeyCode.*;
+import static javafx.scene.input.MouseButton.PRIMARY;
 import static javafx.scene.paint.Color.*;
-import static javafx.scene.paint.Color.BLUE;
 import static timmax.tilegame.basemodel.GameMatchStatus.FORCE_RESTART_OR_CHANGE_LEVEL;
+import static timmax.tilegame.sokoban.model.placement.gameobject.WhoMovableInTile.IS_NOBODY;
+import static timmax.tilegame.sokoban.model.placement.gameobject.WhoPersistentInTile.IS_EMPTY;
 
 public class GameMatchOfSokoban extends GameMatch {
     //  1.  String constants
@@ -157,7 +158,7 @@ public class GameMatchOfSokoban extends GameMatch {
                 WhoPersistentInTile whoPersistentInTile = getGameObjectsPlacementStateAutomaton().getWhoPersistentInTile(xyCoordinate);
                 WhoMovableInTile whoMovableInTile = getGameObjectsPlacementStateAutomaton().getWhoMovableInTile(xyCoordinate);
                 // Это чтобы меньше было событий - про пустые плитки не делаем события.
-                if (whoPersistentInTile == WhoPersistentInTile.IS_EMPTY && whoMovableInTile == WhoMovableInTile.IS_NOBODY) {
+                if (whoPersistentInTile == IS_EMPTY && whoMovableInTile == IS_NOBODY) {
                     continue;
                 }
                 GameEventOneTile gameEventOneTile = new GameEventOneTileSokobanChangeable(xyCoordinate, whoPersistentInTile, whoMovableInTile);
@@ -173,7 +174,7 @@ public class GameMatchOfSokoban extends GameMatch {
     // interface IGameMatch
     @Override
     public void executeMouseCommand(GameCommandMouseClick gameCommandMouseClick) {
-        if (gameCommandMouseClick.getMouseButton() == MouseButton.PRIMARY) {
+        if (gameCommandMouseClick.getMouseButton() == PRIMARY) {
             XYCoordinate xyCoordinateOfMouseClick = gameCommandMouseClick.getXYCoordinate();
             getGameObjectsPlacementStateAutomaton().movePlayerToMouseClick(xyCoordinateOfMouseClick);
         }/* else if (gameCommandMouseClick.getMouseButton() == MouseButton.SECONDARY) {
@@ -191,11 +192,11 @@ public class GameMatchOfSokoban extends GameMatch {
         } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.P) {
             moveRedo();
         } else*/
-        if (gameCommandKeyPressed.getKeyCode() == KeyCode.BACK_SPACE) {
+        if (gameCommandKeyPressed.getKeyCode() == BACK_SPACE) {
             prevLevel();
-        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.SPACE) {
+        } else if (gameCommandKeyPressed.getKeyCode() == SPACE) {
             nextLevel();
-        } else if (gameCommandKeyPressed.getKeyCode() == KeyCode.ESCAPE) {
+        } else if (gameCommandKeyPressed.getKeyCode() == ESCAPE) {
             restart();
         }
     }
