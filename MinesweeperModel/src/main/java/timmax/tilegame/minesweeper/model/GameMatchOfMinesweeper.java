@@ -1,7 +1,5 @@
 package timmax.tilegame.minesweeper.model;
 
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 
 import timmax.tilegame.basemodel.gamecommand.GameCommandKeyPressed;
@@ -16,6 +14,9 @@ import timmax.tilegame.minesweeper.model.placement.gameobject.MGOStateAutomaton;
 
 import java.util.Map;
 
+import static javafx.scene.input.KeyCode.ESCAPE;
+import static javafx.scene.input.MouseButton.PRIMARY;
+import static javafx.scene.input.MouseButton.SECONDARY;
 import static javafx.scene.paint.Color.*;
 
 public class GameMatchOfMinesweeper extends GameMatch {
@@ -115,10 +116,10 @@ public class GameMatchOfMinesweeper extends GameMatch {
                 .findAny()
                 .orElse(null);
         assert mgoStateAutomaton != null;
-        if (gameCommandMouseClick.getMouseButton() == MouseButton.PRIMARY) {
+        if (gameCommandMouseClick.getMouseButton() == PRIMARY) {
             //  Откроем объект
             mgoStateAutomaton.open();
-        } else if (gameCommandMouseClick.getMouseButton() == MouseButton.SECONDARY) {
+        } else if (gameCommandMouseClick.getMouseButton() == SECONDARY) {
             //  Инвертируем флаг объекту
             mgoStateAutomaton.inverseFlag();
         }
@@ -126,7 +127,7 @@ public class GameMatchOfMinesweeper extends GameMatch {
 
     @Override
     public void executeKeyboardCommand(GameCommandKeyPressed gameCommandKeyPressed) {
-        if (gameCommandKeyPressed.getKeyCode() == KeyCode.ESCAPE) {
+        if (gameCommandKeyPressed.getKeyCode() == ESCAPE) {
             restart();
         }
     }
