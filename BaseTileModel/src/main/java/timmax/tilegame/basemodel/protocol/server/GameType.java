@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 import timmax.tilegame.basemodel.credential.BaseEntity;
 import timmax.tilegame.basemodel.protocol.IGameType;
 import timmax.tilegame.basemodel.dto.GameMatchDto;
-import timmax.tilegame.basemodel.protocol.server_client.GuiCellValues;
+import timmax.tilegame.visualization.GuiCellValues;
 import timmax.tilegame.basemodel.protocol.server_client.IGameMatchX;
 import timmax.tilegame.baseview.View;
 import timmax.tilegame.baseview.ViewMainField;

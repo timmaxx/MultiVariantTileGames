@@ -2,7 +2,7 @@ package timmax.tilegame.minesweeper.model;
 
 import timmax.tilegame.basemodel.protocol.server.GameType;
 import timmax.tilegame.basemodel.protocol.server.ParamOfModelDescription;
-import timmax.tilegame.basemodel.protocol.server_client.GuiCellValues;
+import timmax.tilegame.visualization.GuiCellValues;
 
 import static timmax.tilegame.basemodel.protocol.server.GameMatch.PARAM_NAME_HEIGHT;
 import static timmax.tilegame.basemodel.protocol.server.GameMatch.PARAM_NAME_WIDTH;

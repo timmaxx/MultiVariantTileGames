@@ -7,7 +7,7 @@ import java.io.ObjectOutput;
 import javafx.scene.paint.Color;
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
-import timmax.tilegame.basemodel.protocol.server_client.GuiCellValues;
+import timmax.tilegame.visualization.GuiCellValues;
 import timmax.tilegame.sokoban.model.placement.gameobject.WhoMovableInTile;
 import timmax.tilegame.sokoban.model.placement.gameobject.WhoPersistentInTile;
 

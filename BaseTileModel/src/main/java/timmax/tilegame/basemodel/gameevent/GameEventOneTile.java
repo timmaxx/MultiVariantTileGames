@@ -5,7 +5,7 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
-import timmax.tilegame.basemodel.protocol.server_client.GuiCellValues;
+import timmax.tilegame.visualization.GuiCellValues;
 
 public abstract class GameEventOneTile extends GameEvent {
     private XYCoordinate xyCoordinate;

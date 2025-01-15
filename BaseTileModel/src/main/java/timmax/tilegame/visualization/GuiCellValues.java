@@ -1,4 +1,4 @@
-package timmax.tilegame.basemodel.protocol.server_client;
+package timmax.tilegame.visualization;
 
 import javafx.scene.paint.Color;
 import timmax.common.JFXColorWithExternalizable;

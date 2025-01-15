@@ -2,7 +2,7 @@ package timmax.tilegame.minesweeper.model.gameevent;
 
 import timmax.tilegame.basemodel.gameevent.GameEventOneTile;
 import timmax.tilegame.basemodel.placement.primitives.XYCoordinate;
-import timmax.tilegame.basemodel.protocol.server_client.GuiCellValues;
+import timmax.tilegame.visualization.GuiCellValues;
 
 import static timmax.tilegame.minesweeper.model.GameMatchOfMinesweeper.*;
 

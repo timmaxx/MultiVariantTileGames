@@ -1,7 +1,7 @@
 package timmax.tilegame.sokoban.model;
 
 import timmax.tilegame.basemodel.protocol.server.GameType;
-import timmax.tilegame.basemodel.protocol.server_client.GuiCellValues;
+import timmax.tilegame.visualization.GuiCellValues;
 
 import static timmax.tilegame.sokoban.model.GameMatchOfSokoban.*;
 
